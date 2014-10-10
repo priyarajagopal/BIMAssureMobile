@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.84999999999999987" contentMode="scaleToFill" id="iN0-l3-epB" customClass="INVDefaultAccountAlertView">
+            <rect key="frame" x="0.0" y="0.0" width="436" height="144"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set this as default account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t50-pi-zQ0">
+                    <rect key="frame" x="23" y="23" width="336" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtE-H3-Hx5">
+                    <rect key="frame" x="120" y="94" width="118" height="30"/>
+                    <state key="normal" title="Log into Account">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onLogintoAccount:" destination="iN0-l3-epB" eventType="touchUpInside" id="XdE-IF-4XK"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfG-SJ-Kq5">
+                    <rect key="frame" x="275" y="94" width="48" height="30"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onCancelLogin:" destination="iN0-l3-epB" eventType="touchUpInside" id="OYo-sq-35M"/>
+                    </connections>
+                </button>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="adC-d2-Zna">
+                    <rect key="frame" x="367" y="18" width="51" height="31"/>
+                    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="onTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="thumbTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="setAsDefaultAccountSwitchToggled:" destination="iN0-l3-epB" eventType="valueChanged" id="hra-kU-uzO"/>
+                    </connections>
+                </switch>
+            </subviews>
+            <color key="backgroundColor" red="0.82967822061349694" green="0.93197027152343614" blue="0.95355269160583944" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="dtE-H3-Hx5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="120" id="Ma7-aS-fI4"/>
+                <constraint firstItem="dtE-H3-Hx5" firstAttribute="top" secondItem="t50-pi-zQ0" secondAttribute="bottom" constant="50" id="NEO-Ij-pzf"/>
+                <constraint firstAttribute="trailing" secondItem="adC-d2-Zna" secondAttribute="trailing" constant="20" id="PWi-OP-g6H"/>
+                <constraint firstItem="hfG-SJ-Kq5" firstAttribute="leading" secondItem="dtE-H3-Hx5" secondAttribute="trailing" constant="37" id="YT5-ld-hJE"/>
+                <constraint firstItem="t50-pi-zQ0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="23" id="clb-Do-pHe"/>
+                <constraint firstItem="adC-d2-Zna" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="eCZ-mg-kF8"/>
+                <constraint firstItem="adC-d2-Zna" firstAttribute="centerY" secondItem="t50-pi-zQ0" secondAttribute="centerY" id="ifx-rw-d5O"/>
+                <constraint firstItem="dtE-H3-Hx5" firstAttribute="baseline" secondItem="hfG-SJ-Kq5" secondAttribute="baseline" id="llc-8t-9wV"/>
+                <constraint firstItem="adC-d2-Zna" firstAttribute="leading" secondItem="t50-pi-zQ0" secondAttribute="trailing" constant="8" symbolic="YES" id="ocz-hF-Fvy"/>
+                <constraint firstItem="t50-pi-zQ0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="23" id="qFl-5Z-JSS"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="defaultSwitch" destination="adC-d2-Zna" id="7Et-JW-6To"/>
+            </connections>
+            <point key="canvasLocation" x="579" y="364"/>
+        </view>
+    </objects>
+</document>

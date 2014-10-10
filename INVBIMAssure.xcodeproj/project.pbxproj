@@ -7,13 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02408FFB19E447BD00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
+		02408FFC19E447BF00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
+		02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
+		0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
+		0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0240900819E45B4E00B218ED /* INVAccountViewCell.m */; };
+		0240900A19E45B4E00B218ED /* INVAccountViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0240900819E45B4E00B218ED /* INVAccountViewCell.m */; };
+		02AAD3E619E61E80002901DA /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02AAD3E519E61E80002901DA /* libPods-MBProgressHUD.a */; };
+		02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
+		02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
+		02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */; };
+		02AAD3EE19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */; };
+		02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3F019E7121E002901DA /* INVProjectsTableViewController.m */; };
+		02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3F019E7121E002901DA /* INVProjectsTableViewController.m */; };
+		02AAD3F619E71B16002901DA /* INVProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3F419E71B16002901DA /* INVProjectTableViewCell.m */; };
+		02AAD3F719E71B16002901DA /* INVProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3F419E71B16002901DA /* INVProjectTableViewCell.m */; };
+		02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD3F519E71B16002901DA /* INVProjectTableViewCell.xib */; };
+		02AAD3F919E71B17002901DA /* INVProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD3F519E71B16002901DA /* INVProjectTableViewCell.xib */; };
+		02AAD3FC19E81E52002901DA /* INVCustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3FB19E81E52002901DA /* INVCustomTabBarController.m */; };
+		02AAD3FD19E81E52002901DA /* INVCustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3FB19E81E52002901DA /* INVCustomTabBarController.m */; };
+		02AAD40019E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3FF19E81FDF002901DA /* INVProjectDetailsTabViewController.m */; };
+		02AAD40119E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3FF19E81FDF002901DA /* INVProjectDetailsTabViewController.m */; };
+		02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD40319E82558002901DA /* INVProjectFilesListViewController.m */; };
+		02AAD40519E82558002901DA /* INVProjectFilesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD40319E82558002901DA /* INVProjectFilesListViewController.m */; };
+		02AAD40D19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD40B19E82624002901DA /* INVProjectFileCollectionViewCell.m */; };
+		02AAD40E19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD40B19E82624002901DA /* INVProjectFileCollectionViewCell.m */; };
+		02AAD40F19E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */; };
+		02AAD41019E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */; };
+		02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */; };
+		02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */; };
+		02B439F619E4D581007A2FC5 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B439F419E4D581007A2FC5 /* EmpireMobileManager.framework */; };
+		02B43A0419E4DB8B007A2FC5 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B439F419E4D581007A2FC5 /* EmpireMobileManager.framework */; };
+		02B43A0519E4DB96007A2FC5 /* EmpireMobileManager.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02B439F419E4D581007A2FC5 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		02B43A0A19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A0919E58FE0007A2FC5 /* INVAccountViewCell.xib */; };
+		02B43A0B19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A0919E58FE0007A2FC5 /* INVAccountViewCell.xib */; };
+		02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B43A1019E5B70B007A2FC5 /* INVDefaultAccountAlertView.m */; };
+		02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B43A1019E5B70B007A2FC5 /* INVDefaultAccountAlertView.m */; };
+		02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */; };
+		02B43A1519E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */; };
+		02B43A1919E5D6CC007A2FC5 /* Localized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A1C19E5D6CC007A2FC5 /* Localized.strings */; };
+		02B43A1A19E5D6CC007A2FC5 /* Localized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A1C19E5D6CC007A2FC5 /* Localized.strings */; };
 		02C8845D19E317E900DFB4E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8845C19E317E900DFB4E2 /* main.m */; };
 		02C8846019E317E900DFB4E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8845F19E317E900DFB4E2 /* AppDelegate.m */; };
-		02C8846319E317E900DFB4E2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8846219E317E900DFB4E2 /* ViewController.m */; };
-		02C8846619E317E900DFB4E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846719E317E900DFB4E2 /* Images.xcassets */; };
 		02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846919E317E900DFB4E2 /* LaunchScreen.xib */; };
 		02C8847719E317E900DFB4E2 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8847619E317E900DFB4E2 /* INVBIMAssureTests.m */; };
+		02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848419E31D3D00DFB4E2 /* INVCustomTableViewController.m */; };
+		02C8848619E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848419E31D3D00DFB4E2 /* INVCustomTableViewController.m */; };
+		02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */; };
+		02C8848A19E328EF00DFB4E2 /* INVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */; };
+		02C8848E19E3353600DFB4E2 /* INVCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848D19E3353600DFB4E2 /* INVCustomViewController.m */; };
+		02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848D19E3353600DFB4E2 /* INVCustomViewController.m */; };
+		02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */; };
+		02C8849519E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */; };
+		767F7E815F4248EE81629E06 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCFAB6FC8A404E1594DB60D5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,20 +73,74 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		02B43A0219E4DB6E007A2FC5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				02B43A0519E4DB96007A2FC5 /* EmpireMobileManager.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		02408FFD19E45A2700B218ED /* INVAccountListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountListViewController.h; sourceTree = "<group>"; };
+		02408FFE19E45A2700B218ED /* INVAccountListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountListViewController.m; sourceTree = "<group>"; };
+		0240900719E45B4E00B218ED /* INVAccountViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountViewCell.h; sourceTree = "<group>"; };
+		0240900819E45B4E00B218ED /* INVAccountViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountViewCell.m; sourceTree = "<group>"; };
+		02AAD3E519E61E80002901DA /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
+		02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSplitViewController.h; sourceTree = "<group>"; };
+		02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSplitViewController.m; sourceTree = "<group>"; };
+		02AAD3EB19E6FE80002901DA /* INVProjectListSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectListSplitViewController.h; sourceTree = "<group>"; };
+		02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectListSplitViewController.m; sourceTree = "<group>"; };
+		02AAD3EF19E7121E002901DA /* INVProjectsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectsTableViewController.h; sourceTree = "<group>"; };
+		02AAD3F019E7121E002901DA /* INVProjectsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectsTableViewController.m; sourceTree = "<group>"; };
+		02AAD3F319E71B16002901DA /* INVProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectTableViewCell.h; sourceTree = "<group>"; };
+		02AAD3F419E71B16002901DA /* INVProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectTableViewCell.m; sourceTree = "<group>"; };
+		02AAD3F519E71B16002901DA /* INVProjectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVProjectTableViewCell.xib; sourceTree = "<group>"; };
+		02AAD3FA19E81E52002901DA /* INVCustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomTabBarController.h; sourceTree = "<group>"; };
+		02AAD3FB19E81E52002901DA /* INVCustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomTabBarController.m; sourceTree = "<group>"; };
+		02AAD3FE19E81FDF002901DA /* INVProjectDetailsTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectDetailsTabViewController.h; sourceTree = "<group>"; };
+		02AAD3FF19E81FDF002901DA /* INVProjectDetailsTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectDetailsTabViewController.m; sourceTree = "<group>"; };
+		02AAD40219E82558002901DA /* INVProjectFilesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectFilesListViewController.h; sourceTree = "<group>"; };
+		02AAD40319E82558002901DA /* INVProjectFilesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectFilesListViewController.m; sourceTree = "<group>"; };
+		02AAD40A19E82624002901DA /* INVProjectFileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectFileCollectionViewCell.h; sourceTree = "<group>"; };
+		02AAD40B19E82624002901DA /* INVProjectFileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectFileCollectionViewCell.m; sourceTree = "<group>"; };
+		02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVProjectFileCollectionViewCell.xib; sourceTree = "<group>"; };
+		02B439DA19E45C88007A2FC5 /* INVCustomCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomCollectionViewController.h; sourceTree = "<group>"; };
+		02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomCollectionViewController.m; sourceTree = "<group>"; };
+		02B439F419E4D581007A2FC5 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "../../../../Library/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-universal/EmpireMobileManager.framework"; sourceTree = "<group>"; };
+		02B43A0919E58FE0007A2FC5 /* INVAccountViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVAccountViewCell.xib; sourceTree = "<group>"; };
+		02B43A0F19E5B70B007A2FC5 /* INVDefaultAccountAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVDefaultAccountAlertView.h; path = ../INVDefaultAccountAlertView.h; sourceTree = "<group>"; };
+		02B43A1019E5B70B007A2FC5 /* INVDefaultAccountAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVDefaultAccountAlertView.m; path = ../INVDefaultAccountAlertView.m; sourceTree = "<group>"; };
+		02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVDefaultAccountAlertView.xib; sourceTree = "<group>"; };
+		02B43A1B19E5D6CC007A2FC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localized.strings; sourceTree = "<group>"; };
+		02B43A1D19E5D6CF007A2FC5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localized.strings; sourceTree = "<group>"; };
 		02C8845719E317E900DFB4E2 /* INVBIMAssure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INVBIMAssure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8845B19E317E900DFB4E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02C8845C19E317E900DFB4E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		02C8845E19E317E900DFB4E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		02C8845F19E317E900DFB4E2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		02C8846119E317E900DFB4E2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		02C8846219E317E900DFB4E2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		02C8846519E317E900DFB4E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		02C8846719E317E900DFB4E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		02C8846A19E317E900DFB4E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INVBIMAssureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8847519E317E900DFB4E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02C8847619E317E900DFB4E2 /* INVBIMAssureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INVBIMAssureTests.m; sourceTree = "<group>"; };
+		02C8848319E31D3D00DFB4E2 /* INVCustomTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomTableViewController.h; sourceTree = "<group>"; };
+		02C8848419E31D3D00DFB4E2 /* INVCustomTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomTableViewController.m; sourceTree = "<group>"; };
+		02C8848719E328EF00DFB4E2 /* INVLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVLoginViewController.h; sourceTree = "<group>"; };
+		02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVLoginViewController.m; sourceTree = "<group>"; };
+		02C8848C19E3353600DFB4E2 /* INVCustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomViewController.h; sourceTree = "<group>"; };
+		02C8848D19E3353600DFB4E2 /* INVCustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomViewController.m; sourceTree = "<group>"; };
+		02C8849019E3357000DFB4E2 /* INVBIMAssurePrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBIMAssurePrefixHeader.pch; sourceTree = "<group>"; };
+		02C8849219E339F200DFB4E2 /* INVGlobalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGlobalDataManager.h; sourceTree = "<group>"; };
+		02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGlobalDataManager.m; sourceTree = "<group>"; };
+		BED31771E1C440EEB10DC9B3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +148,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02AAD3E619E61E80002901DA /* libPods-MBProgressHUD.a in Frameworks */,
+				02B43A0419E4DB8B007A2FC5 /* EmpireMobileManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,18 +157,50 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B439F619E4D581007A2FC5 /* EmpireMobileManager.framework in Frameworks */,
+				767F7E815F4248EE81629E06 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0240900519E45A9400B218ED /* views */ = {
+			isa = PBXGroup;
+			children = (
+				0240900719E45B4E00B218ED /* INVAccountViewCell.h */,
+				0240900819E45B4E00B218ED /* INVAccountViewCell.m */,
+				02B43A0919E58FE0007A2FC5 /* INVAccountViewCell.xib */,
+				02B43A0F19E5B70B007A2FC5 /* INVDefaultAccountAlertView.h */,
+				02B43A1019E5B70B007A2FC5 /* INVDefaultAccountAlertView.m */,
+				02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */,
+				02AAD3F319E71B16002901DA /* INVProjectTableViewCell.h */,
+				02AAD3F419E71B16002901DA /* INVProjectTableViewCell.m */,
+				02AAD3F519E71B16002901DA /* INVProjectTableViewCell.xib */,
+				02AAD40A19E82624002901DA /* INVProjectFileCollectionViewCell.h */,
+				02AAD40B19E82624002901DA /* INVProjectFileCollectionViewCell.m */,
+				02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		0240900619E45AA000B218ED /* data */ = {
+			isa = PBXGroup;
+			children = (
+				02C8849219E339F200DFB4E2 /* INVGlobalDataManager.h */,
+				02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */,
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
 		02C8844E19E317E900DFB4E2 = {
 			isa = PBXGroup;
 			children = (
 				02C8845919E317E900DFB4E2 /* INVBIMAssure */,
 				02C8847319E317E900DFB4E2 /* INVBIMAssureTests */,
 				02C8845819E317E900DFB4E2 /* Products */,
+				B910EE3EE06846E99FD21754 /* Frameworks */,
+				BED31771E1C440EEB10DC9B3 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,8 +218,7 @@
 			children = (
 				02C8845E19E317E900DFB4E2 /* AppDelegate.h */,
 				02C8845F19E317E900DFB4E2 /* AppDelegate.m */,
-				02C8846119E317E900DFB4E2 /* ViewController.h */,
-				02C8846219E317E900DFB4E2 /* ViewController.m */,
+				02C8848B19E328FE00DFB4E2 /* viewcontrollers */,
 				02C8846419E317E900DFB4E2 /* Main.storyboard */,
 				02C8846719E317E900DFB4E2 /* Images.xcassets */,
 				02C8846919E317E900DFB4E2 /* LaunchScreen.xib */,
@@ -96,6 +230,8 @@
 		02C8845A19E317E900DFB4E2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				02B43A1C19E5D6CC007A2FC5 /* Localized.strings */,
+				02C8849019E3357000DFB4E2 /* INVBIMAssurePrefixHeader.pch */,
 				02C8845B19E317E900DFB4E2 /* Info.plist */,
 				02C8845C19E317E900DFB4E2 /* main.m */,
 			);
@@ -119,6 +255,47 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		02C8848B19E328FE00DFB4E2 /* viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				02C8848319E31D3D00DFB4E2 /* INVCustomTableViewController.h */,
+				02C8848419E31D3D00DFB4E2 /* INVCustomTableViewController.m */,
+				02C8848C19E3353600DFB4E2 /* INVCustomViewController.h */,
+				02C8848D19E3353600DFB4E2 /* INVCustomViewController.m */,
+				02B439DA19E45C88007A2FC5 /* INVCustomCollectionViewController.h */,
+				02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */,
+				02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */,
+				02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */,
+				02AAD3FA19E81E52002901DA /* INVCustomTabBarController.h */,
+				02AAD3FB19E81E52002901DA /* INVCustomTabBarController.m */,
+				02C8848719E328EF00DFB4E2 /* INVLoginViewController.h */,
+				02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */,
+				02408FFD19E45A2700B218ED /* INVAccountListViewController.h */,
+				02408FFE19E45A2700B218ED /* INVAccountListViewController.m */,
+				02AAD3EB19E6FE80002901DA /* INVProjectListSplitViewController.h */,
+				02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */,
+				02AAD3EF19E7121E002901DA /* INVProjectsTableViewController.h */,
+				02AAD3F019E7121E002901DA /* INVProjectsTableViewController.m */,
+				02AAD3FE19E81FDF002901DA /* INVProjectDetailsTabViewController.h */,
+				02AAD3FF19E81FDF002901DA /* INVProjectDetailsTabViewController.m */,
+				02AAD40219E82558002901DA /* INVProjectFilesListViewController.h */,
+				02AAD40319E82558002901DA /* INVProjectFilesListViewController.m */,
+				0240900619E45AA000B218ED /* data */,
+				0240900519E45A9400B218ED /* views */,
+			);
+			name = viewcontrollers;
+			sourceTree = "<group>";
+		};
+		B910EE3EE06846E99FD21754 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02AAD3E519E61E80002901DA /* libPods-MBProgressHUD.a */,
+				02B439F419E4D581007A2FC5 /* EmpireMobileManager.framework */,
+				FCFAB6FC8A404E1594DB60D5 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +303,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02C8847A19E317E900DFB4E2 /* Build configuration list for PBXNativeTarget "INVBIMAssure" */;
 			buildPhases = (
+				EC5F4FADFB834EB5AA8816EC /* Check Pods Manifest.lock */,
 				02C8845319E317E900DFB4E2 /* Sources */,
 				02C8845419E317E900DFB4E2 /* Frameworks */,
 				02C8845519E317E900DFB4E2 /* Resources */,
+				02B43A0219E4DB6E007A2FC5 /* CopyFiles */,
+				C2E27837D5E64D1F952B5A55 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -143,9 +323,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02C8847D19E317E900DFB4E2 /* Build configuration list for PBXNativeTarget "INVBIMAssureTests" */;
 			buildPhases = (
+				D426C52CA71B4632881E7425 /* Check Pods Manifest.lock */,
 				02C8846C19E317E900DFB4E2 /* Sources */,
 				02C8846D19E317E900DFB4E2 /* Frameworks */,
 				02C8846E19E317E900DFB4E2 /* Resources */,
+				DD1977C52DED4C44B1833C30 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -163,6 +345,7 @@
 		02C8844F19E317E900DFB4E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = INV;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Invicara Inc.";
 				TargetAttributes = {
@@ -199,7 +382,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02C8846619E317E900DFB4E2 /* Main.storyboard in Resources */,
+				02AAD40F19E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */,
+				02B43A0A19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
+				02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
+				02408FFB19E447BD00B218ED /* Main.storyboard in Resources */,
+				02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */,
+				02B43A1919E5D6CC007A2FC5 /* Localized.strings in Resources */,
 				02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
 			);
@@ -209,19 +397,103 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02AAD3F919E71B17002901DA /* INVProjectTableViewCell.xib in Resources */,
+				02B43A1A19E5D6CC007A2FC5 /* Localized.strings in Resources */,
+				02AAD41019E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */,
+				02B43A1519E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
+				02B43A0B19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
+				02408FFC19E447BF00B218ED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C2E27837D5E64D1F952B5A55 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D426C52CA71B4632881E7425 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DD1977C52DED4C44B1833C30 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC5F4FADFB834EB5AA8816EC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		02C8845319E317E900DFB4E2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02C8846319E317E900DFB4E2 /* ViewController.m in Sources */,
+				02AAD3FC19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
+				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
+				02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
+				02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
+				02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
+				02C8848E19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
+				02AAD40D19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */,
 				02C8846019E317E900DFB4E2 /* AppDelegate.m in Sources */,
+				02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
+				02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
+				02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
+				0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
+				02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */,
+				02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
+				02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
 				02C8845D19E317E900DFB4E2 /* main.m in Sources */,
+				02AAD3F619E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
+				02AAD40019E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,7 +501,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02AAD40519E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
+				02C8849519E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
+				02AAD3EE19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
+				02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
+				02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02C8847719E317E900DFB4E2 /* INVBIMAssureTests.m in Sources */,
+				0240900A19E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
+				02AAD3FD19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
+				02C8848A19E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
+				02AAD40119E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
+				02C8848619E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
+				02AAD40E19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */,
+				02AAD3F719E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
+				02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
+				02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
+				02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
+				0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +532,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		02B43A1C19E5D6CC007A2FC5 /* Localized.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02B43A1B19E5D6CC007A2FC5 /* Base */,
+				02B43A1D19E5D6CF007A2FC5 /* en */,
+			);
+			name = Localized.strings;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		02C8846419E317E900DFB4E2 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -267,6 +565,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -286,6 +585,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -309,6 +610,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -327,6 +629,8 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -343,31 +647,102 @@
 		};
 		02C8847B19E317E900DFB4E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BED31771E1C440EEB10DC9B3 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../**",
+					"$(PROJECT_DIR)/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-universal/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-universal",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = INVBIMAssure/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					Accounts,
+					"-framework",
+					CoreData,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					Foundation,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					Security,
+					"-framework",
+					Social,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		02C8847C19E317E900DFB4E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BED31771E1C440EEB10DC9B3 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../**",
+					"$(PROJECT_DIR)/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-universal/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-universal",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = INVBIMAssure/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					Accounts,
+					"-framework",
+					CoreData,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					Foundation,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					Security,
+					"-framework",
+					Social,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		02C8847E19E317E900DFB4E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BED31771E1C440EEB10DC9B3 /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-universal",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -382,11 +757,15 @@
 		};
 		02C8847F19E317E900DFB4E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BED31771E1C440EEB10DC9B3 /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/EmpireMobileManager-fyfztzfjtctcubgavszgpelymddf/Build/Products/Debug-universal",
 				);
 				INFOPLIST_FILE = INVBIMAssureTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -414,6 +793,7 @@
 				02C8847C19E317E900DFB4E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		02C8847D19E317E900DFB4E2 /* Build configuration list for PBXNativeTarget "INVBIMAssureTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +802,7 @@
 				02C8847F19E317E900DFB4E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

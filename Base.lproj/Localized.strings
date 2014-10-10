@@ -1,0 +1,15 @@
+/* 
+  Localized.strings
+  INVBIMAssure
+
+  Created by Priya Rajagopal on 10/8/14.
+  Copyright (c) 2014 Invicara Inc. All rights reserved.
+*/
+"SAVE"="Save";
+"CANCEL"="Cancel";
+"SET_ACCOUNT_AS_DEFAULT"="Set Account as Default?";
+"SHOW_THIS_ALERT"="Do not show this alert again";
+"LOGIN_FAILURE"="Login Failure";
+"GENERIC_LOGIN_FAILURE_MESSAGE"="There was an error while trying to log in. Please check the email and/or password and try again";
+"LOGGING_IN"="Logging In";
+"GENERIC_ACCOUNT_LOGIN_FAILURE_MESSAGE"="There was an error while trying to log into the account";
