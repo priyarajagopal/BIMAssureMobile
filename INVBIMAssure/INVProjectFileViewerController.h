@@ -10,5 +10,6 @@
 
 @interface INVProjectFileViewerController : UIViewController
 @property (nonatomic,strong)NSNumber* modelId;
+@property (weak, nonatomic) IBOutlet UIView *webviewContainerView;
 
 @end

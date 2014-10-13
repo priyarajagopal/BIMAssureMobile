@@ -56,9 +56,9 @@
 
 -(void)loadWebView {
     WKWebViewConfiguration* webConfig = [[WKWebViewConfiguration alloc]init];
-    self.webView = [[WKWebView alloc]initWithFrame:self.view.frame configuration:webConfig];
+    self.webView = [[WKWebView alloc]initWithFrame:self.webviewContainerView.frame configuration:webConfig];
     self.webView.navigationDelegate = self;
-    [self.view addSubview:self.webView];
+    [self.webviewContainerView addSubview:self.webView];
 }
 
 /*
