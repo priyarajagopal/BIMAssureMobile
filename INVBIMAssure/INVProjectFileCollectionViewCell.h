@@ -10,13 +10,14 @@
 
 @protocol INVProjectFileCollectionViewCellDelegate <NSObject>
 
--(void)onViewProjectFile;
--(void)onManageRuleSetsForProjectFile;
+-(void)onViewProjectFile:(id)sender;
+-(void)onManageRuleSetsForProjectFile:(id)sender;
 
 @end
 
 @interface INVProjectFileCollectionViewCell : UICollectionViewCell
 @property (nonatomic,weak) id<INVProjectFileCollectionViewCellDelegate> delegate;
+@property (nonatomic,strong)NSNumber* modelId;
 
 @property (weak, nonatomic) IBOutlet UILabel *fileName;
 @property (weak, nonatomic) IBOutlet UIImageView *fileThumbnail;

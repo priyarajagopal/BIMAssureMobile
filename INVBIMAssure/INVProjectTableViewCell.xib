@@ -20,7 +20,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="thumbnail_project" translatesAutoresizingMaskIntoConstraints="NO" id="OdG-Fp-3hC">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="project_thumbnail_0" translatesAutoresizingMaskIntoConstraints="NO" id="OdG-Fp-3hC">
                         <rect key="frame" x="16" y="77" width="298" height="210"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Project Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0G-Pw-T0H">
@@ -35,11 +35,12 @@
             <connections>
                 <outlet property="createdOnLabel" destination="Ard-Oq-uvi" id="hEO-q5-etX"/>
                 <outlet property="name" destination="e0G-Pw-T0H" id="IRY-br-Ieu"/>
+                <outlet property="thumbnailImageView" destination="OdG-Fp-3hC" id="FAq-WX-wPO"/>
             </connections>
             <point key="canvasLocation" x="557.5" y="573"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="thumbnail_project" width="481" height="320"/>
+        <image name="project_thumbnail_0" width="445" height="377"/>
     </resources>
 </document>

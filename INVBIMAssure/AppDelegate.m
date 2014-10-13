@@ -22,6 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self registerLoginObservers];
+    [self setUpViewAppearance];
     return YES;
 }
 
@@ -50,6 +51,25 @@
 }
 
 
+#pragma mark - view appearance
+-(void) setUpViewAppearance {
+    UIColor * whiteColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
+    UIColor * darkGreyColor = [UIColor colorWithRed:106.0/255 green:106.0/255 blue:106.0/255 alpha:1.0];
+    UIColor * ltGreyColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
+  
+    
+    [self.window setTintColor:darkGreyColor];
+    [[UINavigationBar appearance] setBarTintColor: darkGreyColor] ;
+    [[UINavigationBar appearance] setTintColor:whiteColor] ;
+    
+    [[UIBarButtonItem appearance] setTintColor:whiteColor];
+    [[UITextField appearance] setTintColor:darkGreyColor];
+    [[UIView appearance] setTintColor:whiteColor];
+    [[UITabBar appearance]setBarTintColor:ltGreyColor];
+    [[UITabBar appearance]setTintColor:darkGreyColor];
+     
+}
+
 #pragma mark - VC management
 
 -(void)displayLoggedInRootViewController {
@@ -74,7 +94,7 @@
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
     INVProjectListSplitViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"ProjectListSplitVC"];
-    projectsVC.preferredDisplayMode =  UISplitViewControllerDisplayModePrimaryOverlay;
+    projectsVC.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     self.window.rootViewController = projectsVC;
     
 }

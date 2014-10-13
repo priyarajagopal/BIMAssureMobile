@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+     self.title = NSLocalizedString(@"PROJECTS", nil);
     self.projectManager = self.globalDataManager.invServerClient.projectManager;
     UINib* nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
@@ -105,14 +106,18 @@
                                   
      cell.createdOnLabel.attributedText = attrString;
      
-#pragma warning when thumbnail url is available on server use it
+#pragma warning when thumbnail url is available on server use it to load images asynchronously. For now, picking from bundle
+     NSUInteger random = self.dataResultsController.fetchedObjects.count;
+     NSInteger index = arc4random_uniform(random);
+     NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
+     cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
+
      return cell;
  }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"ProjectDetailSegue" sender:self];
- //   self.splitViewController.preferredDisplayMode =  UISplitViewControllerDisplayModePrimaryHidden;
 }
 
 
@@ -162,10 +167,13 @@
     INVProject* project = [self.dataResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
  // Pass the selected object to the new view controller.
      if ([segue.identifier isEqual:@"ProjectDetailSegue"]) {
-        self.splitViewController.preferredDisplayMode =  UISplitViewControllerDisplayModePrimaryHidden;
+     //   self.splitViewController.preferredDisplayMode =  UISplitViewControllerDisplayModePrimaryHidden;
          INVProjectDetailsTabViewController* projectDetailsController = (INVProjectDetailsTabViewController*)segue.destinationViewController;
+         
          UINavigationController* navController = projectDetailsController.viewControllers[0];;
          INVProjectFilesListViewController* fileListController = (INVProjectFilesListViewController*) navController.topViewController;
+         [fileListController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
+
          fileListController.projectId = project.projectId;
 
      }

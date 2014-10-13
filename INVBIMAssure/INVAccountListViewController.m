@@ -40,7 +40,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
-    
+    self.title = NSLocalizedString(@"ACCOUNTS", nil);
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];

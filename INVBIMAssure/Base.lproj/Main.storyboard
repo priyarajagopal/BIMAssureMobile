@@ -310,7 +310,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Rule Sets" id="Zdd-rx-zrT"/>
+                    <tabBarItem key="tabBarItem" title="Rule Sets" image="rules" id="Zdd-rx-zrT"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4hY-dH-y4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -322,7 +322,7 @@
                 <collectionViewController storyboardIdentifier="ProjectFilesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qj7-pj-SdD" customClass="INVProjectFilesListViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="VP9-OS-PWC">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="iWf-ed-QAf">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -346,7 +346,7 @@
                             <outlet property="delegate" destination="qj7-pj-SdD" id="1x3-Z2-uh9"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Files" id="Hi4-Ve-ZOV"/>
+                    <tabBarItem key="tabBarItem" title="Files" image="folder" id="Hi4-Ve-ZOV"/>
                     <navigationItem key="navigationItem" id="hAr-uZ-Qs3"/>
                     <connections>
                         <segue destination="Eb5-Mc-1Dg" kind="show" identifier="FileViewerSegue" id="oHo-ea-p8Z"/>
@@ -356,17 +356,17 @@
             </objects>
             <point key="canvasLocation" x="2565" y="3380.25"/>
         </scene>
-        <!--View Controller-->
+        <!--Project File Viewer Controller-->
         <scene sceneID="fqY-Jw-B2u">
             <objects>
-                <viewController id="Eb5-Mc-1Dg" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FileViewerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Eb5-Mc-1Dg" customClass="INVProjectFileViewerController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="u8Y-7z-eJU"/>
                         <viewControllerLayoutGuide type="bottom" id="WRt-v3-qL9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="x8y-e1-MiR">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o5O-ub-DK7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -377,7 +377,7 @@
         <scene sceneID="y7V-3v-ILL">
             <objects>
                 <navigationController id="V93-Se-Jud" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Files" id="5GA-oH-lT4"/>
+                    <tabBarItem key="tabBarItem" title="Files" image="folder" id="5GA-oH-lT4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HOb-XK-r6y">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -488,8 +488,10 @@
     </scenes>
     <resources>
         <image name="BALogo" width="446" height="68"/>
+        <image name="folder" width="25" height="25"/>
         <image name="key" width="25" height="25"/>
         <image name="lightgray" width="21" height="21"/>
+        <image name="rules" width="25" height="25"/>
         <image name="user" width="25" height="25"/>
     </resources>
 </document>

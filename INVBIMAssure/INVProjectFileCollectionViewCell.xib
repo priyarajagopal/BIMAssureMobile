@@ -19,17 +19,22 @@
                         <color key="textColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="thumbnail_project" translatesAutoresizingMaskIntoConstraints="NO" id="zPx-1h-YND">
+                        <rect key="frame" x="7" y="45" width="294" height="193"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </imageView>
                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXj-VA-Yms">
                         <rect key="frame" x="0.0" y="238" width="309" height="44"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <items>
-                            <barButtonItem title="View" id="D5P-u2-f0P">
+                            <barButtonItem image="view_file" id="D5P-u2-f0P">
                                 <color key="tintColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="onViewProjectSelected:" destination="gTV-IL-0wX" id="Ilu-ZK-paY"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Manage Rules" id="1Dr-Sd-QVA">
+                            <barButtonItem style="plain" systemItem="flexibleSpace" id="jSq-uk-4lc"/>
+                            <barButtonItem image="manage_rules" id="1Dr-Sd-QVA">
                                 <color key="tintColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="onManageRuleSetsSelected:" destination="gTV-IL-0wX" id="jyU-um-1EJ"/>
@@ -38,10 +43,6 @@
                         </items>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </toolbar>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="thumbnail_project" translatesAutoresizingMaskIntoConstraints="NO" id="zPx-1h-YND">
-                        <rect key="frame" x="7" y="45" width="294" height="193"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -55,6 +56,8 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="manage_rules" width="25" height="25"/>
         <image name="thumbnail_project" width="481" height="320"/>
+        <image name="view_file" width="25" height="25"/>
     </resources>
 </document>
