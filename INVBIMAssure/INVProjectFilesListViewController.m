@@ -69,7 +69,9 @@
     INVProjectFileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ProjectFileCell" forIndexPath:indexPath];
     
     // Configure the cell
-    INVFile* file = [self.dataResultsController objectAtIndexPath:indexPath];
+    NSManagedObject* managedFileObj = [self.dataResultsController objectAtIndexPath:indexPath];
+    INVFile* file = [MTLManagedObjectAdapter modelOfClass:[INVFile class] fromManagedObject:managedFileObj error:nil];
+    
     cell.modelId = [self modelIdForTipOfFile:file];
     cell.fileName.text = file.fileName;
     cell.delegate = self;
@@ -164,7 +166,8 @@
 -(NSNumber*)modelIdForTipOfFile:(INVFile*)file {
     __block INVFileVersion* tip;
     [file.fileVersions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        tip = [MTLManagedObjectAdapter modelOfClass:[INVFileVersion class] fromManagedObject:obj error:nil];
+       // tip = [MTLManagedObjectAdapter modelOfClass:[INVFileVersion class] fromManagedObject:obj error:nil];
+        tip = obj;
         if (tip.fileVersionId == file.tipId) {
             *stop = YES;
         }

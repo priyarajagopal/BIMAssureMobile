@@ -10,54 +10,54 @@
             <rect key="frame" x="0.0" y="0.0" width="436" height="144"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set this as default account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t50-pi-zQ0">
-                    <rect key="frame" x="23" y="23" width="336" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtE-H3-Hx5">
-                    <rect key="frame" x="120" y="94" width="118" height="30"/>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Log into Account">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="onLogintoAccount:" destination="iN0-l3-epB" eventType="touchUpInside" id="XdE-IF-4XK"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfG-SJ-Kq5">
-                    <rect key="frame" x="275" y="94" width="48" height="30"/>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Cancel">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="onCancelLogin:" destination="iN0-l3-epB" eventType="touchUpInside" id="OYo-sq-35M"/>
-                    </connections>
-                </button>
-                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="adC-d2-Zna">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFq-ij-aTB">
+                    <rect key="frame" x="8" y="8" width="420" height="128"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set this as default account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t50-pi-zQ0">
+                            <rect key="frame" x="28" y="15" width="321" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfG-SJ-Kq5">
+                            <rect key="frame" x="247" y="74" width="141" height="30"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Cancel" backgroundImage="dkgray">
+                                <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onCancelLogin:" destination="iN0-l3-epB" eventType="touchUpInside" id="OYo-sq-35M"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtE-H3-Hx5">
+                            <rect key="frame" x="55" y="74" width="154" height="30"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Log into Account" backgroundImage="navyblue">
+                                <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onLogintoAccount:" destination="iN0-l3-epB" eventType="touchUpInside" id="XdE-IF-4XK"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                </view>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="adC-d2-Zna">
                     <rect key="frame" x="367" y="18" width="51" height="31"/>
                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="onTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="thumbTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="onTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="thumbTintColor" red="0.035294117647058823" green="0.30588235294117649" blue="0.58039215686274503" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="setAsDefaultAccountSwitchToggled:" destination="iN0-l3-epB" eventType="valueChanged" id="hra-kU-uzO"/>
                     </connections>
                 </switch>
             </subviews>
-            <color key="backgroundColor" red="0.82967822061349694" green="0.93197027152343614" blue="0.95355269160583944" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="dtE-H3-Hx5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="120" id="Ma7-aS-fI4"/>
-                <constraint firstItem="dtE-H3-Hx5" firstAttribute="top" secondItem="t50-pi-zQ0" secondAttribute="bottom" constant="50" id="NEO-Ij-pzf"/>
                 <constraint firstAttribute="trailing" secondItem="adC-d2-Zna" secondAttribute="trailing" constant="20" id="PWi-OP-g6H"/>
-                <constraint firstItem="hfG-SJ-Kq5" firstAttribute="leading" secondItem="dtE-H3-Hx5" secondAttribute="trailing" constant="37" id="YT5-ld-hJE"/>
-                <constraint firstItem="t50-pi-zQ0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="23" id="clb-Do-pHe"/>
                 <constraint firstItem="adC-d2-Zna" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="eCZ-mg-kF8"/>
-                <constraint firstItem="adC-d2-Zna" firstAttribute="centerY" secondItem="t50-pi-zQ0" secondAttribute="centerY" id="ifx-rw-d5O"/>
-                <constraint firstItem="dtE-H3-Hx5" firstAttribute="baseline" secondItem="hfG-SJ-Kq5" secondAttribute="baseline" id="llc-8t-9wV"/>
-                <constraint firstItem="adC-d2-Zna" firstAttribute="leading" secondItem="t50-pi-zQ0" secondAttribute="trailing" constant="8" symbolic="YES" id="ocz-hF-Fvy"/>
-                <constraint firstItem="t50-pi-zQ0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="23" id="qFl-5Z-JSS"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -66,4 +66,8 @@
             <point key="canvasLocation" x="579" y="364"/>
         </view>
     </objects>
+    <resources>
+        <image name="dkgray" width="21" height="21"/>
+        <image name="navyblue" width="21" height="21"/>
+    </resources>
 </document>

@@ -170,8 +170,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="TYt-W5-YZM"/>
                                 </constraints>
-                                <state key="normal" title="Log In" backgroundImage="lightgray">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Log In" backgroundImage="navyblue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -321,6 +321,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="ProjectFilesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qj7-pj-SdD" customClass="INVProjectFilesListViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="VP9-OS-PWC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="iWf-ed-QAf">
@@ -359,15 +360,25 @@
         <!--Project File Viewer Controller-->
         <scene sceneID="fqY-Jw-B2u">
             <objects>
-                <viewController storyboardIdentifier="FileViewerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Eb5-Mc-1Dg" customClass="INVProjectFileViewerController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FileViewerVC" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Eb5-Mc-1Dg" customClass="INVProjectFileViewerController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="u8Y-7z-eJU"/>
                         <viewControllerLayoutGuide type="bottom" id="WRt-v3-qL9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="x8y-e1-MiR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XF1-1W-JNk">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Item" id="Men-WN-wdv"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o5O-ub-DK7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -431,6 +442,7 @@
                         <viewControllerLayoutGuide type="bottom" id="00L-A8-uJJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sPy-qT-Ocj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Project Selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcS-iY-GJm">
@@ -490,7 +502,7 @@
         <image name="BALogo" width="446" height="68"/>
         <image name="folder" width="25" height="25"/>
         <image name="key" width="25" height="25"/>
-        <image name="lightgray" width="21" height="21"/>
+        <image name="navyblue" width="21" height="21"/>
         <image name="rules" width="25" height="25"/>
         <image name="user" width="25" height="25"/>
     </resources>
