@@ -33,7 +33,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
-      [self loadWebView];
+    [self loadWebView];
     [self loadViewer];
 
 }

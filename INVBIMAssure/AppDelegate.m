@@ -54,12 +54,12 @@
 #pragma mark - view appearance
 -(void) setUpViewAppearance {
     UIColor * whiteColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
-    UIColor * darkGreyColor = [UIColor colorWithRed:106.0/255 green:106.0/255 blue:106.0/255 alpha:1.0];
+    UIColor * darkGreyColor = [UIColor colorWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1.0];
     UIColor * ltGreyColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
-  
     
+
     [self.window setTintColor:darkGreyColor];
-    [[UINavigationBar appearance] setBarTintColor: darkGreyColor] ;
+    [[UINavigationBar appearance] setBarTintColor:darkGreyColor ] ;
     [[UINavigationBar appearance] setTintColor:whiteColor] ;
     
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
@@ -93,9 +93,15 @@
 -(void)displayProjectsListRootViewController {
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
+    /*
     INVProjectListSplitViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"ProjectListSplitVC"];
     projectsVC.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     self.window.rootViewController = projectsVC;
+    */
+    UIViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"MainVC"];
+   // projectsVC.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
+    self.window.rootViewController = projectsVC;
+
     
 }
 

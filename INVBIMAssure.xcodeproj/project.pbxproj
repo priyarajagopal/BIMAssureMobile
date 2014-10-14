@@ -13,6 +13,12 @@
 		0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
 		0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0240900819E45B4E00B218ED /* INVAccountViewCell.m */; };
 		0240900A19E45B4E00B218ED /* INVAccountViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0240900819E45B4E00B218ED /* INVAccountViewCell.m */; };
+		02457E2119ED882C00E714BA /* INVMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2019ED882C00E714BA /* INVMainMenuViewController.m */; };
+		02457E2219ED882C00E714BA /* INVMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2019ED882C00E714BA /* INVMainMenuViewController.m */; };
+		02457E2519ED88AC00E714BA /* INVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2419ED88AC00E714BA /* INVMainViewController.m */; };
+		02457E2619ED88AC00E714BA /* INVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2419ED88AC00E714BA /* INVMainViewController.m */; };
+		02457E2819ED8C0900E714BA /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02457E2719ED8C0900E714BA /* fontawesome-webfont.ttf */; };
+		02457E2919ED8C0900E714BA /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02457E2719ED8C0900E714BA /* fontawesome-webfont.ttf */; };
 		02AAD3E619E61E80002901DA /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02AAD3E519E61E80002901DA /* libPods-MBProgressHUD.a */; };
 		02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
@@ -36,8 +42,6 @@
 		02AAD41019E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */; };
 		02AAD41A19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD41919EB2CCF002901DA /* INVProjectFileViewerController.m */; };
 		02AAD41B19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD41919EB2CCF002901DA /* INVProjectFileViewerController.m */; };
-		02AAD42419EC7D41002901DA /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD42319EC7D41002901DA /* fontawesome-webfont.ttf */; };
-		02AAD42519EC7D41002901DA /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD42319EC7D41002901DA /* fontawesome-webfont.ttf */; };
 		02AAD42919ECB349002901DA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD42719ECB349002901DA /* Localizable.strings */; };
 		02AAD42A19ECB349002901DA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD42719ECB349002901DA /* Localizable.strings */; };
 		02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */; };
@@ -95,6 +99,11 @@
 		02408FFE19E45A2700B218ED /* INVAccountListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountListViewController.m; sourceTree = "<group>"; };
 		0240900719E45B4E00B218ED /* INVAccountViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountViewCell.h; sourceTree = "<group>"; };
 		0240900819E45B4E00B218ED /* INVAccountViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountViewCell.m; sourceTree = "<group>"; };
+		02457E1F19ED882C00E714BA /* INVMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVMainMenuViewController.h; sourceTree = "<group>"; };
+		02457E2019ED882C00E714BA /* INVMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVMainMenuViewController.m; sourceTree = "<group>"; };
+		02457E2319ED88AC00E714BA /* INVMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVMainViewController.h; sourceTree = "<group>"; };
+		02457E2419ED88AC00E714BA /* INVMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVMainViewController.m; sourceTree = "<group>"; };
+		02457E2719ED8C0900E714BA /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		02AAD3E519E61E80002901DA /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
 		02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSplitViewController.h; sourceTree = "<group>"; };
 		02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSplitViewController.m; sourceTree = "<group>"; };
@@ -116,7 +125,6 @@
 		02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVProjectFileCollectionViewCell.xib; sourceTree = "<group>"; };
 		02AAD41819EB2CCF002901DA /* INVProjectFileViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectFileViewerController.h; sourceTree = "<group>"; };
 		02AAD41919EB2CCF002901DA /* INVProjectFileViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectFileViewerController.m; sourceTree = "<group>"; };
-		02AAD42319EC7D41002901DA /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		02AAD42819ECB349002901DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02B439DA19E45C88007A2FC5 /* INVCustomCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomCollectionViewController.h; sourceTree = "<group>"; };
 		02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomCollectionViewController.m; sourceTree = "<group>"; };
@@ -243,7 +251,6 @@
 				02C8845F19E317E900DFB4E2 /* AppDelegate.m */,
 				02C8848B19E328FE00DFB4E2 /* viewcontrollers */,
 				02C8846419E317E900DFB4E2 /* Main.storyboard */,
-				02AAD42319EC7D41002901DA /* fontawesome-webfont.ttf */,
 				02C8846719E317E900DFB4E2 /* Images.xcassets */,
 				02C8846919E317E900DFB4E2 /* LaunchScreen.xib */,
 				02C8845A19E317E900DFB4E2 /* Supporting Files */,
@@ -254,6 +261,7 @@
 		02C8845A19E317E900DFB4E2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				02457E2719ED8C0900E714BA /* fontawesome-webfont.ttf */,
 				02AAD42719ECB349002901DA /* Localizable.strings */,
 				02C8849019E3357000DFB4E2 /* INVBIMAssurePrefixHeader.pch */,
 				02C8845B19E317E900DFB4E2 /* Info.plist */,
@@ -287,6 +295,10 @@
 				02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */,
 				02408FFD19E45A2700B218ED /* INVAccountListViewController.h */,
 				02408FFE19E45A2700B218ED /* INVAccountListViewController.m */,
+				02457E2319ED88AC00E714BA /* INVMainViewController.h */,
+				02457E2419ED88AC00E714BA /* INVMainViewController.m */,
+				02457E1F19ED882C00E714BA /* INVMainMenuViewController.h */,
+				02457E2019ED882C00E714BA /* INVMainMenuViewController.m */,
 				02AAD3EB19E6FE80002901DA /* INVProjectListSplitViewController.h */,
 				02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */,
 				02AAD3EF19E7121E002901DA /* INVProjectsTableViewController.h */,
@@ -401,8 +413,8 @@
 			files = (
 				02AAD40F19E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */,
 				02B43A0A19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
-				02AAD42419EC7D41002901DA /* fontawesome-webfont.ttf in Resources */,
 				02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
+				02457E2819ED8C0900E714BA /* fontawesome-webfont.ttf in Resources */,
 				02AAD42919ECB349002901DA /* Localizable.strings in Resources */,
 				02408FFB19E447BD00B218ED /* Main.storyboard in Resources */,
 				02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */,
@@ -416,8 +428,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				02AAD3F919E71B17002901DA /* INVProjectTableViewCell.xib in Resources */,
-				02AAD42519EC7D41002901DA /* fontawesome-webfont.ttf in Resources */,
 				02AAD41019E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */,
+				02457E2919ED8C0900E714BA /* fontawesome-webfont.ttf in Resources */,
 				02AAD42A19ECB349002901DA /* Localizable.strings in Resources */,
 				02B43A1519E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
 				02B43A0B19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
@@ -504,6 +516,7 @@
 				02AAD40D19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */,
 				02C8846019E317E900DFB4E2 /* AppDelegate.m in Sources */,
 				02AAD41A19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */,
+				02457E2519ED88AC00E714BA /* INVMainViewController.m in Sources */,
 				02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
 				02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
@@ -511,6 +524,7 @@
 				02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */,
 				02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
 				02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
+				02457E2119ED882C00E714BA /* INVMainMenuViewController.m in Sources */,
 				02C8845D19E317E900DFB4E2 /* main.m in Sources */,
 				02AAD3F619E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
 				02AAD40019E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
@@ -523,6 +537,7 @@
 			files = (
 				02AAD40519E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
 				02C8849519E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
+				02457E2219ED882C00E714BA /* INVMainMenuViewController.m in Sources */,
 				02AAD3EE19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
 				02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
 				02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
@@ -535,6 +550,7 @@
 				02C8848619E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
 				02AAD40E19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */,
 				02AAD3F719E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
+				02457E2619ED88AC00E714BA /* INVMainViewController.m in Sources */,
 				02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
 				02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
 				02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
