@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0224B8AC19EDBB550083EA6E /* INVEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */; };
+		0224B8AD19EDBB550083EA6E /* INVEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */; };
 		02408FFB19E447BD00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFC19E447BF00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
@@ -95,6 +97,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0224B8AA19EDBB550083EA6E /* INVEmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVEmptySegue.h; sourceTree = "<group>"; };
+		0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVEmptySegue.m; sourceTree = "<group>"; };
 		02408FFD19E45A2700B218ED /* INVAccountListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountListViewController.h; sourceTree = "<group>"; };
 		02408FFE19E45A2700B218ED /* INVAccountListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountListViewController.m; sourceTree = "<group>"; };
 		0240900719E45B4E00B218ED /* INVAccountViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountViewCell.h; sourceTree = "<group>"; };
@@ -309,6 +313,8 @@
 				02AAD40319E82558002901DA /* INVProjectFilesListViewController.m */,
 				02AAD41819EB2CCF002901DA /* INVProjectFileViewerController.h */,
 				02AAD41919EB2CCF002901DA /* INVProjectFileViewerController.m */,
+				0224B8AA19EDBB550083EA6E /* INVEmptySegue.h */,
+				0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */,
 				0240900619E45AA000B218ED /* data */,
 				0240900519E45A9400B218ED /* views */,
 			);
@@ -528,6 +534,7 @@
 				02C8845D19E317E900DFB4E2 /* main.m in Sources */,
 				02AAD3F619E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
 				02AAD40019E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
+				0224B8AC19EDBB550083EA6E /* INVEmptySegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +552,7 @@
 				02AAD41B19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */,
 				0240900A19E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
 				02AAD3FD19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
+				0224B8AD19EDBB550083EA6E /* INVEmptySegue.m in Sources */,
 				02C8848A19E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
 				02AAD40119E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
 				02C8848619E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,

@@ -9,7 +9,7 @@
 #import "INVCustomViewController.h"
 
 @interface INVMainViewController : INVCustomViewController
-@property (weak, nonatomic) IBOutlet UIView *DetailContainerView;
+@property (weak, nonatomic) IBOutlet UIView *detailContainerView;
 @property (weak, nonatomic) IBOutlet UIView *mainMenuContainerView;
 
 @end

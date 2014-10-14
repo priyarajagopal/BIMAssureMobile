@@ -490,11 +490,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-vM-vRE" userLabel="split view">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-vM-vRE" userLabel="detail container view">
                                 <rect key="frame" x="64" y="0.0" width="536" height="600"/>
-                                <connections>
-                                    <segue destination="XJ9-1q-cac" kind="embed" identifier="MainSplitViewEmbedSegue" id="5lD-7d-CY9"/>
-                                </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omg-k9-r5h" userLabel="main menu container view">
                                 <rect key="frame" x="-4" y="0.0" width="69" height="600"/>
@@ -518,8 +515,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="DetailContainerView" destination="5qd-vM-vRE" id="JSp-Ji-lWn"/>
+                        <outlet property="detailContainerView" destination="5qd-vM-vRE" id="tMu-ZL-yKa"/>
                         <outlet property="mainMenuContainerView" destination="Omg-k9-r5h" id="EmK-Cb-Hgz"/>
+                        <segue destination="XJ9-1q-cac" kind="custom" identifier="MainProjectEmbedSegue" customClass="INVEmptySegue" id="mWl-4x-jI9"/>
+                        <segue destination="Kop-ST-qty" kind="custom" identifier="MainAccountEmbedSegue" customClass="INVEmptySegue" id="X7M-4Z-Het"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHI-XY-xZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -538,6 +537,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KLe-Xa-yIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="403" y="1943"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="BfM-zp-ixc">
+            <objects>
+                <viewController id="Kop-ST-qty" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XvW-1N-vsU"/>
+                        <viewControllerLayoutGuide type="bottom" id="7ii-VU-Fq2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qlm-QO-Y9k">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S9t-Dl-XTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="27" y="2739"/>
         </scene>
         <!--General No Project Scene-->
         <scene sceneID="F49-oI-xwJ">
