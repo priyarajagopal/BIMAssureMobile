@@ -9,10 +9,22 @@
 #import "INVProjectFileViewerController.h"
 @import  WebKit;
 
+#pragma mark - Supported JS APIs
+static NSString* const INV_JS_LOAD_VIEWER = @"loadViewer('%1$@','%2$@','%3$@')";
+static NSString* const INV_JS_RESET_CAMERA = @"resetCamera()";
+static NSString* const INV_JS_SHOW_SHADOW = @"enableShadow(%1$@)";
+static NSString* const INV_JS_TOGGLE_SELECTION = @"toggleEntitiesVisible()";
+static NSString* const INV_JS_EMPHASIZE = @"showLines(%1$@)";
+static NSString* const INV_JS_GLASS = @"setXRayMode(%1$@)";
+static NSString* const INV_JS_GETSELECTED_ENTITIES = @"getSelectedEntities()";
+static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
+
 @interface INVProjectFileViewerController ()<WKNavigationDelegate, WKScriptMessageHandler>
 @property (strong, nonatomic)  WKWebView *webView;
 @property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
-
+@property (nonatomic,assign)BOOL showShadow;
+@property (nonatomic,assign)BOOL emphasize;
+@property (nonatomic,assign)BOOL showGlassEffect;
 @end
 
 @implementation INVProjectFileViewerController
@@ -21,8 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
-    
-    [self loadWebView];
+      [self loadWebView];
     [self loadViewer];
 
 }
@@ -40,6 +51,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self.navigationController hidesBarsOnTap];
+    
   }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -56,7 +69,7 @@
 
 -(void)loadWebView {
     WKWebViewConfiguration* webConfig = [[WKWebViewConfiguration alloc]init];
-    self.webView = [[WKWebView alloc]initWithFrame:self.webviewContainerView.frame configuration:webConfig];
+    self.webView = [[WKWebView alloc]initWithFrame:self.view.frame configuration:webConfig];
     self.webView.navigationDelegate = self;
     [self.webviewContainerView addSubview:self.webView];
 }
@@ -82,7 +95,9 @@
 #pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     NSLog(@"%s",__func__);
+    #pragma Handle JS events
     [self loadModel];
+
 }
 
 /*! @abstract Invoked when an error occurs during a committed main frame
@@ -100,24 +115,15 @@
 
 #pragma mark - Model related
 -(void)loadModel {
-    //183782
-    
-    //66716
     NSString* emServer = self.globalDataManager.invServerClient.empireManageServer;
     NSString* acntToken = self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount;
-    
-    NSString* paramString = [NSString stringWithFormat:@"\'http://%@/empiremanage/api/\',\'%@\',\'%@\'",emServer,self.modelId,acntToken];
-    NSLog(@"%s, param string :%@",__func__,paramString);
- 
-    
-  //  NSString* js2ToInvoke = @"loadViewer('http://54.191.225.36:8080/empiremanage/api/','183782','eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImZvb0Bub3doZXJlLmNvbSIsImhhc2giOiJPYzU0REN1eWdiY2MwYzU4MzcwNzEwMTI0ZWJkMTE5ZTY5MzFlNjA0MSIsIm5hbWUiOiJmb28iLCJ1c2VyaWQiOjIsImFjY291bnR0eXBlIjoiMSIsImFjY291bnRpZCI6MX0.SiabD0PTHPVHIUx8SXboN7KNAcWjmK9vGaKs7j1Io-Y')";
-    NSString* js2ToInvoke = [ NSString stringWithFormat:@"loadViewer(%@)",paramString ];
-    [self.webView evaluateJavaScript:js2ToInvoke completionHandler:^(id val, NSError *error) {
-        NSLog(@"Evaluation of JS :%@",error);
-    }];
+    NSString* emServerUrl =  [NSString stringWithFormat:@"http://%@/empiremanage/api/",emServer];
+    NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_VIEWER,emServerUrl,self.modelId,acntToken];
+    [self executeJS:jsToInvoke];
     
 }
 
+/**** Unused for now. Jquery loaded remotely
 - (void)injectJQuery {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"jquery" ofType:@"js"];
     NSString *jsString = [NSString stringWithContentsOfFile:path
@@ -128,14 +134,8 @@
         
     }];
 }
+*******/
 
-#pragma mark - UIEvent Handlers
-- (IBAction)onButtonTapped:(id)sender {
-    NSString* jsToInvoke = @"resetCamera()";
-    [self.webView evaluateJavaScript:jsToInvoke completionHandler:^(id val, NSError *error) {
-        NSLog(@"Evaluation of JS :%@",error);
-    }];
-}
 
 #pragma mark - KVO
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -153,6 +153,12 @@
 }
 
 #pragma mark - helpers
+-(void)executeJS:(NSString*)jsToExecute {
+    [self.webView evaluateJavaScript:jsToExecute completionHandler:^(id val, NSError *error) {
+        NSLog(@"Evaluation of JS :%@",error);
+#pragma warning display error
+    }];
+}
 
 -(void)addWebviewObservers {
     [self.webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
@@ -163,4 +169,33 @@
     
 }
 
+#pragma mark - UIEvent handlers
+- (IBAction)onHomeSelected:(id)sender {
+    NSString* jsToInvoke = INV_JS_RESET_CAMERA;
+    [self executeJS:jsToInvoke];
+}
+
+- (IBAction)onToggleSelectionSelected:(id)sender {
+     NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_TOGGLE_SELECTION];
+    [self executeJS:jsToInvoke];
+}
+
+- (IBAction)onEmphasizeSelected:(id)sender {
+    self.emphasize = !self.emphasize;
+    NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_EMPHASIZE,@(self.emphasize)];
+    [self executeJS:jsToInvoke];
+}
+
+- (IBAction)onGlassViewSelected:(id)sender {
+    self.showGlassEffect = !self.showGlassEffect;
+    NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_GLASS,@(self.showGlassEffect)];
+    [self executeJS:jsToInvoke];
+
+}
+
+- (IBAction)onShadowSelected:(id)sender {
+    self.showShadow = !self.showShadow;
+    NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_SHOW_SHADOW,@(self.showShadow)];
+    [self executeJS:jsToInvoke];
+}
 @end

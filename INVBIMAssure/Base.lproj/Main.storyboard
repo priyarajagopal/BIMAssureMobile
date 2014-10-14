@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6f0-bx-Ybc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="fontawesome-webfont.ttf">
@@ -205,7 +204,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYg-x1-cc5">
-                                <rect key="frame" x="114" y="362.5" width="107.5" height="19.5"/>
+                                <rect key="frame" x="114" y="363" width="108" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -414,20 +413,21 @@
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XF1-1W-JNk">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="CI0-MV-As7"/>
+                                </constraints>
                                 <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ZdV-hG-nbK"/>
                                     <barButtonItem style="plain" id="fmf-0o-gnV" userLabel="home">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Zpp-9e-ffD">
                                             <rect key="frame" x="16" y="7" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
                                             <state key="normal" title=""/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="fontAwesome"/>
-                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="onHomeSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="nUF-RG-MXc"/>
+                                            </connections>
                                         </button>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="FontAwesome"/>
-                                        </userDefinedRuntimeAttributes>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="BjR-Md-DNh" userLabel="shadow">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="D5r-Im-lup">
@@ -438,6 +438,9 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onToggleSelectionSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="I5M-Rl-EZD"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="ITh-VV-NO4" userLabel="emphasize">
@@ -449,6 +452,9 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onEmphasizeSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="Yqk-KQ-T48"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="GgG-1k-ZGG" userLabel="glass">
@@ -460,6 +466,9 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onGlassViewSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="NEP-Zq-2H9"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="Lb0-wJ-eiD" userLabel="toggleselection">
@@ -471,6 +480,9 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onShadowSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="saG-nX-S7P"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                 </items>
@@ -479,19 +491,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="De6-NR-Sbg" firstAttribute="bottom" secondItem="XF1-1W-JNk" secondAttribute="top" id="1nb-q1-RAl"/>
+                            <constraint firstAttribute="bottom" secondItem="XF1-1W-JNk" secondAttribute="bottom" id="DXR-fM-avT"/>
                             <constraint firstItem="De6-NR-Sbg" firstAttribute="width" secondItem="x8y-e1-MiR" secondAttribute="width" id="HNG-wd-3aH"/>
+                            <constraint firstItem="XF1-1W-JNk" firstAttribute="leading" secondItem="x8y-e1-MiR" secondAttribute="leading" id="LxQ-9e-QBh"/>
                             <constraint firstItem="De6-NR-Sbg" firstAttribute="height" secondItem="x8y-e1-MiR" secondAttribute="height" constant="-44" id="P75-LZ-5g7"/>
-                            <constraint firstItem="XF1-1W-JNk" firstAttribute="trailing" secondItem="WRt-v3-qL9" secondAttribute="trailing" id="PhO-66-1Da"/>
+                            <constraint firstItem="De6-NR-Sbg" firstAttribute="width" secondItem="XF1-1W-JNk" secondAttribute="width" id="QbL-Md-R68"/>
                             <constraint firstAttribute="centerX" secondItem="De6-NR-Sbg" secondAttribute="centerX" id="a0B-AG-AJm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="De6-NR-Sbg" secondAttribute="trailing" constant="-16" id="epH-0q-AQD"/>
-                            <constraint firstItem="De6-NR-Sbg" firstAttribute="leading" secondItem="XF1-1W-JNk" secondAttribute="leading" id="f5A-WI-u9Y"/>
                             <constraint firstItem="De6-NR-Sbg" firstAttribute="top" secondItem="x8y-e1-MiR" secondAttribute="top" id="pML-m4-16H"/>
                         </constraints>
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="view" destination="x8y-e1-MiR" id="ree-Us-OGH"/>
                         <outlet property="webviewContainerView" destination="De6-NR-Sbg" id="ik7-Lc-fih"/>
                     </connections>
                 </viewController>
