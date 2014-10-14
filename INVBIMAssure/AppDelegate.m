@@ -23,14 +23,7 @@
     // Override point for customization after application launch.
     [self registerLoginObservers];
     [self setUpViewAppearance];
-    
-    [[UIFont familyNames]enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSString* family = obj;
-        for (NSString* name in [UIFont fontNamesForFamilyName:family] ) {
-            NSLog(@" %@",name);
-        }
-    }];
-    return YES;
+     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
