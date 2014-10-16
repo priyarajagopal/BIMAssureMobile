@@ -11,10 +11,14 @@
 
 @import EmpireMobileManager;
 
-NSString* const INV_BA_CREDENTIALS_KEY = @"BACredentials";
+const NSString* INV_BA_KEY_EMAIL = @"email";
+const NSString* INV_BA_KEY_PASSWORD = @"password";
+
+static NSString* const INV_BA_CREDENTIALS_KEY = @"BACredentials";
 
 @interface INVGlobalDataManager()
 @property (nonatomic,readwrite)INVEmpireMobileClient* invServerClient;
+@property (nonatomic,readwrite)NSDictionary* credentials;
 @end
 
 @implementation INVGlobalDataManager
@@ -38,10 +42,9 @@ NSString* const INV_BA_CREDENTIALS_KEY = @"BACredentials";
 }
 
 -(NSError*)saveCredentialsForLoggedInUser:(NSString*)email withPassword:(NSString*)password {
-    NSString* bundleId = [NSBundle bundleForClass:[self class]].bundleIdentifier;
     NSError* error;
-    NSDictionary* credentials = @{@"email":email, @"password":password};
-    [FDKeychain saveItem:credentials forKey:INV_BA_CREDENTIALS_KEY forService:bundleId error:&error];
+    _credentials = @{INV_BA_KEY_EMAIL:email, INV_BA_KEY_PASSWORD:password};
+    [FDKeychain saveItem:_credentials forKey:INV_BA_CREDENTIALS_KEY forService:[self serviceIdentifierForKCStorage] error:&error];
     if (error) {
         // silently ignoring error
         NSLog(@"%s. Failed with %@",__func__,error);
@@ -49,5 +52,23 @@ NSString* const INV_BA_CREDENTIALS_KEY = @"BACredentials";
     return error;
 }
 
+-(NSError*)deleteCredentialsForLoggedInUser {
+    NSError* error;
+    [FDKeychain deleteItemForKey:INV_BA_CREDENTIALS_KEY forService:[self serviceIdentifierForKCStorage] error:&error];
+    return error;
+}
+
+#pragma mark - public accessors
+-(NSDictionary*) credentials {
+    NSString* bundleId = [NSBundle bundleForClass:[self class]].bundleIdentifier;
+    NSError* error;
+
+    _credentials = [FDKeychain itemForKey:INV_BA_CREDENTIALS_KEY forService:bundleId error:&error];
+    return _credentials;
+}
+
+-(NSString*)serviceIdentifierForKCStorage {
+    return  [NSBundle bundleForClass:[self class]].bundleIdentifier;
+}
 
 @end

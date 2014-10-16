@@ -34,14 +34,12 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [[INVGlobalDataManager sharedInstance].invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
-        
-    }];
+    [self resetRootViewControllerWhenAppPushedToBackground];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-
+   
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -74,6 +72,12 @@
 
 #pragma mark - VC management
 
+-(void)resetRootViewControllerWhenAppPushedToBackground {
+    [[INVGlobalDataManager sharedInstance].invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self displayLoginRootViewController];
+    }];
+}
+
 -(void)displayLoggedInRootViewController {
     [self deregisterLoginObservers];
     UINavigationController* accountListNC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"AccountListNC"];
@@ -95,13 +99,7 @@
 -(void)displayProjectsListRootViewController {
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
-    /*
-    INVProjectListSplitViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"ProjectListSplitVC"];
-    projectsVC.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
-    self.window.rootViewController = projectsVC;
-    */
-    UIViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"MainVC"];
-   // projectsVC.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
+     UIViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"MainVC"];
     self.window.rootViewController = projectsVC;
 
     
@@ -159,7 +157,7 @@
 
 
 
-#pragma mark - KVO
+#pragma mark - KVO Handling
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     NSLog(@"%s. Keypath %@: %@: %@",__func__,keyPath,object,change);
     if ([keyPath isEqualToString:KVO_INV_LoginSuccess]) {

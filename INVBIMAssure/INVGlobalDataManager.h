@@ -9,12 +9,20 @@
 #import <Foundation/Foundation.h>
 @import EmpireMobileManager;
 
+/**
+ Key consts corresponding to credentials Dictionary 
+ */
+
+typedef NSString* INV_BA_KEY;
+extern const NSString* INV_BA_KEY_EMAIL ;
+extern const NSString* INV_BA_KEY_PASSWORD ;
+
+
 @interface INVGlobalDataManager : NSObject
 @property (nonatomic,readonly)INVEmpireMobileClient* invServerClient;
-@property (nonatomic,readonly)NSString* loggedinUser;
-@property (nonatomic,readonly)NSString* loggedinPassword;
+@property (nonatomic,readonly)NSDictionary* credentials;
 
 +(INVGlobalDataManager*)sharedInstance;
 -(NSError*)saveCredentialsForLoggedInUser:(NSString*)email withPassword:(NSString*)password;
-
+-(NSError*)deleteCredentialsForLoggedInUser;
 @end

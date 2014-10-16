@@ -26,22 +26,30 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setupView];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setupView];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSString* loggedInUser = self.globalDataManager.loggedinUser;
-    NSString* loggedInPass = self.globalDataManager.loggedinUser;
+    NSDictionary* savedCredentials = self.globalDataManager.credentials;
+    NSString* loggedInUser = savedCredentials[INV_BA_KEY_EMAIL];
+    NSString* loggedInPass = savedCredentials[INV_BA_KEY_PASSWORD];
     if (loggedInPass && loggedInUser) {
+        self.emailTextEntry.text = loggedInUser;
+        self.passwordTextEntry.text = loggedInPass;
         [self showLoginProgress];
         [self loginToServer];
+    }
+    else {
+        self.emailTextEntry.text = @"";
+        self.passwordTextEntry.text = @"";
     }
     
 }
@@ -65,6 +73,9 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
     [self.passwordEntryView.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
     [self.passwordEntryView.layer setShadowOpacity:0.5];
 
+    self.rememberMe.titleLabel.frame = self.rememberMe.frame;
+    [self.rememberMe setTitle:@"\uf096" forState:UIControlStateNormal];
+    [self.rememberMe setTitle:@"\uf046" forState:UIControlStateSelected];
 }
 /*
 #pragma mark - Navigation
@@ -78,7 +89,7 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
 
 #pragma mark - UIEvent Handlers
 - (IBAction)onLoginClicked:(id)sender {
-    if (!self.emailTextEntry.text || self.passwordTextEntry.text || ![self isValidEmailEntry]) {
+    if (!self.emailTextEntry.text || !self.passwordTextEntry.text || ![self isValidEmailEntry]) {
 #pragma warning - Show alert
         return;
     }
@@ -92,6 +103,16 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
 
 - (IBAction)onRememberMeClicked:(id)sender {
     self.saveCredentials = !self.saveCredentials;
+    
+    if (self.saveCredentials) {
+        [self.rememberMe setSelected:YES];
+        self.rememberMe.titleLabel.text =  @"\uf046";
+    }
+    else {
+        [self.rememberMe setSelected:NO];
+        
+        self.rememberMe.titleLabel.text =  @"\uf096";
+    }
 }
 
 

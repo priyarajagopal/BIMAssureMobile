@@ -17,6 +17,7 @@ extern NSString* const KVO_INV_LoginSuccess;
 
 @property (weak, nonatomic) IBOutlet UIView *emailEntryView;
 @property (weak, nonatomic) IBOutlet UIView *passwordEntryView;
+@property (weak, nonatomic) IBOutlet UIButton *rememberMe;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField *emailTextEntry;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField *passwordTextEntry;
