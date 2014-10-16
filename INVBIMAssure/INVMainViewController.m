@@ -70,10 +70,10 @@
         return;
     }
     self.registeredForMainMenuEvents = YES;
-    [self.mainMenuVC addObserver:self forKeyPath:INV_KVO_ONACCOUNTSMENUSELECTED options:NSKeyValueObservingOptionNew context:nil];
-    [self.mainMenuVC addObserver:self forKeyPath:INV_KVO_ONPROJECTSMENUSELECTED options:NSKeyValueObservingOptionNew context:nil];
-    [self.mainMenuVC addObserver:self forKeyPath:INV_KVO_ONUSERPROFILEMENUSELECTED options:NSKeyValueObservingOptionNew context:nil];
-    [self.mainMenuVC addObserver:self forKeyPath:INV_KVO_ONSETTINGSMENUSELECTED options:NSKeyValueObservingOptionNew context:nil];
+    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnAccountMenuSelected options:NSKeyValueObservingOptionNew context:nil];
+    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnProjectsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
+    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected options:NSKeyValueObservingOptionNew context:nil];
+    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnSettingsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     
 }
 
@@ -82,10 +82,10 @@
         return;
     }
     self.registeredForMainMenuEvents = NO;
-    [self.mainMenuVC removeObserver:self forKeyPath:INV_KVO_ONACCOUNTSMENUSELECTED];
-    [self.mainMenuVC removeObserver:self forKeyPath:INV_KVO_ONPROJECTSMENUSELECTED ];
-    [self.mainMenuVC removeObserver:self forKeyPath:INV_KVO_ONUSERPROFILEMENUSELECTED];
-    [self.mainMenuVC removeObserver:self forKeyPath:INV_KVO_ONSETTINGSMENUSELECTED];
+    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnAccountMenuSelected];
+    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnProjectsMenuSelected ];
+    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected];
+    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnSettingsMenuSelected];
 }
 
 - (void)swapFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
@@ -108,11 +108,11 @@
 #pragma mark - KVO Observer
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     NSLog(@"%s. with keyPath %@",__func__,keyPath);
-    if ([keyPath isEqualToString:INV_KVO_ONPROJECTSMENUSELECTED]) {
+    if ([keyPath isEqualToString:KVO_INVOnProjectsMenuSelected]) {
         [self performSegueWithIdentifier:@"MainProjectEmbedSegue" sender:nil];
         
     }
-    if ([keyPath isEqualToString:INV_KVO_ONACCOUNTSMENUSELECTED]) {
+    if ([keyPath isEqualToString:KVO_INVOnAccountMenuSelected]) {
         [self performSegueWithIdentifier:@"MainAccountEmbedSegue" sender:nil];
         
     }

@@ -17,7 +17,7 @@
 
 
 #pragma mark - KVO
-NSString* const KVO_INV_AccountLoginSuccess = @"accountLoginSuccess";
+NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 
 
 @interface INVAccountListViewController () <INVDefaultAccountAlertViewDelegate>

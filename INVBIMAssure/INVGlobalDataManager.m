@@ -11,10 +11,10 @@
 
 @import EmpireMobileManager;
 
-const NSString* INV_BA_KEY_EMAIL = @"email";
-const NSString* INV_BA_KEY_PASSWORD = @"password";
+const NSString* INV_CredentialKeyEmail = @"email";
+const NSString* INV_CredentialKeyPassword = @"password";
 
-static NSString* const INV_BA_CREDENTIALS_KEY = @"BACredentials";
+static NSString* const INV_CredentialsKeychainKey = @"BACredentials";
 
 @interface INVGlobalDataManager()
 @property (nonatomic,readwrite)INVEmpireMobileClient* invServerClient;
@@ -43,8 +43,8 @@ static NSString* const INV_BA_CREDENTIALS_KEY = @"BACredentials";
 
 -(NSError*)saveCredentialsForLoggedInUser:(NSString*)email withPassword:(NSString*)password {
     NSError* error;
-    _credentials = @{INV_BA_KEY_EMAIL:email, INV_BA_KEY_PASSWORD:password};
-    [FDKeychain saveItem:_credentials forKey:INV_BA_CREDENTIALS_KEY forService:[self serviceIdentifierForKCStorage] error:&error];
+    _credentials = @{INV_CredentialKeyEmail:email, INV_CredentialKeyPassword:password};
+    [FDKeychain saveItem:_credentials forKey:INV_CredentialsKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
     if (error) {
         // silently ignoring error
         NSLog(@"%s. Failed with %@",__func__,error);
@@ -52,9 +52,9 @@ static NSString* const INV_BA_CREDENTIALS_KEY = @"BACredentials";
     return error;
 }
 
--(NSError*)deleteCredentialsForLoggedInUser {
+-(NSError*)deleteCurrentlySavedCredentialsFromKC {
     NSError* error;
-    [FDKeychain deleteItemForKey:INV_BA_CREDENTIALS_KEY forService:[self serviceIdentifierForKCStorage] error:&error];
+    [FDKeychain deleteItemForKey:INV_CredentialsKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
     return error;
 }
 
@@ -63,7 +63,7 @@ static NSString* const INV_BA_CREDENTIALS_KEY = @"BACredentials";
     NSString* bundleId = [NSBundle bundleForClass:[self class]].bundleIdentifier;
     NSError* error;
 
-    _credentials = [FDKeychain itemForKey:INV_BA_CREDENTIALS_KEY forService:bundleId error:&error];
+    _credentials = [FDKeychain itemForKey:INV_CredentialsKeychainKey forService:bundleId error:&error];
     return _credentials;
 }
 

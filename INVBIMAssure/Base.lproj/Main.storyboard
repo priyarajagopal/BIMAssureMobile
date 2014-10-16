@@ -132,7 +132,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3M-8t-2sV">
                                 <rect key="frame" x="77" y="354" width="30" height="39"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="26"/>
-                                <state key="normal">
+                                <state key="normal" title="">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -153,9 +153,9 @@
                             <constraint firstItem="Prp-bk-5iF" firstAttribute="bottom" secondItem="HD7-QN-R52" secondAttribute="bottom" constant="81" id="ACi-ab-q5b"/>
                             <constraint firstItem="hx7-Eu-5pQ" firstAttribute="leading" secondItem="a20-bF-Wpl" secondAttribute="leading" id="CDQ-FM-wdE"/>
                             <constraint firstItem="a20-bF-Wpl" firstAttribute="top" secondItem="eLl-Aj-LSd" secondAttribute="bottom" constant="23" id="I9q-Wm-vJa"/>
+                            <constraint firstItem="HD7-QN-R52" firstAttribute="top" secondItem="iGZ-a1-P11" secondAttribute="bottom" constant="113" id="IYa-Ga-VsT"/>
                             <constraint firstItem="HD7-QN-R52" firstAttribute="bottom" secondItem="hx7-Eu-5pQ" secondAttribute="bottom" constant="-144" id="SOB-E9-aLv"/>
                             <constraint firstItem="hx7-Eu-5pQ" firstAttribute="top" secondItem="WvV-Pv-uxw" secondAttribute="bottom" constant="19" id="TEr-b1-98G"/>
-                            <constraint firstItem="HD7-QN-R52" firstAttribute="top" secondItem="iGZ-a1-P11" secondAttribute="bottom" constant="113" id="Y7P-4z-sop"/>
                             <constraint firstItem="nYg-x1-cc5" firstAttribute="leading" secondItem="e3M-8t-2sV" secondAttribute="trailing" constant="7" id="c0t-K7-cmu"/>
                             <constraint firstItem="e3M-8t-2sV" firstAttribute="leading" secondItem="a20-bF-Wpl" secondAttribute="leading" id="fSs-yV-ofG"/>
                             <constraint firstItem="hx7-Eu-5pQ" firstAttribute="width" secondItem="a20-bF-Wpl" secondAttribute="width" id="iob-bh-GYX"/>

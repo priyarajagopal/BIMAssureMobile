@@ -9,10 +9,10 @@
 #import "INVMainMenuViewController.h"
 
 #pragma mark - KVO
-NSString* const INV_KVO_ONACCOUNTSMENUSELECTED = @"accountsMenuSelected";
-NSString* const INV_KVO_ONUSERPROFILEMENUSELECTED = @"userProfileMenuSelected";
-NSString* const INV_KVO_ONSETTINGSMENUSELECTED = @"settingsMenuSelected";
-NSString* const INV_KVO_ONPROJECTSMENUSELECTED = @"projectsMenuSelected";
+NSString* const KVO_INVOnAccountMenuSelected = @"accountsMenuSelected";
+NSString* const KVO_INVOnUserProfileMenuSelected = @"userProfileMenuSelected";
+NSString* const KVO_INVOnSettingsMenuSelected = @"settingsMenuSelected";
+NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
 
 
 

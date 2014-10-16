@@ -14,6 +14,7 @@
 @interface AppDelegate ()
 @property (nonatomic,assign)BOOL registeredForLoginEvents;
 @property (nonatomic,assign)BOOL registeredForAccountEvents;
+@property (nonatomic,weak)INVGlobalDataManager* globalManager;
 @end
 
 @implementation AppDelegate
@@ -21,6 +22,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.globalManager = [INVGlobalDataManager sharedInstance];
+    if ([self isFirstRunOfApp]) {
+        [self.globalManager deleteCurrentlySavedCredentialsFromKC];
+    }
     [self registerLoginObservers];
     [self setUpViewAppearance];
      return YES;
@@ -73,7 +78,7 @@
 #pragma mark - VC management
 
 -(void)resetRootViewControllerWhenAppPushedToBackground {
-    [[INVGlobalDataManager sharedInstance].invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self displayLoginRootViewController];
     }];
 }
@@ -81,7 +86,7 @@
 -(void)displayLoggedInRootViewController {
     [self deregisterLoginObservers];
     UINavigationController* accountListNC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"AccountListNC"];
-     self.window.rootViewController = accountListNC;
+    self.window.rootViewController = accountListNC;
     [self registerAccountObservers];
     
 }
@@ -91,7 +96,7 @@
     [self deregisterAccountObservers];
 
     INVLoginViewController* loginVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"LoginVC"];
-     self.window.rootViewController = loginVC;
+    self.window.rootViewController = loginVC;
     [self registerLoginObservers];
 
 }
@@ -111,7 +116,7 @@
         if (!self.registeredForLoginEvents) {
             self.registeredForLoginEvents = YES;
             INVLoginViewController* loginVC = (INVLoginViewController*) [self rootController];
-            [loginVC addObserver:self forKeyPath:KVO_INV_LoginSuccess options:NSKeyValueObservingOptionNew context:nil];
+            [loginVC addObserver:self forKeyPath:KVO_INVLoginSuccess options:NSKeyValueObservingOptionNew context:nil];
         }
     }
 }
@@ -120,7 +125,7 @@
     if (self.registeredForLoginEvents) {
         self.registeredForLoginEvents = NO;
         INVLoginViewController* loginVC = (INVLoginViewController*) [self rootController];
-        [loginVC removeObserver:self forKeyPath:KVO_INV_LoginSuccess];
+        [loginVC removeObserver:self forKeyPath:KVO_INVLoginSuccess];
     }
 }
 
@@ -130,7 +135,7 @@
         if ([rootVC.topViewController isKindOfClass:[INVAccountListViewController class]]) {
         if (!self.registeredForAccountEvents) {
             self.registeredForAccountEvents = YES;
-            [rootVC.topViewController addObserver:self forKeyPath:KVO_INV_AccountLoginSuccess options:NSKeyValueObservingOptionNew context:nil];
+            [rootVC.topViewController addObserver:self forKeyPath:KVO_INVAccountLoginSuccess options:NSKeyValueObservingOptionNew context:nil];
         }
         }
     }
@@ -140,7 +145,7 @@
     if (self.registeredForAccountEvents) {
         self.registeredForAccountEvents = NO;
         UINavigationController* rootVC = (UINavigationController*) [self rootController];
-        [rootVC.topViewController removeObserver:self forKeyPath:KVO_INV_AccountLoginSuccess];
+        [rootVC.topViewController removeObserver:self forKeyPath:KVO_INVAccountLoginSuccess];
     }
 }
 
@@ -155,18 +160,25 @@
 }
 
 
-
+-(BOOL)isFirstRunOfApp {
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"INV_FirstTimeLaunch"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"INV_FirstTimeLaunch"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return  YES;
+    }
+    return NO;
+}
 
 #pragma mark - KVO Handling
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     NSLog(@"%s. Keypath %@: %@: %@",__func__,keyPath,object,change);
-    if ([keyPath isEqualToString:KVO_INV_LoginSuccess]) {
+    if ([keyPath isEqualToString:KVO_INVLoginSuccess]) {
         INVLoginViewController* loginVC = (INVLoginViewController*) object;
         if (loginVC.loginSuccess) {
             [self displayLoggedInRootViewController];
         }
     }
-    else if ([keyPath isEqualToString:KVO_INV_AccountLoginSuccess]) {
+    else if ([keyPath isEqualToString:KVO_INVAccountLoginSuccess]) {
         INVAccountListViewController* accountVC = (INVAccountListViewController*) object;
         if (accountVC.accountLoginSuccess) {
             [self displayProjectsListRootViewController];

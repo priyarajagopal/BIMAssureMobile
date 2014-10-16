@@ -9,10 +9,10 @@
 #import "INVCustomViewController.h"
 
 #pragma mark - KVO
-extern NSString* const INV_KVO_ONACCOUNTSMENUSELECTED ;
-extern NSString* const INV_KVO_ONUSERPROFILEMENUSELECTED ;
-extern NSString* const INV_KVO_ONSETTINGSMENUSELECTED ;
-extern NSString* const INV_KVO_ONPROJECTSMENUSELECTED;
+extern NSString* const KVO_INVOnAccountMenuSelected ;
+extern NSString* const KVO_INVOnUserProfileMenuSelected ;
+extern NSString* const KVO_INVOnSettingsMenuSelected ;
+extern NSString* const KVO_INVOnProjectsMenuSelected;
 
 
 @interface INVMainMenuViewController : INVCustomViewController

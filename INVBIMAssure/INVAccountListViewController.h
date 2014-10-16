@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #pragma mark - KVO
-extern NSString* const KVO_INV_AccountLoginSuccess ;
+extern NSString* const KVO_INVAccountLoginSuccess ;
 
 @interface INVAccountListViewController : INVCustomCollectionViewController
 @property (nonatomic,readonly) BOOL accountLoginSuccess;

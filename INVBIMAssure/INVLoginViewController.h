@@ -10,7 +10,7 @@
 
 
 #pragma mark - KVO
-extern NSString* const KVO_INV_LoginSuccess;
+extern NSString* const KVO_INVLoginSuccess;
 
 @interface INVLoginViewController : INVCustomViewController
 @property (nonatomic,readonly) BOOL loginSuccess;

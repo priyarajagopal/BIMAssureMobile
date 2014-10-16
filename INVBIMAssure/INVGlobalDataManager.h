@@ -14,8 +14,8 @@
  */
 
 typedef NSString* INV_BA_KEY;
-extern const NSString* INV_BA_KEY_EMAIL ;
-extern const NSString* INV_BA_KEY_PASSWORD ;
+extern const NSString* INV_CredentialKeyEmail ;
+extern const NSString* INV_CredentialKeyPassword ;
 
 
 @interface INVGlobalDataManager : NSObject
@@ -24,5 +24,5 @@ extern const NSString* INV_BA_KEY_PASSWORD ;
 
 +(INVGlobalDataManager*)sharedInstance;
 -(NSError*)saveCredentialsForLoggedInUser:(NSString*)email withPassword:(NSString*)password;
--(NSError*)deleteCredentialsForLoggedInUser;
+-(NSError*)deleteCurrentlySavedCredentialsFromKC;
 @end

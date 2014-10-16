@@ -12,7 +12,7 @@
 
 
 #pragma mark - KVO
-NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
+NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 @interface INVLoginViewController ()
 @property (nonatomic,assign) BOOL loginSuccess;
@@ -39,8 +39,8 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     NSDictionary* savedCredentials = self.globalDataManager.credentials;
-    NSString* loggedInUser = savedCredentials[INV_BA_KEY_EMAIL];
-    NSString* loggedInPass = savedCredentials[INV_BA_KEY_PASSWORD];
+    NSString* loggedInUser = savedCredentials[INV_CredentialKeyEmail];
+    NSString* loggedInPass = savedCredentials[INV_CredentialKeyPassword];
     if (loggedInPass && loggedInUser) {
         self.emailTextEntry.text = loggedInUser;
         self.passwordTextEntry.text = loggedInPass;
@@ -74,8 +74,8 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
     [self.passwordEntryView.layer setShadowOpacity:0.5];
 
     self.rememberMe.titleLabel.frame = self.rememberMe.frame;
-    [self.rememberMe setTitle:@"\uf096" forState:UIControlStateNormal];
-    [self.rememberMe setTitle:@"\uf046" forState:UIControlStateSelected];
+    //[self.rememberMe setTitle:@"\uf096" forState:UIControlStateNormal];
+    //[self.rememberMe setTitle:@"\uf046" forState:UIControlStateSelected];
 }
 /*
 #pragma mark - Navigation
@@ -106,12 +106,9 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
     
     if (self.saveCredentials) {
         [self.rememberMe setSelected:YES];
-        self.rememberMe.titleLabel.text =  @"\uf046";
-    }
+     }
     else {
         [self.rememberMe setSelected:NO];
-        
-        self.rememberMe.titleLabel.text =  @"\uf096";
     }
 }
 
