@@ -18,17 +18,16 @@
 @end
 
 @implementation AppDelegate
-
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.globalManager = [INVGlobalDataManager sharedInstance];
     if ([self isFirstRunOfApp]) {
         [self.globalManager deleteCurrentlySavedCredentialsFromKC];
     }
-    [self registerLoginObservers];
+    [self registerGlobalNotifications];
+    [self displayLoginRootViewController];
     [self setUpViewAppearance];
-     return YES;
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -40,10 +39,12 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     [self resetRootViewControllerWhenAppPushedToBackground];
+    [self deregisterGlobalNotifications];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self registerGlobalNotifications];
    
 }
 
@@ -61,10 +62,10 @@
     UIColor * whiteColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
     UIColor * darkGreyColor = [UIColor colorWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1.0];
     UIColor * ltGreyColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
-    
+    UIColor* redColor = [UIColor redColor];
 
     [self.window setTintColor:darkGreyColor];
-    [[UINavigationBar appearance] setBarTintColor:darkGreyColor ] ;
+    [[UINavigationBar appearance] setBarTintColor:redColor ] ;
     [[UINavigationBar appearance] setTintColor:whiteColor] ;
     
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
@@ -78,9 +79,11 @@
 #pragma mark - VC management
 
 -(void)resetRootViewControllerWhenAppPushedToBackground {
+    [self deregisterAccountObservers];
     [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self displayLoginRootViewController];
     }];
+    
 }
 
 -(void)displayLoggedInRootViewController {
@@ -149,6 +152,14 @@
     }
 }
 
+-(void)registerGlobalNotifications {
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onLogOut:) name:INV_NotificationLogOutSuccess object:nil];
+}
+
+-(void)deregisterGlobalNotifications {
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:INV_NotificationLogOutSuccess object:nil];
+}
+
 
 -(UIViewController*)rootController {
     return self.window.rootViewController;
@@ -186,5 +197,10 @@
         
     }
     
+}
+
+#pragma mark - Notification 
+-(void)onLogOut:(NSNotification*)notification {
+    NSLog(@"%s",__func__);
 }
 @end

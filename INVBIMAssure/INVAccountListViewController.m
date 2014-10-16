@@ -8,13 +8,12 @@
 
 @import CoreData;
 
-#define INV_CELLSIZE 100
+const NSInteger INV_CELLSIZE = 100;
 
 #import "INVAccountListViewController.h"
 #import "INVAccountViewCell.h"
 #import "INVDefaultAccountAlertView.h"
-
-
+#import "INVSimpleUserInfoTableViewController.h"
 
 #pragma mark - KVO
 NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
@@ -45,9 +44,6 @@ static NSString * const reuseIdentifier = @"Cell";
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
-    
-    
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,15 +51,22 @@ static NSString * const reuseIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    /*
+    if ([segue.identifier isEqualToString:@"ShowUserInfoSegue"]) {
+        INVSimpleUserInfoTableViewController* userVC = segue.destinationViewController;
+        userVC.tableView.delegate = userVC;
+        userVC.tableView.dataSource = userVC;
+    }
+    */
 }
-*/
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

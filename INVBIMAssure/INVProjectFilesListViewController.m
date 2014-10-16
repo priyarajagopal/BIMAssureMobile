@@ -12,8 +12,8 @@
 
 @import  CoreData;
 
-#define CELL_WIDTH  309
-#define CELL_HEIGHT 282
+const NSInteger CELL_WIDTH = 309;
+const NSInteger  CELL_HEIGHT = 282;
 
 @interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate>
 @property (nonatomic,strong)INVProjectManager* projectManager;

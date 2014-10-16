@@ -11,6 +11,10 @@
 
 @import EmpireMobileManager;
 
+// Notifications
+NSString* const INV_NotificationLogOutSuccess = @"accountLogOutSuccess";
+
+// Credentials Key
 const NSString* INV_CredentialKeyEmail = @"email";
 const NSString* INV_CredentialKeyPassword = @"password";
 

@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 @import EmpireMobileManager;
 
+
+/**
+ Notifications
+ */
+extern NSString* const INV_NotificationLogOutSuccess;
+
+
 /**
  Key consts corresponding to credentials Dictionary 
  */

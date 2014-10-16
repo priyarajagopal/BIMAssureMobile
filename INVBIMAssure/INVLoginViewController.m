@@ -74,8 +74,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     [self.passwordEntryView.layer setShadowOpacity:0.5];
 
     self.rememberMe.titleLabel.frame = self.rememberMe.frame;
-    //[self.rememberMe setTitle:@"\uf096" forState:UIControlStateNormal];
-    //[self.rememberMe setTitle:@"\uf046" forState:UIControlStateSelected];
+
 }
 /*
 #pragma mark - Navigation

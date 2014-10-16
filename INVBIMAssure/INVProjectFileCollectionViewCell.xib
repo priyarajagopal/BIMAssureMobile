@@ -57,7 +57,7 @@
     </objects>
     <resources>
         <image name="manage_rules" width="25" height="25"/>
-        <image name="thumbnail_project" width="446" height="68"/>
+        <image name="thumbnail_project" width="445" height="377"/>
         <image name="view_file" width="25" height="25"/>
     </resources>
 </document>

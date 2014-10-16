@@ -11,7 +11,7 @@
 #import "INVProjectDetailsTabViewController.h"
 #import "INVProjectFilesListViewController.h"
 
-#define DEFAULT_CELL_HEIGHT 300
+const NSInteger DEFAULT_CELL_HEIGHT = 300;
 
 @interface INVProjectsTableViewController ()
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
