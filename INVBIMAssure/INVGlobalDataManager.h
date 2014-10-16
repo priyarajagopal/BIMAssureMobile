@@ -11,6 +11,10 @@
 
 @interface INVGlobalDataManager : NSObject
 @property (nonatomic,readonly)INVEmpireMobileClient* invServerClient;
+@property (nonatomic,readonly)NSString* loggedinUser;
+@property (nonatomic,readonly)NSString* loggedinPassword;
 
-+(id)sharedInstance;
++(INVGlobalDataManager*)sharedInstance;
+-(NSError*)saveCredentialsForLoggedInUser:(NSString*)email withPassword:(NSString*)password;
+
 @end

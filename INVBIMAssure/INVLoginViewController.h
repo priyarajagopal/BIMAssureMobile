@@ -22,5 +22,6 @@ extern NSString* const KVO_INV_LoginSuccess;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField *passwordTextEntry;
 
 - (IBAction)onLoginClicked:(id)sender;
+- (IBAction)onRememberMeClicked:(id)sender;
 
 @end

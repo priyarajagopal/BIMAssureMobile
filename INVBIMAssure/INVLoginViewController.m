@@ -18,6 +18,7 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
 @property (nonatomic,assign) BOOL loginSuccess;
 @property (nonatomic,copy)NSString* userToken;
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;
+@property (nonatomic,assign)BOOL saveCredentials;
 
 @end
 
@@ -34,6 +35,16 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
     
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSString* loggedInUser = self.globalDataManager.loggedinUser;
+    NSString* loggedInPass = self.globalDataManager.loggedinUser;
+    if (loggedInPass && loggedInUser) {
+        [self showLoginProgress];
+        [self loginToServer];
+    }
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -67,16 +78,26 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
 
 #pragma mark - UIEvent Handlers
 - (IBAction)onLoginClicked:(id)sender {
-    if (!self.emailTextEntry.text || self.passwordTextEntry.text) {
-#pragma warning - Show alert  
+    if (!self.emailTextEntry.text || self.passwordTextEntry.text || ![self isValidEmailEntry]) {
+#pragma warning - Show alert
+        return;
+    }
+    
+    if (self.saveCredentials) {
+        [self saveCredentialsInKC];
     }
     [self showLoginProgress];
     [self loginToServer];
 }
 
+- (IBAction)onRememberMeClicked:(id)sender {
+    self.saveCredentials = !self.saveCredentials;
+}
+
 
 #pragma mark - server side
 -(void)loginToServer {
+    
     [self.globalDataManager.invServerClient signInWithUserName:self.emailTextEntry.text andPassword:self.passwordTextEntry.text withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideLoginProgress];
         if (!error) {
@@ -86,12 +107,21 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
         }
         else {
             [self showLoginFailureAlert];
+            
         }
     }];
 }
 
 
 #pragma mark - helpers
+-(void) saveCredentialsInKC {
+    NSError* error = [self.globalDataManager saveCredentialsForLoggedInUser:self.emailTextEntry.text withPassword:self.passwordTextEntry.text ];
+    if (error) {
+        // silently ignoring error
+        NSLog(@"%s. Failed with %@",__func__,error);
+    }
+}
+
 -(void)showLoginProgress {
     [self.hud setLabelText:NSLocalizedString(@"LOGGING_IN",nil)];
     [self.hud setDimBackground:YES];
@@ -112,5 +142,15 @@ NSString* const KVO_INV_LoginSuccess = @"loginSuccess";
     [self presentViewController:self.loginFailureAlertController animated:YES completion:^{
         
     }];
+}
+
+-(BOOL) isValidEmailEntry {
+    NSString* email = self.emailTextEntry.text;
+    NSRange range = [email rangeOfString:@"@"];
+    if (!range.length)
+    {
+        return NO;
+    }
+    return  YES;
 }
 @end

@@ -47,12 +47,10 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
- #pragma mark - UISPlitViewControllerDelegate
-    [self.collectionView.collectionViewLayout invalidateLayout];
+  //  [self.collectionView.collectionViewLayout invalidateLayout];
    
 #pragma warning Show spinner
-    [self fetchListOfProjectFiles];
-    
+    [self fetchListOfProjectFiles];    
 }
 #pragma mark <UICollectionViewDataSource>
 

@@ -116,12 +116,19 @@
                                     <action selector="onLoginClicked:" destination="6f0-bx-Ybc" eventType="touchUpInside" id="eYU-3T-Z4o"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtZ-Xm-8f5">
-                                <rect key="frame" x="390" y="363" width="133" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.035294117649999998" green="0.30588235289999999" blue="0.58039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Remember Me" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYg-x1-cc5">
+                                <rect key="frame" x="114" y="364" width="107.5" height="19.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLl-Aj-LSd">
+                                <rect key="frame" x="404" y="357" width="119" height="30"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <state key="normal" title="Forgot Password?">
+                                    <color key="titleColor" red="0.035294117649999998" green="0.30588235289999999" blue="0.58039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3M-8t-2sV">
                                 <rect key="frame" x="77" y="354" width="30" height="39"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="26"/>
@@ -132,32 +139,26 @@
                                 <state key="selected" title="">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <state key="highlighted" title="">
+                                <state key="highlighted">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onRememberMeClicked:" destination="6f0-bx-Ybc" eventType="touchUpInside" id="QIX-rP-JfZ"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYg-x1-cc5">
-                                <rect key="frame" x="114" y="363" width="108" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="HD7-QN-R52" secondAttribute="centerX" id="4Lm-sa-C7g"/>
                             <constraint firstItem="Prp-bk-5iF" firstAttribute="bottom" secondItem="HD7-QN-R52" secondAttribute="bottom" constant="81" id="ACi-ab-q5b"/>
                             <constraint firstItem="hx7-Eu-5pQ" firstAttribute="leading" secondItem="a20-bF-Wpl" secondAttribute="leading" id="CDQ-FM-wdE"/>
-                            <constraint firstItem="VtZ-Xm-8f5" firstAttribute="top" secondItem="a20-bF-Wpl" secondAttribute="bottom" constant="-91" id="IKa-Wv-bnb"/>
                             <constraint firstItem="HD7-QN-R52" firstAttribute="bottom" secondItem="hx7-Eu-5pQ" secondAttribute="bottom" constant="-144" id="SOB-E9-aLv"/>
                             <constraint firstItem="hx7-Eu-5pQ" firstAttribute="top" secondItem="WvV-Pv-uxw" secondAttribute="bottom" constant="19" id="TEr-b1-98G"/>
-                            <constraint firstItem="a20-bF-Wpl" firstAttribute="top" secondItem="VtZ-Xm-8f5" secondAttribute="bottom" constant="26" id="Xse-mw-gBE"/>
                             <constraint firstItem="HD7-QN-R52" firstAttribute="top" secondItem="iGZ-a1-P11" secondAttribute="bottom" constant="113" id="Y7P-4z-sop"/>
-                            <constraint firstItem="a20-bF-Wpl" firstAttribute="trailing" secondItem="VtZ-Xm-8f5" secondAttribute="trailing" id="bf5-XB-qvU"/>
                             <constraint firstItem="nYg-x1-cc5" firstAttribute="leading" secondItem="e3M-8t-2sV" secondAttribute="trailing" constant="7" id="c0t-K7-cmu"/>
                             <constraint firstItem="e3M-8t-2sV" firstAttribute="leading" secondItem="a20-bF-Wpl" secondAttribute="leading" id="fSs-yV-ofG"/>
                             <constraint firstItem="hx7-Eu-5pQ" firstAttribute="width" secondItem="a20-bF-Wpl" secondAttribute="width" id="iob-bh-GYX"/>
-                            <constraint firstItem="a20-bF-Wpl" firstAttribute="top" secondItem="nYg-x1-cc5" secondAttribute="bottom" constant="28" id="kZY-wD-ITQ"/>
+                            <constraint firstItem="a20-bF-Wpl" firstAttribute="top" secondItem="nYg-x1-cc5" secondAttribute="bottom" constant="26.5" id="kZY-wD-ITQ"/>
                             <constraint firstAttribute="centerX" secondItem="Prp-bk-5iF" secondAttribute="centerX" id="qmf-tR-e9g"/>
                             <constraint firstAttribute="centerX" secondItem="hx7-Eu-5pQ" secondAttribute="centerX" id="u7B-1X-JN9"/>
                             <constraint firstItem="a20-bF-Wpl" firstAttribute="top" secondItem="hx7-Eu-5pQ" secondAttribute="bottom" constant="65" id="var-DH-ufg"/>
