@@ -15,6 +15,8 @@
 		0224B8FD19F14EA10083EA6E /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0224B8FC19F14EA10083EA6E /* EmpireMobileManager.framework */; };
 		0224B8FE19F14EA10083EA6E /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0224B8FC19F14EA10083EA6E /* EmpireMobileManager.framework */; };
 		0224B90019F14EB10083EA6E /* EmpireMobileManager.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0224B8FC19F14EA10083EA6E /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */; };
+		0224B90419F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */; };
 		02408FFB19E447BD00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFC19E447BF00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
@@ -104,6 +106,8 @@
 		0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSimpleUserInfoTableViewController.m; sourceTree = "<group>"; };
 		0224B8FA19F143730083EA6E /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
 		0224B8FC19F14EA10083EA6E /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		0224B90119F171030083EA6E /* MBProgressHUD+INVBAHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+INVBAHUD.h"; sourceTree = "<group>"; };
+		0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+INVBAHUD.m"; sourceTree = "<group>"; };
 		02408FFD19E45A2700B218ED /* INVAccountListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountListViewController.h; sourceTree = "<group>"; };
 		02408FFE19E45A2700B218ED /* INVAccountListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountListViewController.m; sourceTree = "<group>"; };
 		0240900719E45B4E00B218ED /* INVAccountViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountViewCell.h; sourceTree = "<group>"; };
@@ -187,6 +191,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0224B90519F171080083EA6E /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				0224B90119F171030083EA6E /* MBProgressHUD+INVBAHUD.h */,
+				0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */,
+			);
+			name = categories;
+			sourceTree = "<group>";
+		};
 		0240900519E45A9400B218ED /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +333,7 @@
 				0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */,
 				0224B8AA19EDBB550083EA6E /* INVEmptySegue.h */,
 				0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */,
+				0224B90519F171080083EA6E /* categories */,
 				0240900619E45AA000B218ED /* data */,
 				0240900519E45A9400B218ED /* views */,
 			);
@@ -521,6 +535,7 @@
 				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
 				0224B8C719F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */,
 				02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
+				0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */,
 				02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
 				02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
 				02C8848E19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
@@ -554,6 +569,7 @@
 				02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
 				02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02C8847719E317E900DFB4E2 /* INVBIMAssureTests.m in Sources */,
+				0224B90419F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */,
 				02AAD41B19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */,
 				0224B8C819F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */,
 				0240900A19E45B4E00B218ED /* INVAccountViewCell.m in Sources */,

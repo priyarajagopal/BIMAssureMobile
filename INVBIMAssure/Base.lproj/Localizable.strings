@@ -18,3 +18,5 @@
 "FILES"="Files";
 "CREATED_ON"="Created On";
 "LOG_OUT"="Log Out";
+"LOGGING_IN_ACCOUNT"="Logging into Account";
+"LOADING_DATA"= "Loading...";

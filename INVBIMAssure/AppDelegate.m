@@ -23,6 +23,7 @@
     self.globalManager = [INVGlobalDataManager sharedInstance];
     if ([self isFirstRunOfApp]) {
         [self.globalManager deleteCurrentlySavedCredentialsFromKC];
+        [self.globalManager deleteCurrentlySavedDefaultAccountFromKC];
     }
     [self registerGlobalNotifications];
     [self displayLoginRootViewController];

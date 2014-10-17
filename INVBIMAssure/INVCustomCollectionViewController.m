@@ -23,10 +23,6 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
-    self.hud = [[MBProgressHUD alloc]init];
-    
-    [self.hud setAnimationType:MBProgressHUDAnimationFade];
-    [self.hud setMode:MBProgressHUDModeIndeterminate];
     [self customizeLayout];
   
 }

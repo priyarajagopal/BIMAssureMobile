@@ -21,5 +21,6 @@
 #import "INVCustomTableViewController.h"
 #import "INVCustomSplitViewController.h"
 #import "INVCustomTabBarController.h"
+#import "MBProgressHUD+INVBAHUD.h"
 
 #endif

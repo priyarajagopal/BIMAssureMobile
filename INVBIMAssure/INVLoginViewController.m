@@ -51,8 +51,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
         self.emailTextEntry.text = @"";
         self.passwordTextEntry.text = @"";
     }
-    
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -132,7 +132,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 #pragma mark - helpers
 -(void) saveCredentialsInKC {
-    NSError* error = [self.globalDataManager saveCredentialsForLoggedInUser:self.emailTextEntry.text withPassword:self.passwordTextEntry.text ];
+    NSError* error = [self.globalDataManager saveCredentialsInKCForLoggedInUser:self.emailTextEntry.text withPassword:self.passwordTextEntry.text ];
     if (error) {
         // silently ignoring error
         NSLog(@"%s. Failed with %@",__func__,error);
@@ -140,10 +140,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 }
 
 -(void)showLoginProgress {
-    [self.hud setLabelText:NSLocalizedString(@"LOGGING_IN",nil)];
-    [self.hud setDimBackground:YES];
+    self.hud = [MBProgressHUD loginUserHUD:nil];
     [self.hud show:YES];
-
 }
 
 -(void)hideLoginProgress {

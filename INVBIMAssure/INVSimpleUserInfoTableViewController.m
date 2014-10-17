@@ -11,7 +11,6 @@
 #pragma mark - KVO
 
 const NSInteger NUM_ROWS = 1;
-const NSInteger INDEX_ROW_LOGGEDINUSER = -1;
 const NSInteger INDEX_ROW_LOGOUT = 0;
 
 @interface INVSimpleUserInfoTableViewController () 
@@ -65,12 +64,7 @@ const NSInteger INDEX_ROW_LOGOUT = 0;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell* cell;
-    if (indexPath.row == INDEX_ROW_LOGGEDINUSER) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CurrentUserCell"];
-        NSDictionary* savedCredentials = self.globalDataManager.credentials;
-        NSString* loggedInUser = savedCredentials[INV_CredentialKeyEmail];
-        cell.textLabel.text = loggedInUser;
-    }
+   
     if (indexPath.row == INDEX_ROW_LOGOUT) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LogOutCell"];
         cell.textLabel.text = NSLocalizedString(@"LOG_OUT", nil);

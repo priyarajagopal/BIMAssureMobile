@@ -55,6 +55,19 @@ static NSString * const reuseIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    NSNumber* defaultAcnt = self.globalDataManager.defaultAccountId;
+    if (defaultAcnt) {
+        self.defaultAccountId = defaultAcnt;
+        [self showLoginProgress];
+        [self loginAccount];
+    }
+    else {
+        self.defaultAccountId = nil;
+    }
+}
 
 #pragma mark - Navigation
 
@@ -74,7 +87,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-#pragma warning Show spinner
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self fetchListOfAccounts];
     
 }
@@ -151,6 +164,11 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - INVDefaultAccountAlertViewDelegate
 -(void)onLogintoAccountWithDefault:(BOOL)isDefault {
     [self dismissSaveAsDefaultAlert];
+    if (isDefault) {
+        // Just ignore the error and continue logging in
+        NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.defaultAccountId];
+    }
+    [self showLoginProgress];
     [self loginAccount];
 }
 
@@ -172,8 +190,9 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - server side 
 -(void)fetchListOfAccounts {
     [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
         if (!error) {
-#pragma warning hide spinner
+
 #pragma note Yes - you could have directly accessed accounts from accountManager. Using FetchResultsController directly makes it simpler
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
@@ -205,6 +224,10 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - helpers
+-(void)showLoginProgress {
+    self.hud = [MBProgressHUD loginAccountHUD:[NSString stringWithFormat:@"%@",self.defaultAccountId]];
+    [self.hud show:YES];
+}
 
 -(void)showProjectListViewController {
     self.accountLoginSuccess = YES;

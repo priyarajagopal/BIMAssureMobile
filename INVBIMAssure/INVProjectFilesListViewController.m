@@ -47,9 +47,9 @@ const NSInteger  CELL_HEIGHT = 282;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-  //  [self.collectionView.collectionViewLayout invalidateLayout];
-   
-#pragma warning Show spinner
+    
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.hud show:YES];
     [self fetchListOfProjectFiles];    
 }
 #pragma mark <UICollectionViewDataSource>
@@ -101,8 +101,9 @@ const NSInteger  CELL_HEIGHT = 282;
 #pragma mark - server side
 -(void)fetchListOfProjectFiles {
     [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
         if (!error) {
-#pragma warning hide spinner
+
 #pragma note Yes - you could have directly accessed accounts from project manager. Using FetchResultsController directly makes it simpler
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];

@@ -41,14 +41,16 @@ const NSInteger DEFAULT_CELL_HEIGHT = 300;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.hud show:YES];
     [self fetchProjectList];
 }
 
 #pragma mark - server side
 -(void)fetchProjectList {
     [self.globalDataManager.invServerClient getAllProjectsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
         if (!error) {
-#pragma warning hide spinner
 #pragma note Yes - you could have directly accessed accounts from accountManager. Using FetchResultsController directly makes it simpler
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];

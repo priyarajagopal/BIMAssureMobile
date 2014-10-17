@@ -19,10 +19,12 @@ const NSString* INV_CredentialKeyEmail = @"email";
 const NSString* INV_CredentialKeyPassword = @"password";
 
 static NSString* const INV_CredentialsKeychainKey = @"BACredentials";
+static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 
 @interface INVGlobalDataManager()
 @property (nonatomic,readwrite)INVEmpireMobileClient* invServerClient;
 @property (nonatomic,readwrite)NSDictionary* credentials;
+@property (nonatomic,readwrite)NSNumber* defaultAccountId;
 @end
 
 @implementation INVGlobalDataManager
@@ -45,7 +47,7 @@ static NSString* const INV_CredentialsKeychainKey = @"BACredentials";
 
 }
 
--(NSError*)saveCredentialsForLoggedInUser:(NSString*)email withPassword:(NSString*)password {
+-(NSError*)saveCredentialsInKCForLoggedInUser:(NSString*)email withPassword:(NSString*)password {
     NSError* error;
     _credentials = @{INV_CredentialKeyEmail:email, INV_CredentialKeyPassword:password};
     [FDKeychain saveItem:_credentials forKey:INV_CredentialsKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
@@ -62,13 +64,36 @@ static NSString* const INV_CredentialsKeychainKey = @"BACredentials";
     return error;
 }
 
+-(NSError*)saveDefaultAccountInKCForLoggedInUser:(NSNumber*)accountId {
+    NSError* error;
+    _defaultAccountId = accountId;
+    [FDKeychain saveItem:_defaultAccountId forKey:INV_DefaultAccountKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
+    if (error) {
+        // silently ignoring error
+        NSLog(@"%s. Failed with %@",__func__,error);
+    }
+    return error;
+}
+
+-(NSError*)deleteCurrentlySavedDefaultAccountFromKC {
+    NSError* error;
+    [FDKeychain deleteItemForKey:INV_DefaultAccountKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
+    return error;
+}
+
 #pragma mark - public accessors
 -(NSDictionary*) credentials {
-    NSString* bundleId = [NSBundle bundleForClass:[self class]].bundleIdentifier;
     NSError* error;
 
-    _credentials = [FDKeychain itemForKey:INV_CredentialsKeychainKey forService:bundleId error:&error];
+    _credentials = [FDKeychain itemForKey:INV_CredentialsKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
     return _credentials;
+}
+
+-(NSNumber*)defaultAccountId {
+    NSError* error;
+    
+    _defaultAccountId = [FDKeychain itemForKey:INV_DefaultAccountKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
+    return _defaultAccountId;
 }
 
 -(NSString*)serviceIdentifierForKCStorage {

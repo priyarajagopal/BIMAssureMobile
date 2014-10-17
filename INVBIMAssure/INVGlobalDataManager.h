@@ -28,8 +28,13 @@ extern const NSString* INV_CredentialKeyPassword ;
 @interface INVGlobalDataManager : NSObject
 @property (nonatomic,readonly)INVEmpireMobileClient* invServerClient;
 @property (nonatomic,readonly)NSDictionary* credentials;
+@property (nonatomic,readonly)NSNumber* defaultAccountId;
 
 +(INVGlobalDataManager*)sharedInstance;
--(NSError*)saveCredentialsForLoggedInUser:(NSString*)email withPassword:(NSString*)password;
+
+-(NSError*)saveCredentialsInKCForLoggedInUser:(NSString*)email withPassword:(NSString*)password;
 -(NSError*)deleteCurrentlySavedCredentialsFromKC;
+
+-(NSError*)saveDefaultAccountInKCForLoggedInUser:(NSNumber*)accountId;
+-(NSError*)deleteCurrentlySavedDefaultAccountFromKC;
 @end

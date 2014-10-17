@@ -20,10 +20,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
-    self.hud = [[MBProgressHUD alloc]init];
-    
-    [self.hud setAnimationType:MBProgressHUDAnimationFade];
-    [self.hud setMode:MBProgressHUDModeIndeterminate];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,5 +36,8 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+
 
 @end
