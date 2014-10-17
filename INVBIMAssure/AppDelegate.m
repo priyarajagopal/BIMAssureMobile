@@ -203,5 +203,11 @@
 #pragma mark - Notification 
 -(void)onLogOut:(NSNotification*)notification {
     NSLog(@"%s",__func__);
+    [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.globalManager deleteCurrentlySavedCredentialsFromKC];
+        [self.globalManager deleteCurrentlySavedDefaultAccountFromKC];
+    }];
+    [self displayLoginRootViewController];
+ 
 }
 @end
