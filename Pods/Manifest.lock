@@ -21,9 +21,12 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - FDKeychain (1.2.0)
-  - Mantle (1.5):
+  - FontAwesomeKit/Core (2.1.8)
+  - FontAwesomeKit/FontAwesome (2.1.8):
+    - FontAwesomeKit/Core
+  - Mantle (1.5.1):
     - Mantle/extobjc
-  - Mantle/extobjc (1.5)
+  - Mantle/extobjc (1.5.1)
   - MBProgressHUD (0.9)
   - Overcoat (2.0.2):
     - Overcoat/NSURLSession
@@ -35,13 +38,15 @@ PODS:
 
 DEPENDENCIES:
   - FDKeychain (~> 1.0)
+  - FontAwesomeKit/FontAwesome (~> 2.1.0)
   - MBProgressHUD (= 0.9)
   - Overcoat (~> 2.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   FDKeychain: 7d083423c39a430c63b170632c11182d28920da3
-  Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
+  FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
+  Mantle: d7c5ac734579ec751c58fecbf56189853056c58c
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   Overcoat: a9504cd1f0389641526ba1784592503c012c4b5f
 

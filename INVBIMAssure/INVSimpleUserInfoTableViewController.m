@@ -10,9 +10,9 @@
 
 #pragma mark - KVO
 
-const NSInteger NUM_ROWS = 2;
-const NSInteger INDEX_ROW_LOGGEDINUSER = 0;
-const NSInteger INDEX_ROW_LOGOUT = 1;
+const NSInteger NUM_ROWS = 1;
+const NSInteger INDEX_ROW_LOGGEDINUSER = -1;
+const NSInteger INDEX_ROW_LOGOUT = 0;
 
 @interface INVSimpleUserInfoTableViewController () 
 @property (nonatomic,assign) BOOL accountLogOutSuccess;
@@ -44,6 +44,8 @@ const NSInteger INDEX_ROW_LOGOUT = 1;
 
 #pragma mark - UITableViewDelegate
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == INDEX_ROW_LOGOUT) {
         [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationLogOutSuccess object:nil];
@@ -51,6 +53,12 @@ const NSInteger INDEX_ROW_LOGOUT = 1;
 }
 
 #pragma mark - UITableViewDataSource
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSDictionary* savedCredentials = self.globalDataManager.credentials;
+    NSString* loggedInUser = savedCredentials[INV_CredentialKeyEmail];
+    return loggedInUser;
+    
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return NUM_ROWS;
 }
@@ -59,7 +67,6 @@ const NSInteger INDEX_ROW_LOGOUT = 1;
     UITableViewCell* cell;
     if (indexPath.row == INDEX_ROW_LOGGEDINUSER) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CurrentUserCell"];
-      //  cell = [tableView dequeueReusableCellWithIdentifier:@"CurrentUserCell" forIndexPath:indexPath];
         NSDictionary* savedCredentials = self.globalDataManager.credentials;
         NSString* loggedInUser = savedCredentials[INV_CredentialKeyEmail];
         cell.textLabel.text = loggedInUser;
@@ -68,12 +75,13 @@ const NSInteger INDEX_ROW_LOGOUT = 1;
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LogOutCell"];
         cell.textLabel.text = NSLocalizedString(@"LOG_OUT", nil);
         UILabel * accessoryLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,0,40,40)];
-        accessoryLabel.font = [UIFont fontWithName:@"FontAwesome" size:20];
-        accessoryLabel.textColor = [UIColor grayColor];
-        accessoryLabel.text = @"\uF08B";
+        FAKFontAwesome *logoutIcon = [FAKFontAwesome signOutIconWithSize:20];
+        [logoutIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
+        accessoryLabel.attributedText = logoutIcon.attributedString;
         cell.accessoryView = accessoryLabel;
-    //    cell = [tableView dequeueReusableCellWithIdentifier:@"LogOutCell" forIndexPath:indexPath];
     }
+    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cell.textLabel.textColor = [ UIColor grayColor];
     return cell;
 }
 

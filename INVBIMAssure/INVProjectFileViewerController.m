@@ -58,6 +58,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModeAllVisible ];
+    self.webView = nil;
 }
 
 -(void)viewDidDisappear:(BOOL)animated {

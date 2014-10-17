@@ -18,9 +18,10 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
+    UIColor* cyanColor = [UIColor colorWithRed:194.0/255 green:224.0/255 blue:240.0/255 alpha:1.0];
     // Configure the view for the selected state
     UIView *bgColorView = [[UIView alloc] init];
-    UIColor * ltBlueColor = [UIColor colorWithRed:194.0/255 green:224.0/255 blue:240.0/255 alpha:1.0];
+    UIColor * ltBlueColor = cyanColor;
     
     [bgColorView setBackgroundColor:ltBlueColor];
     [self setSelectedBackgroundView:bgColorView];

@@ -44,6 +44,10 @@ static NSString * const reuseIdentifier = @"Cell";
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
+    UIBarButtonItem* settingsButton = self.navigationItem.rightBarButtonItem;
+    
+     FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:44];
+    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(35, 35)]];
 }
 
 - (void)didReceiveMemoryWarning {

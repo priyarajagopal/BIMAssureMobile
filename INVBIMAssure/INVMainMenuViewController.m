@@ -31,6 +31,8 @@ NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIColor* redColor = [UIColor colorWithRed:143.0/255 green:10.0/255 blue:43.0/255 alpha:1.0];
+    [self.view setBackgroundColor:redColor];
 }
 
 - (void)didReceiveMemoryWarning {
