@@ -24,9 +24,9 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,strong) INVDefaultAccountAlertView* alertView ;
 @property (nonatomic,strong)INVAccountManager* accountManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
-@property (nonatomic,strong)NSNumber* defaultAccountId;
+@property (nonatomic,strong)NSNumber* currentAccountId;
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;
-
+@property (nonatomic,assign)BOOL saveAsDefault;
 
 @end
 
@@ -46,7 +46,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
     UIBarButtonItem* settingsButton = self.navigationItem.rightBarButtonItem;
     
-     FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:44];
+    FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:44];
     [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(35, 35)]];
 }
 
@@ -60,12 +60,12 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSNumber* defaultAcnt = self.globalDataManager.defaultAccountId;
     if (defaultAcnt) {
-        self.defaultAccountId = defaultAcnt;
+        self.currentAccountId = defaultAcnt;
         [self showLoginProgress];
         [self loginAccount];
     }
     else {
-        self.defaultAccountId = nil;
+        self.currentAccountId = nil;
     }
 }
 
@@ -117,6 +117,13 @@ static NSString * const reuseIdentifier = @"Cell";
     INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
     cell.name.text = account.name;
     cell.overview.text = account.overview;
+    NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
+    if (currentAcnt && [account.accountId isEqualToNumber:currentAcnt]) {
+        cell.isDefault = YES;
+    }
+    else {
+        cell.isDefault = NO;
+    }
     
     return cell;
 }
@@ -139,13 +146,19 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog (@"%s",__func__);
     INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
-    self.defaultAccountId = account.accountId;
-    
-   // [self showBlurEffect];
-    [self showSaveAsDefaultAlert];
+    if ( self.globalDataManager.loggedInAccount == account.accountId) {
+#pragma warning - show alert asking user if they want to log out
+        [self logoutAccount];
+    }
+    else {
+        self.currentAccountId = account.accountId;
+        // [self showBlurEffect];
+        [self showSaveAsDefaultAlert];
+    }
 }
 
 /*
+
 // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
 	return NO;
@@ -164,24 +177,20 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - INVDefaultAccountAlertViewDelegate
 -(void)onLogintoAccountWithDefault:(BOOL)isDefault {
     [self dismissSaveAsDefaultAlert];
-    if (isDefault) {
-        // Just ignore the error and continue logging in
-        NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.defaultAccountId];
-    }
+    self.saveAsDefault = isDefault;
+ 
     [self showLoginProgress];
     [self loginAccount];
 }
 
 -(void)onCancelLogintoAccount {
     [self dismissSaveAsDefaultAlert];
-    
 }
 
 #pragma mark - accessor
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForAccountsOfSignedInUser managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-        
     }
     return  _dataResultsController;
 }
@@ -192,30 +201,47 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
-
+      
 #pragma note Yes - you could have directly accessed accounts from accountManager. Using FetchResultsController directly makes it simpler
-            NSError* dbError;
+             NSError* dbError;
+             if (self.saveAsDefault) {
+                // Just ignore the error and continue logging in
+                NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
+                 if (error) {
+                     NSLog(@"%s. Error: %@",__func__,error);
+                 }
+            }
+           
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
                 NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
                 [self.collectionView reloadData];
             }
+            
             else {
-                #pragma warning - display error
+                #warning - display error
             }
-
+            
         }
         else {
-#pragma warning - display error
+#warning - display error
         }
     }];
 }
 
 -(void)loginAccount {
-    NSLog(@"%s login with default %@",__func__,self.defaultAccountId);
-    [self.globalDataManager.invServerClient signIntoAccount:self.defaultAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
         if (!error) {
-            [self showProjectListViewController];
+            NSNumber* prevLoggedInAccount =  self.globalDataManager.loggedInAccount ;
+            self.globalDataManager.loggedInAccount = self.currentAccountId;
+              if (prevLoggedInAccount && (prevLoggedInAccount != self.currentAccountId))
+            {
+                [self notifySwitchFromAccount:prevLoggedInAccount];
+            }
+            else {
+                [self notifyAccountLogin];
+            }
+
         }
         else {
             [self showLoginFailureAlert];
@@ -223,15 +249,37 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
 }
 
+-(void)logoutAccount {
+    [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+        if (!error) {
+            self.currentAccountId = nil;
+            self.globalDataManager.loggedInAccount = nil;
+            [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
+            [self notifyAccountLogout];
+        }
+    }];
+}
+
 #pragma mark - helpers
+-(void)notifyAccountLogin {
+    self.accountLoginSuccess = YES;
+}
+
+-(void)notifySwitchFromAccount:(NSNumber*)prevLoggedInAccount {
+    NSDictionary* userInfo = @{@"currentAccount":prevLoggedInAccount,@"newAccount":self.currentAccountId};
+    [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationAccountSwitchSuccess object:self userInfo:userInfo];
+    
+}
+
+-(void)notifyAccountLogout {
+    [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationAccountLogOutSuccess object:self userInfo:nil];
+}
+
 -(void)showLoginProgress {
-    self.hud = [MBProgressHUD loginAccountHUD:[NSString stringWithFormat:@"%@",self.defaultAccountId]];
+    self.hud = [MBProgressHUD loginAccountHUD:[NSString stringWithFormat:@"%@",self.currentAccountId]];
     [self.hud show:YES];
 }
 
--(void)showProjectListViewController {
-    self.accountLoginSuccess = YES;
-}
 
 -(void)showSaveAsDefaultAlert {
 
@@ -262,7 +310,6 @@ static NSString * const reuseIdentifier = @"Cell";
     } completion:^(BOOL finished) {
         
           [self.alertView setTranslatesAutoresizingMaskIntoConstraints:NO];
-        
           [self setDefaultAccountAlertConstraints];
     }];
     
@@ -319,4 +366,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
+- (IBAction)onDoneTapped:(id)sender {
+}
 @end

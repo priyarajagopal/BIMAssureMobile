@@ -111,8 +111,15 @@
 
 @return  nil if there was no error deleting user data else appropriate error object
 */
--(NSError*)deleteSignedInUserData;
+-(NSError*)removeSignedInUserCachedData;
 
-
+/**
+ Removes all persisted information pertaining to the signed in account. The signed in user credentials is not removed. Although the deletion is initated , a nil error response does not necessarily imply that all data was
+ removed as requested.
+ 
+ 
+ @return  nil if there was no error deleting account data else appropriate error object
+ */
+-(NSError*)removeSignedInAccountCachedData;
 
 @end

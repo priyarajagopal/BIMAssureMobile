@@ -10,7 +10,7 @@
 #import "INVEmpireMobileError.h"
 #import "INVAccountManager.h"
 #import "INVProjectManager.h"
-
+#import "INVRulesManager.h"
 
 
 
@@ -38,6 +38,11 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  Project Manager resposible for managing responses to project related requests
  */
 @property (nonatomic,readonly)INVProjectManager* projectManager;
+
+/**
+ Rules Manager resposible for managing responses to rules related requests
+ */
+@property (nonatomic,readonly)INVRulesManager* rulesManager;
 
 
 #pragma mark - Creation
@@ -219,14 +224,62 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  */
 -(void)getAllFilesForProject:(NSNumber*)projectId WithCompletionBlock:(CompletionHandler) handler;
 
+#pragma mark - Rules Related
+/**
+ Asynchornously ,get list of all rulesets associated with a project. Users must have signed into an account in order to be able to fetch rule sets.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve projects
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see rulesManager
+ 
+ */
+-(void)getAllRuleSetsForProject:(NSNumber*)projectId WithCompletionBlock:(CompletionHandler) handler;
+
+#pragma mark - Rules Related
+/**
+ Asynchornously ,get list of all rules associated with a account. Users must have signed into an account in order to be able to fetch rules.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rules
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see rulesManager
+ 
+ */
+-(void)getAllRulesForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+
+/**
+ Asynchornously ,get rule definition associated with specific ruleId. Users must have signed into an account in order to be able to fetch rules.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rules
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see rulesManager
+ 
+ */
+-(void)getRuleDefinitionForRuleId:(NSNumber*)ruleId WithCompletionBlock:(CompletionHandler) handler;
+
+
 
 #warning Include way to asyncronously Notify when log out is done
 /**
- Removes any user /account information persisted for the user.An error is not returned even if user has not signed in
+ Removes any user /account information persisted for the user.An error is not returned  if user has not signed in
  
  @param handler The completion handler that returns error object if there was any error.
  
  */
 -(void)logOffSignedInUserWithCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Removes any account information persisted for the user. User will continue to remain signed in . An error is not returned  if user has not signed in
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ */
+-(void)logOffSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
 
 @end

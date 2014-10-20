@@ -63,6 +63,6 @@
  removed as requested.
  @return  nil if there was no error deleting user data else appropriate error object.
  */
--(NSError*)deleteProjectData;
+-(NSError*)removeProjectCachedData;
 
 @end

@@ -1,0 +1,6 @@
+framework module EmpireMobileManager {
+  umbrella header "EmpireMobileManager.h"
+
+  export *
+  module * { export * }
+}

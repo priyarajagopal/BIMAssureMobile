@@ -64,9 +64,11 @@
     UIColor * medGreyColor = [UIColor colorWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1.0];
     UIColor * ltGreyColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
     UIColor* darkGreyColor = [UIColor colorWithRed:150.0/255 green:150.0/255 blue:150.0/255 alpha:1.0];
+    UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
 
+    
     [self.window setTintColor:darkGreyColor];
-    [[UINavigationBar appearance] setBarTintColor:darkGreyColor ] ;
+    [[UINavigationBar appearance] setBarTintColor:cyanBlueColor ] ;
     [[UINavigationBar appearance] setTintColor:whiteColor] ;
     
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
@@ -108,10 +110,8 @@
 -(void)displayProjectsListRootViewController {
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
-     UIViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"MainVC"];
+    UIViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"MainVC"];
     self.window.rootViewController = projectsVC;
-
-    
 }
 
 #pragma mark - helpers
@@ -154,11 +154,16 @@
 }
 
 -(void)registerGlobalNotifications {
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onLogOut:) name:INV_NotificationLogOutSuccess object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onUserLogOut:) name:INV_NotificationUserLogOutSuccess object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onAccountSwitch:) name:INV_NotificationAccountSwitchSuccess object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onAccountLogOut:) name:INV_NotificationAccountLogOutSuccess object:nil];
 }
 
 -(void)deregisterGlobalNotifications {
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:INV_NotificationLogOutSuccess object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:INV_NotificationUserLogOutSuccess object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:INV_NotificationAccountSwitchSuccess object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:INV_NotificationAccountLogOutSuccess object:nil];
+
 }
 
 
@@ -200,14 +205,19 @@
     
 }
 
-#pragma mark - Notification 
--(void)onLogOut:(NSNotification*)notification {
+#pragma mark - Notification Handlers
+-(void)onUserLogOut:(NSNotification*)notification {
     NSLog(@"%s",__func__);
-    [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.globalManager deleteCurrentlySavedCredentialsFromKC];
-        [self.globalManager deleteCurrentlySavedDefaultAccountFromKC];
-    }];
     [self displayLoginRootViewController];
- 
+}
+
+-(void)onAccountLogOut:(NSNotification*)notification {
+    NSLog(@"%s",__func__);
+    [self displayLoggedInRootViewController];
+}
+
+-(void)onAccountSwitch:(NSNotification*)notification {
+    NSLog(@"%s with notification %@",__func__,notification.userInfo);
+    [self displayProjectsListRootViewController];
 }
 @end

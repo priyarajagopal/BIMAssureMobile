@@ -73,6 +73,7 @@
             </constraints>
             <size key="customSize" width="301" height="70"/>
             <connections>
+                <outlet property="accessoryLabel" destination="egK-EL-DS9" id="Gqk-1a-kRR"/>
                 <outlet property="name" destination="w4K-G6-Tjp" id="AgB-RH-Wxw"/>
                 <outlet property="overview" destination="uhk-be-sb1" id="8FR-MS-5Xs"/>
             </connections>

@@ -22,4 +22,18 @@
     return attr;
 }
 
+-(void)setIsDefault:(BOOL)isDefault {
+    if (isDefault) {
+        UIColor* greenColor = [UIColor colorWithRed:95.0/255 green:173.0/255 blue:161.0/255 alpha:1.0];
+        FAKFontAwesome *isDefaultIcon = [FAKFontAwesome checkCircleIconWithSize:self.frame.size.height/3];
+        [isDefaultIcon addAttribute:NSForegroundColorAttributeName value:greenColor];
+        self.accessoryLabel.attributedText = [isDefaultIcon attributedString];
+    }
+    else {
+        FAKFontAwesome *isDefaultIcon = [FAKFontAwesome signOutIconWithSize:self.frame.size.height/3];
+        [isDefaultIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
+        self.accessoryLabel.attributedText = [isDefaultIcon attributedString];
+    }
+}
+
 @end

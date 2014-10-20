@@ -187,7 +187,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="53N-O4-TUT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pgY-bN-vbr">
                             <size key="itemSize" width="301" height="70"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -347,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4hY-dH-y4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2584" y="2641.5"/>
+            <point key="canvasLocation" x="3396" y="2641"/>
         </scene>
         <!--Files-->
         <scene sceneID="hU9-DP-hIR">
@@ -388,7 +388,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2565" y="3380.25"/>
+            <point key="canvasLocation" x="3377" y="3380"/>
         </scene>
         <!--Project File Viewer Controller-->
         <scene sceneID="fqY-Jw-B2u">
@@ -502,7 +502,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o5O-ub-DK7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3602" y="3267"/>
+            <point key="canvasLocation" x="4414" y="3267"/>
         </scene>
         <!--Files-->
         <scene sceneID="y7V-3v-ILL">
@@ -519,7 +519,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUr-II-1Q5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1853" y="3380.25"/>
+            <point key="canvasLocation" x="2665" y="3380"/>
         </scene>
         <!--Project Details Tab View Controller-->
         <scene sceneID="MIi-PL-NpI">
@@ -538,7 +538,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MaD-Iy-18J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1853" y="2641.5"/>
+            <point key="canvasLocation" x="2665" y="2641"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Gn3-Dq-jv4">
@@ -552,9 +552,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-vM-vRE" userLabel="detail container view">
-                                <rect key="frame" x="65" y="0.0" width="535" height="600"/>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omg-k9-r5h" userLabel="main menu container view">
                                 <rect key="frame" x="-4" y="0.0" width="69" height="600"/>
                                 <constraints>
@@ -563,6 +560,9 @@
                                 <connections>
                                     <segue destination="vbl-dm-Oc3" kind="embed" identifier="MainMenuEmbedSegue" id="rJ9-Y0-0hA"/>
                                 </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-vM-vRE" userLabel="detail container view">
+                                <rect key="frame" x="65" y="0.0" width="535" height="600"/>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -580,7 +580,7 @@
                         <outlet property="detailContainerView" destination="5qd-vM-vRE" id="tMu-ZL-yKa"/>
                         <outlet property="mainMenuContainerView" destination="Omg-k9-r5h" id="EmK-Cb-Hgz"/>
                         <segue destination="XJ9-1q-cac" kind="custom" identifier="MainProjectEmbedSegue" customClass="INVEmptySegue" id="mWl-4x-jI9"/>
-                        <segue destination="Kop-ST-qty" kind="custom" identifier="MainAccountEmbedSegue" customClass="INVEmptySegue" id="X7M-4Z-Het"/>
+                        <segue destination="9EX-kg-i2W" kind="custom" identifier="MainAccountEmbedSegue" customClass="INVEmptySegue" id="MH4-4a-Mjx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHI-XY-xZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -600,23 +600,44 @@
             </objects>
             <point key="canvasLocation" x="403" y="1943"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="BfM-zp-ixc">
+        <!--Account List View Controller(MainMenu)-->
+        <scene sceneID="Ewi-CY-F5Y">
             <objects>
-                <viewController id="Kop-ST-qty" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="XvW-1N-vsU"/>
-                        <viewControllerLayoutGuide type="bottom" id="7ii-VU-Fq2"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Qlm-QO-Y9k">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <collectionViewController storyboardIdentifier="AccountListMainVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HQy-66-bda" userLabel="Account List View Controller(MainMenu)" customClass="INVAccountListViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="03M-oG-TMG">
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S9t-Dl-XTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="txP-0x-ou6">
+                            <size key="itemSize" width="301" height="70"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pFC-es-qtG">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="301" height="70"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="HQy-66-bda" id="SvX-Qj-yEo"/>
+                            <outlet property="delegate" destination="HQy-66-bda" id="2mP-75-3Qy"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="0TC-K7-bfw"/>
+                    <connections>
+                        <outlet property="collectionView" destination="03M-oG-TMG" id="8xC-N8-JhY"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DUP-37-jcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="27" y="2739"/>
+            <point key="canvasLocation" x="871" y="2765"/>
         </scene>
         <!--General No Project Scene-->
         <scene sceneID="F49-oI-xwJ">
@@ -664,7 +685,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6xC-wQ-K9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="843" y="2666.25"/>
+            <point key="canvasLocation" x="1655" y="2666"/>
         </scene>
         <!--AccountListNavigationController-->
         <scene sceneID="EAi-m8-bcc">
@@ -764,6 +785,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4Y-wN-kxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-510.5" y="2760"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fIz-Um-clR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9EX-kg-i2W" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eiC-E2-P2i">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HQy-66-bda" kind="relationship" relationship="rootViewController" id="maU-Y6-WUf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h7g-FQ-il8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="59" y="2765"/>
         </scene>
     </scenes>
     <resources>

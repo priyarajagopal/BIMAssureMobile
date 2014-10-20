@@ -12,6 +12,9 @@
 extern NSString* const KVO_INVAccountLoginSuccess ;
 
 @interface INVAccountListViewController : INVCustomCollectionViewController
+
 @property (nonatomic,readonly) BOOL accountLoginSuccess;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
+
+- (IBAction)onDoneTapped:(id)sender;
 @end

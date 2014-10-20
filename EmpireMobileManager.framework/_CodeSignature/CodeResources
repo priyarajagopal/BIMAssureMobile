@@ -18,11 +18,11 @@
 		</data>
 		<key>Headers/INVAccountManager.h</key>
 		<data>
-		kHwgx7eL+hrC06VA3NAcCw+13Nc=
+		ClxT+hBbhOG0eTmjb7r1iOnRWlg=
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		6eQmxE4XaqCdcIISU3GIzFLh5fc=
+		yYez6HGm8uhh1h5Q80/9XC0Uzs0=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -50,7 +50,27 @@
 		</data>
 		<key>Headers/INVProjectManager.h</key>
 		<data>
-		hLaCCwOzLjwLH6khvZOr/HjXE0M=
+		hzTBm5UiE2SzoCGlVRvLFHnG04w=
+		</data>
+		<key>Headers/INVRule.h</key>
+		<data>
+		iAZzCmYpAo/6hzn5q6LCPHdG4HE=
+		</data>
+		<key>Headers/INVRuleFormalParam.h</key>
+		<data>
+		9VxMOFJ4O3oaCtiqgFDXwXF7/NY=
+		</data>
+		<key>Headers/INVRuleInstance.h</key>
+		<data>
+		9aBZ2LfMp2KkbsEeMxn28JqGKJI=
+		</data>
+		<key>Headers/INVRuleSet.h</key>
+		<data>
+		JHnqX+M3MGDk+KBNch/b77Neb/8=
+		</data>
+		<key>Headers/INVRulesManager.h</key>
+		<data>
+		XHArAFC/DY1yrEAZ70mkytu37VA=
 		</data>
 		<key>Headers/INVSignedInAccount.h</key>
 		<data>
@@ -70,11 +90,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		EPOJVtvdsOdtDhph141lsA7znfE=
+		LMdE228X9XiG4Jb948SVqnUdeCM=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		iTbyw0NwWp5X1f9/dcr9vbELwG4=
+		aLLDJNAgpDGrulBYSbFji4Mam+I=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -97,11 +117,11 @@
 		</data>
 		<key>Headers/INVAccountManager.h</key>
 		<data>
-		kHwgx7eL+hrC06VA3NAcCw+13Nc=
+		ClxT+hBbhOG0eTmjb7r1iOnRWlg=
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		6eQmxE4XaqCdcIISU3GIzFLh5fc=
+		yYez6HGm8uhh1h5Q80/9XC0Uzs0=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -129,7 +149,27 @@
 		</data>
 		<key>Headers/INVProjectManager.h</key>
 		<data>
-		hLaCCwOzLjwLH6khvZOr/HjXE0M=
+		hzTBm5UiE2SzoCGlVRvLFHnG04w=
+		</data>
+		<key>Headers/INVRule.h</key>
+		<data>
+		iAZzCmYpAo/6hzn5q6LCPHdG4HE=
+		</data>
+		<key>Headers/INVRuleFormalParam.h</key>
+		<data>
+		9VxMOFJ4O3oaCtiqgFDXwXF7/NY=
+		</data>
+		<key>Headers/INVRuleInstance.h</key>
+		<data>
+		9aBZ2LfMp2KkbsEeMxn28JqGKJI=
+		</data>
+		<key>Headers/INVRuleSet.h</key>
+		<data>
+		JHnqX+M3MGDk+KBNch/b77Neb/8=
+		</data>
+		<key>Headers/INVRulesManager.h</key>
+		<data>
+		XHArAFC/DY1yrEAZ70mkytu37VA=
 		</data>
 		<key>Headers/INVSignedInAccount.h</key>
 		<data>
@@ -149,11 +189,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		EPOJVtvdsOdtDhph141lsA7znfE=
+		LMdE228X9XiG4Jb948SVqnUdeCM=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		iTbyw0NwWp5X1f9/dcr9vbELwG4=
+		aLLDJNAgpDGrulBYSbFji4Mam+I=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>

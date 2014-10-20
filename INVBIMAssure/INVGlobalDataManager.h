@@ -13,7 +13,9 @@
 /**
  Notifications
  */
-extern NSString* const INV_NotificationLogOutSuccess;
+extern NSString* const INV_NotificationUserLogOutSuccess;
+extern NSString* const INV_NotificationAccountSwitchSuccess;
+extern NSString* const INV_NotificationAccountLogOutSuccess;
 
 
 /**
@@ -29,6 +31,9 @@ extern const NSString* INV_CredentialKeyPassword ;
 @property (nonatomic,readonly)INVEmpireMobileClient* invServerClient;
 @property (nonatomic,readonly)NSDictionary* credentials;
 @property (nonatomic,readonly)NSNumber* defaultAccountId;
+@property (nonatomic,copy)NSString* loggedInUser;
+@property (nonatomic,copy)NSNumber* loggedInAccount;
+
 
 +(INVGlobalDataManager*)sharedInstance;
 

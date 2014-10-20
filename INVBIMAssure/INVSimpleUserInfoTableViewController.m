@@ -47,17 +47,20 @@ const NSInteger INDEX_ROW_LOGOUT = 0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == INDEX_ROW_LOGOUT) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationLogOutSuccess object:nil];
+        [self.globalDataManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+            [self.globalDataManager deleteCurrentlySavedCredentialsFromKC];
+            [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
+        }];
+        [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationUserLogOutSuccess object:nil];
     }
 }
 
 #pragma mark - UITableViewDataSource
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSDictionary* savedCredentials = self.globalDataManager.credentials;
-    NSString* loggedInUser = savedCredentials[INV_CredentialKeyEmail];
+    NSString* loggedInUser = self.globalDataManager.loggedInUser;
     return loggedInUser;
-    
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return NUM_ROWS;
 }

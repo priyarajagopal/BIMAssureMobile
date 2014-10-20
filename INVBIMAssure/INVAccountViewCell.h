@@ -11,5 +11,6 @@
 @interface INVAccountViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *overview;
-
+@property (weak, nonatomic) IBOutlet UILabel *accessoryLabel;
+@property (assign,nonatomic) BOOL isDefault;
 @end

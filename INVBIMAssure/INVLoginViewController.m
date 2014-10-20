@@ -92,10 +92,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 #pragma warning - Show alert
         return;
     }
-    
-    if (self.saveCredentials) {
-        [self saveCredentialsInKC];
-    }
     [self showLoginProgress];
     [self loginToServer];
 }
@@ -118,7 +114,12 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     [self.globalDataManager.invServerClient signInWithUserName:self.emailTextEntry.text andPassword:self.passwordTextEntry.text withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideLoginProgress];
         if (!error) {
+            if (self.saveCredentials) {
+                [self saveCredentialsInKC];
+            }
+            self.globalDataManager.loggedInUser = self.emailTextEntry.text;
             self.userToken = self.globalDataManager.invServerClient.accountManager.tokenOfSignedInUser;
+            
             NSLog(@"%s. Result of signing in is %@. TOken is %@",__func__,error, self.userToken);
             self.loginSuccess = YES;
         }
@@ -167,5 +168,16 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
         return NO;
     }
     return  YES;
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.passwordTextEntry) {
+        [textField resignFirstResponder];
+    }
+    else if (textField == self.emailTextEntry) {
+        [self.passwordTextEntry becomeFirstResponder];
+    }
+    return YES;
 }
 @end
