@@ -27,6 +27,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self registerKeyboardNotifications];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self deregisterKeyboardNotifications];
+}
 /*
 #pragma mark - Navigation
 
@@ -37,7 +46,30 @@
 }
 */
 
+-(void) registerKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
 
+-(void) deregisterKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+ 
+}
 
+-(void)keyboardWillShow:(NSNotification*)notification {
+#warning override in derived class
+}
+
+-(void)keyboardWillBeHidden:(NSNotification*)notification {
+#warning override in derived class
+}
 
 @end

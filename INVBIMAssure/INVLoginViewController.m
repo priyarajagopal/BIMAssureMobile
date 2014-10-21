@@ -14,7 +14,7 @@
 #pragma mark - KVO
 NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
-@interface INVLoginViewController ()
+@interface INVLoginViewController ()<UIScrollViewDelegate>
 @property (nonatomic,assign) BOOL loginSuccess;
 @property (nonatomic,copy)NSString* userToken;
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;
@@ -74,6 +74,24 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     [self.passwordEntryView.layer setShadowOpacity:0.5];
 
     self.rememberMe.titleLabel.frame = self.rememberMe.frame;
+    
+    NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.contentView
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:0
+                                                                         toItem:self.view
+                                                                      attribute:NSLayoutAttributeLeft
+                                                                     multiplier:1.0
+                                                                       constant:0];
+    [self.view addConstraint:leftConstraint];
+    
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self.contentView
+                                                                       attribute:NSLayoutAttributeTrailing
+                                                                       relatedBy:0
+                                                                          toItem:self.view
+                                                                       attribute:NSLayoutAttributeRight
+                                                                      multiplier:1.0
+                                                                        constant:0];
+    [self.view addConstraint:rightConstraint];
 
 }
 /*
@@ -180,4 +198,34 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     }
     return YES;
 }
+
+
+#pragma mark - Keyboard Notifications
+
+- (void) keyboardWillShow:(NSNotification *)notification
+{
+    NSDictionary* info = [notification userInfo];
+    CGRect kbRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    kbRect = [self.view convertRect:kbRect fromView:nil];
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbRect.size.height, 0.0);
+    self.contentScrollView.contentInset = contentInsets;
+    self.contentScrollView.scrollIndicatorInsets = contentInsets;
+    
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbRect.size.height;
+    if (!CGRectContainsPoint(aRect, self.loginButton.frame.origin) ) {
+        [self.contentScrollView scrollRectToVisible:self.loginButton.frame animated:YES];
+    }
+}
+
+- (void) keyboardWillBeHidden:(NSNotification *)notification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.contentScrollView.contentInset = contentInsets;
+    self.contentScrollView.scrollIndicatorInsets = contentInsets;
+}
+
+
+
 @end
