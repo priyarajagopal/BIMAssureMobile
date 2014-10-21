@@ -153,7 +153,14 @@ static NSString * const reuseIdentifier = @"Cell";
     else {
         self.currentAccountId = account.accountId;
         // [self showBlurEffect];
-        [self showSaveAsDefaultAlert];
+        if (self.globalDataManager.loggedInAccount ) {
+            NSString* message = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE",nil),account.name];
+            [self showSaveAsDefaultAlertWithMessage:message];
+        }
+        else {
+            NSString* message = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE",nil),account.name];
+            [self showSaveAsDefaultAlertWithMessage:message];
+        }
     }
 }
 
@@ -281,7 +288,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
--(void)showSaveAsDefaultAlert {
+-(void)showSaveAsDefaultAlertWithMessage:(NSString*)message {
 
     if (!self.alertView) {
         NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil];
@@ -295,6 +302,7 @@ static NSString * const reuseIdentifier = @"Cell";
         self.alertView.delegate = self;
         
     }
+    self.alertView.alertMessage.text = message;
     CGRect newFrame = self.alertView.frame;
     NSInteger viewWidth = self.alertView.frame.size.width;
     NSInteger viewHeight = self.alertView.frame.size.height;
@@ -319,7 +327,7 @@ static NSString * const reuseIdentifier = @"Cell";
     NSLayoutConstraint* xConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
     NSLayoutConstraint* yConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
     NSLayoutConstraint* widthConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:436];
-    NSLayoutConstraint* heightConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:144];
+    NSLayoutConstraint* heightConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:210];
     [self.collectionView addConstraints:@[xConstraint,yConstraint,widthConstraint,heightConstraint]];
 
 }
