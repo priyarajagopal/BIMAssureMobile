@@ -14,7 +14,7 @@ NSString* const KVO_INVOnUserProfileMenuSelected = @"userProfileMenuSelected";
 NSString* const KVO_INVOnSettingsMenuSelected = @"settingsMenuSelected";
 NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
 NSString* const KVO_INVOnLogoutMenuSelected = @"logoutMenuSelected";
-
+NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
 
 #pragma mark - private interface
 @interface INVMainMenuViewController ()
@@ -23,7 +23,7 @@ NSString* const KVO_INVOnLogoutMenuSelected = @"logoutMenuSelected";
 @property (nonatomic,assign)BOOL settingsMenuSelected;
 @property (nonatomic,assign)BOOL projectsMenuSelected;
 @property (nonatomic,assign)BOOL logoutMenuSelected;
-
+@property (nonatomic,assign)BOOL manageUsersMenuSelected;
 @end
 
 #pragma mark - public implementation
@@ -71,6 +71,10 @@ NSString* const KVO_INVOnLogoutMenuSelected = @"logoutMenuSelected";
 
 - (IBAction)onProjectsViewSelected:(id)sender {
     self.projectsMenuSelected = YES;
+}
+
+- (IBAction)onManageUsers:(UIButton *)sender {
+    self.manageUsersMenuSelected = YES;
 }
 
 @end

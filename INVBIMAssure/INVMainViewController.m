@@ -65,6 +65,11 @@
     }
 }
 
+-(IBAction)done:(UIStoryboardSegue*)segue {
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
 
 #pragma mark - helpers
 -(void) setDetailViewConstraints {
@@ -84,6 +89,8 @@
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnSettingsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected options:NSKeyValueObservingOptionNew context:nil];
+    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected options:NSKeyValueObservingOptionNew context:nil];
+
     
 }
 
@@ -97,6 +104,7 @@
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnSettingsMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected];
+    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected];
 }
 
 - (void)swapFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
@@ -127,6 +135,10 @@
     }
     if ([keyPath isEqualToString:KVO_INVOnLogoutMenuSelected]) {
         [self performSegueWithIdentifier:@"MainLogoutSegue" sender:nil];
+        
+    }
+    if ([keyPath isEqualToString:KVO_INVOnManageUsersMenuSelected]) {
+        [self performSegueWithIdentifier:@"MainManageUsersSegue" sender:nil];
         
     }
 }

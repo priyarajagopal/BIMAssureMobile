@@ -14,7 +14,7 @@ extern NSString* const KVO_INVOnUserProfileMenuSelected ;
 extern NSString* const KVO_INVOnSettingsMenuSelected ;
 extern NSString* const KVO_INVOnProjectsMenuSelected;
 extern NSString* const KVO_INVOnLogoutMenuSelected;
-
+extern NSString* const KVO_INVOnManageUsersMenuSelected;
 
 @interface INVMainMenuViewController : INVCustomViewController
 - (IBAction)onLogoutViewSelected:(id)sender;
@@ -22,4 +22,5 @@ extern NSString* const KVO_INVOnLogoutMenuSelected;
 - (IBAction)onUserProfileViewSelected:(id)sender;
 - (IBAction)onSettingsViewSelected:(id)sender;
 - (IBAction)onProjectsViewSelected:(id)sender;
+- (IBAction)onManageUsers:(UIButton *)sender;
 @end

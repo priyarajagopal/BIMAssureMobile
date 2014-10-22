@@ -11,7 +11,8 @@
 #import "INVProjectDetailsTabViewController.h"
 #import "INVProjectFilesListViewController.h"
 
-const NSInteger DEFAULT_CELL_HEIGHT = 300;
+static const NSInteger DEFAULT_CELL_HEIGHT = 300;
+static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 
 @interface INVProjectsTableViewController ()
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
@@ -81,7 +82,7 @@ const NSInteger DEFAULT_CELL_HEIGHT = 300;
 */
 
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -90,7 +91,7 @@ const NSInteger DEFAULT_CELL_HEIGHT = 300;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 1;
+    return DEFAULT_NUM_ROWS_SECTION;
 }
 
 
@@ -118,6 +119,7 @@ const NSInteger DEFAULT_CELL_HEIGHT = 300;
  }
 
 
+#pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"ProjectDetailSegue" sender:self];
 }
