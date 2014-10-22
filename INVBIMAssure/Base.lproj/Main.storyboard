@@ -19,6 +19,7 @@
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -640,6 +641,9 @@
                         <outlet property="mainMenuContainerView" destination="Omg-k9-r5h" id="EmK-Cb-Hgz"/>
                         <segue destination="XJ9-1q-cac" kind="custom" identifier="MainProjectEmbedSegue" customClass="INVEmptySegue" id="mWl-4x-jI9"/>
                         <segue destination="9EX-kg-i2W" kind="custom" identifier="MainAccountEmbedSegue" customClass="INVEmptySegue" id="MH4-4a-Mjx"/>
+                        <segue destination="bD6-xA-v6V" kind="popoverPresentation" identifier="MainLogoutSegue" popoverAnchorView="5qd-vM-vRE" id="faS-Mb-tIG">
+                            <popoverArrowDirection key="popoverArrowDirection"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHI-XY-xZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -696,7 +700,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DUP-37-jcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="871" y="2765"/>
+            <point key="canvasLocation" x="918" y="2726"/>
         </scene>
         <!--General No Project Scene-->
         <scene sceneID="F49-oI-xwJ">
@@ -793,11 +797,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nri-MK-OcW">
-                                <rect key="frame" x="16" y="122" width="48" height="48"/>
+                                <rect key="frame" x="16" y="87" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="ppo-wt-sRk"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -807,11 +811,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JER-3B-GmM">
-                                <rect key="frame" x="16" y="53" width="48" height="48"/>
+                                <rect key="frame" x="18" y="31" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="ERF-ti-YAJ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -821,22 +825,22 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ln2-Sg-eb5">
-                                <rect key="frame" x="16" y="201" width="48" height="48"/>
+                                <rect key="frame" x="16" y="544" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="o5I-Tj-wXD"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="40"/>
-                                <state key="normal" title="">
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                                <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onUserProfileViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="Rou-c2-Dgk"/>
+                                    <action selector="onLogoutViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="jca-PV-GfV"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-7Z-PEz">
-                                <rect key="frame" x="16" y="285" width="48" height="52"/>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="40"/>
+                                <rect key="frame" x="16" y="158" width="48" height="42"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -848,18 +852,18 @@
                         </subviews>
                         <color key="backgroundColor" red="0.5607843137254902" green="0.039215686274509803" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="JER-3B-GmM" firstAttribute="top" secondItem="eYV-xQ-9UI" secondAttribute="bottom" constant="53" id="01w-lD-HDe"/>
+                            <constraint firstItem="JER-3B-GmM" firstAttribute="top" secondItem="eYV-xQ-9UI" secondAttribute="bottom" constant="31" id="01w-lD-HDe"/>
                             <constraint firstItem="nqe-7Z-PEz" firstAttribute="trailing" secondItem="ln2-Sg-eb5" secondAttribute="trailing" id="MKo-LI-LfG"/>
                             <constraint firstItem="ln2-Sg-eb5" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leadingMargin" id="Qfk-a9-2K0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JER-3B-GmM" secondAttribute="trailing" constant="5" id="VFU-qB-XXi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JER-3B-GmM" secondAttribute="trailing" constant="3" id="VFU-qB-XXi"/>
                             <constraint firstItem="nri-MK-OcW" firstAttribute="leading" secondItem="ln2-Sg-eb5" secondAttribute="leading" id="Vm4-iX-hFq"/>
-                            <constraint firstItem="nqe-7Z-PEz" firstAttribute="top" secondItem="ln2-Sg-eb5" secondAttribute="bottom" constant="36" id="ZlO-fW-dX3"/>
-                            <constraint firstItem="nri-MK-OcW" firstAttribute="top" secondItem="JER-3B-GmM" secondAttribute="bottom" constant="21" id="f1Q-1f-ONi"/>
+                            <constraint firstItem="nri-MK-OcW" firstAttribute="top" secondItem="JER-3B-GmM" secondAttribute="bottom" constant="8" id="f1Q-1f-ONi"/>
                             <constraint firstItem="ln2-Sg-eb5" firstAttribute="trailing" secondItem="nri-MK-OcW" secondAttribute="trailing" id="i4H-zm-d89"/>
-                            <constraint firstItem="ln2-Sg-eb5" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="31" id="kFd-l0-gFr"/>
+                            <constraint firstItem="tiT-dW-lDO" firstAttribute="top" secondItem="ln2-Sg-eb5" secondAttribute="bottom" constant="8" id="if5-4P-y9J"/>
                             <constraint firstItem="ln2-Sg-eb5" firstAttribute="leading" secondItem="nqe-7Z-PEz" secondAttribute="leading" id="mxV-0h-Gj2"/>
-                            <constraint firstItem="JER-3B-GmM" firstAttribute="leading" secondItem="nri-MK-OcW" secondAttribute="leading" id="n7B-Sw-d69"/>
-                            <constraint firstItem="JER-3B-GmM" firstAttribute="trailing" secondItem="nri-MK-OcW" secondAttribute="trailing" id="uAu-AC-jH7"/>
+                            <constraint firstItem="JER-3B-GmM" firstAttribute="leading" secondItem="nri-MK-OcW" secondAttribute="leading" constant="2" id="n7B-Sw-d69"/>
+                            <constraint firstItem="nqe-7Z-PEz" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="23" id="u6T-Rc-rIj"/>
+                            <constraint firstItem="JER-3B-GmM" firstAttribute="trailing" secondItem="nri-MK-OcW" secondAttribute="trailing" constant="2" id="uAu-AC-jH7"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -886,7 +890,57 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h7g-FQ-il8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="59" y="2765"/>
+            <point key="canvasLocation" x="258" y="2726"/>
+        </scene>
+        <!--Simple User Info Table View Controller-->
+        <scene sceneID="61P-66-kK4">
+            <objects>
+                <tableViewController id="bD6-xA-v6V" customClass="INVSimpleUserInfoTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="50" sectionFooterHeight="22" id="ipe-Pz-V87">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection headerTitle="User" id="lQo-bM-lf9">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogOutCell" rowHeight="51" id="mkQ-9v-7G5">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mkQ-9v-7G5" id="TSX-T6-ffO">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Log Out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQC-8r-oBJ">
+                                                    <rect key="frame" x="20" y="15" width="175" height="21"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emE-pP-37Z">
+                                                    <rect key="frame" x="223" y="15" width="19" height="21"/>
+                                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="18"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="bD6-xA-v6V" id="1YC-gn-DWv"/>
+                            <outlet property="delegate" destination="bD6-xA-v6V" id="p9V-Bk-aUZ"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <value key="contentSizeForViewInPopover" type="size" width="250" height="100"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="100"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cmN-28-ftw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-246" y="2510"/>
         </scene>
     </scenes>
     <resources>

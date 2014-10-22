@@ -46,8 +46,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
     UIBarButtonItem* settingsButton = self.navigationItem.rightBarButtonItem;
     
-    FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:44];
-    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(35, 35)]];
+    FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
+    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(37, 40)]];
 }
 
 - (void)didReceiveMemoryWarning {

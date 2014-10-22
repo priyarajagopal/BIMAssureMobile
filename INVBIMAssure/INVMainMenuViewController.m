@@ -13,7 +13,7 @@ NSString* const KVO_INVOnAccountMenuSelected = @"accountsMenuSelected";
 NSString* const KVO_INVOnUserProfileMenuSelected = @"userProfileMenuSelected";
 NSString* const KVO_INVOnSettingsMenuSelected = @"settingsMenuSelected";
 NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
-
+NSString* const KVO_INVOnLogoutMenuSelected = @"logoutMenuSelected";
 
 
 #pragma mark - private interface
@@ -22,6 +22,7 @@ NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
 @property (nonatomic,assign)BOOL userProfileMenuSelected;
 @property (nonatomic,assign)BOOL settingsMenuSelected;
 @property (nonatomic,assign)BOOL projectsMenuSelected;
+@property (nonatomic,assign)BOOL logoutMenuSelected;
 
 @end
 
@@ -52,6 +53,10 @@ NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
 
 #pragma mark - UIEvent handlers
 
+- (IBAction)onLogoutViewSelected:(id)sender {
+    self.logoutMenuSelected = YES;
+}
+
 - (IBAction)onAccountsViewSelected:(id)sender {
     self.accountsMenuSelected = YES;
 }
@@ -67,4 +72,5 @@ NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
 - (IBAction)onProjectsViewSelected:(id)sender {
     self.projectsMenuSelected = YES;
 }
+
 @end

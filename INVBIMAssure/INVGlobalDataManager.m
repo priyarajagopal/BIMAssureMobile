@@ -12,7 +12,7 @@
 @import EmpireMobileManager;
 
 // Notifications
-NSString* const INV_NotificationUserLogOutSuccess = @"accountLogOutSuccess";
+NSString* const INV_NotificationUserLogOutSuccess = @"userLogOutSuccess";
 NSString* const INV_NotificationAccountLogOutSuccess = @"accountLogOutSuccess";
 NSString* const INV_NotificationAccountSwitchSuccess = @"accountSwitchSuccess";
 

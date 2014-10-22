@@ -72,7 +72,9 @@ const NSInteger INDEX_ROW_LOGOUT = 0;
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LogOutCell"];
         cell.textLabel.text = NSLocalizedString(@"LOG_OUT", nil);
         UILabel * accessoryLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,0,40,40)];
+        accessoryLabel.textAlignment = NSTextAlignmentRight;
         FAKFontAwesome *logoutIcon = [FAKFontAwesome signOutIconWithSize:20];
+        
         [logoutIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
         accessoryLabel.attributedText = logoutIcon.attributedString;
         cell.accessoryView = accessoryLabel;

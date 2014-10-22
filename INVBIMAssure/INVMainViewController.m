@@ -59,7 +59,7 @@
             [segue.destinationViewController didMoveToParentViewController:self];
                     }
     }
-    else{
+    else if ([segue.identifier isEqualToString:@"MainAccountEmbedSegue"]) {
         [self swapFromViewController:self.detailContainerViewController toViewController:segue.destinationViewController];
    
     }
@@ -83,6 +83,7 @@
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnProjectsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnSettingsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
+    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     
 }
 
@@ -95,6 +96,7 @@
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnProjectsMenuSelected ];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnSettingsMenuSelected];
+    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected];
 }
 
 - (void)swapFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
@@ -121,6 +123,10 @@
     }
     if ([keyPath isEqualToString:KVO_INVOnAccountMenuSelected]) {
         [self performSegueWithIdentifier:@"MainAccountEmbedSegue" sender:nil];
+        
+    }
+    if ([keyPath isEqualToString:KVO_INVOnLogoutMenuSelected]) {
+        [self performSegueWithIdentifier:@"MainLogoutSegue" sender:nil];
         
     }
 }
