@@ -169,7 +169,6 @@ const NSInteger DEFAULT_CELL_HEIGHT = 300;
     INVProject* project = [self.dataResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
  // Pass the selected object to the new view controller.
      if ([segue.identifier isEqual:@"ProjectDetailSegue"]) {
-     //   self.splitViewController.preferredDisplayMode =  UISplitViewControllerDisplayModePrimaryHidden;
          INVProjectDetailsTabViewController* projectDetailsController = (INVProjectDetailsTabViewController*)segue.destinationViewController;
          
          UINavigationController* navController = projectDetailsController.viewControllers[0];;

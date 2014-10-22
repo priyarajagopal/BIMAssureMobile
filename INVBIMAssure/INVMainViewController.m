@@ -21,7 +21,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setDetailViewConstraints];
     [self performSegueWithIdentifier:@"MainProjectEmbedSegue" sender:nil];
+    
 
 }
 
@@ -51,11 +53,11 @@
         }
         else {
             self.detailContainerViewController = segue.destinationViewController;
-            [self addChildViewController: self.detailContainerViewController];
-            self.detailContainerViewController.view.frame = self.detailContainerView.bounds;
-            [self.detailContainerView addSubview:self.detailContainerViewController.view];
-            [self.detailContainerViewController didMoveToParentViewController:self];
-        }
+            [self addChildViewController: segue.destinationViewController];
+            ((UIViewController*)segue.destinationViewController).view.frame = self.detailContainerView.bounds;
+            [self.detailContainerView addSubview:((UIViewController*)segue.destinationViewController).view];
+            [segue.destinationViewController didMoveToParentViewController:self];
+                    }
     }
     else{
         [self swapFromViewController:self.detailContainerViewController toViewController:segue.destinationViewController];
@@ -65,6 +67,13 @@
 
 
 #pragma mark - helpers
+-(void) setDetailViewConstraints {
+  //  NSLayoutConstraint* xConstraint = [NSLayoutConstraint constraintWithItem:self.detailContainerView attribute:NSLayoutAttributeLeftMargin relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:85];
+  //  NSLayoutConstraint* yConstraint = [NSLayoutConstraint constraintWithItem:self.detailContainerView attribute:NSLayoutAttributeTopMargin relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0];
+
+  //  [self.detailContainerViewController.view addConstraints:@[xConstraint,yConstraint]];
+    
+}
 -(void)registerMainMenuObservers {
     if (self.registeredForMainMenuEvents) {
         return;
@@ -101,8 +110,6 @@
         
         self.detailContainerViewController = toViewController;
     }];
-    
-
 }
 
 #pragma mark - KVO Observer

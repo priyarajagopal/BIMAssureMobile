@@ -211,13 +211,7 @@ static NSString * const reuseIdentifier = @"Cell";
       
 #pragma note Yes - you could have directly accessed accounts from accountManager. Using FetchResultsController directly makes it simpler
              NSError* dbError;
-             if (self.saveAsDefault) {
-                // Just ignore the error and continue logging in
-                NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
-                 if (error) {
-                     NSLog(@"%s. Error: %@",__func__,error);
-                 }
-            }
+            
            
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
@@ -239,6 +233,13 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)loginAccount {
     [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
         if (!error) {
+            if (self.saveAsDefault) {
+                // Just ignore the error and continue logging in
+                NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
+                if (error) {
+                    NSLog(@"%s. Error: %@",__func__,error);
+                }
+            }
             NSNumber* prevLoggedInAccount =  self.globalDataManager.loggedInAccount ;
             self.globalDataManager.loggedInAccount = self.currentAccountId;
               if (prevLoggedInAccount && (prevLoggedInAccount != self.currentAccountId))

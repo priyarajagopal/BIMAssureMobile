@@ -609,28 +609,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-vM-vRE" userLabel="detail container view">
+                                <rect key="frame" x="81" y="0.0" width="523" height="600"/>
+                                <color key="backgroundColor" red="0.035294117649999998" green="0.30588235289999999" blue="0.58039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omg-k9-r5h" userLabel="main menu container view">
-                                <rect key="frame" x="-4" y="0.0" width="69" height="600"/>
+                                <rect key="frame" x="-4" y="0.0" width="85" height="600"/>
+                                <color key="backgroundColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="69" id="8Bl-AM-hbI"/>
+                                    <constraint firstAttribute="width" constant="85" id="8Bl-AM-hbI"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="vbl-dm-Oc3" kind="embed" identifier="MainMenuEmbedSegue" id="rJ9-Y0-0hA"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-vM-vRE" userLabel="detail container view">
-                                <rect key="frame" x="65" y="0.0" width="535" height="600"/>
-                            </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" secondItem="Omg-k9-r5h" secondAttribute="height" id="5Eg-bD-X7u"/>
-                            <constraint firstItem="5qd-vM-vRE" firstAttribute="top" secondItem="cOK-On-Cfr" secondAttribute="bottom" constant="-20" id="6go-Yj-pyQ"/>
-                            <constraint firstItem="Omg-k9-r5h" firstAttribute="leading" secondItem="2It-05-5yZ" secondAttribute="leadingMargin" constant="-20" id="8Vz-ye-TUI"/>
+                            <constraint firstItem="Omg-k9-r5h" firstAttribute="leading" secondItem="2It-05-5yZ" secondAttribute="leadingMargin" constant="-20" id="B2r-JP-S47"/>
                             <constraint firstAttribute="height" secondItem="5qd-vM-vRE" secondAttribute="height" id="Cd9-Gc-cBQ"/>
+                            <constraint firstItem="5qd-vM-vRE" firstAttribute="top" secondItem="cOK-On-Cfr" secondAttribute="bottom" constant="-20" id="PDq-2V-6tE"/>
                             <constraint firstItem="5qd-vM-vRE" firstAttribute="leading" secondItem="Omg-k9-r5h" secondAttribute="trailing" id="f5I-NA-jJu"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5qd-vM-vRE" secondAttribute="trailing" constant="-16" id="kVT-fF-eyD"/>
-                            <constraint firstItem="Omg-k9-r5h" firstAttribute="top" secondItem="cOK-On-Cfr" secondAttribute="bottom" constant="-20" id="xLn-g7-Fz3"/>
+                            <constraint firstItem="Omg-k9-r5h" firstAttribute="top" secondItem="cOK-On-Cfr" secondAttribute="bottom" constant="-20" id="fFO-Nr-XTU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5qd-vM-vRE" secondAttribute="trailing" constant="-20" id="kVT-fF-eyD"/>
                         </constraints>
                     </view>
                     <connections>
@@ -787,11 +789,14 @@
                         <viewControllerLayoutGuide type="bottom" id="tiT-dW-lDO"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="6qU-Js-ZkW">
-                        <rect key="frame" x="0.0" y="0.0" width="69" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="85" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nri-MK-OcW">
-                                <rect key="frame" x="9" y="122" width="48" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nri-MK-OcW">
+                                <rect key="frame" x="16" y="122" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="ppo-wt-sRk"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="40"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -801,8 +806,11 @@
                                     <action selector="onAccountsViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="sSA-qH-Y3F"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JER-3B-GmM">
-                                <rect key="frame" x="9" y="53" width="48" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JER-3B-GmM">
+                                <rect key="frame" x="16" y="53" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="ERF-ti-YAJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="40"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -812,8 +820,11 @@
                                     <action selector="onProjectsViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="50N-uh-iqa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ln2-Sg-eb5">
-                                <rect key="frame" x="10" y="201" width="48" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ln2-Sg-eb5">
+                                <rect key="frame" x="16" y="201" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="o5I-Tj-wXD"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="40"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -823,8 +834,8 @@
                                     <action selector="onUserProfileViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="Rou-c2-Dgk"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-7Z-PEz">
-                                <rect key="frame" x="9" y="285" width="48" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-7Z-PEz">
+                                <rect key="frame" x="16" y="285" width="48" height="52"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="40"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -836,8 +847,24 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.5607843137254902" green="0.039215686274509803" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="JER-3B-GmM" firstAttribute="top" secondItem="eYV-xQ-9UI" secondAttribute="bottom" constant="53" id="01w-lD-HDe"/>
+                            <constraint firstItem="nqe-7Z-PEz" firstAttribute="trailing" secondItem="ln2-Sg-eb5" secondAttribute="trailing" id="MKo-LI-LfG"/>
+                            <constraint firstItem="ln2-Sg-eb5" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leadingMargin" id="Qfk-a9-2K0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JER-3B-GmM" secondAttribute="trailing" constant="5" id="VFU-qB-XXi"/>
+                            <constraint firstItem="nri-MK-OcW" firstAttribute="leading" secondItem="ln2-Sg-eb5" secondAttribute="leading" id="Vm4-iX-hFq"/>
+                            <constraint firstItem="nqe-7Z-PEz" firstAttribute="top" secondItem="ln2-Sg-eb5" secondAttribute="bottom" constant="36" id="ZlO-fW-dX3"/>
+                            <constraint firstItem="nri-MK-OcW" firstAttribute="top" secondItem="JER-3B-GmM" secondAttribute="bottom" constant="21" id="f1Q-1f-ONi"/>
+                            <constraint firstItem="ln2-Sg-eb5" firstAttribute="trailing" secondItem="nri-MK-OcW" secondAttribute="trailing" id="i4H-zm-d89"/>
+                            <constraint firstItem="ln2-Sg-eb5" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="31" id="kFd-l0-gFr"/>
+                            <constraint firstItem="ln2-Sg-eb5" firstAttribute="leading" secondItem="nqe-7Z-PEz" secondAttribute="leading" id="mxV-0h-Gj2"/>
+                            <constraint firstItem="JER-3B-GmM" firstAttribute="leading" secondItem="nri-MK-OcW" secondAttribute="leading" id="n7B-Sw-d69"/>
+                            <constraint firstItem="JER-3B-GmM" firstAttribute="trailing" secondItem="nri-MK-OcW" secondAttribute="trailing" id="uAu-AC-jH7"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="85" height="600"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4Y-wN-kxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
