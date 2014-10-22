@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0223351119F5ED3100224E0C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223351019F5ED3100224E0C /* EmpireMobileManager.framework */; };
+		021E85B419F81C30003E35E0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021E85B319F81C30003E35E0 /* MessageUI.framework */; };
+		021E85B519F81C61003E35E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
+		021E85B719F81C8A003E35E0 /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 021E85B619F81C8A003E35E0 /* libPods-FontAwesomeKit.a */; };
+		021E85B919F81C92003E35E0 /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 021E85B819F81C92003E35E0 /* libPods-MBProgressHUD.a */; };
+		021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 021E85BA19F825F2003E35E0 /* Localizable.strings */; };
+		021E85C019F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */; };
+		021E85C119F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */; };
 		0223351619F5EE5800224E0C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223351519F5EE5800224E0C /* EmpireMobileManager.framework */; };
 		0223351719F5EE5800224E0C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223351519F5EE5800224E0C /* EmpireMobileManager.framework */; };
 		0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223351919F6A82900224E0C /* INVLoginScrollView.m */; };
@@ -20,10 +26,8 @@
 		0224B8AD19EDBB550083EA6E /* INVEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */; };
 		0224B8C719F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */; };
 		0224B8C819F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */; };
-		0224B8FB19F143730083EA6E /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0224B8FA19F143730083EA6E /* libPods-FontAwesomeKit.a */; };
 		0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */; };
 		0224B90419F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */; };
-		02408FFB19E447BD00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFC19E447BF00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
 		0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
@@ -33,7 +37,6 @@
 		02457E2219ED882C00E714BA /* INVMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2019ED882C00E714BA /* INVMainMenuViewController.m */; };
 		02457E2519ED88AC00E714BA /* INVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2419ED88AC00E714BA /* INVMainViewController.m */; };
 		02457E2619ED88AC00E714BA /* INVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2419ED88AC00E714BA /* INVMainViewController.m */; };
-		02AAD3E619E61E80002901DA /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02AAD3E519E61E80002901DA /* libPods-MBProgressHUD.a */; };
 		02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */; };
@@ -56,7 +59,6 @@
 		02AAD41019E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */; };
 		02AAD41A19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD41919EB2CCF002901DA /* INVProjectFileViewerController.m */; };
 		02AAD41B19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD41919EB2CCF002901DA /* INVProjectFileViewerController.m */; };
-		02AAD42919ECB349002901DA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD42719ECB349002901DA /* Localizable.strings */; };
 		02AAD42A19ECB349002901DA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD42719ECB349002901DA /* Localizable.strings */; };
 		02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */; };
 		02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */; };
@@ -106,7 +108,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0223351019F5ED3100224E0C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = /Users/priyarajagopal/projects/apps/invicara/INVBIMAssure/EmpireMobileManager.framework; sourceTree = "<absolute>"; };
+		021E85B319F81C30003E35E0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		021E85B619F81C8A003E35E0 /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
+		021E85B819F81C92003E35E0 /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
+		021E85BB19F825F2003E35E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = INVBIMAssure/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		021E85BE19F829F8003E35E0 /* INVInvitedUsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVInvitedUsersTableViewController.h; sourceTree = "<group>"; };
+		021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVInvitedUsersTableViewController.m; sourceTree = "<group>"; };
 		0223351519F5EE5800224E0C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		0223351819F6A82900224E0C /* INVLoginScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVLoginScrollView.h; sourceTree = "<group>"; };
 		0223351919F6A82900224E0C /* INVLoginScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVLoginScrollView.m; sourceTree = "<group>"; };
@@ -184,11 +191,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0224B8FB19F143730083EA6E /* libPods-FontAwesomeKit.a in Frameworks */,
-				0223351119F5ED3100224E0C /* EmpireMobileManager.framework in Frameworks */,
+				021E85B919F81C92003E35E0 /* libPods-MBProgressHUD.a in Frameworks */,
+				021E85B719F81C8A003E35E0 /* libPods-FontAwesomeKit.a in Frameworks */,
+				021E85B419F81C30003E35E0 /* MessageUI.framework in Frameworks */,
 				0223351619F5EE5800224E0C /* EmpireMobileManager.framework in Frameworks */,
 				0223351C19F6CF3C00224E0C /* EmpireMobileManager.framework in Frameworks */,
-				02AAD3E619E61E80002901DA /* libPods-MBProgressHUD.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +270,7 @@
 		02C8844E19E317E900DFB4E2 = {
 			isa = PBXGroup;
 			children = (
+				021E85BA19F825F2003E35E0 /* Localizable.strings */,
 				02C8845919E317E900DFB4E2 /* INVBIMAssure */,
 				02C8847319E317E900DFB4E2 /* INVBIMAssureTests */,
 				02C8845819E317E900DFB4E2 /* Products */,
@@ -348,6 +356,8 @@
 				0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */,
 				0223355319F7F24D00224E0C /* INVUserManagementTableViewController.h */,
 				0223355419F7F24D00224E0C /* INVUserManagementTableViewController.m */,
+				021E85BE19F829F8003E35E0 /* INVInvitedUsersTableViewController.h */,
+				021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */,
 				0224B8AA19EDBB550083EA6E /* INVEmptySegue.h */,
 				0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */,
 				0224B90519F171080083EA6E /* categories */,
@@ -360,6 +370,9 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				021E85B819F81C92003E35E0 /* libPods-MBProgressHUD.a */,
+				021E85B619F81C8A003E35E0 /* libPods-FontAwesomeKit.a */,
+				021E85B319F81C30003E35E0 /* MessageUI.framework */,
 				0223351519F5EE5800224E0C /* EmpireMobileManager.framework */,
 				0224B8FA19F143730083EA6E /* libPods-FontAwesomeKit.a */,
 				02AAD3E519E61E80002901DA /* libPods-MBProgressHUD.a */,
@@ -457,10 +470,10 @@
 				02AAD40F19E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */,
 				02B43A0A19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
 				02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
-				02AAD42919ECB349002901DA /* Localizable.strings in Resources */,
-				02408FFB19E447BD00B218ED /* Main.storyboard in Resources */,
+				021E85B519F81C61003E35E0 /* Main.storyboard in Resources */,
 				02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */,
 				02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */,
+				021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -569,6 +582,7 @@
 				02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
 				02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
 				0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */,
+				021E85C019F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */,
 				02457E2119ED882C00E714BA /* INVMainMenuViewController.m in Sources */,
 				02C8845D19E317E900DFB4E2 /* main.m in Sources */,
 				02AAD3F619E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
@@ -593,6 +607,7 @@
 				02AAD41B19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */,
 				0224B8C819F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */,
 				0240900A19E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
+				021E85C119F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */,
 				02AAD3FD19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
 				0224B8AD19EDBB550083EA6E /* INVEmptySegue.m in Sources */,
 				02C8848A19E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
@@ -620,6 +635,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		021E85BA19F825F2003E35E0 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				021E85BB19F825F2003E35E0 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		02AAD42719ECB349002901DA /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

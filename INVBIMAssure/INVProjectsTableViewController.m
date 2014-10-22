@@ -27,6 +27,7 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
      self.title = NSLocalizedString(@"PROJECTS", nil);
+    
     self.projectManager = self.globalDataManager.invServerClient.projectManager;
     UINib* nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
@@ -60,12 +61,12 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
                 [self.tableView reloadData];
             }
             else {
-#pragma warning - display error
+#warning - display error
             }
             
         }
         else {
-#pragma warning - display error
+#warning - display error
         }
     }];
 }
@@ -109,7 +110,7 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
                                   
      cell.createdOnLabel.attributedText = attrString;
      
-#pragma warning when thumbnail url is available on server use it to load images asynchronously. For now, picking from bundle
+#warning when thumbnail url is available on server use it to load images asynchronously. For now, picking from bundle
      NSUInteger random = self.dataResultsController.fetchedObjects.count;
      NSInteger index = arc4random_uniform(random);
      NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];

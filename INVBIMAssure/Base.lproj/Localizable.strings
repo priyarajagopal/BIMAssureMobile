@@ -26,3 +26,4 @@
 "CURRENT_USERS"="Current Users";
 "INVITED_USERS"="Invited Users";
 "INVITE_USER"="Invite User";
+"INVITED_BY_ON"="Invited by %1@ at %2@";

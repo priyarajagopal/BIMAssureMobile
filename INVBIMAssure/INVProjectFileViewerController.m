@@ -112,7 +112,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
  */
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
     NSLog(@"%s",__func__);
-#pragma warning - show error alert
+#warning - show error alert
     
 }
 
@@ -159,7 +159,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 -(void)executeJS:(NSString*)jsToExecute {
     [self.webView evaluateJavaScript:jsToExecute completionHandler:^(id val, NSError *error) {
         NSLog(@"Evaluation of JS :%@",error);
-#pragma warning display error
+#warning display error
     }];
 }
 

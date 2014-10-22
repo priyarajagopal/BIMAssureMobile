@@ -147,7 +147,7 @@ static NSString * const reuseIdentifier = @"Cell";
     NSLog (@"%s",__func__);
     INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
     if ( self.globalDataManager.loggedInAccount == account.accountId) {
-#pragma warning - show alert asking user if they want to log out
+#warning - show alert asking user if they want to log out
         [self logoutAccount];
     }
     else {

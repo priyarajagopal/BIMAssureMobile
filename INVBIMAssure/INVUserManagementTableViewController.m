@@ -8,10 +8,9 @@
 
 #import "INVUserManagementTableViewController.h"
 
-static const NSInteger DEFAULT_CELL_HEIGHT = 50;
+static const NSInteger DEFAULT_CELL_HEIGHT = 60;
 static const NSInteger DEFAULT_NUM_SECTIONS = 3;
 static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
-static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 static const NSInteger SECTIONINDEX_CURRENTUSERS = 0;
 static const NSInteger SECTIONINDEX_INVITEUSER = 1;
 static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
@@ -38,15 +37,14 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.hud show:YES];
+    [self fetchListOfAccountMembers];
 }
-*/
 
 #pragma mark - UITableViewDataSource
 
@@ -57,6 +55,10 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    if (section == SECTIONINDEX_CURRENTUSERS) {
+        return [self.dataResultsController.fetchedObjects count];
+    }
+ 
     return DEFAULT_NUM_ROWS_SECTION;
 }
 
@@ -68,18 +70,71 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     }
     if (indexPath.section == SECTIONINDEX_CURRENTUSERS) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" ];
-        cell.textLabel.text = NSLocalizedString(@"John Doe",nil);
-        cell.detailTextLabel.text = NSLocalizedString(@"Invited By ",nil);
+        INVMembership* member = [self.dataResultsController objectAtIndexPath:indexPath];
+        cell.textLabel.text = member.name;
+        cell.detailTextLabel.text = member.email;
     }
     if (indexPath.section == SECTIONINDEX_INVITEDUSERS) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"ActionCell" ];
-        cell.textLabel.text = NSLocalizedString(@"CURRENT_USERS",nil);
+        cell.textLabel.text = NSLocalizedString(@"INVITED_USERS",nil);
     }
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == SECTIONINDEX_CURRENTUSERS) {
+       return NSLocalizedString(@"CURRENT_USERS",nil);
+    }
+    return nil;
+}
 
+
+
+#pragma mark - server side
+-(void)fetchListOfAccountMembers {
+    [self.globalDataManager.invServerClient getMembershipForAccount:self.globalDataManager.loggedInAccount withCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
+        if (!error) {
+#pragma note Yes - you could have directly accessed accounts from project manager. Using FetchResultsController directly makes it simpler
+            NSError* dbError;
+            [self.dataResultsController performFetch:&dbError];
+            if (!dbError) {
+                NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
+                [self.tableView reloadData];
+            }
+            else {
+#warning - display error
+            }
+            
+        }
+        else {
+#warning - display error
+        }
+    }];
+}
+
+#pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+     if ([segue.identifier isEqualToString:@"ComposeMailSegue"]) {
+         if ([MFMailComposeViewController canSendMail]) {
+             MFMailComposeViewController* mailVC = segue.destinationViewController;
+             [mailVC setToRecipients:@[@"r1_priya@yahoo.com"]];
+             [mailVC setSubject:@"test"];
+         }
+         else {
+#warning display error that mail cannot be composed
+         }
+     }
+ }
+
+
+
+/* unused*
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     static NSString* reuseId = @"HeaderView";
     UITableViewHeaderFooterView* headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:reuseId];
@@ -91,10 +146,19 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     }
      return headerView;
 }
-
+*/
+/*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"ProjectDetailSegue" sender:self];
+   
 }
-
+ */
+#pragma mark - accessor
+-(NSFetchedResultsController*) dataResultsController {
+    if (!_dataResultsController) {
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForAccountMembership managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        
+    }
+    return  _dataResultsController;
+}
 
 @end

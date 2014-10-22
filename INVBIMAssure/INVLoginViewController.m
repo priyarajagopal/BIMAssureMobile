@@ -107,7 +107,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 #pragma mark - UIEvent Handlers
 - (IBAction)onLoginClicked:(id)sender {
     if (!self.emailTextEntry.text || !self.passwordTextEntry.text || ![self isValidEmailEntry]) {
-#pragma warning - Show alert
+#warning - Show alert
         return;
     }
     [self showLoginProgress];

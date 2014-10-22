@@ -28,16 +28,16 @@ const NSInteger  CELL_HEIGHT = 282;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.projectManager = self.globalDataManager.invServerClient.projectManager;
-    
     self.title = NSLocalizedString(@"FILES", nil);
+    
     UIColor * whiteColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
     [self.view setBackgroundColor:whiteColor];
     UINib* nib = [UINib nibWithNibName:@"INVProjectFileCollectionViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"ProjectFileCell"];
+    
     // Do any additional setup after loading the view.
     UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
     [currLayout setItemSize:CGSizeMake(CELL_WIDTH,CELL_HEIGHT)];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,7 +50,7 @@ const NSInteger  CELL_HEIGHT = 282;
     
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.hud show:YES];
-    [self fetchListOfProjectFiles];    
+    [self fetchListOfProjectFiles];
 }
 #pragma mark <UICollectionViewDataSource>
 
@@ -74,10 +74,10 @@ const NSInteger  CELL_HEIGHT = 282;
     cell.fileName.text = file.fileName;
     cell.delegate = self;
     
-#pragma warning - get the thumbnail image from server and update asynchronously. For now pick from bundle
+#warning - get the thumbnail image from server and update asynchronously. For now pick from bundle
     NSString* thumbNailFile = [file.fileName stringByReplacingOccurrencesOfString:@"epk" withString:@"png"];
     cell.fileThumbnail.image = [UIImage imageNamed:thumbNailFile];
-#pragma warning - eventually deal with file versions
+#warning - eventually deal with file versions
     return cell;
 }
 
@@ -112,12 +112,12 @@ const NSInteger  CELL_HEIGHT = 282;
                 [self.collectionView reloadData];
             }
             else {
-#pragma warning - display error
+#warning - display error
             }
             
         }
         else {
-#pragma warning - display error
+#warning - display error
         }
     }];
 }
@@ -146,9 +146,7 @@ const NSInteger  CELL_HEIGHT = 282;
 
 
 
-
  #pragma mark - Navigation
- 
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
@@ -178,7 +176,6 @@ const NSInteger  CELL_HEIGHT = 282;
     else {
         return nil;
     }
-
 }
 
 

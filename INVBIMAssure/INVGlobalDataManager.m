@@ -39,7 +39,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[self class]alloc]init];
         if (sharedInstance) {
-#pragma warning pick up server config from plist file (eventually from json server)
+#warning pick up server config from plist file (eventually from json server)
             sharedInstance.invServerClient = [INVEmpireMobileClient sharedInstanceWithXOSPassportServer:@"54.213.208.11" andPort:@"8080"];
             [sharedInstance.invServerClient configureWithEmpireManageServer:@"54.191.225.36" andPort:@"8080"];
         }
