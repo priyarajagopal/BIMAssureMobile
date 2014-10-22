@@ -23,3 +23,6 @@
 "ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE"="Are you sure you want to log into %1@ ?";
 "ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE"="Are you sure you want to switch to %1@ ?";
 "USER_MANAGEMENT_ACCOUNT"="Manage Account Users";
+"CURRENT_USERS"="Current Users";
+"INVITED_USERS"="Invited Users";
+"INVITE_USER"="Invite User";

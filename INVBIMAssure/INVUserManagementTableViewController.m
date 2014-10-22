@@ -10,7 +10,7 @@
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_NUM_SECTIONS = 3;
-static const NSInteger DEFAULT_NUM_ROWS_SECTION = 0;
+static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 static const NSInteger SECTIONINDEX_CURRENTUSERS = 0;
 static const NSInteger SECTIONINDEX_INVITEUSER = 1;
@@ -60,18 +60,36 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     return DEFAULT_NUM_ROWS_SECTION;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell ;
+    
+    if (indexPath.section == SECTIONINDEX_INVITEUSER) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"InviteActionCell" ];
+    }
+    if (indexPath.section == SECTIONINDEX_CURRENTUSERS) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" ];
+        cell.textLabel.text = NSLocalizedString(@"John Doe",nil);
+        cell.detailTextLabel.text = NSLocalizedString(@"Invited By ",nil);
+    }
+    if (indexPath.section == SECTIONINDEX_INVITEDUSERS) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ActionCell" ];
+        cell.textLabel.text = NSLocalizedString(@"CURRENT_USERS",nil);
+    }
+    return cell;
+}
 
 #pragma mark - UITableViewDelegate
-
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     static NSString* reuseId = @"HeaderView";
     UITableViewHeaderFooterView* headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:reuseId];
     headerView.frame = CGRectMake (0,0,tableView.frame.size.width, DEFAULT_HEADER_HEIGHT);
-    headerView.textLabel.text = [NSString stringWithFormat:@"Current Users %@",reuseId];
-    headerView.detailTextLabel.text = @"Current Users Sub heading";
-    return headerView;
-    
+    headerView.textLabel.textColor = [UIColor darkTextColor];
+    headerView.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    if (section-1 == SECTIONINDEX_CURRENTUSERS) {
+        headerView.textLabel.text = NSLocalizedString(@"CURRENT_USERS",nil);
+    }
+     return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
