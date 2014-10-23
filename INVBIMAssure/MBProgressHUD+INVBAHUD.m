@@ -20,6 +20,8 @@
     NSString* mesg  = extra? [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"LOGGING_IN",nil),extra]:NSLocalizedString(@"LOGGING_IN",nil);
     [hud setLabelText:mesg];
     [hud setDimBackground:YES];
+    [hud setRemoveFromSuperViewOnHide:YES];
+    
     return hud;
 }
 
@@ -32,6 +34,8 @@
     
     [hud setLabelText:mesg];
     [hud setDimBackground:YES];
+    [hud setRemoveFromSuperViewOnHide:YES];
+    
     return hud;
 }
 
@@ -44,6 +48,8 @@
     
     [hud setLabelText:mesg];
     [hud setDimBackground:YES];
+    [hud setRemoveFromSuperViewOnHide:YES];
+    
     return hud;
 }
 

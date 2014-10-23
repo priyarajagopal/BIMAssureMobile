@@ -160,6 +160,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 -(void)showLoginProgress {
     self.hud = [MBProgressHUD loginUserHUD:nil];
+    [self.view addSubview:self.hud];
     [self.hud show:YES];
 }
 

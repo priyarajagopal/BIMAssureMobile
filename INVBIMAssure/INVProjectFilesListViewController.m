@@ -49,6 +49,7 @@ const NSInteger  CELL_HEIGHT = 282;
     [super viewWillAppear:animated];
     
     self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
     [self.hud show:YES];
     [self fetchListOfProjectFiles];
 }

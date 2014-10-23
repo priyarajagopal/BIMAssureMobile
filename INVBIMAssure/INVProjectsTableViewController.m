@@ -44,6 +44,7 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
     [self.hud show:YES];
     [self fetchProjectList];
 }

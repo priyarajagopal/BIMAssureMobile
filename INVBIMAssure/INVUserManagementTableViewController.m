@@ -43,6 +43,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.hud show:YES];
+    [self.view addSubview:self.hud];
     [self fetchListOfAccountMembers];
 }
 

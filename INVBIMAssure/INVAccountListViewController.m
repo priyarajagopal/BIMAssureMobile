@@ -59,7 +59,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidAppear:animated];
     
     NSNumber* defaultAcnt = self.globalDataManager.defaultAccountId;
-    if (defaultAcnt) {
+    if (defaultAcnt && self.autoSignIntoDefaultAccount) {
         self.currentAccountId = defaultAcnt;
         [self showLoginProgress];
         [self loginAccount];
@@ -67,6 +67,7 @@ static NSString * const reuseIdentifier = @"Cell";
     else {
         self.currentAccountId = nil;
     }
+    
 }
 
 #pragma mark - Navigation
@@ -240,6 +241,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)loginAccount {
     [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
         if (!error) {
             if (self.saveAsDefault) {
                 self.globalDataManager.loggedInAccount = self.currentAccountId;
@@ -260,6 +262,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)logoutAccount {
     [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
         if (!error) {
             self.currentAccountId = nil;
             self.globalDataManager.loggedInAccount = nil;
@@ -271,6 +274,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)switchToSelectedAccount {
     [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
         if (!error) {
             self.globalDataManager.loggedInAccount = nil;
             [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
@@ -312,7 +316,8 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)showLoginProgress {
-    self.hud = [MBProgressHUD loginAccountHUD:[NSString stringWithFormat:@"%@",self.currentAccountId]];
+    self.hud = [MBProgressHUD loginAccountHUD:nil];
+    [self.view addSubview:self.hud];
     [self.hud show:YES];
 }
 

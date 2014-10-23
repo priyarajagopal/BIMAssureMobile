@@ -93,6 +93,8 @@
     [self deregisterLoginObservers];
     UINavigationController* accountListNC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"AccountListNC"];
     self.window.rootViewController = accountListNC;
+    INVAccountListViewController* accountListVC = (INVAccountListViewController*)accountListNC.topViewController;
+    accountListVC.autoSignIntoDefaultAccount = YES;
     [self registerAccountObservers];
     
 }
@@ -137,10 +139,10 @@
     if ([[self rootController] isKindOfClass:[UINavigationController class]]) {
         UINavigationController* rootVC = (UINavigationController*) [self rootController];
         if ([rootVC.topViewController isKindOfClass:[INVAccountListViewController class]]) {
-        if (!self.registeredForAccountEvents) {
-            self.registeredForAccountEvents = YES;
-            [rootVC.topViewController addObserver:self forKeyPath:KVO_INVAccountLoginSuccess options:NSKeyValueObservingOptionNew context:nil];
-        }
+             if (!self.registeredForAccountEvents) {
+                self.registeredForAccountEvents = YES;
+                [rootVC.topViewController addObserver:self forKeyPath:KVO_INVAccountLoginSuccess options:NSKeyValueObservingOptionNew context:nil];
+            }
         }
     }
 }
