@@ -187,7 +187,6 @@ static NSString * const reuseIdentifier = @"Cell";
     self.saveAsDefault = isDefault;
     
     NSNumber* prevLoggedInAccount =  self.globalDataManager.loggedInAccount ;
-    self.globalDataManager.loggedInAccount = self.currentAccountId;
     if (prevLoggedInAccount && (prevLoggedInAccount != self.currentAccountId))
     {
         [self showLoginProgress];
@@ -243,6 +242,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
         if (!error) {
             if (self.saveAsDefault) {
+                self.globalDataManager.loggedInAccount = self.currentAccountId;
                 // Just ignore the error and continue logging in
                 NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
                 if (error) {
@@ -272,11 +272,13 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)switchToSelectedAccount {
     [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         if (!error) {
+            self.globalDataManager.loggedInAccount = nil;
             [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
             [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
                 if (!error) {
                     if (self.saveAsDefault) {
                         // Just ignore the error and continue logging in
+                        self.globalDataManager.loggedInAccount = self.currentAccountId;
                         NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
                         if (error) {
                             NSLog(@"%s. Error: %@",__func__,error);

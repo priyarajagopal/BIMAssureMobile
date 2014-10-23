@@ -48,6 +48,8 @@ const NSInteger INDEX_ROW_LOGOUT = 0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == INDEX_ROW_LOGOUT) {
         [self.globalDataManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+            self.globalDataManager.loggedInAccount = nil;
+            self.globalDataManager.loggedInUser = nil;
             [self.globalDataManager deleteCurrentlySavedCredentialsFromKC];
             [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
         }];
