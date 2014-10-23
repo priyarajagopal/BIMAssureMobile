@@ -10,6 +10,7 @@
 
 @interface INVCustomTableViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
+@property (nonatomic,strong)UIRefreshControl* refreshControl;
 
 @end
 
@@ -24,6 +25,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
      self.globalDataManager = [INVGlobalDataManager sharedInstance];
+    
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
+    self.refreshControl.tintColor = cyanBlueColor;
+    [self.refreshControl addTarget:self action:@selector(onRefreshControlSelected:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,6 +37,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UIRefreshControl event handler
+-(void)onRefreshControlSelected:(id)event {
+#warning override in inherited class
+}
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

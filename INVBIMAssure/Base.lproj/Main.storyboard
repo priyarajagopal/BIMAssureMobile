@@ -1012,6 +1012,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InvitedUserCell" textLabel="4WQ-AM-b4D" detailTextLabel="GgI-0o-9bV" rowHeight="70" style="IBUITableViewCellStyleSubtitle" id="a0g-aB-o7C">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>

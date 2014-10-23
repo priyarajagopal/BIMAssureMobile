@@ -12,7 +12,7 @@ static const NSInteger DEFAULT_NUM_SECTIONS = 1;
 static const NSInteger DEFAULT_NUM_ROWS_SECTION = 0;
 
 
-@interface INVInvitedUsersTableViewController ()
+@interface INVInvitedUsersTableViewController () <NSFetchedResultsControllerDelegate>
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVAccountManager* accountManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
@@ -72,7 +72,8 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 0;
 -(void)fetchListOfInvitedUsers {
     [self.globalDataManager.invServerClient getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
-        if (!error) {
+        [self.refreshControl endRefreshing];
+        if (!error) { 
 #pragma note Yes - you could have directly accessed accounts from account manager. Using FetchResultsController directly makes it simpler
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
@@ -89,6 +90,7 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 0;
 #warning - display error
         }
     }];
+  
 }
 
 #pragma mark - Navigation
@@ -111,24 +113,10 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 0;
 
 
 
-/* unused*
- - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
- static NSString* reuseId = @"HeaderView";
- UITableViewHeaderFooterView* headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:reuseId];
- headerView.frame = CGRectMake (0,0,tableView.frame.size.width, DEFAULT_HEADER_HEIGHT);
- headerView.textLabel.textColor = [UIColor darkTextColor];
- headerView.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
- if (section-1 == SECTIONINDEX_CURRENTUSERS) {
- headerView.textLabel.text = NSLocalizedString(@"CURRENT_USERS",nil);
- }
- return headerView;
- }
- */
-/*
- - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
- 
- }
- */
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    NSLog(@"%s with object %@ atIndexPath:%@ forChangeType:%d newIndexPath:%@",__func__,anObject,indexPath,type,newIndexPath);
+}
 
 #pragma mark - helper
 -(NSString*)userForId:(NSNumber*)userId {
@@ -146,7 +134,7 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 0;
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForPendingInvitesForAccount managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-        
+        _dataResultsController.delegate = self;
     }
     return  _dataResultsController;
 }
@@ -158,6 +146,11 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 0;
         _dateFormatter.dateStyle = NSDateFormatterShortStyle;
     }
     return _dateFormatter;
+}
+
+#pragma mark - UIRefreshControl
+-(void)onRefreshControlSelected:(id)event {
+    [self fetchListOfInvitedUsers];
 }
 
 @end
