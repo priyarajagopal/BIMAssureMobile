@@ -24,6 +24,7 @@ PODS:
   - FontAwesomeKit/Core (2.1.8)
   - FontAwesomeKit/FontAwesome (2.1.8):
     - FontAwesomeKit/Core
+  - FrameAccessor (1.3.2)
   - Mantle (1.5.1):
     - Mantle/extobjc
   - Mantle/extobjc (1.5.1)
@@ -35,19 +36,24 @@ PODS:
     - Mantle (~> 1.3)
   - Overcoat/NSURLSession (2.0.2):
     - Overcoat/Core
+  - VENTokenField (2.2.1):
+    - FrameAccessor (~> 1.0)
 
 DEPENDENCIES:
   - FDKeychain (~> 1.0)
   - FontAwesomeKit/FontAwesome (~> 2.1.0)
   - MBProgressHUD (= 0.9)
   - Overcoat (~> 2.0)
+  - VENTokenField (~> 2.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   FDKeychain: 7d083423c39a430c63b170632c11182d28920da3
   FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
+  FrameAccessor: 5eec95b29b5e9a3afe72a7a2e9ed25b000d3bcc3
   Mantle: d7c5ac734579ec751c58fecbf56189853056c58c
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   Overcoat: a9504cd1f0389641526ba1784592503c012c4b5f
+  VENTokenField: 8f6a986421fbe77b5cf449a0f3e6ff17df26eb98
 
 COCOAPODS: 0.33.1

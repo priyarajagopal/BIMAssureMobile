@@ -7,9 +7,10 @@
 //
 
 #import "INVInvitedUsersTableViewController.h"
+#import <VENTokenField/VENTokenField.h>
+
 static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 static const NSInteger DEFAULT_NUM_SECTIONS = 1;
-static const NSInteger DEFAULT_NUM_ROWS_SECTION = 0;
 
 
 @interface INVInvitedUsersTableViewController () <NSFetchedResultsControllerDelegate>

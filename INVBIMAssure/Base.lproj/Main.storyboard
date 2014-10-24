@@ -1052,24 +1052,22 @@
                                             <segue destination="8sh-7G-KuM" kind="unwind" unwindAction="done:" id="6Nm-E3-bKe"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem key="rightBarButtonItem" title="Send" id="zj6-oc-oIu"/>
+                                    <barButtonItem key="rightBarButtonItem" enabled="NO" title="Send" id="zj6-oc-oIu">
+                                        <connections>
+                                            <action selector="onSendClicked:" destination="Hqm-ua-pJK" id="J9n-8i-Ufn"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </navigationItem>
                             </items>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InviteUserCell" textLabel="byY-Xh-qrY" style="IBUITableViewCellStyleDefault" id="yW5-hW-xEm">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="InviteUserCell" id="yW5-hW-xEm" customClass="INVTokensTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yW5-hW-xEm" id="DeT-de-Mr2">
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="byY-Xh-qrY">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageTextCell" rowHeight="200" id="tpm-gF-uAQ" customClass="INVTextViewTableViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -1086,6 +1084,9 @@
                             <outlet property="delegate" destination="Hqm-ua-pJK" id="jXR-8E-CwZ"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="sendButton" destination="zj6-oc-oIu" id="Sfq-1o-g2X"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6h-av-X55" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

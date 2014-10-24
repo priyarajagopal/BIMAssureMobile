@@ -47,10 +47,24 @@
     NSString* mesg  = extra? [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"LOADING_DATA",nil),extra]:NSLocalizedString(@"LOADING_DATA",nil);
     
     [hud setLabelText:mesg];
-    [hud setDimBackground:YES];
+    [hud setDimBackground:NO];
     [hud setRemoveFromSuperViewOnHide:YES];
     
     return hud;
 }
+
++(MBProgressHUD*)generalViewHUD:(NSString*)extra {
+    MBProgressHUD* hud = [[MBProgressHUD alloc]init];
+    
+    [hud setAnimationType:MBProgressHUDAnimationFade];
+    [hud setMode:MBProgressHUDModeIndeterminate];
+    
+    [hud setLabelText:extra];
+    [hud setDimBackground:NO];
+    [hud setRemoveFromSuperViewOnHide:YES];
+    
+    return hud;
+}
+
 
 @end

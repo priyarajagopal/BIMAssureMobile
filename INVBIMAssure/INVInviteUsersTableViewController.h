@@ -9,5 +9,7 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVInviteUsersTableViewController : INVCustomTableViewController
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sendButton;
+- (IBAction)onSendClicked:(id)sender;
 
 @end

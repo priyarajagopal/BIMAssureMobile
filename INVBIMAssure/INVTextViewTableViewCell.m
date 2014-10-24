@@ -26,7 +26,6 @@ static NSInteger BASELINE_HEIGHT = 200;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    
     // Configure the view for the selected state
 }
 

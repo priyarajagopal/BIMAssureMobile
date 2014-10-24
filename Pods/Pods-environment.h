@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_FontAwesomeKit_FontAwesome 1
 #define COCOAPODS_VERSION_PATCH_FontAwesomeKit_FontAwesome 8
 
+// FrameAccessor
+#define COCOAPODS_POD_AVAILABLE_FrameAccessor
+#define COCOAPODS_VERSION_MAJOR_FrameAccessor 1
+#define COCOAPODS_VERSION_MINOR_FrameAccessor 3
+#define COCOAPODS_VERSION_PATCH_FrameAccessor 2
+
 // MBProgressHUD
 #define COCOAPODS_POD_AVAILABLE_MBProgressHUD
 #define COCOAPODS_VERSION_MAJOR_MBProgressHUD 0
@@ -101,4 +107,10 @@
 #define COCOAPODS_VERSION_MAJOR_Overcoat_NSURLSession 2
 #define COCOAPODS_VERSION_MINOR_Overcoat_NSURLSession 0
 #define COCOAPODS_VERSION_PATCH_Overcoat_NSURLSession 2
+
+// VENTokenField
+#define COCOAPODS_POD_AVAILABLE_VENTokenField
+#define COCOAPODS_VERSION_MAJOR_VENTokenField 2
+#define COCOAPODS_VERSION_MINOR_VENTokenField 2
+#define COCOAPODS_VERSION_PATCH_VENTokenField 1
 
