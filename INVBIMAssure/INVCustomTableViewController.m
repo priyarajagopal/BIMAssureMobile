@@ -30,6 +30,9 @@
     UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
     self.refreshControl.tintColor = cyanBlueColor;
     [self.refreshControl addTarget:self action:@selector(onRefreshControlSelected:) forControlEvents:UIControlEventValueChanged];
+    
+    UIColor * ltGrayColor = [UIColor colorWithRed:230.0/255 green:230.0/255 blue:230.0/255 alpha:1.0];
+    [self.tableView setBackgroundColor:ltGrayColor];
 }
 
 - (void)didReceiveMemoryWarning {

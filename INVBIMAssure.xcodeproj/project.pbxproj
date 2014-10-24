@@ -38,6 +38,12 @@
 		024CDCCB19F94E9A00A2F527 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024CDCC919F94E9A00A2F527 /* EmpireMobileManager.framework */; };
 		024CDCCC19F94EA800A2F527 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024CDCC919F94E9A00A2F527 /* EmpireMobileManager.framework */; };
 		024CDCCD19F94EA800A2F527 /* EmpireMobileManager.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 024CDCC919F94E9A00A2F527 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		024CDCD419FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */; };
+		024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */; };
+		024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCD319FA822400A2F527 /* INVTextViewTableViewCell.xib */; };
+		024CDCD719FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCD319FA822400A2F527 /* INVTextViewTableViewCell.xib */; };
+		024CDCDA19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD919FA85D600A2F527 /* INVInviteUsersTableViewController.m */; };
+		024CDCDB19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD919FA85D600A2F527 /* INVInviteUsersTableViewController.m */; };
 		02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */; };
@@ -136,6 +142,11 @@
 		02457E2319ED88AC00E714BA /* INVMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVMainViewController.h; sourceTree = "<group>"; };
 		02457E2419ED88AC00E714BA /* INVMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVMainViewController.m; sourceTree = "<group>"; };
 		024CDCC919F94E9A00A2F527 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		024CDCD119FA822400A2F527 /* INVTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVTextViewTableViewCell.h; sourceTree = "<group>"; };
+		024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVTextViewTableViewCell.m; sourceTree = "<group>"; };
+		024CDCD319FA822400A2F527 /* INVTextViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVTextViewTableViewCell.xib; sourceTree = "<group>"; };
+		024CDCD819FA85D600A2F527 /* INVInviteUsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVInviteUsersTableViewController.h; sourceTree = "<group>"; };
+		024CDCD919FA85D600A2F527 /* INVInviteUsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVInviteUsersTableViewController.m; sourceTree = "<group>"; };
 		02AAD3E519E61E80002901DA /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
 		02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSplitViewController.h; sourceTree = "<group>"; };
 		02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSplitViewController.m; sourceTree = "<group>"; };
@@ -240,6 +251,9 @@
 				02AAD40A19E82624002901DA /* INVProjectFileCollectionViewCell.h */,
 				02AAD40B19E82624002901DA /* INVProjectFileCollectionViewCell.m */,
 				02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */,
+				024CDCD119FA822400A2F527 /* INVTextViewTableViewCell.h */,
+				024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */,
+				024CDCD319FA822400A2F527 /* INVTextViewTableViewCell.xib */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -361,6 +375,8 @@
 				0223355419F7F24D00224E0C /* INVUserManagementTableViewController.m */,
 				021E85BE19F829F8003E35E0 /* INVInvitedUsersTableViewController.h */,
 				021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */,
+				024CDCD819FA85D600A2F527 /* INVInviteUsersTableViewController.h */,
+				024CDCD919FA85D600A2F527 /* INVInviteUsersTableViewController.m */,
 				0224B8AA19EDBB550083EA6E /* INVEmptySegue.h */,
 				0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */,
 				0224B90519F171080083EA6E /* categories */,
@@ -478,6 +494,7 @@
 				02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */,
 				021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
+				024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +506,7 @@
 				02AAD41019E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */,
 				02AAD42A19ECB349002901DA /* Localizable.strings in Resources */,
 				02B43A1519E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
+				024CDCD719FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				02B43A0B19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
 				02408FFC19E447BF00B218ED /* Main.storyboard in Resources */,
 			);
@@ -565,10 +583,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				02AAD3FC19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
+				024CDCDA19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */,
 				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
 				0224B8C719F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */,
 				02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
 				0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */,
+				024CDCD419FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
 				02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
 				02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
 				0223355519F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */,
@@ -605,6 +625,7 @@
 				02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
 				02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02C8847719E317E900DFB4E2 /* INVBIMAssureTests.m in Sources */,
+				024CDCDB19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */,
 				0223351B19F6A82900224E0C /* INVLoginScrollView.m in Sources */,
 				0224B90419F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */,
 				02AAD41B19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */,
@@ -623,6 +644,7 @@
 				02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
 				02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
 				02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
+				024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
 				0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
