@@ -968,7 +968,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Hqm-ua-pJK" kind="presentation" identifier="inviteUserSegue" modalPresentationStyle="currentContext" modalTransitionStyle="coverVertical" id="scW-9d-obn"/>
+                                    <segue destination="Hqm-ua-pJK" kind="presentation" identifier="inviteUserSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="coverVertical" id="scW-9d-obn"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -980,7 +980,7 @@
                     <navigationItem key="navigationItem" title="User Management" id="Nri-Lm-TVM">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="l93-6B-IF1">
                             <connections>
-                                <segue destination="tXZ-fe-vN6" kind="unwind" unwindAction="done:" id="d0S-ht-HLj"/>
+                                <segue destination="tXZ-fe-vN6" kind="unwind" identifier="" unwindAction="done:" id="d0S-ht-HLj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1049,7 +1049,7 @@
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="qq8-M1-UIw">
                                         <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="8sh-7G-KuM" kind="unwind" unwindAction="done:" id="6Nm-E3-bKe"/>
+                                            <segue destination="8sh-7G-KuM" kind="unwind" identifier="ReturnToUserManagementSegue" unwindAction="done:" id="FKs-Yj-IQi"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" enabled="NO" title="Send" id="zj6-oc-oIu">
@@ -1061,7 +1061,7 @@
                             </items>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="InviteUserCell" id="yW5-hW-xEm" customClass="INVTokensTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="InviteUserCell" rowHeight="100" id="yW5-hW-xEm" customClass="INVTokensTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yW5-hW-xEm" id="DeT-de-Mr2">
                                     <autoresizingMask key="autoresizingMask"/>

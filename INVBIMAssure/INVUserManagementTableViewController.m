@@ -7,6 +7,7 @@
 //
 
 #import "INVUserManagementTableViewController.h"
+#import "INVInviteUsersTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 60;
 static const NSInteger DEFAULT_TABLE_HEADER_HEIGHT = 50;
@@ -20,6 +21,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 @interface INVUserManagementTableViewController ()
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVAccountManager* accountManager;
+@property (nonatomic,weak)INVInviteUsersTableViewController* inviteUsersVC;
 @end
 
 @implementation INVUserManagementTableViewController
@@ -81,6 +83,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
         cell = [tableView dequeueReusableCellWithIdentifier:@"ActionCell" ];
         cell.textLabel.text = NSLocalizedString(@"INVITED_USERS",nil);
     }
+    
     return cell;
 }
 
@@ -106,7 +109,17 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     return nil;
 }
 
-
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIColor* cyanColor = [UIColor colorWithRed:194.0/255 green:224.0/255 blue:240.0/255 alpha:1.0];
+    // Configure the view for the selected state
+    UIView *bgColorView = [[UIView alloc] init];
+    UIColor * ltBlueColor = cyanColor;
+    
+    [bgColorView setBackgroundColor:ltBlueColor];
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelectedBackgroundView:bgColorView];
+    return indexPath;
+}
 
 #pragma mark - server side / data model integration
 -(void)fetchListOfAccountMembers {
@@ -149,33 +162,15 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
-     if ([segue.identifier isEqualToString:@"ComposeMailSegue"]) {
-         if ([MFMailComposeViewController canSendMail]) {
-             MFMailComposeViewController* mailVC = segue.destinationViewController;
-             [mailVC setToRecipients:@[@"r1_priya@yahoo.com"]];
-             [mailVC setSubject:@"test"];
-         }
-         else {
-#warning display error that mail cannot be composed
+     if ([segue.identifier isEqualToString:@"inviteUserSegue"]) {
+         if ([segue.destinationViewController isKindOfClass:[INVInviteUsersTableViewController class]]) {
+             self.inviteUsersVC = segue.destinationViewController;
+             
          }
      }
  }
 
 
-
-/* unused*
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    static NSString* reuseId = @"HeaderView";
-    UITableViewHeaderFooterView* headerView = [[UITableViewHeaderFooterView alloc]initWithReuseIdentifier:reuseId];
-    headerView.frame = CGRectMake (0,0,tableView.frame.size.width, DEFAULT_HEADER_HEIGHT);
-    headerView.textLabel.textColor = [UIColor darkTextColor];
-    headerView.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-    if (section-1 == SECTIONINDEX_CURRENTUSERS) {
-        headerView.textLabel.text = NSLocalizedString(@"CURRENT_USERS",nil);
-    }
-     return headerView;
-}
-*/
 /*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    

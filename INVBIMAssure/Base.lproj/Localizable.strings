@@ -31,3 +31,6 @@
 "ENTER_OPTIONAL_MESSAGE"="Enter Optional Message :";
 "ENTER_INVITED_USERS"="";
 "ENTER_EMAILS:"="Enter Emails";
+"INVITING"="Inviting";
+"INVITE_FAILURE"="Invite Failure";
+"GENERIC_INVITE_FAILURE_MESSAGE"="There was an error while trying to invite users to the account. Please try again";

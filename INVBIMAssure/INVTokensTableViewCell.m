@@ -7,6 +7,7 @@
 //
 
 #import "INVTokensTableViewCell.h"
+const static NSInteger BASELINE_HEIGHT = 50;
 
 @interface INVTokensTableViewCell() <VENTokenFieldDelegate, VENTokenFieldDataSource>
 @property (readwrite, nonatomic) NSMutableArray *tokens;
@@ -17,17 +18,21 @@
 - (void)awakeFromNib {
     // Initialization code
     [super awakeFromNib];
-    
+    self.tokenField.maxHeight = CGFLOAT_MAX;
     self.tokenField.dataSource = self;
     self.tokenField.delegate = self;
     self.tokenField.placeholderText = NSLocalizedString(@"ENTER_EMAILS:", nil);
+    UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
+    [self.tokenField setColorScheme: cyanBlueColor];
+    
     self.tokens = [[NSMutableArray alloc]initWithCapacity:0];
+    [self.tokenField becomeFirstResponder];
+
 
 }
 
 -(void)layoutSubviews {
     [super layoutSubviews];
-    [self.tokenField becomeFirstResponder];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -53,19 +58,19 @@
 - (void)tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text
 {
     [self.tokens addObject:text];
-    [self.tokenField reloadData];
     if (self.cellDelegate && [self.cellDelegate respondsToSelector:@selector(tokensChanged:)]) {
         [self.cellDelegate tokensChanged:self.tokens];
     }
+    [tokenField reloadData];
 }
 
 - (void)tokenField:(VENTokenField *)tokenField didDeleteTokenAtIndex:(NSUInteger)index
 {
     [self.tokens removeObjectAtIndex:index];
-    [self.tokenField reloadData];
     if (self.cellDelegate && [self.cellDelegate respondsToSelector:@selector(tokensChanged:)]) {
         [self.cellDelegate tokensChanged:self.tokens];
     }
+    [tokenField reloadData];
 }
 
 
@@ -83,7 +88,12 @@
 
 - (NSString *)tokenFieldCollapsedText:(VENTokenField *)tokenField
 {
-    return  [NSString stringWithFormat:@"%d",self.tokens.count ];
+    return  [NSString stringWithFormat:@"%ld",self.tokens.count ];
 }
 
+
+#pragma mark - helpers
+-(BOOL) heightOfTokenFieldChangedForTokenField:(VENTokenField*)tokenField {
+    return YES;
+}
 @end

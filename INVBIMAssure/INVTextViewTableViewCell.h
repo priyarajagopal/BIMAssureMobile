@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @protocol INVTextViewTableViewCellDelegate <NSObject>
 
-@required
+@optional
 -(void)cellSizeChanged:(CGSize)size withTextString:(NSString*)textStr;
 @end
 

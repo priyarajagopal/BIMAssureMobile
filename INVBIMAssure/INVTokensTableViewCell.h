@@ -10,7 +10,8 @@
 #import <VENTokenField/VENTokenField.h>
 @protocol INVTokensTableViewCellDelegate <NSObject>
 
-@required
+@optional
+-(void)cellSizeChanged:(CGSize)size withTextString:(NSString*)textStr;
 -(void)tokensChanged:(NSArray*)tokens;
 @end
 

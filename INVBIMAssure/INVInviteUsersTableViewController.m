@@ -11,7 +11,7 @@
 #import "INVTokensTableViewCell.h"
 
 static const NSInteger DEFAULT_MESSAGE_CELL_HEIGHT = 200;
-static const NSInteger DEFAULT_INVITEDUSERS_CELL_HEIGHT = 50;
+static const NSInteger DEFAULT_INVITEDUSERS_CELL_HEIGHT = 100;
 static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 static const NSInteger DEFAULT_NUM_SECTIONS = 2;
 static const NSInteger SECTIONINDEX_INVITEUSERLIST = 0;
@@ -33,6 +33,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"INVITE_USERS", nil);
     
+    self.refreshControl = nil;
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
     self.messageRowHeight = DEFAULT_MESSAGE_CELL_HEIGHT;
     
@@ -42,12 +43,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     UINib* inviteNib = [UINib nibWithNibName:@"INVTokensTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:inviteNib forCellReuseIdentifier:@"InviteUserCell"];
     
+    self.clearsSelectionOnViewWillAppear = YES;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation
@@ -147,13 +150,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     else {
         [self.sendButton setEnabled:NO];
     }
+    
 }
 #pragma mark - UIEvent Handlers
 - (IBAction)onSendClicked:(id)sender {
     self.hud = [MBProgressHUD generalViewHUD:NSLocalizedString(@"INVITING", nil)];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
-    [self inviteUsers:self.tokens withMessage:@""];
+    [self inviteUsers:[self cleanupTokens:self.tokens] withMessage:@""];
 
 }
 
@@ -165,11 +169,39 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
         [self.hud hide:YES];
         if (error) {
 #warning - display error
+            [self showInviteFailureAlert];
             
+        }
+        else {
+            
+            [self performSegueWithIdentifier:@"ReturnToUserManagementSegue" sender:self];
         }
     }];
 }
 
+
+#pragma mark - helpers
+-(NSArray*)cleanupTokens:(NSArray*)tokens {
+    NSMutableArray* cleanTokens = [[NSMutableArray alloc]initWithCapacity:0];
+    [tokens enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSString* token = obj;
+        token = [token stringByReplacingOccurrencesOfString:@"," withString:@""];
+        [cleanTokens addObject:token];
+    }];
+    return cleanTokens;
+    
+}
+-(void)showInviteFailureAlert {
+    UIAlertController* inviteFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"INVITE_FAILURE", nil) message:NSLocalizedString(@"GENERIC_INVITE_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [inviteFailureAlertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+
+    [inviteFailureAlertController addAction:action];
+    [self presentViewController:inviteFailureAlertController animated:YES completion:^{
+        
+    }];
+}
 
 
 @end
