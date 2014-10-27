@@ -23,4 +23,4 @@ extern NSString* const KVO_INVOnManageUsersMenuSelected;
 - (IBAction)onSettingsViewSelected:(id)sender;
 - (IBAction)onProjectsViewSelected:(id)sender;
 - (IBAction)onManageUsers:(UIButton *)sender;
-@end
+@end 

@@ -83,6 +83,7 @@
 
 -(void)resetRootViewControllerWhenAppPushedToBackground {
     [self deregisterAccountObservers];
+    [self deregisterLoginObservers];
     [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self displayLoginRootViewController];
     }];
