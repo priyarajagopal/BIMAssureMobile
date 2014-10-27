@@ -88,8 +88,8 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 
 -(void)loadViewer {
     
-    //NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://10.1.10.228:8888/Viewer/Visualize.html"]];
-     NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://10.0.1.3:8888/Viewer/Visualize.html"]];
+    NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/mobileviewer/Visualize.html"]];
+   //  NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://10.0.1.3:8888/Viewer/Visualize.html"]];
     //NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.1.199:8888/XOSVisualization/sample/index.html"]];
     [self.webView loadRequest:request];
     [self addWebviewObservers] ;
