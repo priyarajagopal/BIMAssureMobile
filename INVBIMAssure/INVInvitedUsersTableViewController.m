@@ -16,19 +16,23 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVAccountManager* accountManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
+@property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
+
 @end
 
 @implementation INVInvitedUsersTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"INVITED_USERS", nil);
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
+    
+    [self setupTableViewDataSource];
+    self.tableView.dataSource = self.dataSource;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,22 +50,15 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 }
 
 
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataResultsController.fetchedObjects count];
+-(void)setupTableViewDataSource {
+    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
+    INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVInvite* invite ){
+        cell.textLabel.text = invite.email;
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString (@"INVITED_BY_ON",nil),[self userForId:invite.updatedBy], [self.dateFormatter stringFromDate:invite.updatedAt]];
+        
+    };
+    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
 }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InvitedUserCell" ];
-    INVInvite* invite = [self.dataResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = invite.email;
-    cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString (@"INVITED_BY_ON",nil),[self userForId:invite.updatedBy], [self.dateFormatter stringFromDate:invite.updatedAt]];
-   
-    return cell;
-}
-
-
 
 #pragma mark - server side
 -(void)fetchListOfInvitedUsers {

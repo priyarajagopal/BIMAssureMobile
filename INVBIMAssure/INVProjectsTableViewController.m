@@ -32,8 +32,10 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
     self.title = NSLocalizedString(@"PROJECTS", nil);
    
     self.projectManager = self.globalDataManager.invServerClient.projectManager;
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
-
+   
+    [self setupTableViewDataSource];
+    
+    self.tableView.dataSource = self.dataSource;
     UINib* nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
     
@@ -50,6 +52,15 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
    
+    
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+    [self fetchProjectList];
+}
+
+-(void)setupTableViewDataSource {
+    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project ){
         cell.name.text = project.name;
         NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
@@ -65,14 +76,9 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
         NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
         cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
         
-
+        
     };
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
-    [self fetchProjectList];
 }
 
 #pragma mark - server side

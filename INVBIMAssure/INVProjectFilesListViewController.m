@@ -28,6 +28,7 @@ const NSInteger  CELL_HEIGHT = 282;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.projectManager = self.globalDataManager.invServerClient.projectManager;
+    
     self.title = NSLocalizedString(@"FILES", nil);
     
     UIColor * whiteColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
