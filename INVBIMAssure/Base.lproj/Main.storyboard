@@ -54,6 +54,9 @@
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" enablesReturnKeyAutomatically="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="ea0-Az-nkO" id="onQ-Qf-mha"/>
+                                                        </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80m-e3-7y6">
                                                         <rect key="frame" x="8" y="6" width="36" height="34"/>
@@ -95,6 +98,9 @@
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="ea0-Az-nkO" id="rhd-Ef-f0D"/>
+                                                        </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdN-Sx-VYI">
                                                         <rect key="frame" x="8" y="6" width="36" height="34"/>
@@ -256,14 +262,6 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="xi4-1v-bZI">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="301" height="70"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="DFn-SN-EGj">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="301" height="70"/>
@@ -468,7 +466,7 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XF1-1W-JNk">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="CI0-MV-As7"/>
+                                    <constraint firstAttribute="height" constant="44" id="CI0-MV-As7"/>
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ZdV-hG-nbK"/>
@@ -477,11 +475,14 @@
                                             <rect key="frame" x="16" y="7" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
-                                            <state key="normal" title=""/>
+                                            <state key="normal" title="">
+                                                <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
                                             <connections>
                                                 <action selector="onHomeSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="nUF-RG-MXc"/>
                                             </connections>
                                         </button>
+                                        <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="BjR-Md-DNh" userLabel="shadow">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="D5r-Im-lup">
@@ -489,7 +490,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="22"/>
                                             <state key="normal" title="">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -503,7 +504,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="21"/>
                                             <state key="normal" title="">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -517,7 +518,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="19"/>
                                             <state key="normal" title="">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -531,7 +532,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="21"/>
                                             <state key="normal" title="">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -540,16 +541,15 @@
                                         </button>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="XF1-1W-JNk" secondAttribute="bottom" id="DXR-fM-avT"/>
+                            <constraint firstItem="XF1-1W-JNk" firstAttribute="width" secondItem="x8y-e1-MiR" secondAttribute="width" id="EVF-bh-Uos"/>
                             <constraint firstItem="De6-NR-Sbg" firstAttribute="width" secondItem="x8y-e1-MiR" secondAttribute="width" id="HNG-wd-3aH"/>
                             <constraint firstItem="XF1-1W-JNk" firstAttribute="leading" secondItem="x8y-e1-MiR" secondAttribute="leading" id="LxQ-9e-QBh"/>
                             <constraint firstItem="De6-NR-Sbg" firstAttribute="height" secondItem="x8y-e1-MiR" secondAttribute="height" constant="-44" id="P75-LZ-5g7"/>
-                            <constraint firstItem="De6-NR-Sbg" firstAttribute="width" secondItem="XF1-1W-JNk" secondAttribute="width" id="QbL-Md-R68"/>
                             <constraint firstAttribute="centerX" secondItem="De6-NR-Sbg" secondAttribute="centerX" id="a0B-AG-AJm"/>
                             <constraint firstItem="De6-NR-Sbg" firstAttribute="top" secondItem="x8y-e1-MiR" secondAttribute="top" id="pML-m4-16H"/>
                         </constraints>

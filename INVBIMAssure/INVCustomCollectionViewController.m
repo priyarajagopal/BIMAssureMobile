@@ -36,6 +36,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)customizeLayout {
     UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
     currLayout.minimumLineSpacing = 10;
+    currLayout.minimumInteritemSpacing = 10;
     self.collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
 
 }
@@ -45,12 +46,17 @@ static NSString * const reuseIdentifier = @"Cell";
    
 }
 
+/*
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
-
-
+ */
+/*
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return YES;
+}
+ */
 /*
 #pragma mark - Navigation
 
@@ -72,26 +78,5 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end

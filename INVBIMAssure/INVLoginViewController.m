@@ -14,7 +14,7 @@
 #pragma mark - KVO
 NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
-@interface INVLoginViewController ()<UIScrollViewDelegate>
+@interface INVLoginViewController ()<UIScrollViewDelegate, UITextFieldDelegate>
 @property (nonatomic,assign) BOOL loginSuccess;
 @property (nonatomic,copy)NSString* userToken;
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;

@@ -60,23 +60,24 @@
 
 #pragma mark - view appearance
 -(void) setUpViewAppearance {
+    
     UIColor * whiteColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
     UIColor * medGreyColor = [UIColor colorWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1.0];
     UIColor * ltGreyColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
     UIColor* darkGreyColor = [UIColor colorWithRed:150.0/255 green:150.0/255 blue:150.0/255 alpha:1.0];
     UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
 
-    
+    [[UIView appearance] setTintColor:darkGreyColor];
+
     [self.window setTintColor:darkGreyColor];
     [[UINavigationBar appearance] setBarTintColor:cyanBlueColor ] ;
     [[UINavigationBar appearance] setTintColor:whiteColor] ;
     
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
     [[UITextField appearance] setTintColor:darkGreyColor];
-    [[UIView appearance] setTintColor:whiteColor];
+    
     [[UITabBar appearance]setBarTintColor:ltGreyColor];
-    [[UITabBar appearance]setTintColor:darkGreyColor];
-     
+    [[UITabBar appearance]setTintColor:cyanBlueColor];
 }
 
 #pragma mark - VC management

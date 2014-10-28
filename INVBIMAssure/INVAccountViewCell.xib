@@ -53,13 +53,7 @@
                             <constraint firstItem="w4K-G6-Tjp" firstAttribute="leading" secondItem="9T3-2s-hdM" secondAttribute="leading" constant="8" id="Sl6-ik-Dmk"/>
                             <constraint firstItem="uhk-be-sb1" firstAttribute="leading" secondItem="w4K-G6-Tjp" secondAttribute="leading" id="ZF3-6o-V0c"/>
                             <constraint firstItem="egK-EL-DS9" firstAttribute="leading" secondItem="w4K-G6-Tjp" secondAttribute="trailing" constant="8" id="lyj-aN-Z83"/>
-                            <constraint firstItem="w4K-G6-Tjp" firstAttribute="leading" secondItem="9T3-2s-hdM" secondAttribute="leading" constant="8" id="pcY-5C-ZbQ"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="pcY-5C-ZbQ"/>
-                            </mask>
-                        </variation>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

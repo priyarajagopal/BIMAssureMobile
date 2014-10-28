@@ -25,9 +25,6 @@
 		023F2B3719FE81C900E4C985 /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3319FE81C900E4C985 /* libPods-FrameAccessor.a */; };
 		023F2B3819FE81C900E4C985 /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3419FE81C900E4C985 /* libPods-MBProgressHUD.a */; };
 		023F2B3919FE81C900E4C985 /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3519FE81C900E4C985 /* libPods-VENTokenField.a */; };
-		023F2B3F19FE836B00E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3C19FE82FD00E4C985 /* EmpireMobileManager.framework */; };
-		023F2B4E19FE868600E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3C19FE82FD00E4C985 /* EmpireMobileManager.framework */; };
-		023F2B4F19FE868600E4C985 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3C19FE82FD00E4C985 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		023F2B5119FE874B00E4C985 /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3219FE81C900E4C985 /* libPods-FontAwesomeKit.a */; };
 		023F2B5219FE874D00E4C985 /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3319FE81C900E4C985 /* libPods-FrameAccessor.a */; };
 		023F2B5319FE875000E4C985 /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3419FE81C900E4C985 /* libPods-MBProgressHUD.a */; };
@@ -36,6 +33,9 @@
 		023F2B5719FE889A00E4C985 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846919E317E900DFB4E2 /* LaunchScreen.xib */; };
 		023F2B5A19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */; };
 		023F2B5B19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */; };
+		023F2B5D19FFD7CF00E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B5C19FFD7CF00E4C985 /* EmpireMobileManager.framework */; };
+		023F2B6519FFF47400E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B6419FFF47400E4C985 /* EmpireMobileManager.framework */; };
+		023F2B6619FFF47400E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B6419FFF47400E4C985 /* EmpireMobileManager.framework */; };
 		02408FFC19E447BF00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
 		0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
@@ -118,7 +118,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				023F2B4F19FE868600E4C985 /* EmpireMobileManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,9 +144,10 @@
 		023F2B3419FE81C900E4C985 /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
 		023F2B3519FE81C900E4C985 /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Debug-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
 		023F2B3A19FE81DD00E4C985 /* libPods-FDKeychain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FDKeychain.a"; path = "Pods/build/Debug-iphoneos/libPods-FDKeychain.a"; sourceTree = "<group>"; };
-		023F2B3C19FE82FD00E4C985 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		023F2B5819FEDCA700E4C985 /* INVGenericTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGenericTableViewDataSource.h; sourceTree = "<group>"; };
 		023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGenericTableViewDataSource.m; sourceTree = "<group>"; };
+		023F2B5C19FFD7CF00E4C985 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = /Users/priyarajagopal/projects/apps/invicara/INVBIMAssure/EmpireMobileManager.framework; sourceTree = "<absolute>"; };
+		023F2B6419FFF47400E4C985 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		02408FFD19E45A2700B218ED /* INVAccountListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountListViewController.h; sourceTree = "<group>"; };
 		02408FFE19E45A2700B218ED /* INVAccountListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountListViewController.m; sourceTree = "<group>"; };
 		0240900719E45B4E00B218ED /* INVAccountViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountViewCell.h; sourceTree = "<group>"; };
@@ -223,7 +223,8 @@
 				023F2B3619FE81C900E4C985 /* libPods-FontAwesomeKit.a in Frameworks */,
 				023F2B3719FE81C900E4C985 /* libPods-FrameAccessor.a in Frameworks */,
 				023F2B3819FE81C900E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
-				023F2B4E19FE868600E4C985 /* EmpireMobileManager.framework in Frameworks */,
+				023F2B5D19FFD7CF00E4C985 /* EmpireMobileManager.framework in Frameworks */,
+				023F2B6519FFF47400E4C985 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B3919FE81C900E4C985 /* libPods-VENTokenField.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,10 +233,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				023F2B3F19FE836B00E4C985 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B5419FE875300E4C985 /* libPods-VENTokenField.a in Frameworks */,
 				023F2B5319FE875000E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
 				023F2B5119FE874B00E4C985 /* libPods-FontAwesomeKit.a in Frameworks */,
+				023F2B6619FFF47400E4C985 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B5219FE874D00E4C985 /* libPods-FrameAccessor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,7 +413,7 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				023F2B3C19FE82FD00E4C985 /* EmpireMobileManager.framework */,
+				023F2B6419FFF47400E4C985 /* EmpireMobileManager.framework */,
 				023F2B3A19FE81DD00E4C985 /* libPods-FDKeychain.a */,
 				023F2B3219FE81C900E4C985 /* libPods-FontAwesomeKit.a */,
 				023F2B3319FE81C900E4C985 /* libPods-FrameAccessor.a */,
@@ -823,6 +824,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../**",
 					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
@@ -853,6 +855,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -862,10 +865,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../**",
 					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
@@ -896,6 +901,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -910,6 +916,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)/INVBIMAssure/**",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -938,6 +945,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)/INVBIMAssure/**",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = INVBIMAssureTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

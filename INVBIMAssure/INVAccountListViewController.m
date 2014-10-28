@@ -7,7 +7,6 @@
 //
 
 @import CoreData;
-#import "INVGenericTableViewDataSource.h"
 
 const NSInteger INV_CELLSIZE = 100;
 
@@ -20,7 +19,7 @@ const NSInteger INV_CELLSIZE = 100;
 NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 
 
-@interface INVAccountListViewController () <INVDefaultAccountAlertViewDelegate>
+@interface INVAccountListViewController () <INVDefaultAccountAlertViewDelegate,UICollectionViewDataSource>
 @property (nonatomic,assign) BOOL accountLoginSuccess;
 @property (nonatomic,strong) INVDefaultAccountAlertView* alertView ;
 @property (nonatomic,strong)INVAccountManager* accountManager;
@@ -41,7 +40,7 @@ static NSString * const reuseIdentifier = @"Cell";
     // Uncomment the following line to preserve selection between presentations
     self.clearsSelectionOnViewWillAppear = NO;
     
-    self.title = NSLocalizedString(@"ACCOUNTS", nil);
+     self.title = NSLocalizedString(@"ACCOUNTS", nil);
     
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
     
@@ -51,7 +50,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UIBarButtonItem* settingsButton = self.navigationItem.rightBarButtonItem;
     
     FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
-    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(37, 40)]];
+    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 40)]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,8 +101,10 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewWillLayoutSubviews];
     UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
     CGSize itemSize = currLayout.itemSize;
+    currLayout.itemSize = CGSizeMake((self.collectionView.frame.size.width-30)/2.0, itemSize.height) ;
     currLayout.estimatedItemSize = CGSizeMake((self.collectionView.frame.size.width/2)-20, itemSize.height) ;
 }
+
 
 #pragma mark <UICollectionViewDataSource>
 
