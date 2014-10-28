@@ -7,6 +7,7 @@
 //
 
 @import CoreData;
+#import "INVGenericTableViewDataSource.h"
 
 const NSInteger INV_CELLSIZE = 100;
 
@@ -38,9 +39,12 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
+    
     self.title = NSLocalizedString(@"ACCOUNTS", nil);
+    
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
+    
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
@@ -307,8 +311,9 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)notifySwitchFromAccount:(NSNumber*)prevLoggedInAccount {
-    NSDictionary* userInfo = @{@"currentAccount":prevLoggedInAccount,@"newAccount":self.currentAccountId};
-    [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationAccountSwitchSuccess object:self userInfo:userInfo];
+#warning check why crash
+  //  NSDictionary* userInfo = @{@"currentAccount":prevLoggedInAccount,@"newAccount":self.currentAccountId};
+    [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationAccountSwitchSuccess object:self userInfo:nil];
     
 }
 

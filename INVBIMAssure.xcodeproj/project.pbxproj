@@ -34,6 +34,8 @@
 		023F2B5419FE875300E4C985 /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3519FE81C900E4C985 /* libPods-VENTokenField.a */; };
 		023F2B5619FE889200E4C985 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846719E317E900DFB4E2 /* Images.xcassets */; };
 		023F2B5719FE889A00E4C985 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846919E317E900DFB4E2 /* LaunchScreen.xib */; };
+		023F2B5A19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */; };
+		023F2B5B19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */; };
 		02408FFC19E447BF00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
 		0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
@@ -144,6 +146,8 @@
 		023F2B3519FE81C900E4C985 /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Debug-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
 		023F2B3A19FE81DD00E4C985 /* libPods-FDKeychain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FDKeychain.a"; path = "Pods/build/Debug-iphoneos/libPods-FDKeychain.a"; sourceTree = "<group>"; };
 		023F2B3C19FE82FD00E4C985 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		023F2B5819FEDCA700E4C985 /* INVGenericTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGenericTableViewDataSource.h; sourceTree = "<group>"; };
+		023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGenericTableViewDataSource.m; sourceTree = "<group>"; };
 		02408FFD19E45A2700B218ED /* INVAccountListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountListViewController.h; sourceTree = "<group>"; };
 		02408FFE19E45A2700B218ED /* INVAccountListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountListViewController.m; sourceTree = "<group>"; };
 		0240900719E45B4E00B218ED /* INVAccountViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountViewCell.h; sourceTree = "<group>"; };
@@ -280,6 +284,8 @@
 			children = (
 				02C8849219E339F200DFB4E2 /* INVGlobalDataManager.h */,
 				02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */,
+				023F2B5819FEDCA700E4C985 /* INVGenericTableViewDataSource.h */,
+				023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -609,6 +615,7 @@
 				024CDCDA19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */,
 				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
 				0224B8C719F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */,
+				023F2B5A19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */,
 				02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
 				0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */,
 				024CDCD419FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
@@ -668,6 +675,7 @@
 				02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
 				02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
 				02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
+				023F2B5B19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */,
 				024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
 				0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */,
 				024CDCE819FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */,

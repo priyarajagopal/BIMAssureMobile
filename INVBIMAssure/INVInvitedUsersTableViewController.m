@@ -10,7 +10,6 @@
 #import <VENTokenField/VENTokenField.h>
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 70;
-static const NSInteger DEFAULT_NUM_SECTIONS = 1;
 
 
 @interface INVInvitedUsersTableViewController () <NSFetchedResultsControllerDelegate>
@@ -48,11 +47,6 @@ static const NSInteger DEFAULT_NUM_SECTIONS = 1;
 
 
 #pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return DEFAULT_NUM_SECTIONS;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.dataResultsController.fetchedObjects count];

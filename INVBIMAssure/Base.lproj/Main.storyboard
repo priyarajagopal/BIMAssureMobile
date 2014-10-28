@@ -364,7 +364,6 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="Bec-aY-4oM" id="bww-mM-kwD"/>
                             <outlet property="delegate" destination="Bec-aY-4oM" id="gW9-WV-8lo"/>
                         </connections>
                     </tableView>

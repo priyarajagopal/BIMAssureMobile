@@ -11,6 +11,7 @@
 #import "INVProjectDetailsTabViewController.h"
 #import "INVProjectFilesListViewController.h"
 
+
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 
@@ -19,6 +20,8 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVProjectDetailsTabViewController* projectDetailsController;
+@property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
+
 @end
 
 @implementation INVProjectsTableViewController
@@ -26,14 +29,17 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     self.title = NSLocalizedString(@"PROJECTS", nil);
-    
+    self.title = NSLocalizedString(@"PROJECTS", nil);
+   
     self.projectManager = self.globalDataManager.invServerClient.projectManager;
+    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
+
     UINib* nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
+    
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
-    
+    self.tableView.dataSource = self.dataSource;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,6 +49,26 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+   
+    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project ){
+        cell.name.text = project.name;
+        NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
+        NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
+        NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:createdOnWithDateStr];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, createdOnStr.length-1)];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(createdOnStr.length,createdOnWithDateStr.length-createdOnStr.length)];
+        
+        cell.createdOnLabel.attributedText = attrString;
+        
+        NSUInteger random = self.dataResultsController.fetchedObjects.count;
+        NSInteger index = arc4random_uniform(random);
+        NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
+        cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
+        
+
+    };
+    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
+    
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
@@ -84,82 +110,10 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 */
 
 
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return self.dataResultsController.fetchedObjects.count;;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return DEFAULT_NUM_ROWS_SECTION;
-}
-
-
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    INVProjectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProjectCell" forIndexPath:indexPath];
- 
-     // Configure the cell...
-     INVProject* project = [self.dataResultsController objectAtIndexPath:indexPath];
-     cell.name.text = project.name;
-     NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
-     NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
-     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:createdOnWithDateStr];
-     [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, createdOnStr.length-1)];
-     [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(createdOnStr.length,createdOnWithDateStr.length-createdOnStr.length)];
-                                  
-     cell.createdOnLabel.attributedText = attrString;
-     
-#warning when thumbnail url is available on server use it to load images asynchronously. For now, picking from bundle
-     NSUInteger random = self.dataResultsController.fetchedObjects.count;
-     NSInteger index = arc4random_uniform(random);
-     NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
-     cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
-
-     return cell;
- }
-
-
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"ProjectDetailSegue" sender:self];
 }
-
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 
  #pragma mark - Navigation
