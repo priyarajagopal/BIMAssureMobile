@@ -11,7 +11,7 @@
 #pragma mark - KVO
 NSString* const KVO_INVOnAccountMenuSelected = @"accountsMenuSelected";
 NSString* const KVO_INVOnUserProfileMenuSelected = @"userProfileMenuSelected";
-NSString* const KVO_INVOnSettingsMenuSelected = @"settingsMenuSelected";
+NSString* const KVO_INVOnInfoMenuSelected = @"infoMenuSelected";
 NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
 NSString* const KVO_INVOnLogoutMenuSelected = @"logoutMenuSelected";
 NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
@@ -20,7 +20,7 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
 @interface INVMainMenuViewController ()
 @property (nonatomic,assign)BOOL accountsMenuSelected;
 @property (nonatomic,assign)BOOL userProfileMenuSelected;
-@property (nonatomic,assign)BOOL settingsMenuSelected;
+@property (nonatomic,assign)BOOL infoMenuSelected;
 @property (nonatomic,assign)BOOL projectsMenuSelected;
 @property (nonatomic,assign)BOOL logoutMenuSelected;
 @property (nonatomic,assign)BOOL manageUsersMenuSelected;
@@ -65,8 +65,8 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
     self.userProfileMenuSelected = YES;
 }
 
-- (IBAction)onSettingsViewSelected:(id)sender {
-    self.settingsMenuSelected = YES;
+- (IBAction)onInfoViewSelected:(id)sender {
+    self.infoMenuSelected = YES;
 }
 
 - (IBAction)onProjectsViewSelected:(id)sender {

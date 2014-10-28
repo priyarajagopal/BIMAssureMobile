@@ -87,7 +87,7 @@
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnAccountMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnProjectsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected options:NSKeyValueObservingOptionNew context:nil];
-    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnSettingsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
+    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnInfoMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected options:NSKeyValueObservingOptionNew context:nil];
 
@@ -102,7 +102,7 @@
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnAccountMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnProjectsMenuSelected ];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected];
-    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnSettingsMenuSelected];
+    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnInfoMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected];
 }
@@ -139,6 +139,10 @@
     }
     if ([keyPath isEqualToString:KVO_INVOnManageUsersMenuSelected]) {
         [self performSegueWithIdentifier:@"MainManageUsersSegue" sender:nil];
+        
+    }
+    if ([keyPath isEqualToString:KVO_INVOnInfoMenuSelected]) {
+        [self performSegueWithIdentifier:@"GlobalInfoSegue" sender:nil];
         
     }
 }
