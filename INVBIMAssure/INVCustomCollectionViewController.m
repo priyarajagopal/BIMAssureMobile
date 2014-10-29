@@ -9,7 +9,7 @@
 #import "INVCustomCollectionViewController.h"
 
 
-@interface INVCustomCollectionViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface INVCustomCollectionViewController ()<UICollectionViewDelegate>
 @property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
 
 @end

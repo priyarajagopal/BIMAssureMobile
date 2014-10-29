@@ -34,5 +34,5 @@
 "INVITING"="Inviting";
 "INVITE_FAILURE"="Invite Failure";
 "GENERIC_INVITE_FAILURE_MESSAGE"="There was an error while trying to invite users to the account. Please try again";
-"GENERIC_ACCOUNT_LOGOUT_MESSAGE"="You will be logged out of the account";
+"GENERIC_ACCOUNT_LOGOUT_MESSAGE"="You will be logged out of the \" %1@ \" account.";
 "ARE_YOU_SURE"="Are you sure?";

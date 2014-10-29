@@ -28,7 +28,7 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;
 @property (nonatomic,strong)UIAlertController* logoutPromptAlertController;
 @property (nonatomic,assign)BOOL saveAsDefault;
-
+@property (nonatomic,strong)INVGenericCollectionViewDataSource* dataSource;
 @end
 
 @implementation INVAccountListViewController
@@ -44,6 +44,9 @@ static NSString * const reuseIdentifier = @"Cell";
     self.title = NSLocalizedString(@"ACCOUNTS", nil);
     
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
+    
+    [self setupCollectionViewDataSource];
+    
     
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
@@ -84,6 +87,25 @@ static NSString * const reuseIdentifier = @"Cell";
     [self setEstimatedSizeForCells];
 }
 
+-(void)setupCollectionViewDataSource {
+    self.dataSource = [[INVGenericCollectionViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
+    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVAccountViewCell *cell,INVAccount* account ){
+        cell.name.text = account.name;
+        cell.overview.text = account.overview;
+        NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
+        if (currentAcnt && [account.accountId isEqualToNumber:currentAcnt]) {
+            cell.isDefault = YES;
+        }
+        else {
+            cell.isDefault = NO;
+        }
+        
+        
+    };
+    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"AccountCell" configureBlock:cellConfigurationBlock];
+    self.collectionView.dataSource = self.dataSource;
+
+}
 
 #pragma mark - Navigation
 
@@ -114,40 +136,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
-#pragma mark <UICollectionViewDataSource>
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.dataResultsController.sections.count;
-}
-
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[section];
-    return objectInSection.numberOfObjects;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    INVAccountViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AccountCell" forIndexPath:indexPath];
-    
-    // Configure the cell
-   
-    INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
-    cell.name.text = account.name;
-    cell.overview.text = account.overview;
-    NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
- //   if (!cell.accessoryLabel ) {
-        if (currentAcnt && [account.accountId isEqualToNumber:currentAcnt]) {
-            cell.isDefault = YES;
-        }
-        else {
-            cell.isDefault = NO;
-        }
- //   }
-    return cell;
-}
-
-#pragma mark <UICollectionViewDelegate>
-
+#pragma mark UICollectionViewDelegate
 
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -165,7 +154,7 @@ static NSString * const reuseIdentifier = @"Cell";
     NSLog (@"%s",__func__);
     INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
     if ( self.globalDataManager.loggedInAccount == account.accountId) {
-        [self showLogoutPromptAlert];
+        [self showLogoutPromptAlertForAccount:account];
     }
     else {
         self.currentAccountId = account.accountId;
@@ -411,14 +400,15 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
 }
 
--(void)showLogoutPromptAlert {
+-(void)showLogoutPromptAlertForAccount:(INVAccount*)account {
     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [self.logoutPromptAlertController dismissViewControllerAnimated:YES completion:nil];
     }];
     UIAlertAction* proceedAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"LOG_OUT", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self logoutAccount];
     }];
-    self.logoutPromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:NSLocalizedString(@"GENERIC_ACCOUNT_LOGOUT_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+    NSString* promtMesg = [NSString stringWithFormat:NSLocalizedString(@"GENERIC_ACCOUNT_LOGOUT_MESSAGE", nil) ,account.name ];
+    self.logoutPromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:promtMesg preferredStyle:UIAlertControllerStyleAlert];
     [self.logoutPromptAlertController addAction:cancelAction];
     [self.logoutPromptAlertController addAction:proceedAction];
     

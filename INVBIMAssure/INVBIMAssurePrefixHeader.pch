@@ -25,4 +25,5 @@
 #import "INVCustomTabBarController.h"
 #import "MBProgressHUD+INVBAHUD.h"
 #import "INVGenericTableViewDataSource.h"
+#import "INVGenericCollectionViewDataSource.h"
 #endif

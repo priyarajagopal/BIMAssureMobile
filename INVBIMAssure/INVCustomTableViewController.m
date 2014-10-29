@@ -8,7 +8,7 @@
 
 #import "INVCustomTableViewController.h"
 
-@interface INVCustomTableViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface INVCustomTableViewController () <UITableViewDelegate>
 @property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
 @property (nonatomic,strong)UIRefreshControl* refreshControl;
 
