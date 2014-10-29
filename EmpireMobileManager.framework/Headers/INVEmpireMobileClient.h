@@ -57,6 +57,18 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  */
 +(INVEmpireMobileClient*)sharedInstanceWithXOSPassportServer:(NSString*)passportServer andPort:(NSString*)port;
 
+/**
+ Creates a singleton instance of EmporeMobileClient and initializes it with the XOS Passport server
+ 
+ NOTE: This is used exclusively in test mode so cached data is all in-memory
+ 
+ @param passportServer The address of the passport server (eg.127.0.0.1, localhost, www.server.com)
+ 
+ @param port The port of passport server. This is optional and defaults to 8080
+ 
+ @return The singleton instance
+ */
++(INVEmpireMobileClient*)sharedTestInstanceWithXOSPassportServer:(NSString*)passportServer andPort:(NSString*)port;
 
 /**
  Configures EmpireMobileClient with server address and port

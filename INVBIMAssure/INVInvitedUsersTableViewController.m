@@ -52,7 +52,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 -(void)setupTableViewDataSource {
     self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVInvite* invite ){
+    INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVInvite* invite,NSIndexPath* indexPath ){
         cell.textLabel.text = invite.email;
         cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString (@"INVITED_BY_ON",nil),[self userForId:invite.updatedBy], [self.dateFormatter stringFromDate:invite.updatedAt]];
         

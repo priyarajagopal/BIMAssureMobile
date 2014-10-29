@@ -10,10 +10,11 @@
 #import "INVProjectTableViewCell.h"
 #import "INVProjectDetailsTabViewController.h"
 #import "INVProjectFilesListViewController.h"
-
+#import "INVRulesListViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
-static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
+static const NSInteger TABINDEX_PROJECT_FILES = 0;
+static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 
 @interface INVProjectsTableViewController ()
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
@@ -61,7 +62,7 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 
 -(void)setupTableViewDataSource {
     self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project ){
+    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
         cell.name.text = project.name;
         NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
         NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
@@ -135,13 +136,21 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
      if ([segue.identifier isEqual:@"ProjectDetailSegue"]) {
          INVProjectDetailsTabViewController* projectDetailsController = (INVProjectDetailsTabViewController*)segue.destinationViewController;
          
-         UINavigationController* navController = projectDetailsController.viewControllers[0];;
+         UINavigationController* navController = projectDetailsController.viewControllers[TABINDEX_PROJECT_FILES];
          INVProjectFilesListViewController* fileListController = (INVProjectFilesListViewController*) navController.topViewController;
          [fileListController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
 
          fileListController.projectId = project.projectId;
+         
+         UINavigationController* rsNavController = projectDetailsController.viewControllers[TABINDEX_PROJECT_RULESETS];;
+         INVRulesListViewController* ruleSetController = (INVRulesListViewController*) rsNavController.topViewController;
+         [ruleSetController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
+         
+         ruleSetController.projectId = project.projectId;
+
 
      }
+    
  }
 
 
@@ -149,7 +158,7 @@ static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.projectManager.fetchRequestForProjects managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:@"projectId" cacheName:nil];
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.projectManager.fetchRequestForProjects managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:@"name" cacheName:nil];
         
     }
     return  _dataResultsController;

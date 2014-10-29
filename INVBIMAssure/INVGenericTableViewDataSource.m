@@ -18,11 +18,11 @@ typedef NSDictionary* INVCellContentDictionary;
 const static NSString* INV_CellContextIndexPath = @"IndexPath";
 const static NSString* INV_CellContextConfigBlock = @"ConfigBlock";
 const static NSString* INV_CellContextIdentifier = @"Identifier";
+const static NSString* INV_CellContextConfigBlockExtended = @"ConfigBlockWithIndexPath";
 
 
 @interface INVGenericTableViewDataSource ()
 
-//@property (nonatomic,strong)NSMutableDictionary* fetchedResultsControllerForSections; // Dictionary mapping section indexes with results fetched controller for rows of a section (grouped tables)
 @property (nonatomic,strong)NSMutableArray* cellConfigContextArray; // array of INVCellContentDictionary objects
 @property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController;
 @end
@@ -46,7 +46,6 @@ const static NSString* INV_CellContextIdentifier = @"Identifier";
     INVCellContentDictionary content = @{INV_CellContextIdentifier:cellIdentifier,INV_CellContextIndexPath:indexPath,INV_CellContextConfigBlock:configBlock};
     [self.cellConfigContextArray addObject:content];
 }
-
 
 
 #pragma mark - UITableViewDataSource
@@ -82,11 +81,13 @@ const static NSString* INV_CellContextIdentifier = @"Identifier";
     }
     if (cellContext) {
         NSString* matchIdentifier = cellContext[INV_CellContextIdentifier];
-        INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
         id cell = [tableView dequeueReusableCellWithIdentifier:matchIdentifier];
-        id cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSLog(@"%s.indexpath.row %ld, section : %ld", __func__,(long)indexPath.row,(long)indexPath.section);
+        id cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+        INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
+        
         if (matchBlock) {
-            matchBlock(cell,cellData);
+            matchBlock(cell,cellData,indexPath);
         }
         
         return cell;

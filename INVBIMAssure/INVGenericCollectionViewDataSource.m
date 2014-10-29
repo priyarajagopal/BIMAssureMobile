@@ -37,11 +37,11 @@ const static NSString* INV_CellContextIdentifier = @"Identifier";
     return self;
 }
 
--(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock {
+-(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CollectionCellConfigurationBlock) configBlock {
     [self registerCellWithIdentifier:cellIdentifier configureBlock:configBlock forIndexPath:[NSIndexPath indexPathForRow:DEFAULT_ROW_INDEX inSection:DEFAULT_SECTION_INDEX]];
 }
 
--(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath {
+-(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CollectionCellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath {
     INVCellContentDictionary content = @{INV_CellContextIdentifier:cellIdentifier,INV_CellContextIndexPath:indexPath,INV_CellContextConfigBlock:configBlock};
     [self.cellConfigContextArray addObject:content];
 }
@@ -81,19 +81,17 @@ const static NSString* INV_CellContextIdentifier = @"Identifier";
     }
     if (cellContext) {
         NSString* matchIdentifier = cellContext[INV_CellContextIdentifier];
-        INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
+        INV_CollectionCellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
         id cell = [collectionView dequeueReusableCellWithReuseIdentifier:matchIdentifier forIndexPath:indexPath];
         id cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
         if (matchBlock) {
-            matchBlock(cell,cellData);
+            matchBlock(cell,cellData,indexPath);
         }
         
         return cell;
     }
     return nil;
 }
-
-
 
 
 @end

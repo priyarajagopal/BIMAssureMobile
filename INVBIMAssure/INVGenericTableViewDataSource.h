@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 @import CoreData;
 
-typedef void (^INV_CellConfigurationBlock)(id cell, id cellData);
+typedef void (^INV_CellConfigurationBlock)(id cell, id cellData, NSIndexPath* indexPath);
 
 @interface INVGenericTableViewDataSource : NSObject <UITableViewDataSource>
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController;
+
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock ;
+
+
 @end

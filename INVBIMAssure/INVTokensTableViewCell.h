@@ -19,6 +19,4 @@
 @property (weak, nonatomic) IBOutlet VENTokenField *tokenField;
 @property (weak, nonatomic) id<INVTokensTableViewCellDelegate> cellDelegate;
 
-- (void)collapse;
--(void)resignResponder;
 @end

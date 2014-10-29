@@ -89,7 +89,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)setupCollectionViewDataSource {
     self.dataSource = [[INVGenericCollectionViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVAccountViewCell *cell,INVAccount* account ){
+    INV_CollectionCellConfigurationBlock cellConfigurationBlock = ^(INVAccountViewCell *cell,INVAccount* account ,NSIndexPath* indexPath){
         cell.name.text = account.name;
         cell.overview.text = account.overview;
         NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;

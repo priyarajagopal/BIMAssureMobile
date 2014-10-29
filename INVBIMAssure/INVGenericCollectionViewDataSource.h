@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-typedef void (^INV_CellConfigurationBlock)(id cell, id cellData);
+typedef void (^INV_CollectionCellConfigurationBlock)(id cell, id cellData,NSIndexPath* indexPath);
 
 @interface INVGenericCollectionViewDataSource : NSObject <UICollectionViewDataSource>
 
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController;
--(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
--(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock ;
+-(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CollectionCellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
+-(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CollectionCellConfigurationBlock) configBlock ;
 
 @end
