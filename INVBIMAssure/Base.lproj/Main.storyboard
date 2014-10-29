@@ -278,6 +278,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="8CX-lY-6hb">
                         <barButtonItem key="rightBarButtonItem" title="" style="plain" id="Udn-ZA-Yro">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="heE-3g-Jkf" kind="popoverPresentation" identifier="ShowUserInfoSegue" popoverAnchorBarButtonItem="Udn-ZA-Yro" id="63d-fG-Xdl">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -647,7 +648,7 @@
                             <popoverArrowDirection key="popoverArrowDirection"/>
                         </segue>
                         <segue destination="8dQ-1Z-o9C" kind="presentation" identifier="MainManageUsersSegue" modalPresentationStyle="formSheet" id="fB3-fw-Y31"/>
-                        <segue destination="bed-kX-FZs" kind="presentation" identifier="GlobalInfoSegue" id="qUq-bg-ZEP"/>
+                        <segue destination="bed-kX-FZs" kind="presentation" identifier="GlobalInfoSegue" modalPresentationStyle="formSheet" id="qUq-bg-ZEP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHI-XY-xZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -841,7 +842,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onAccountsViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="k7d-GJ-SLb"/>
-                                    <action selector="onSettingsViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="OaN-8E-aMK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPy-sz-oMi">
@@ -1286,7 +1286,13 @@
                             <outlet property="delegate" destination="EvQ-Kc-3Av" id="qSO-kf-z9C"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="mdn-YQ-mKR"/>
+                    <navigationItem key="navigationItem" id="mdn-YQ-mKR">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="Qh9-FH-u9N">
+                            <connections>
+                                <segue destination="tXZ-fe-vN6" kind="unwind" unwindAction="done:" id="dIa-jX-HOu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dIw-HB-cTA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

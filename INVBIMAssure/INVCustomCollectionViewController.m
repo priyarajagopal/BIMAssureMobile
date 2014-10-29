@@ -24,6 +24,8 @@ static NSString * const reuseIdentifier = @"Cell";
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
     [self customizeLayout];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invalidateLayout) name:UIContentSizeCategoryDidChangeNotification object:nil];
+    
   
 }
 
@@ -38,20 +40,14 @@ static NSString * const reuseIdentifier = @"Cell";
     currLayout.minimumLineSpacing = 10;
     currLayout.minimumInteritemSpacing = 10;
     self.collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
-
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-   
-}
 
-/*
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [self.collectionView.collectionViewLayout invalidateLayout];
+    [self invalidateLayout];
 }
- */
+ 
 /*
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     return YES;
@@ -70,13 +66,15 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 #pragma mark <UICollectionViewDelegate>
-
-
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
 	return YES;
 }
 
+#pragma mark - helpers
+-(void)invalidateLayout {
+    [self.collectionView.collectionViewLayout invalidateLayout];
+}
 
 
 @end

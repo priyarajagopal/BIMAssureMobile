@@ -26,6 +26,7 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* currentAccountId;
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;
+@property (nonatomic,strong)UIAlertController* logoutPromptAlertController;
 @property (nonatomic,assign)BOOL saveAsDefault;
 
 @end
@@ -40,7 +41,7 @@ static NSString * const reuseIdentifier = @"Cell";
     // Uncomment the following line to preserve selection between presentations
     self.clearsSelectionOnViewWillAppear = NO;
     
-     self.title = NSLocalizedString(@"ACCOUNTS", nil);
+    self.title = NSLocalizedString(@"ACCOUNTS", nil);
     
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
     
@@ -50,7 +51,10 @@ static NSString * const reuseIdentifier = @"Cell";
     UIBarButtonItem* settingsButton = self.navigationItem.rightBarButtonItem;
     
     FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
-    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 40)]];
+    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 30)]];
+ 
+    [self setEstimatedSizeForCells];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,6 +77,13 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
 }
+
+
+-(void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    [self setEstimatedSizeForCells];
+}
+
 
 #pragma mark - Navigation
 
@@ -97,41 +108,41 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
--(void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
-    CGSize itemSize = currLayout.itemSize;
-    currLayout.itemSize = CGSizeMake((self.collectionView.frame.size.width-30)/2.0, itemSize.height) ;
-    currLayout.estimatedItemSize = CGSizeMake((self.collectionView.frame.size.width/2)-20, itemSize.height) ;
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [self.collectionView reloadData];
 }
 
 
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    return self.dataResultsController.sections.count;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.dataResultsController fetchedObjects].count ;
+    id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[section];
+    return objectInSection.numberOfObjects;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     INVAccountViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AccountCell" forIndexPath:indexPath];
     
     // Configure the cell
+   
     INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
     cell.name.text = account.name;
     cell.overview.text = account.overview;
     NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
-    if (currentAcnt && [account.accountId isEqualToNumber:currentAcnt]) {
-        cell.isDefault = YES;
-    }
-    else {
-        cell.isDefault = NO;
-    }
-    
+ //   if (!cell.accessoryLabel ) {
+        if (currentAcnt && [account.accountId isEqualToNumber:currentAcnt]) {
+            cell.isDefault = YES;
+        }
+        else {
+            cell.isDefault = NO;
+        }
+ //   }
     return cell;
 }
 
@@ -154,8 +165,7 @@ static NSString * const reuseIdentifier = @"Cell";
     NSLog (@"%s",__func__);
     INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
     if ( self.globalDataManager.loggedInAccount == account.accountId) {
-#warning - show alert asking user if they want to log out
-        [self logoutAccount];
+        [self showLogoutPromptAlert];
     }
     else {
         self.currentAccountId = account.accountId;
@@ -307,6 +317,12 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - helpers
+-(void)setEstimatedSizeForCells {
+    UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
+    [currLayout setEstimatedItemSize:CGSizeMake((CGRectGetWidth(self.parentViewController.view.frame) - (currLayout.minimumInteritemSpacing + currLayout.collectionView.contentInset.left + currLayout.collectionView.contentInset.left))/2, currLayout.itemSize.height)];
+    
+}
+
 -(void)notifyAccountLogin {
     self.accountLoginSuccess = YES;
 }
@@ -395,6 +411,22 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
 }
 
+-(void)showLogoutPromptAlert {
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self.logoutPromptAlertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction* proceedAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"LOG_OUT", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self logoutAccount];
+    }];
+    self.logoutPromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:NSLocalizedString(@"GENERIC_ACCOUNT_LOGOUT_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [self.logoutPromptAlertController addAction:cancelAction];
+    [self.logoutPromptAlertController addAction:proceedAction];
+    
+    [self presentViewController:self.logoutPromptAlertController animated:YES completion:^{
+        
+    }];
+}
+
 -(void)showBlurEffect {
     UIBlurEffect* blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView* overlayBlurView = [[UIVisualEffectView  alloc]initWithEffect:blurEffect];
@@ -415,6 +447,5 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
-- (IBAction)onDoneTapped:(id)sender {
-}
+
 @end
