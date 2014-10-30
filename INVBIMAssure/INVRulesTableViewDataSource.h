@@ -9,5 +9,5 @@
 #import "INVGenericTableViewDataSource.h"
 
 @interface INVRulesTableViewDataSource : INVGenericTableViewDataSource <UITableViewDataSource>
-
+-(id)initWithFetchedResultsController:(NSFetchedResultsController*)resultsController forTableView:(UITableView*)tableView;
 @end

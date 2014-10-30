@@ -12,10 +12,11 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 
-@interface INVRulesListViewController ()
+@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
+@property (nonatomic, strong) NSMutableSet *cellsCurrentlyEditing;
 @end
 
 @implementation INVRulesListViewController
@@ -33,9 +34,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     UINib* nib = [UINib nibWithNibName:@"INVRuleInstanceTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleInstanceCell"];
 
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
+    self.cellsCurrentlyEditing = [[NSMutableSet alloc]initWithCapacity:0];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.dataSource = self.dataSource;
+    self.tableView.allowsSelectionDuringEditing = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,7 +58,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 }
 
 -(void)setupTableViewDataSource {
-    self.dataSource = [[INVRulesTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
+    self.dataSource = [[INVRulesTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceTableViewCell *cell,id ruleSetManagedObject,NSIndexPath* indexPath){
         INVRuleSet* ruleSet = [MTLManagedObjectAdapter modelOfClass:[INVRuleSet class] fromManagedObject:ruleSetManagedObject error:nil];
         NSArray* ruleInstances = ruleSet.ruleInstances;
@@ -63,6 +67,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
             INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
             cell.name.text = ruleInstance.ruleName;
             cell.overview.text = ruleInstance.overview;
+            cell.actionDelegate = self;
         }
     
     };
@@ -103,10 +108,19 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
  }
  */
 
+#pragma mark - INVRuleInstanceTableViewActionDelegate
+-(void)onEditRuleTapped {
+    NSLog (@"%s",__func__);
+}
 
 #pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-#warning show details of rule instance
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleNone;
 }
 
 
@@ -115,12 +129,20 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     return YES;
 }
 
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction* ruleInstanceAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"EDIT",nil) handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        NSLog(@"Pop a modal");
+    }];
+    return @[ruleInstanceAction];
+}
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
 }
-
-
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
 #pragma mark - accessor
 
 -(NSFetchedResultsController*) dataResultsController {

@@ -4,42 +4,82 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="FontAwesome.otf">
+            <string>FontAwesome</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="84" id="KGk-i7-Jjw" customClass="INVRuleInstanceTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" rowHeight="83" id="kKo-Pw-45C" customClass="INVRuleInstanceTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kKo-Pw-45C" id="F2N-zD-R1X">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uef-n8-Dcl">
-                        <rect key="frame" x="8" y="8" width="304" height="20"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Overview" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ad-3Y-ezM">
-                        <rect key="frame" x="8" y="36" width="304" height="17"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0B-lg-bzL">
+                        <rect key="frame" x="261" y="0.0" width="59" height="83"/>
+                        <color key="backgroundColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="59" id="x0b-jK-6O4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onActionButtonTapped:" destination="kKo-Pw-45C" eventType="touchUpInside" id="zkt-Np-Mdt"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7QC-q5-nOn" userLabel="ruleContentView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uef-n8-Dcl">
+                                <rect key="frame" x="8" y="19" width="304" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Overview" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ad-3Y-ezM">
+                                <rect key="frame" x="8" y="47" width="304" height="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="uef-n8-Dcl" secondAttribute="trailing" constant="8" id="9VT-Ph-Qlh"/>
+                            <constraint firstItem="uef-n8-Dcl" firstAttribute="top" secondItem="7QC-q5-nOn" secondAttribute="top" constant="19" id="Kq7-eV-PKA"/>
+                            <constraint firstItem="uef-n8-Dcl" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="8" id="QY6-gc-efz"/>
+                            <constraint firstAttribute="trailing" secondItem="6Ad-3Y-ezM" secondAttribute="trailing" constant="8" id="h6z-B2-gjY"/>
+                            <constraint firstItem="6Ad-3Y-ezM" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="8" id="jaR-U1-aMe"/>
+                            <constraint firstItem="6Ad-3Y-ezM" firstAttribute="top" secondItem="uef-n8-Dcl" secondAttribute="bottom" constant="8" id="rzc-Wa-xQ9"/>
+                        </constraints>
+                    </view>
                 </subviews>
+                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="uef-n8-Dcl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Mbf-ID-WgB"/>
-                    <constraint firstItem="uef-n8-Dcl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="OmV-SX-iBf"/>
-                    <constraint firstItem="6Ad-3Y-ezM" firstAttribute="top" secondItem="uef-n8-Dcl" secondAttribute="bottom" constant="8" id="Pe2-6P-zVx"/>
-                    <constraint firstItem="6Ad-3Y-ezM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="YwZ-uW-hoa"/>
-                    <constraint firstItem="6Ad-3Y-ezM" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="b2z-yM-alz"/>
-                    <constraint firstItem="uef-n8-Dcl" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="wCf-Ci-kbX"/>
+                    <constraint firstItem="7QC-q5-nOn" firstAttribute="leading" secondItem="F2N-zD-R1X" secondAttribute="leadingMargin" constant="-8" id="EB9-NA-kid"/>
+                    <constraint firstItem="7QC-q5-nOn" firstAttribute="top" secondItem="F2N-zD-R1X" secondAttribute="topMargin" constant="-8" id="Kro-hX-cM5"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="7QC-q5-nOn" secondAttribute="trailing" constant="-8" id="MEn-4A-McC"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="R0B-lg-bzL" secondAttribute="trailing" constant="-8" id="SFM-d5-3iS"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="7QC-q5-nOn" secondAttribute="bottom" constant="-8" id="X8w-Oo-bAx"/>
+                    <constraint firstItem="R0B-lg-bzL" firstAttribute="top" secondItem="F2N-zD-R1X" secondAttribute="top" id="d0Z-WC-eHQ"/>
+                    <constraint firstAttribute="bottom" secondItem="R0B-lg-bzL" secondAttribute="bottom" constant="1" id="kL9-Xj-W7Q"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="name" destination="uef-n8-Dcl" id="4qZ-Mm-kDQ"/>
-                <outlet property="overview" destination="6Ad-3Y-ezM" id="YFN-KU-Dzv"/>
+                <outlet property="contentViewLeftConstraint" destination="EB9-NA-kid" id="adX-1B-KF2"/>
+                <outlet property="contentViewRightConstraint" destination="MEn-4A-McC" id="qFh-PQ-NS8"/>
+                <outlet property="editRuleButton" destination="R0B-lg-bzL" id="kJm-lA-5Tw"/>
+                <outlet property="name" destination="uef-n8-Dcl" id="nnW-2Z-bDE"/>
+                <outlet property="overview" destination="6Ad-3Y-ezM" id="lQh-E5-xxb"/>
+                <outlet property="ruleContentView" destination="F2N-zD-R1X" id="zwH-bR-Yc6"/>
             </connections>
-            <point key="canvasLocation" x="508" y="212"/>
+            <point key="canvasLocation" x="508" y="531"/>
         </tableViewCell>
     </objects>
 </document>
