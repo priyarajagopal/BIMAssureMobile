@@ -26,6 +26,7 @@ const NSInteger INDEX_ROW_LOGOUT = 0;
     UIColor* cyanColor = [UIColor colorWithRed:194.0/255 green:224.0/255 blue:240.0/255 alpha:1.0];
     
     self.tableView.backgroundColor = cyanColor;
+    self.refreshControl = nil;
 
 }
 

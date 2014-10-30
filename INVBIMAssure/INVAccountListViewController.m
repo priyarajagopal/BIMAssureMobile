@@ -248,8 +248,9 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
+            self.globalDataManager.loggedInAccount = self.currentAccountId;
+            
             if (self.saveAsDefault) {
-                self.globalDataManager.loggedInAccount = self.currentAccountId;
                 // Just ignore the error and continue logging in
                 NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
                 if (error) {

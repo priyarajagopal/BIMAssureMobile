@@ -67,9 +67,9 @@
     UIColor* darkGreyColor = [UIColor colorWithRed:150.0/255 green:150.0/255 blue:150.0/255 alpha:1.0];
     UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
 
-    [[UIView appearance] setTintColor:darkGreyColor];
+    [[UIView appearance] setTintColor:whiteColor];
 
-    [self.window setTintColor:darkGreyColor];
+    [self.window setTintColor:whiteColor                        ];
     [[UINavigationBar appearance] setBarTintColor:cyanBlueColor ] ;
     [[UINavigationBar appearance] setTintColor:whiteColor] ;
     
