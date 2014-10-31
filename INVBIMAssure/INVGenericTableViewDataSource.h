@@ -13,7 +13,7 @@ typedef void (^INV_CellConfigurationBlock)(id cell, id cellData, NSIndexPath* in
 
 @interface INVGenericTableViewDataSource : NSObject <UITableViewDataSource>
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController;
-
+-(id)initWithDataArray:(NSArray*)dataArray;
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock ;
 

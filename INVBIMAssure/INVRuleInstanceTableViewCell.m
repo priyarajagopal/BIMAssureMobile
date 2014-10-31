@@ -20,6 +20,7 @@ const static NSInteger DEFAULT_LEADING_SPACE = -8;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewRightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet UIView *ruleContentView;
+
 - (IBAction)onActionButtonTapped:(UIButton *)sender;
 
 @end
@@ -51,8 +52,8 @@ const static NSInteger DEFAULT_LEADING_SPACE = -8;
 
 #pragma mark - UIEvents
 - (IBAction)onActionButtonTapped:(UIButton *)sender {
-    if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onEditRuleTapped)]) {
-        [self.actionDelegate onEditRuleTapped];
+    if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onViewRuleTappedFor:)]) {
+        [self.actionDelegate onViewRuleTappedFor:self];
     }
 }
 

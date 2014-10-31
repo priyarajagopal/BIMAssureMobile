@@ -60,6 +60,15 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
 }
 
+
+-(void) setupTableFooter {
+    NSInteger numberOfRows = [self.tableView numberOfRowsInSection:0];
+    NSInteger heightOfTableViewCells = numberOfRows * DEFAULT_CELL_HEIGHT;
+    
+    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(self.tableView.frame) + heightOfTableViewCells, CGRectGetWidth (self.tableView.frame), CGRectGetHeight(self.tableView.frame)-(heightOfTableViewCells + CGRectGetMinY(self.tableView.frame)))];
+    self.tableView.tableFooterView = view;
+}
+
 #pragma mark - server side
 -(void)fetchListOfInvitedUsers {
     [self.globalDataManager.invServerClient getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
@@ -82,6 +91,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 #warning - display error
         }
     }];
+    [self setupTableFooter];
   
 }
 

@@ -71,6 +71,8 @@
 /**
  Returns rule definition for specific ruleId
  
+ @param ruleId ruleId for which rule definition is to be fetched
+ 
  @see INVRule
  
  @return The array of INVRule objects
@@ -78,6 +80,20 @@
 -(INVRule*) ruleDefinitionForRuleId:(NSNumber*)ruleId;
 
 
+
+/**
+ Returns rule instance for specific ruleinstanceId
+ 
+ @param ruleInstanceId Id for rule instance
+ 
+ @param ruleId ruleId of rule
+ 
+ 
+ @see INVRuleInstance
+ 
+ @return The rule instance
+ */
+-(INVRuleInstance*) ruleInstanceForRuleInstanceId:(NSNumber*)ruleInstanceId forRuleSetId:(NSNumber*)ruleSetId;
 
 
 #warning rename API "delete" to be "removeCached..."

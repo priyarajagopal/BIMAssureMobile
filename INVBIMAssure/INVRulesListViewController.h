@@ -10,4 +10,6 @@
 
 @interface INVRulesListViewController : INVCustomTableViewController
 @property (nonatomic,strong)NSNumber* projectId;
+
+-(IBAction)done:(UIStoryboardSegue*) segue;
 @end

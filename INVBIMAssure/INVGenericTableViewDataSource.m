@@ -25,6 +25,7 @@ const static NSString* INV_CellContextConfigBlockExtended = @"ConfigBlockWithInd
 
 @property (nonatomic,strong)NSMutableArray* cellConfigContextArray; // array of INVCellContentDictionary objects
 @property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController;
+@property (nonatomic,strong)NSArray* dataArray;
 @end
 
 @implementation INVGenericTableViewDataSource
@@ -34,6 +35,15 @@ const static NSString* INV_CellContextConfigBlockExtended = @"ConfigBlockWithInd
     if (self) {
          self.fetchedResultsController = resultsController;
          self.cellConfigContextArray = [[NSMutableArray alloc]initWithCapacity:0];
+    }
+    return self;
+}
+
+-(id)initWithDataArray:(NSArray*)dataArray {
+    self = [super init];
+    if (self) {
+        self.dataArray = dataArray;
+        self.cellConfigContextArray = [[NSMutableArray alloc]initWithCapacity:0];
     }
     return self;
 }
@@ -49,14 +59,23 @@ const static NSString* INV_CellContextConfigBlockExtended = @"ConfigBlockWithInd
 
 
 #pragma mark - UITableViewDataSource
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id<NSFetchedResultsSectionInfo> objectInSection = self.fetchedResultsController.sections[section];
-    return objectInSection.numberOfObjects;
+    if (self.dataArray) {
+        return self.dataArray.count;
+    }
+    else {
+        id<NSFetchedResultsSectionInfo> objectInSection = self.fetchedResultsController.sections[section];
+        return objectInSection.numberOfObjects;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.fetchedResultsController.sections.count;
+    if (self.dataArray) {
+        return 1;
+    }
+    else {
+        return self.fetchedResultsController.sections.count;
+    }
 }
 
 
@@ -82,8 +101,13 @@ const static NSString* INV_CellContextConfigBlockExtended = @"ConfigBlockWithInd
     if (cellContext) {
         NSString* matchIdentifier = cellContext[INV_CellContextIdentifier];
         id cell = [tableView dequeueReusableCellWithIdentifier:matchIdentifier];
-        NSLog(@"%s.indexpath.row %ld, section : %ld", __func__,(long)indexPath.row,(long)indexPath.section);
-        id cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+        id cellData = nil;
+        if (self.dataArray) {
+            cellData = self.dataArray[indexPath.row];
+        }
+        else {
+            cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        }
         INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
         
         if (matchBlock) {

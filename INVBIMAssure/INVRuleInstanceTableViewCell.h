@@ -10,7 +10,7 @@
 
 
 @protocol INVRuleInstanceTableViewCellActionDelegate <NSObject>
--(void)onEditRuleTapped;
+-(void)onViewRuleTappedFor:(id)sender;
 @end
 
 @protocol INVRuleInstanceTableViewCellStateDelegate <NSObject>
@@ -20,6 +20,8 @@
 @end
 
 @interface INVRuleInstanceTableViewCell : UITableViewCell
+@property (assign, nonatomic) NSNumber* ruleInstanceId;
+@property (assign, nonatomic) NSNumber* ruleSetId;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *overview;
 @property (weak, nonatomic) id<INVRuleInstanceTableViewCellActionDelegate> actionDelegate;

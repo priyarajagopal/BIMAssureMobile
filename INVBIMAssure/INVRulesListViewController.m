@@ -9,6 +9,8 @@
 #import "INVRulesListViewController.h"
 #import "INVRuleInstanceTableViewCell.h"
 #import "INVRulesTableViewDataSource.h"
+#import "INVRuleInstanceTableViewController.h"
+
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 
@@ -16,7 +18,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
-@property (nonatomic, strong) NSMutableSet *cellsCurrentlyEditing;
+@property (nonatomic,strong) NSMutableSet *cellsCurrentlyEditing;
+@property (nonatomic,assign) NSNumber* selectedRuleInstanceId;
+@property (nonatomic,assign) NSNumber* selectedRuleSetId;
 @end
 
 @implementation INVRulesListViewController
@@ -67,6 +71,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
             INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
             cell.name.text = ruleInstance.ruleName;
             cell.overview.text = ruleInstance.overview;
+            cell.ruleInstanceId = ruleInstance.ruleInstanceId;
+            cell.ruleSetId = ruleInstance.ruleSetId;
             cell.actionDelegate = self;
         }
     
@@ -98,19 +104,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 }
 
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
 #pragma mark - INVRuleInstanceTableViewActionDelegate
--(void)onEditRuleTapped {
-    NSLog (@"%s",__func__);
+-(void)onViewRuleTappedFor:(id)sender {
+    INVRuleInstanceTableViewCell* ruleInstanceCell = (INVRuleInstanceTableViewCell*)sender;
+    self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
+    self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
+    [self performSegueWithIdentifier:@"RuleInstanceViewSegue" sender:self];
 }
 
 #pragma mark - UITableViewDelegate
@@ -125,24 +124,32 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 
 #pragma mark - Navigation
--(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    return YES;
-}
-
+/*
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction* ruleInstanceAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"EDIT",nil) handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSLog(@"Pop a modal");
     }];
     return @[ruleInstanceAction];
 }
+ */
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"RuleInstanceViewSegue"]) {
+        INVRuleInstanceTableViewController* ruleInstanceTVC = segue.destinationViewController;
+        ruleInstanceTVC.ruleInstanceId = self.selectedRuleInstanceId;
+        ruleInstanceTVC.ruleSetId = self.selectedRuleSetId;
+    }
     
 }
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
+-(IBAction)done:(UIStoryboardSegue*) segue {
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
+
+
 #pragma mark - accessor
 
 -(NSFetchedResultsController*) dataResultsController {
