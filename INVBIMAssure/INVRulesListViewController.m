@@ -10,6 +10,7 @@
 #import "INVRuleInstanceTableViewCell.h"
 #import "INVRulesTableViewDataSource.h"
 #import "INVRuleInstanceTableViewController.h"
+#import "INVRuleSetTableViewHeaderView.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
@@ -37,7 +38,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
     UINib* nib = [UINib nibWithNibName:@"INVRuleInstanceTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleInstanceCell"];
-
+/*
+    UINib* headerNib = [UINib nibWithNibName:@"INVRuleSetTableViewHeaderView" bundle:[NSBundle bundleForClass:[self class]]];
+    [self.tableView registerNib:headerNib forHeaderFooterViewReuseIdentifier:@"RuleSetHeaderView"];
+ */
+    
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.cellsCurrentlyEditing = [[NSMutableSet alloc]initWithCapacity:0];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
@@ -69,6 +74,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
         NSInteger cellRow = indexPath.row;
         if (ruleInstances && ruleInstances.count >= cellRow) {
             INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.name.text = ruleInstance.ruleName;
             cell.overview.text = ruleInstance.overview;
             cell.ruleInstanceId = ruleInstance.ruleInstanceId;
@@ -103,6 +109,25 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     }];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+   // INVRuleSetTableViewHeaderView* headerView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:@"RuleSetHeaderView"];
+    
+    INVRuleSet* ruleSet = self.dataResultsController.fetchedObjects[section];
+    
+    __block INVRuleSetTableViewHeaderView* headerView ;
+    NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVRuleSetTableViewHeaderView" owner:nil options:nil];
+    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[INVRuleSetTableViewHeaderView class]]) {
+            headerView = obj;
+            *stop = YES;
+        }
+    }];
+    
+    headerView.ruleSetNameLabel.text = ruleSet.name;
+    headerView.ruleSetId = ruleSet.ruleSetId;
+    return headerView;
+}
 
 #pragma mark - INVRuleInstanceTableViewActionDelegate
 -(void)onViewRuleTappedFor:(id)sender {

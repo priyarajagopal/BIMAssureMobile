@@ -11,6 +11,7 @@
 static const NSInteger DEFAULT_SECTION_INDEX = 0;
 static const NSInteger DEFAULT_ROW_INDEX = 0;
 typedef NSDictionary* INVCellContentDictionary;
+typedef NSDictionary* INVHeaderContentDictionary;
 
 /**
  Keys for INVCellContentDictionary
@@ -20,10 +21,15 @@ const static NSString* INV_CellContextConfigBlock = @"ConfigBlock";
 const static NSString* INV_CellContextIdentifier = @"Identifier";
 const static NSString* INV_CellContextConfigBlockExtended = @"ConfigBlockWithIndexPath";
 
+const static NSString* INV_HeaderContextSection  = @"section";
+const static NSString* INV_HeaderContextConfigBlock = @"ConfigBlock";
+const static NSString* INV_HeaderContextIdentifier = @"Identifier";
+
 
 @interface INVGenericTableViewDataSource ()
 
 @property (nonatomic,strong)NSMutableArray* cellConfigContextArray; // array of INVCellContentDictionary objects
+@property (nonatomic,strong)NSMutableArray* headerConfigContextArray; // array of INVHeaderContentDictionary objects
 @property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController;
 @property (nonatomic,strong)NSArray* dataArray;
 @end
@@ -54,6 +60,11 @@ const static NSString* INV_CellContextConfigBlockExtended = @"ConfigBlockWithInd
 
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath {
     INVCellContentDictionary content = @{INV_CellContextIdentifier:cellIdentifier,INV_CellContextIndexPath:indexPath,INV_CellContextConfigBlock:configBlock};
+    [self.cellConfigContextArray addObject:content];
+}
+
+-(void)registerHeaderViewWithIdentifierForAllSections:(NSString*)headerIdentifier configureBlock:(INV_HeaderConfigurationBlock) configBlock  {
+    INVCellContentDictionary content = @{INV_HeaderContextIdentifier:headerIdentifier,INV_HeaderContextSection:@(DEFAULT_SECTION_INDEX),INV_HeaderContextConfigBlock:configBlock};
     [self.cellConfigContextArray addObject:content];
 }
 

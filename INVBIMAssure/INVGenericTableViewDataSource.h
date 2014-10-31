@@ -10,6 +10,7 @@
 @import CoreData;
 
 typedef void (^INV_CellConfigurationBlock)(id cell, id cellData, NSIndexPath* indexPath);
+typedef void (^INV_HeaderConfigurationBlock)(id headerView, id headerData, NSInteger section);
 
 @interface INVGenericTableViewDataSource : NSObject <UITableViewDataSource>
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController;
@@ -17,5 +18,6 @@ typedef void (^INV_CellConfigurationBlock)(id cell, id cellData, NSIndexPath* in
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock ;
 
+-(void)registerHeaderViewWithIdentifierForAllSections:(NSString*)headerIdentifier configureBlock:(INV_HeaderConfigurationBlock) configBlock ;
 
 @end
