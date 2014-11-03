@@ -111,6 +111,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
+    
+#warning  use resuable tableheaderfotter view
    // INVRuleSetTableViewHeaderView* headerView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:@"RuleSetHeaderView"];
     
     INVRuleSet* ruleSet = self.dataResultsController.fetchedObjects[section];

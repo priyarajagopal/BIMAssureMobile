@@ -325,6 +325,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)notifyAccountLogout {
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationAccountLogOutSuccess object:self userInfo:nil];
 }
 
