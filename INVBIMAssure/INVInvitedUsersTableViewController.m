@@ -32,7 +32,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     [self setupTableViewDataSource];
     self.tableView.dataSource = self.dataSource;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)didReceiveMemoryWarning {

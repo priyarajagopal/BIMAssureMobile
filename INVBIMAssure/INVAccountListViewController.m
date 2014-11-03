@@ -159,7 +159,7 @@ static NSString * const reuseIdentifier = @"Cell";
     else {
         self.currentAccountId = account.accountId;
         // [self showBlurEffect];
-        if (self.globalDataManager.loggedInAccount ) {
+        if (!self.globalDataManager.loggedInAccount ) {
             NSString* message = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE",nil),account.name];
             [self showSaveAsDefaultAlertWithMessage:message];
         }
@@ -413,6 +413,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.logoutPromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:promtMesg preferredStyle:UIAlertControllerStyleAlert];
     [self.logoutPromptAlertController addAction:cancelAction];
     [self.logoutPromptAlertController addAction:proceedAction];
+    [[UIView appearanceWhenContainedIn:[UIAlertController class], nil]setTintColor:[UIColor grayColor]];
     
     [self presentViewController:self.logoutPromptAlertController animated:YES completion:^{
         

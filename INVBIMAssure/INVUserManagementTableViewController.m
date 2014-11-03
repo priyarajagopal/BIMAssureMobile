@@ -32,7 +32,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     self.title = NSLocalizedString(@"USER_MANAGEMENT_ACCOUNT", nil);
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
 
 }
 

@@ -76,6 +76,7 @@
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
     [[UITextField appearance] setTintColor:darkGreyColor];
     
+    [[UIView appearanceWhenContainedIn:[UITabBar class], nil] setTintColor:[UIColor darkGrayColor]];
     [[UITabBar appearance]setBarTintColor:ltGreyColor];
     [[UITabBar appearance]setTintColor:cyanBlueColor];
 }
@@ -86,8 +87,8 @@
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
     [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
-        self.globalManager.loggedInAccount = nil;
-        self.globalManager.loggedInUser = nil;
+    self.globalManager.loggedInAccount = nil;
+   // self.globalManager.loggedInUser = nil;
 
         [self displayLoginRootViewController];
     }];

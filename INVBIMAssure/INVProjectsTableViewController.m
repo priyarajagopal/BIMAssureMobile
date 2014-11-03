@@ -41,7 +41,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
     
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.dataSource = self.dataSource;
 }
 

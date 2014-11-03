@@ -38,7 +38,7 @@ static NSString* INV_ActualParamValue = @"Value";
     [self setupTableViewDataSource];
     self.tableView.dataSource = self.dataSource;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.refreshControl = nil;
 
 }
