@@ -52,10 +52,7 @@
 		023F2B881A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B851A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib */; };
 		023F2B891A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B851A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib */; };
 		023F2B8E1A04015000E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B8D1A04015000E4C985 /* EmpireMobileManager.framework */; };
-		023F2B931A04063B00E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B921A04063B00E4C985 /* EmpireMobileManager.framework */; };
-		023F2B941A04063B00E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B921A04063B00E4C985 /* EmpireMobileManager.framework */; };
 		023F2B951A04064500E4C985 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B921A04063B00E4C985 /* EmpireMobileManager.framework */; };
-		023F2B961A04064500E4C985 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B921A04063B00E4C985 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		023F2B991A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */; };
 		023F2B9A1A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */; };
 		023F2B9C1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B9B1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib */; };
@@ -123,6 +120,13 @@
 		02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848D19E3353600DFB4E2 /* INVCustomViewController.m */; };
 		02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */; };
 		02C8849519E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */; };
+		02DB77FF1A092022004F4980 /* INVRuleSetManageFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DB77FE1A092022004F4980 /* INVRuleSetManageFilesTableViewController.m */; };
+		02DB78001A092022004F4980 /* INVRuleSetManageFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DB77FE1A092022004F4980 /* INVRuleSetManageFilesTableViewController.m */; };
+		02DB780D1A095F98004F4980 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DB780B1A095F98004F4980 /* EmpireMobileManager.framework */; };
+		02DB780E1A0968EA004F4980 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DB780B1A095F98004F4980 /* EmpireMobileManager.framework */; };
+		02DB780F1A0968EA004F4980 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02DB780B1A095F98004F4980 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		02DB78121A096C13004F4980 /* INVRuleSetIncludedFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DB78111A096C13004F4980 /* INVRuleSetIncludedFilesViewController.m */; };
+		02DB78131A096C13004F4980 /* INVRuleSetIncludedFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DB78111A096C13004F4980 /* INVRuleSetIncludedFilesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,7 +146,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				023F2B961A04064500E4C985 /* EmpireMobileManager.framework in Embed Frameworks */,
+				02DB780F1A0968EA004F4980 /* EmpireMobileManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,7 +192,7 @@
 		023F2B841A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceDetailTableViewCell.m; sourceTree = "<group>"; };
 		023F2B851A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceDetailTableViewCell.xib; sourceTree = "<group>"; };
 		023F2B8D1A04015000E4C985 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = /Users/priyarajagopal/projects/apps/invicara/INVBIMAssure/EmpireMobileManager.framework; sourceTree = "<absolute>"; };
-		023F2B921A04063B00E4C985 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		023F2B921A04063B00E4C985 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = /Users/priyarajagopal/projects/apps/invicara/INVBIMAssure/EmpireMobileManager.framework; sourceTree = "<absolute>"; };
 		023F2B971A04203E00E4C985 /* INVRuleSetTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleSetTableViewHeaderView.h; sourceTree = "<group>"; };
 		023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleSetTableViewHeaderView.m; sourceTree = "<group>"; };
 		023F2B9B1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleSetTableViewHeaderView.xib; sourceTree = "<group>"; };
@@ -255,6 +259,11 @@
 		02C8849019E3357000DFB4E2 /* INVBIMAssurePrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBIMAssurePrefixHeader.pch; sourceTree = "<group>"; };
 		02C8849219E339F200DFB4E2 /* INVGlobalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGlobalDataManager.h; sourceTree = "<group>"; };
 		02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGlobalDataManager.m; sourceTree = "<group>"; };
+		02DB77FD1A092022004F4980 /* INVRuleSetManageFilesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleSetManageFilesTableViewController.h; sourceTree = "<group>"; };
+		02DB77FE1A092022004F4980 /* INVRuleSetManageFilesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleSetManageFilesTableViewController.m; sourceTree = "<group>"; };
+		02DB780B1A095F98004F4980 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		02DB78101A096C13004F4980 /* INVRuleSetIncludedFilesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleSetIncludedFilesViewController.h; sourceTree = "<group>"; };
+		02DB78111A096C13004F4980 /* INVRuleSetIncludedFilesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleSetIncludedFilesViewController.m; sourceTree = "<group>"; };
 		BED31771E1C440EEB10DC9B3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -265,13 +274,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				023F2B3619FE81C900E4C985 /* libPods-FontAwesomeKit.a in Frameworks */,
+				02DB780E1A0968EA004F4980 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B951A04064500E4C985 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B3719FE81C900E4C985 /* libPods-FrameAccessor.a in Frameworks */,
 				023F2B3819FE81C900E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
 				023F2B5D19FFD7CF00E4C985 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B771A0178A500E4C985 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B8E1A04015000E4C985 /* EmpireMobileManager.framework in Frameworks */,
-				023F2B931A04063B00E4C985 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B3919FE81C900E4C985 /* libPods-VENTokenField.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,7 +292,7 @@
 				023F2B5419FE875300E4C985 /* libPods-VENTokenField.a in Frameworks */,
 				023F2B5319FE875000E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
 				023F2B5119FE874B00E4C985 /* libPods-FontAwesomeKit.a in Frameworks */,
-				023F2B941A04063B00E4C985 /* EmpireMobileManager.framework in Frameworks */,
+				02DB780D1A095F98004F4980 /* EmpireMobileManager.framework in Frameworks */,
 				023F2B5219FE874D00E4C985 /* libPods-FrameAccessor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				02AAD42719ECB349002901DA /* Localizable.strings */,
+				02DB780B1A095F98004F4980 /* EmpireMobileManager.framework */,
 				02C8849019E3357000DFB4E2 /* INVBIMAssurePrefixHeader.pch */,
 				02C8845B19E317E900DFB4E2 /* Info.plist */,
 				02C8845C19E317E900DFB4E2 /* main.m */,
@@ -465,6 +475,10 @@
 				021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */,
 				024CDCD819FA85D600A2F527 /* INVInviteUsersTableViewController.h */,
 				024CDCD919FA85D600A2F527 /* INVInviteUsersTableViewController.m */,
+				02DB77FD1A092022004F4980 /* INVRuleSetManageFilesTableViewController.h */,
+				02DB77FE1A092022004F4980 /* INVRuleSetManageFilesTableViewController.m */,
+				02DB78101A096C13004F4980 /* INVRuleSetIncludedFilesViewController.h */,
+				02DB78111A096C13004F4980 /* INVRuleSetIncludedFilesViewController.m */,
 				0224B8AA19EDBB550083EA6E /* INVEmptySegue.h */,
 				0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */,
 				0224B90519F171080083EA6E /* categories */,
@@ -477,7 +491,6 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				023F2B921A04063B00E4C985 /* EmpireMobileManager.framework */,
 				023F2B3A19FE81DD00E4C985 /* libPods-FDKeychain.a */,
 				023F2B3219FE81C900E4C985 /* libPods-FontAwesomeKit.a */,
 				023F2B3319FE81C900E4C985 /* libPods-FrameAccessor.a */,
@@ -687,6 +700,7 @@
 				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
 				0224B8C719F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */,
 				023F2B5A19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */,
+				02DB78121A096C13004F4980 /* INVRuleSetIncludedFilesViewController.m in Sources */,
 				02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
 				0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */,
 				024CDCD419FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
@@ -713,6 +727,7 @@
 				023F2B6D1A0159BE00E4C985 /* INVRulesListViewController.m in Sources */,
 				0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */,
 				024CDCE719FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */,
+				02DB77FF1A092022004F4980 /* INVRuleSetManageFilesTableViewController.m in Sources */,
 				021E85C019F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */,
 				02457E2119ED882C00E714BA /* INVMainMenuViewController.m in Sources */,
 				02C8845D19E317E900DFB4E2 /* main.m in Sources */,
@@ -737,6 +752,7 @@
 				02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
 				02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02C8847719E317E900DFB4E2 /* INVBIMAssureTests.m in Sources */,
+				02DB78001A092022004F4980 /* INVRuleSetManageFilesTableViewController.m in Sources */,
 				024CDCDB19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */,
 				0223351B19F6A82900224E0C /* INVLoginScrollView.m in Sources */,
 				023F2B6E1A0159BE00E4C985 /* INVRulesListViewController.m in Sources */,
@@ -758,6 +774,7 @@
 				0223355619F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */,
 				02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
 				02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
+				02DB78131A096C13004F4980 /* INVRuleSetIncludedFilesViewController.m in Sources */,
 				02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
 				023F2B5B19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */,
 				024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
@@ -909,6 +926,7 @@
 					"$(PROJECT_DIR)/../**",
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/INVBIMAssure",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
@@ -955,6 +973,7 @@
 					"$(PROJECT_DIR)/../**",
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/INVBIMAssure",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
@@ -1001,6 +1020,7 @@
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)/INVBIMAssure/**",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/INVBIMAssure",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1030,6 +1050,7 @@
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)/INVBIMAssure/**",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/INVBIMAssure",
 				);
 				INFOPLIST_FILE = INVBIMAssureTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

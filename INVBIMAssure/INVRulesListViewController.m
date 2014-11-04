@@ -11,11 +11,12 @@
 #import "INVRulesTableViewDataSource.h"
 #import "INVRuleInstanceTableViewController.h"
 #import "INVRuleSetTableViewHeaderView.h"
+#import "INVRuleSetManageFilesTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 
-@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate>
+@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
@@ -109,27 +110,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     }];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    
-#warning  use resuable tableheaderfotter view
-   // INVRuleSetTableViewHeaderView* headerView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:@"RuleSetHeaderView"];
-    
-    INVRuleSet* ruleSet = self.dataResultsController.fetchedObjects[section];
-    
-    __block INVRuleSetTableViewHeaderView* headerView ;
-    NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVRuleSetTableViewHeaderView" owner:nil options:nil];
-    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[INVRuleSetTableViewHeaderView class]]) {
-            headerView = obj;
-            *stop = YES;
-        }
-    }];
-    
-    headerView.ruleSetNameLabel.text = ruleSet.name;
-    headerView.ruleSetId = ruleSet.ruleSetId;
-    return headerView;
-}
 
 #pragma mark - INVRuleInstanceTableViewActionDelegate
 -(void)onViewRuleTappedFor:(id)sender {
@@ -140,6 +120,25 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 }
 
 #pragma mark - UITableViewDelegate
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+#warning  use resuable tableheaderfotter view
+     
+    INVRuleSet* ruleSet = self.dataResultsController.fetchedObjects[section];
+    
+    __block INVRuleSetTableViewHeaderView* headerView ;
+    NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVRuleSetTableViewHeaderView" owner:nil options:nil];
+    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[INVRuleSetTableViewHeaderView class]]) {
+            headerView = obj;
+            *stop = YES;
+        }
+    }];
+    headerView.actionDelegate = self;
+    headerView.ruleSetNameLabel.text = ruleSet.name;
+    headerView.ruleSetId = ruleSet.ruleSetId;
+    return headerView;
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
@@ -149,6 +148,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     return UITableViewCellEditingStyleNone;
 }
 
+
+#pragma mark - INVRuleSetTableViewHeaderViewAcionDelegate
+-(void)onManageFilesTapped:(id)sender {
+    [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
+}
 
 #pragma mark - Navigation
 /*
@@ -166,6 +170,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
         INVRuleInstanceTableViewController* ruleInstanceTVC = segue.destinationViewController;
         ruleInstanceTVC.ruleInstanceId = self.selectedRuleInstanceId;
         ruleInstanceTVC.ruleSetId = self.selectedRuleSetId;
+    }
+    if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
+        INVRuleSetManageFilesTableViewController* rulesetFilesTVC = segue.destinationViewController;
+        rulesetFilesTVC.ruleSetId = self.selectedRuleSetId;
+        rulesetFilesTVC.projectId = self.projectId;
     }
     
 }

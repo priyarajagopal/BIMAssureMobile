@@ -54,6 +54,10 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     return self;
 }
 
+-(void)updateWithDataArray:(NSArray*)updatedDataArray {
+    self.dataArray = updatedDataArray;
+}
+
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock {
     [self registerCellWithIdentifier:cellIdentifier configureBlock:configBlock forIndexPath:[NSIndexPath indexPathForRow:DEFAULT_ROW_INDEX inSection:DEFAULT_SECTION_INDEX]];
 }
@@ -74,9 +78,12 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     if (self.dataArray) {
         return self.dataArray.count;
     }
-    else {
+    else if (self.fetchedResultsController) {
         id<NSFetchedResultsSectionInfo> objectInSection = self.fetchedResultsController.sections[section];
         return objectInSection.numberOfObjects;
+    }
+    else {
+        return 0;
     }
 }
 
@@ -84,8 +91,11 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     if (self.dataArray) {
         return 1;
     }
-    else {
+    else if (self.fetchedResultsController){
         return self.fetchedResultsController.sections.count;
+    }
+    else {
+        return 0;
     }
 }
 

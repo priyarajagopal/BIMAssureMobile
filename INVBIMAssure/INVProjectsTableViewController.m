@@ -36,12 +36,13 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
    
     [self setupTableViewDataSource];
     
+#warning move this to within setupTableViewDataSource
     self.tableView.dataSource = self.dataSource;
     UINib* nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
     
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.dataSource = self.dataSource;
 }
 

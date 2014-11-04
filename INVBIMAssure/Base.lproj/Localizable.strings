@@ -37,3 +37,6 @@
 "GENERIC_ACCOUNT_LOGOUT_MESSAGE"="You will be logged out of the \" %1@ \" account.";
 "ARE_YOU_SURE"="Are you sure?";
 "RULES"="Rules";
+"MANAGE_RULESETS"="Manage RuleSets";
+"FILES_INCLUDED_IN_RULESET"="Files Included in RuleSet";
+"FILES_INCLUDED_IN_PROJECT"="Files Included in Project";

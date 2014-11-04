@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol INVRuleSetTableViewHeaderViewAcionDelegate <NSObject>
--(void)onViewFilesTapped:(id)sender;
+-(void)onManageFilesTapped:(id)sender;
 @end
 
 @interface INVRuleSetTableViewHeaderView : UIView
@@ -17,4 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *ruleSetNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *manageFilesButton;
 @property (assign, nonatomic) NSNumber* ruleSetId;
+
+-(IBAction)onManageFilesForRuleset:(UIButton*)sender;
 @end

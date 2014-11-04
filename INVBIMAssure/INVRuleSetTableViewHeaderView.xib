@@ -31,6 +31,9 @@
                         <color key="titleColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onManageFilesForRuleset:" destination="iN0-l3-epB" eventType="touchUpInside" id="d3h-WT-acl"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>

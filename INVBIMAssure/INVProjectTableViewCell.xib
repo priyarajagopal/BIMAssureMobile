@@ -31,7 +31,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="createdOnLabel" destination="Ard-Oq-uvi" id="hEO-q5-etX"/>
                 <outlet property="name" destination="e0G-Pw-T0H" id="IRY-br-Ieu"/>

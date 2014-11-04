@@ -22,4 +22,10 @@
 }
 */
 
+-(IBAction)onManageFilesForRuleset:(UIButton*)sender {
+    if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onManageFilesTapped:)]) {
+        [self.actionDelegate onManageFilesTapped:sender];
+    }
+}
+
 @end
