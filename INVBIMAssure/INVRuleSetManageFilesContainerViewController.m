@@ -11,8 +11,8 @@
 #import "INVRuleSetFilesListTableViewController.h"
 
 @interface INVRuleSetManageFilesContainerViewController ()
-@property (nonatomic,strong)NSDateFormatter* dateFormatter;
-@property (nonatomic, strong)INVGenericTableViewDataSource* rsFilesDataSource;
+@property (nonatomic,strong)INVRuleSetFilesListTableViewController* includedFilesTVC;
+@property (nonatomic,strong)INVRuleSetFilesListTableViewController* excludedFilesTVC;
 @end
 
 #pragma mark - implementation
@@ -29,44 +29,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - accessors
 
-
--(INVGenericTableViewDataSource*)rsFilesDataSource {
-    if (!_rsFilesDataSource) {
-        INVProjectManager* projectManager = self.globalDataManager.invServerClient.projectManager;
-        _rsFilesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:projectManager.projectFiles];
-        
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
-            cell.textLabel.text = file.fileName;
-            
-            NSString* versionStr = NSLocalizedString(@"VERSION", nil);
-            NSString* versionAttrStr =[NSString stringWithFormat:@"%@ : %@",versionStr,file.version ];
-            cell.detailTextLabel.text = versionAttrStr;
-            
-        };
-        [_rsFilesDataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectFileCell" configureBlock:cellConfigurationBlock];
-    }
-    return _rsFilesDataSource;
-}
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"IncludedFilesSegue"]) {
-        INVRuleSetFilesListTableViewController* includedFilesTVC = segue.destinationViewController;
-        includedFilesTVC.projectId = self.projectId;
-        includedFilesTVC.ruleSetId = self.ruleSetId;
-        includedFilesTVC.showFilesForRuleSetId = YES;
+        self.includedFilesTVC = segue.destinationViewController;
+        self.includedFilesTVC .projectId = self.projectId;
+        self.includedFilesTVC .ruleSetId = self.ruleSetId;
+        self.includedFilesTVC .showFilesForRuleSetId = YES;
     }
     else if ([segue.identifier isEqualToString:@"ExcludedFilesSegue"]) {
-        INVRuleSetFilesListTableViewController* includedFilesTVC = segue.destinationViewController;
-        includedFilesTVC.projectId = self.projectId;
-        includedFilesTVC.ruleSetId = self.ruleSetId;
-        includedFilesTVC.showFilesForRuleSetId = NO;
+        self.excludedFilesTVC = segue.destinationViewController;
+        self.excludedFilesTVC.projectId = self.projectId;
+        self.excludedFilesTVC.ruleSetId = self.ruleSetId;
+        self.excludedFilesTVC.showFilesForRuleSetId = NO;
     }
 }
 
-
+#pragma mark - UIEvent handlers
+- (IBAction)onResetTapped:(UIBarButtonItem *)sender {
+    [self.includedFilesTVC resetFileEntries];
+    [self.excludedFilesTVC resetFileEntries];
+}
 @end

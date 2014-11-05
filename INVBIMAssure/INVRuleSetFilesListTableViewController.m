@@ -12,28 +12,29 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
-@interface INVRuleSetFilesListTableViewController ()
+@interface INVRuleSetFilesListTableViewController () <INVManageProjectFileTableViewCellAcionDelegate>
 @property (nonatomic,strong)INVGenericTableViewDataSource* filesDataSource;
-
 @property (nonatomic, strong) INVProjectManager* projectManager;
 @property (nonatomic, strong) INVRulesManager* rulesManager;
-@property (nonatomic,strong) INVFileMutableArray files;
+@property (nonatomic, strong) INVFileMutableArray files;
+@property (nonatomic, assign) BOOL observersAdded;
 @end
 
 @implementation INVRuleSetFilesListTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     UINib* projectCellNib = [UINib nibWithNibName:@"INVManageProjectFileTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:projectCellNib forCellReuseIdentifier:@"ProjectFileCell"];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
+    
     if (self.showFilesForRuleSetId) {
         self.tableView.dataSource = self.filesDataSource;
         [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_INCLUDED_IN_RULESET", nil)];
-
     }
     else {
         self.tableView.dataSource = self.filesDataSource;
@@ -50,20 +51,37 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
+    [self addObserversForFileMoveNotification];
     [self fetchListOfProjectFiles];
     [self fetchProjectFilesForRuleSetId];
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self removeObserversForFileMoveNotification];
+    if (self.showFilesForRuleSetId) {
+        [self pushUpdatedProjectFilesForRuleSetIdToServer];
+    }
+}
+
+#pragma mark - public
+-(void)resetFileEntries {
+    [self updateFilesListFromServer];
+    [self.filesDataSource updateWithDataArray:self.files];
+    [self.tableView reloadData];
+}
 
 #pragma mark - server side
 -(void)fetchListOfProjectFiles {
     [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
-            [self updateFilesList];
+            [self updateFilesListFromServer];
+            [self.filesDataSource updateWithDataArray:self.files];
             [self.tableView reloadData];
         }
         else {
@@ -76,12 +94,26 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [self.globalDataManager.invServerClient getAllFileMastersForRuleSet:self.ruleSetId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
-            [self updateFilesList ];
+            [self updateFilesListFromServer ];
             [self.filesDataSource updateWithDataArray:self.files];
             [self.tableView reloadData];
         }
         else {
 #warning - display error
+        }
+    }];
+}
+
+-(void)pushUpdatedProjectFilesForRuleSetIdToServer {
+    NSMutableArray* fileMasterIds = [[NSMutableArray alloc]initWithCapacity:0];
+    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVFile* file = obj;
+        [fileMasterIds addObject:file.fileId];
+    }];
+    [self.globalDataManager.invServerClient updateRuleSet:self.ruleSetId withFileMasters:fileMasterIds withCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
+        if (error) {
+#warning Show error alert
         }
     }];
 }
@@ -99,6 +131,15 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     
     [self.tableView setTableHeaderView:headerView];
 }
+
+
+#pragma mark - INVManageProjectFileTableViewCellAcionDelegate
+-(void)addRemoveFileTapped:(INVManageProjectFileTableViewCell*)sender {
+    if (sender.isInRuleSet) {
+     
+    }
+}
+
 
 #pragma mark - accessors
 -(INVProjectManager*)projectManager {
@@ -130,6 +171,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVManageProjectFileTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
             cell.fileName.text = file.fileName;
             cell.isInRuleSet = self.showFilesForRuleSetId;
+            cell.masterFileId = file.fileId;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
         };
         [_filesDataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectFileCell" configureBlock:cellConfigurationBlock];
@@ -138,7 +181,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 #pragma mark - helpers
--(void)updateFilesList {
+-(void)updateFilesListFromServer {
     self.files = [self.projectManager.projectFiles mutableCopy];
     NSArray* filesMasterIdsInRuleSet = [self.rulesManager fileMasterIdsForRuleSetId:self.ruleSetId];
     INVFileMutableArray filesAssociatedWithRuleSet = [[self.projectManager filesForMasterIds:filesMasterIdsInRuleSet]mutableCopy];
@@ -152,15 +195,88 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     }
 }
 
+-(void)removeFromLocalFileList:(NSNumber*)fileMasterId {
+    @synchronized (self) {
+        __block INVFile* file;
+        [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            INVFile* temp = obj;
+            if ([temp.fileId isEqualToNumber:fileMasterId]) {
+                file = obj;
+                *stop = YES;
+            }
+        }];
+        if (file) {
+            [self.files removeObject:file];
+        }
+    }
+}
 
-/*
+-(void)addToLocalFileList:(NSNumber*)fileMasterId {
+    @synchronized (self) {
+        __block INVFile* file;
+        [self.projectManager.projectFiles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            INVFile* temp = obj;
+            if ([temp.fileId isEqualToNumber:fileMasterId]) {
+                file = obj;
+                *stop = YES;
+            }
+        }];
+        if (file) {
+            [self.files addObject:file];
+        }
+    }
+}
+
+#pragma mark - Observer Handling
+-(void)addObserversForFileMoveNotification {
+    if (self.observersAdded) {
+        return;
+    }
+    NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
+    [notifCenter addObserverForName:INV_NotificationMoveRuleSetFile object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        NSDictionary* userInfo = note.userInfo;
+        INVManageProjectFileTableViewCell* tableViewCell = userInfo[@"FileCell"];
+        
+        if (self.showFilesForRuleSetId) {
+            if (tableViewCell.isInRuleSet) {
+                [self removeFromLocalFileList:tableViewCell.masterFileId];
+            }
+            else {
+                [self addToLocalFileList:tableViewCell.masterFileId];
+            }
+        }
+        else {
+            if (tableViewCell.isInRuleSet) {
+                 [self addToLocalFileList:tableViewCell.masterFileId];
+            }
+            else {
+                 [self removeFromLocalFileList:tableViewCell.masterFileId];
+            }
+        }
+        [self.tableView reloadData];
+    }];
+    self.observersAdded = YES;
+}
+
+-(void)removeObserversForFileMoveNotification {
+    if (!self.observersAdded) {
+        return;
+    }
+    NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
+    [notifCenter removeObserver:self name:INV_NotificationMoveRuleSetFile object:nil];
+    self.observersAdded = NO;
+}
+
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+ 
 }
-*/
+
 
 @end

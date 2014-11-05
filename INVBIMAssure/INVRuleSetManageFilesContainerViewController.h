@@ -9,6 +9,8 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVRuleSetManageFilesContainerViewController : INVCustomViewController
-@property (nonatomic,strong)NSNumber* projectId;
+- (IBAction)onResetTapped:(UIBarButtonItem *)sender;
+
+@property (nonatomic,strong) NSNumber* projectId;
 @property (nonatomic,assign) NSNumber* ruleSetId;
 @end

@@ -627,13 +627,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qas-gT-8kS">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qas-gT-8kS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <items>
                                     <navigationItem title="Manage Rule Sets" id="VnQ-3x-HH1">
                                         <barButtonItem key="leftBarButtonItem" title="Done" id="0uv-vi-mTW">
                                             <connections>
                                                 <segue destination="Yqn-p2-pNA" kind="unwind" unwindAction="done:" id="Lcm-9F-3z1"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Reset" id="Edd-Wc-bJz">
+                                            <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="onResetTapped:" destination="aJs-hd-mPF" id="dJx-Un-go0"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -679,13 +685,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Qas-gT-8kS" firstAttribute="leading" secondItem="PtJ-CL-9LI" secondAttribute="leadingMargin" constant="-16" id="Hxf-4Z-fur"/>
                             <constraint firstItem="Vvp-UX-2JZ" firstAttribute="leading" secondItem="PtJ-CL-9LI" secondAttribute="leadingMargin" constant="-16" id="J73-WG-6mg"/>
                             <constraint firstItem="Vvp-UX-2JZ" firstAttribute="top" secondItem="ODq-rf-e0i" secondAttribute="bottom" constant="-2" id="TTx-hn-krx"/>
                             <constraint firstItem="ODq-rf-e0i" firstAttribute="top" secondItem="ze0-7f-Yl3" secondAttribute="bottom" constant="44" id="URe-Gi-ffO"/>
                             <constraint firstItem="2Ks-8j-SLC" firstAttribute="top" secondItem="Vvp-UX-2JZ" secondAttribute="bottom" constant="-16" id="atm-6p-Tjb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Vvp-UX-2JZ" secondAttribute="trailing" constant="-16" id="jme-Nt-nwo"/>
+                            <constraint firstAttribute="width" secondItem="Qas-gT-8kS" secondAttribute="width" id="mPU-RB-cY0"/>
                             <constraint firstItem="ODq-rf-e0i" firstAttribute="height" secondItem="PtJ-CL-9LI" secondAttribute="height" multiplier="0.5" constant="-26" id="mlI-9f-CEW"/>
                             <constraint firstItem="Vvp-UX-2JZ" firstAttribute="height" secondItem="PtJ-CL-9LI" secondAttribute="height" multiplier="0.5" id="o9P-pU-1VB"/>
+                            <constraint firstItem="Qas-gT-8kS" firstAttribute="top" secondItem="ze0-7f-Yl3" secondAttribute="bottom" id="s4P-KA-hr3"/>
                             <constraint firstItem="ODq-rf-e0i" firstAttribute="leading" secondItem="PtJ-CL-9LI" secondAttribute="leadingMargin" constant="-16" id="t8s-9s-Tfr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ODq-rf-e0i" secondAttribute="trailing" constant="-16" id="tou-v9-AQ3"/>
                         </constraints>

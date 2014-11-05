@@ -8,6 +8,8 @@
 
 #import "INVManageProjectFileTableViewCell.h"
 
+NSString* const INV_NotificationMoveRuleSetFile = @"NotificationRuleSetFileMove";
+
 @implementation INVManageProjectFileTableViewCell
 
 - (void)awakeFromNib {
@@ -35,12 +37,18 @@
         [removeIcon addAttribute:NSForegroundColorAttributeName value:redColor];
         [self.addRemoveButton setAttributedTitle:[removeIcon attributedString] forState:UIControlStateNormal];
     }
-}
+ }
 
 #pragma mark - UIEvent handlers
 - (IBAction)onAddRemoveButtonTapped:(UIButton *)sender {
+    
     if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(addRemoveFileTapped:)]) {
         [self.actionDelegate addRemoveFileTapped:self];
     }
+    
+    NSDictionary * userInfo = @{@"FileCell":self};
+    NSNotification* note = [NSNotification notificationWithName:INV_NotificationMoveRuleSetFile object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter]postNotification:note];
+
 }
 @end

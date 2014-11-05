@@ -12,4 +12,6 @@
 @property (nonatomic,assign) BOOL showFilesForRuleSetId;
 @property (nonatomic,assign) NSNumber* projectId;
 @property (nonatomic,assign) NSNumber* ruleSetId;
+
+-(void)resetFileEntries;
 @end
