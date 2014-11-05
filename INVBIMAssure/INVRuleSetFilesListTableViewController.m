@@ -13,12 +13,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 @interface INVRuleSetFilesListTableViewController ()
-@property (nonatomic, strong)INVGenericTableViewDataSource* rsFilesDataSource;
-@property (nonatomic,strong)INVGenericTableViewDataSource* noRsFilesDataSource;
+@property (nonatomic,strong)INVGenericTableViewDataSource* filesDataSource;
+
 @property (nonatomic, strong) INVProjectManager* projectManager;
 @property (nonatomic, strong) INVRulesManager* rulesManager;
-@property (nonatomic,strong) INVFileMutableArray filesAssociatedWithRuleSet;
-@property (nonatomic,strong) INVFileMutableArray filesNotAssociatedWithRuleSet;
+@property (nonatomic,strong) INVFileMutableArray files;
 @end
 
 @implementation INVRuleSetFilesListTableViewController
@@ -32,12 +31,12 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     if (self.showFilesForRuleSetId) {
-        self.tableView.dataSource = self.rsFilesDataSource;
+        self.tableView.dataSource = self.filesDataSource;
         [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_INCLUDED_IN_RULESET", nil)];
 
     }
     else {
-        self.tableView.dataSource = self.noRsFilesDataSource;
+        self.tableView.dataSource = self.filesDataSource;
         [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_NOT_INCLUDED_IN_RULESET", nil)];
     }
     self.refreshControl = nil;
@@ -78,9 +77,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         [self.hud hide:YES];
         if (!error) {
             [self updateFilesList ];
-            [self.noRsFilesDataSource updateWithDataArray:self.filesNotAssociatedWithRuleSet];
-            [self.rsFilesDataSource updateWithDataArray:self.filesAssociatedWithRuleSet];
-            
+            [self.filesDataSource updateWithDataArray:self.files];
             [self.tableView reloadData];
         }
         else {
@@ -118,59 +115,44 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     return _rulesManager;
 }
 
--(INVFileMutableArray)filesAssociatedWithRuleSet {
-    if (!_filesAssociatedWithRuleSet) {
-        _filesAssociatedWithRuleSet = [[NSMutableArray alloc]initWithCapacity:0];
+-(INVFileMutableArray)files {
+    if (!_files) {
+        _files = [[NSMutableArray alloc]initWithCapacity:0];
     }
-    return _filesAssociatedWithRuleSet;
+    return _files;
 }
 
--(INVFileMutableArray)filesNotAssociatedWithRuleSet {
-    if (!_filesNotAssociatedWithRuleSet) {
-        _filesNotAssociatedWithRuleSet = [[NSMutableArray alloc]initWithCapacity:0];
-    }
-    return _filesNotAssociatedWithRuleSet;
-}
-
-
--(INVGenericTableViewDataSource*)noRsFilesDataSource {
-    if (!_noRsFilesDataSource) {
+-(INVGenericTableViewDataSource*)filesDataSource {
+    if (!_filesDataSource) {
         
-        _noRsFilesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.filesNotAssociatedWithRuleSet];
+        _filesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.files];
         
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVManageProjectFileTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
             cell.fileName.text = file.fileName;
-            cell.isInRuleSet = NO;
+            cell.isInRuleSet = self.showFilesForRuleSetId;
             
         };
-        [_noRsFilesDataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectFileCell" configureBlock:cellConfigurationBlock];
+        [_filesDataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectFileCell" configureBlock:cellConfigurationBlock];
     }
-    return _noRsFilesDataSource;
-}
-
--(INVGenericTableViewDataSource*)rsFilesDataSource {
-    if (!_rsFilesDataSource) {
-        _rsFilesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.filesAssociatedWithRuleSet];
-        
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVManageProjectFileTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
-            cell.fileName.text = file.fileName;
-            cell.isInRuleSet = YES;
-            
-        };
-        [_rsFilesDataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectFileCell" configureBlock:cellConfigurationBlock];
-    }
-    return _rsFilesDataSource;
+    return _filesDataSource;
 }
 
 #pragma mark - helpers
 -(void)updateFilesList {
-    self.filesNotAssociatedWithRuleSet = [self.projectManager.projectFiles mutableCopy];
+    self.files = [self.projectManager.projectFiles mutableCopy];
     NSArray* filesMasterIdsInRuleSet = [self.rulesManager fileMasterIdsForRuleSetId:self.ruleSetId];
-    self.filesAssociatedWithRuleSet = [[self.projectManager filesForMasterIds:filesMasterIdsInRuleSet]mutableCopy];
-    if (self.filesAssociatedWithRuleSet && self.filesAssociatedWithRuleSet.count) {
-         [self.filesNotAssociatedWithRuleSet removeObjectsInArray:self.filesAssociatedWithRuleSet];
+    INVFileMutableArray filesAssociatedWithRuleSet = [[self.projectManager filesForMasterIds:filesMasterIdsInRuleSet]mutableCopy];
+    if (self.showFilesForRuleSetId) {
+        self.files = filesAssociatedWithRuleSet;
+    }
+    else {
+        if (filesAssociatedWithRuleSet && filesAssociatedWithRuleSet.count) {
+            [self.files removeObjectsInArray:filesAssociatedWithRuleSet];
+        }
     }
 }
+
+
 /*
 #pragma mark - Navigation
 
