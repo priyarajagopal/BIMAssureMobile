@@ -7,13 +7,14 @@
 //
 
 #import "INVRuleSetIncludedFilesViewController.h"
+#import "INVManageProjectFileTableViewCell.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 @interface INVRuleSetIncludedFilesViewController ()
 @property (nonatomic, strong)INVGenericTableViewDataSource* rsFilesDataSource;
-@property (nonatomic,strong)INVGenericTableViewDataSource* projectFilesDataSource;
+@property (nonatomic,strong)INVGenericTableViewDataSource* noRsFilesDataSource;
 @property (nonatomic, strong) INVProjectManager* projectManager;
 @property (nonatomic, strong) INVRulesManager* rulesManager;
 @property (nonatomic,strong) INVFileMutableArray filesAssociatedWithRuleSet;
@@ -25,8 +26,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UINib* projectCellNib = [UINib nibWithNibName:@"INVManageProjectFileTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
+    [self.tableView registerNib:projectCellNib forCellReuseIdentifier:@"ProjectFileCell"];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     if (self.showFilesForRuleSetId) {
         self.tableView.dataSource = self.rsFilesDataSource;
@@ -34,7 +37,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
     }
     else {
-        self.tableView.dataSource = self.projectFilesDataSource;
+        self.tableView.dataSource = self.noRsFilesDataSource;
         [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_NOT_INCLUDED_IN_RULESET", nil)];
     }
     self.refreshControl = nil;
@@ -75,7 +78,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         [self.hud hide:YES];
         if (!error) {
             [self updateFilesList ];
-            [self.projectFilesDataSource updateWithDataArray:self.filesNotAssociatedWithRuleSet];
+            [self.noRsFilesDataSource updateWithDataArray:self.filesNotAssociatedWithRuleSet];
             [self.rsFilesDataSource updateWithDataArray:self.filesAssociatedWithRuleSet];
             
             [self.tableView reloadData];
@@ -129,34 +132,28 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 
--(INVGenericTableViewDataSource*)projectFilesDataSource {
-    if (!_projectFilesDataSource) {
+-(INVGenericTableViewDataSource*)noRsFilesDataSource {
+    if (!_noRsFilesDataSource) {
         
-        _projectFilesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.filesNotAssociatedWithRuleSet];
+        _noRsFilesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.filesNotAssociatedWithRuleSet];
         
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
-            cell.textLabel.text = file.fileName;
-            
-            NSString* versionStr = NSLocalizedString(@"VERSION", nil);
-            NSString* versionAttrStr =[NSString stringWithFormat:@"%@ : %@",versionStr,file.version ];
-            cell.detailTextLabel.text = versionAttrStr;
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVManageProjectFileTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
+            cell.fileName.text = file.fileName;
+            cell.isInRuleSet = NO;
             
         };
-        [_projectFilesDataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectFileCell" configureBlock:cellConfigurationBlock];
+        [_noRsFilesDataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectFileCell" configureBlock:cellConfigurationBlock];
     }
-    return _projectFilesDataSource;
+    return _noRsFilesDataSource;
 }
 
 -(INVGenericTableViewDataSource*)rsFilesDataSource {
     if (!_rsFilesDataSource) {
         _rsFilesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.filesAssociatedWithRuleSet];
         
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
-            cell.textLabel.text = file.fileName;
-            
-            NSString* versionStr = NSLocalizedString(@"VERSION", nil);
-            NSString* versionAttrStr =[NSString stringWithFormat:@"%@ : %@",versionStr,file.version ];
-            cell.detailTextLabel.text = versionAttrStr;
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVManageProjectFileTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
+            cell.fileName.text = file.fileName;
+            cell.isInRuleSet = YES;
             
         };
         [_rsFilesDataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectFileCell" configureBlock:cellConfigurationBlock];

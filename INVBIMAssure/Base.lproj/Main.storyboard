@@ -641,12 +641,14 @@
                             </navigationBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fza-4t-04b" userLabel="RuleSetFiles Container View">
                                 <rect key="frame" x="0.0" y="44" width="600" height="274"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="GJW-wx-hWo" kind="embed" identifier="IncludedFilesSegue" id="nBs-V3-PfG"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-mZ-pWz" userLabel="ProjectFiles Container View">
                                 <rect key="frame" x="0.0" y="318" width="600" height="282"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="IiF-JB-UeQ" kind="embed" identifier="ExcludedFilesSegue" id="fdt-tZ-EWy"/>
                                 </connections>
@@ -677,10 +679,10 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="bHn-pT-qB6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="274"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <color key="separatorColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectFileCell" textLabel="isc-a9-ssK" detailTextLabel="eIO-2Q-Y9x" style="IBUITableViewCellStyleSubtitle" id="vCt-zU-cvq">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectFileCell" textLabel="isc-a9-ssK" detailTextLabel="eIO-2Q-Y9x" style="IBUITableViewCellStyleSubtitle" id="vCt-zU-cvq" customClass="INVManageProjectFileTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vCt-zU-cvq" id="DhO-8J-dAc">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -725,9 +727,9 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="dd8-DF-4fp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="282"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectFileCell" textLabel="qjO-95-NWU" detailTextLabel="mgF-eJ-ezD" style="IBUITableViewCellStyleSubtitle" id="I6b-s1-6qp">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectFileCell" textLabel="qjO-95-NWU" detailTextLabel="mgF-eJ-ezD" style="IBUITableViewCellStyleSubtitle" id="I6b-s1-6qp" customClass="INVManageProjectFileTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I6b-s1-6qp" id="Qz2-uG-jm5">
                                     <autoresizingMask key="autoresizingMask"/>
