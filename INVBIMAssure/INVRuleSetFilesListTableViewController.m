@@ -92,9 +92,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - UITableView
 -(void)setHeaderViewWithHeading:(NSString*)heading {
     UIView* headerView = [[UIView alloc]initWithFrame:CGRectMake(0,0,CGRectGetWidth(self.tableView.frame), DEFAULT_HEADER_HEIGHT)];
-    UIColor* darkGreyColor = [UIColor colorWithRed:150.0/255 green:150.0/255 blue:150.0/255 alpha:1.0];
-    
-    [headerView setBackgroundColor:darkGreyColor];
+    UIColor * medGreyColor = [UIColor colorWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1.0];    
+    [headerView setBackgroundColor:medGreyColor];
     
     UILabel* headingLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,10, CGRectGetWidth(headerView.frame)-20, DEFAULT_HEADER_HEIGHT )];
     headingLabel.text  = heading;

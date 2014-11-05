@@ -650,7 +650,7 @@
                                         </connections>
                                     </containerView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Fza-4t-04b" secondAttribute="bottom" constant="4" id="Ee2-is-wqs"/>
                                     <constraint firstItem="Fza-4t-04b" firstAttribute="top" secondItem="ODq-rf-e0i" secondAttribute="top" constant="5" id="Ikb-FJ-3Vm"/>
@@ -668,7 +668,7 @@
                                         </connections>
                                     </containerView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="3jh-tb-Cg6" firstAttribute="top" secondItem="Vvp-UX-2JZ" secondAttribute="top" constant="5" id="Jer-tu-OfG"/>
                                     <constraint firstAttribute="trailing" secondItem="3jh-tb-Cg6" secondAttribute="trailing" constant="5" id="S98-en-7WL"/>

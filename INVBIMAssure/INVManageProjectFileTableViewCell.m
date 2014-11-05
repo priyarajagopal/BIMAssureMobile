@@ -36,6 +36,11 @@
         [self.addRemoveButton setAttributedTitle:[removeIcon attributedString] forState:UIControlStateNormal];
     }
 }
+
+#pragma mark - UIEvent handlers
 - (IBAction)onAddRemoveButtonTapped:(UIButton *)sender {
+    if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(addRemoveFileTapped:)]) {
+        [self.actionDelegate addRemoveFileTapped:self];
+    }
 }
 @end

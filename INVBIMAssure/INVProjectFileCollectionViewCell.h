@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class INVProjectFileCollectionViewCell;
+
 @protocol INVProjectFileCollectionViewCellDelegate <NSObject>
 
--(void)onViewProjectFile:(id)sender;
--(void)onManageRuleSetsForProjectFile:(id)sender;
+-(void)onViewProjectFile:(INVProjectFileCollectionViewCell*)sender;
+-(void)onManageRuleSetsForProjectFile:(INVProjectFileCollectionViewCell*)sender;
 
 @end
 

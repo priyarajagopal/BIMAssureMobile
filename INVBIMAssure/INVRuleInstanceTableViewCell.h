@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class INVRuleInstanceTableViewCell;
+
 
 @protocol INVRuleInstanceTableViewCellActionDelegate <NSObject>
--(void)onViewRuleTappedFor:(id)sender;
+-(void)onViewRuleTappedFor:(INVRuleInstanceTableViewCell*)sender;
 @end
 
 @protocol INVRuleInstanceTableViewCellStateDelegate <NSObject>
-- (void)cellDidOpen:(UITableViewCell *)cell;
-- (void)cellDidClose:(UITableViewCell *)cell;
+- (void)cellDidOpen:(INVRuleInstanceTableViewCell *)cell;
+- (void)cellDidClose:(INVRuleInstanceTableViewCell *)cell;
 
 @end
 

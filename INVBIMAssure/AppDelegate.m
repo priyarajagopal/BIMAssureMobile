@@ -69,7 +69,7 @@
 
     [[UIView appearance] setTintColor:whiteColor];
 
-    [self.window setTintColor:whiteColor                        ];
+    [self.window setTintColor:whiteColor  ];
     [[UINavigationBar appearance] setBarTintColor:cyanBlueColor ] ;
     [[UINavigationBar appearance] setTintColor:whiteColor] ;
     

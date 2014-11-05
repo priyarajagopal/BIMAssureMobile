@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class INVRuleSetTableViewHeaderView;
+
 @protocol INVRuleSetTableViewHeaderViewAcionDelegate <NSObject>
--(void)onManageFilesTapped:(id)sender;
+-(void)onManageFilesTapped:(INVRuleSetTableViewHeaderView*)sender;
 @end
 
 @interface INVRuleSetTableViewHeaderView : UIView
