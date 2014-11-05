@@ -9,6 +9,7 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVRuleSetIncludedFilesViewController : INVCustomTableViewController
-@property (nonatomic,strong) NSNumber* projectId;
+@property (nonatomic,assign) BOOL showFilesForRuleSetId;
+@property (nonatomic,assign) NSNumber* projectId;
 @property (nonatomic,assign) NSNumber* ruleSetId;
 @end

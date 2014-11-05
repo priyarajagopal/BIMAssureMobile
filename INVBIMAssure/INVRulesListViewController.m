@@ -151,8 +151,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 #pragma mark - INVRuleSetTableViewHeaderViewAcionDelegate
 -(void)onManageFilesTapped:(id)sender {
+    INVRuleSetTableViewHeaderView* headerView  =  (INVRuleSetTableViewHeaderView*)sender;
+    self.selectedRuleSetId = headerView.ruleSetId;
     [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
 }
+
+
 
 #pragma mark - Navigation
 /*

@@ -58,10 +58,13 @@
         INVRuleSetIncludedFilesViewController* includedFilesTVC = segue.destinationViewController;
         includedFilesTVC.projectId = self.projectId;
         includedFilesTVC.ruleSetId = self.ruleSetId;
+        includedFilesTVC.showFilesForRuleSetId = YES;
     }
     else if ([segue.identifier isEqualToString:@"ExcludedFilesSegue"]) {
-         UITableViewController* excludedFilesTVC = segue.destinationViewController;
-       // excludedFilesTVC.tableView.dataSource = self.rsFilesDataSource;
+        INVRuleSetIncludedFilesViewController* includedFilesTVC = segue.destinationViewController;
+        includedFilesTVC.projectId = self.projectId;
+        includedFilesTVC.ruleSetId = self.ruleSetId;
+        includedFilesTVC.showFilesForRuleSetId = NO;
     }
 }
 

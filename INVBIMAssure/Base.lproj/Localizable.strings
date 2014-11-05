@@ -39,4 +39,4 @@
 "RULES"="Rules";
 "MANAGE_RULESETS"="Manage RuleSets";
 "FILES_INCLUDED_IN_RULESET"="Files Included in RuleSet";
-"FILES_INCLUDED_IN_PROJECT"="Files Included in Project";
+"FILES_NOT_INCLUDED_IN_RULESET"="Files Not Inclued in RuleSet";
