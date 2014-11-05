@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-#import "INVRuleSetManageFilesTableViewController.h"
+#import "INVRuleSetManageFilesContainerViewController.h"
 #import "INVGenericTableViewDataSource.h"
-#import "INVRuleSetIncludedFilesViewController.h"
+#import "INVRuleSetFilesListTableViewController.h"
 
-@interface INVRuleSetManageFilesTableViewController ()
+@interface INVRuleSetManageFilesContainerViewController ()
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic, strong)INVGenericTableViewDataSource* rsFilesDataSource;
 @end
 
 #pragma mark - implementation
-@implementation INVRuleSetManageFilesTableViewController
+@implementation INVRuleSetManageFilesContainerViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,13 +55,13 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"IncludedFilesSegue"]) {
-        INVRuleSetIncludedFilesViewController* includedFilesTVC = segue.destinationViewController;
+        INVRuleSetFilesListTableViewController* includedFilesTVC = segue.destinationViewController;
         includedFilesTVC.projectId = self.projectId;
         includedFilesTVC.ruleSetId = self.ruleSetId;
         includedFilesTVC.showFilesForRuleSetId = YES;
     }
     else if ([segue.identifier isEqualToString:@"ExcludedFilesSegue"]) {
-        INVRuleSetIncludedFilesViewController* includedFilesTVC = segue.destinationViewController;
+        INVRuleSetFilesListTableViewController* includedFilesTVC = segue.destinationViewController;
         includedFilesTVC.projectId = self.projectId;
         includedFilesTVC.ruleSetId = self.ruleSetId;
         includedFilesTVC.showFilesForRuleSetId = NO;

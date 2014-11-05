@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-#import "INVRuleSetIncludedFilesViewController.h"
+#import "INVRuleSetFilesListTableViewController.h"
 #import "INVManageProjectFileTableViewCell.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
-@interface INVRuleSetIncludedFilesViewController ()
+@interface INVRuleSetFilesListTableViewController ()
 @property (nonatomic, strong)INVGenericTableViewDataSource* rsFilesDataSource;
 @property (nonatomic,strong)INVGenericTableViewDataSource* noRsFilesDataSource;
 @property (nonatomic, strong) INVProjectManager* projectManager;
@@ -21,7 +21,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 @property (nonatomic,strong) INVFileMutableArray filesNotAssociatedWithRuleSet;
 @end
 
-@implementation INVRuleSetIncludedFilesViewController
+@implementation INVRuleSetFilesListTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -92,7 +92,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - UITableView
 -(void)setHeaderViewWithHeading:(NSString*)heading {
     UIView* headerView = [[UIView alloc]initWithFrame:CGRectMake(0,0,CGRectGetWidth(self.tableView.frame), DEFAULT_HEADER_HEIGHT)];
-    [headerView setBackgroundColor:[UIColor clearColor]];
+    UIColor* darkGreyColor = [UIColor colorWithRed:150.0/255 green:150.0/255 blue:150.0/255 alpha:1.0];
+    
+    [headerView setBackgroundColor:darkGreyColor];
     
     UILabel* headingLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,10, CGRectGetWidth(headerView.frame)-20, DEFAULT_HEADER_HEIGHT )];
     headingLabel.text  = heading;

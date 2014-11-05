@@ -615,10 +615,10 @@
             </objects>
             <point key="canvasLocation" x="4958" y="2639"/>
         </scene>
-        <!--Rule Set Manage Files Table View Controller-->
+        <!--Rule Set Manage Files Container View Controller-->
         <scene sceneID="VeK-lj-5bz">
             <objects>
-                <viewController id="aJs-hd-mPF" customClass="INVRuleSetManageFilesTableViewController" sceneMemberID="viewController">
+                <viewController id="aJs-hd-mPF" customClass="INVRuleSetManageFilesContainerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ze0-7f-Yl3"/>
                         <viewControllerLayoutGuide type="bottom" id="2Ks-8j-SLC"/>
@@ -639,32 +639,55 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fza-4t-04b" userLabel="RuleSetFiles Container View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODq-rf-e0i" userLabel="inRSView">
                                 <rect key="frame" x="0.0" y="44" width="600" height="274"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="GJW-wx-hWo" kind="embed" identifier="IncludedFilesSegue" id="nBs-V3-PfG"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-mZ-pWz" userLabel="ProjectFiles Container View">
-                                <rect key="frame" x="0.0" y="318" width="600" height="282"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="IiF-JB-UeQ" kind="embed" identifier="ExcludedFilesSegue" id="fdt-tZ-EWy"/>
-                                </connections>
-                            </containerView>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fza-4t-04b" userLabel="RuleSetFiles Container View">
+                                        <rect key="frame" x="5" y="5" width="590" height="265"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="GJW-wx-hWo" kind="embed" identifier="IncludedFilesSegue" id="nBs-V3-PfG"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Fza-4t-04b" secondAttribute="bottom" constant="4" id="Ee2-is-wqs"/>
+                                    <constraint firstItem="Fza-4t-04b" firstAttribute="top" secondItem="ODq-rf-e0i" secondAttribute="top" constant="5" id="Ikb-FJ-3Vm"/>
+                                    <constraint firstItem="Fza-4t-04b" firstAttribute="leading" secondItem="ODq-rf-e0i" secondAttribute="leading" constant="5" id="OY2-T8-oRO"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fza-4t-04b" secondAttribute="trailing" constant="5" id="mtV-KX-OKm"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vvp-UX-2JZ" userLabel="notInRSView">
+                                <rect key="frame" x="0.0" y="316" width="600" height="300"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3jh-tb-Cg6" userLabel="NotInRuleSetFiles Container View">
+                                        <rect key="frame" x="5" y="5" width="590" height="275"/>
+                                        <connections>
+                                            <segue destination="IiF-JB-UeQ" kind="embed" identifier="ExcludedFilesSegue" id="hXV-Wc-osz"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="3jh-tb-Cg6" firstAttribute="top" secondItem="Vvp-UX-2JZ" secondAttribute="top" constant="5" id="Jer-tu-OfG"/>
+                                    <constraint firstAttribute="trailing" secondItem="3jh-tb-Cg6" secondAttribute="trailing" constant="5" id="S98-en-7WL"/>
+                                    <constraint firstAttribute="bottom" secondItem="3jh-tb-Cg6" secondAttribute="bottom" constant="20" id="Va4-fI-lKu"/>
+                                    <constraint firstItem="3jh-tb-Cg6" firstAttribute="leading" secondItem="Vvp-UX-2JZ" secondAttribute="leading" constant="5" id="jLN-oZ-Dt4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="t5O-mZ-pWz" firstAttribute="top" secondItem="Fza-4t-04b" secondAttribute="bottom" id="3Zz-U3-7oE"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Fza-4t-04b" secondAttribute="trailing" constant="-16" id="79c-hw-VTE"/>
-                            <constraint firstItem="Fza-4t-04b" firstAttribute="leading" secondItem="PtJ-CL-9LI" secondAttribute="leadingMargin" constant="-16" id="7ii-Zi-Gts"/>
-                            <constraint firstItem="Fza-4t-04b" firstAttribute="height" secondItem="PtJ-CL-9LI" secondAttribute="height" multiplier="0.5" constant="-26" id="BPa-M9-lYX"/>
-                            <constraint firstItem="t5O-mZ-pWz" firstAttribute="top" secondItem="Fza-4t-04b" secondAttribute="bottom" id="NUk-1m-wy9"/>
-                            <constraint firstItem="t5O-mZ-pWz" firstAttribute="leading" secondItem="PtJ-CL-9LI" secondAttribute="leadingMargin" constant="-16" id="QgD-SH-iGN"/>
-                            <constraint firstAttribute="height" secondItem="t5O-mZ-pWz" secondAttribute="height" multiplier="2" constant="36" id="fjA-yI-kuc"/>
-                            <constraint firstItem="Fza-4t-04b" firstAttribute="top" secondItem="ze0-7f-Yl3" secondAttribute="bottom" constant="44" id="sng-Uv-o18"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="t5O-mZ-pWz" secondAttribute="trailing" constant="-16" id="zTq-8t-jCQ"/>
+                            <constraint firstItem="Vvp-UX-2JZ" firstAttribute="leading" secondItem="PtJ-CL-9LI" secondAttribute="leadingMargin" constant="-16" id="J73-WG-6mg"/>
+                            <constraint firstItem="Vvp-UX-2JZ" firstAttribute="top" secondItem="ODq-rf-e0i" secondAttribute="bottom" constant="-2" id="TTx-hn-krx"/>
+                            <constraint firstItem="ODq-rf-e0i" firstAttribute="top" secondItem="ze0-7f-Yl3" secondAttribute="bottom" constant="44" id="URe-Gi-ffO"/>
+                            <constraint firstItem="2Ks-8j-SLC" firstAttribute="top" secondItem="Vvp-UX-2JZ" secondAttribute="bottom" constant="-16" id="atm-6p-Tjb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vvp-UX-2JZ" secondAttribute="trailing" constant="-16" id="jme-Nt-nwo"/>
+                            <constraint firstItem="ODq-rf-e0i" firstAttribute="height" secondItem="PtJ-CL-9LI" secondAttribute="height" multiplier="0.5" constant="-26" id="mlI-9f-CEW"/>
+                            <constraint firstItem="Vvp-UX-2JZ" firstAttribute="height" secondItem="PtJ-CL-9LI" secondAttribute="height" multiplier="0.5" id="o9P-pU-1VB"/>
+                            <constraint firstItem="ODq-rf-e0i" firstAttribute="leading" secondItem="PtJ-CL-9LI" secondAttribute="leadingMargin" constant="-16" id="t8s-9s-Tfr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ODq-rf-e0i" secondAttribute="trailing" constant="-16" id="tou-v9-AQ3"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -672,12 +695,12 @@
             </objects>
             <point key="canvasLocation" x="5628" y="2639"/>
         </scene>
-        <!--Rule Set Included Files View Controller-->
+        <!--Rule Set Files List Table View Controller-->
         <scene sceneID="FRr-1t-Gpd">
             <objects>
-                <tableViewController id="GJW-wx-hWo" customClass="INVRuleSetIncludedFilesViewController" sceneMemberID="viewController">
+                <tableViewController id="GJW-wx-hWo" customClass="INVRuleSetFilesListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="bHn-pT-qB6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="274"/>
+                        <rect key="frame" x="0.0" y="0.0" width="590" height="265"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -720,12 +743,12 @@
             </objects>
             <point key="canvasLocation" x="6295" y="2638.5"/>
         </scene>
-        <!--Rule Set Included Files View Controller-->
+        <!--Rule Set Files List Table View Controller-->
         <scene sceneID="Ecg-Lc-5of">
             <objects>
-                <tableViewController id="IiF-JB-UeQ" customClass="INVRuleSetIncludedFilesViewController" sceneMemberID="viewController">
+                <tableViewController id="IiF-JB-UeQ" customClass="INVRuleSetFilesListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="dd8-DF-4fp">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="282"/>
+                        <rect key="frame" x="0.0" y="0.0" width="590" height="275"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -761,7 +784,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbj-Bl-u1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5628" y="3242"/>
+            <point key="canvasLocation" x="5628" y="3361"/>
         </scene>
         <!--Rule Instance View Table View Controller-->
         <scene sceneID="yvr-a1-cAI">
@@ -1570,6 +1593,23 @@
                     <toolbarItems/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wxp-li-Vd5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="haF-pj-BZw">
+            <objects>
+                <viewController id="whU-jI-6bM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1vB-hO-qM6"/>
+                        <viewControllerLayoutGuide type="bottom" id="FwN-hB-AcW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c5o-1e-6eF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jug-Ne-o3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
