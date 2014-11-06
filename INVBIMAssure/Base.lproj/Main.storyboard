@@ -547,6 +547,41 @@
             </objects>
             <point key="canvasLocation" x="4108" y="3468"/>
         </scene>
+        <!--Results-->
+        <scene sceneID="w2G-bL-2KD">
+            <objects>
+                <viewController id="GzD-Rl-fng" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nvm-uz-VG5"/>
+                        <viewControllerLayoutGuide type="bottom" id="KEC-JP-3mN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3A6-cU-3mU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Execution Results Reports Go Here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0E-Bk-2dR">
+                                <rect key="frame" x="120" y="212" width="382" height="137"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="382" id="kM8-NB-3iS"/>
+                                    <constraint firstAttribute="height" constant="137" id="x0S-8W-myv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="w0E-Bk-2dR" secondAttribute="centerY" constant="19.5" id="71p-mJ-mUC"/>
+                            <constraint firstAttribute="centerX" secondItem="w0E-Bk-2dR" secondAttribute="centerX" constant="-11" id="7ZQ-dq-NjR"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Results" image="ruleresults" id="YI5-cb-IwT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dfZ-Xy-sXT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3741" y="4270"/>
+        </scene>
         <!--Files-->
         <scene sceneID="y7V-3v-ILL">
             <objects>
@@ -577,6 +612,7 @@
                     <connections>
                         <segue destination="V93-Se-Jud" kind="relationship" relationship="viewControllers" id="9Tx-Zq-7bp"/>
                         <segue destination="bkw-KD-vDb" kind="relationship" relationship="viewControllers" id="93d-5O-Xv3"/>
+                        <segue destination="GzD-Rl-fng" kind="relationship" relationship="viewControllers" id="ReU-Op-2fq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MaD-Iy-18J" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1621,11 +1657,29 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jug-Ne-o3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="KT6-16-vAc">
+            <objects>
+                <viewController id="tOP-B1-lfB" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="to1-Kh-ovV"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tds-kl-HEs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8fc-L6-YZy">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F6N-Qz-Ocg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="BALogo" width="446" height="68"/>
         <image name="folder" width="25" height="25"/>
         <image name="orange" width="21" height="21"/>
+        <image name="ruleresults" width="16" height="16"/>
         <image name="rules" width="25" height="25"/>
     </resources>
 </document>
