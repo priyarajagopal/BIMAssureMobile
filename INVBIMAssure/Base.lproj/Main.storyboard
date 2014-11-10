@@ -425,11 +425,13 @@
                     <navigationItem key="navigationItem" id="hAr-uZ-Qs3"/>
                     <connections>
                         <segue destination="Eb5-Mc-1Dg" kind="show" identifier="FileViewerSegue" id="oHo-ea-p8Z"/>
+                        <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ihQ-SW-zzl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3374" y="3468"/>
+            <point key="canvasLocation" x="3282" y="3463"/>
         </scene>
         <!--Project File Viewer Controller-->
         <scene sceneID="fqY-Jw-B2u">
@@ -545,7 +547,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o5O-ub-DK7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4108" y="3468"/>
+            <point key="canvasLocation" x="4090" y="3484"/>
         </scene>
         <!--Results-->
         <scene sceneID="w2G-bL-2KD">
@@ -580,7 +582,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dfZ-Xy-sXT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3741" y="4270"/>
+            <point key="canvasLocation" x="3927" y="4465"/>
         </scene>
         <!--Files-->
         <scene sceneID="y7V-3v-ILL">
@@ -597,7 +599,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUr-II-1Q5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2665" y="3468"/>
+            <point key="canvasLocation" x="2606" y="3468"/>
         </scene>
         <!--Project Details Tab View Controller-->
         <scene sceneID="MIi-PL-NpI">
@@ -651,10 +653,10 @@
             </objects>
             <point key="canvasLocation" x="4958" y="2639"/>
         </scene>
-        <!--Rule Set Manage Files Container View Controller-->
+        <!--Files Manage Files Container View Controller-->
         <scene sceneID="VeK-lj-5bz">
             <objects>
-                <viewController id="aJs-hd-mPF" customClass="INVRuleSetManageFilesContainerViewController" sceneMemberID="viewController">
+                <viewController id="aJs-hd-mPF" userLabel="Files Manage Files Container View Controller" customClass="INVRuleSetManageFilesContainerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ze0-7f-Yl3"/>
                         <viewControllerLayoutGuide type="bottom" id="2Ks-8j-SLC"/>
@@ -666,7 +668,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qas-gT-8kS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <items>
-                                    <navigationItem title="Manage Rule Sets" id="VnQ-3x-HH1">
+                                    <navigationItem title="Manage Files" id="VnQ-3x-HH1">
                                         <barButtonItem key="leftBarButtonItem" title="Done" id="0uv-vi-mTW">
                                             <connections>
                                                 <segue destination="Yqn-p2-pNA" kind="unwind" unwindAction="done:" id="Lcm-9F-3z1"/>
@@ -738,19 +740,19 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2zD-7Y-ZHE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5628" y="2639"/>
+            <point key="canvasLocation" x="5638" y="2641"/>
         </scene>
-        <!--Rule Set Files List Table View Controller-->
+        <!--Files In RuleSet Table View Controller-->
         <scene sceneID="FRr-1t-Gpd">
             <objects>
-                <tableViewController id="GJW-wx-hWo" customClass="INVRuleSetFilesListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="GJW-wx-hWo" userLabel="Files In RuleSet Table View Controller" customClass="INVRuleSetFilesListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="bHn-pT-qB6">
                         <rect key="frame" x="0.0" y="0.0" width="590" height="265"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectFileCell" textLabel="isc-a9-ssK" detailTextLabel="eIO-2Q-Y9x" style="IBUITableViewCellStyleSubtitle" id="vCt-zU-cvq" customClass="INVManageProjectFileTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectFileCell" textLabel="isc-a9-ssK" detailTextLabel="eIO-2Q-Y9x" style="IBUITableViewCellStyleSubtitle" id="vCt-zU-cvq" customClass="INVGeneralAddRemoveTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vCt-zU-cvq" id="DhO-8J-dAc">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -788,16 +790,16 @@
             </objects>
             <point key="canvasLocation" x="6295" y="2638.5"/>
         </scene>
-        <!--Rule Set Files List Table View Controller-->
+        <!--Files In RuleSet Table View Controller-->
         <scene sceneID="Ecg-Lc-5of">
             <objects>
-                <tableViewController id="IiF-JB-UeQ" customClass="INVRuleSetFilesListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="IiF-JB-UeQ" userLabel="Files In RuleSet Table View Controller" customClass="INVRuleSetFilesListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="dd8-DF-4fp">
                         <rect key="frame" x="0.0" y="0.0" width="590" height="275"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectFileCell" textLabel="qjO-95-NWU" detailTextLabel="mgF-eJ-ezD" style="IBUITableViewCellStyleSubtitle" id="I6b-s1-6qp" customClass="INVManageProjectFileTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectFileCell" textLabel="qjO-95-NWU" detailTextLabel="mgF-eJ-ezD" style="IBUITableViewCellStyleSubtitle" id="I6b-s1-6qp" customClass="INVGeneralAddRemoveTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I6b-s1-6qp" id="Qz2-uG-jm5">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1673,6 +1675,191 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F6N-Qz-Ocg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Files Manage Container View Controller-->
+        <scene sceneID="Avs-5V-rAg">
+            <objects>
+                <viewController id="gXt-Xj-ZXc" userLabel="Files Manage Container View Controller" customClass="INVFileManageRuleSetsContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="We7-4h-MOG"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cuv-gT-ZIm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zBp-AH-E0l">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2LN-on-HM2">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Manage Rule Sets" id="avP-Jf-zkJ">
+                                        <barButtonItem key="leftBarButtonItem" title="Done" id="4TF-XS-WTo">
+                                            <connections>
+                                                <segue destination="ihQ-SW-zzl" kind="unwind" unwindAction="done:" id="orx-Kb-g2o"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Reset" id="btU-sd-0uh">
+                                            <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="onResetTapped:" destination="gXt-Xj-ZXc" id="EnX-Ng-UB8"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EQ9-Oq-Jqd" userLabel="inFileView">
+                                <rect key="frame" x="0.0" y="44" width="600" height="274"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgW-5n-rN5" userLabel="FilesInRS Container View">
+                                        <rect key="frame" x="5" y="5" width="590" height="265"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="s6J-DN-KII" kind="embed" identifier="IncludedRuleSetsSegue" id="c7F-cv-n8F"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="mgW-5n-rN5" firstAttribute="leading" secondItem="EQ9-Oq-Jqd" secondAttribute="leading" constant="5" id="H2V-10-tKb"/>
+                                    <constraint firstItem="mgW-5n-rN5" firstAttribute="top" secondItem="EQ9-Oq-Jqd" secondAttribute="top" constant="5" id="qjy-Rs-Kr1"/>
+                                    <constraint firstAttribute="bottom" secondItem="mgW-5n-rN5" secondAttribute="bottom" constant="4" id="ua3-hX-zE4"/>
+                                    <constraint firstAttribute="trailing" secondItem="mgW-5n-rN5" secondAttribute="trailing" constant="5" id="xnm-QS-l65"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVR-b3-coH" userLabel="notInFileView">
+                                <rect key="frame" x="0.0" y="316" width="600" height="300"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b7x-RJ-XE3" userLabel="FileNotInRS Container View">
+                                        <rect key="frame" x="5" y="5" width="590" height="275"/>
+                                        <connections>
+                                            <segue destination="dcw-au-Pnm" kind="embed" identifier="ExcludedRuleSetsSegue" id="TI9-Td-ezC"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="b7x-RJ-XE3" secondAttribute="trailing" constant="5" id="0v6-Jq-Aa5"/>
+                                    <constraint firstAttribute="bottom" secondItem="b7x-RJ-XE3" secondAttribute="bottom" constant="20" id="5Bf-on-Hdl"/>
+                                    <constraint firstItem="b7x-RJ-XE3" firstAttribute="top" secondItem="CVR-b3-coH" secondAttribute="top" constant="5" id="Pco-vB-R39"/>
+                                    <constraint firstItem="b7x-RJ-XE3" firstAttribute="leading" secondItem="CVR-b3-coH" secondAttribute="leading" constant="5" id="yNK-JK-MXz"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EQ9-Oq-Jqd" firstAttribute="leading" secondItem="zBp-AH-E0l" secondAttribute="leadingMargin" constant="-16" id="AuH-eO-524"/>
+                            <constraint firstItem="Cuv-gT-ZIm" firstAttribute="top" secondItem="CVR-b3-coH" secondAttribute="bottom" constant="-16" id="Ftb-TW-dsg"/>
+                            <constraint firstAttribute="width" secondItem="2LN-on-HM2" secondAttribute="width" id="VRM-my-h7F"/>
+                            <constraint firstItem="CVR-b3-coH" firstAttribute="top" secondItem="EQ9-Oq-Jqd" secondAttribute="bottom" constant="-2" id="Yoc-Bm-OEr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="EQ9-Oq-Jqd" secondAttribute="trailing" constant="-16" id="ed9-0b-5PS"/>
+                            <constraint firstItem="EQ9-Oq-Jqd" firstAttribute="height" secondItem="zBp-AH-E0l" secondAttribute="height" multiplier="0.5" constant="-26" id="epd-W1-Xwp"/>
+                            <constraint firstItem="CVR-b3-coH" firstAttribute="height" secondItem="zBp-AH-E0l" secondAttribute="height" multiplier="0.5" id="jBg-IP-vPx"/>
+                            <constraint firstItem="CVR-b3-coH" firstAttribute="leading" secondItem="zBp-AH-E0l" secondAttribute="leadingMargin" constant="-16" id="lYn-50-7p4"/>
+                            <constraint firstItem="2LN-on-HM2" firstAttribute="top" secondItem="We7-4h-MOG" secondAttribute="bottom" id="maS-1v-CIY"/>
+                            <constraint firstItem="EQ9-Oq-Jqd" firstAttribute="top" secondItem="We7-4h-MOG" secondAttribute="bottom" constant="44" id="mcu-un-RkI"/>
+                            <constraint firstItem="2LN-on-HM2" firstAttribute="leading" secondItem="zBp-AH-E0l" secondAttribute="leadingMargin" constant="-16" id="oG1-Zj-KTp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CVR-b3-coH" secondAttribute="trailing" constant="-16" id="sc7-c2-Eft"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UQn-zF-gQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3195" y="4184"/>
+        </scene>
+        <!--Files In Rule Set Table View Controllers-->
+        <scene sceneID="ta9-uD-cWd">
+            <objects>
+                <tableViewController id="s6J-DN-KII" userLabel="Files In Rule Set Table View Controllers" customClass="INVFileRuleSetListTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="AtP-lw-e3M">
+                        <rect key="frame" x="0.0" y="0.0" width="590" height="265"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleSetCell" textLabel="Zov-KX-kW8" detailTextLabel="u9P-Wn-jhi" style="IBUITableViewCellStyleSubtitle" id="f3O-fv-dFp" customClass="INVGeneralAddRemoveTableViewCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f3O-fv-dFp" id="aQO-01-qRT">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zov-KX-kW8">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u9P-Wn-jhi">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="s6J-DN-KII" id="rsX-aV-1XC"/>
+                            <outlet property="delegate" destination="s6J-DN-KII" id="9tv-7b-BIu"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="view" destination="AtP-lw-e3M" id="fTw-dH-Lsh"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JPB-qd-chP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2831" y="5040.5"/>
+        </scene>
+        <!--Files In Rule Set Table View Controllers-->
+        <scene sceneID="Ddf-QO-YaU">
+            <objects>
+                <tableViewController id="dcw-au-Pnm" userLabel="Files In Rule Set Table View Controllers" customClass="INVFileRuleSetListTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="0Yq-Jd-D7f">
+                        <rect key="frame" x="0.0" y="0.0" width="590" height="275"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleSetCell" textLabel="DSO-GC-cfk" detailTextLabel="y2a-uE-QxP" style="IBUITableViewCellStyleSubtitle" id="muR-zR-oCJ" customClass="INVGeneralAddRemoveTableViewCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="muR-zR-oCJ" id="sml-R4-l4F">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DSO-GC-cfk">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y2a-uE-QxP">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="dcw-au-Pnm" id="Yna-hB-yF4"/>
+                            <outlet property="delegate" destination="dcw-au-Pnm" id="aSy-K5-zxL"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="view" destination="0Yq-Jd-D7f" id="k5F-VT-Qv9"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nFL-hn-JA2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3507" y="5045.5"/>
         </scene>
     </scenes>
     <resources>

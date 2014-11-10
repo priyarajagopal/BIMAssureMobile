@@ -9,6 +9,7 @@
 #import "INVProjectFilesListViewController.h"
 #import "INVProjectFileCollectionViewCell.h"
 #import "INVProjectFileViewerController.h"
+#import "INVFileManageRuleSetsContainerViewController.h"
 
 @import  CoreData;
 
@@ -19,7 +20,7 @@ const NSInteger  CELL_HEIGHT = 282;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* selectedModelId;
-
+@property (nonatomic,strong)NSNumber* selectedFileId;
 @end
 
 @implementation INVProjectFilesListViewController
@@ -73,6 +74,7 @@ const NSInteger  CELL_HEIGHT = 282;
     INVFile* file = [MTLManagedObjectAdapter modelOfClass:[INVFile class] fromManagedObject:managedFileObj error:nil];
     
     cell.modelId = [self modelIdForTipOfFile:file];
+    cell.fileId  = file.fileId;
     cell.fileName.text = file.fileName;
     cell.delegate = self;
     
@@ -139,11 +141,15 @@ const NSInteger  CELL_HEIGHT = 282;
     NSLog(@"%s",__func__);
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedModelId = fileCell.modelId;
+  
     [self performSegueWithIdentifier:@"FileViewerSegue" sender:self];
 }
 
 -(void)onManageRuleSetsForProjectFile:(id)sender {
     NSLog(@"%s",__func__);
+    INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
+    self.selectedFileId = fileCell.fileId;
+    [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
 }
 
 
@@ -159,6 +165,11 @@ const NSInteger  CELL_HEIGHT = 282;
         INVProjectFileViewerController* vc = (INVProjectFileViewerController*)segue.destinationViewController;
         vc.modelId = self.selectedModelId;
     }
+     if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
+         INVFileManageRuleSetsContainerViewController* vc = (INVFileManageRuleSetsContainerViewController*)segue.destinationViewController;
+         vc.projectId = self.projectId;
+         vc.fileId = self.selectedFileId;
+     }
  }
 
 #pragma mark - helpers

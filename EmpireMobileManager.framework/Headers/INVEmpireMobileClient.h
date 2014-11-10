@@ -236,11 +236,14 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  */
 -(void)getAllFilesForProject:(NSNumber*)projectId WithCompletionBlock:(CompletionHandler) handler;
 
+
 #pragma mark - Rules Related
 /**
  Asynchornously ,get list of all rulesets associated with a project. Users must have signed into an account in order to be able to fetch rule sets.
  
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve projects
+ @param projectId The id of the project
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
  
  @see -signIntoAccount:withCompletionBlock:
  
@@ -248,6 +251,22 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  
  */
 -(void)getAllRuleSetsForProject:(NSNumber*)projectId WithCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously ,get list of all rulesets associated with a file. Users must have signed into an account in order to be able to fetch rule sets.
+ 
+ @param fileId The Id of the file master for which rulesets are to be fetched
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see rulesManager
+ 
+ */
+-(void)getAllRuleSetsForFile:(NSNumber*)fileId WithCompletionBlock:(CompletionHandler) handler;
+
+
 
 #pragma mark - Rules Related
 /**
@@ -260,7 +279,19 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  @see rulesManager
  
  */
--(void)getAllRulesForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+-(void)getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously ,get rule definition associated with specific ruleId. Users must have signed into an account in order to be able to fetch rules.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rules
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see rulesManager
+ 
+ */
+-(void)getRuleDefinitionForRuleId:(NSNumber*)ruleId WithCompletionBlock:(CompletionHandler) handler;
 
 /**
  Asynchornously ,get list of all file masters associated with a ruleset. Users must have signed into an account in order to be able to fetch file masters.
@@ -292,16 +323,33 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
 -(void)updateRuleSet:(NSNumber*)ruleSetId withFileMasters:(NSArray*)fileMasters withCompletionBlock:(CompletionHandler) handler;
 
 /**
- Asynchornously ,get rule definition associated with specific ruleId. Users must have signed into an account in order to be able to fetch rules.
+ Asynchornously , update the list of rulesets associated with a file  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
  
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rules
+ @param fileId  The file Id
+ 
+ @param rulesetIds The list of ruleset Ids to be associated with the f
+ 
+ @param handler The completion handler that returns error object if there was any error.
  
  @see -signIntoAccount:withCompletionBlock:
  
- @see rulesManager
+ */
+-(void)updateFileId:(NSNumber*)fileId withRuleSets:(NSArray*)rulesetIds withCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously , execute a ruleset against a model. All rule instances within rule set will be executed. The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ @param ruleSetId  The Id of the ruleset
+ 
+ @param modelId the Id of the model
+  
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
  
  */
--(void)getRuleDefinitionForRuleId:(NSNumber*)ruleId WithCompletionBlock:(CompletionHandler) handler;
+-(void)executeRuleSet:(NSNumber*)ruleSetId againstModel:(NSNumber*)modelId withCompletionBlock:(CompletionHandler) handler;
+
 
 
 

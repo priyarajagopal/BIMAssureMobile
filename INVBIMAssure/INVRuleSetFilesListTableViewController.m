@@ -7,12 +7,12 @@
 //
 
 #import "INVRuleSetFilesListTableViewController.h"
-#import "INVManageProjectFileTableViewCell.h"
+#import "INVGeneralAddRemoveTableViewCell.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
-@interface INVRuleSetFilesListTableViewController () <INVManageProjectFileTableViewCellAcionDelegate>
+@interface INVRuleSetFilesListTableViewController () <INVGeneralAddRemoveTableViewCellAcionDelegate>
 @property (nonatomic,strong)INVGenericTableViewDataSource* filesDataSource;
 @property (nonatomic, strong) INVProjectManager* projectManager;
 @property (nonatomic, strong) INVRulesManager* rulesManager;
@@ -26,7 +26,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    UINib* projectCellNib = [UINib nibWithNibName:@"INVManageProjectFileTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
+    UINib* projectCellNib = [UINib nibWithNibName:@"INVGeneralAddRemoveTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:projectCellNib forCellReuseIdentifier:@"ProjectFileCell"];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
@@ -133,9 +133,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 
-#pragma mark - INVManageProjectFileTableViewCellAcionDelegate
--(void)addRemoveFileTapped:(INVManageProjectFileTableViewCell*)sender {
-    if (sender.isInRuleSet) {
+#pragma mark - INVGeneralAddRemoveTableViewCellAcionDelegate
+-(void)addRemoveFileTapped:(INVGeneralAddRemoveTableViewCell*)sender {
+    if (sender.isAdded) {
      
     }
 }
@@ -168,10 +168,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         
         _filesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.files];
         
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVManageProjectFileTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
-            cell.fileName.text = file.fileName;
-            cell.isInRuleSet = self.showFilesForRuleSetId;
-            cell.masterFileId = file.fileId;
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVGeneralAddRemoveTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
+            cell.name.text = file.fileName;
+            cell.isAdded = self.showFilesForRuleSetId;
+            cell.contentId = file.fileId;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
         };
@@ -233,24 +233,24 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         return;
     }
     NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
-    [notifCenter addObserverForName:INV_NotificationMoveRuleSetFile object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    [notifCenter addObserverForName:INV_NotificationAddRemoveCell object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         NSDictionary* userInfo = note.userInfo;
-        INVManageProjectFileTableViewCell* tableViewCell = userInfo[@"FileCell"];
+        INVGeneralAddRemoveTableViewCell* tableViewCell = userInfo[@"AddRemoveCell"];
         
         if (self.showFilesForRuleSetId) {
-            if (tableViewCell.isInRuleSet) {
-                [self removeFromLocalFileList:tableViewCell.masterFileId];
+            if (tableViewCell.isAdded) {
+                [self removeFromLocalFileList:tableViewCell.contentId];
             }
             else {
-                [self addToLocalFileList:tableViewCell.masterFileId];
+                [self addToLocalFileList:tableViewCell.contentId];
             }
         }
         else {
-            if (tableViewCell.isInRuleSet) {
-                 [self addToLocalFileList:tableViewCell.masterFileId];
+            if (tableViewCell.isAdded) {
+                 [self addToLocalFileList:tableViewCell.contentId];
             }
             else {
-                 [self removeFromLocalFileList:tableViewCell.masterFileId];
+                 [self removeFromLocalFileList:tableViewCell.contentId];
             }
         }
         [self.tableView reloadData];
@@ -263,7 +263,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         return;
     }
     NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
-    [notifCenter removeObserver:self name:INV_NotificationMoveRuleSetFile object:nil];
+    [notifCenter removeObserver:self name:INV_NotificationAddRemoveCell object:nil];
     self.observersAdded = NO;
 }
 

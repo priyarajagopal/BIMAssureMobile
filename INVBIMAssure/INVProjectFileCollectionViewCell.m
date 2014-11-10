@@ -18,7 +18,7 @@
 
 
 #pragma mark - UIEvent handlers
-- (IBAction)onViewProjectSelected:(id)sender {
+- (IBAction)onViewProjectSelected:(UIBarButtonItem* )sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(onViewProjectFile:)]) {
         [self.delegate onViewProjectFile:self];
     }
@@ -27,7 +27,7 @@
 
 - (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(onManageRuleSetsForProjectFile:)]) {
-        [self.delegate onManageRuleSetsForProjectFile:sender];
+        [self.delegate onManageRuleSetsForProjectFile:self];
     }
 
 }

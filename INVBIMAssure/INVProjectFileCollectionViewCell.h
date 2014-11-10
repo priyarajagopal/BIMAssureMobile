@@ -20,10 +20,11 @@
 @interface INVProjectFileCollectionViewCell : UICollectionViewCell
 @property (nonatomic,weak) id<INVProjectFileCollectionViewCellDelegate> delegate;
 @property (nonatomic,strong)NSNumber* modelId;
-
+@property (nonatomic,strong)NSNumber* fileId;
 @property (weak, nonatomic) IBOutlet UILabel *fileName;
+
 @property (weak, nonatomic) IBOutlet UIImageView *fileThumbnail;
-- (IBAction)onViewProjectSelected:(id)sender;
+- (IBAction)onViewProjectSelected:(UIBarButtonItem*)sender;
 - (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender;
 
 

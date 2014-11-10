@@ -7,7 +7,6 @@
 //
 
 #import "INVRuleSetManageFilesContainerViewController.h"
-#import "INVGenericTableViewDataSource.h"
 #import "INVRuleSetFilesListTableViewController.h"
 
 @interface INVRuleSetManageFilesContainerViewController ()
@@ -21,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = NSLocalizedString(@"MANAGE_RULESETS", nil);
+    self.title = NSLocalizedString(@"MANAGE_FILES", nil);
 }
 
 - (void)didReceiveMemoryWarning {

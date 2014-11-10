@@ -36,6 +36,10 @@
  */
 @property (nonatomic,readonly) NSFetchRequest* fetchRequestForRuleSetToFilesMap;
 
+/**
+ Can be used to obtain information on file to rulesets mapping
+ */
+@property (nonatomic,readonly) NSFetchRequest* fetchRequestForFileToRuleSetsMap;
 
 /**
  Creates a singleton instance of INVRulesManager.
@@ -63,13 +67,13 @@
 -(INVRuleSetArray) ruleSetsForProject:(NSNumber*)projectId;
 
 /**
- Returns rule for current account for specific ruleId
+ Returns rule definitions for current account for specific ruleId
  
  @see INVRule
  
  @return The array of INVRule objects
  */
--(INVRuleArray) rulesForSignedInAccount;
+-(INVRuleArray) ruleDefinitionsForSignedInAccount;
 
 
 /**
@@ -112,6 +116,40 @@
  @return The array of rule Ids
  */
 -(NSArray*)fileMasterIdsForRuleSetId:(NSNumber*)ruleSetId;
+
+/**
+ Returns rule sets for signed in account
+ 
+ @see INVRule
+ 
+ @return The array of INVRuleSet objects
+ */
+-(INVRuleSetArray) ruleSetsForSignedInAccount;
+
+
+/**
+ Returns list of ruleSetIds. Details of the rules can be retrieved via the fetchRequestForRules
+ 
+ @param fileId for rule set
+ 
+ @see INVFile
+ 
+ @see fetchRequestForRules
+ 
+ @return The array of rule sets
+ */
+-(NSArray*)ruleSetIdsForFile:(NSNumber*)fileId;
+
+/**
+ Returns rulesets for rulesetIds
+ 
+ @see INVMobileClient
+ 
+ @return The array of INVRuleSet objects corresponding to the list of rulesetIds
+ */
+-(INVRuleSetArray)ruleSetsForIds:(NSArray*)ruleSetIds;
+
+
 
 #warning rename API "delete" to be "removeCached..."
 

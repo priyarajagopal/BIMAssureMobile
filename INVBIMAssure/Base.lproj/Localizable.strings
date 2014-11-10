@@ -40,3 +40,6 @@
 "MANAGE_RULESETS"="Manage RuleSets";
 "FILES_INCLUDED_IN_RULESET"="Files Included in RuleSet";
 "FILES_NOT_INCLUDED_IN_RULESET"="Files Not Inclued in RuleSet";
+"MANAGE_FILES"="Manage Files";
+"RULESETS_INCLUDED_IN_FILE"="RuleSets Included in File";
+"RULESETS_NOT_INCLUDED_IN_FILE"="RuleSets Not Inclued in File";
