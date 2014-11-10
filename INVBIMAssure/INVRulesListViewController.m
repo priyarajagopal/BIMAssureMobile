@@ -13,7 +13,7 @@
 #import "INVRuleSetTableViewHeaderView.h"
 #import "INVRuleSetManageFilesContainerViewController.h"
 
-static const NSInteger DEFAULT_CELL_HEIGHT = 50;
+static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 @interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate>
@@ -47,7 +47,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.cellsCurrentlyEditing = [[NSMutableSet alloc]initWithCapacity:0];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.dataSource = self.dataSource;
     self.tableView.allowsSelectionDuringEditing = NO;
 }
