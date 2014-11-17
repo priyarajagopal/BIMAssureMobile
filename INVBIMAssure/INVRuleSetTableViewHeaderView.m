@@ -11,7 +11,6 @@
 @implementation INVRuleSetTableViewHeaderView
 
 - (void)awakeFromNib {
-    UIColor* darkGreyColor = [UIColor colorWithRed:150.0/255 green:150.0/255 blue:150.0/255 alpha:1.0];
 }
 
 /*

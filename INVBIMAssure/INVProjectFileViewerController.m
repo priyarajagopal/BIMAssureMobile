@@ -46,7 +46,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModePrimaryHidden ];
+    [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModeAllVisible ];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -57,7 +57,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModeAllVisible ];
+    [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModePrimaryHidden ];
     [self removeWebviewObservers];
     self.webView = nil;
 }

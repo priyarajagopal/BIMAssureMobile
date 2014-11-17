@@ -136,7 +136,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
  // Pass the selected object to the new view controller.
      if ([segue.identifier isEqual:@"ProjectDetailSegue"]) {
          INVProjectDetailsTabViewController* projectDetailsController = (INVProjectDetailsTabViewController*)segue.destinationViewController;
-         
+         self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
          UINavigationController* navController = projectDetailsController.viewControllers[TABINDEX_PROJECT_FILES];
          INVProjectFilesListViewController* fileListController = (INVProjectFilesListViewController*) navController.topViewController;
          [fileListController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
