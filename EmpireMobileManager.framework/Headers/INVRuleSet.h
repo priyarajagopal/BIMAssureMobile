@@ -7,7 +7,6 @@
 //
 
 #import <Mantle/Mantle.h>
-#import "INVRuleInstance.h"
 
 /**
  Array of INVRuleSet objects
@@ -26,7 +25,7 @@ typedef NSMutableArray* INVRuleSetMutableArray;
 @property (copy, nonatomic, readonly) NSNumber* emptyParamCount;
 @property (copy, nonatomic, readonly) NSNumber* ruleSetId;
 @property (copy, nonatomic, readonly) NSNumber* projectId;
-@property (copy, nonatomic, readonly) INVRuleInstanceArray ruleInstances;
+@property (copy, nonatomic, readonly) NSArray* ruleInstances;
 
 
 @end

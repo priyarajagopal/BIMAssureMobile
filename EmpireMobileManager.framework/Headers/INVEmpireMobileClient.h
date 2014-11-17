@@ -14,8 +14,17 @@
 
 
 
-
+/**
+ Completion Handler that returns the status of the request. In case of no error, the appropriate Data Manager (INVAccountManager, INVProjectManager...) can be  queried for the cached results.
+ The results of the corresponding requests are not cached.
+ */
 typedef void(^CompletionHandler)(INVEmpireMobileError* error);
+
+/**
+ Completion Handler that returns the status of the request as well the data (if any). The results of the corresponding requests are not cached.
+ */
+typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error);
+
 
 @interface INVEmpireMobileClient : NSObject
 /**
@@ -237,7 +246,34 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
 -(void)getAllFilesForProject:(NSNumber*)projectId WithCompletionBlock:(CompletionHandler) handler;
 
 
-#pragma mark - Rules Related
+/**
+ Asynchornously ,create a project for signed in account. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
+ 
+ @param projectName name of project
+ 
+ @param overview Description of project (currently unused in backend)
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ */
+-(void)createProjectWithName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+
+/**
+ Asynchornously ,delete a project for signed in account. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ */
+-(void)deleteProjectWithId:(NSNumber*)projectId ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+
+#pragma mark - Rule Sets Related
 /**
  Asynchornously ,get list of all rulesets associated with a project. Users must have signed into an account in order to be able to fetch rule sets.
  
@@ -265,33 +301,6 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  
  */
 -(void)getAllRuleSetsForFile:(NSNumber*)fileId WithCompletionBlock:(CompletionHandler) handler;
-
-
-
-#pragma mark - Rules Related
-/**
- Asynchornously ,get list of all rules associated with a account. Users must have signed into an account in order to be able to fetch rules.
- 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rules
- 
- @see -signIntoAccount:withCompletionBlock:
- 
- @see rulesManager
- 
- */
--(void)getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
-
-/**
- Asynchornously ,get rule definition associated with specific ruleId. Users must have signed into an account in order to be able to fetch rules.
- 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rules
- 
- @see -signIntoAccount:withCompletionBlock:
- 
- @see rulesManager
- 
- */
--(void)getRuleDefinitionForRuleId:(NSNumber*)ruleId WithCompletionBlock:(CompletionHandler) handler;
 
 /**
  Asynchornously ,get list of all file masters associated with a ruleset. Users must have signed into an account in order to be able to fetch file masters.
@@ -336,10 +345,97 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  */
 -(void)updateFileId:(NSNumber*)fileId withRuleSets:(NSArray*)rulesetIds withCompletionBlock:(CompletionHandler) handler;
 
+
+#pragma mark - Rule Instances management
+
 /**
- Asynchornously , execute a ruleset against a model. All rule instances within rule set will be executed. The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ Asynchornously ,create a specified rule instance.
+  
+ @param ruleId The Id of the rule definition corresponding to the instance
+ 
+ @param ruleName The name of the tule
+ 
+ @param overview The rule description
+ 
+ @param actualParams A dictionary of key:value pairs representing the actual parameters for the given instance
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ */
+-(void)createRuleInstanceForRuleId:(NSNumber*)ruleId inRuleSetId:(NSNumber*)ruleSetId withRuleName:(NSString*)ruleName andDescription:(NSString*)overview andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams WithCompletionBlock:(CompletionHandler) handler;
+
+
+/**
+ Asynchornously ,update the specified rule instance.
+ 
+ @param ruleInstanceId The id of the rule Instance
+ 
+ @param ruleId The Id of the rule definition corresponding to the instance
+ 
+ @param ruleName The name of the tule
+ 
+ @param overview The rule description
+ 
+ @param actualParams A dictionary of key:value pairs representing the actual parameters for the given instance
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ */
+-(void)modifyRuleInstanceForRuleInstanceId:(NSNumber*)ruleInstanceId forRuleId:(NSNumber*)ruleId inRuleSetId:(NSNumber*)ruleSetId withRuleName:(NSString*)ruleName andDescription:(NSString*)overview andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams WithCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously ,delete the specified rule instance.
+ 
+ @param ruleInstanceId The id of the rule Instance
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ */
+-(void)deleteRuleInstanceForId:(NSNumber*)ruleInstanceId WithCompletionBlock:(CompletionHandler) handler; 
+
+
+
+#pragma mark - Rules Definition Related
+/**
+ Asynchornously ,get list of all rules associated with a account. Users must have signed into an account in order to be able to fetch rules.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rules
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see rulesManager
+ 
+ */
+-(void)getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously ,get rule definition associated with specific ruleId. Users must have signed into an account in order to be able to fetch rules.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rules
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see rulesManager
+ 
+ */
+-(void)getRuleDefinitionForRuleId:(NSNumber*)ruleId WithCompletionBlock:(CompletionHandler) handler;
+
+
+#pragma mark - Rules Execution Related
+/**
+ Asynchornously , execute a ruleset against a file version and model. All rule instances within rule set will be executed. The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
  
  @param ruleSetId  The Id of the ruleset
+ 
+ @param fileVersionId The Id of the file version
  
  @param modelId the Id of the model
   
@@ -348,10 +444,101 @@ typedef void(^CompletionHandler)(INVEmpireMobileError* error);
  @see -signIntoAccount:withCompletionBlock:
  
  */
--(void)executeRuleSet:(NSNumber*)ruleSetId againstModel:(NSNumber*)modelId withCompletionBlock:(CompletionHandler) handler;
+-(void)executeRuleSet:(NSNumber*)ruleSetId againstFileVersionId:(NSNumber*)fileVersionId againstModel:(NSNumber*)modelId withCompletionBlock:(CompletionHandler) handler;
 
 
+/**
+ Asynchornously , execute a specific rule instance against a file version and model.  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ @param ruleInstanceId  The Id of the rule instance
+ 
+ @param fileVersionId The Id of the file version
+ 
+ @param modelId the Id of the model
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ */
+-(void)executeRuleInstance:(NSNumber*)ruleInstanceId againstFileVersionId:(NSNumber*)fileVersionId againstModel:(NSNumber*)modelId withCompletionBlock:(CompletionHandler) handler;
 
+/**
+ Asynchornously , fetch list of groupTags associated with the executions scheduled on a file version. Every execution that is scheduled via executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock
+ and executeRuleSet:againstFileVersionId:againstModel:withCompletionBlock  will be associated with a unique GroupTag. The group information is not locally cached.
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ @param fileVersionId The Id of the file version
+ 
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, the list of group tags are returned
+ 
+ @see -executeRuleSet:againstFileVersionId:againstModel:withCompletionBlock:
+ 
+ @see -executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock:
+ 
+ */
+-(void)fetchRuleExecutionGroupTagsForFileVersion:(NSNumber*)fileVersionId withCompletionBlock:(CompletionHandlerWithData) handler;
+
+/**
+ Asynchornously , fetch  the executions scheduled on a file version. Every execution that is scheduled via executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock
+ and executeRuleSet:againstFileVersionId:againstModel:withCompletionBlock  will be associated with a unique GroupTag. The execution results are available via INVRulesManager.
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ 
+ @param fileVersionId The Id of the file version
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see rulesManager
+ 
+ @see -executeRuleSet:againstFileVersionId:againstModel:withCompletionBlock:
+ 
+ @see -executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock:
+
+ */
+-(void)fetchRuleExecutionsForFileVersion:(NSNumber*)fileVersionId withCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously , fetch  the executions associated with a groupTagId. Every execution that is scheduled via executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock
+ and executeRuleSet:againstFileVersionId:againstModel:withCompletionBlock  will be associated with a unique GroupTag. The execution results are available via INVRulesManager.
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ 
+ @param groupTagId The group Tag Id
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see rulesManager
+ 
+ @see -executeRuleSet:againstFileVersionId:againstModel:withCompletionBlock:
+ 
+ @see -executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock:
+ 
+ */
+
+-(void)fetchRuleExecutionsForGroupTagId:(NSString*)groupTagId withCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously , fetch  the executions scheduled for a rule Instance Every execution that is scheduled via executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock
+ and executeRuleSet:againstFileVersionId:againstModel:withCompletionBlock  will be associated with a unique GroupTag. The execution results are available via INVRulesManager.
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ 
+ @param ruleInstanceId The Id of the file version
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see rulesManager
+ 
+ @see -executeRuleSet:againstFileVersionId:againstModel:withCompletionBlock:
+ 
+ @see -executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock:
+ 
+ */
+-(void)fetchRuleExecutionsForRuleInstanceId:(NSNumber*)ruleInstanceId withCompletionBlock:(CompletionHandler) handler;
+
+#pragma mark - General Account Related
 
 #warning Include way to asyncronously Notify when log out is done
 /**

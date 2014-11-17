@@ -77,7 +77,7 @@ static NSString* INV_ActualParamValue = @"Value";
     }
     else {
         INVRuleInstance* matchingRuleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
-        INVRuleInstanceFormalParamDictionary ruleInstanceActualParam = matchingRuleInstance.actualParameters;
+        INVRuleInstanceActualParamDictionary ruleInstanceActualParam = matchingRuleInstance.actualParameters;
         
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
     }
@@ -110,7 +110,7 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 
--(void)transformRuleInstanceParamsToArray:(INVRuleInstanceFormalParamDictionary)formalParamDict{
+-(void)transformRuleInstanceParamsToArray:(INVRuleInstanceActualParamDictionary)formalParamDict{
     __block NSDictionary* actualParam;
     [formalParamDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         actualParam = @{INV_ActualParamName:key,INV_ActualParamValue:obj};

@@ -20,12 +20,12 @@ typedef NSMutableArray* INVRuleInstanceMutableArray;
 /*
  Actual parameters dictionary
  */
-typedef NSDictionary* INVRuleInstanceFormalParamDictionary;
+typedef NSDictionary* INVRuleInstanceActualParamDictionary;
 
 /*
  Actual parameters dictionary
  */
-typedef NSDictionary* INVRuleInstanceFormalParamMutableDictionary;
+typedef NSDictionary* INVRuleInstanceActualParamMutableDictionary;
 
 
 @interface INVRuleInstance : MTLModel <MTLJSONSerializing,MTLManagedObjectSerializing>
@@ -36,6 +36,8 @@ typedef NSDictionary* INVRuleInstanceFormalParamMutableDictionary;
 @property (copy, nonatomic, readonly) NSNumber* ruleSetId;
 @property (copy, nonatomic, readonly) NSNumber* accountRuleId;
 @property (copy, nonatomic, readonly) NSNumber* ruleInstanceId;
-@property (copy, nonatomic, readonly) INVRuleInstanceFormalParamDictionary actualParameters; //  dictionary
+@property (copy, nonatomic, readonly) INVRuleInstanceActualParamDictionary actualParameters; //  dictionary
 
+
+//-(instancetype) initWithRuleInstanceId:(NSNumber*)ruleInstanceId inRuleSet:(NSNumber*)ruleSetId withRuleId:(NSNumber*)accountRuleId ruleName:(NSString*)ruleName overview:(NSString*)overview actualParams:(INVRuleInstanceActualParamDictionary)actualParams;
 @end
