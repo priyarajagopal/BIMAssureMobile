@@ -57,11 +57,25 @@ const static NSInteger BASELINE_HEIGHT = 50;
 
 - (void)tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text
 {
-    [self.tokens addObject:text];
-    if (self.cellDelegate && [self.cellDelegate respondsToSelector:@selector(tokensChanged:)]) {
-        [self.cellDelegate tokensChanged:self.tokens];
+    __block BOOL isEmail = NO;
+    
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    [detector enumerateMatchesInString:text options:0 range:NSMakeRange(0, text.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        if ([result.URL.scheme isEqualToString:@"mailto"] && result.range.length == text.length) {
+            isEmail = YES;
+        }
+    }];
+    
+    if (isEmail) {
+        [self.tokens addObject:text];
+        if (self.cellDelegate && [self.cellDelegate respondsToSelector:@selector(tokensChanged:)]) {
+            [self.cellDelegate tokensChanged:self.tokens];
+        }
+        
+        [tokenField reloadData];
+    } else {
+        
     }
-    [tokenField reloadData];
 }
 
 - (void)tokenField:(VENTokenField *)tokenField didDeleteTokenAtIndex:(NSUInteger)index
