@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class INVRuleInstanceDetailTableViewCell;
+
+@protocol INVRuleInstanceDetailTableViewCellDelegate <NSObject>
+-(void)onRuleInstanceUpdated:(INVRuleInstanceDetailTableViewCell*)sender;
+@end
+
 @interface INVRuleInstanceDetailTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *ruleInstanceKey;
-@property (weak, nonatomic) IBOutlet UILabel *ruleInstanceValue;
-
+@property (weak, nonatomic) IBOutlet UITextField *ruleInstanceValue;
+@property (weak, nonatomic) id<INVRuleInstanceDetailTableViewCellDelegate> delegate;
 @end

@@ -51,4 +51,5 @@ NSString* const INV_NotificationAddRemoveCell = @"NotificationAddRemoveCell";
     [[NSNotificationCenter defaultCenter]postNotification:note];
 
 }
+
 @end

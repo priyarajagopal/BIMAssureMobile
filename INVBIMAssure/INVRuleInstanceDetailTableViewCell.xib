@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6246"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -27,29 +27,35 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x73-vO-VVV">
-                        <rect key="frame" x="168" y="16" width="142" height="20"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                        <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mVO-pJ-AOe">
+                        <rect key="frame" x="168" y="11" width="144" height="30"/>
+                        <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="pcf-T3-PsN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="bgn-QV-S5c"/>
+                        </connections>
+                    </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="x73-vO-VVV" firstAttribute="leading" secondItem="Ioo-QG-yS7" secondAttribute="trailing" constant="8" id="0yq-bX-5Ek"/>
                     <constraint firstItem="tz9-Cu-yaZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="D7q-Zq-p3s"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="x73-vO-VVV" secondAttribute="trailing" constant="2" id="M0g-qZ-fAp"/>
                     <constraint firstAttribute="centerX" secondItem="Ioo-QG-yS7" secondAttribute="centerX" constant="1" id="Ob5-yy-USU"/>
                     <constraint firstItem="Ioo-QG-yS7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="Onx-hF-5mi"/>
                     <constraint firstAttribute="centerY" secondItem="Ioo-QG-yS7" secondAttribute="centerY" id="aop-Oe-cLQ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Ioo-QG-yS7" secondAttribute="bottom" constant="-8" id="e7F-28-T3h"/>
-                    <constraint firstAttribute="centerY" secondItem="x73-vO-VVV" secondAttribute="centerY" constant="-1.25" id="jtR-ng-rdL"/>
+                    <constraint firstItem="mVO-pJ-AOe" firstAttribute="leading" secondItem="Ioo-QG-yS7" secondAttribute="trailing" constant="8" id="kcm-Xn-P1f"/>
                     <constraint firstAttribute="centerY" secondItem="tz9-Cu-yaZ" secondAttribute="centerY" constant="0.5" id="nkT-sy-tRP"/>
+                    <constraint firstItem="mVO-pJ-AOe" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="oPz-CO-lxf"/>
                     <constraint firstItem="Ioo-QG-yS7" firstAttribute="leading" secondItem="tz9-Cu-yaZ" secondAttribute="trailing" constant="8" id="pvR-Pz-T1Y"/>
+                    <constraint firstItem="mVO-pJ-AOe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="whn-6f-M5V"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="ruleInstanceKey" destination="tz9-Cu-yaZ" id="1cF-di-4Tr"/>
-                <outlet property="ruleInstanceValue" destination="x73-vO-VVV" id="rv5-W2-0FT"/>
+                <outlet property="ruleInstanceValue" destination="mVO-pJ-AOe" id="hM1-Mv-m7c"/>
             </connections>
             <point key="canvasLocation" x="481" y="319"/>
         </tableViewCell>

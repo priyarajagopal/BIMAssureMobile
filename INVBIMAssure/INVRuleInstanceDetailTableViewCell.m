@@ -8,6 +8,10 @@
 
 #import "INVRuleInstanceDetailTableViewCell.h"
 
+@interface INVRuleInstanceDetailTableViewCell () <UITextFieldDelegate>
+
+@end
+
 @implementation INVRuleInstanceDetailTableViewCell
 
 - (void)awakeFromNib {
@@ -18,6 +22,14 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+#pragma mark - UItextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceUpdated:)]) {
+        [self.delegate onRuleInstanceUpdated:self];
+    }
+    return YES;
 }
 
 @end
