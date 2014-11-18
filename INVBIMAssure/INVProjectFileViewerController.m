@@ -11,6 +11,7 @@
 
 #pragma mark - Supported JS APIs
 static NSString* const INV_JS_LOAD_VIEWER = @"loadViewer('%1$@','%2$@','%3$@')";
+static NSString* const INV_JS_LOAD_SIDEBAR = @"loadSidebar('%@', '%@', '%@')";
 static NSString* const INV_JS_RESET_CAMERA = @"resetCamera()";
 static NSString* const INV_JS_SHOW_SHADOW = @"enableShadow(%1$@)";
 static NSString* const INV_JS_TOGGLE_SELECTION = @"toggleEntitiesVisible()";
@@ -67,6 +68,9 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 
 }
 
+-(void) dealloc {
+    [self removeWebviewObservers];
+}
 
 
 -(void)loadWebView {
@@ -87,10 +91,12 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 */
 
 -(void)loadViewer {
-    
+    // NOTE: If needed, we can host this file locally on the iDevice by writing our own web-server.
     NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/mobileviewer/Visualize.html"]];
-   //  NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://10.0.1.3:8888/Viewer/Visualize.html"]];
-    //NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.1.199:8888/XOSVisualization/sample/index.html"]];
+    // NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://10.0.1.3:8888/Viewer/Visualize.html"]];
+    // NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.1.199:8888/XOSVisualization/sample/index.html"]];
+    // NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://localhost/Visualize.html"]];
+    
     [self.webView loadRequest:request];
     [self addWebviewObservers] ;
 }
@@ -122,8 +128,11 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
     NSString* acntToken = self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount;
     NSString* emServerUrl =  [NSString stringWithFormat:@"http://%@/empiremanage/api/",emServer];
     NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_VIEWER,emServerUrl,self.modelId,acntToken];
+    
     [self executeJS:jsToInvoke];
     
+    jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_SIDEBAR, emServerUrl, self.modelId, acntToken];
+    [self executeJS:jsToInvoke];    
 }
 
 /**** Unused for now. Jquery loaded remotely
