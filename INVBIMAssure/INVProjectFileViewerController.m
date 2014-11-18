@@ -47,18 +47,17 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModeAllVisible ];
+ //   [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModePrimaryHidden ];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.navigationController hidesBarsOnTap];
-    
-  }
+                  }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModePrimaryHidden ];
+  //  [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModePrimaryHidden ];
     [self removeWebviewObservers];
     self.webView = nil;
 }
@@ -91,13 +90,15 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 */
 
 -(void)loadViewer {
-    // NOTE: If needed, we can host this file locally on the iDevice by writing our own web-server.
+#ifdef _USE_LOCAL_VIEWER_
+    NSString* vizFile = [[NSBundle bundleForClass:[self class]] pathForResource:@"Visualize" ofType:@"html"];
+  
+    [self.webView loadFileURL:[NSURL URLWithString:vizFile]];
+#else
     NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/mobileviewer/Visualize.html"]];
-    // NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://10.0.1.3:8888/Viewer/Visualize.html"]];
-    // NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.1.199:8888/XOSVisualization/sample/index.html"]];
-    // NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://localhost/Visualize.html"]];
-    
     [self.webView loadRequest:request];
+
+#endif
     [self addWebviewObservers] ;
 }
 
