@@ -31,7 +31,7 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 @property (nonatomic,strong)NSMutableArray* cellConfigContextArray; // array of INVCellContentDictionary objects
 @property (nonatomic,strong)NSMutableArray* headerConfigContextArray; // array of INVHeaderContentDictionary objects
 @property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController;
-@property (nonatomic,strong)NSArray* dataArray;
+@property (nonatomic,copy)NSArray* dataArray;
 @end
 
 @implementation INVGenericTableViewDataSource

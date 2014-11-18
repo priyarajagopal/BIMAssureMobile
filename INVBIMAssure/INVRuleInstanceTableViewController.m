@@ -21,6 +21,7 @@ static NSString* INV_ActualParamValue = @"Value";
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,strong)NSMutableArray* ruleInstanceActualParams; // Array of {INV_ActualParamName,INV_ActualParamValue} pair objects
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
+@property (nonatomic,strong)NSDictionary* ruleProperties;
 @end
 
 @implementation INVRuleInstanceTableViewController
@@ -77,12 +78,37 @@ static NSString* INV_ActualParamValue = @"Value";
     }
     else {
         INVRuleInstance* matchingRuleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
+       
+#warning If unlikely case that matchingRuleInstance was not fetched from the server due to any reason when this view was loaded , fetch it
         INVRuleInstanceActualParamDictionary ruleInstanceActualParam = matchingRuleInstance.actualParameters;
         
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
+        [self.dataSource updateWithDataArray:self.ruleInstanceActualParams];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self fetchRuleDefinitionForRuleId:matchingRuleInstance.accountRuleId];
+        });
     }
     [self.hud hide:YES];
+    [self.tableView reloadData];
     [self setupTableFooter];
+}
+
+
+-(void)fetchRuleDefinitionForRuleId:(NSNumber*)ruleId {
+    if (!self.ruleInstanceId) {
+        NSLog(@"%s. Cannot fetch rule instance definition  RuleInstanceId %@",__func__,self.ruleInstanceId);
+    }
+    else {
+        [self.globalDataManager.invServerClient getRuleDefinitionForRuleId:ruleId WithCompletionBlock:^(INVEmpireMobileError *error) {
+            INVRule* rule = [self.globalDataManager.invServerClient.rulesManager ruleDefinitionForRuleId:ruleId];
+            INVRuleFormalParam* ruleFormalParam = rule.formalParams;
+            self.ruleProperties = ruleFormalParam.properties;
+
+        }];
+        
+   
+    }
+
 }
 
 #pragma mark - Navigation
