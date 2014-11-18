@@ -11,6 +11,7 @@
 
 #pragma mark - Supported JS APIs
 static NSString* const INV_JS_LOAD_VIEWER = @"loadViewer('%1$@','%2$@','%3$@')";
+static NSString* const INV_JS_LOAD_SIDEBAR = @"loadSidebar('%@', '%@', '%@')";
 static NSString* const INV_JS_RESET_CAMERA = @"resetCamera()";
 static NSString* const INV_JS_SHOW_SHADOW = @"enableShadow(%1$@)";
 static NSString* const INV_JS_TOGGLE_SELECTION = @"toggleEntitiesVisible()";
@@ -66,6 +67,9 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 
 }
 
+-(void) dealloc {
+    [self removeWebviewObservers];
+}
 
 
 -(void)loadWebView {
@@ -86,7 +90,6 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 */
 
 -(void)loadViewer {
-    
 #ifdef _USE_LOCAL_VIEWER_
     NSString* vizFile = [[NSBundle bundleForClass:[self class]] pathForResource:@"Visualize" ofType:@"html"];
   
@@ -126,8 +129,11 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
     NSString* acntToken = self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount;
     NSString* emServerUrl =  [NSString stringWithFormat:@"http://%@/empiremanage/api/",emServer];
     NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_VIEWER,emServerUrl,self.modelId,acntToken];
+    
     [self executeJS:jsToInvoke];
     
+    jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_SIDEBAR, emServerUrl, self.modelId, acntToken];
+    [self executeJS:jsToInvoke];    
 }
 
 /**** Unused for now. Jquery loaded remotely
