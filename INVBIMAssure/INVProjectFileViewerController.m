@@ -21,7 +21,7 @@ static NSString* const INV_JS_GETSELECTED_ENTITIES = @"getSelectedEntities()";
 static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 
 @interface INVProjectFileViewerController ()<WKNavigationDelegate, WKScriptMessageHandler>
-@property (strong, nonatomic)  WKWebView *webView;
+@property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
 @property (nonatomic,assign)BOOL showShadow;
 @property (nonatomic,assign)BOOL emphasize;
@@ -74,9 +74,28 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 
 -(void)loadWebView {
     WKWebViewConfiguration* webConfig = [[WKWebViewConfiguration alloc]init];
-    self.webView = [[WKWebView alloc]initWithFrame:self.view.frame configuration:webConfig];
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:webConfig];
+    
     self.webView.navigationDelegate = self;
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     [self.webviewContainerView addSubview:self.webView];
+    
+    [self.webviewContainerView addConstraint:
+     [NSLayoutConstraint constraintWithItem:self.webView
+                                  attribute:NSLayoutAttributeWidth
+                                  relatedBy:NSLayoutRelationEqual
+                                     toItem:self.webviewContainerView
+                                  attribute:NSLayoutAttributeWidth
+                                 multiplier:1 constant:0]];
+    
+    [self.webviewContainerView addConstraint:
+     [NSLayoutConstraint constraintWithItem:self.webView
+                                  attribute:NSLayoutAttributeHeight
+                                  relatedBy:NSLayoutRelationEqual
+                                     toItem:self.webviewContainerView
+                                  attribute:NSLayoutAttributeHeight
+                                 multiplier:1 constant:0]];
 }
 
 /*
