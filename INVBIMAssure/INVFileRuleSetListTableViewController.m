@@ -9,6 +9,7 @@
 #import "INVFileRuleSetListTableViewController.h"
 #import "INVGeneralAddRemoveTableViewCell.h"
 
+static const NSInteger SECTION_RULESETLIST = 0;
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
@@ -71,7 +72,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - public
 -(void)resetRuleSetEntries {
     [self updateRuleSetsFromServer ];
-    [self.ruleSetsDataSource updateWithDataArray:self.ruleSets];
+    [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
     [self.tableView reloadData];
 }
 
@@ -81,7 +82,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         [self.hud hide:YES];
         if (!error) {
             [self updateRuleSetsFromServer];
-            [self.ruleSetsDataSource updateWithDataArray:self.ruleSets];
+            [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
             [self.tableView reloadData];
         }
         else {
@@ -95,7 +96,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         [self.hud hide:YES];
         if (!error) {
             [self updateRuleSetsFromServer ];
-            [self.ruleSetsDataSource updateWithDataArray:self.ruleSets];
+            [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
             [self.tableView reloadData];
         }
         else {
@@ -166,7 +167,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(INVGenericTableViewDataSource*)ruleSetsDataSource {
     if (!_ruleSetsDataSource) {
         
-        _ruleSetsDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.ruleSets];
+        _ruleSetsDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
         
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVGeneralAddRemoveTableViewCell *cell,INVRuleSet* ruleSet,NSIndexPath* indexPath ){
             cell.name.text = ruleSet.name;

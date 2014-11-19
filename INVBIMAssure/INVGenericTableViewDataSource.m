@@ -31,7 +31,8 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 @property (nonatomic,strong)NSMutableArray* cellConfigContextArray; // array of INVCellContentDictionary objects
 @property (nonatomic,strong)NSMutableArray* headerConfigContextArray; // array of INVHeaderContentDictionary objects
 @property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController;
-@property (nonatomic,copy)NSArray* dataArray;
+//@property (nonatomic,copy)NSArray* dataArray;
+@property (nonatomic,strong)NSMutableDictionary* dataDictionary;
 @end
 
 @implementation INVGenericTableViewDataSource
@@ -45,17 +46,19 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     return self;
 }
 
--(id)initWithDataArray:(NSArray*)dataArray {
+-(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section{
     self = [super init];
     if (self) {
-        self.dataArray = dataArray;
+        self.dataDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
         self.cellConfigContextArray = [[NSMutableArray alloc]initWithCapacity:0];
-    }
+        self.dataDictionary[@(section)] = dataArray;
+        }
     return self;
 }
 
--(void)updateWithDataArray:(NSArray*)updatedDataArray {
-    self.dataArray = updatedDataArray;
+-(void)updateWithDataArray:(NSArray*)updatedDataArray forSection:(NSInteger)section{
+    self.dataDictionary[@(section)] = updatedDataArray;
+
 }
 
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock {
@@ -75,8 +78,9 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.dataArray) {
-        return self.dataArray.count;
+    if (self.dataDictionary) {
+        NSArray* numRows = self.dataDictionary[@(section)];
+        return numRows.count;
     }
     else if (self.fetchedResultsController) {
         id<NSFetchedResultsSectionInfo> objectInSection = self.fetchedResultsController.sections[section];
@@ -88,8 +92,8 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.dataArray) {
-        return 1;
+    if (self.dataDictionary) {
+         return self.dataDictionary.count;
     }
     else if (self.fetchedResultsController){
         return self.fetchedResultsController.sections.count;
@@ -123,8 +127,9 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
         NSString* matchIdentifier = cellContext[INV_CellContextIdentifier];
         id cell = [tableView dequeueReusableCellWithIdentifier:matchIdentifier];
         id cellData = nil;
-        if (self.dataArray) {
-            cellData = self.dataArray[indexPath.row];
+        if (self.dataDictionary) {
+            NSArray* dataArray = self.dataDictionary[@(indexPath.section)];
+            cellData = dataArray[indexPath.row];
         }
         else {
             cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -141,5 +146,13 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 }
 
 
-
+#pragma mark - accessor
+/*
+-(NSMutableDictionary*)dataDictionary {
+    if (!_dataDictionary) {
+        _dataDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
+    }
+    return _dataDictionary;
+}
+ */
 @end

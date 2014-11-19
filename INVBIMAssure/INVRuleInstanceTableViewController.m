@@ -9,6 +9,7 @@
 #import "INVRuleInstanceTableViewController.h"
 #import "INVRuleInstanceDetailTableViewCell.h"
 
+static const NSInteger SECTION_RULEINSTANCEACTUALPARAM = 0;
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger FIRST_ROW = 0;
 static const NSInteger FIRST_SECTION = 0;
@@ -72,7 +73,7 @@ static NSString* INV_ActualParamValue = @"Value";
 
 
 -(void)setupTableViewDataSource {
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.ruleInstanceActualParams];
+    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.ruleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceDetailTableViewCell *cell,NSDictionary* KVPair ,NSIndexPath* indexPath ){
         cell.ruleInstanceKey.text = KVPair[INV_ActualParamName];
         cell.ruleInstanceValue.text = KVPair[INV_ActualParamValue];
@@ -95,7 +96,7 @@ static NSString* INV_ActualParamValue = @"Value";
         INVRuleInstanceActualParamDictionary ruleInstanceActualParam = self.ruleInstance.actualParameters;
         
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
-        [self.dataSource updateWithDataArray:self.ruleInstanceActualParams];
+        [self.dataSource updateWithDataArray:self.ruleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self fetchRuleDefinitionForRuleId:self.ruleInstance.accountRuleId];
         });
@@ -143,6 +144,7 @@ static NSString* INV_ActualParamValue = @"Value";
     return _ruleInstanceActualParams;
 }
 
+#ifdef _SUPPORT_EDIT_BUTTON_NOTFULLYWORKING_
 -(UIBarButtonItem*)editBarButton {
     if (!_editBarButton) {
         _editBarButton = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"EDIT",nil) style:UIBarButtonItemStyleDone target:self action:@selector(onEditRuleInstanceTapped:)];
@@ -150,6 +152,7 @@ static NSString* INV_ActualParamValue = @"Value";
     return _editBarButton;
     
 }
+#endif
 
 -(UIBarButtonItem*)saveBarButton {
     if (!_saveBarButton) {
@@ -166,8 +169,8 @@ static NSString* INV_ActualParamValue = @"Value";
         [self.navigationBar.topItem setRightBarButtonItem:self.saveBarButton];
         [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:FIRST_ROW inSection:FIRST_SECTION]];
     }
-    
 }
+
 #endif
 - (IBAction)onSaveRuleInstanceTapped:(UIBarButtonItem *)sender {
     if (sender == self.saveBarButton) {

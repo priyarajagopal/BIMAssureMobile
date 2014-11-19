@@ -9,6 +9,7 @@
 #import "INVRuleSetFilesListTableViewController.h"
 #import "INVGeneralAddRemoveTableViewCell.h"
 
+static const NSInteger SECTION_RULESETFILES = 0;
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
@@ -71,7 +72,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - public
 -(void)resetFileEntries {
     [self updateFilesListFromServer];
-    [self.filesDataSource updateWithDataArray:self.files];
+    [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
     [self.tableView reloadData];
 }
 
@@ -81,7 +82,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         [self.hud hide:YES];
         if (!error) {
             [self updateFilesListFromServer];
-            [self.filesDataSource updateWithDataArray:self.files];
+            [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
             [self.tableView reloadData];
         }
         else {
@@ -95,7 +96,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         [self.hud hide:YES];
         if (!error) {
             [self updateFilesListFromServer ];
-            [self.filesDataSource updateWithDataArray:self.files];
+            [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
             [self.tableView reloadData];
         }
         else {
@@ -166,7 +167,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(INVGenericTableViewDataSource*)filesDataSource {
     if (!_filesDataSource) {
         
-        _filesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.files];
+        _filesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.files forSection:SECTION_RULESETFILES];
         
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVGeneralAddRemoveTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
             cell.name.text = file.fileName;
