@@ -149,6 +149,20 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  */
 -(void)getSignedInUserProfileWithCompletionBlock:(CompletionHandler) handler;
 
+/**
+ Asynchornously ,delete a user from a project. Only an admin is capable of exercising this call.
+ 
+ @param projectName name of project
+ 
+ @param overview Description of project (currently unused in backend)
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ */
+-(void)createProjectWithName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
 
 /**
  Asynchornously ,get list of members belonging to specified account If the request is made on behalf of admin user, then the list of accounts that a user is a member of is
@@ -219,6 +233,19 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 -(void)acceptInvite:(NSString*)invitationCode withCompletionBlock:(CompletionHandler) handler;
 
 
+/**
+ Asynchornously, remove user with specified userId from account. Only admins are allowed to exercise this call.
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see accountManager
+ 
+ */
+-(void)removeUser:(NSNumber*)userId fromAccount:(NSNumber*)accountId withCompletionBlock:(CompletionHandler) handler;
+
+
 #pragma mark - Projects Related
 
 /**
@@ -246,19 +273,6 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 -(void)getAllFilesForProject:(NSNumber*)projectId WithCompletionBlock:(CompletionHandler) handler;
 
 
-/**
- Asynchornously ,create a project for signed in account. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
- 
- @param projectName name of project
- 
- @param overview Description of project (currently unused in backend)
- 
- @param handler The completion handler that returns error object if there was any error.
- 
- @see -signIntoAccount:withCompletionBlock:
- 
- */
--(void)createProjectWithName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
 
 
 /**
@@ -347,6 +361,22 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
 
 #pragma mark - Rule Instances management
+
+
+/**
+ Asynchornously ,fetch a specified rule instance.
+ 
+ @param ruleInstanceId The Id of the rule instance
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ */
+
+
+
 
 /**
  Asynchornously ,create a specified rule instance.

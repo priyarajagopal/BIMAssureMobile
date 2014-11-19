@@ -24,7 +24,7 @@
     // Configure the view for the selected state
 }
 
-#pragma mark - UItextFieldDelegate
+#pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceUpdated:)]) {
         [self.delegate onRuleInstanceUpdated:self];
@@ -32,4 +32,10 @@
     return YES;
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onBeginEditingRuleInstanceField:)]) {
+        [self.delegate onBeginEditingRuleInstanceField:self];
+    }
+    return YES;
+}
 @end

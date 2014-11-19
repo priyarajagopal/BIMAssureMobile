@@ -27,6 +27,7 @@ static NSString* INV_ActualParamValue = @"Value";
 @property (nonatomic,strong)INVRuleInstance* ruleInstance;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,strong)NSDictionary* ruleProperties;
+#warning editBarButton unused at this time. May choose to have explicit editButton
 @property (nonatomic, strong)UIBarButtonItem* editBarButton;
 @property (nonatomic, strong)UIBarButtonItem* saveBarButton;
 @property (nonatomic, weak) INVRuleInstanceDetailTableViewCell* ruleInstanceCellBeingEdited;
@@ -50,7 +51,8 @@ static NSString* INV_ActualParamValue = @"Value";
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.refreshControl = nil;
     
-    [self.navigationBar.topItem setRightBarButtonItem:self.editBarButton];
+    [self.navigationBar.topItem setRightBarButtonItem:self.saveBarButton];
+    [self.saveBarButton setEnabled:NO];
 
 }
 
@@ -158,6 +160,7 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 #pragma mark - UIEventHandler
+#ifdef _SUPPORT_EDIT_BUTTON_NOTFULLYWORKING_
 - (IBAction)onEditRuleInstanceTapped:(UIBarButtonItem *)sender {
     if (sender == self.editBarButton) {
         [self.navigationBar.topItem setRightBarButtonItem:self.saveBarButton];
@@ -165,11 +168,14 @@ static NSString* INV_ActualParamValue = @"Value";
     }
     
 }
-
+#endif
 - (IBAction)onSaveRuleInstanceTapped:(UIBarButtonItem *)sender {
     if (sender == self.saveBarButton) {
+        [self.saveBarButton setEnabled:NO];
+        
         UITextField* textField = self.ruleInstanceCellBeingEdited.ruleInstanceValue;
         [textField resignFirstResponder];
+        
         [self onRuleInstanceUpdated:self.ruleInstanceCellBeingEdited];
         dispatch_async(dispatch_get_main_queue(), ^{
             INVRuleInstanceActualParamDictionary actualParam = [self transformRuleInstanceArrayToRuleInstanceParams:self.ruleInstanceActualParams];
@@ -180,7 +186,10 @@ static NSString* INV_ActualParamValue = @"Value";
                 }
             }];
            });
-        [self.navigationBar.topItem setRightBarButtonItem:self.editBarButton];
+#ifdef _SUPPORT_EDIT_BUTTON_NOTFULLYWORKING_
+
+       [self.navigationBar.topItem setRightBarButtonItem:self.editBarButton];
+#endif
         
      }
 }
@@ -204,12 +213,18 @@ static NSString* INV_ActualParamValue = @"Value";
     if (index != NSNotFound) {
         [self.ruleInstanceActualParams replaceObjectAtIndex:index withObject:actualParam];
     }
-    if (self.ruleInstanceActualParams.count > index +1 ) {
+    if ([self.ruleInstanceCellBeingEdited.ruleInstanceValue isFirstResponder] && (self.ruleInstanceActualParams.count > index +1 ) ) {
         [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:index+1 inSection:FIRST_SECTION]];
     }
 }
 
+-(void)onBeginEditingRuleInstanceField:(INVRuleInstanceDetailTableViewCell*)sender {
+    [self.saveBarButton setEnabled:YES];
+    self.ruleInstanceCellBeingEdited = sender;
+}
+
 #pragma mark - helper
+// Usused at this time
 -(void)makeFirstResponderTextFieldAtCellIndexPath:(NSIndexPath*)indexPath {
     INVRuleInstanceDetailTableViewCell* cell = (INVRuleInstanceDetailTableViewCell*) [self.tableView cellForRowAtIndexPath:indexPath];
     self.ruleInstanceCellBeingEdited = cell;

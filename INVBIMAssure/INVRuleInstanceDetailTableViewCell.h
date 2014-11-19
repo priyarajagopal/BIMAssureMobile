@@ -12,6 +12,7 @@
 
 @protocol INVRuleInstanceDetailTableViewCellDelegate <NSObject>
 -(void)onRuleInstanceUpdated:(INVRuleInstanceDetailTableViewCell*)sender;
+-(void)onBeginEditingRuleInstanceField:(INVRuleInstanceDetailTableViewCell*)sender;
 @end
 
 @interface INVRuleInstanceDetailTableViewCell : UITableViewCell
