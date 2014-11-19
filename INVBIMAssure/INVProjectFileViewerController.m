@@ -11,7 +11,7 @@
 
 #pragma mark - Supported JS APIs
 static NSString* const INV_JS_LOAD_VIEWER = @"loadViewer('%1$@','%2$@','%3$@')";
-static NSString* const INV_JS_LOAD_SIDEBAR = @"loadSidebar('%@', '%@', '%@')";
+static NSString* const INV_JS_LOAD_SIDEBAR = @"loadSidebar('%@', '%@', '%@', '%@')";
 static NSString* const INV_JS_RESET_CAMERA = @"resetCamera()";
 static NSString* const INV_JS_SHOW_SHADOW = @"enableShadow(%1$@)";
 static NSString* const INV_JS_TOGGLE_SELECTION = @"toggleEntitiesVisible()";
@@ -151,6 +151,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
     
     [self executeJS:jsToInvoke];
     
+    // Add the file version
     jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_SIDEBAR, emServerUrl, self.modelId, acntToken];
     [self executeJS:jsToInvoke];    
 }
