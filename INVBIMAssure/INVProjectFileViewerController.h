@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface INVProjectFileViewerController : UIViewController
+@property (nonatomic,strong)NSNumber* fileVersionId;
 @property (nonatomic,strong)NSNumber* modelId;
 @property (weak, nonatomic) IBOutlet UIView *webviewContainerView;
 - (IBAction)onHomeSelected:(id)sender;

@@ -21,6 +21,7 @@
 @property (nonatomic,weak) id<INVProjectFileCollectionViewCellDelegate> delegate;
 @property (nonatomic,strong)NSNumber* modelId;
 @property (nonatomic,strong)NSNumber* fileId;
+@property (nonatomic,strong)NSNumber* fileVersionId;
 @property (weak, nonatomic) IBOutlet UILabel *fileName;
 
 @property (weak, nonatomic) IBOutlet UIImageView *fileThumbnail;

@@ -152,7 +152,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
     [self executeJS:jsToInvoke];
     
     // Add the file version
-    jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_SIDEBAR, emServerUrl, self.modelId, acntToken];
+    jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_SIDEBAR, emServerUrl, self.modelId, acntToken,self.fileVersionId];
     [self executeJS:jsToInvoke];    
 }
 

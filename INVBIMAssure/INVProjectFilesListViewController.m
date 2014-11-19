@@ -21,6 +21,7 @@ const NSInteger  CELL_HEIGHT = 282;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* selectedModelId;
 @property (nonatomic,strong)NSNumber* selectedFileId;
+@property (nonatomic,strong)NSNumber* selectedFileVersionId;
 @end
 
 @implementation INVProjectFilesListViewController
@@ -75,6 +76,7 @@ const NSInteger  CELL_HEIGHT = 282;
     
     cell.modelId = [self modelIdForTipOfFile:file];
     cell.fileId  = file.fileId;
+    cell.fileVersionId = file.tipId;
     cell.fileName.text = file.fileName;
     cell.delegate = self;
     
@@ -141,7 +143,7 @@ const NSInteger  CELL_HEIGHT = 282;
     NSLog(@"%s",__func__);
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedModelId = fileCell.modelId;
-  
+    self.selectedFileVersionId = fileCell.fileVersionId;
     [self performSegueWithIdentifier:@"FileViewerSegue" sender:self];
 }
 
@@ -164,6 +166,7 @@ const NSInteger  CELL_HEIGHT = 282;
         [self.tabBarController setHidesBottomBarWhenPushed:YES];
         INVProjectFileViewerController* vc = (INVProjectFileViewerController*)segue.destinationViewController;
         vc.modelId = self.selectedModelId;
+        vc.fileVersionId = self.selectedFileVersionId;
     }
      if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
          INVFileManageRuleSetsContainerViewController* vc = (INVFileManageRuleSetsContainerViewController*)segue.destinationViewController;
