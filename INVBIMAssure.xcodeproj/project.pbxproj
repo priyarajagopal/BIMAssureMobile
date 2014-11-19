@@ -21,6 +21,10 @@
 		0224B8C819F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */; };
 		0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */; };
 		0224B90419F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */; };
+		0234D6281A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */; };
+		0234D6291A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */; };
+		0234D62A1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */; };
+		0234D62B1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */; };
 		023F2B3619FE81C900E4C985 /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3219FE81C900E4C985 /* libPods-FontAwesomeKit.a */; };
 		023F2B3719FE81C900E4C985 /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3319FE81C900E4C985 /* libPods-FrameAccessor.a */; };
 		023F2B3819FE81C900E4C985 /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 023F2B3419FE81C900E4C985 /* libPods-MBProgressHUD.a */; };
@@ -45,10 +49,10 @@
 		023F2B7E1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B7C1A017F4E00E4C985 /* INVRulesTableViewDataSource.m */; };
 		023F2B811A03B9D400E4C985 /* INVRuleInstanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B801A03B9D400E4C985 /* INVRuleInstanceTableViewController.m */; };
 		023F2B821A03B9D400E4C985 /* INVRuleInstanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B801A03B9D400E4C985 /* INVRuleInstanceTableViewController.m */; };
-		023F2B861A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B841A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m */; };
-		023F2B871A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B841A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m */; };
-		023F2B881A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B851A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib */; };
-		023F2B891A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B851A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib */; };
+		023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B841A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m */; };
+		023F2B871A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B841A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m */; };
+		023F2B881A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B851A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib */; };
+		023F2B891A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B851A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib */; };
 		023F2B991A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */; };
 		023F2B9A1A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */; };
 		023F2B9C1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B9B1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib */; };
@@ -178,6 +182,9 @@
 		0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSimpleUserInfoTableViewController.m; sourceTree = "<group>"; };
 		0224B90119F171030083EA6E /* MBProgressHUD+INVBAHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+INVBAHUD.h"; sourceTree = "<group>"; };
 		0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+INVBAHUD.m"; sourceTree = "<group>"; };
+		0234D6251A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceOverviewTableViewCell.h; sourceTree = "<group>"; };
+		0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceOverviewTableViewCell.m; sourceTree = "<group>"; };
+		0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceOverviewTableViewCell.xib; sourceTree = "<group>"; };
 		023F2B3219FE81C900E4C985 /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
 		023F2B3319FE81C900E4C985 /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "Pods/build/Debug-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
 		023F2B3419FE81C900E4C985 /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
@@ -196,9 +203,9 @@
 		023F2B7C1A017F4E00E4C985 /* INVRulesTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRulesTableViewDataSource.m; sourceTree = "<group>"; };
 		023F2B7F1A03B9D400E4C985 /* INVRuleInstanceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceTableViewController.h; sourceTree = "<group>"; };
 		023F2B801A03B9D400E4C985 /* INVRuleInstanceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceTableViewController.m; sourceTree = "<group>"; };
-		023F2B831A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceDetailTableViewCell.h; sourceTree = "<group>"; };
-		023F2B841A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceDetailTableViewCell.m; sourceTree = "<group>"; };
-		023F2B851A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceDetailTableViewCell.xib; sourceTree = "<group>"; };
+		023F2B831A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceActualParamTableViewCell.h; sourceTree = "<group>"; };
+		023F2B841A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceActualParamTableViewCell.m; sourceTree = "<group>"; };
+		023F2B851A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceActualParamTableViewCell.xib; sourceTree = "<group>"; };
 		023F2B971A04203E00E4C985 /* INVRuleSetTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleSetTableViewHeaderView.h; sourceTree = "<group>"; };
 		023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleSetTableViewHeaderView.m; sourceTree = "<group>"; };
 		023F2B9B1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleSetTableViewHeaderView.xib; sourceTree = "<group>"; };
@@ -348,15 +355,18 @@
 				023F2B6F1A015B0500E4C985 /* INVRuleInstanceTableViewCell.h */,
 				023F2B701A015B0500E4C985 /* INVRuleInstanceTableViewCell.m */,
 				023F2B711A015B0500E4C985 /* INVRuleInstanceTableViewCell.xib */,
-				023F2B831A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.h */,
-				023F2B841A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m */,
-				023F2B851A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib */,
+				023F2B831A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.h */,
+				023F2B841A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m */,
+				023F2B851A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib */,
 				023F2B971A04203E00E4C985 /* INVRuleSetTableViewHeaderView.h */,
 				023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */,
 				023F2B9B1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib */,
 				02FC608A1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.h */,
 				02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */,
 				02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */,
+				0234D6251A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.h */,
+				0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */,
+				0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -632,11 +642,12 @@
 				0278206C1A1A98EF00BDAA5E /* Visualize_files in Resources */,
 				021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */,
 				024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */,
+				0234D62A1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
 				024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */,
 				02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
-				023F2B881A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib in Resources */,
+				023F2B881A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,11 +666,12 @@
 				0278206D1A1A98EF00BDAA5E /* Visualize_files in Resources */,
 				024CDCD719FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				02B43A0B19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
+				0234D62B1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02408FFC19E447BF00B218ED /* Main.storyboard in Resources */,
 				024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */,
 				0278206F1A1A98EF00BDAA5E /* Visualize.html in Resources */,
 				02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
-				023F2B891A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.xib in Resources */,
+				023F2B891A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,6 +760,7 @@
 				02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
 				023F2B991A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */,
 				0223355519F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */,
+				0234D6281A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */,
 				023F2B691A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m in Sources */,
 				02C8848E19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
 				02AAD40D19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */,
@@ -757,7 +770,7 @@
 				02457E2519ED88AC00E714BA /* INVMainViewController.m in Sources */,
 				02FC608D1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */,
 				023F2B7D1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */,
-				023F2B861A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m in Sources */,
+				023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
 				02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
 				02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
@@ -813,7 +826,7 @@
 				02AAD40119E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
 				0246E7321A111730000C487D /* INVFileManageRuleSetsContainerViewController.m in Sources */,
 				02C8848619E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
-				023F2B871A03BEB000E4C985 /* INVRuleInstanceDetailTableViewCell.m in Sources */,
+				023F2B871A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
 				02AAD40E19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */,
 				02AAD3F719E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
 				02457E2619ED88AC00E714BA /* INVMainViewController.m in Sources */,
@@ -821,6 +834,7 @@
 				02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
 				02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
 				02DB78131A096C13004F4980 /* INVRuleSetFilesListTableViewController.m in Sources */,
+				0234D6291A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */,
 				02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
 				023F2B5B19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */,
 				024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,

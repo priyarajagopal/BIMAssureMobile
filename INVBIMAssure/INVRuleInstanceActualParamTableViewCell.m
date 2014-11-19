@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-#import "INVRuleInstanceDetailTableViewCell.h"
+#import "INVRuleInstanceActualParamTableViewCell.h"
 
-@interface INVRuleInstanceDetailTableViewCell () <UITextFieldDelegate>
+@interface INVRuleInstanceActualParamTableViewCell () <UITextFieldDelegate>
 
 @end
 
-@implementation INVRuleInstanceDetailTableViewCell
+@implementation INVRuleInstanceActualParamTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -26,15 +26,15 @@
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceUpdated:)]) {
-        [self.delegate onRuleInstanceUpdated:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceActualParamUpdated:)]) {
+        [self.delegate onRuleInstanceActualParamUpdated:self];
     }
     return YES;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(onBeginEditingRuleInstanceField:)]) {
-        [self.delegate onBeginEditingRuleInstanceField:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onBeginEditingRuleInstanceActualParamField:)]) {
+        [self.delegate onBeginEditingRuleInstanceActualParamField:self];
     }
     return YES;
 }

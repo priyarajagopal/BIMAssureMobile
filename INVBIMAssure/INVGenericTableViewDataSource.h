@@ -16,9 +16,10 @@ typedef void (^INV_HeaderConfigurationBlock)(id headerView, id headerData, NSInt
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController;
 -(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section;
 -(void)updateWithDataArray:(NSArray*)updatedDataArray forSection:(NSInteger)section;
--(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
--(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock ;
 
--(void)registerHeaderViewWithIdentifierForAllSections:(NSString*)headerIdentifier configureBlock:(INV_HeaderConfigurationBlock) configBlock ;
+-(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock ;
+-(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forSection:(NSInteger)section;
+-(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
+
 
 @end

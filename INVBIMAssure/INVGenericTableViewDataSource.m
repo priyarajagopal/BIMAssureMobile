@@ -28,11 +28,11 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 @interface INVGenericTableViewDataSource ()
 
-@property (nonatomic,strong)NSMutableArray* cellConfigContextArray; // array of INVCellContentDictionary objects
+//@property (nonatomic,strong)NSMutableArray* cellConfigContextArray; // array of INVCellContentDictionary objects
 @property (nonatomic,strong)NSMutableArray* headerConfigContextArray; // array of INVHeaderContentDictionary objects
-@property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController;
-//@property (nonatomic,copy)NSArray* dataArray;
-@property (nonatomic,strong)NSMutableDictionary* dataDictionary;
+@property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController; // Alternative to using explicit data arrays
+@property (nonatomic,strong)NSMutableDictionary* dataDictionary; // dictionary of section=>array of data elements
+@property (nonatomic,strong)NSMutableDictionary* cellConfigDictionary; // dictionary of section=>array of INVCellContentDictionary objects
 @end
 
 @implementation INVGenericTableViewDataSource
@@ -41,7 +41,7 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     self = [super init];
     if (self) {
          self.fetchedResultsController = resultsController;
-         self.cellConfigContextArray = [[NSMutableArray alloc]initWithCapacity:0];
+         self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
     }
     return self;
 }
@@ -50,9 +50,9 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     self = [super init];
     if (self) {
         self.dataDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
-        self.cellConfigContextArray = [[NSMutableArray alloc]initWithCapacity:0];
-        self.dataDictionary[@(section)] = dataArray;
-        }
+        self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
+        [self updateWithDataArray:dataArray forSection:section];
+    }
     return self;
 }
 
@@ -61,20 +61,25 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 }
 
+-(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forSection:(NSInteger)section {
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:DEFAULT_ROW_INDEX inSection:section];
+    return [self registerCellWithIdentifier:cellIdentifier configureBlock:configBlock forIndexPath:indexPath];
+}
+
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock {
     [self registerCellWithIdentifier:cellIdentifier configureBlock:configBlock forIndexPath:[NSIndexPath indexPathForRow:DEFAULT_ROW_INDEX inSection:DEFAULT_SECTION_INDEX]];
 }
 
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath {
     INVCellContentDictionary content = @{INV_CellContextIdentifier:cellIdentifier,INV_CellContextIndexPath:indexPath,INV_CellContextConfigBlock:configBlock};
-    [self.cellConfigContextArray addObject:content];
+    NSMutableArray* cellContentForSection  = self.cellConfigDictionary[@(indexPath.section)];
+    if (!cellContentForSection) {
+        cellContentForSection = [[NSMutableArray alloc]initWithCapacity:0];
+    }
+    [cellContentForSection addObject:content];
+    self.cellConfigDictionary[@(indexPath.section)] = cellContentForSection;
+   
 }
-
--(void)registerHeaderViewWithIdentifierForAllSections:(NSString*)headerIdentifier configureBlock:(INV_HeaderConfigurationBlock) configBlock  {
-    INVCellContentDictionary content = @{INV_HeaderContextIdentifier:headerIdentifier,INV_HeaderContextSection:@(DEFAULT_SECTION_INDEX),INV_HeaderContextConfigBlock:configBlock};
-    [self.cellConfigContextArray addObject:content];
-}
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -109,13 +114,14 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     __block INVCellContentDictionary cellContext;
+    NSArray* cellContextsForSection = self.cellConfigDictionary[@(indexPath.section)];
     
-    if (self.cellConfigContextArray.count == 1)
+    if (cellContextsForSection.count == 1)
     {
-        cellContext = self.cellConfigContextArray[0];
+        cellContext = cellContextsForSection[0];
     }
     else {
-        [self.cellConfigContextArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [cellContextsForSection enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             cellContext = obj;
             NSIndexPath* indexPathEntry = cellContext[INV_CellContextIndexPath];
             if ([indexPathEntry isEqual:indexPath]) {
