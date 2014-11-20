@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -7,6 +7,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
+            <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -456,8 +457,25 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ZdV-hG-nbK"/>
-                                    <barButtonItem style="plain" id="fmf-0o-gnV" userLabel="home">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Zpp-9e-ffD">
+                                    <barButtonItem style="plain" id="HmL-lY-9CQ" userLabel="sidebar">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="U2I-0L-iuG">
+                                            <rect key="frame" x="16" y="7" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                            <state key="normal" title="">
+                                                <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onHomeSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="1iQ-rA-slE"/>
+                                            </connections>
+                                        </button>
+                                        <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="onToggleSidebar:" destination="Eb5-Mc-1Dg" id="uOZ-5E-XsP"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="xrd-25-aGi" userLabel="home">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9VO-c1-apa">
                                             <rect key="frame" x="16" y="7" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
@@ -465,7 +483,7 @@
                                                 <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="onHomeSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="nUF-RG-MXc"/>
+                                                <action selector="onHomeSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="RZQ-Ca-DkT"/>
                                             </connections>
                                         </button>
                                         <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>

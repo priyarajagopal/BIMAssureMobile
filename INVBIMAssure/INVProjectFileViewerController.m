@@ -19,6 +19,7 @@ static NSString* const INV_JS_EMPHASIZE = @"showLines(%1$@)";
 static NSString* const INV_JS_GLASS = @"setXRayMode(%1$@)";
 static NSString* const INV_JS_GETSELECTED_ENTITIES = @"getSelectedEntities()";
 static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
+static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 
 @interface INVProjectFileViewerController ()<WKNavigationDelegate, WKScriptMessageHandler>
 @property (strong, nonatomic) WKWebView *webView;
@@ -115,6 +116,7 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
     [self.webView loadFileURL:[NSURL URLWithString:vizFile]];
 #else
     NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/mobileviewer/Visualize.html"]];
+    // NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://localhost/Visualize.html"]];
     [self.webView loadRequest:request];
 
 #endif
@@ -205,6 +207,11 @@ static NSString* const INV_JS_GETALL_ENTITIES = @"getAllEntities()";
 #pragma mark - UIEvent handlers
 - (IBAction)onHomeSelected:(id)sender {
     NSString* jsToInvoke = INV_JS_RESET_CAMERA;
+    [self executeJS:jsToInvoke];
+}
+
+-(IBAction) onToggleSidebar:(id)sender {
+    NSString *jsToInvoke = INV_JS_TOGGLE_SIDEBAR;
     [self executeJS:jsToInvoke];
 }
 
