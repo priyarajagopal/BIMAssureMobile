@@ -115,8 +115,8 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
   
     [self.webView loadFileURL:[NSURL URLWithString:vizFile]];
 #else
-    // NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/mobileviewer/Visualize.html"]];
-    NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://localhost/Visualize.html"]];
+    NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/mobileviewer/Visualize.html"]];
+    // NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://localhost/Visualize.html"]];
     [self.webView loadRequest:request];
 
 #endif
