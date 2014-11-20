@@ -9,15 +9,15 @@
 #import "INVRuleInstanceTableViewController.h"
 #import "INVRuleInstanceActualParamTableViewCell.h"
 #import "INVRuleInstanceOverviewTableViewCell.h"
+#import "INVRuleInstanceNameTableViewCell.h"
 
 static const NSInteger SECTION_RULEINSTANCEDETAILS = 0;
 static const NSInteger SECTION_RULEINSTANCEACTUALPARAM = 1;
+static const NSInteger ROW_RULEINSTANCEDETAILS_NAME = 0;
+static const NSInteger ROW_RULEINSTANCEDETAILS_OVERVIEW = 1;
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
-
-static const NSInteger FIRST_ROW = 0;
-static const NSInteger FIRST_SECTION = SECTION_RULEINSTANCEDETAILS;
 
 /**
  Dictionary of Name-Value pairs corresponding to the actual parameters. The supported keys are  INV_ActualParamName and INV_ActualParamValue
@@ -26,17 +26,25 @@ typedef NSDictionary* INV_ActualParamKeyValuePair;
 static NSString* INV_ActualParamName = @"Name";
 static NSString* INV_ActualParamValue = @"Value";
 
-@interface INVRuleInstanceTableViewController () <INVRuleInstanceActualParamTableViewCellDelegate>
-@property (nonatomic,strong)INVRulesManager* rulesManager;
-@property (nonatomic,strong)NSMutableArray* ruleInstanceActualParams; // Array of {INV_ActualParamName,INV_ActualParamValue} pair objects (convenience for generating table views)
-@property (nonatomic,strong)INVRule* ruleDefinition;
-@property (nonatomic,strong)INVRuleInstance* ruleInstance;
+@interface INVRuleInstanceTableViewController () <INVRuleInstanceActualParamTableViewCellDelegate,INVRuleInstanceOverviewTableViewCellDelegate, INVRuleInstanceNameTableViewCellDelegate>
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
+@property (nonatomic,strong)INVRulesManager* rulesManager;
+
+@property (nonatomic,strong)NSMutableArray* intermediateRuleInstanceActualParams; // Array of INV_ActualParamKeyValuePair objects transformed from the array params dictionary fetched from server
+@property (nonatomic,strong)NSString* intermediateRuleName;
+@property (nonatomic,strong)NSString* intermediateRuleOverview;
+
+// rule definition unused at this time. Eventually use
+@property (nonatomic,strong)INVRule* ruleDefinition;
+// rule properties unused at this time
 @property (nonatomic,strong)NSDictionary* ruleProperties;
-#warning editBarButton unused at this time. May choose to have explicit editButton
+
+// editBarButton unused at this time. May choose to have explicit editButton
 @property (nonatomic, strong)UIBarButtonItem* editBarButton;
 @property (nonatomic, strong)UIBarButtonItem* saveBarButton;
+
 @property (nonatomic, weak) UITableViewCell* ruleInstanceCellBeingEdited;
+
 @end
 
 @implementation INVRuleInstanceTableViewController
@@ -53,6 +61,9 @@ static NSString* INV_ActualParamValue = @"Value";
 
     UINib* rioNib = [UINib nibWithNibName:@"INVRuleInstanceOverviewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:rioNib forCellReuseIdentifier:@"RuleInstanceOverviewTVC"];
+    
+    UINib* rinNib = [UINib nibWithNibName:@"INVRuleInstanceNameTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
+    [self.tableView registerNib:rinNib forCellReuseIdentifier:@"RuleInstanceNameTVC"];
 
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -79,23 +90,46 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 
--(void)setupTableViewDataSource {
-    // The rule details other than the rule params
-    NSArray* ruleInfoArray = self.ruleInstance?@[self.ruleInstance]:[NSArray array];
-    if (!self.ruleInstance) {
-        self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
-    }
+-(void) setupTableFooter {
     
-    INV_CellConfigurationBlock cellConfigurationBlockForRuleOverview = ^(INVRuleInstanceOverviewTableViewCell *cell,INVRuleInstance* ruleInstance ,NSIndexPath* indexPath ){
-        cell.ruleName.text = ruleInstance.ruleName;
-        cell.ruleDescription.text = ruleInstance.overview;
+    NSInteger numberOfRowsInActualParamsSection = [self.tableView numberOfRowsInSection:SECTION_RULEINSTANCEACTUALPARAM];
+    NSInteger heightOfTableViewCells = numberOfRowsInActualParamsSection * DEFAULT_CELL_HEIGHT;
+    
+    heightOfTableViewCells += DEFAULT_CELL_HEIGHT + DEFAULT_OVERVIEW_CELL_HEIGHT;
+    
+    
+    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(self.tableView.frame) + heightOfTableViewCells, CGRectGetWidth (self.tableView.frame), CGRectGetHeight(self.tableView.frame)-(heightOfTableViewCells + CGRectGetMinY(self.tableView.frame)))];
+    self.tableView.tableFooterView = view;
+}
+
+-(void)setupTableViewDataSource {
+    // rule name
+    NSIndexPath* indexPathForRuleName = [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_NAME inSection:SECTION_RULEINSTANCEDETAILS];
+    INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
+    self.intermediateRuleOverview = ruleInstance.overview;
+    self.intermediateRuleName = ruleInstance.ruleName;
+    
+    NSArray* ruleInfoArray = ruleInstance?@[self.intermediateRuleName,self.intermediateRuleOverview]:[NSArray array];
+    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
+    
+    
+    INV_CellConfigurationBlock cellConfigurationBlockForRuleName = ^(INVRuleInstanceNameTableViewCell *cell,NSString* ruleName ,NSIndexPath* indexPath ){
+        cell.ruleName.text = ruleName;
         cell.delegate = self;
     };
-    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleInstanceOverviewTVC" configureBlock:cellConfigurationBlockForRuleOverview];
-    [self.dataSource registerCellWithIdentifier:@"RuleInstanceOverviewTVC" configureBlock:cellConfigurationBlockForRuleOverview forSection:SECTION_RULEINSTANCEDETAILS];
+    [self.dataSource registerCellWithIdentifier:@"RuleInstanceNameTVC" configureBlock:cellConfigurationBlockForRuleName forIndexPath:indexPathForRuleName];
     
+    // rule overview
+    NSIndexPath* indexPathForRuleOverview = [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_OVERVIEW inSection:SECTION_RULEINSTANCEDETAILS];
+
+    INV_CellConfigurationBlock cellConfigurationBlockForRuleOverview = ^(INVRuleInstanceOverviewTableViewCell *cell,NSString* overview ,NSIndexPath* indexPath ){
+        cell.ruleDescription.text = overview;
+        cell.delegate = self;
+    };
+    [self.dataSource registerCellWithIdentifier:@"RuleInstanceOverviewTVC" configureBlock:cellConfigurationBlockForRuleOverview forIndexPath:indexPathForRuleOverview];
+
     // The actual params
-    [self.dataSource updateWithDataArray:self.ruleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
+    [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceActualParamTableViewCell *cell,NSDictionary* KVPair ,NSIndexPath* indexPath ){
         cell.ruleInstanceKey.text = KVPair[INV_ActualParamName];
         cell.ruleInstanceValue.text = KVPair[INV_ActualParamValue];
@@ -115,23 +149,27 @@ static NSString* INV_ActualParamValue = @"Value";
         NSLog(@"%s. Cannot fetch rule instance details for RuleSet %@ and RuleInstanceId %@",__func__,self.ruleSetId,self.ruleInstanceId);
     }
     else {
-        self.ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
-        NSArray* ruleInfoArray = self.ruleInstance?@[self.ruleInstance]:[NSArray array];
+#warning If unlikely case that matchingRuleInstance was not fetched from the server due to any reason when this view was loaded , fetch it
 
+        INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
+        
+        self.intermediateRuleOverview = ruleInstance.overview;
+        self.intermediateRuleName = ruleInstance.ruleName;
+        NSArray* ruleInfoArray = ruleInstance?@[self.intermediateRuleName,self.intermediateRuleOverview]:[NSArray array];
         [self.dataSource updateWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
         
-#warning If unlikely case that matchingRuleInstance was not fetched from the server due to any reason when this view was loaded , fetch it
-        INVRuleInstanceActualParamDictionary ruleInstanceActualParam = self.ruleInstance.actualParameters;
-        
+        INVRuleInstanceActualParamDictionary ruleInstanceActualParam = ruleInstance.actualParameters;
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
-        [self.dataSource updateWithDataArray:self.ruleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
+        [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
+        
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self fetchRuleDefinitionForRuleId:self.ruleInstance.accountRuleId];
+            [self fetchRuleDefinitionForRuleId:ruleInstance.accountRuleId];
         });
     }
     [self.hud hide:YES];
     [self.tableView reloadData];
- //   [self setupTableFooter];
+    [self setupTableFooter];
 }
 
 
@@ -149,6 +187,19 @@ static NSString* INV_ActualParamValue = @"Value";
     }
 }
 
+-(void)sendUpdatedRuleInstanceToServer {
+    INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
+    
+    INVRuleInstanceActualParamDictionary actualParam = [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
+    [self.globalDataManager.invServerClient modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId forRuleId:ruleInstance.accountRuleId inRuleSetId:self.ruleSetId withRuleName:self.intermediateRuleName andDescription:self.intermediateRuleOverview andActualParameters:actualParam WithCompletionBlock:^(INVEmpireMobileError *error) {
+        if (error) {
+#warning show error alert
+            NSLog (@"%s. Error %@",__func__,error);
+        }
+    }];
+
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -164,11 +215,11 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 #pragma mark - accessors
--(NSMutableArray*)ruleInstanceActualParams {
-    if (!_ruleInstanceActualParams) {
-        _ruleInstanceActualParams = [[NSMutableArray alloc]initWithCapacity:0];
+-(NSMutableArray*)intermediateRuleInstanceActualParams {
+    if (!_intermediateRuleInstanceActualParams) {
+        _intermediateRuleInstanceActualParams = [[NSMutableArray alloc]initWithCapacity:0];
     }
-    return _ruleInstanceActualParams;
+    return _intermediateRuleInstanceActualParams;
 }
 
 #ifdef _SUPPORT_EDIT_BUTTON_NOTFULLYWORKING_
@@ -199,30 +250,31 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 #endif
+
+
 - (IBAction)onSaveRuleInstanceTapped:(UIBarButtonItem *)sender {
     if (sender == self.saveBarButton) {
         [self.saveBarButton setEnabled:NO];
         
         [self resignFirstTextInputResponder];
         
+        [self scrapeTableViewForUpdatedContent];
+        /*
         if ([self.ruleInstanceCellBeingEdited respondsToSelector:@selector(ruleInstanceValue)]) {
-              [self onRuleInstanceActualParamUpdated:(INVRuleInstanceActualParamTableViewCell*)self.ruleInstanceCellBeingEdited];
+            [self onRuleInstanceActualParamUpdated:(INVRuleInstanceActualParamTableViewCell*)self.ruleInstanceCellBeingEdited];
             
         }
         else if ([self.ruleInstanceCellBeingEdited respondsToSelector:@selector(ruleName)]) {
-            
+            [self onRuleInstanceNameUpdated:(INVRuleInstanceNameTableViewCell *)self.ruleInstanceCellBeingEdited];
+        }
+        else if ([self.ruleInstanceCellBeingEdited respondsToSelector:@selector(overview)]) {
+            [self onRuleInstanceOverviewUpdated:(INVRuleInstanceOverviewTableViewCell*)self.ruleInstanceCellBeingEdited];
         }
         
-        
+        */
         dispatch_async(dispatch_get_main_queue(), ^{
-            INVRuleInstanceActualParamDictionary actualParam = [self transformRuleInstanceArrayToRuleInstanceParams:self.ruleInstanceActualParams];
-            [self.globalDataManager.invServerClient modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId forRuleId:self.ruleInstance.accountRuleId inRuleSetId:self.ruleSetId withRuleName:self.ruleInstance.ruleName andDescription:self.ruleInstance.overview andActualParameters:actualParam WithCompletionBlock:^(INVEmpireMobileError *error) {
-                if (error) {
-#warning show error alert
-                    NSLog (@"%s. Error %@",__func__,error);
-                }
-            }];
-           });
+            [self sendUpdatedRuleInstanceToServer];
+            });
 #ifdef _SUPPORT_EDIT_BUTTON_NOTFULLYWORKING_
 
        [self.navigationBar.topItem setRightBarButtonItem:self.editBarButton];
@@ -232,22 +284,50 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 
+#pragma mark - INVRuleInstanceNameTableViewCellDelegate
+-(void)onBeginEditingRuleInstanceNameField:(INVRuleInstanceNameTableViewCell*)sender {
+    [self.saveBarButton setEnabled:YES];
+    self.ruleInstanceCellBeingEdited = sender;
+}
+
+-(void)onRuleInstanceNameUpdated:(INVRuleInstanceNameTableViewCell*)sender {
+    // Update the data
+    self.intermediateRuleName = sender.ruleName.text;
+    
+    // Update first responder
+    [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_OVERVIEW inSection:SECTION_RULEINSTANCEDETAILS]];
+}
+
+
 #pragma mark - INVRuleInstanceOverviewTableViewCellDelegate
+-(void)onBeginEditingRuleInstanceOverviewField:(INVRuleInstanceOverviewTableViewCell*)sender {
+    [self.saveBarButton setEnabled:YES];
+    self.ruleInstanceCellBeingEdited = sender;
+}
+
 -(void)onRuleInstanceOverviewUpdated:(INVRuleInstanceOverviewTableViewCell*)sender {
     
+    // Update the data
+    self.intermediateRuleOverview = sender.ruleDescription.text;
+    // Update the first responder
+    [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:0 inSection:SECTION_RULEINSTANCEACTUALPARAM]];
 }
--(void)onBeginEditingRuleInstanceOverviewField:(INVRuleInstanceOverviewTableViewCell*)sender {
+
+
+
+#pragma mark - INVRuleInstanceActualParamTableViewCellDelegate
+-(void)onBeginEditingRuleInstanceActualParamField:(INVRuleInstanceActualParamTableViewCell*)sender {
     [self.saveBarButton setEnabled:YES];
     self.ruleInstanceCellBeingEdited = sender;
 }
 
 -(void)onRuleInstanceActualParamUpdated:(INVRuleInstanceActualParamTableViewCell*)sender {
     
-    // Set next cell as responder
-    INVRuleInstanceActualParamTableViewCell* editedCell = sender;
+    // 1) update the data
+     INVRuleInstanceActualParamTableViewCell* editedCell = sender;
     __block NSInteger index = NSNotFound;
     NSDictionary* actualParam = @{INV_ActualParamName:editedCell.ruleInstanceKey.text,INV_ActualParamValue:editedCell.ruleInstanceValue.text};
-    [self.ruleInstanceActualParams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [self.intermediateRuleInstanceActualParams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSDictionary* KVPair = obj;
         
         NSString* currValue = KVPair[INV_ActualParamName];
@@ -257,38 +337,50 @@ static NSString* INV_ActualParamValue = @"Value";
         }
     }];
     if (index != NSNotFound) {
-        [self.ruleInstanceActualParams replaceObjectAtIndex:index withObject:actualParam];
+        [self.intermediateRuleInstanceActualParams replaceObjectAtIndex:index withObject:actualParam];
     }
-    /*
-    if ([self.ruleInstanceCellBeingEdited.ruleInstanceValue isFirstResponder] && (self.ruleInstanceActualParams.count > index +1 ) ) {
-        [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:index+1 inSection:SECTION_RULEINSTANCEACTUALPARAM]];
+    
+    // 2) update the first responder
+    if ([((INVRuleInstanceActualParamTableViewCell*)(self.ruleInstanceCellBeingEdited)).ruleInstanceValue isFirstResponder] ) {
+        if (self.intermediateRuleInstanceActualParams.count > index +1 ) {
+            [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:index+1 inSection:SECTION_RULEINSTANCEACTUALPARAM]];
+        }
+        if (self.intermediateRuleInstanceActualParams.count == index +1 ) {
+            [self resignFirstTextInputResponder];
+        }
+        
     }
-     */
+    
 }
 
--(void)onBeginEditingRuleInstanceActualParamField:(INVRuleInstanceActualParamTableViewCell*)sender {
-    [self.saveBarButton setEnabled:YES];
-    self.ruleInstanceCellBeingEdited = sender;
-}
 
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == SECTION_RULEINSTANCEDETAILS) {
+    if (indexPath.section == SECTION_RULEINSTANCEDETAILS && indexPath.row == 1) {
         return DEFAULT_OVERVIEW_CELL_HEIGHT;
     }
-    else if (indexPath.section == SECTION_RULEINSTANCEACTUALPARAM) {
-        return DEFAULT_CELL_HEIGHT;
-    }
+  
     return DEFAULT_CELL_HEIGHT;
 }
 
 #pragma mark - helper
-// Usused at this time
+
 -(void)makeFirstResponderTextFieldAtCellIndexPath:(NSIndexPath*)indexPath {
     INVRuleInstanceActualParamTableViewCell* cell = (INVRuleInstanceActualParamTableViewCell*) [self.tableView cellForRowAtIndexPath:indexPath];
     self.ruleInstanceCellBeingEdited = cell;
- //   [self.ruleInstanceCellBeingEdited.ruleInstanceValue becomeFirstResponder];
+    if (indexPath.section == SECTION_RULEINSTANCEDETAILS) {
+        if (indexPath.row == ROW_RULEINSTANCEDETAILS_NAME) {
+             [((INVRuleInstanceNameTableViewCell*)self.ruleInstanceCellBeingEdited).ruleName becomeFirstResponder];
+        }
+        else {
+            [((INVRuleInstanceOverviewTableViewCell*)self.ruleInstanceCellBeingEdited).ruleDescription becomeFirstResponder];
+        }
+    }
+    else if (indexPath.section == SECTION_RULEINSTANCEACTUALPARAM) {
+        [((INVRuleInstanceActualParamTableViewCell*)self.ruleInstanceCellBeingEdited).ruleInstanceValue becomeFirstResponder];
+    }
+  
 }
 
 -(void)resignFirstTextInputResponder {
@@ -296,25 +388,12 @@ static NSString* INV_ActualParamValue = @"Value";
         [((INVRuleInstanceActualParamTableViewCell*) self.ruleInstanceCellBeingEdited).ruleInstanceValue resignFirstResponder];
     }
     else if ([self.ruleInstanceCellBeingEdited respondsToSelector:@selector(ruleName)]) {
-        if ([((INVRuleInstanceOverviewTableViewCell*) self.ruleInstanceCellBeingEdited).ruleName isFirstResponder]) {
-            [((INVRuleInstanceOverviewTableViewCell*) self.ruleInstanceCellBeingEdited).ruleName resignFirstResponder];
-        }
-        else  if ([((INVRuleInstanceOverviewTableViewCell*) self.ruleInstanceCellBeingEdited).ruleDescription isFirstResponder]) {
-            [((INVRuleInstanceOverviewTableViewCell*) self.ruleInstanceCellBeingEdited).ruleDescription resignFirstResponder];
-        }
+       [((INVRuleInstanceNameTableViewCell*) self.ruleInstanceCellBeingEdited).ruleName resignFirstResponder];
     }
-}
--(NSString*)ruleInstanceForId:(NSNumber*)ruleInstanceId {
-    /*
-     INVRuleSetMutableArray members = self.accountManager.accountMembership;
-     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"userId==%@",userId];
-     NSArray* matches = [members filteredArrayUsingPredicate:predicate];
-     if (matches && matches.count) {
-     INVMembership* member = matches[0];
-     return member.email;
-     }
-     */
-    return nil;
+    else if ([self.ruleInstanceCellBeingEdited respondsToSelector:@selector(ruleDescription)]) {
+        [((INVRuleInstanceOverviewTableViewCell*) self.ruleInstanceCellBeingEdited).ruleDescription resignFirstResponder];
+    }
+    
 }
 
 
@@ -322,7 +401,7 @@ static NSString* INV_ActualParamValue = @"Value";
     __block NSDictionary* actualParam;
     [actualParamDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         actualParam = @{INV_ActualParamName:key,INV_ActualParamValue:obj};
-        [self.ruleInstanceActualParams addObject:actualParam];
+        [self.intermediateRuleInstanceActualParams addObject:actualParam];
     }];
 }
 
@@ -339,13 +418,25 @@ static NSString* INV_ActualParamValue = @"Value";
     return  actualParam;
 }
 
--(void) setupTableFooter {
-    NSInteger numberOfRows = [self.tableView numberOfRowsInSection:0];
-    NSInteger heightOfTableViewCells = numberOfRows * DEFAULT_CELL_HEIGHT;
-    
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(self.tableView.frame) + heightOfTableViewCells, CGRectGetWidth (self.tableView.frame), CGRectGetHeight(self.tableView.frame)-(heightOfTableViewCells + CGRectGetMinY(self.tableView.frame)))];
-    self.tableView.tableFooterView = view;
-}
 
+-(void)scrapeTableViewForUpdatedContent {
+    INVRuleInstanceOverviewTableViewCell* overviewCell = (INVRuleInstanceOverviewTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_OVERVIEW inSection:SECTION_RULEINSTANCEDETAILS]];
+    self.intermediateRuleOverview = overviewCell.ruleDescription.text;
+    
+    INVRuleInstanceNameTableViewCell* nameCell = (INVRuleInstanceNameTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_NAME inSection:SECTION_RULEINSTANCEDETAILS]];
+    self.intermediateRuleName = nameCell.ruleName.text;
+
+     __block NSDictionary* actualParam;
+    NSMutableArray* updatedActualParamsArray = [[NSMutableArray alloc]initWithCapacity:0];
+    
+    [self.intermediateRuleInstanceActualParams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVRuleInstanceActualParamTableViewCell* actualParamCell = (INVRuleInstanceActualParamTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:SECTION_RULEINSTANCEACTUALPARAM]];
+         actualParam = @{INV_ActualParamName:actualParamCell.ruleInstanceKey.text,INV_ActualParamValue:actualParamCell.ruleInstanceValue.text};
+        [updatedActualParamsArray addObject:actualParam];
+        
+    }];
+    self.intermediateRuleInstanceActualParams = [NSMutableArray arrayWithArray:updatedActualParamsArray];
+    
+}
 
 @end

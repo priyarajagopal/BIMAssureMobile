@@ -16,7 +16,6 @@
 
 
 @interface INVRuleInstanceOverviewTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UITextField *ruleName;
 @property (weak, nonatomic) IBOutlet UITextView *ruleDescription;
 @property (weak, nonatomic) id<INVRuleInstanceOverviewTableViewCellDelegate> delegate;
 

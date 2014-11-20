@@ -57,7 +57,7 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 }
 
 -(void)updateWithDataArray:(NSArray*)updatedDataArray forSection:(NSInteger)section{
-    self.dataDictionary[@(section)] = updatedDataArray;
+    self.dataDictionary[@(section)] = [updatedDataArray copy];
 
 }
 
@@ -78,7 +78,6 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     }
     [cellContentForSection addObject:content];
     self.cellConfigDictionary[@(indexPath.section)] = cellContentForSection;
-   
 }
 
 #pragma mark - UITableViewDataSource

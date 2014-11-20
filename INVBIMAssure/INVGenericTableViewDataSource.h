@@ -14,6 +14,7 @@ typedef void (^INV_HeaderConfigurationBlock)(id headerView, id headerData, NSInt
 
 @interface INVGenericTableViewDataSource : NSObject <UITableViewDataSource>
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController;
+
 -(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section;
 -(void)updateWithDataArray:(NSArray*)updatedDataArray forSection:(NSInteger)section;
 
