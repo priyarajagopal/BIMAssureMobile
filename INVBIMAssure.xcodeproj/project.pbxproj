@@ -84,6 +84,8 @@
 		024CDCE819FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */; };
 		024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
 		024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
+		025D301F1A1FDD5800C3FCE0 /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 025D301E1A1FDD5800C3FCE0 /* OpenCTM.framework */; };
+		025D30231A1FDDA800C3FCE0 /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 025D301E1A1FDD5800C3FCE0 /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0263D71E1A1FBEF800BD3F94 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */; };
 		0278206C1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206D1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
@@ -149,8 +151,6 @@
 		F5C57B221A1FBA680042C96C /* SampleHouse.json in Resources */ = {isa = PBXBuildFile; fileRef = F5C57B211A1FBA680042C96C /* SampleHouse.json */; };
 		F5E401661A1FC7A7004DBA93 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */; };
 		F5E401671A1FC7A7004DBA93 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F5E401681A1FC89B004DBA93 /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E401631A1FC780004DBA93 /* OpenCTM.framework */; };
-		F5E4016A1A1FC8A0004DBA93 /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F5E401631A1FC780004DBA93 /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,7 +171,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				F5E401671A1FC7A7004DBA93 /* EmpireMobileManager.framework in Embed Frameworks */,
-				F5E4016A1A1FC8A0004DBA93 /* OpenCTM.framework in Embed Frameworks */,
+				025D30231A1FDDA800C3FCE0 /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,6 +243,7 @@
 		024CDCE419FAAA9C00A2F527 /* INVTokensTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVTokensTableViewCell.h; sourceTree = "<group>"; };
 		024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVTokensTableViewCell.m; sourceTree = "<group>"; };
 		024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVTokensTableViewCell.xib; sourceTree = "<group>"; };
+		025D301E1A1FDD5800C3FCE0 /* OpenCTM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCTM.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/INVBIMAssure-gbvmecfcolpuvqdmruccmipspnyw/Build/Products/Debug-iphoneos/OpenCTM.framework"; sourceTree = "<group>"; };
 		0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		0278206A1A1A98EF00BDAA5E /* Visualize_files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Visualize_files; sourceTree = "<group>"; };
 		0278206B1A1A98EF00BDAA5E /* Visualize.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Visualize.html; sourceTree = "<group>"; };
@@ -322,7 +323,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5E401681A1FC89B004DBA93 /* OpenCTM.framework in Frameworks */,
+				025D301F1A1FDD5800C3FCE0 /* OpenCTM.framework in Frameworks */,
 				023F2B3619FE81C900E4C985 /* libPods-FontAwesomeKit.a in Frameworks */,
 				023F2B3719FE81C900E4C985 /* libPods-FrameAccessor.a in Frameworks */,
 				023F2B3819FE81C900E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
@@ -563,6 +564,7 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				025D301E1A1FDD5800C3FCE0 /* OpenCTM.framework */,
 				F5E401611A1FC6F8004DBA93 /* OpenCTM.framework */,
 				F5E4015F1A1FC5D6004DBA93 /* OpenCTM.framework */,
 				F5E4015B1A1FC57F004DBA93 /* OpenCTM.framework */,
@@ -1040,8 +1042,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-gbvmecfcolpuvqdmruccmipspnyw/Build/Products/Debug-iphoneos",
 				);
 				GCC_FAST_MATH = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -1088,8 +1090,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-gbvmecfcolpuvqdmruccmipspnyw/Build/Products/Debug-iphoneos",
 				);
 				GCC_FAST_MATH = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
