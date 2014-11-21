@@ -425,14 +425,14 @@
                     <tabBarItem key="tabBarItem" title="Files" image="folder" id="Hi4-Ve-ZOV"/>
                     <navigationItem key="navigationItem" id="hAr-uZ-Qs3"/>
                     <connections>
-                        <segue destination="Eb5-Mc-1Dg" kind="show" identifier="FileViewerSegue" id="oHo-ea-p8Z"/>
                         <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
+                        <segue destination="GL2-uL-zZe" kind="show" identifier="FileViewerSegue" id="5XK-ZU-oiT"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ihQ-SW-zzl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3282" y="3463"/>
+            <point key="canvasLocation" x="3443" y="3468"/>
         </scene>
         <!--Project File Viewer Controller-->
         <scene sceneID="fqY-Jw-B2u">
@@ -597,7 +597,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dfZ-Xy-sXT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3927" y="4465"/>
+            <point key="canvasLocation" x="3763" y="4433"/>
+        </scene>
+        <!--GLKit View Controller-->
+        <scene sceneID="Jzl-hh-E8g">
+            <objects>
+                <glkViewController preferredFramesPerSecond="30" id="GL2-uL-zZe" customClass="INVModelViewerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7mG-8a-Gz8"/>
+                        <viewControllerLayoutGuide type="bottom" id="8D9-Ct-9VY"/>
+                    </layoutGuides>
+                    <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" id="4ov-Ct-Enc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <connections>
+                            <outlet property="delegate" destination="GL2-uL-zZe" id="BOa-nm-Fo9"/>
+                        </connections>
+                    </glkView>
+                </glkViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="igs-h5-g41" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4397" y="4220"/>
         </scene>
         <!--Files-->
         <scene sceneID="y7V-3v-ILL">
