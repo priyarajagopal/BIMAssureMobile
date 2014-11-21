@@ -336,6 +336,10 @@ CTMuint ctmReadNSData(void *buf, CTMuint size, void *userData) {
     glBindVertexArrayOES(0);
 }
 
+-(int) polyCount {
+    return _triangleCount;
+}
+
 -(void) dealloc {
     glDeleteBuffers(1, &_vertexBuffer);
     glDeleteVertexArraysOES(1, &_vertexArray);

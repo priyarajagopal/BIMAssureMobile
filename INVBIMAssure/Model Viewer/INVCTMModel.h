@@ -17,4 +17,6 @@
 
 -(INVCTMModel *) modelByTransforming:(GLKMatrix4) matrix;
 
+-(int) polyCount;
+
 @end

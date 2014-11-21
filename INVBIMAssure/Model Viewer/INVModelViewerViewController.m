@@ -69,6 +69,13 @@ CTMuint _ctmReadData(void *aBuf, CTMuint aCount, void *aUserData) {
     [dataMgr.invServerClient fetchModelViewForId:self.modelId withCompletionBlock:^(id result, INVEmpireMobileError *error) {
         self->_manager = [[INVJSONCTMManager alloc] initWithDictionary:result];
         self->_models = [self->_manager allModels];
+        
+        unsigned long long polyCount = 0;
+        for (INVCTMModel *model in self->_models) {
+            polyCount += [model polyCount];
+        }
+        
+        NSLog(@"Polygon Count: %llu", polyCount);
     }];
 }
 
@@ -98,7 +105,7 @@ CTMuint _ctmReadData(void *aBuf, CTMuint aCount, void *aUserData) {
     _models = nil;
 }
 
-- (void)dealloc
+-(void) dealloc
 {    
     [self tearDownGL];
     
@@ -151,6 +158,8 @@ CTMuint _ctmReadData(void *aBuf, CTMuint aCount, void *aUserData) {
     self.effect.light0.ambientColor = GLKVector4Make(0.2f, 0.2f, 0.2f, 0.5);
      
     GLKView *glkView = (GLKView *) self.view;
+    
+    // NOTE: Turn this off for weaker devices?
     glkView.drawableMultisample = GLKViewDrawableMultisample4X;
     glkView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 
