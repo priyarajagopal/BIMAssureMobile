@@ -33,10 +33,14 @@ static inline GLKMatrix4 parseMatrix(NSArray *asArray) {
 }
 
 -(id) initWithJSON:(NSData *)jsonData {
-    if (self = [super init]) {
-        _jsonRepresentation = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                             options:0
-                                                               error:nil];
+    return [self initWithDictionary:[NSJSONSerialization JSONObjectWithData:jsonData
+                                                                    options:0
+                                                                      error:NULL]];
+}
+
+-(id) initWithDictionary:(NSDictionary *)dictionary {
+    if (self = [super init] ) {
+        _jsonRepresentation = dictionary;
         
         [self processSharedGeometries];
         [self processOtherGeometrires];

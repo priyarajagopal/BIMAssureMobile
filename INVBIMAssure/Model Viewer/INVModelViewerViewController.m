@@ -65,11 +65,11 @@ CTMuint _ctmReadData(void *aBuf, CTMuint aCount, void *aUserData) {
 }
 
 -(void) loadCTM {
-        NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"SampleHouse" ofType:@"json"];
-        NSData *jsonData = [NSData dataWithContentsOfFile:jsonPath];
-        
-        _manager = [[INVJSONCTMManager alloc] initWithJSON:jsonData];
-        _models = [_manager allModels];
+    INVGlobalDataManager *dataMgr = [INVGlobalDataManager sharedInstance];
+    [dataMgr.invServerClient fetchModelViewForId:self.modelId withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+        self->_manager = [[INVJSONCTMManager alloc] initWithDictionary:result];
+        self->_models = [self->_manager allModels];
+    }];
 }
 
 - (void)viewDidLoad
@@ -172,7 +172,7 @@ CTMuint _ctmReadData(void *aBuf, CTMuint aCount, void *aUserData) {
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     // Render the object with GLKit
