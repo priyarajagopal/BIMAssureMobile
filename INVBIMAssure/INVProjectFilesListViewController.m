@@ -10,6 +10,7 @@
 #import "INVProjectFileCollectionViewCell.h"
 #import "INVProjectFileViewerController.h"
 #import "INVFileManageRuleSetsContainerViewController.h"
+#import "INVModelViewerViewController.h"
 
 @import  CoreData;
 
@@ -164,7 +165,7 @@ const NSInteger  CELL_HEIGHT = 282;
     if ([segue.identifier isEqualToString:@"FileViewerSegue"]) {
 
         [self.tabBarController setHidesBottomBarWhenPushed:YES];
-        INVProjectFileViewerController* vc = (INVProjectFileViewerController*)segue.destinationViewController;
+        INVModelViewerViewController* vc = (INVModelViewerViewController*)segue.destinationViewController;
         vc.modelId = self.selectedModelId;
         vc.fileVersionId = self.selectedFileVersionId;
     }

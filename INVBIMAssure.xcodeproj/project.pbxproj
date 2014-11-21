@@ -145,6 +145,10 @@
 		02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
+		F5C57B1E1A1FB8E20042C96C /* INVCTMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C57B191A1FB8E20042C96C /* INVCTMModel.m */; };
+		F5C57B1F1A1FB8E20042C96C /* INVJSONCTMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C57B1B1A1FB8E20042C96C /* INVJSONCTMManager.m */; };
+		F5C57B201A1FB8E20042C96C /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */; };
+		F5C57B221A1FBA680042C96C /* SampleHouse.json in Resources */ = {isa = PBXBuildFile; fileRef = F5C57B211A1FBA680042C96C /* SampleHouse.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,6 +300,13 @@
 		02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGeneralAddRemoveTableViewCell.m; sourceTree = "<group>"; };
 		02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVGeneralAddRemoveTableViewCell.xib; sourceTree = "<group>"; };
 		BED31771E1C440EEB10DC9B3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		F5C57B181A1FB8E20042C96C /* INVCTMModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCTMModel.h; sourceTree = "<group>"; };
+		F5C57B191A1FB8E20042C96C /* INVCTMModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCTMModel.m; sourceTree = "<group>"; };
+		F5C57B1A1A1FB8E20042C96C /* INVJSONCTMManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVJSONCTMManager.h; sourceTree = "<group>"; };
+		F5C57B1B1A1FB8E20042C96C /* INVJSONCTMManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVJSONCTMManager.m; sourceTree = "<group>"; };
+		F5C57B1C1A1FB8E20042C96C /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
+		F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerViewController.m; sourceTree = "<group>"; };
+		F5C57B211A1FBA680042C96C /* SampleHouse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleHouse.json; sourceTree = "<group>"; };
 		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -491,6 +502,7 @@
 		02C8848B19E328FE00DFB4E2 /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
+				F5C57B171A1FB8BF0042C96C /* Model Viewer */,
 				02AAD41719EB2C7F002901DA /* CustomBaseViewControllers */,
 				02C8848719E328EF00DFB4E2 /* INVLoginViewController.h */,
 				02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */,
@@ -553,6 +565,20 @@
 				FCFAB6FC8A404E1594DB60D5 /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5C57B171A1FB8BF0042C96C /* Model Viewer */ = {
+			isa = PBXGroup;
+			children = (
+				F5C57B211A1FBA680042C96C /* SampleHouse.json */,
+				F5C57B181A1FB8E20042C96C /* INVCTMModel.h */,
+				F5C57B191A1FB8E20042C96C /* INVCTMModel.m */,
+				F5C57B1A1A1FB8E20042C96C /* INVJSONCTMManager.h */,
+				F5C57B1B1A1FB8E20042C96C /* INVJSONCTMManager.m */,
+				F5C57B1C1A1FB8E20042C96C /* INVModelViewerViewController.h */,
+				F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */,
+			);
+			path = "Model Viewer";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -656,6 +682,7 @@
 				024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */,
 				0234D62A1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
+				F5C57B221A1FBA680042C96C /* SampleHouse.json in Resources */,
 				024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */,
 				02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
@@ -789,10 +816,13 @@
 				02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
 				0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
 				02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */,
+				F5C57B1E1A1FB8E20042C96C /* INVCTMModel.m in Sources */,
 				0234D62F1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m in Sources */,
+				F5C57B201A1FB8E20042C96C /* INVModelViewerViewController.m in Sources */,
 				02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
 				02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
 				023F2B6D1A0159BE00E4C985 /* INVRulesListViewController.m in Sources */,
+				F5C57B1F1A1FB8E20042C96C /* INVJSONCTMManager.m in Sources */,
 				0246E7311A111730000C487D /* INVFileManageRuleSetsContainerViewController.m in Sources */,
 				0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */,
 				024CDCE719FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */,
