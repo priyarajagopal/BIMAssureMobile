@@ -12,7 +12,10 @@
 
 
 @protocol INVRuleInstanceTableViewCellActionDelegate <NSObject>
+@optional
 -(void)onViewRuleTappedFor:(INVRuleInstanceTableViewCell*)sender;
+-(void)onDeleteRuleTappedFor:(INVRuleInstanceTableViewCell*)sender;
+
 @end
 
 @protocol INVRuleInstanceTableViewCellStateDelegate <NSObject>

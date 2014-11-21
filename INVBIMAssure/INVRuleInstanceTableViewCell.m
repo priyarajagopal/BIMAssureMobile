@@ -7,6 +7,10 @@
 //
 
 #import "INVRuleInstanceTableViewCell.h"
+
+/****
+ Note : With iOS8, we can have action buttons supported natively on tabl;e view cell. The only reason we are doing this the hard way is to allow for the (unlikely) possibility that we may need to deploy < iOS8
+ ***/
 const static NSInteger DEFAULT_BOUNCE_VALUE = 10;
 const static NSInteger DEFAULT_LEADING_SPACE = -8;
 
@@ -14,6 +18,7 @@ const static NSInteger DEFAULT_LEADING_SPACE = -8;
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
 
 @property (weak, nonatomic) IBOutlet UIButton *editRuleButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteRuleButton;
 @property (nonatomic, assign) CGPoint panStartPoint;
 @property (nonatomic, assign) CGFloat startingRightLayoutConstraintConstant;
 
@@ -52,8 +57,15 @@ const static NSInteger DEFAULT_LEADING_SPACE = -8;
 
 #pragma mark - UIEvents
 - (IBAction)onActionButtonTapped:(UIButton *)sender {
-    if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onViewRuleTappedFor:)]) {
-        [self.actionDelegate onViewRuleTappedFor:self];
+    if (sender == self.editRuleButton) {
+        if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onViewRuleTappedFor:)]) {
+            [self.actionDelegate onViewRuleTappedFor:self];
+        }
+    }
+    else if (sender == self.deleteRuleButton) {
+        if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onDeleteRuleTappedFor:)]) {
+            [self.actionDelegate onDeleteRuleTappedFor:self];
+        }
     }
 }
 
@@ -155,7 +167,7 @@ const static NSInteger DEFAULT_LEADING_SPACE = -8;
 
 #pragma mark - helpers
 - (CGFloat)buttonTotalWidth {
-    return CGRectGetWidth(self.frame) - CGRectGetMinX(self.editRuleButton.frame) +(DEFAULT_LEADING_SPACE);
+    return CGRectGetWidth(self.frame) - CGRectGetMinX(self.deleteRuleButton.frame) + (DEFAULT_LEADING_SPACE);
 }
 
 - (void)resetConstraintContstantsToZero:(BOOL)animated notifyDelegateDidClose:(BOOL)notifyDelegate

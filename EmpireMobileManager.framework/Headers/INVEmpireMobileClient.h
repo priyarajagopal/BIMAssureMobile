@@ -245,6 +245,20 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  */
 -(void)removeUser:(NSNumber*)userId fromAccount:(NSNumber*)accountId withCompletionBlock:(CompletionHandler) handler;
 
+#pragma mark - Model Related
+
+/**
+ Asynchornously, fetch the JSON corresponding to the model from the server. The model data is NOT locally cached
+ 
+ @param handler The completion handler that returns error object if there was any error. If error is nil, it returns the JSON model data
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see accountManager
+ 
+ */
+-(void)fetchModelViewForId:(NSNumber*)modelId withCompletionBlock:(CompletionHandlerWithData) handler;
+
 
 #pragma mark - Projects Related
 

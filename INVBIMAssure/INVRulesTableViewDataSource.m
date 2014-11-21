@@ -75,6 +75,7 @@
     return cell;
 }
 
+
 #pragma INVRuleInstanceTableViewCellStateDelegate
 
 - (void)cellDidOpen:(UITableViewCell *)cell {

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6246"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
+            <string>FontAwesome</string>
             <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
@@ -18,6 +19,21 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kKo-Pw-45C" id="F2N-zD-R1X">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvc-sC-Fnu">
+                        <rect key="frame" x="202" y="0.0" width="59" height="83"/>
+                        <color key="backgroundColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="59" id="n0a-hS-rHF"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                        <state key="normal" title="">
+                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onActionButtonTapped:" destination="kKo-Pw-45C" eventType="touchUpInside" id="Gct-QU-vcS"/>
+                        </connections>
+                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0B-lg-bzL">
                         <rect key="frame" x="261" y="0.0" width="59" height="83"/>
                         <color key="backgroundColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -65,15 +81,19 @@
                     <constraint firstItem="7QC-q5-nOn" firstAttribute="leading" secondItem="F2N-zD-R1X" secondAttribute="leadingMargin" constant="-8" id="EB9-NA-kid"/>
                     <constraint firstItem="7QC-q5-nOn" firstAttribute="top" secondItem="F2N-zD-R1X" secondAttribute="topMargin" constant="-8" id="Kro-hX-cM5"/>
                     <constraint firstAttribute="trailingMargin" secondItem="7QC-q5-nOn" secondAttribute="trailing" constant="-8" id="MEn-4A-McC"/>
+                    <constraint firstItem="R0B-lg-bzL" firstAttribute="leading" secondItem="lvc-sC-Fnu" secondAttribute="trailing" id="MqJ-CC-wc6"/>
                     <constraint firstAttribute="trailingMargin" secondItem="R0B-lg-bzL" secondAttribute="trailing" constant="-8" id="SFM-d5-3iS"/>
                     <constraint firstAttribute="bottomMargin" secondItem="7QC-q5-nOn" secondAttribute="bottom" constant="-8" id="X8w-Oo-bAx"/>
                     <constraint firstItem="R0B-lg-bzL" firstAttribute="top" secondItem="F2N-zD-R1X" secondAttribute="top" id="d0Z-WC-eHQ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="lvc-sC-Fnu" secondAttribute="bottom" constant="-7.5" id="dck-RB-wJ3"/>
                     <constraint firstAttribute="bottom" secondItem="R0B-lg-bzL" secondAttribute="bottom" constant="1" id="kL9-Xj-W7Q"/>
+                    <constraint firstItem="lvc-sC-Fnu" firstAttribute="top" secondItem="F2N-zD-R1X" secondAttribute="topMargin" constant="-8" id="rBc-jS-DTi"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="contentViewLeftConstraint" destination="EB9-NA-kid" id="adX-1B-KF2"/>
                 <outlet property="contentViewRightConstraint" destination="MEn-4A-McC" id="qFh-PQ-NS8"/>
+                <outlet property="deleteRuleButton" destination="lvc-sC-Fnu" id="pJn-nv-a4D"/>
                 <outlet property="editRuleButton" destination="R0B-lg-bzL" id="kJm-lA-5Tw"/>
                 <outlet property="name" destination="uef-n8-Dcl" id="nnW-2Z-bDE"/>
                 <outlet property="overview" destination="6Ad-3Y-ezM" id="lQh-E5-xxb"/>

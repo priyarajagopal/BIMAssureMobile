@@ -25,7 +25,7 @@ typedef NSMutableArray* INVRuleSetMutableArray;
 @property (copy, nonatomic, readonly) NSNumber* emptyParamCount;
 @property (copy, nonatomic, readonly) NSNumber* ruleSetId;
 @property (copy, nonatomic, readonly) NSNumber* projectId;
-@property (copy, nonatomic, readonly) NSArray* ruleInstances;
+@property (copy, nonatomic, readwrite) NSArray* ruleInstances;
 
 
 @end

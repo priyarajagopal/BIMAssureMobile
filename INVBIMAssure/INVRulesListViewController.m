@@ -23,6 +23,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic,strong) NSMutableSet *cellsCurrentlyEditing;
 @property (nonatomic,assign) NSNumber* selectedRuleInstanceId;
 @property (nonatomic,assign) NSNumber* selectedRuleSetId;
+@property (nonatomic,strong)UIAlertController* deletePromptAlertController;
+@property (nonatomic,strong)INVRuleInstanceTableViewCell* selectedRowInstanceCell;
 @end
 
 @implementation INVRulesListViewController
@@ -39,10 +41,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
     UINib* nib = [UINib nibWithNibName:@"INVRuleInstanceTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleInstanceCell"];
-/*
-    UINib* headerNib = [UINib nibWithNibName:@"INVRuleSetTableViewHeaderView" bundle:[NSBundle bundleForClass:[self class]]];
-    [self.tableView registerNib:headerNib forHeaderFooterViewReuseIdentifier:@"RuleSetHeaderView"];
- */
     
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.cellsCurrentlyEditing = [[NSMutableSet alloc]initWithCapacity:0];
@@ -96,7 +94,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
+                [self displayRules];
                 [self.tableView reloadData];
             }
             else {
@@ -110,13 +108,72 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }];
 }
 
+-(void)deleteSelectedRuleInstance {
+    [self.globalDataManager.invServerClient deleteRuleInstanceForId:self.selectedRuleInstanceId WithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.hud hide:YES];
+        if (!error) {
+            NSError* dbError;
+            [self.dataResultsController performFetch:&dbError];
+            if (!dbError) {
+                [self displayRules];
+                [self removeSelectedRowFromTableView];
+
+               }
+            else {
+#warning - display error
+            }
+
+        }
+        else {
+#warning - display error
+
+        }
+    }];
+    
+}
 
 #pragma mark - INVRuleInstanceTableViewActionDelegate
--(void)onViewRuleTappedFor:(id)sender {
+-(void)onViewRuleTappedFor:(INVRuleInstanceTableViewCell*)sender {
     INVRuleInstanceTableViewCell* ruleInstanceCell = (INVRuleInstanceTableViewCell*)sender;
     self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
     self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
+    self.selectedRowInstanceCell = ruleInstanceCell;
     [self performSegueWithIdentifier:@"RuleInstanceViewSegue" sender:self];
+}
+
+-(void)onDeleteRuleTappedFor:(INVRuleInstanceTableViewCell*)sender {
+    INVRuleInstanceTableViewCell* ruleInstanceCell = (INVRuleInstanceTableViewCell*)sender;
+    self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
+    self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
+    self.selectedRowInstanceCell = ruleInstanceCell;
+     [self showDeletePromptAlert];
+    
+}
+
+-(void)showDeletePromptAlert {
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self.deletePromptAlertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction* proceedAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DELETE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self deleteSelectedRuleInstance];
+    }];
+  
+    self.deletePromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:NSLocalizedString(@"DELETE_THE_SELECTED_RULE", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [self.deletePromptAlertController addAction:cancelAction];
+    [self.deletePromptAlertController addAction:proceedAction];
+    [[UIView appearanceWhenContainedIn:[UIAlertController class], nil]setTintColor:[UIColor grayColor]];
+    
+    [self presentViewController:self.deletePromptAlertController animated:YES completion:^{
+        
+    }];
+}
+
+
+
+-(void)removeSelectedRowFromTableView {
+    NSIndexPath *indexPathOfCellToDelete = [self.tableView indexPathForCell:self.selectedRowInstanceCell];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPathOfCellToDelete] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -190,6 +247,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 
+
 #pragma mark - accessor
 
 -(NSFetchedResultsController*) dataResultsController {
@@ -200,6 +258,14 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     return  _dataResultsController;
 }
 
-
+#pragma mark - helpers
+-(void)displayRules {
+    [self.dataResultsController.fetchedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVRuleSet* ruleSet = obj;
+        [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSLog(@"Rule Instance for ruleset $%@ is %@\n",ruleSet.ruleSetId, obj);
+        }];
+    }];
+}
 
 @end
