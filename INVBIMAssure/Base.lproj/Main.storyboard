@@ -466,13 +466,10 @@
                                                 <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="onHomeSelected:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="1iQ-rA-slE"/>
+                                                <action selector="onToggleSidebar:" destination="Eb5-Mc-1Dg" eventType="touchUpInside" id="Lch-pQ-NQV"/>
                                             </connections>
                                         </button>
                                         <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="onToggleSidebar:" destination="Eb5-Mc-1Dg" id="uOZ-5E-XsP"/>
-                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="xrd-25-aGi" userLabel="home">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9VO-c1-apa">
