@@ -91,6 +91,13 @@ CTMuint _ctmReadData(void *aBuf, CTMuint aCount, void *aUserData) {
     [self setupGL];
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    _manager = nil;
+    _models = nil;
+}
+
 - (void)dealloc
 {    
     [self tearDownGL];

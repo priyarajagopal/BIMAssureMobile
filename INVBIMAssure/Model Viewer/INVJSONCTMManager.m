@@ -130,7 +130,7 @@ static inline GLKMatrix4 parseMatrix(NSArray *asArray) {
 }
 
 -(NSArray *) allModels {
-    return [[NSArray alloc] initWithArray:_finalizedModels copyItems:YES];
+    return [[NSArray alloc] initWithArray:_finalizedModels copyItems:NO];
 }
 
 @end

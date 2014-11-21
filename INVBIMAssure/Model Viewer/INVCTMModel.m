@@ -339,6 +339,9 @@ CTMuint ctmReadNSData(void *buf, CTMuint size, void *userData) {
 -(void) dealloc {
     glDeleteBuffers(1, &_vertexBuffer);
     glDeleteVertexArraysOES(1, &_vertexArray);
+    
+    free(_vertexData);
+    free(_indices);
 }
 
 -(INVCTMModel *) modelByTransforming:(GLKMatrix4)matrix {
