@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -661,6 +661,7 @@
                     <connections>
                         <segue destination="bMr-2d-loW" kind="presentation" identifier="RuleInstanceViewSegue" modalPresentationStyle="formSheet" id="sbE-gY-HNq"/>
                         <segue destination="aJs-hd-mPF" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="ehJ-J0-zTl"/>
+                        <segue destination="kxO-2n-hfE" kind="presentation" identifier="AddRuleInstanceSegue" modalPresentationStyle="pageSheet" id="arp-dp-RX5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N0R-Q7-Jjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -847,6 +848,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbj-Bl-u1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5638" y="3212.5"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="FlC-HR-iwD">
+            <objects>
+                <tableViewController id="kxO-2n-hfE" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zKT-hr-cgA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="fjy-hQ-7qQ">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Add New Rule Insance" id="QGg-7O-O2Q">
+                                    <barButtonItem key="leftBarButtonItem" style="plain" id="dJQ-hk-E5s">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t2i-7K-DXY">
+                                            <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Cancel">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem key="rightBarButtonItem" style="plain" id="Mf7-8s-cJU">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5SW-oq-8gX">
+                                            <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Save">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3ry-vG-93w">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3ry-vG-93w" id="Vfj-l8-abo">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="kxO-2n-hfE" id="imc-Sh-OrD"/>
+                            <outlet property="delegate" destination="kxO-2n-hfE" id="ho7-R8-Esh"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="egI-y6-H8K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5593" y="3850"/>
         </scene>
         <!--Rule Instance View Table View Controller-->
         <scene sceneID="yvr-a1-cAI">
@@ -1676,10 +1729,10 @@
             </objects>
             <point key="canvasLocation" x="3195" y="4184"/>
         </scene>
-        <!--Files In Rule Set Table View Controllers-->
+        <!--RuleSets In File Table View COntroller-->
         <scene sceneID="ta9-uD-cWd">
             <objects>
-                <tableViewController id="s6J-DN-KII" userLabel="Files In Rule Set Table View Controllers" customClass="INVFileRuleSetListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="s6J-DN-KII" userLabel="RuleSets In File Table View COntroller" customClass="INVFileRuleSetListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="AtP-lw-e3M">
                         <rect key="frame" x="0.0" y="0.0" width="598" height="265"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1724,10 +1777,10 @@
             </objects>
             <point key="canvasLocation" x="2831" y="5040.5"/>
         </scene>
-        <!--Files In Rule Set Table View Controllers-->
+        <!--RuleSets In File Table ViewController-->
         <scene sceneID="Ddf-QO-YaU">
             <objects>
-                <tableViewController id="dcw-au-Pnm" userLabel="Files In Rule Set Table View Controllers" customClass="INVFileRuleSetListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="dcw-au-Pnm" userLabel="RuleSets In File Table ViewController" customClass="INVFileRuleSetListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="0Yq-Jd-D7f">
                         <rect key="frame" x="0.0" y="0.0" width="598" height="275"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
