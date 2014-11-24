@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -426,7 +426,7 @@
                     <navigationItem key="navigationItem" id="hAr-uZ-Qs3"/>
                     <connections>
                         <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
-                        <segue destination="GL2-uL-zZe" kind="show" identifier="FileViewerSegue" id="5XK-ZU-oiT"/>
+                        <segue destination="Eb5-Mc-1Dg" kind="show" identifier="FileViewerSegue" id="0Qy-9h-2Xh"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -598,26 +598,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dfZ-Xy-sXT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3763" y="4433"/>
-        </scene>
-        <!--GLKit View Controller-->
-        <scene sceneID="Jzl-hh-E8g">
-            <objects>
-                <glkViewController preferredFramesPerSecond="30" id="GL2-uL-zZe" customClass="INVModelViewerViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7mG-8a-Gz8"/>
-                        <viewControllerLayoutGuide type="bottom" id="8D9-Ct-9VY"/>
-                    </layoutGuides>
-                    <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" id="4ov-Ct-Enc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <connections>
-                            <outlet property="delegate" destination="GL2-uL-zZe" id="BOa-nm-Fo9"/>
-                        </connections>
-                    </glkView>
-                </glkViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="igs-h5-g41" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4397" y="4220"/>
         </scene>
         <!--Files-->
         <scene sceneID="y7V-3v-ILL">
