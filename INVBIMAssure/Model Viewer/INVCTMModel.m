@@ -26,19 +26,6 @@ void main() {\n\
 }\n\
 ";
 
-static int cameraMatrixUniformLocation;
-static int modelMatrixUniformLocation;
-
-static GLuint shaderProgram() {
-    static GLuint program;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-    });
-    
-    
-    return program;
-}
-
 @import OpenCTM;
 
 @implementation INVCTMModel {

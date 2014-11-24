@@ -73,8 +73,9 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
         
         cell.createdOnLabel.attributedText = attrString;
         
+        // TODO: Make the thumbnail load from another data source.
         NSUInteger random = self.dataResultsController.fetchedObjects.count;
-        NSInteger index = arc4random_uniform(random);
+        NSInteger index = (NSInteger) arc4random_uniform(random);
         NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
         cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
         
