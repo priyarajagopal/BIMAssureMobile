@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (nonatomic,assign) NSNumber* ruleInstanceId;
 @property (nonatomic,assign) NSNumber* ruleSetId;
+@property (nonatomic,assign) NSNumber* ruleId;
 @end

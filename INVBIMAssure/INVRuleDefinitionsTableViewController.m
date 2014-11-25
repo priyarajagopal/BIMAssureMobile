@@ -7,6 +7,7 @@
 //
 
 #import "INVRuleDefinitionsTableViewController.h"
+#import "INVRuleInstanceTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
@@ -15,6 +16,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* selectedRuleId;
+@property (nonatomic,strong)NSNumber* selectedRuleSetId;
 @end
 
 @implementation INVRuleDefinitionsTableViewController
@@ -63,9 +65,14 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         cell.detailTextLabel.text = rule.overview;
 
       };
-    
+#warning Use custom table view cell
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleDefinitionCell" configureBlock:cellConfigurationBlock];
     self.tableView.dataSource = self.dataSource;
+}
+
+#pragma mark - UIEvent handler
+-(IBAction)done:(UIStoryboardSegue*)segue {
+    
 }
 
 #pragma mark - server side
@@ -92,19 +99,25 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    
+    INVRule* rule = [self.dataResultsController objectAtIndexPath:indexPath];
+    self.selectedRuleId = rule.ruleId;
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"CreateRuleInstanceSegue"]) {
+        INVRuleInstanceTableViewController* ruleInstanceTVC = (INVRuleInstanceTableViewController*)segue.destinationViewController;
+        ruleInstanceTVC.ruleId = self.selectedRuleId;
+        ruleInstanceTVC.ruleSetId = self.selectedRuleSetId;
+        
+    }
 }
-*/
+
 
 
 #pragma mark - accessor
