@@ -41,8 +41,8 @@
 
 @interface VENTokenField : UIView
 
-@property (weak, nonatomic) id<VENTokenFieldDelegate> delegate;
-@property (weak, nonatomic) id<VENTokenFieldDataSource> dataSource;
+@property (weak, nonatomic) IBOutlet id<VENTokenFieldDelegate> delegate;
+@property (weak, nonatomic) IBOutlet id<VENTokenFieldDataSource> dataSource;
 
 - (void)reloadData;
 - (void)collapse;

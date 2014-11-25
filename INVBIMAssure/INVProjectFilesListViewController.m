@@ -144,9 +144,12 @@ const NSInteger SEARCH_BAR_HEIGHT = 50;
 -(INVSearchView*)searchView {
     if (!_searchView) {
         CGRect viewFrame = self.collectionView.frame;
-        _searchView = [[INVSearchView alloc]initWithFrame:CGRectMake(CGRectGetMinX(viewFrame), CGRectGetMinY(viewFrame), CGRectGetWidth(viewFrame) -CGRectGetMinX(viewFrame), SEARCH_BAR_HEIGHT)];
-        [_searchView setTintColor:[UIColor darkGrayColor]];
+        _searchView = [[[NSBundle mainBundle] loadNibNamed:@"INVSearchView" owner:self options:nil] firstObject];
+        
+        // TODO: Put this in the interface and use constraints instead of a hard-coded frame.
+        _searchView.frame = CGRectMake(CGRectGetMinX(viewFrame), CGRectGetMinY(viewFrame), CGRectGetWidth(viewFrame) - CGRectGetMinX(viewFrame), SEARCH_BAR_HEIGHT);
     }
+    
     return _searchView;
 }
 #pragma mark - INVProjectFileCollectionViewCellDelegate

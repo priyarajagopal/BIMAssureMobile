@@ -144,6 +144,7 @@
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		F5807F511A24EBF100ABB8FF /* INVSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5807F501A24EBF100ABB8FF /* INVSearchView.m */; };
+		F5E8282D1A2537780062BFA2 /* INVSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E8282C1A2537780062BFA2 /* INVSearchView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,6 +303,7 @@
 		5B1FA26B11C94004823AA115 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F5807F4F1A24EBF100ABB8FF /* INVSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchView.h; sourceTree = "<group>"; };
 		F5807F501A24EBF100ABB8FF /* INVSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchView.m; sourceTree = "<group>"; };
+		F5E8282C1A2537780062BFA2 /* INVSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVSearchView.xib; sourceTree = "<group>"; };
 		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -343,6 +345,7 @@
 			children = (
 				F5807F4F1A24EBF100ABB8FF /* INVSearchView.h */,
 				F5807F501A24EBF100ABB8FF /* INVSearchView.m */,
+				F5E8282C1A2537780062BFA2 /* INVSearchView.xib */,
 				0223351819F6A82900224E0C /* INVLoginScrollView.h */,
 				0223351919F6A82900224E0C /* INVLoginScrollView.m */,
 				0240900719E45B4E00B218ED /* INVAccountViewCell.h */,
@@ -660,6 +663,7 @@
 			files = (
 				02AAD40F19E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */,
 				02B43A0A19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
+				F5E8282D1A2537780062BFA2 /* INVSearchView.xib in Resources */,
 				02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
 				0234D6311A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.xib in Resources */,
 				021E85B519F81C61003E35E0 /* Main.storyboard in Resources */,
