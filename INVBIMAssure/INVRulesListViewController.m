@@ -12,6 +12,7 @@
 #import "INVRuleInstanceTableViewController.h"
 #import "INVRuleSetTableViewHeaderView.h"
 #import "INVRuleSetManageFilesContainerViewController.h"
+#import "INVRuleDefinitionsTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
@@ -245,6 +246,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         rulesetFilesTVC.projectId = self.projectId;
     }
     if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
+        INVRuleDefinitionsTableViewController* ruleDefnTVC = segue.destinationViewController;
+        ruleDefnTVC.ruleSetId = self.selectedRuleSetId;
     }
     
 }

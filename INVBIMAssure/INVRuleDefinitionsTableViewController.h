@@ -10,5 +10,5 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVRuleDefinitionsTableViewController : INVCustomTableViewController
-
+@property (nonatomic,copy) NSNumber* ruleSetId;
 @end

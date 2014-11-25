@@ -912,9 +912,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="lRd-Z9-i0y" kind="presentation" identifier="CreateRuleInstanceSegue" modalPresentationStyle="overCurrentContext" id="Q66-cB-zXV"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -922,6 +919,9 @@
                             <outlet property="delegate" destination="kxO-2n-hfE" id="ho7-R8-Esh"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="lRd-Z9-i0y" kind="presentation" identifier="CreateRuleInstanceSegue" modalPresentationStyle="overCurrentContext" id="DfC-g3-bfZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egI-y6-H8K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1852,10 +1852,10 @@
             </objects>
             <point key="canvasLocation" x="3507" y="5045.5"/>
         </scene>
-        <!--Rule Instance View Table View Controller-->
+        <!--Create Rule Instance TVC-->
         <scene sceneID="4ue-Rv-cvy">
             <objects>
-                <tableViewController storyboardIdentifier="RuleInstanceDetailTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lRd-Z9-i0y" userLabel="Rule Instance View Table View Controller" customClass="INVRuleInstanceTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RuleInstanceDetailTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lRd-Z9-i0y" userLabel="Create Rule Instance TVC" customClass="INVRuleInstanceTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NPo-os-Gpw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
