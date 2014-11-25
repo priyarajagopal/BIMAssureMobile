@@ -43,6 +43,7 @@
     [_selectedTags removeAllObjects];
     if ([_dataSource respondsToSelector:@selector(numberOfTagsInSearchView:)]) {
         NSUInteger count = [_dataSource numberOfTagsInSearchView:self];
+        _tagsButton.enabled = (count > 0);
         
         for (NSUInteger index = 0; index < count; index++) {
             NSString *tag = nil;
@@ -60,6 +61,8 @@
                 [_selectedTags addObject:tag];
             }
         }
+    } else {
+        _tagsButton.enabled = NO;
     }
     
     [_inputField reloadData];
