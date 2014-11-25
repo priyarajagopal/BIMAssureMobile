@@ -47,6 +47,9 @@
 /** Called when a tag is removed by the user */
 -(void) searchView:(INVSearchView *) searchView onTagDeleted:(NSString *) tag;
 
+/** Called when a tag set is saved by the user */
+-(void) searchView:(INVSearchView *) searchView onTagsSaved:(NSOrderedSet *) tags withName:(NSString *) name;
+
 @end
 
 /**

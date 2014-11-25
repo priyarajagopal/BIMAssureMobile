@@ -10,18 +10,8 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-8u-343">
-                    <rect key="frame" x="560" y="8" width="32" height="30"/>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Tags">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="_showTagsDropdown:" destination="iN0-l3-epB" eventType="touchUpInside" id="clA-Fb-HLF"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVy-fa-3jU" customClass="VENTokenField">
-                    <rect key="frame" x="0.0" y="0.0" width="552" height="45"/>
+                    <rect key="frame" x="0.0" y="0.0" width="488" height="45"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -32,13 +22,36 @@
                         <outlet property="delegate" destination="iN0-l3-epB" id="tkm-Hk-q3W"/>
                     </connections>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-8u-343">
+                    <rect key="frame" x="496" y="8" width="32" height="30"/>
+                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Tags">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="_showTagsDropdown:" destination="iN0-l3-epB" eventType="touchUpInside" id="clA-Fb-HLF"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxY-PG-luq">
+                    <rect key="frame" x="536" y="8" width="56" height="30"/>
+                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Save As">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="_showSaveDialog:" destination="iN0-l3-epB" eventType="touchUpInside" id="UKa-HB-civ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="RWz-8u-343" secondAttribute="trailing" constant="8" id="22b-Lz-uXf"/>
+                <constraint firstAttribute="trailing" secondItem="jxY-PG-luq" secondAttribute="trailing" constant="8" id="4ev-xd-LbV"/>
                 <constraint firstItem="EVy-fa-3jU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Fm4-dz-ZrZ"/>
+                <constraint firstItem="jxY-PG-luq" firstAttribute="leading" secondItem="RWz-8u-343" secondAttribute="trailing" constant="8" id="M4j-xF-xVG"/>
                 <constraint firstAttribute="centerY" secondItem="EVy-fa-3jU" secondAttribute="centerY" id="Nhr-5k-f8e"/>
                 <constraint firstItem="RWz-8u-343" firstAttribute="leading" secondItem="EVy-fa-3jU" secondAttribute="trailing" constant="8" id="OoY-1B-ZxV"/>
+                <constraint firstAttribute="centerY" secondItem="jxY-PG-luq" secondAttribute="centerY" id="T6f-AC-BDj"/>
                 <constraint firstAttribute="centerY" secondItem="RWz-8u-343" secondAttribute="centerY" id="zeT-p9-zdd"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -47,6 +60,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="inputField" destination="EVy-fa-3jU" id="kl9-KJ-XCD"/>
+                <outlet property="saveButton" destination="jxY-PG-luq" id="2ev-rh-43a"/>
                 <outlet property="tagsButton" destination="RWz-8u-343" id="d6l-0U-BRH"/>
             </connections>
             <point key="canvasLocation" x="400" y="332.5"/>

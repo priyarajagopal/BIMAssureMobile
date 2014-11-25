@@ -9,12 +9,14 @@
 #import "INVSearchView.h"
 #import <VENTokenField/VENTokenField.h>
 
-@interface INVSearchView()<UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate, VENTokenFieldDataSource, VENTokenFieldDelegate>
+@interface INVSearchView()<UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate, VENTokenFieldDataSource, VENTokenFieldDelegate, UIAlertViewDelegate>
 
 @property IBOutlet VENTokenField *inputField;
 @property IBOutlet UIButton *tagsButton;
+@property IBOutlet UIButton *saveButton;
 
 -(IBAction) _showTagsDropdown:(id) sender;
+-(IBAction) _showSaveDialog:(id)sender;
 
 -(void) _onTagToggled:(NSString *) tag;
 -(void) _onTagAdded:(NSString *) tag;
@@ -25,6 +27,7 @@
 @implementation INVSearchView {
     NSMutableOrderedSet *_selectedTags;
     
+    UIAlertView *_saveDialog;
     UITableViewController *_tagsController;
     UIPopoverController *_popoverController;
 }
@@ -64,8 +67,11 @@
                 [_selectedTags addObject:tag];
             }
         }
+        
+        _saveButton.enabled = (_selectedTags.count > 0);
     } else {
         _tagsButton.enabled = NO;
+        _saveButton.enabled = NO;
     }
     
     [_inputField reloadData];
@@ -98,6 +104,18 @@
 -(void) popoverController:(UIPopoverController *)popoverController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView *__autoreleasing *)view {
     if (*view == self) {
         *rect = _tagsButton.frame;
+    }
+}
+
+#pragma mark - UIAlertViewDelegate methods
+
+-(void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == alertView.cancelButtonIndex) return;
+    
+    NSString *groupName = [alertView textFieldAtIndex:0].text;
+    if ([_delegate respondsToSelector:@selector(searchView:onTagsSaved:withName:)]) {
+        [_delegate searchView:self onTagsSaved:[self selectedTags] withName:groupName];
+        [self reloadData];
     }
 }
 
@@ -194,6 +212,20 @@
                                         inView:self
                       permittedArrowDirections:UIPopoverArrowDirectionAny
                                       animated:YES];
+}
+
+-(void) _showSaveDialog:(id)sender {
+    if (_saveDialog == nil) {
+        _saveDialog = [[UIAlertView alloc] initWithTitle:@"Save As"
+                                                 message:@"Choose a name for this tag set:"
+                                                delegate:self
+                                       cancelButtonTitle:@"Cancel"
+                                       otherButtonTitles:@"Ok", nil];
+        
+        _saveDialog.alertViewStyle = UIAlertViewStylePlainTextInput;
+    }
+    
+    [_saveDialog show];
 }
 
 -(void) _onTagToggled:(NSString *) tag {
