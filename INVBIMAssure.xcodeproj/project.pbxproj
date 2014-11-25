@@ -142,6 +142,7 @@
 		02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
+		F5807F511A24EBF100ABB8FF /* INVSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5807F501A24EBF100ABB8FF /* INVSearchView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -297,6 +298,8 @@
 		078D0047CBB70F687773A696 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		276EE51184116471BA61F1FC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		5B1FA26B11C94004823AA115 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		F5807F4F1A24EBF100ABB8FF /* INVSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchView.h; sourceTree = "<group>"; };
+		F5807F501A24EBF100ABB8FF /* INVSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchView.m; sourceTree = "<group>"; };
 		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -335,6 +338,8 @@
 		0240900519E45A9400B218ED /* views */ = {
 			isa = PBXGroup;
 			children = (
+				F5807F4F1A24EBF100ABB8FF /* INVSearchView.h */,
+				F5807F501A24EBF100ABB8FF /* INVSearchView.m */,
 				0223351819F6A82900224E0C /* INVLoginScrollView.h */,
 				0223351919F6A82900224E0C /* INVLoginScrollView.m */,
 				0240900719E45B4E00B218ED /* INVAccountViewCell.h */,
@@ -789,6 +794,7 @@
 				02AAD41A19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */,
 				023F2B721A015B0500E4C985 /* INVRuleInstanceTableViewCell.m in Sources */,
 				02457E2519ED88AC00E714BA /* INVMainViewController.m in Sources */,
+				F5807F511A24EBF100ABB8FF /* INVSearchView.m in Sources */,
 				02FC608D1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */,
 				023F2B7D1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */,
 				023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
