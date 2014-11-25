@@ -113,8 +113,11 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     __block INVCellContentDictionary cellContext;
-    NSArray* cellContextsForSection = self.cellConfigDictionary[@(indexPath.section)];
     
+    NSArray* cellContextsForSection = self.cellConfigDictionary[@(indexPath.section)];
+    if (!cellContextsForSection) {
+        cellContextsForSection = self.cellConfigDictionary[@(DEFAULT_SECTION_INDEX)];
+    }
     if (cellContextsForSection.count == 1)
     {
         cellContext = cellContextsForSection[0];

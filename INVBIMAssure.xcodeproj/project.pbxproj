@@ -88,6 +88,8 @@
 		0278206F1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
 		027A5E651A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 027A5E641A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.m */; };
 		027A5E661A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 027A5E641A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.m */; };
+		02A07F771A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
+		02A07F781A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */; };
@@ -236,6 +238,8 @@
 		0278206B1A1A98EF00BDAA5E /* Visualize.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Visualize.html; sourceTree = "<group>"; };
 		027A5E631A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleSetFilesTableViewDataSource.h; sourceTree = "<group>"; };
 		027A5E641A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleSetFilesTableViewDataSource.m; sourceTree = "<group>"; };
+		02A07F751A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionsTableViewController.h; sourceTree = "<group>"; };
+		02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionsTableViewController.m; sourceTree = "<group>"; };
 		02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSplitViewController.h; sourceTree = "<group>"; };
 		02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSplitViewController.m; sourceTree = "<group>"; };
 		02AAD3EB19E6FE80002901DA /* INVProjectListSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectListSplitViewController.h; sourceTree = "<group>"; };
@@ -506,6 +510,8 @@
 				023F2B6C1A0159BE00E4C985 /* INVRulesListViewController.m */,
 				023F2B7F1A03B9D400E4C985 /* INVRuleInstanceTableViewController.h */,
 				023F2B801A03B9D400E4C985 /* INVRuleInstanceTableViewController.m */,
+				02A07F751A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.h */,
+				02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */,
 				0224B8C519F048F20083EA6E /* INVSimpleUserInfoTableViewController.h */,
 				0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */,
 				0223355319F7F24D00224E0C /* INVUserManagementTableViewController.h */,
@@ -760,6 +766,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02AAD3FC19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
+				02A07F771A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */,
 				024CDCDA19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */,
 				0246E7351A11179E000C487D /* INVFileRuleSetListTableViewController.m in Sources */,
 				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
@@ -856,6 +863,7 @@
 				024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
 				0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */,
 				023F2B731A015B0500E4C985 /* INVRuleInstanceTableViewCell.m in Sources */,
+				02A07F781A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */,
 				024CDCE819FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

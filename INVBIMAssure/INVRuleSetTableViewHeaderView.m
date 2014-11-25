@@ -22,7 +22,7 @@
 */
 
 - (IBAction)onAddRuleInstanceForRuleSet:(UIButton *)sender {
-    if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onAddRuleInstanceForRuleSet:)]) {
+    if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onAddRuleInstanceTapped:)]) {
         [self.actionDelegate onAddRuleInstanceTapped:self];
     }
 }

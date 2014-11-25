@@ -661,7 +661,7 @@
                     <connections>
                         <segue destination="bMr-2d-loW" kind="presentation" identifier="RuleInstanceViewSegue" modalPresentationStyle="formSheet" id="sbE-gY-HNq"/>
                         <segue destination="aJs-hd-mPF" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="ehJ-J0-zTl"/>
-                        <segue destination="kxO-2n-hfE" kind="presentation" identifier="AddRuleInstanceSegue" modalPresentationStyle="pageSheet" id="arp-dp-RX5"/>
+                        <segue destination="kxO-2n-hfE" kind="presentation" identifier="AddRuleInstanceSegue" modalPresentationStyle="formSheet" id="JdQ-Dh-jlO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N0R-Q7-Jjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -847,28 +847,31 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbj-Bl-u1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5638" y="3212.5"/>
+            <point key="canvasLocation" x="5948" y="3215.5"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Rule Definitions Table View Controller-->
         <scene sceneID="FlC-HR-iwD">
             <objects>
-                <tableViewController id="kxO-2n-hfE" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zKT-hr-cgA">
+                <tableViewController id="kxO-2n-hfE" customClass="INVRuleDefinitionsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="zKT-hr-cgA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="fjy-hQ-7qQ">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Add New Rule Insance" id="QGg-7O-O2Q">
-                                    <barButtonItem key="leftBarButtonItem" style="plain" id="dJQ-hk-E5s">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t2i-7K-DXY">
+                                    <barButtonItem key="leftBarButtonItem" style="plain" id="nSE-Lp-4ws" userLabel="Cancel">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="luN-PG-YXb">
                                             <rect key="frame" x="-23" y="-15" width="133" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Cancel">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <segue destination="Yqn-p2-pNA" kind="unwind" unwindAction="done:" id="sA0-Ye-aFP"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" style="plain" id="Mf7-8s-cJU">
@@ -884,10 +887,24 @@
                             </items>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3ry-vG-93w">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleDefinitionCell" textLabel="VeE-SB-R2N" detailTextLabel="ovP-Xp-25j" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="3ry-vG-93w">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3ry-vG-93w" id="Vfj-l8-abo">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VeE-SB-R2N">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ovP-Xp-25j">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -899,7 +916,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egI-y6-H8K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5593" y="3850"/>
+            <point key="canvasLocation" x="5643" y="3783"/>
         </scene>
         <!--Rule Instance View Table View Controller-->
         <scene sceneID="yvr-a1-cAI">
@@ -916,7 +933,7 @@
                                 <navigationItem title="Rule" id="cGy-sX-dyc">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="Dyi-hg-8js">
                                         <connections>
-                                            <segue destination="Yqn-p2-pNA" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="Xvd-iI-LlD"/>
+                                            <segue destination="Yqn-p2-pNA" kind="unwind" unwindAction="done:" id="T75-Si-xFE"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -1822,6 +1839,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFL-hn-JA2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Cancel" id="B7e-i1-Ngs"/>
             </objects>
             <point key="canvasLocation" x="3507" y="5045.5"/>
         </scene>

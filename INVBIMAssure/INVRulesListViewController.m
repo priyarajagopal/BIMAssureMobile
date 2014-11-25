@@ -46,7 +46,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.cellsCurrentlyEditing = [[NSMutableSet alloc]initWithCapacity:0];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.dataSource = self.dataSource;
+
     self.tableView.allowsSelectionDuringEditing = NO;
 }
 
@@ -94,7 +94,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                [self displayRules];
+                [self logRulesToConsole];
                 [self.tableView reloadData];
             }
             else {
@@ -115,7 +115,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                [self displayRules];
+                [self logRulesToConsole];
                 [self removeSelectedRowFromTableView];
 
                }
@@ -207,10 +207,17 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 #pragma mark - INVRuleSetTableViewHeaderViewAcionDelegate
--(void)onManageFilesTapped:(id)sender {
+-(void)onManageFilesTapped:(INVRuleSetTableViewHeaderView*)sender {
     INVRuleSetTableViewHeaderView* headerView  =  (INVRuleSetTableViewHeaderView*)sender;
     self.selectedRuleSetId = headerView.ruleSetId;
     [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
+}
+
+-(void)onAddRuleInstanceTapped:(INVRuleSetTableViewHeaderView*)sender {
+    INVRuleSetTableViewHeaderView* headerView  =  (INVRuleSetTableViewHeaderView*)sender;
+    self.selectedRuleSetId = headerView.ruleSetId;
+    [self performSegueWithIdentifier:@"AddRuleInstanceSegue" sender:self];
+
 }
 
 
@@ -237,6 +244,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         rulesetFilesTVC.ruleSetId = self.selectedRuleSetId;
         rulesetFilesTVC.projectId = self.projectId;
     }
+    if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
+    }
     
 }
 
@@ -259,7 +268,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 #pragma mark - helpers
--(void)displayRules {
+-(void)logRulesToConsole {
     [self.dataResultsController.fetchedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleSet* ruleSet = obj;
         [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
