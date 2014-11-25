@@ -10,4 +10,5 @@
 
 @interface INVProjectFilesListViewController : INVCustomCollectionViewController
 @property (nonatomic,strong)NSNumber* projectId;
+- (IBAction)onFilterTapped:(UIButton *)sender;
 @end

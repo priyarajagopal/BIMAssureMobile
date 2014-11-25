@@ -74,12 +74,28 @@
 }
 
 #pragma mark - View Lifecycle
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self initializeView];
+    }
+    return self;
+}
+
+
 
 -(void) awakeFromNib {
+    [self initializeView];
+}
+
+-(void)initializeView {
     _selectedTags = [NSMutableOrderedSet new];
     
     _inputField = [[VENTokenField alloc] init];
     _tagsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_tagsButton setTintColor:[UIColor darkGrayColor]];
+    [_inputField setTintColor:[UIColor darkGrayColor]];
     
     // TODO: Localize
     _inputField.dataSource = self;
@@ -96,7 +112,6 @@
     [self addSubview:_inputField];
     [self addSubview:_tagsButton];
 }
-
 -(void) layoutSubviews {
     NSDictionary *bindings = NSDictionaryOfVariableBindings(_inputField, _tagsButton);
     

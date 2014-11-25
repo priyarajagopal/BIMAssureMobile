@@ -25,6 +25,7 @@
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -423,7 +424,21 @@
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Files" image="folder" id="Hi4-Ve-ZOV"/>
-                    <navigationItem key="navigationItem" id="hAr-uZ-Qs3"/>
+                    <navigationItem key="navigationItem" id="hAr-uZ-Qs3">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Le9-dZ-tjM">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="d6z-Mz-ewh">
+                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                                <state key="normal" title="">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onFilterTapped:" destination="qj7-pj-SdD" eventType="touchUpInside" id="jAI-wf-egk"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
                         <segue destination="Eb5-Mc-1Dg" kind="show" identifier="FileViewerSegue" id="0Qy-9h-2Xh"/>
@@ -599,10 +614,10 @@
             </objects>
             <point key="canvasLocation" x="3763" y="4433"/>
         </scene>
-        <!--Files-->
+        <!--FilesNavigation Controller-->
         <scene sceneID="y7V-3v-ILL">
             <objects>
-                <navigationController id="V93-Se-Jud" sceneMemberID="viewController">
+                <navigationController id="V93-Se-Jud" userLabel="FilesNavigation Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Files" image="folder" id="5GA-oH-lT4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HOb-XK-r6y">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
