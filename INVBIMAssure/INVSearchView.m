@@ -11,6 +11,11 @@
 
 @interface INVSearchView()<UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate, VENTokenFieldDataSource, VENTokenFieldDelegate>
 
+@property IBOutlet VENTokenField *inputField;
+@property IBOutlet UIButton *tagsButton;
+
+-(IBAction) _showTagsDropdown:(id) sender;
+
 -(void) _onTagToggled:(NSString *) tag;
 -(void) _onTagAdded:(NSString *) tag;
 -(void) _onTagRemoved:(NSString *) tag;
@@ -18,9 +23,6 @@
 @end
 
 @implementation INVSearchView {
-    VENTokenField *_inputField;
-    UIButton *_tagsButton;
-    
     NSMutableOrderedSet *_selectedTags;
     
     UITableViewController *_tagsController;
@@ -38,9 +40,10 @@
 }
 
 -(void) reloadData {
+    _selectedTags = [NSMutableOrderedSet new];
+    
     [_tagsController.tableView reloadData];
     
-    [_selectedTags removeAllObjects];
     if ([_dataSource respondsToSelector:@selector(numberOfTagsInSearchView:)]) {
         NSUInteger count = [_dataSource numberOfTagsInSearchView:self];
         _tagsButton.enabled = (count > 0);
@@ -77,61 +80,17 @@
 }
 
 #pragma mark - View Lifecycle
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self initializeView];
-    }
-    return self;
-}
-
-
 
 -(void) awakeFromNib {
-    [self initializeView];
-}
-
--(void)initializeView {
-    _selectedTags = [NSMutableOrderedSet new];
+    [super awakeFromNib];
+    [self reloadData];
     
-    _inputField = [[VENTokenField alloc] init];
-    _tagsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_tagsButton setTintColor:[UIColor darkGrayColor]];
-    [_inputField setTintColor:[UIColor darkGrayColor]];
-    
-    // TODO: Localize
-    _inputField.dataSource = self;
-    _inputField.delegate = self;
-    
-    _inputField.toLabelText = nil;
-    _inputField.placeholderText = @"Search";
-    _inputField.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [_tagsButton setTitle:@"Tags" forState:UIControlStateNormal];
-    [_tagsButton addTarget:self action:@selector(_showTagsDropdown:) forControlEvents:UIControlEventTouchUpInside];
-    _tagsButton.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [self addSubview:_inputField];
-    [self addSubview:_tagsButton];
-}
--(void) layoutSubviews {
-    NSDictionary *bindings = NSDictionaryOfVariableBindings(_inputField, _tagsButton);
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_inputField]-[_tagsButton]-|"
-                                                                 options:NSLayoutFormatAlignAllCenterY
-                                                                 metrics:nil
-                                                                   views:bindings]];
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_inputField]|"
-                                                                 options:0
-                                                                 metrics:nil
-                                                                   views:bindings]];
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_tagsButton]|"
-                                                                 options:0
-                                                                 metrics:nil
-                                                                   views:bindings]];
+    // Change this on the next run-loop tick, as if we don't,
+    // -[VENTokenField awakeFromNib] will set the to label text back.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->_inputField.toLabelText = nil;
+        self->_inputField.placeholderText = NSLocalizedString(@"SEARCH", nil);
+    });
 }
 
 #pragma mark - UIPopoverControllerDelegate methods
