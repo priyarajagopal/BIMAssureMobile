@@ -8,13 +8,13 @@
 
 #import "INVRuleDefinitionsTableViewController.h"
 
-static const NSInteger DEFAULT_CELL_HEIGHT = 60;
+static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 @interface INVRuleDefinitionsTableViewController ()
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
-
+@property (nonatomic,strong)NSNumber* selectedRuleId;
 @end
 
 @implementation INVRuleDefinitionsTableViewController
@@ -34,7 +34,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 60;
     
     [self setupTableViewDataSource];
     
-      self.clearsSelectionOnViewWillAppear = YES;
+    self.clearsSelectionOnViewWillAppear = YES;
 
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -89,6 +89,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 60;
     }];
 }
 
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell* selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    
+}
 
 /*
 #pragma mark - Navigation
