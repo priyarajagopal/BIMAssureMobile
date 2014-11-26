@@ -91,6 +91,10 @@
 		02A07F771A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		02A07F781A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		02A07F7A1A250327003CAC7E /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A07F791A250327003CAC7E /* libPods-VENTokenField.a */; };
+		02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
+		02A07F871A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
+		02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */; };
+		02A07F891A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */; };
 		02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */; };
@@ -244,6 +248,9 @@
 		02A07F751A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionsTableViewController.h; sourceTree = "<group>"; };
 		02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionsTableViewController.m; sourceTree = "<group>"; };
 		02A07F791A250327003CAC7E /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Debug-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
+		02A07F831A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionTableViewCell.h; sourceTree = "<group>"; };
+		02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionTableViewCell.m; sourceTree = "<group>"; };
+		02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleDefinitionTableViewCell.xib; sourceTree = "<group>"; };
 		02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSplitViewController.h; sourceTree = "<group>"; };
 		02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSplitViewController.m; sourceTree = "<group>"; };
 		02AAD3EB19E6FE80002901DA /* INVProjectListSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectListSplitViewController.h; sourceTree = "<group>"; };
@@ -382,6 +389,9 @@
 				0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */,
 				0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */,
 				0234D62C1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.h */,
+				02A07F831A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.h */,
+				02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */,
+				02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */,
 				0234D62D1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m */,
 				0234D62E1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.xib */,
 			);
@@ -677,6 +687,7 @@
 				0234D62A1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
 				024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
+				02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */,
 				0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */,
 				02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
 				023F2B881A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
@@ -702,6 +713,7 @@
 				0234D62B1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02408FFC19E447BF00B218ED /* Main.storyboard in Resources */,
 				024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */,
+				02A07F891A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */,
 				0278206F1A1A98EF00BDAA5E /* Visualize.html in Resources */,
 				02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
 				023F2B891A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
@@ -813,6 +825,7 @@
 				02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */,
 				0234D62F1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m in Sources */,
 				02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
+				02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */,
 				02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
 				023F2B6D1A0159BE00E4C985 /* INVRulesListViewController.m in Sources */,
 				0246E7311A111730000C487D /* INVFileManageRuleSetsContainerViewController.m in Sources */,
@@ -840,6 +853,7 @@
 				02AAD3EE19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
 				023F2B821A03B9D400E4C985 /* INVRuleInstanceTableViewController.m in Sources */,
 				02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */,
+				02A07F871A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */,
 				023F2B6A1A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m in Sources */,
 				02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
 				02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,

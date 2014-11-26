@@ -8,6 +8,7 @@
 
 #import "INVRuleDefinitionsTableViewController.h"
 #import "INVRuleInstanceTableViewController.h"
+#import "INVRuleDefinitionTableViewCell.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
@@ -36,6 +37,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     
     [self setupTableViewDataSource];
     
+    UINib* nib = [UINib nibWithNibName:@"INVRuleDefinitionTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleDefinitionCell"];
+    
     self.clearsSelectionOnViewWillAppear = YES;
 
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
@@ -59,10 +63,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(void)setupTableViewDataSource {
     self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
-      INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVRule* rule,NSIndexPath* indexPath){
+      INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleDefinitionTableViewCell *cell,INVRule* rule,NSIndexPath* indexPath){
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = rule.ruleName;
-        cell.detailTextLabel.text = rule.overview;
+        cell.ruleName.text = rule.ruleName;
+        cell.ruleDescription.text = rule.overview;
 
       };
 #warning Use custom table view cell
@@ -99,11 +103,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* ruleDefnCell = [tableView cellForRowAtIndexPath:indexPath];
+    INVRuleDefinitionTableViewCell* ruleDefnCell = (INVRuleDefinitionTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
     
     INVRule* rule = [self.dataResultsController objectAtIndexPath:indexPath];
     self.selectedRuleId = rule.ruleId;
-    self.selectedRuleName = ruleDefnCell.textLabel.text;
+    self.selectedRuleName = ruleDefnCell.ruleName.text;
     [self performSegueWithIdentifier:@"CreateRuleInstanceSegue" sender:nil];
 }
 

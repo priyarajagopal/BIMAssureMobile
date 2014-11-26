@@ -200,13 +200,7 @@ static NSString* INV_ActualParamValue = @"Value";
         INVRuleInstanceActualParamDictionary ruleInstanceActualParam = ruleInstance.actualParameters;
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
         [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
-        
-        /*
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self fetchRuleDefinitionForRuleId:ruleInstance.accountRuleId];
-        });
-         */
-    }
+     }
     [self.hud hide:YES];
     [self.tableView reloadData];
     [self setupTableFooter];
