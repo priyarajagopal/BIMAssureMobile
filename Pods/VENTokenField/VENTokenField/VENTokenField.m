@@ -384,6 +384,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         _inputTextField.tintColor = self.colorScheme;
         _inputTextField.delegate = self;
         _inputTextField.placeholder = self.placeholderText;
+        
         [_inputTextField addTarget:self action:@selector(inputTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _inputTextField;
@@ -504,6 +505,10 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 {
     if (textField == self.inputTextField) {
         [self unhighlightAllTokens];
+        
+        if ([self.delegate respondsToSelector:@selector(tokenFieldDidBeginEditing:)]) {
+            [self.delegate tokenFieldDidBeginEditing:self];
+        }
     }
 }
 

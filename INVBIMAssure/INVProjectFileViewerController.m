@@ -141,7 +141,6 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
     NSLog(@"%s",__func__);
 #warning - show error alert
-    
 }
 
 #pragma mark - Model related

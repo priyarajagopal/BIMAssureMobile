@@ -241,6 +241,14 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
                                                                            multiplier:1.0
                                                                              constant:SEARCH_BAR_HEIGHT];
         
+        NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
+                                                                             attribute:NSLayoutAttributeCenterX
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self.collectionView
+                                                                             attribute:NSLayoutAttributeCenterX
+                                                                            multiplier:1
+                                                                              constant:0];
+        
         NSLayoutConstraint *marginConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
                                                                             attribute:NSLayoutAttributeTopMargin
                                                                             relatedBy:NSLayoutRelationEqual
@@ -249,7 +257,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
                                                                            multiplier:1
                                                                              constant:8];
         
-        [self.collectionView addConstraints:@[widthConstraint, heightConstraint, marginConstraint]];
+        [self.collectionView addConstraints:@[widthConstraint, heightConstraint, centerXConstraint, marginConstraint]];
         
         UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
         [currLayout setSectionInset:UIEdgeInsetsMake(SEARCH_BAR_HEIGHT + 10, 0, 0, 0)];
