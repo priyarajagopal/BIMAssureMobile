@@ -18,7 +18,7 @@ const NSInteger CELL_WIDTH = 309;
 const NSInteger CELL_HEIGHT = 282;
 const NSInteger SEARCH_BAR_HEIGHT = 45;
 
-@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate>
+@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource, INVSearchViewDelegate>
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* selectedModelId;
@@ -27,7 +27,10 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 @property (nonatomic,strong)INVSearchView* searchView;
 @end
 
-@implementation INVProjectFilesListViewController
+@implementation INVProjectFilesListViewController {
+    NSMutableSet *_selectedTags;
+    NSArray *_allTags;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -144,6 +147,16 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 -(INVSearchView*)searchView {
     if (!_searchView) {
         _searchView = [[[NSBundle mainBundle] loadNibNamed:@"INVSearchView" owner:self options:nil] firstObject];
+        _searchView.dataSource = self;
+        _searchView.delegate = self;
+        
+        _allTags = @[
+            @"Foo",
+            @"Bar",
+            @"Baz",
+        ];
+        
+        _selectedTags = [NSMutableSet new];
     }
     
     return _searchView;
@@ -248,4 +261,41 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
         [currLayout setSectionInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     }
 }
+
+#pragma mark - INVSearchViewDataSource
+
+-(NSUInteger) numberOfTagsInSearchView:(INVSearchView *)searchView {
+    return _allTags.count;
+}
+
+-(NSString *) searchView:(INVSearchView *)searchView tagAtIndex:(NSUInteger)index {
+    return _allTags[index];
+}
+
+-(BOOL) searchView:(INVSearchView *)searchView isTagSelected:(NSString *)tag {
+    return [_selectedTags containsObject:tag];
+}
+
+#pragma mark - INVSearchViewDelegate
+
+-(void) searchView:(INVSearchView *)searchView onSearchPerformed:(NSString *)searchText {
+    // TODO: Perform search
+}
+
+-(void) searchView:(INVSearchView *)searchView onSearchTextChanged:(NSString *)searchText {
+    // TODO: Update real-time results (or show search history).
+}
+
+-(void) searchView:(INVSearchView *)searchView onTagAdded:(NSString *)tag {
+    [_selectedTags addObject:tag];
+}
+
+-(void) searchView:(INVSearchView *)searchView onTagDeleted:(NSString *)tag {
+    [_selectedTags removeObject:tag];
+}
+
+-(void) searchView:(INVSearchView *)searchView onTagsSaved:(NSOrderedSet *)tags withName:(NSString *)name {
+    // TODO: Save search
+}
+
 @end

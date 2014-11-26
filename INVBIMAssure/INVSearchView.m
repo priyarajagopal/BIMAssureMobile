@@ -32,6 +32,22 @@
     UIAlertView *_saveDialog;
     UITableViewController *_tagsController;
     UIPopoverController *_popoverController;
+    
+    UIColor *_oldTintColor;
+}
+
+#pragma mark - Property accessors
+
+-(void) setDataSource:(id<INVSearchViewDataSource>)dataSource {
+    _dataSource = dataSource;
+    
+    [self reloadData];
+}
+
+-(void) setDelegate:(id<INVSearchViewDelegate>)delegate {
+    _delegate = delegate;
+    
+    [self reloadData];
 }
 
 #pragma mark - Public methods
@@ -91,7 +107,6 @@
 
 -(void) awakeFromNib {
     [super awakeFromNib];
-    [self reloadData];
     
     // Change this on the next run-loop tick, as if we don't,
     // -[VENTokenField awakeFromNib] will set the to label text back.
@@ -101,10 +116,16 @@
         
         self->_inputField.toLabelText = nil;
         self->_inputField.placeholderText = NSLocalizedString(@"SEARCH", nil);
+        
+        [self reloadData];
     });
 }
 
 #pragma mark - UIPopoverControllerDelegate methods
+
+-(void) popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    [[UIView appearance] setTintColor:_oldTintColor];
+}
 
 -(void) popoverController:(UIPopoverController *)popoverController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView *__autoreleasing *)view {
     if (*view == self) {
@@ -149,7 +170,9 @@
         cell.textLabel.text = [_dataSource searchView:self tagAtIndex:indexPath.row];
     }
     
+    cell.tintColor = [UIColor blueColor];
     cell.accessoryType = UITableViewCellAccessoryNone;
+    
     if ([_dataSource respondsToSelector:@selector(searchView:isTagSelected:)]) {
         if ([_dataSource searchView:self isTagSelected:cell.textLabel.text]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -212,6 +235,10 @@
         _popoverController.delegate = self;
         _popoverController.popoverContentSize = CGSizeMake(240, 240);
     }
+    
+    // NOTE: This is a hack to override the tint color. Apparently you can't set a custom tint color while the appearance has its own tint color as well.
+    _oldTintColor = UIView.appearance.tintColor;
+    UIView.appearance.tintColor = nil;
     
     [_popoverController presentPopoverFromRect:[sender frame]
                                         inView:self
