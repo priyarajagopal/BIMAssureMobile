@@ -16,7 +16,7 @@
 
 const NSInteger CELL_WIDTH = 309;
 const NSInteger CELL_HEIGHT = 282;
-const NSInteger SEARCH_BAR_HEIGHT = 50;
+const NSInteger SEARCH_BAR_HEIGHT = 45;
 
 @interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate>
 @property (nonatomic,strong)INVProjectManager* projectManager;
@@ -143,11 +143,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 50;
 
 -(INVSearchView*)searchView {
     if (!_searchView) {
-        CGRect viewFrame = self.collectionView.frame;
         _searchView = [[[NSBundle mainBundle] loadNibNamed:@"INVSearchView" owner:self options:nil] firstObject];
-        
-        // TODO: Put this in the interface and use constraints instead of a hard-coded frame.
-        _searchView.frame = CGRectMake(CGRectGetMinX(viewFrame), CGRectGetMinY(viewFrame), CGRectGetWidth(viewFrame) - CGRectGetMinX(viewFrame), SEARCH_BAR_HEIGHT);
     }
     
     return _searchView;
@@ -212,24 +208,44 @@ const NSInteger SEARCH_BAR_HEIGHT = 50;
 #pragma mark - UIEvent Handlers
 - (IBAction)onFilterTapped:(UIButton *)sender {
     if (!_searchView) {
-         [self.collectionView addSubview:self.searchView];
-         [self.searchView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        // TODO: Animate show/hide.
+        [self.searchView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.collectionView addSubview:self.searchView];
         
-         [self.collectionView addSubview:self.searchView];
+        NSLayoutConstraint* widthConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
+                                                                           attribute:NSLayoutAttributeWidth
+                                                                           relatedBy:NSLayoutRelationEqual
+                                                                              toItem:self.collectionView
+                                                                           attribute:NSLayoutAttributeWidth
+                                                                          multiplier:1.0
+                                                                            constant:-20];
         
-         NSLayoutConstraint* widthConstraint = [NSLayoutConstraint constraintWithItem:self.searchView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-20];
-         NSLayoutConstraint* heightConstraint = [NSLayoutConstraint constraintWithItem:self.searchView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50];
-        [self.collectionView addConstraints:@[widthConstraint, heightConstraint]];
-         UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
-        [currLayout setSectionInset:UIEdgeInsetsMake(SEARCH_BAR_HEIGHT, 0, 0, 0)];
-  
+        NSLayoutConstraint* heightConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
+                                                                            attribute:NSLayoutAttributeHeight
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:nil
+                                                                            attribute:NSLayoutAttributeNotAnAttribute
+                                                                           multiplier:1.0
+                                                                             constant:SEARCH_BAR_HEIGHT];
+        
+        NSLayoutConstraint *marginConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
+                                                                            attribute:NSLayoutAttributeTopMargin
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:self.collectionView
+                                                                            attribute:NSLayoutAttributeTop
+                                                                           multiplier:1
+                                                                             constant:8];
+        
+        [self.collectionView addConstraints:@[widthConstraint, heightConstraint, marginConstraint]];
+        
+        UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
+        [currLayout setSectionInset:UIEdgeInsetsMake(SEARCH_BAR_HEIGHT + 10, 0, 0, 0)];
     }
     else {
         [self.searchView removeFromSuperview];
         self.searchView = nil;
         UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
         [currLayout setSectionInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-        
     }
 }
 @end

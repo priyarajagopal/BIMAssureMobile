@@ -7,11 +7,13 @@
 //
 
 #import "INVSearchView.h"
+
 #import <VENTokenField/VENTokenField.h>
 
 @interface INVSearchView()<UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate, VENTokenFieldDataSource, VENTokenFieldDelegate, UIAlertViewDelegate>
 
 @property IBOutlet VENTokenField *inputField;
+@property IBOutlet UIView *inputFieldContainer;
 @property IBOutlet UIButton *tagsButton;
 @property IBOutlet UIButton *saveButton;
 
@@ -94,6 +96,9 @@
     // Change this on the next run-loop tick, as if we don't,
     // -[VENTokenField awakeFromNib] will set the to label text back.
     dispatch_async(dispatch_get_main_queue(), ^{
+        self->_inputFieldContainer.layer.borderWidth = 1;
+        self->_inputFieldContainer.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        
         self->_inputField.toLabelText = nil;
         self->_inputField.placeholderText = NSLocalizedString(@"SEARCH", nil);
     });
