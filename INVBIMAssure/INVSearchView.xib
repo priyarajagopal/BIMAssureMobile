@@ -3,67 +3,100 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="FontAwesome.otf">
+            <string>FontAwesome</string>
+            <string>FontAwesome</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="INVSearchView">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVy-fa-3jU" customClass="VENTokenField">
-                    <rect key="frame" x="0.0" y="0.0" width="488" height="45"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="bec-ky-hyq"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="dataSource" destination="iN0-l3-epB" id="ht1-ce-nwq"/>
-                        <outlet property="delegate" destination="iN0-l3-epB" id="tkm-Hk-q3W"/>
-                    </connections>
-                </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-8u-343">
-                    <rect key="frame" x="496" y="8" width="32" height="30"/>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Tags">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="_showTagsDropdown:" destination="iN0-l3-epB" eventType="touchUpInside" id="clA-Fb-HLF"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxY-PG-luq">
-                    <rect key="frame" x="536" y="8" width="56" height="30"/>
+                    <rect key="frame" x="536" y="10" width="56" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="Save As">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="_showSaveDialog:" destination="iN0-l3-epB" eventType="touchUpInside" id="UKa-HB-civ"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JK7-ep-sEv" userLabel="Token Field Container">
+                    <rect key="frame" x="0.0" y="0.0" width="490" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuo-1q-p6g">
+                            <rect key="frame" x="8" y="17" width="16" height="17"/>
+                            <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNM-c8-qt9" customClass="VENTokenField">
+                            <rect key="frame" x="24" y="0.0" width="466" height="50"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="iN0-l3-epB" id="Y8X-Tw-pui"/>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="fke-A8-9X4"/>
+                            </connections>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="iNM-c8-qt9" secondAttribute="trailing" id="4Az-fj-Koh"/>
+                        <constraint firstItem="iNM-c8-qt9" firstAttribute="top" secondItem="JK7-ep-sEv" secondAttribute="top" id="DXR-7g-iq3"/>
+                        <constraint firstAttribute="centerY" secondItem="iNM-c8-qt9" secondAttribute="centerY" id="DdO-ZV-PwH"/>
+                        <constraint firstAttribute="centerY" secondItem="tuo-1q-p6g" secondAttribute="centerY" id="T6O-LQ-eNC"/>
+                        <constraint firstItem="tuo-1q-p6g" firstAttribute="leading" secondItem="JK7-ep-sEv" secondAttribute="leading" constant="8" id="UZ9-9p-dbu"/>
+                        <constraint firstAttribute="bottom" secondItem="iNM-c8-qt9" secondAttribute="bottom" id="b03-Cl-GwC"/>
+                        <constraint firstItem="iNM-c8-qt9" firstAttribute="leading" secondItem="tuo-1q-p6g" secondAttribute="trailing" id="jeI-Cq-cM8"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-8u-343">
+                    <rect key="frame" x="498" y="9" width="30" height="32"/>
+                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="20"/>
+                    <state key="normal" title="">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="_showTagsDropdown:" destination="iN0-l3-epB" eventType="touchUpInside" id="clA-Fb-HLF"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="jxY-PG-luq" secondAttribute="trailing" constant="8" id="4ev-xd-LbV"/>
-                <constraint firstItem="EVy-fa-3jU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Fm4-dz-ZrZ"/>
-                <constraint firstItem="jxY-PG-luq" firstAttribute="leading" secondItem="RWz-8u-343" secondAttribute="trailing" constant="8" id="M4j-xF-xVG"/>
-                <constraint firstAttribute="centerY" secondItem="EVy-fa-3jU" secondAttribute="centerY" id="Nhr-5k-f8e"/>
-                <constraint firstItem="RWz-8u-343" firstAttribute="leading" secondItem="EVy-fa-3jU" secondAttribute="trailing" constant="8" id="OoY-1B-ZxV"/>
-                <constraint firstAttribute="centerY" secondItem="jxY-PG-luq" secondAttribute="centerY" id="T6f-AC-BDj"/>
-                <constraint firstAttribute="centerY" secondItem="RWz-8u-343" secondAttribute="centerY" id="zeT-p9-zdd"/>
+                <constraint firstItem="JK7-ep-sEv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="24y-Fz-f7J"/>
+                <constraint firstItem="jxY-PG-luq" firstAttribute="leading" secondItem="RWz-8u-343" secondAttribute="trailing" constant="8" id="6fr-oh-c1Y"/>
+                <constraint firstAttribute="bottom" secondItem="JK7-ep-sEv" secondAttribute="bottom" id="G2i-cF-Gf9"/>
+                <constraint firstItem="JK7-ep-sEv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Lrg-s4-qFr"/>
+                <constraint firstAttribute="centerY" secondItem="RWz-8u-343" secondAttribute="centerY" id="aTY-Wp-fpz"/>
+                <constraint firstAttribute="trailing" secondItem="jxY-PG-luq" secondAttribute="trailing" constant="8" id="iYg-tN-5cn"/>
+                <constraint firstItem="RWz-8u-343" firstAttribute="leading" secondItem="JK7-ep-sEv" secondAttribute="trailing" constant="8" id="inF-j0-4iL"/>
+                <constraint firstAttribute="centerY" secondItem="jxY-PG-luq" secondAttribute="centerY" id="kwI-JF-a5W"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="inputField" destination="EVy-fa-3jU" id="kl9-KJ-XCD"/>
+                <outlet property="inputField" destination="iNM-c8-qt9" id="9dH-gs-V9Y"/>
+                <outlet property="inputFieldContainer" destination="JK7-ep-sEv" id="NJA-kk-4AZ"/>
                 <outlet property="saveButton" destination="jxY-PG-luq" id="2ev-rh-43a"/>
                 <outlet property="tagsButton" destination="RWz-8u-343" id="d6l-0U-BRH"/>
             </connections>
-            <point key="canvasLocation" x="400" y="332.5"/>
+            <point key="canvasLocation" x="400" y="387.5"/>
         </view>
     </objects>
 </document>

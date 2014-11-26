@@ -66,10 +66,10 @@
 @property (readonly) NSString *searchText;
 
 /** Gets or sets the data source of the reciever */
-@property IBOutlet id<INVSearchViewDataSource> dataSource;
+@property (nonatomic) IBOutlet id<INVSearchViewDataSource> dataSource;
 
 /** Gets or sets the delegate of the reciever */
-@property IBOutlet id<INVSearchViewDelegate> delegate;
+@property (nonatomic) IBOutlet id<INVSearchViewDelegate> delegate;
 
 /** Reloads the data of the reciever. Call this whenver the data source changes and not in a delegate callback. */
 -(void) reloadData;

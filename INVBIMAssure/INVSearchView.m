@@ -5,17 +5,39 @@
 //  Created by Richard Ross on 11/25/14.
 //  Copyright (c) 2014 Invicara. All rights reserved.
 //
-
 #import "INVSearchView.h"
+
 #import <VENTokenField/VENTokenField.h>
 
-@interface INVSearchView()<UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate, VENTokenFieldDataSource, VENTokenFieldDelegate, UIAlertViewDelegate>
+@interface INVSearchViewTagsDataSource : NSObject<UITableViewDataSource, UITableViewDelegate>
+
+-(id) initWithSearchView:(INVSearchView *) searchView;
+
+@property INVSearchView *searchView;
+
+@end
+
+@interface INVSearchViewQuickSearchDataSource : NSObject<UITableViewDataSource, UITableViewDelegate>
+
+-(id) initWithSearchView:(INVSearchView *) searchView;
+
+@property INVSearchView *searchView;
+
+@end
+
+@interface INVSearchView()<
+    UIPopoverControllerDelegate, UIAlertViewDelegate,
+    VENTokenFieldDataSource, VENTokenFieldDelegate
+>
 
 @property IBOutlet VENTokenField *inputField;
+@property IBOutlet UISearchBar *searchBar;
+@property IBOutlet UIView *inputFieldContainer;
 @property IBOutlet UIButton *tagsButton;
 @property IBOutlet UIButton *saveButton;
 
 -(IBAction) _showTagsDropdown:(id) sender;
+-(IBAction) _showQuickSearchDropdown:(id) sender;
 -(IBAction) _showSaveDialog:(id)sender;
 
 -(void) _onTagToggled:(NSString *) tag;
@@ -28,8 +50,30 @@
     NSMutableOrderedSet *_selectedTags;
     
     UIAlertView *_saveDialog;
+    
+    INVSearchViewTagsDataSource *_tagsDataSource;
     UITableViewController *_tagsController;
-    UIPopoverController *_popoverController;
+    UIPopoverController *_tagsPopoverController;
+    
+    INVSearchViewQuickSearchDataSource *_quickSearchDataSource;
+    UITableViewController *_quickSearchController;
+    UIPopoverController *_quickSearchPopoverController;
+    
+    UIColor *_oldTintColor;
+}
+
+#pragma mark - Property accessors
+
+-(void) setDataSource:(id<INVSearchViewDataSource>)dataSource {
+    _dataSource = dataSource;
+    
+    [self reloadData];
+}
+
+-(void) setDelegate:(id<INVSearchViewDelegate>)delegate {
+    _delegate = delegate;
+    
+    [self reloadData];
 }
 
 #pragma mark - Public methods
@@ -89,20 +133,51 @@
 
 -(void) awakeFromNib {
     [super awakeFromNib];
-    [self reloadData];
+    
+    _tagsDataSource = [[INVSearchViewTagsDataSource alloc] initWithSearchView:self];
+    
+    _tagsController = [UITableViewController new];
+    _tagsController.tableView.dataSource = _tagsDataSource;
+    _tagsController.tableView.delegate = _tagsDataSource;
+    
+    _tagsPopoverController = [[UIPopoverController alloc] initWithContentViewController:_tagsController];
+    _tagsPopoverController.delegate = self;
+    _tagsPopoverController.popoverContentSize = CGSizeMake(240, 240);
+    
+    _quickSearchDataSource = [[INVSearchViewQuickSearchDataSource alloc] initWithSearchView:self];
+    
+    _quickSearchController = [UITableViewController new];
+    _quickSearchController.tableView.dataSource = _quickSearchDataSource;
+    _quickSearchController.tableView.delegate = _quickSearchDataSource;
+    
+    _quickSearchPopoverController = [[UIPopoverController alloc] initWithContentViewController:_quickSearchController];
+    _quickSearchPopoverController.passthroughViews = @[ self ];
+    _quickSearchPopoverController.delegate = self;
     
     // Change this on the next run-loop tick, as if we don't,
     // -[VENTokenField awakeFromNib] will set the to label text back.
     dispatch_async(dispatch_get_main_queue(), ^{
+        self->_inputFieldContainer.layer.borderWidth = 1;
+        self->_inputFieldContainer.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        
         self->_inputField.toLabelText = nil;
         self->_inputField.placeholderText = NSLocalizedString(@"SEARCH", nil);
+        [self->_inputField setColorScheme:[UIColor darkGrayColor]];
+        
+        [self reloadData];
     });
 }
 
 #pragma mark - UIPopoverControllerDelegate methods
 
+-(void) popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    if (popoverController == _tagsPopoverController) {
+        [[UIView appearance] setTintColor:_oldTintColor];
+    }
+}
+
 -(void) popoverController:(UIPopoverController *)popoverController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView *__autoreleasing *)view {
-    if (*view == self) {
+    if (popoverController == _tagsPopoverController) {
         *rect = _tagsButton.frame;
     }
 }
@@ -119,52 +194,6 @@
     }
 }
 
-#pragma mark - UITableViewDataSource methods
-
--(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([_dataSource respondsToSelector:@selector(numberOfTagsInSearchView:)]) {
-        return [_dataSource numberOfTagsInSearchView:self];
-    }
-    
-    return 0;
-}
-
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell"];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"basicCell"];
-    }
-    
-    if ([_dataSource respondsToSelector:@selector(searchView:tagAtIndex:)]) {
-        cell.textLabel.text = [_dataSource searchView:self tagAtIndex:indexPath.row];
-    }
-    
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    if ([_dataSource respondsToSelector:@selector(searchView:isTagSelected:)]) {
-        if ([_dataSource searchView:self isTagSelected:cell.textLabel.text]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-    }
-    
-    return cell;
-}
-
-#pragma mark - UITableViewDelegate methods
-
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [self _onTagToggled:cell.textLabel.text];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [tableView reloadRowsAtIndexPaths:@[ indexPath ]
-                     withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
 #pragma mark - VENTokenFieldDataSource methods
 
 -(NSUInteger) numberOfTokensInTokenField:(VENTokenField *)tokenField {
@@ -176,6 +205,10 @@
 }
 
 #pragma mark - VENTokenFieldDelegate methods
+
+-(void) tokenFieldDidBeginEditing:(VENTokenField *)tokenField {
+    [self _showQuickSearchDropdown:self.inputFieldContainer];
+}
 
 -(void) tokenField:(VENTokenField *)tokenField didDeleteTokenAtIndex:(NSUInteger)index {
     [self _onTagRemoved:_selectedTags[index]];
@@ -196,22 +229,22 @@
 #pragma mark - Private methods
 
 -(void) _showTagsDropdown:(id) sender {
-    if (_tagsController == nil) {
-        _tagsController = [UITableViewController new];
-        _tagsController.tableView.dataSource = self;
-        _tagsController.tableView.delegate = self;
-    }
+    // NOTE: This is a hack to override the tint color. Apparently you can't set a custom tint color while the appearance has its own tint color as well.
+    _oldTintColor = UIView.appearance.tintColor;
+    UIView.appearance.tintColor = nil;
     
-    if (_popoverController == nil) {
-        _popoverController = [[UIPopoverController alloc] initWithContentViewController:_tagsController];
-        _popoverController.delegate = self;
-        _popoverController.popoverContentSize = CGSizeMake(240, 240);
-    }
-    
-    [_popoverController presentPopoverFromRect:[sender frame]
-                                        inView:self
-                      permittedArrowDirections:UIPopoverArrowDirectionAny
-                                      animated:YES];
+    [_tagsPopoverController presentPopoverFromRect:[sender frame]
+                                            inView:self
+                          permittedArrowDirections:UIPopoverArrowDirectionAny
+                                          animated:YES];
+}
+
+-(void) _showQuickSearchDropdown:(id) sender {
+    // TODO: Configure popover size.
+    [_quickSearchPopoverController presentPopoverFromRect:[sender frame]
+                                         inView:self
+                       permittedArrowDirections:0
+                                       animated:YES];
 }
 
 -(void) _showSaveDialog:(id)sender {
@@ -252,6 +285,95 @@
         [self.delegate searchView:self onTagDeleted:tag];
         [self reloadData];
     }
+}
+
+@end
+
+/** INVSearchViewTagsDataSource */
+@implementation INVSearchViewTagsDataSource
+
+-(id) initWithSearchView:(INVSearchView *)searchView {
+    if (self = [super init]) {
+        self.searchView = searchView;
+    }
+    
+    return self;
+}
+
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([self.searchView.dataSource respondsToSelector:@selector(numberOfTagsInSearchView:)]) {
+        return [self.searchView.dataSource numberOfTagsInSearchView:self.searchView];
+    }
+    
+    return 0;
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell"];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"basicCell"];
+    }
+    
+    if ([self.searchView.dataSource respondsToSelector:@selector(searchView:tagAtIndex:)]) {
+        cell.textLabel.text = [self.searchView.dataSource searchView:self.searchView tagAtIndex:indexPath.row];
+    }
+    
+    cell.tintColor = [UIColor blueColor];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    if ([self.searchView.dataSource respondsToSelector:@selector(searchView:isTagSelected:)]) {
+        if ([self.searchView.dataSource searchView:self.searchView isTagSelected:cell.textLabel.text]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+    }
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate methods
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [self.searchView _onTagToggled:cell.textLabel.text];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView reloadRowsAtIndexPaths:@[ indexPath ]
+                     withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+
+@end
+
+@implementation INVSearchViewQuickSearchDataSource
+
+-(id) initWithSearchView:(INVSearchView *)searchView {
+    if (self = [super init]) {
+        self.searchView = searchView;
+    }
+    
+    return self;
+}
+
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+-(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    static NSString *titles[] = {
+        @"Tags",
+        @"Search History"
+    };
+    
+    return titles[section];
 }
 
 @end

@@ -22,7 +22,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class VENTokenField;
+@class VENTokenField, VENBackspaceTextField;
 @protocol VENTokenFieldDelegate <NSObject>
 @optional
 - (void)tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text;
@@ -65,6 +65,8 @@
 @property (strong, nonatomic) UIColor *toLabelTextColor;
 @property (strong, nonatomic) NSString *toLabelText;
 @property (strong, nonatomic) UIColor *inputTextFieldTextColor;
+
+@property (strong, nonatomic) VENBackspaceTextField *inputTextField;
 
 @property (strong, nonatomic) UILabel *toLabel;
 
