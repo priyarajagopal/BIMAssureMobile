@@ -36,7 +36,7 @@ static NSString* INV_ActualParamValue = @"Value";
 // rule definition unused at this time. Eventually use
 @property (nonatomic,strong)INVRule* ruleDefinition;
 // rule properties unused at this time
-@property (nonatomic,strong)NSDictionary* ruleProperties;
+//@property (nonatomic,strong)NSDictionary* ruleProperties;
 
 @property (nonatomic, strong)UIBarButtonItem* saveBarButton;
 @property (nonatomic, weak) UITableViewCell* ruleInstanceCellBeingEdited;
@@ -105,62 +105,79 @@ static NSString* INV_ActualParamValue = @"Value";
     self.tableView.tableFooterView = view;
 }
 
+#pragma mark - Manage Table View Data Sources
+
 -(void)setupTableViewDataSource {
     
-#warning consider refactoring method to smaller ones...too long
     // rule name
+    [self setupRuleNameDataSource];
+    
+    // rule overview
+    [self setupRuleOverviewDataSource];
+    
+    
+    // The actual params if we are editing a rule instance
+    [self setupRuleInstanceActualParamsDataSource];
+    
+    self.tableView.dataSource = self.dataSource;
+    
+}
+
+-(INVGenericTableViewDataSource*)dataSource {
+    
+    // Return the right object depending on whether rule instance is modified or a new rule instance is created
+    if (!_dataSource) {
+        if (self.ruleInstanceId) {
+            INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
+            self.intermediateRuleOverview = ruleInstance.overview;
+            self.ruleName = ruleInstance.ruleName;
+            
+        }
+        else {
+            self.intermediateRuleOverview = @"";
+         }
+        NSArray* ruleInfoArray = @[self.ruleName,self.intermediateRuleOverview];
+        self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
+
+    }
+    return _dataSource;
+}
+
+-(void)setupRuleNameDataSource {
     NSIndexPath* indexPathForRuleName = [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_NAME inSection:SECTION_RULEINSTANCEDETAILS];
-    INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
-    self.intermediateRuleOverview = ruleInstance.overview;
-    
-    NSArray* ruleInfoArray = ruleInstance?@[ruleInstance.ruleName,self.intermediateRuleOverview]:[NSArray array];
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
-    
-    
     INV_CellConfigurationBlock cellConfigurationBlockForRuleName = ^(INVRuleInstanceNameTableViewCell *cell,NSString* ruleName ,NSIndexPath* indexPath ){
         cell.ruleName.text = ruleName;
         [cell.ruleName setUserInteractionEnabled:NO];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     };
     [self.dataSource registerCellWithIdentifier:@"RuleInstanceNameTVC" configureBlock:cellConfigurationBlockForRuleName forIndexPath:indexPathForRuleName];
-    
-    // rule overview
-    NSIndexPath* indexPathForRuleOverview = [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_OVERVIEW inSection:SECTION_RULEINSTANCEDETAILS];
 
+}
+
+-(void)setupRuleOverviewDataSource {
+    NSIndexPath* indexPathForRuleOverview = [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_OVERVIEW inSection:SECTION_RULEINSTANCEDETAILS];
+    
     INV_CellConfigurationBlock cellConfigurationBlockForRuleOverview = ^(INVRuleInstanceOverviewTableViewCell *cell,NSString* overview ,NSIndexPath* indexPath ){
         cell.ruleDescription.text = overview;
-         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     };
     [self.dataSource registerCellWithIdentifier:@"RuleInstanceOverviewTVC" configureBlock:cellConfigurationBlockForRuleOverview forIndexPath:indexPathForRuleOverview];
 
-    // The actual params if we are editing a rule instance
-    if (self.ruleInstanceId ) {
-        [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceActualParamTableViewCell *cell,NSDictionary* KVPair ,NSIndexPath* indexPath ){
-            cell.ruleInstanceKey.text = KVPair[INV_ActualParamName];
-            cell.ruleInstanceValue.text = KVPair[INV_ActualParamValue];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegate = self;
-        };
-        [self.dataSource registerCellWithIdentifier:@"RuleInstanceDetailCell" configureBlock:cellConfigurationBlock forSection:SECTION_RULEINSTANCEACTUALPARAM];
-    }
-    else {
-#warning - Replace INVRuleInstanceActualParamTableViewCell with a generic cell that works across actual and formal
-        
-        [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceActualParamTableViewCell *cell,NSDictionary* KVPair ,NSIndexPath* indexPath ){
-            cell.ruleInstanceKey.text = KVPair[INV_ActualParamName];
-            cell.ruleInstanceValue.text = KVPair[INV_ActualParamValue];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegate = self;
-        };
-        [self.dataSource registerCellWithIdentifier:@"RuleInstanceDetailCell" configureBlock:cellConfigurationBlock forSection:SECTION_RULEINSTANCEACTUALPARAM];
-    }
-    self.tableView.dataSource = self.dataSource;
-    
-  
 }
+
+-(void)setupRuleInstanceActualParamsDataSource {
+    [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
+    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceActualParamTableViewCell *cell,NSDictionary* KVPair ,NSIndexPath* indexPath ){
+        cell.ruleInstanceKey.text = KVPair[INV_ActualParamName];
+        cell.ruleInstanceValue.text = KVPair[INV_ActualParamValue];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
+    };
+    [self.dataSource registerCellWithIdentifier:@"RuleInstanceDetailCell" configureBlock:cellConfigurationBlock forSection:SECTION_RULEINSTANCEACTUALPARAM];
+
+}
+
 
 #pragma mark - server side
 -(void)fetchRuleInstance {
@@ -175,17 +192,20 @@ static NSString* INV_ActualParamValue = @"Value";
         INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
         
         self.intermediateRuleOverview = ruleInstance.overview;
-        NSArray* ruleInfoArray = ruleInstance?@[ruleInstance.ruleName,self.intermediateRuleOverview]:[NSArray array];
+        self.ruleName = ruleInstance.ruleName;
+        
+        NSArray* ruleInfoArray = ruleInstance?@[self.ruleName,self.intermediateRuleOverview]:[NSArray array];
         [self.dataSource updateWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
         
         INVRuleInstanceActualParamDictionary ruleInstanceActualParam = ruleInstance.actualParameters;
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
         [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
         
-        
+        /*
         dispatch_async(dispatch_get_main_queue(), ^{
             [self fetchRuleDefinitionForRuleId:ruleInstance.accountRuleId];
         });
+         */
     }
     [self.hud hide:YES];
     [self.tableView reloadData];
@@ -202,9 +222,8 @@ static NSString* INV_ActualParamValue = @"Value";
             if (!error) {
                 self.ruleDefinition = [self.globalDataManager.invServerClient.rulesManager ruleDefinitionForRuleId:ruleId];
                 INVRuleFormalParam* ruleFormalParam = self.ruleDefinition.formalParams;
-                self.ruleProperties = ruleFormalParam.properties;
                 
-                [self transformRuleInstanceParamsToArray:self.ruleProperties];
+                [self transformRuleDefinitionParamsToArray:ruleFormalParam];
                 [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
             }
             else {
@@ -219,14 +238,33 @@ static NSString* INV_ActualParamValue = @"Value";
     }
 }
 
+-(void) sendCreateRuleInstanceRequestToServer {
+    
+    INVRuleInstanceActualParamDictionary actualParam = [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
+    
+    [self.globalDataManager.invServerClient createRuleInstanceForRuleId:self.ruleId inRuleSetId:self.ruleSetId withRuleName:self.ruleName andDescription:self.intermediateRuleOverview andActualParameters:actualParam WithCompletionBlock:^(INVEmpireMobileError *error) {
+        if (error) {
+#warning show error alert
+            NSLog (@"%s. Error %@",__func__,error);
+        }
+        else {
+#warning show alert that instance was succesfully created
+        }
+    }];
+     
+}
+
 -(void)sendUpdatedRuleInstanceToServer {
     INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
     
     INVRuleInstanceActualParamDictionary actualParam = [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
-    [self.globalDataManager.invServerClient modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId forRuleId:ruleInstance.accountRuleId inRuleSetId:self.ruleSetId withRuleName:ruleInstance.ruleName andDescription:self.intermediateRuleOverview andActualParameters:actualParam WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId forRuleId:ruleInstance.accountRuleId inRuleSetId:self.ruleSetId withRuleName:self.ruleName andDescription:self.intermediateRuleOverview andActualParameters:actualParam WithCompletionBlock:^(INVEmpireMobileError *error) {
         if (error) {
 #warning show error alert
             NSLog (@"%s. Error %@",__func__,error);
+        }
+        else {
+#warning show alert that instance was succesfully modified
         }
     }];
 
@@ -272,9 +310,16 @@ static NSString* INV_ActualParamValue = @"Value";
         
         [self scrapeTableViewForUpdatedContent];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self sendUpdatedRuleInstanceToServer];
+        if (self.ruleInstanceId) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self sendUpdatedRuleInstanceToServer];
             });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self sendCreateRuleInstanceRequestToServer];
+            });
+        }
      }
 }
 
@@ -287,10 +332,11 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 -(void)onRuleInstanceOverviewUpdated:(INVRuleInstanceOverviewTableViewCell*)sender {
-    
      // Update the first responder
     [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:0 inSection:SECTION_RULEINSTANCEACTUALPARAM]];
 }
+
+
 
 
 
@@ -375,6 +421,16 @@ static NSString* INV_ActualParamValue = @"Value";
     __block NSDictionary* actualParam;
     [actualParamDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         actualParam = @{INV_ActualParamName:key,INV_ActualParamValue:obj};
+        [self.intermediateRuleInstanceActualParams addObject:actualParam];
+    }];
+}
+
+-(void)transformRuleDefinitionParamsToArray:(INVRuleFormalParam*)formalParam{
+    NSDictionary* ruleProperties = formalParam.properties;
+    
+    __block NSDictionary* actualParam;
+    [ruleProperties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        actualParam = @{INV_ActualParamName:key,INV_ActualParamValue:@""};
         [self.intermediateRuleInstanceActualParams addObject:actualParam];
     }];
 }

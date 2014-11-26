@@ -16,6 +16,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,copy)NSNumber* selectedRuleId;
+@property (nonatomic,copy)NSString* selectedRuleName;
 @end
 
 @implementation INVRuleDefinitionsTableViewController
@@ -98,9 +99,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell* ruleDefnCell = [tableView cellForRowAtIndexPath:indexPath];
+    
     INVRule* rule = [self.dataResultsController objectAtIndexPath:indexPath];
     self.selectedRuleId = rule.ruleId;
-    
+    self.selectedRuleName = ruleDefnCell.textLabel.text;
     [self performSegueWithIdentifier:@"CreateRuleInstanceSegue" sender:nil];
 }
 
@@ -115,6 +118,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INVRuleInstanceTableViewController* ruleInstanceTVC = (INVRuleInstanceTableViewController*)segue.destinationViewController;
         ruleInstanceTVC.ruleId = self.selectedRuleId;
         ruleInstanceTVC.ruleSetId = self.ruleSetId;
+        ruleInstanceTVC.ruleName = self.selectedRuleName;
         
     }
 }
