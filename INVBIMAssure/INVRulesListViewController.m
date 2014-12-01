@@ -22,8 +22,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
 @property (nonatomic,strong) NSMutableSet *cellsCurrentlyEditing;
-@property (nonatomic,assign) NSNumber* selectedRuleInstanceId;
-@property (nonatomic,assign) NSNumber* selectedRuleSetId;
+@property (nonatomic,strong) NSNumber* selectedRuleInstanceId;
+@property (nonatomic,strong) NSNumber* selectedRuleSetId;
 @property (nonatomic,strong)UIAlertController* deletePromptAlertController;
 @property (nonatomic,strong)INVRuleInstanceTableViewCell* selectedRowInstanceCell;
 @end
@@ -267,7 +267,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
+        NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRuleSets;
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.rulesManager.fetchRequestForRuleSets managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"projectId==%@",self.projectId ];
+        [fetchRequest setPredicate:fetchPredicate];
         
     }
     return  _dataResultsController;

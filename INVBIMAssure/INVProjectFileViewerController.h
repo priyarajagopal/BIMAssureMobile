@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface INVProjectFileViewerController : UIViewController
-@property (nonatomic,strong)NSNumber* fileVersionId;
-@property (nonatomic,strong)NSNumber* modelId;
+@property (nonatomic,copy)NSNumber* fileVersionId;
+@property (nonatomic,copy)NSNumber* modelId;
 @property (weak, nonatomic) IBOutlet UIView *webviewContainerView;
+
 - (IBAction)onHomeSelected:(id)sender;
 - (IBAction)onToggleSelectionSelected:(id)sender;
 - (IBAction)onEmphasizeSelected:(id)sender;

@@ -33,13 +33,13 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
+    self.tableView.dataSource = self.ruleSetsDataSource;
     if (self.showRuleSetsForFileId) {
-        self.tableView.dataSource = self.ruleSetsDataSource;
-        [self setHeaderViewWithHeading:NSLocalizedString(@"RULESETS_INCLUDED_IN_FILE", nil)];
+
+         [self setHeaderViewWithHeading:NSLocalizedString(@"RULESETS_INCLUDED_IN_FILE", nil)];
     }
     else {
-        self.tableView.dataSource = self.ruleSetsDataSource;
-        [self setHeaderViewWithHeading:NSLocalizedString(@"RULESETS_INCLUDED_IN_FILE", nil)];
+         [self setHeaderViewWithHeading:NSLocalizedString(@"RULESETS_NOT_INCLUDED_IN_FILE", nil)];
     }
     self.refreshControl = nil;
 }
@@ -255,6 +255,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
                 [self removeFromLocalRuleSetList:tableViewCell.contentId];
             }
         }
+        [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
         [self.tableView reloadData];
     }];
     self.observersAdded = YES;

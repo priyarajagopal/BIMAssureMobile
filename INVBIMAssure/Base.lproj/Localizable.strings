@@ -38,11 +38,11 @@
 "ARE_YOU_SURE"="Are you sure?";
 "RULES"="Rules";
 "MANAGE_RULESETS"="Manage RuleSets";
-"FILES_INCLUDED_IN_RULESET"="Files Included in RuleSet";
-"FILES_NOT_INCLUDED_IN_RULESET"="Files Not Inclued in RuleSet";
+"FILES_INCLUDED_IN_RULESET"="Files Associated with RuleSet";
+"FILES_NOT_INCLUDED_IN_RULESET"="Files Not Associated with RuleSet";
 "MANAGE_FILES"="Manage Files";
-"RULESETS_INCLUDED_IN_FILE"="RuleSets Included in File";
-"RULESETS_NOT_INCLUDED_IN_FILE"="RuleSets Not Inclued in File";
+"RULESETS_INCLUDED_IN_FILE"="RuleSets Associated with File";
+"RULESETS_NOT_INCLUDED_IN_FILE"="RuleSets Not Associated with File";
 "EDIT"="Edit";
 "SELECT_RULE_TEMPLATES"="Select Rule Template";
 "SEARCH"="Search";

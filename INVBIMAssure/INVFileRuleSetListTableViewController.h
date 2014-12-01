@@ -10,8 +10,8 @@
 
 @interface INVFileRuleSetListTableViewController : INVCustomTableViewController
 @property (nonatomic,assign) BOOL showRuleSetsForFileId;
-@property (nonatomic,assign) NSNumber* projectId;
-@property (nonatomic,assign) NSNumber* fileId;
+@property (nonatomic,copy) NSNumber* projectId;
+@property (nonatomic,copy) NSNumber* fileId;
 
 -(void)resetRuleSetEntries;
 @end

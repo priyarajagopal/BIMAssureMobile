@@ -10,5 +10,5 @@
 
 @interface INVProjectListSplitViewController : INVCustomSplitViewController
 
-@property (nonatomic,strong)NSNumber* accountId;
+@property (nonatomic,copy)NSNumber* accountId;
 @end
