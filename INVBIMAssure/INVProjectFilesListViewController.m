@@ -10,6 +10,7 @@
 #import "INVProjectFileCollectionViewCell.h"
 #import "INVProjectFileViewerController.h"
 #import "INVFileManageRuleSetsContainerViewController.h"
+#import "INVRunRulesTableViewController.h"
 #import "INVSearchView.h"
 
 @import  CoreData;
@@ -165,7 +166,6 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 }
 #pragma mark - INVProjectFileCollectionViewCellDelegate
 -(void)onViewProjectFile:(id)sender {
-    NSLog(@"%s",__func__);
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedModelId = fileCell.modelId;
     self.selectedFileVersionId = fileCell.fileVersionId;
@@ -173,11 +173,18 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 }
 
 -(void)onManageRuleSetsForProjectFile:(id)sender {
-    NSLog(@"%s",__func__);
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedFileId = fileCell.fileId;
     [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
 }
+
+-(void)onRunRulesForProjectFile:(id)sender {
+    NSLog(@"%s",__func__);
+    INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
+    self.selectedFileId = fileCell.fileId;
+    [self performSegueWithIdentifier:@"RunRulesSegue" sender:self];
+}
+
 
 
 
@@ -198,6 +205,13 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
          INVFileManageRuleSetsContainerViewController* vc = (INVFileManageRuleSetsContainerViewController*)segue.destinationViewController;
          vc.projectId = self.projectId;
          vc.fileId = self.selectedFileId;
+     }
+     
+     if ([segue.identifier isEqualToString:@"RunRulesSegue"]) {
+         INVRunRulesTableViewController* vc =  (INVRunRulesTableViewController*)segue.destinationViewController;
+         vc.projectId = self.projectId;
+         vc.fileId = self.selectedFileId;
+
      }
  }
 

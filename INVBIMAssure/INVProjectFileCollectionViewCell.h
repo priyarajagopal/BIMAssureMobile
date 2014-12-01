@@ -12,8 +12,10 @@
 
 @protocol INVProjectFileCollectionViewCellDelegate <NSObject>
 
+@optional
 -(void)onViewProjectFile:(INVProjectFileCollectionViewCell*)sender;
 -(void)onManageRuleSetsForProjectFile:(INVProjectFileCollectionViewCell*)sender;
+-(void)onRunRulesForProjectFile:(INVProjectFileCollectionViewCell*)sender;
 
 @end
 
@@ -27,6 +29,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *fileThumbnail;
 - (IBAction)onViewProjectSelected:(UIBarButtonItem*)sender;
 - (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender;
-
+- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender;
 
 @end

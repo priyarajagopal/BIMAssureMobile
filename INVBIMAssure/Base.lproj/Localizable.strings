@@ -48,3 +48,4 @@
 "SEARCH"="Search";
 "RULE_INSTANCE_UPDATED_SUCCESS"="The rule instance was succesfully updated";
 "RULE_INSTANCE_CREATED_SUCCESS"="The rule instance was succesfully created";
+"SELECT_RULES_TO_RUN"="Select Rules to Run";
