@@ -914,10 +914,10 @@
             </objects>
             <point key="canvasLocation" x="5643" y="3783"/>
         </scene>
-        <!--Create Rule Instance Table View Controller-->
+        <!--Rule Instance Modify TVC-->
         <scene sceneID="yvr-a1-cAI">
             <objects>
-                <tableViewController storyboardIdentifier="CreateRuleInstanceTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bMr-2d-loW" userLabel="Create Rule Instance Table View Controller" customClass="INVRuleInstanceTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CreateRuleInstanceTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bMr-2d-loW" userLabel="Rule Instance Modify TVC" customClass="INVRuleInstanceTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hyy-ex-W6b">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -929,7 +929,7 @@
                                 <navigationItem title="Rule" id="cGy-sX-dyc">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="Dyi-hg-8js">
                                         <connections>
-                                            <segue destination="Yqn-p2-pNA" kind="unwind" unwindAction="done:" id="T75-Si-xFE"/>
+                                            <segue destination="Yqn-p2-pNA" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="T75-Si-xFE"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -1854,7 +1854,7 @@
                                 <navigationItem title="Rule" id="OkB-do-pcz">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="Rmo-px-uLG">
                                         <connections>
-                                            <segue destination="eNb-mG-tXX" kind="unwind" unwindAction="done:" id="MWx-R8-B1J"/>
+                                            <segue destination="eNb-mG-tXX" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="MWx-R8-B1J"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>

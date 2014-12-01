@@ -133,7 +133,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.rulesManager.fetchRequestForRules managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:@"ruleName" cacheName:nil];
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.rulesManager.fetchRequestForRules managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:@"ruleId" cacheName:nil];
     }
     return  _dataResultsController;
 }
