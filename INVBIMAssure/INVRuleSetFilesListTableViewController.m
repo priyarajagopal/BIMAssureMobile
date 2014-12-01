@@ -33,12 +33,12 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
+    self.tableView.dataSource = self.filesDataSource;
+    
     if (self.showFilesForRuleSetId) {
-        self.tableView.dataSource = self.filesDataSource;
-        [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_INCLUDED_IN_RULESET", nil)];
+         [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_INCLUDED_IN_RULESET", nil)];
     }
     else {
-        self.tableView.dataSource = self.filesDataSource;
         [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_NOT_INCLUDED_IN_RULESET", nil)];
     }
     self.refreshControl = nil;
@@ -254,6 +254,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
                  [self removeFromLocalFileList:tableViewCell.contentId];
             }
         }
+        [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
+
         [self.tableView reloadData];
     }];
     self.observersAdded = YES;

@@ -23,7 +23,7 @@ extern NSString* const INV_NotificationAddRemoveCell ;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UIButton *addRemoveButton;
 @property (assign, nonatomic) BOOL isAdded;
-@property (assign, nonatomic) NSNumber* contentId;
+@property (copy, nonatomic) NSNumber* contentId;
 
 @property (weak, nonatomic) id<INVGeneralAddRemoveTableViewCellAcionDelegate> actionDelegate;
 
