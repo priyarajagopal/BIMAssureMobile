@@ -119,6 +119,8 @@
     }
     
     [_inputField reloadData];
+    [_quickSearchController.tableView reloadData];
+    [_tagsController.tableView reloadData];
 }
 
 -(void) selectTag:(NSString *)tag {
@@ -224,6 +226,10 @@
 
 -(void) tokenFieldDidBeginEditing:(VENTokenField *)tokenField {
     [self _showQuickSearchDropdown:self.inputFieldContainer];
+}
+
+-(void) tokenFieldDidEndEditing:(VENTokenField *)tokenField {
+    [self _hideQuickSearchDropdown];
 }
 
 -(void) tokenField:(VENTokenField *)tokenField didDeleteTokenAtIndex:(NSUInteger)index {
