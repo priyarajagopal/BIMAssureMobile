@@ -41,23 +41,31 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNM-c8-qt9" customClass="VENTokenField">
-                            <rect key="frame" x="24" y="0.0" width="466" height="50"/>
+                            <rect key="frame" x="24" y="0.0" width="418" height="50"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
                                 <outlet property="dataSource" destination="iN0-l3-epB" id="Y8X-Tw-pui"/>
                                 <outlet property="delegate" destination="iN0-l3-epB" id="fke-A8-9X4"/>
                             </connections>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Uk-qB-3df">
+                            <rect key="frame" x="442" y="10" width="48" height="30"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="iNM-c8-qt9" secondAttribute="trailing" id="4Az-fj-Koh"/>
+                        <constraint firstAttribute="trailing" secondItem="2Uk-qB-3df" secondAttribute="trailing" id="DJ6-ww-gm9"/>
                         <constraint firstItem="iNM-c8-qt9" firstAttribute="top" secondItem="JK7-ep-sEv" secondAttribute="top" id="DXR-7g-iq3"/>
                         <constraint firstAttribute="centerY" secondItem="iNM-c8-qt9" secondAttribute="centerY" id="DdO-ZV-PwH"/>
                         <constraint firstAttribute="centerY" secondItem="tuo-1q-p6g" secondAttribute="centerY" id="T6O-LQ-eNC"/>
                         <constraint firstItem="tuo-1q-p6g" firstAttribute="leading" secondItem="JK7-ep-sEv" secondAttribute="leading" constant="8" id="UZ9-9p-dbu"/>
+                        <constraint firstAttribute="centerY" secondItem="2Uk-qB-3df" secondAttribute="centerY" id="Y7Z-j9-ETQ"/>
                         <constraint firstAttribute="bottom" secondItem="iNM-c8-qt9" secondAttribute="bottom" id="b03-Cl-GwC"/>
                         <constraint firstItem="iNM-c8-qt9" firstAttribute="leading" secondItem="tuo-1q-p6g" secondAttribute="trailing" id="jeI-Cq-cM8"/>
+                        <constraint firstItem="2Uk-qB-3df" firstAttribute="leading" secondItem="iNM-c8-qt9" secondAttribute="trailing" id="x4y-1G-zmx"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-8u-343">
@@ -96,7 +104,7 @@
                 <outlet property="saveButton" destination="jxY-PG-luq" id="2ev-rh-43a"/>
                 <outlet property="tagsButton" destination="RWz-8u-343" id="d6l-0U-BRH"/>
             </connections>
-            <point key="canvasLocation" x="400" y="387.5"/>
+            <point key="canvasLocation" x="400" y="387"/>
         </view>
     </objects>
 </document>
