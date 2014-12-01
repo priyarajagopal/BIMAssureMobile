@@ -35,8 +35,8 @@ static NSString* INV_ActualParamValue = @"Value";
 
 // rule definition unused at this time. Eventually use
 @property (nonatomic,strong)INVRule* ruleDefinition;
-// rule properties unused at this time
-//@property (nonatomic,strong)NSDictionary* ruleProperties;
+
+@property (nonatomic,strong)UIAlertController* successAlertController;
 
 @property (nonatomic, strong)UIBarButtonItem* saveBarButton;
 @property (nonatomic, weak) UITableViewCell* ruleInstanceCellBeingEdited;
@@ -200,13 +200,7 @@ static NSString* INV_ActualParamValue = @"Value";
         INVRuleInstanceActualParamDictionary ruleInstanceActualParam = ruleInstance.actualParameters;
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
         [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
-        
-        /*
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self fetchRuleDefinitionForRuleId:ruleInstance.accountRuleId];
-        });
-         */
-    }
+     }
     [self.hud hide:YES];
     [self.tableView reloadData];
     [self setupTableFooter];
@@ -248,7 +242,7 @@ static NSString* INV_ActualParamValue = @"Value";
             NSLog (@"%s. Error %@",__func__,error);
         }
         else {
-#warning show alert that instance was succesfully created
+            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_MODIFIED_SUCCESS", nil)];
         }
     }];
      
@@ -264,7 +258,7 @@ static NSString* INV_ActualParamValue = @"Value";
             NSLog (@"%s. Error %@",__func__,error);
         }
         else {
-#warning show alert that instance was succesfully modified
+            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_UPDATED_SUCCESS", nil)];
         }
     }];
 
@@ -374,7 +368,6 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 
-
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == SECTION_RULEINSTANCEDETAILS && indexPath.row == 1) {
@@ -385,6 +378,20 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 #pragma mark - helper
+
+-(void)showSuccessAlertMessage:(NSString*)message {
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self.successAlertController dismissViewControllerAnimated:YES completion:nil];
+        [self performSegueWithIdentifier:@"CancelSegue" sender:self];
+    }];
+    self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    [self.successAlertController.view setTintColor:[UIColor darkGrayColor]];
+    [self.successAlertController addAction:action];
+    [self presentViewController:self.successAlertController animated:YES completion:^{
+        
+    }];
+
+}
 
 -(void)makeFirstResponderTextFieldAtCellIndexPath:(NSIndexPath*)indexPath {
     INVRuleInstanceActualParamTableViewCell* cell = (INVRuleInstanceActualParamTableViewCell*) [self.tableView cellForRowAtIndexPath:indexPath];

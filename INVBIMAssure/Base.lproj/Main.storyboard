@@ -876,7 +876,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
-                                <navigationItem title="Add New Rule Insance" id="QGg-7O-O2Q">
+                                <navigationItem title="Select From Rule Templates" id="QGg-7O-O2Q">
                                     <barButtonItem key="leftBarButtonItem" style="plain" id="nSE-Lp-4ws" userLabel="Cancel">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="luN-PG-YXb">
                                             <rect key="frame" x="-23" y="-15" width="133" height="30"/>
@@ -893,24 +893,10 @@
                             </items>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleDefinitionCell" textLabel="VeE-SB-R2N" detailTextLabel="ovP-Xp-25j" rowHeight="80" style="IBUITableViewCellStyleSubtitle" id="3ry-vG-93w">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleDefinitionCell" rowHeight="80" id="3ry-vG-93w" customClass="INVRuleDefinitionTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3ry-vG-93w" id="Vfj-l8-abo">
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VeE-SB-R2N">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ovP-Xp-25j">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -928,10 +914,10 @@
             </objects>
             <point key="canvasLocation" x="5643" y="3783"/>
         </scene>
-        <!--Create Rule Instance Table View Controller-->
+        <!--Rule Instance Modify TVC-->
         <scene sceneID="yvr-a1-cAI">
             <objects>
-                <tableViewController storyboardIdentifier="CreateRuleInstanceTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bMr-2d-loW" userLabel="Create Rule Instance Table View Controller" customClass="INVRuleInstanceTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CreateRuleInstanceTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bMr-2d-loW" userLabel="Rule Instance Modify TVC" customClass="INVRuleInstanceTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hyy-ex-W6b">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -943,7 +929,7 @@
                                 <navigationItem title="Rule" id="cGy-sX-dyc">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="Dyi-hg-8js">
                                         <connections>
-                                            <segue destination="Yqn-p2-pNA" kind="unwind" unwindAction="done:" id="T75-Si-xFE"/>
+                                            <segue destination="Yqn-p2-pNA" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="T75-Si-xFE"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -1868,7 +1854,7 @@
                                 <navigationItem title="Rule" id="OkB-do-pcz">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="Rmo-px-uLG">
                                         <connections>
-                                            <segue destination="eNb-mG-tXX" kind="unwind" unwindAction="done:" id="MWx-R8-B1J"/>
+                                            <segue destination="eNb-mG-tXX" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="MWx-R8-B1J"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
