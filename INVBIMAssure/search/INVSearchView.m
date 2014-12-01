@@ -24,7 +24,8 @@
 @property (nonatomic) IBOutlet UIView *inputFieldContainer;
 @property (nonatomic) IBOutlet UIButton *tagsButton;
 @property (nonatomic) IBOutlet UIButton *saveButton;
-@property (nonatomic)  NSOrderedSet *allTags;
+@property (nonatomic) NSOrderedSet *allTags;
+@property (nonatomic) NSArray *searchHistory;
 
 -(IBAction) _showTagsDropdown:(id) sender;
 -(IBAction) _showQuickSearchDropdown:(id) sender;
@@ -39,6 +40,7 @@
 @implementation INVSearchView {
     NSMutableOrderedSet *_allTags;
     NSMutableOrderedSet *_selectedTags;
+    NSMutableArray *_searchHistory;
     
     UIAlertView *_saveDialog;
     
@@ -77,13 +79,22 @@
     return _allTags;
 }
 
+-(NSArray *) searchHistory {
+    return _searchHistory;
+}
+
 -(NSString *) searchText {
     return [_inputField inputText];
+}
+
+-(void) setSearchText:(NSString *)searchText {
+    self.inputField.inputText = searchText;
 }
 
 -(void) reloadData {
     _allTags = [NSMutableOrderedSet new];
     _selectedTags = [NSMutableOrderedSet new];
+    _searchHistory = [NSMutableArray new];
     
     [_tagsController.tableView reloadData];
     
@@ -116,6 +127,22 @@
     } else {
         _tagsButton.enabled = NO;
         _saveButton.enabled = NO;
+    }
+    
+    if ([_dataSource respondsToSelector:@selector(searchHistorySizeInSearchView:)]) {
+        NSUInteger count = [_dataSource searchHistorySizeInSearchView:self];
+        
+        for (NSUInteger index = 0; index < count; index++) {
+            NSString *historyEntry = nil;
+            
+            if ([_dataSource respondsToSelector:@selector(searchView:searchHistoryAtIndex:)]) {
+                historyEntry = [_dataSource searchView:self searchHistoryAtIndex:index];
+            }
+            
+            if (historyEntry) {
+                [_searchHistory addObject:historyEntry];
+            }
+        }
     }
     
     [_inputField reloadData];
@@ -239,14 +266,16 @@
 -(void) tokenField:(VENTokenField *)tokenField didChangeText:(NSString *)text {
     if ([_delegate respondsToSelector:@selector(searchView:onSearchTextChanged:)]) {
         [_delegate searchView:self onSearchTextChanged:text];
+        [self reloadData];
     }
 }
 
 -(void) tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text {
     [self _hideQuickSearchDropdown];
     
-    if ([_delegate respondsToSelector:@selector(searchView:onSearchPerformed:)]) {
+    if ([text length] && [_delegate respondsToSelector:@selector(searchView:onSearchPerformed:)]) {
         [_delegate searchView:self onSearchPerformed:text];
+        [self reloadData];
     }
 }
 

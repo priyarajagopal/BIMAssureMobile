@@ -44,11 +44,10 @@
 
 @property (weak, nonatomic) IBOutlet id<VENTokenFieldDelegate> delegate;
 @property (weak, nonatomic) IBOutlet id<VENTokenFieldDataSource> dataSource;
+@property (nonatomic) NSString *inputText;
 
 - (void)reloadData;
 - (void)collapse;
-- (NSString *)inputText;
-
 
 /**-----------------------------------------------------------------------------
  * @name Customization

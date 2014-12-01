@@ -65,9 +65,8 @@
 /** Gets the selected tags contained in this search view. They are ordered by their index in the data source. */
 @property (readonly) NSOrderedSet *selectedTags;
 
-/** Gets the current search text of this search view */
-// TODO: Make this readrwrite?
-@property (readonly) NSString *searchText;
+/** Gets or sets the current search text of this search view */
+@property (readwrite) NSString *searchText;
 
 /** Gets or sets the data source of the reciever */
 @property (nonatomic) IBOutlet id<INVSearchViewDataSource> dataSource;

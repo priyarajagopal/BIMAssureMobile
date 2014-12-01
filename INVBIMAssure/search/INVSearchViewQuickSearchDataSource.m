@@ -24,6 +24,7 @@
 }
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    // TODO - hide sections if they have no data?
     return SECTION_COUNT;
 }
 
@@ -34,7 +35,7 @@
     }
     
     if (section == SECTION_SEARCH_HISTORY) {
-        return 0;
+        return self.searchView.searchHistory.count;
     }
     
     return 0;
@@ -65,20 +66,35 @@
         cell.accessoryType = [self.searchView.selectedTags containsObject:tag] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     }
     
+    if (indexPath.section == SECTION_SEARCH_HISTORY) {
+        NSString *history = self.searchView.searchHistory[indexPath.row];
+        
+        cell.textLabel.text = history;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     return cell;
 }
 
 #pragma mark - UITableViewDelegate methods
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        // Tags
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        [self.searchView _onTagToggled:cell.textLabel.text];
+    if (indexPath.section == SECTION_TAGS) {
+        NSString *tag = self.searchView.allTags[indexPath.row];
+        [self.searchView _onTagToggled:tag];
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [tableView reloadRowsAtIndexPaths:@[ indexPath ]
                          withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    
+    if (indexPath.section == SECTION_SEARCH_HISTORY) {
+        // TODO - Replace current search
+        NSString *historyEntry = self.searchView.searchHistory[indexPath.row];
+        [self.searchView setSearchText:historyEntry];
+        
+        [tableView deselectRowAtIndexPath:indexPath
+                                 animated:YES];
     }
 }
 

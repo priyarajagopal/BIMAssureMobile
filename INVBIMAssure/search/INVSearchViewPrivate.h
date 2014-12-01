@@ -16,6 +16,7 @@
 @property (nonatomic, readonly) UIButton *tagsButton;
 @property (nonatomic, readonly) UIButton *saveButton;
 @property (nonatomic, readonly) NSOrderedSet *allTags;
+@property (nonatomic, readonly) NSArray *searchHistory;
 
 -(void) _showTagsDropdown:(id) sender;
 -(void) _showQuickSearchDropdown:(id) sender;

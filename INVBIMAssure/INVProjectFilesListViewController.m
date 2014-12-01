@@ -30,6 +30,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 @implementation INVProjectFilesListViewController {
     NSMutableSet *_selectedTags;
     NSArray *_allTags;
+    NSMutableArray *_searchHistory;
 }
 
 - (void)viewDidLoad {
@@ -157,6 +158,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
         ];
         
         _selectedTags = [NSMutableSet new];
+        _searchHistory = [NSMutableArray new];
     }
     
     return _searchView;
@@ -284,10 +286,20 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     return [_selectedTags containsObject:tag];
 }
 
+-(NSUInteger) searchHistorySizeInSearchView:(INVSearchView *)searchView {
+    return _searchHistory.count;
+}
+
+-(NSString *) searchView:(INVSearchView *)searchView searchHistoryAtIndex:(NSUInteger)index {
+    return _searchHistory[index];
+}
+
 #pragma mark - INVSearchViewDelegate
 
 -(void) searchView:(INVSearchView *)searchView onSearchPerformed:(NSString *)searchText {
     // TODO: Perform search
+    [_searchHistory addObject:searchText];
+    searchView.searchText = nil;
 }
 
 -(void) searchView:(INVSearchView *)searchView onSearchTextChanged:(NSString *)searchText {
@@ -307,3 +319,4 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 }
 
 @end
+
