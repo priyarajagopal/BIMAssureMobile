@@ -26,6 +26,10 @@
 /** Gets the state of the specified tag */
 -(BOOL) searchView:(INVSearchView *) searchView isTagSelected:(NSString *) tag;
 
+/** Gets the size of the search history */
+-(NSUInteger) searchHistorySizeInSearchView:(INVSearchView *) searchView;
+-(NSString *) searchView:(INVSearchView *) searchView searchHistoryAtIndex:(NSUInteger) index;
+
 @end
 
 /**

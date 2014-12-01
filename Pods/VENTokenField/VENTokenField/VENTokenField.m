@@ -244,7 +244,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     }
 
     VENBackspaceTextField *inputTextField = self.inputTextField;
-    inputTextField.text = @"";
+    // inputTextField.text = @"";
     inputTextField.frame = CGRectMake(*currentX, *currentY + 1, inputTextFieldWidth, [self heightForToken] - 1);
     inputTextField.tintColor = self.colorScheme;
     [self.scrollView addSubview:inputTextField];
@@ -384,6 +384,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         _inputTextField.tintColor = self.colorScheme;
         _inputTextField.delegate = self;
         _inputTextField.placeholder = self.placeholderText;
+        _inputTextField.clearsOnBeginEditing = NO;
         
         [_inputTextField addTarget:self action:@selector(inputTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
@@ -494,9 +495,9 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if ([self.delegate respondsToSelector:@selector(tokenField:didEnterText:)]) {
-        if ([textField.text length]) {
+        // if ([textField.text length]) {
             [self.delegate tokenField:self didEnterText:textField.text];
-        }
+        // }
     }
     return NO;
 }
@@ -512,6 +513,15 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     }
 }
 
+-(void) textFieldDidEndEditing:(UITextField *)textField {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!([self.inputTextField isFirstResponder] || [self.invisibleTextField isFirstResponder])) {
+            if ([self.delegate respondsToSelector:@selector(tokenFieldDidEndEditing:)]) {
+                [self.delegate tokenFieldDidEndEditing:self];
+            }
+        }
+    });
+}
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     [self unhighlightAllTokens];
