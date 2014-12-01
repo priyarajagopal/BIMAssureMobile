@@ -146,15 +146,10 @@
 		F5DF9EAC1A2CB2AA0085DEFF /* INVSearchViewQuickSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DF9EAB1A2CB2AA0085DEFF /* INVSearchViewQuickSearchDataSource.m */; };
 		F5DF9EAF1A2CB2F50085DEFF /* INVSearchViewQuickSearchBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DF9EAE1A2CB2F50085DEFF /* INVSearchViewQuickSearchBackgroundView.m */; };
 		F5DF9EB21A2CB32D0085DEFF /* INVSearchViewTagsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DF9EB11A2CB32D0085DEFF /* INVSearchViewTagsDataSource.m */; };
-		F5DF9EE11A2CF5C30085DEFF /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9ED81A2CF5C30085DEFF /* libPods-AFNetworking.a */; };
-		F5DF9EE21A2CF5C30085DEFF /* libPods-FDKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9ED91A2CF5C30085DEFF /* libPods-FDKeychain.a */; };
 		F5DF9EE31A2CF5C30085DEFF /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDA1A2CF5C30085DEFF /* libPods-FontAwesomeKit.a */; };
 		F5DF9EE41A2CF5C30085DEFF /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDB1A2CF5C30085DEFF /* libPods-FrameAccessor.a */; };
-		F5DF9EE51A2CF5C30085DEFF /* libPods-Mantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDC1A2CF5C30085DEFF /* libPods-Mantle.a */; };
 		F5DF9EE61A2CF5C30085DEFF /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDD1A2CF5C30085DEFF /* libPods-MBProgressHUD.a */; };
-		F5DF9EE71A2CF5C30085DEFF /* libPods-Overcoat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDE1A2CF5C30085DEFF /* libPods-Overcoat.a */; };
 		F5DF9EE81A2CF5C30085DEFF /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDF1A2CF5C30085DEFF /* libPods-VENTokenField.a */; };
-		F5DF9EE91A2CF5C30085DEFF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EE01A2CF5C30085DEFF /* libPods.a */; };
 		F5DF9EEA1A2CF5C90085DEFF /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024E010E1A23BA0E00952A73 /* EmpireMobileManager.framework */; };
 		F5DF9EEB1A2CF5C90085DEFF /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 024E010E1A23BA0E00952A73 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F5E8282D1A2537780062BFA2 /* INVSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E8282C1A2537780062BFA2 /* INVSearchView.xib */; };
@@ -260,6 +255,11 @@
 		02A07F831A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionTableViewCell.h; sourceTree = "<group>"; };
 		02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionTableViewCell.m; sourceTree = "<group>"; };
 		02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleDefinitionTableViewCell.xib; sourceTree = "<group>"; };
+		02A07F8A1A2CF8F2003CAC7E /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		02A07F8C1A2CF958003CAC7E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
+		02A07F8E1A2CFB13003CAC7E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
+		02A07F8F1A2CFB13003CAC7E /* libPods-Mantle.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Mantle.a"; path = "Pods/build/Debug-iphoneos/libPods-Mantle.a"; sourceTree = "<group>"; };
+		02A07F901A2CFB13003CAC7E /* libPods-Overcoat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Overcoat.a"; path = "Pods/build/Debug-iphoneos/libPods-Overcoat.a"; sourceTree = "<group>"; };
 		02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSplitViewController.h; sourceTree = "<group>"; };
 		02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSplitViewController.m; sourceTree = "<group>"; };
 		02AAD3EB19E6FE80002901DA /* INVProjectListSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectListSplitViewController.h; sourceTree = "<group>"; };
@@ -357,16 +357,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5DF9EE11A2CF5C30085DEFF /* libPods-AFNetworking.a in Frameworks */,
-				F5DF9EE21A2CF5C30085DEFF /* libPods-FDKeychain.a in Frameworks */,
 				F5DF9EE31A2CF5C30085DEFF /* libPods-FontAwesomeKit.a in Frameworks */,
 				F5DF9EE41A2CF5C30085DEFF /* libPods-FrameAccessor.a in Frameworks */,
-				F5DF9EE51A2CF5C30085DEFF /* libPods-Mantle.a in Frameworks */,
 				F5DF9EE61A2CF5C30085DEFF /* libPods-MBProgressHUD.a in Frameworks */,
-				F5DF9EE71A2CF5C30085DEFF /* libPods-Overcoat.a in Frameworks */,
 				F5DF9EE81A2CF5C30085DEFF /* libPods-VENTokenField.a in Frameworks */,
 				F5DF9EEA1A2CF5C90085DEFF /* EmpireMobileManager.framework in Frameworks */,
-				F5DF9EE91A2CF5C30085DEFF /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +607,11 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				02A07F8E1A2CFB13003CAC7E /* libPods-AFNetworking.a */,
+				02A07F8F1A2CFB13003CAC7E /* libPods-Mantle.a */,
+				02A07F901A2CFB13003CAC7E /* libPods-Overcoat.a */,
+				02A07F8C1A2CF958003CAC7E /* libPods-AFNetworking.a */,
+				02A07F8A1A2CF8F2003CAC7E /* libPods.a */,
 				F5DF9ED81A2CF5C30085DEFF /* libPods-AFNetworking.a */,
 				F5DF9ED91A2CF5C30085DEFF /* libPods-FDKeychain.a */,
 				F5DF9EDA1A2CF5C30085DEFF /* libPods-FontAwesomeKit.a */,
@@ -1136,6 +1136,30 @@
 				);
 				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1168,6 +1192,30 @@
 				);
 				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
