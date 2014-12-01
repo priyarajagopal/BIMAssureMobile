@@ -244,7 +244,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     }
 
     VENBackspaceTextField *inputTextField = self.inputTextField;
-    inputTextField.text = @"";
+    // inputTextField.text = @"";
     inputTextField.frame = CGRectMake(*currentX, *currentY + 1, inputTextFieldWidth, [self heightForToken] - 1);
     inputTextField.tintColor = self.colorScheme;
     [self.scrollView addSubview:inputTextField];
@@ -384,6 +384,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         _inputTextField.tintColor = self.colorScheme;
         _inputTextField.delegate = self;
         _inputTextField.placeholder = self.placeholderText;
+        _inputTextField.clearsOnBeginEditing = NO;
         
         [_inputTextField addTarget:self action:@selector(inputTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }

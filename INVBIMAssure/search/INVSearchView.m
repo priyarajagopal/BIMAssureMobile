@@ -193,6 +193,7 @@
     
     if (popoverController == _quickSearchPopoverController) {
         *rect = _inputFieldContainer.frame;
+        
         _quickSearchController.preferredContentSize = CGSizeMake(self.inputFieldContainer.bounds.size.width, 320);
     }
 }
