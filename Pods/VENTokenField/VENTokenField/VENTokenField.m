@@ -80,6 +80,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 {
     // Set up default values.
     _autocorrectionType = UITextAutocorrectionTypeNo;
+    
     self.maxHeight = VENTokenFieldDefaultMaxHeight;
     self.verticalInset = VENTokenFieldDefaultVerticalInset;
     self.horizontalInset = VENTokenFieldDefaultHorizontalInset;
@@ -88,7 +89,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     self.colorScheme = [UIColor blueColor];
     self.toLabelTextColor = [UIColor colorWithRed:112/255.0f green:124/255.0f blue:124/255.0f alpha:1.0f];
     self.inputTextFieldTextColor = [UIColor colorWithRed:38/255.0f green:39/255.0f blue:41/255.0f alpha:1.0f];
-    
+    self.inputTextFieldReturnKeyType = UIReturnKeyDefault;
     // Accessing bare value to avoid kicking off a premature layout run.
     _toLabelText = NSLocalizedString(@"To:", nil);
 
@@ -392,6 +393,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         _inputTextField.delegate = self;
         _inputTextField.placeholder = self.placeholderText;
         _inputTextField.clearsOnBeginEditing = NO;
+        _inputTextField.returnKeyType = self.inputTextFieldReturnKeyType;
         
         [_inputTextField addTarget:self action:@selector(inputTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
@@ -408,6 +410,14 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 {
     _inputTextFieldKeyboardType = inputTextFieldKeyboardType;
     [self.inputTextField setKeyboardType:self.inputTextFieldKeyboardType];
+}
+
+
+-(void) setInputTextFieldReturnKeyType:(UIReturnKeyType)inputTextFieldReturnKeyType {
+    _inputTextFieldReturnKeyType = inputTextFieldReturnKeyType;
+    
+    [self.inputTextField setReturnKeyType:inputTextFieldReturnKeyType];
+    [self.invisibleTextField setReturnKeyType:inputTextFieldReturnKeyType];
 }
 
 - (void)inputTextFieldDidChange:(UITextField *)textField

@@ -192,6 +192,7 @@
         
         self->_inputField.toLabelText = nil;
         self->_inputField.placeholderText = NSLocalizedString(@"SEARCH", nil);
+        self->_inputField.inputTextFieldReturnKeyType = UIReturnKeySearch;
         [self->_inputField setColorScheme:[UIColor darkGrayColor]];
         
         [self reloadData];
