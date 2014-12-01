@@ -118,6 +118,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             if (!dbError) {
                 [self logRulesToConsole];
                 [self removeSelectedRowFromTableView];
+                
+#warning - There are false negatives today on server side
 
                }
             else {
@@ -132,6 +134,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }];
     
 }
+
 
 #pragma mark - INVRuleInstanceTableViewActionDelegate
 -(void)onViewRuleTappedFor:(INVRuleInstanceTableViewCell*)sender {

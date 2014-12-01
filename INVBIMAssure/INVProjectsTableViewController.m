@@ -11,6 +11,7 @@
 #import "INVProjectDetailsTabViewController.h"
 #import "INVProjectFilesListViewController.h"
 #import "INVRulesListViewController.h"
+#import "INVProjectListSplitViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger TABINDEX_PROJECT_FILES = 0;
@@ -135,8 +136,11 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
     INVProject* project = [self.dataResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
  // Pass the selected object to the new view controller.
      if ([segue.identifier isEqual:@"ProjectDetailSegue"]) {
+         INVProjectListSplitViewController* projectsSplitViewController = (INVProjectListSplitViewController*)self.splitViewController;
+         projectsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+         
          INVProjectDetailsTabViewController* projectDetailsController = (INVProjectDetailsTabViewController*)segue.destinationViewController;
-         self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+
          UINavigationController* navController = projectDetailsController.viewControllers[TABINDEX_PROJECT_FILES];
          INVProjectFilesListViewController* fileListController = (INVProjectFilesListViewController*) navController.topViewController;
          [fileListController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];

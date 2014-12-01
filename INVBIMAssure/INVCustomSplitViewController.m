@@ -11,6 +11,7 @@
 
 @interface INVCustomSplitViewController ()<UISplitViewControllerDelegate>
 @property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
+@property (nonatomic, readwrite)UIPanGestureRecognizer* splitViewPanGestureRecognizer;
 
 @end
 
@@ -20,12 +21,29 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
+  
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - accessor
+-(UIPanGestureRecognizer*)splitViewPanGestureRecognizer {
+    if (!_splitViewPanGestureRecognizer) {
+        for (UIGestureRecognizer* recognizer in [self.view gestureRecognizers]) {
+            if ([recognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+                _splitViewPanGestureRecognizer = recognizer;
+            }
+        }
+        
+    }
+    return _splitViewPanGestureRecognizer;
+  
+}
+
 
 /*
 #pragma mark - Navigation
@@ -36,6 +54,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 
 @end

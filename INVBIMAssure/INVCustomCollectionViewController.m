@@ -43,10 +43,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [self invalidateLayout];
-}
  
 /*
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
