@@ -15,4 +15,6 @@
 
 @property INVSearchView *searchView;
 
+-(void) reloadData;
+
 @end

@@ -54,6 +54,9 @@
                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="_cancelSearch:" destination="iN0-l3-epB" eventType="touchUpInside" id="JDD-sg-eZV"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -100,12 +103,13 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="cancelButton" destination="2Uk-qB-3df" id="Eq2-Ni-cAU"/>
                 <outlet property="inputField" destination="iNM-c8-qt9" id="9dH-gs-V9Y"/>
                 <outlet property="inputFieldContainer" destination="JK7-ep-sEv" id="NJA-kk-4AZ"/>
                 <outlet property="saveButton" destination="jxY-PG-luq" id="2ev-rh-43a"/>
                 <outlet property="tagsButton" destination="RWz-8u-343" id="d6l-0U-BRH"/>
             </connections>
-            <point key="canvasLocation" x="400.5" y="386"/>
+            <point key="canvasLocation" x="406.5" y="859"/>
         </view>
     </objects>
 </document>

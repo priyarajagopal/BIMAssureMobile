@@ -20,16 +20,17 @@
 >
 
 @property (nonatomic) IBOutlet VENTokenField *inputField;
-@property (nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic) IBOutlet UIView *inputFieldContainer;
 @property (nonatomic) IBOutlet UIButton *tagsButton;
 @property (nonatomic) IBOutlet UIButton *saveButton;
+@property (nonatomic) IBOutlet UIButton *cancelButton;
 @property (nonatomic) NSOrderedSet *allTags;
 @property (nonatomic) NSArray *searchHistory;
 
 -(IBAction) _showTagsDropdown:(id) sender;
 -(IBAction) _showQuickSearchDropdown:(id) sender;
 -(IBAction) _showSaveDialog:(id)sender;
+-(IBAction) _cancelSearch:(id)sender;
 
 -(void) _onTagToggled:(NSString *) tag;
 -(void) _onTagAdded:(NSString *) tag;
@@ -145,7 +146,15 @@
         }
     }
     
+    self.cancelButton.hidden = (self.searchText.length == 0);
+    
+    NSString *inputText = _inputField.inputText;
     [_inputField reloadData];
+    
+    // Reloading the data clears the input text.
+    _inputField.inputText = inputText;
+    
+    [_quickSearchDataSource reloadData];
     [_quickSearchController.tableView reloadData];
     [_tagsController.tableView reloadData];
 }
@@ -268,9 +277,10 @@
     if ([_delegate respondsToSelector:@selector(searchView:onSearchTextChanged:)]) {
         [_delegate searchView:self onSearchTextChanged:text];
         [self reloadData];
-        
-        self.inputField.inputText = text;
     }
+    
+    [_quickSearchDataSource reloadData];
+    [_quickSearchController.tableView reloadData];
 }
 
 -(void) tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text {
@@ -325,6 +335,13 @@
     }
     
     [_saveDialog show];
+}
+
+-(void) _cancelSearch:(id)sender {
+    [self _hideQuickSearchDropdown];
+    self.searchText = nil;
+    
+    [self reloadData];
 }
 
 -(void) _hideQuickSearchDropdown {

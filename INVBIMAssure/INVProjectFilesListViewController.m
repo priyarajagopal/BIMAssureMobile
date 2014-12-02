@@ -153,9 +153,9 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
         _searchView.delegate = self;
         
         _allTags = @[
-            @"Foo",
-            @"Bar",
-            @"Baz",
+            @"John Smith",
+            @"Jane Doe",
+            @"David John",
         ];
         
         _selectedTags = [NSMutableSet new];
@@ -313,7 +313,8 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 -(void) searchView:(INVSearchView *)searchView onSearchPerformed:(NSString *)searchText {
     // TODO: Perform search
     [_searchHistory addObject:searchText];
-    searchView.searchText = nil;
+    
+    // searchView.searchText = nil;
 }
 
 -(void) searchView:(INVSearchView *)searchView onSearchTextChanged:(NSString *)searchText {
