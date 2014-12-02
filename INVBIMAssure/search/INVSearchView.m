@@ -90,8 +90,6 @@
 
 -(void) setSearchText:(NSString *)searchText {
     self.inputField.inputText = searchText;
-    
-    [self reloadData];
 }
 
 -(void) reloadData {
@@ -150,7 +148,13 @@
     
     self.cancelButton.hidden = (self.searchText.length == 0);
     
+    NSString *inputText = _inputField.inputText;
     [_inputField reloadData];
+    
+    // Reloading the data clears the input text.
+    _inputField.inputText = inputText;
+    
+    [_quickSearchDataSource reloadData];
     [_quickSearchController.tableView reloadData];
     [_tagsController.tableView reloadData];
 }
@@ -273,9 +277,10 @@
     if ([_delegate respondsToSelector:@selector(searchView:onSearchTextChanged:)]) {
         [_delegate searchView:self onSearchTextChanged:text];
         [self reloadData];
-        
-        self.inputField.inputText = text;
     }
+    
+    [_quickSearchDataSource reloadData];
+    [_quickSearchController.tableView reloadData];
 }
 
 -(void) tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text {
@@ -334,8 +339,9 @@
 
 -(void) _cancelSearch:(id)sender {
     [self _hideQuickSearchDropdown];
-    
     self.searchText = nil;
+    
+    [self reloadData];
 }
 
 -(void) _hideQuickSearchDropdown {
