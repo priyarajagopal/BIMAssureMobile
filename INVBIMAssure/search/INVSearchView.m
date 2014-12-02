@@ -20,16 +20,17 @@
 >
 
 @property (nonatomic) IBOutlet VENTokenField *inputField;
-@property (nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic) IBOutlet UIView *inputFieldContainer;
 @property (nonatomic) IBOutlet UIButton *tagsButton;
 @property (nonatomic) IBOutlet UIButton *saveButton;
+@property (nonatomic) IBOutlet UIButton *cancelButton;
 @property (nonatomic) NSOrderedSet *allTags;
 @property (nonatomic) NSArray *searchHistory;
 
 -(IBAction) _showTagsDropdown:(id) sender;
 -(IBAction) _showQuickSearchDropdown:(id) sender;
 -(IBAction) _showSaveDialog:(id)sender;
+-(IBAction) _cancelSearch:(id)sender;
 
 -(void) _onTagToggled:(NSString *) tag;
 -(void) _onTagAdded:(NSString *) tag;
@@ -89,6 +90,8 @@
 
 -(void) setSearchText:(NSString *)searchText {
     self.inputField.inputText = searchText;
+    
+    [self reloadData];
 }
 
 -(void) reloadData {
@@ -144,6 +147,8 @@
             }
         }
     }
+    
+    self.cancelButton.hidden = (self.searchText.length == 0);
     
     [_inputField reloadData];
     [_quickSearchController.tableView reloadData];
@@ -325,6 +330,12 @@
     }
     
     [_saveDialog show];
+}
+
+-(void) _cancelSearch:(id)sender {
+    [self _hideQuickSearchDropdown];
+    
+    self.searchText = nil;
 }
 
 -(void) _hideQuickSearchDropdown {
