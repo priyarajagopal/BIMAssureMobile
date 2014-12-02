@@ -4,22 +4,21 @@
 //
 //  Created by Priya Rajagopal on 12/1/14.
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
-//
+
+
+// TODO: All ruleset related logic will go away when we move to rule instances only model. So lot of the (untidy) code will become obsolete.
 
 #import "INVRunRulesTableViewController.h"
+#import "INVRunRuleSetHeaderView.h"
 
-static const NSInteger INDEX_ROW_RULESET = 0;
-static const NSInteger DEFAULT_CELL_HEIGHT = 80;
+static const NSInteger DEFAULT_CELL_HEIGHT = 60;
+static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
-@interface INVRunRulesTableViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface INVRunRulesTableViewController ()<UITableViewDataSource,UITableViewDelegate,INVRunRuleSetHeaderViewActionDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
-//@property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
-//@property (nonatomic,strong) NSNumber* selectedRuleInstanceId;
-//@property (nonatomic,strong) NSNumber* selectedRuleSetId;
 @property (nonatomic, strong) INVRuleSetMutableArray  ruleSets;
 @property (nonatomic, strong) NSMutableSet*  selectedRuleInstanceIds;
-@property (nonatomic, strong) UIImageView* selectedImageView;
-@property (nonatomic, strong) UIImageView* deselectedImageView;
+@property (nonatomic, strong) NSMutableSet*  selectedRuleSetIds;
 @end
 
 @implementation INVRunRulesTableViewController
@@ -34,8 +33,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     
-    
     self.tableView.allowsSelectionDuringEditing = NO;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,26 +80,22 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     cell.textLabel.text = ruleInstance.ruleName;
     cell.detailTextLabel.text = ruleInstance.overview;
     if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
-
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryView = [[UIImageView alloc]initWithImage:[self selectedImage]];
     }
     else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = [[UIImageView alloc]initWithImage:[self deselectedImage]];
     }
     
-
-
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    INVRuleSet* ruleSet = self.ruleSets[section];
-    return ruleSet.name;
-  
-}
 
 #pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return DEFAULT_HEADER_HEIGHT;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     INVRuleSet* ruleSet = self.ruleSets[indexPath.section];
     INVRuleInstance* ruleInstance = ruleSet.ruleInstances[indexPath.row];
@@ -111,7 +106,49 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     else {
         [self.selectedRuleInstanceIds addObject:ruleInstanceId];
     }
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    NSNumber* ruleSetId = ruleSet.ruleSetId;
+    if ([self.selectedRuleSetIds containsObject:ruleSetId]) {
+        __block NSInteger indexOfRuleSet = NSNotFound ;
+        __block INVRuleSet* ruleSet = nil;
+        [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            ruleSet = obj;
+            if ([ruleSet.ruleSetId isEqualToNumber:ruleSetId]) {
+                indexOfRuleSet = idx;
+                *stop = YES;
+            }
+        }];
+        [self.selectedRuleSetIds removeObject:ruleSetId];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexOfRuleSet] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    else {
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    INVRuleSet* ruleSet = self.ruleSets[section];
+    
+    __block INVRunRuleSetHeaderView* headerView ;
+    NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVRunRuleSetHeaderView" owner:nil options:nil];
+    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[INVRunRuleSetHeaderView class]]) {
+            headerView = obj;
+            *stop = YES;
+        }
+    }];
+    headerView.actionDelegate = self;
+    headerView.ruleSetNameLabel.text = ruleSet.name;
+    headerView.ruleSetId = ruleSet.ruleSetId;
+    if ([self.selectedRuleSetIds containsObject:ruleSet.ruleSetId]) {
+        [headerView.runRuleSetToggleButton setSelected:YES];
+     }
+    else {
+        [headerView.runRuleSetToggleButton setSelected:NO];
+    }
+    return headerView;
 }
 
 #pragma mark - server side
@@ -128,47 +165,89 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         }
     }];
 }
-/*
 
-#pragma mark - UITableViewDelegate
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
+-(void)runRuleInstances {
+#warning For now ignoring rulesets and only executing on per rule instance basis. Hoping for a better API to combine them
+    __block NSNumber* ruleInstanceId;
+    [self.selectedRuleInstanceIds enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        ruleInstanceId = obj;
+        [self.globalDataManager.invServerClient  executeRuleInstance:ruleInstanceId againstFileVersionId:self.fileId againstModel:nil withCompletionBlock:^(INVEmpireMobileError *error) {
+            [self.hud hide:YES];
+            if (!error) {
+                NSLog(@"%s. Success",__func__);
+#warning - display sucess
+            }
+            else {
+#warning - display error
+            }
+        }];
+    }];
+
+}
+
+#pragma mark - INVRunRuleSetHeaderViewActionDelegate
+-(void)onRuleSetToggled:(INVRunRuleSetHeaderView*)sender {
+    NSNumber* tappedRuleSetId = sender.ruleSetId;
+    return [self updateRuleSetEntryWithId:tappedRuleSetId];
+}
+
+-(void)updateRuleSetEntryWithId:(NSNumber*)ruleSetId {
     
-    INVRuleSet* ruleSet = self.dataResultsController.fetchedObjects[section];
-    
-    __block INVRuleSetTableViewHeaderView* headerView ;
-    NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVRuleSetTableViewHeaderView" owner:nil options:nil];
-    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[INVRuleSetTableViewHeaderView class]]) {
-            headerView = obj;
+    __block NSInteger indexOfRuleSet = NSNotFound ;
+    __block INVRuleSet* ruleSet = nil;
+    [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        ruleSet = obj;
+        if ([ruleSet.ruleSetId isEqualToNumber:ruleSetId]) {
+            indexOfRuleSet = idx;
             *stop = YES;
         }
     }];
-    headerView.actionDelegate = self;
-    headerView.ruleSetNameLabel.text = ruleSet.name;
-    headerView.ruleSetId = ruleSet.ruleSetId;
-    return headerView;
+    BOOL ruleSetEnabled = YES;
+    if ([self.selectedRuleSetIds containsObject:ruleSetId]) {
+        ruleSetEnabled = NO;
+    }
+    
+    [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVRuleInstance* ruleInstance = obj;
+        NSNumber* ruleInstanceId = ruleInstance.ruleInstanceId;
+        if (ruleSetEnabled) {
+            if (![self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
+                [self.selectedRuleInstanceIds addObject:ruleInstanceId];
+            }
+        }
+        else {
+            if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
+                [self.selectedRuleInstanceIds removeObject:ruleInstanceId];
+            }
+        }
+        
+    }];
+    
+    if ([self.selectedRuleSetIds containsObject:ruleSetId]) {
+        [self.selectedRuleSetIds removeObject:ruleSetId];
+    }
+    else {
+        [self.selectedRuleSetIds addObject:ruleSetId];
+    }
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexOfRuleSet] withRowAnimation:UITableViewRowAnimationAutomatic];
+
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+-(NSInteger)indexOfRuleSet:(NSNumber*)ruleSetId {
+    __block NSInteger indexOfRuleSet = NSNotFound ;
+    __block INVRuleSet* ruleSet = nil;
+    [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        ruleSet = obj;
+        if ([ruleSet.ruleSetId isEqualToNumber:ruleSetId]) {
+            indexOfRuleSet = idx;
+            *stop = YES;
+        }
+    }];
+    return indexOfRuleSet;
 }
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleNone;
-}
-
-*/
-
 
 #pragma mark - Navigation
-/*
- - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewRowAction* ruleInstanceAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"EDIT",nil) handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
- NSLog(@"Pop a modal");
- }];
- return @[ruleInstanceAction];
- }
- */
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -197,32 +276,29 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     return _ruleSets;
 }
 
--(UIImageView*)selectedImageView {
-    if (!_selectedImageView) {
-        
+-(NSMutableSet*)selectedRuleSetIds {
+    if (!_selectedRuleSetIds) {
+        _selectedRuleSetIds = [[NSMutableSet alloc]initWithCapacity:0];
     }
-    return _selectedImageView;
+    return _selectedRuleSetIds;
+
 }
 
--(UIImageView*)deselectedImageView {
-    if (!_deselectedImageView) {
-        
-    }
-    return _deselectedImageView;
+-(UIImage*)selectedImage{
+    FAKFontAwesome *selectedIcon = [FAKFontAwesome checkCircleIconWithSize:30];
+    [selectedIcon setAttributes:@{NSForegroundColorAttributeName:[UIColor darkGrayColor]}];
+    return [selectedIcon imageWithSize:CGSizeMake(30, 30)];
 }
 
-/*
--(NSFetchedResultsController*) dataResultsController {
-    if (!_dataResultsController) {
-        NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRuleSets;
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.rulesManager.fetchRequestForRuleSets managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-        NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"projectId==%@",self.projectId ];
-        [fetchRequest setPredicate:fetchPredicate];
-        
-    }
-    return  _dataResultsController;
+
+
+-(UIImage*)deselectedImage {
+    FAKFontAwesome *deselectedIcon = [FAKFontAwesome circleOIconWithSize:30];
+    [deselectedIcon setAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    return [deselectedIcon imageWithSize:CGSizeMake(30, 30)];
 }
-*/
+
 
 #pragma mark - helpers
 -(void)updateRuleSetsFromServer {
@@ -240,4 +316,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }];
 }
 
+#pragma mark - UIEvent Handlers
+- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender {
+    [self runRuleInstances];
+}
 @end

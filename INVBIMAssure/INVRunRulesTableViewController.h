@@ -11,4 +11,6 @@
 @interface INVRunRulesTableViewController : INVCustomTableViewController
 @property (nonatomic,copy)NSNumber* projectId;
 @property (nonatomic,copy)NSNumber* fileId;
+
+- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender;
 @end
