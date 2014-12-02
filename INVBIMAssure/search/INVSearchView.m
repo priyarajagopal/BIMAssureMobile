@@ -268,6 +268,8 @@
     if ([_delegate respondsToSelector:@selector(searchView:onSearchTextChanged:)]) {
         [_delegate searchView:self onSearchTextChanged:text];
         [self reloadData];
+        
+        self.inputField.inputText = text;
     }
 }
 

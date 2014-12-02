@@ -98,4 +98,8 @@
     }
 }
 
+-(void) tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    view.tintColor = [UIColor lightGrayColor];
+}
+
 @end

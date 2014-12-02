@@ -109,6 +109,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 
 - (void)reloadData
 {
+    self.inputTextField.text = nil;
     [self layoutTokensAndInputWithFrameAdjustment:YES];
 }
 
@@ -153,10 +154,6 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 
 -(void) setInputText:(NSString *)inputText {
     self.inputTextField.text = inputText;
-    
-    if ([self.delegate respondsToSelector:@selector(tokenField:didChangeText:)]) {
-        [self.delegate tokenField:self didChangeText:inputText];
-    }
 }
 
 #pragma mark - View Layout

@@ -13,11 +13,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 @interface INVRunRulesTableViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
-@property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
-@property (nonatomic,strong) NSNumber* selectedRuleInstanceId;
-@property (nonatomic,strong) NSNumber* selectedRuleSetId;
+//@property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
+//@property (nonatomic,strong) NSNumber* selectedRuleInstanceId;
+//@property (nonatomic,strong) NSNumber* selectedRuleSetId;
 @property (nonatomic, strong) INVRuleSetMutableArray  ruleSets;
-
+@property (nonatomic, strong) NSMutableSet*  selectedRuleInstanceIds;
+@property (nonatomic, strong) UIImageView* selectedImageView;
+@property (nonatomic, strong) UIImageView* deselectedImageView;
 @end
 
 @implementation INVRunRulesTableViewController
@@ -26,12 +28,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"SELECT_RULES_TO_RUN", nil);
-    
     self.rulesManager = self.globalDataManager.invServerClient.rulesManager;
     
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
+    
     
     self.tableView.allowsSelectionDuringEditing = NO;
 }
@@ -47,7 +49,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
-    [self fetchRuleSets];
+    [self fetchRuleSetIdsForFile];
 }
 
 
@@ -68,18 +70,25 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     INVRuleSet* ruleSet = self.ruleSets[indexPath.section];
     
     NSArray* ruleInstances = ruleSet.ruleInstances;
-    NSInteger cellRow = indexPath.row;
-    if (ruleInstances && ruleInstances.count >= cellRow) {
-        INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
-        
-        cell = [tableView dequeueReusableCellWithIdentifier:@"RuleSetCell"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RuleSetCell"];
-        }
-        cell.textLabel.text = ruleInstance.ruleName;
-        cell.detailTextLabel.text = ruleInstance.overview;
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
+    NSNumber* ruleInstanceId = ruleInstance.ruleInstanceId;
+    cell = [tableView dequeueReusableCellWithIdentifier:@"RuleSetCell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RuleSetCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell.contentView setTintColor:[UIColor darkGrayColor]];
     }
+    cell.textLabel.text = ruleInstance.ruleName;
+    cell.detailTextLabel.text = ruleInstance.overview;
+    if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
+
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+
 
     return cell;
 }
@@ -91,29 +100,34 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
   
 }
 
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    INVRuleSet* ruleSet = self.ruleSets[indexPath.section];
+    INVRuleInstance* ruleInstance = ruleSet.ruleInstances[indexPath.row];
+    NSNumber* ruleInstanceId = ruleInstance.ruleInstanceId;
+    if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
+        [self.selectedRuleInstanceIds removeObject:ruleInstanceId];
+     }
+    else {
+        [self.selectedRuleInstanceIds addObject:ruleInstanceId];
+    }
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - server side
--(void)fetchRuleSets {
-    [self.globalDataManager.invServerClient getAllRuleSetsForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
+
+-(void)fetchRuleSetIdsForFile {
+    [self.globalDataManager.invServerClient  getAllRuleSetsForFile:self.fileId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
-            NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
-            if (!dbError) {
-                [self logRulesToConsole];
-                [self updateRuleSetsFromServer];
-                [self.tableView reloadData];
-            }
-            else {
-#warning - display error
-            }
-            
+            [self updateRuleSetsFromServer ];
+            [self.tableView reloadData];
         }
         else {
 #warning - display error
         }
     }];
 }
-
 /*
 
 #pragma mark - UITableViewDelegate
@@ -169,6 +183,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 #pragma mark - accessor
+-(NSMutableSet*)selectedRuleInstanceIds {
+    if (!_selectedRuleInstanceIds) {
+        _selectedRuleInstanceIds = [[NSMutableSet alloc]initWithCapacity:0];
+    }
+    return _selectedRuleInstanceIds;
+}
+
 -(INVRuleSetMutableArray)ruleSets {
     if (!_ruleSets) {
         _ruleSets = [[NSMutableArray alloc]initWithCapacity:0];
@@ -176,6 +197,21 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     return _ruleSets;
 }
 
+-(UIImageView*)selectedImageView {
+    if (!_selectedImageView) {
+        
+    }
+    return _selectedImageView;
+}
+
+-(UIImageView*)deselectedImageView {
+    if (!_deselectedImageView) {
+        
+    }
+    return _deselectedImageView;
+}
+
+/*
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRuleSets;
@@ -186,18 +222,17 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }
     return  _dataResultsController;
 }
-
+*/
 
 #pragma mark - helpers
 -(void)updateRuleSetsFromServer {
-    self.ruleSets = [[self.rulesManager ruleSetsForProject:self.projectId]mutableCopy];
     NSArray* rulesetIdsInFile = [self.rulesManager ruleSetIdsForFile:self.fileId];
     INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:rulesetIdsInFile]mutableCopy];
     self.ruleSets = ruleSetsAssociatedWithFile;
    
 }
 -(void)logRulesToConsole {
-    [self.dataResultsController.fetchedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleSet* ruleSet = obj;
         [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSLog(@"Rule Instance for ruleset $%@ is %@\n",ruleSet.ruleSetId, obj);
