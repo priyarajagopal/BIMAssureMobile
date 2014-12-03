@@ -170,7 +170,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)runRuleInstances {
 #warning For now ignoring rulesets and only executing on per rule instance basis. Hoping for a better API to combine them
     __block NSNumber* ruleInstanceId;
-    void(^runRuleInstanceBlock)(void) = ^(void){
+  
+    [self.selectedRuleInstanceIds enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        ruleInstanceId = obj;
+        NSLog(@"Will execure rule Instance %@",ruleInstanceId);
         [self.globalDataManager.invServerClient  executeRuleInstance:ruleInstanceId againstFileVersionId:self.fileVersionId againstModel:self.modelId withCompletionBlock:^(INVEmpireMobileError *error) {
             [self.hud hide:YES];
             if (!error) {
@@ -178,13 +181,11 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             }
             else {
 #warning May need to show a message if one or more fail....
-                 NSLog(@"%s. Error:%@",__func__,error);
+                NSLog(@"%s. Error:%@",__func__,error);
             }
-    }];
-    };
-    [self.selectedRuleInstanceIds enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        ruleInstanceId = obj;
-        dispatch_async(dispatch_get_main_queue(), runRuleInstanceBlock);
+        }];
+
+  
     }];
 
 }
