@@ -1,0 +1,46 @@
+/* 
+  Localized.strings
+  INVBIMAssure
+
+  Created by Priya Rajagopal on 10/8/14.
+  Copyright (c) 2014 Invicara Inc. All rights reserved.
+*/
+"SAVE"="Save";
+"CANCEL"="Cancel";
+"SET_ACCOUNT_AS_DEFAULT"="Set Account as Default?";
+"SHOW_THIS_ALERT"="Do not show this alert again";
+"LOGIN_FAILURE"="Login Failure";
+"GENERIC_LOGIN_FAILURE_MESSAGE"="There was an error while trying to log in. Please check the email and/or password and try again";
+"LOGGING_IN"="Logging In";
+"GENERIC_ACCOUNT_LOGIN_FAILURE_MESSAGE"="There was an error while trying to log into the account";
+"PROJECTS"="Projects";
+"ACCOUNTS"="Accounts";
+"FILES"="Files";
+"CREATED_ON"="Created On";
+"LOG_OUT"="Log Out";
+"LOGGING_IN_ACCOUNT"="Logging into Account";
+"LOADING_DATA"= "Loading...";
+"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE"="Are you sure you want to log into %1@ ?";
+"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE"="Are you sure you want to switch to %1@ ?";
+"USER_MANAGEMENT_ACCOUNT"="Manage Account Users";
+"CURRENT_USERS"="Current Users";
+"INVITED_USERS"="Invited Users";
+"INVITE_USER"="Invite User";
+"INVITED_BY_ON"="Invited by %1@ at %2@";
+"ACCOUNT:"= "Account: %1@";
+"ENTER_OPTIONAL_MESSAGE"="Enter Optional Message :";
+"ENTER_INVITED_USERS"="";
+"ENTER_EMAILS:"="Enter Emails";
+"INVITING"="Inviting";
+"INVITE_FAILURE"="Invite Failure";
+"GENERIC_INVITE_FAILURE_MESSAGE"="There was an error while trying to invite users to the account. Please try again";
+"GENERIC_ACCOUNT_LOGOUT_MESSAGE"="You will be logged out of the \" %1@ \" account.";
+"ARE_YOU_SURE"="Are you sure?";
+"RULES"="Rules";
+"MANAGE_RULESETS"="Manage RuleSets";
+"FILES_INCLUDED_IN_RULESET"="Files Included in RuleSet";
+"FILES_NOT_INCLUDED_IN_RULESET"="Files Not Inclued in RuleSet";
+"MANAGE_FILES"="Manage Files";
+"RULESETS_INCLUDED_IN_FILE"="RuleSets Included in File";
+"RULESETS_NOT_INCLUDED_IN_FILE"="RuleSets Not Inclued in File";
+"EDIT"="Edit";

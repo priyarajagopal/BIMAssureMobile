@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="KGk-i7-Jjw" customClass="INVRuleInstanceActualParamTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ioo-QG-yS7" userLabel="Separator">
+                        <rect key="frame" x="158" y="0.0" width="2" height="50"/>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="2" id="u7y-nL-5de"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tz9-Cu-yaZ">
+                        <rect key="frame" x="8" y="15" width="142" height="20"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mVO-pJ-AOe">
+                        <rect key="frame" x="168" y="11" width="144" height="30"/>
+                        <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="pcf-T3-PsN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="bgn-QV-S5c"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="tz9-Cu-yaZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="D7q-Zq-p3s"/>
+                    <constraint firstAttribute="centerX" secondItem="Ioo-QG-yS7" secondAttribute="centerX" constant="1" id="Ob5-yy-USU"/>
+                    <constraint firstItem="Ioo-QG-yS7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="Onx-hF-5mi"/>
+                    <constraint firstAttribute="centerY" secondItem="Ioo-QG-yS7" secondAttribute="centerY" id="aop-Oe-cLQ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Ioo-QG-yS7" secondAttribute="bottom" constant="-8" id="e7F-28-T3h"/>
+                    <constraint firstItem="mVO-pJ-AOe" firstAttribute="leading" secondItem="Ioo-QG-yS7" secondAttribute="trailing" constant="8" id="kcm-Xn-P1f"/>
+                    <constraint firstAttribute="centerY" secondItem="tz9-Cu-yaZ" secondAttribute="centerY" constant="0.5" id="nkT-sy-tRP"/>
+                    <constraint firstItem="mVO-pJ-AOe" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="oPz-CO-lxf"/>
+                    <constraint firstItem="Ioo-QG-yS7" firstAttribute="leading" secondItem="tz9-Cu-yaZ" secondAttribute="trailing" constant="8" id="pvR-Pz-T1Y"/>
+                    <constraint firstItem="mVO-pJ-AOe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="whn-6f-M5V"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="ruleInstanceKey" destination="tz9-Cu-yaZ" id="1cF-di-4Tr"/>
+                <outlet property="ruleInstanceValue" destination="mVO-pJ-AOe" id="hM1-Mv-m7c"/>
+            </connections>
+            <point key="canvasLocation" x="481" y="319"/>
+        </tableViewCell>
+    </objects>
+</document>
