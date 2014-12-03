@@ -32,7 +32,7 @@ extern const NSString* INV_CredentialKeyPassword ;
 @property (nonatomic,readonly)NSDictionary* credentials;
 @property (nonatomic,readonly)NSNumber* defaultAccountId;
 @property (nonatomic,copy)NSString* loggedInUser;
-@property (nonatomic,copy)NSNumber* loggedInAccount;
+@property (nonatomic,strong)NSNumber* loggedInAccount;
 
 
 +(INVGlobalDataManager*)sharedInstance;

@@ -34,6 +34,12 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" systemItem="flexibleSpace" id="jSq-uk-4lc"/>
+                            <barButtonItem title="Run" id="Jg3-gB-n1h">
+                                <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="onRunRulesSelected:" destination="gTV-IL-0wX" id="Vxf-Qy-SZw"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="manage_rules" id="1Dr-Sd-QVA">
                                 <color key="tintColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>

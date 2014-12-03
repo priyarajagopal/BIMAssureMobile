@@ -6,6 +6,7 @@
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -15,12 +16,32 @@
             <rect key="frame" x="0.0" y="0.0" width="363" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RuleSetId" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oh7-UI-cRV">
-                    <rect key="frame" x="14" y="9" width="290" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="RuleSetId" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oh7-UI-cRV">
+                    <rect key="frame" x="14" y="9" width="243" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xv5-2q-1La">
+                    <rect key="frame" x="265" y="3" width="43" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="43" id="SBc-f9-Vxa"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="43" id="efT-NA-old"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="22"/>
+                    <state key="normal" title="">
+                        <color key="titleColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="efT-NA-old"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="onAddRuleInstanceForRuleSet:" destination="iN0-l3-epB" eventType="touchUpInside" id="hJa-qm-dvi"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8D-aJ-yit">
                     <rect key="frame" x="312" y="3" width="43" height="34"/>
                     <constraints>
@@ -43,13 +64,21 @@
                 <constraint firstItem="l8D-aJ-yit" firstAttribute="leading" secondItem="oh7-UI-cRV" secondAttribute="trailing" constant="8" id="Rfg-OT-CVP"/>
                 <constraint firstItem="oh7-UI-cRV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="T5d-2K-7cV"/>
                 <constraint firstAttribute="centerY" secondItem="oh7-UI-cRV" secondAttribute="centerY" constant="0.5" id="XPo-kV-aZh"/>
+                <constraint firstAttribute="centerY" secondItem="xv5-2q-1La" secondAttribute="centerY" id="eK9-QB-viM"/>
+                <constraint firstItem="l8D-aJ-yit" firstAttribute="leading" secondItem="xv5-2q-1La" secondAttribute="trailing" constant="4" id="wkI-Oj-BF8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Rfg-OT-CVP"/>
+                </mask>
+            </variation>
             <connections>
+                <outlet property="addRuleButton" destination="xv5-2q-1La" id="0OR-hk-2Ct"/>
                 <outlet property="manageFilesButton" destination="l8D-aJ-yit" id="Ych-aR-oZC"/>
                 <outlet property="ruleSetNameLabel" destination="oh7-UI-cRV" id="b6F-nA-11r"/>
             </connections>
-            <point key="canvasLocation" x="545.5" y="199"/>
+            <point key="canvasLocation" x="545.5" y="199.5"/>
         </view>
     </objects>
 </document>

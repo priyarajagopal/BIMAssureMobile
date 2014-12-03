@@ -12,21 +12,23 @@
 
 @protocol INVProjectFileCollectionViewCellDelegate <NSObject>
 
+@optional
 -(void)onViewProjectFile:(INVProjectFileCollectionViewCell*)sender;
 -(void)onManageRuleSetsForProjectFile:(INVProjectFileCollectionViewCell*)sender;
+-(void)onRunRulesForProjectFile:(INVProjectFileCollectionViewCell*)sender;
 
 @end
 
 @interface INVProjectFileCollectionViewCell : UICollectionViewCell
 @property (nonatomic,weak) id<INVProjectFileCollectionViewCellDelegate> delegate;
-@property (nonatomic,strong)NSNumber* modelId;
-@property (nonatomic,strong)NSNumber* fileId;
-@property (nonatomic,strong)NSNumber* fileVersionId;
+@property (nonatomic,copy)NSNumber* modelId;
+@property (nonatomic,copy)NSNumber* fileId;
+@property (nonatomic,copy)NSNumber* fileVersionId;
 @property (weak, nonatomic) IBOutlet UILabel *fileName;
 
 @property (weak, nonatomic) IBOutlet UIImageView *fileThumbnail;
 - (IBAction)onViewProjectSelected:(UIBarButtonItem*)sender;
 - (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender;
-
+- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender;
 
 @end

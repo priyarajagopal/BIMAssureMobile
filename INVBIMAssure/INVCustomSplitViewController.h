@@ -12,4 +12,6 @@
 @interface INVCustomSplitViewController : UISplitViewController
 @property (nonatomic,readonly)INVGlobalDataManager* globalDataManager;
 @property (nonatomic,strong)MBProgressHUD* hud;
+@property (nonatomic, readonly)UIPanGestureRecognizer* splitViewPanGestureRecognizer;
+
 @end

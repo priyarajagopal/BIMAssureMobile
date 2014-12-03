@@ -25,8 +25,8 @@
 @end
 
 @interface INVRuleInstanceTableViewCell : UITableViewCell
-@property (assign, nonatomic) NSNumber* ruleInstanceId;
-@property (assign, nonatomic) NSNumber* ruleSetId;
+@property (copy, nonatomic) NSNumber* ruleInstanceId;
+@property (copy, nonatomic) NSNumber* ruleSetId;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *overview;
 @property (weak, nonatomic) id<INVRuleInstanceTableViewCellActionDelegate> actionDelegate;

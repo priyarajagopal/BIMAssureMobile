@@ -93,24 +93,24 @@
 // Overcoat
 #define COCOAPODS_POD_AVAILABLE_Overcoat
 #define COCOAPODS_VERSION_MAJOR_Overcoat 2
-#define COCOAPODS_VERSION_MINOR_Overcoat 0
-#define COCOAPODS_VERSION_PATCH_Overcoat 2
+#define COCOAPODS_VERSION_MINOR_Overcoat 1
+#define COCOAPODS_VERSION_PATCH_Overcoat 0
 
 // Overcoat/Core
 #define COCOAPODS_POD_AVAILABLE_Overcoat_Core
 #define COCOAPODS_VERSION_MAJOR_Overcoat_Core 2
-#define COCOAPODS_VERSION_MINOR_Overcoat_Core 0
-#define COCOAPODS_VERSION_PATCH_Overcoat_Core 2
+#define COCOAPODS_VERSION_MINOR_Overcoat_Core 1
+#define COCOAPODS_VERSION_PATCH_Overcoat_Core 0
 
 // Overcoat/NSURLSession
 #define COCOAPODS_POD_AVAILABLE_Overcoat_NSURLSession
 #define COCOAPODS_VERSION_MAJOR_Overcoat_NSURLSession 2
-#define COCOAPODS_VERSION_MINOR_Overcoat_NSURLSession 0
-#define COCOAPODS_VERSION_PATCH_Overcoat_NSURLSession 2
+#define COCOAPODS_VERSION_MINOR_Overcoat_NSURLSession 1
+#define COCOAPODS_VERSION_PATCH_Overcoat_NSURLSession 0
 
 // VENTokenField
 #define COCOAPODS_POD_AVAILABLE_VENTokenField
 #define COCOAPODS_VERSION_MAJOR_VENTokenField 2
 #define COCOAPODS_VERSION_MINOR_VENTokenField 2
-#define COCOAPODS_VERSION_PATCH_VENTokenField 1
+#define COCOAPODS_VERSION_PATCH_VENTokenField 3
 

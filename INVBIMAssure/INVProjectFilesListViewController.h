@@ -9,5 +9,7 @@
 #import "INVCustomCollectionViewController.h"
 
 @interface INVProjectFilesListViewController : INVCustomCollectionViewController
-@property (nonatomic,strong)NSNumber* projectId;
+@property (nonatomic,copy)NSNumber* projectId;
+
+- (IBAction)onFilterTapped:(UIButton *)sender;
 @end

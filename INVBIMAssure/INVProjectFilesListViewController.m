@@ -10,22 +10,30 @@
 #import "INVProjectFileCollectionViewCell.h"
 #import "INVProjectFileViewerController.h"
 #import "INVFileManageRuleSetsContainerViewController.h"
+#import "INVRunRulesTableViewController.h"
+#import "INVSearchView.h"
 #import "INVModelViewerViewController.h"
 
 @import  CoreData;
 
 const NSInteger CELL_WIDTH = 309;
-const NSInteger  CELL_HEIGHT = 282;
+const NSInteger CELL_HEIGHT = 282;
+const NSInteger SEARCH_BAR_HEIGHT = 45;
 
-@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate>
+@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource, INVSearchViewDelegate>
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* selectedModelId;
 @property (nonatomic,strong)NSNumber* selectedFileId;
 @property (nonatomic,strong)NSNumber* selectedFileVersionId;
+@property (nonatomic,strong)INVSearchView* searchView;
 @end
 
-@implementation INVProjectFilesListViewController
+@implementation INVProjectFilesListViewController {
+    NSMutableSet *_selectedTags;
+    NSArray *_allTags;
+    NSMutableArray *_searchHistory;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -139,9 +147,26 @@ const NSInteger  CELL_HEIGHT = 282;
     return  _dataResultsController;
 }
 
+-(INVSearchView*)searchView {
+    if (!_searchView) {
+        _searchView = [[[NSBundle mainBundle] loadNibNamed:@"INVSearchView" owner:self options:nil] firstObject];
+        _searchView.dataSource = self;
+        _searchView.delegate = self;
+        
+        _allTags = @[
+            @"John Smith",
+            @"Jane Doe",
+            @"David John",
+        ];
+        
+        _selectedTags = [NSMutableSet new];
+        _searchHistory = [NSMutableArray new];
+    }
+    
+    return _searchView;
+}
 #pragma mark - INVProjectFileCollectionViewCellDelegate
 -(void)onViewProjectFile:(id)sender {
-    NSLog(@"%s",__func__);
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedModelId = fileCell.modelId;
     self.selectedFileVersionId = fileCell.fileVersionId;
@@ -149,11 +174,18 @@ const NSInteger  CELL_HEIGHT = 282;
 }
 
 -(void)onManageRuleSetsForProjectFile:(id)sender {
-    NSLog(@"%s",__func__);
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedFileId = fileCell.fileId;
     [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
 }
+
+-(void)onRunRulesForProjectFile:(id)sender {
+    NSLog(@"%s",__func__);
+    INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
+    self.selectedFileId = fileCell.fileId;
+    [self performSegueWithIdentifier:@"RunRulesSegue" sender:self];
+}
+
 
 
 
@@ -165,7 +197,8 @@ const NSInteger  CELL_HEIGHT = 282;
     if ([segue.identifier isEqualToString:@"FileViewerSegue"]) {
 
         [self.tabBarController setHidesBottomBarWhenPushed:YES];
-        INVModelViewerViewController* vc = (INVModelViewerViewController*)segue.destinationViewController;
+        INVModelViewerViewController *vc = (INVModelViewerViewController*)segue.destinationViewController;
+        
         vc.modelId = self.selectedModelId;
         vc.fileVersionId = self.selectedFileVersionId;
     }
@@ -173,6 +206,13 @@ const NSInteger  CELL_HEIGHT = 282;
          INVFileManageRuleSetsContainerViewController* vc = (INVFileManageRuleSetsContainerViewController*)segue.destinationViewController;
          vc.projectId = self.projectId;
          vc.fileId = self.selectedFileId;
+     }
+     
+     if ([segue.identifier isEqualToString:@"RunRulesSegue"]) {
+         INVRunRulesTableViewController* vc =  (INVRunRulesTableViewController*)segue.destinationViewController;
+         vc.projectId = self.projectId;
+         vc.fileId = self.selectedFileId;
+
      }
  }
 
@@ -195,5 +235,104 @@ const NSInteger  CELL_HEIGHT = 282;
     }
 }
 
+#pragma mark - UIEvent Handlers
+- (IBAction)onFilterTapped:(UIButton *)sender {
+    if (!_searchView) {
+        // TODO: Animate show/hide.
+        [self.searchView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.collectionView addSubview:self.searchView];
+        
+        NSLayoutConstraint* widthConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
+                                                                           attribute:NSLayoutAttributeWidth
+                                                                           relatedBy:NSLayoutRelationEqual
+                                                                              toItem:self.collectionView
+                                                                           attribute:NSLayoutAttributeWidth
+                                                                          multiplier:1.0
+                                                                            constant:-20];
+        
+        NSLayoutConstraint* heightConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
+                                                                            attribute:NSLayoutAttributeHeight
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:nil
+                                                                            attribute:NSLayoutAttributeNotAnAttribute
+                                                                           multiplier:1.0
+                                                                             constant:SEARCH_BAR_HEIGHT];
+        
+        NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
+                                                                             attribute:NSLayoutAttributeCenterX
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self.collectionView
+                                                                             attribute:NSLayoutAttributeCenterX
+                                                                            multiplier:1
+                                                                              constant:0];
+        
+        NSLayoutConstraint *marginConstraint = [NSLayoutConstraint constraintWithItem:self.searchView
+                                                                            attribute:NSLayoutAttributeTopMargin
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:self.collectionView
+                                                                            attribute:NSLayoutAttributeTop
+                                                                           multiplier:1
+                                                                             constant:8];
+        
+        [self.collectionView addConstraints:@[widthConstraint, heightConstraint, centerXConstraint, marginConstraint]];
+        
+        UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
+        [currLayout setSectionInset:UIEdgeInsetsMake(SEARCH_BAR_HEIGHT + 10, 0, 0, 0)];
+    }
+    else {
+        [self.searchView removeFromSuperview];
+        self.searchView = nil;
+        UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
+        [currLayout setSectionInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+}
+
+#pragma mark - INVSearchViewDataSource
+
+-(NSUInteger) numberOfTagsInSearchView:(INVSearchView *)searchView {
+    return _allTags.count;
+}
+
+-(NSString *) searchView:(INVSearchView *)searchView tagAtIndex:(NSUInteger)index {
+    return _allTags[index];
+}
+
+-(BOOL) searchView:(INVSearchView *)searchView isTagSelected:(NSString *)tag {
+    return [_selectedTags containsObject:tag];
+}
+
+-(NSUInteger) searchHistorySizeInSearchView:(INVSearchView *)searchView {
+    return _searchHistory.count;
+}
+
+-(NSString *) searchView:(INVSearchView *)searchView searchHistoryAtIndex:(NSUInteger)index {
+    return _searchHistory[index];
+}
+
+#pragma mark - INVSearchViewDelegate
+
+-(void) searchView:(INVSearchView *)searchView onSearchPerformed:(NSString *)searchText {
+    // TODO: Perform search
+    [_searchHistory addObject:searchText];
+    
+    // searchView.searchText = nil;
+}
+
+-(void) searchView:(INVSearchView *)searchView onSearchTextChanged:(NSString *)searchText {
+    // TODO: Update real-time results (or show search history).
+}
+
+-(void) searchView:(INVSearchView *)searchView onTagAdded:(NSString *)tag {
+    [_selectedTags addObject:tag];
+}
+
+-(void) searchView:(INVSearchView *)searchView onTagDeleted:(NSString *)tag {
+    [_selectedTags removeObject:tag];
+}
+
+-(void) searchView:(INVSearchView *)searchView onTagsSaved:(NSOrderedSet *)tags withName:(NSString *)name {
+    // TODO: Save search
+}
 
 @end
+

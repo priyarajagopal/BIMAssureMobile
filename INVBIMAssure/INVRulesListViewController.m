@@ -12,6 +12,7 @@
 #import "INVRuleInstanceTableViewController.h"
 #import "INVRuleSetTableViewHeaderView.h"
 #import "INVRuleSetManageFilesContainerViewController.h"
+#import "INVRuleDefinitionsTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
@@ -21,8 +22,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
 @property (nonatomic,strong) NSMutableSet *cellsCurrentlyEditing;
-@property (nonatomic,assign) NSNumber* selectedRuleInstanceId;
-@property (nonatomic,assign) NSNumber* selectedRuleSetId;
+@property (nonatomic,strong) NSNumber* selectedRuleInstanceId;
+@property (nonatomic,strong) NSNumber* selectedRuleSetId;
 @property (nonatomic,strong)UIAlertController* deletePromptAlertController;
 @property (nonatomic,strong)INVRuleInstanceTableViewCell* selectedRowInstanceCell;
 @end
@@ -46,7 +47,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.cellsCurrentlyEditing = [[NSMutableSet alloc]initWithCapacity:0];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.dataSource = self.dataSource;
+
     self.tableView.allowsSelectionDuringEditing = NO;
 }
 
@@ -94,7 +95,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                [self displayRules];
+                [self logRulesToConsole];
                 [self.tableView reloadData];
             }
             else {
@@ -115,8 +116,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                [self displayRules];
+                [self logRulesToConsole];
                 [self removeSelectedRowFromTableView];
+                
+#warning - There are false negatives today on server side
 
                }
             else {
@@ -131,6 +134,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }];
     
 }
+
 
 #pragma mark - INVRuleInstanceTableViewActionDelegate
 -(void)onViewRuleTappedFor:(INVRuleInstanceTableViewCell*)sender {
@@ -207,10 +211,17 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 #pragma mark - INVRuleSetTableViewHeaderViewAcionDelegate
--(void)onManageFilesTapped:(id)sender {
+-(void)onManageFilesTapped:(INVRuleSetTableViewHeaderView*)sender {
     INVRuleSetTableViewHeaderView* headerView  =  (INVRuleSetTableViewHeaderView*)sender;
     self.selectedRuleSetId = headerView.ruleSetId;
     [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
+}
+
+-(void)onAddRuleInstanceTapped:(INVRuleSetTableViewHeaderView*)sender {
+    INVRuleSetTableViewHeaderView* headerView  =  (INVRuleSetTableViewHeaderView*)sender;
+    self.selectedRuleSetId = headerView.ruleSetId;
+    [self performSegueWithIdentifier:@"AddRuleInstanceSegue" sender:self];
+
 }
 
 
@@ -237,6 +248,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         rulesetFilesTVC.ruleSetId = self.selectedRuleSetId;
         rulesetFilesTVC.projectId = self.projectId;
     }
+    if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
+        INVRuleDefinitionsTableViewController* ruleDefnTVC = segue.destinationViewController;
+        ruleDefnTVC.ruleSetId = self.selectedRuleSetId;
+    }
     
 }
 
@@ -252,14 +267,17 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
+        NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRuleSets;
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.rulesManager.fetchRequestForRuleSets managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"projectId==%@",self.projectId ];
+        [fetchRequest setPredicate:fetchPredicate];
         
     }
     return  _dataResultsController;
 }
 
 #pragma mark - helpers
--(void)displayRules {
+-(void)logRulesToConsole {
     [self.dataResultsController.fetchedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleSet* ruleSet = obj;
         [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

@@ -29,6 +29,11 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(onManageRuleSetsForProjectFile:)]) {
         [self.delegate onManageRuleSetsForProjectFile:self];
     }
+}
 
+- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onRunRulesForProjectFile:)]) {
+        [self.delegate onRunRulesForProjectFile:self];
+    }
 }
 @end

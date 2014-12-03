@@ -9,7 +9,7 @@
 #import "INVProjectListSplitViewController.h"
 #import "INVProjectsTableViewController.h"
 
-@interface INVProjectListSplitViewController ()<UISplitViewControllerDelegate>
+@interface INVProjectListSplitViewController ()<UISplitViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @end
 
@@ -19,6 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
+    self.splitViewPanGestureRecognizer.delegate = self;
     
 }
 
@@ -37,5 +38,17 @@
     
 }
 
+
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer NS_AVAILABLE_IOS(7_0) {
+    if ([self.splitViewPanGestureRecognizer isEqual:gestureRecognizer] ) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
 
 @end

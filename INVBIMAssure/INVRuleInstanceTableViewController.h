@@ -9,8 +9,9 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVRuleInstanceTableViewController : INVCustomTableViewController
-- (IBAction)onEditRuleInstanceTapped:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
-@property (nonatomic,assign) NSNumber* ruleInstanceId;
-@property (nonatomic,assign) NSNumber* ruleSetId;
+@property (nonatomic,copy) NSString* ruleName;
+@property (nonatomic,copy) NSNumber* ruleInstanceId;
+@property (nonatomic,copy) NSNumber* ruleSetId;
+@property (nonatomic,copy) NSNumber* ruleId;
 @end
