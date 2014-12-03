@@ -76,7 +76,14 @@
     [self setupScene];
     
     // Load in the model
-    
+    INVGlobalDataManager *globalDataManager = [INVGlobalDataManager sharedInstance];
+    [globalDataManager.invServerClient fetchModelViewForId:self.modelId withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+        INVJSONCTMManager *ctmManager = [[INVJSONCTMManager alloc] initWithDictionary:result];
+        
+        for (SCNNode *node in [ctmManager allModels]) {
+            [self->_scene.rootNode addChildNode:node];
+        }
+    }];
 }
 
 @end
