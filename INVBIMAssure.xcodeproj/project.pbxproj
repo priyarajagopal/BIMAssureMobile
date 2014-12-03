@@ -70,6 +70,11 @@
 		0249AAE61A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAE31A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m */; };
 		0249AAE71A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0249AAE41A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib */; };
 		0249AAE81A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0249AAE41A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib */; };
+		0249AAEA1A2F58A000EE5D09 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0249AAE91A2F58A000EE5D09 /* EmpireMobileManager.framework */; };
+		0249AAEF1A2F5D4B00EE5D09 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0249AAEE1A2F5D4B00EE5D09 /* EmpireMobileManager.framework */; };
+		0249AAF01A2F5D4B00EE5D09 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0249AAEE1A2F5D4B00EE5D09 /* EmpireMobileManager.framework */; };
+		0249AAF11A2F5D5D00EE5D09 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0249AAEE1A2F5D4B00EE5D09 /* EmpireMobileManager.framework */; };
+		0249AAF21A2F5D5D00EE5D09 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0249AAEE1A2F5D4B00EE5D09 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		024CDCD419FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */; };
 		024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */; };
 		024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCD319FA822400A2F527 /* INVTextViewTableViewCell.xib */; };
@@ -80,7 +85,6 @@
 		024CDCE819FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */; };
 		024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
 		024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
-		024E01101A23BA0E00952A73 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024E010E1A23BA0E00952A73 /* EmpireMobileManager.framework */; };
 		0278206C1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206D1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
@@ -147,7 +151,6 @@
 		02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
-		E107E758273303FAAA6B124B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCFAB6FC8A404E1594DB60D5 /* libPods.a */; };
 		F5807F511A24EBF100ABB8FF /* INVSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5807F501A24EBF100ABB8FF /* INVSearchView.m */; };
 		F5DF9EAC1A2CB2AA0085DEFF /* INVSearchViewQuickSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DF9EAB1A2CB2AA0085DEFF /* INVSearchViewQuickSearchDataSource.m */; };
 		F5DF9EAF1A2CB2F50085DEFF /* INVSearchViewQuickSearchBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DF9EAE1A2CB2F50085DEFF /* INVSearchViewQuickSearchBackgroundView.m */; };
@@ -156,8 +159,6 @@
 		F5DF9EE41A2CF5C30085DEFF /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDB1A2CF5C30085DEFF /* libPods-FrameAccessor.a */; };
 		F5DF9EE61A2CF5C30085DEFF /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDD1A2CF5C30085DEFF /* libPods-MBProgressHUD.a */; };
 		F5DF9EE81A2CF5C30085DEFF /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DF9EDF1A2CF5C30085DEFF /* libPods-VENTokenField.a */; };
-		F5DF9EEA1A2CF5C90085DEFF /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024E010E1A23BA0E00952A73 /* EmpireMobileManager.framework */; };
-		F5DF9EEB1A2CF5C90085DEFF /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 024E010E1A23BA0E00952A73 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F5E8282D1A2537780062BFA2 /* INVSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E8282C1A2537780062BFA2 /* INVSearchView.xib */; };
 /* End PBXBuildFile section */
 
@@ -178,7 +179,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F5DF9EEB1A2CF5C90085DEFF /* EmpireMobileManager.framework in Embed Frameworks */,
+				0249AAF21A2F5D5D00EE5D09 /* EmpireMobileManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +241,8 @@
 		0249AAE21A2E45D400EE5D09 /* INVRunRuleSetHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRunRuleSetHeaderView.h; sourceTree = "<group>"; };
 		0249AAE31A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRunRuleSetHeaderView.m; sourceTree = "<group>"; };
 		0249AAE41A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRunRuleSetHeaderView.xib; sourceTree = "<group>"; };
+		0249AAE91A2F58A000EE5D09 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
+		0249AAEE1A2F5D4B00EE5D09 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		024CDCD119FA822400A2F527 /* INVTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVTextViewTableViewCell.h; sourceTree = "<group>"; };
 		024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVTextViewTableViewCell.m; sourceTree = "<group>"; };
 		024CDCD319FA822400A2F527 /* INVTextViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVTextViewTableViewCell.xib; sourceTree = "<group>"; };
@@ -248,27 +251,16 @@
 		024CDCE419FAAA9C00A2F527 /* INVTokensTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVTokensTableViewCell.h; sourceTree = "<group>"; };
 		024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVTokensTableViewCell.m; sourceTree = "<group>"; };
 		024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVTokensTableViewCell.xib; sourceTree = "<group>"; };
-		024E010E1A23BA0E00952A73 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
-		024E01171A23BB0000952A73 /* libPods-FDKeychain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FDKeychain.a"; path = "Pods/build/Debug-iphoneos/libPods-FDKeychain.a"; sourceTree = "<group>"; };
-		024E01191A23BB0600952A73 /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
-		024E011D1A23BB6400952A73 /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "Pods/build/Debug-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
-		024E011F1A23BB6900952A73 /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
-		024E01211A23BB7C00952A73 /* libPods-FDKeychain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FDKeychain.a"; path = "Pods/build/Debug-iphoneos/libPods-FDKeychain.a"; sourceTree = "<group>"; };
 		0278206A1A1A98EF00BDAA5E /* Visualize_files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Visualize_files; sourceTree = "<group>"; };
 		0278206B1A1A98EF00BDAA5E /* Visualize.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Visualize.html; sourceTree = "<group>"; };
 		027A5E631A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleSetFilesTableViewDataSource.h; sourceTree = "<group>"; };
 		027A5E641A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleSetFilesTableViewDataSource.m; sourceTree = "<group>"; };
 		02A07F751A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionsTableViewController.h; sourceTree = "<group>"; };
 		02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionsTableViewController.m; sourceTree = "<group>"; };
-		02A07F791A250327003CAC7E /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Debug-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
 		02A07F831A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionTableViewCell.h; sourceTree = "<group>"; };
 		02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionTableViewCell.m; sourceTree = "<group>"; };
 		02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleDefinitionTableViewCell.xib; sourceTree = "<group>"; };
 		02A07F8A1A2CF8F2003CAC7E /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
-		02A07F8C1A2CF958003CAC7E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
-		02A07F8E1A2CFB13003CAC7E /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
-		02A07F8F1A2CFB13003CAC7E /* libPods-Mantle.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Mantle.a"; path = "Pods/build/Debug-iphoneos/libPods-Mantle.a"; sourceTree = "<group>"; };
-		02A07F901A2CFB13003CAC7E /* libPods-Overcoat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Overcoat.a"; path = "Pods/build/Debug-iphoneos/libPods-Overcoat.a"; sourceTree = "<group>"; };
 		02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSplitViewController.h; sourceTree = "<group>"; };
 		02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSplitViewController.m; sourceTree = "<group>"; };
 		02AAD3EB19E6FE80002901DA /* INVProjectListSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectListSplitViewController.h; sourceTree = "<group>"; };
@@ -336,20 +328,8 @@
 		F5DF9EAE1A2CB2F50085DEFF /* INVSearchViewQuickSearchBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchViewQuickSearchBackgroundView.m; sourceTree = "<group>"; };
 		F5DF9EB01A2CB32D0085DEFF /* INVSearchViewTagsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchViewTagsDataSource.h; sourceTree = "<group>"; };
 		F5DF9EB11A2CB32D0085DEFF /* INVSearchViewTagsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchViewTagsDataSource.m; sourceTree = "<group>"; };
-		F5DF9EB31A2CF2880085DEFF /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
-		F5DF9EB51A2CF2E60085DEFF /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
-		F5DF9EB71A2CF35A0085DEFF /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
-		F5DF9EB81A2CF35A0085DEFF /* libPods-FDKeychain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FDKeychain.a"; path = "Pods/build/Debug-iphoneos/libPods-FDKeychain.a"; sourceTree = "<group>"; };
-		F5DF9EB91A2CF35A0085DEFF /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
-		F5DF9EBA1A2CF35A0085DEFF /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "Pods/build/Debug-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
-		F5DF9EBB1A2CF35A0085DEFF /* libPods-Mantle.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Mantle.a"; path = "Pods/build/Debug-iphoneos/libPods-Mantle.a"; sourceTree = "<group>"; };
-		F5DF9EBC1A2CF35A0085DEFF /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
-		F5DF9EBD1A2CF35A0085DEFF /* libPods-Overcoat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Overcoat.a"; path = "Pods/build/Debug-iphoneos/libPods-Overcoat.a"; sourceTree = "<group>"; };
-		F5DF9EBE1A2CF35A0085DEFF /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Debug-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
-		F5DF9EC91A2CF3B40085DEFF /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		F5DF9ECE1A2CF5590085DEFF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F5DF9ED11A2CF56D0085DEFF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		F5DF9ED61A2CF5BE0085DEFF /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		F5DF9ED81A2CF5C30085DEFF /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "Pods/build/Debug-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
 		F5DF9ED91A2CF5C30085DEFF /* libPods-FDKeychain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FDKeychain.a"; path = "Pods/build/Debug-iphoneos/libPods-FDKeychain.a"; sourceTree = "<group>"; };
 		F5DF9EDA1A2CF5C30085DEFF /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
@@ -358,9 +338,7 @@
 		F5DF9EDD1A2CF5C30085DEFF /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
 		F5DF9EDE1A2CF5C30085DEFF /* libPods-Overcoat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Overcoat.a"; path = "Pods/build/Debug-iphoneos/libPods-Overcoat.a"; sourceTree = "<group>"; };
 		F5DF9EDF1A2CF5C30085DEFF /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Debug-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
-		F5DF9EE01A2CF5C30085DEFF /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		F5E8282C1A2537780062BFA2 /* INVSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVSearchView.xib; sourceTree = "<group>"; };
-		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,8 +349,10 @@
 				F5DF9EE31A2CF5C30085DEFF /* libPods-FontAwesomeKit.a in Frameworks */,
 				F5DF9EE41A2CF5C30085DEFF /* libPods-FrameAccessor.a in Frameworks */,
 				F5DF9EE61A2CF5C30085DEFF /* libPods-MBProgressHUD.a in Frameworks */,
+				0249AAEA1A2F58A000EE5D09 /* EmpireMobileManager.framework in Frameworks */,
+				0249AAEF1A2F5D4B00EE5D09 /* EmpireMobileManager.framework in Frameworks */,
+				0249AAF11A2F5D5D00EE5D09 /* EmpireMobileManager.framework in Frameworks */,
 				F5DF9EE81A2CF5C30085DEFF /* libPods-VENTokenField.a in Frameworks */,
-				F5DF9EEA1A2CF5C90085DEFF /* EmpireMobileManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,8 +360,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				024E01101A23BA0E00952A73 /* EmpireMobileManager.framework in Frameworks */,
-				E107E758273303FAAA6B124B /* libPods.a in Frameworks */,
+				0249AAF01A2F5D4B00EE5D09 /* EmpireMobileManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,10 +602,7 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				02A07F8E1A2CFB13003CAC7E /* libPods-AFNetworking.a */,
-				02A07F8F1A2CFB13003CAC7E /* libPods-Mantle.a */,
-				02A07F901A2CFB13003CAC7E /* libPods-Overcoat.a */,
-				02A07F8C1A2CF958003CAC7E /* libPods-AFNetworking.a */,
+				0249AAEE1A2F5D4B00EE5D09 /* EmpireMobileManager.framework */,
 				02A07F8A1A2CF8F2003CAC7E /* libPods.a */,
 				F5DF9ED81A2CF5C30085DEFF /* libPods-AFNetworking.a */,
 				F5DF9ED91A2CF5C30085DEFF /* libPods-FDKeychain.a */,
@@ -636,30 +612,9 @@
 				F5DF9EDD1A2CF5C30085DEFF /* libPods-MBProgressHUD.a */,
 				F5DF9EDE1A2CF5C30085DEFF /* libPods-Overcoat.a */,
 				F5DF9EDF1A2CF5C30085DEFF /* libPods-VENTokenField.a */,
-				F5DF9EE01A2CF5C30085DEFF /* libPods.a */,
-				F5DF9ED61A2CF5BE0085DEFF /* libPods.a */,
 				F5DF9ED11A2CF56D0085DEFF /* WebKit.framework */,
 				F5DF9ECE1A2CF5590085DEFF /* Foundation.framework */,
-				F5DF9EC91A2CF3B40085DEFF /* libPods.a */,
-				F5DF9EB71A2CF35A0085DEFF /* libPods-AFNetworking.a */,
-				F5DF9EB81A2CF35A0085DEFF /* libPods-FDKeychain.a */,
-				F5DF9EB91A2CF35A0085DEFF /* libPods-FontAwesomeKit.a */,
-				F5DF9EBA1A2CF35A0085DEFF /* libPods-FrameAccessor.a */,
-				F5DF9EBB1A2CF35A0085DEFF /* libPods-Mantle.a */,
-				F5DF9EBC1A2CF35A0085DEFF /* libPods-MBProgressHUD.a */,
-				F5DF9EBD1A2CF35A0085DEFF /* libPods-Overcoat.a */,
-				F5DF9EBE1A2CF35A0085DEFF /* libPods-VENTokenField.a */,
-				F5DF9EB51A2CF2E60085DEFF /* libPods.a */,
-				F5DF9EB31A2CF2880085DEFF /* libPods.a */,
-				02A07F791A250327003CAC7E /* libPods-VENTokenField.a */,
-				024E01211A23BB7C00952A73 /* libPods-FDKeychain.a */,
-				024E011F1A23BB6900952A73 /* libPods-MBProgressHUD.a */,
-				024E011D1A23BB6400952A73 /* libPods-FrameAccessor.a */,
-				024E01191A23BB0600952A73 /* libPods-FontAwesomeKit.a */,
-				024E01171A23BB0000952A73 /* libPods-FDKeychain.a */,
-				024E010E1A23BA0E00952A73 /* EmpireMobileManager.framework */,
 				021E85B319F81C30003E35E0 /* MessageUI.framework */,
-				FCFAB6FC8A404E1594DB60D5 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

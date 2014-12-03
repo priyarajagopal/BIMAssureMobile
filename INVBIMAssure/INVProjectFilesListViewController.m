@@ -24,7 +24,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* selectedModelId;
 @property (nonatomic,strong)NSNumber* selectedFileId;
-@property (nonatomic,strong)NSNumber* selectedFileVersionId;
+@property (nonatomic,strong)NSNumber* selectedFileTipId;
 @property (nonatomic,strong)INVSearchView* searchView;
 @end
 
@@ -84,7 +84,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     
     cell.modelId = [self modelIdForTipOfFile:file];
     cell.fileId  = file.fileId;
-    cell.fileVersionId = file.tipId;
+    cell.tipId = file.tipId;
     cell.fileName.text = file.fileName;
     cell.delegate = self;
     
@@ -168,20 +168,25 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 -(void)onViewProjectFile:(id)sender {
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedModelId = fileCell.modelId;
-    self.selectedFileVersionId = fileCell.fileVersionId;
+    self.selectedFileId = fileCell.fileId;
+    self.selectedFileTipId = fileCell.tipId;
     [self performSegueWithIdentifier:@"FileViewerSegue" sender:self];
 }
 
 -(void)onManageRuleSetsForProjectFile:(id)sender {
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
+    self.selectedModelId = fileCell.modelId;
     self.selectedFileId = fileCell.fileId;
+    self.selectedFileTipId = fileCell.tipId;
     [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
 }
 
 -(void)onRunRulesForProjectFile:(id)sender {
-    NSLog(@"%s",__func__);
+
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
+    self.selectedModelId = fileCell.modelId;
     self.selectedFileId = fileCell.fileId;
+    self.selectedFileTipId = fileCell.tipId;
     [self performSegueWithIdentifier:@"RunRulesSegue" sender:self];
 }
 
@@ -199,7 +204,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
         INVProjectFileViewerController *vc = (INVProjectFileViewerController*)segue.destinationViewController;
         
         vc.modelId = self.selectedModelId;
-        vc.fileVersionId = self.selectedFileVersionId;
+        vc.fileVersionId = self.selectedFileTipId;
     }
      if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
          INVFileManageRuleSetsContainerViewController* vc = (INVFileManageRuleSetsContainerViewController*)segue.destinationViewController;
@@ -210,7 +215,9 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
      if ([segue.identifier isEqualToString:@"RunRulesSegue"]) {
          INVRunRulesTableViewController* vc =  (INVRunRulesTableViewController*)segue.destinationViewController;
          vc.projectId = self.projectId;
-         vc.fileId = self.selectedFileId;
+         vc.fileVersionId = self.selectedFileTipId;
+         vc.fileMasterId = self.selectedFileId;
+         vc.modelId = self.selectedModelId;
 
      }
  }

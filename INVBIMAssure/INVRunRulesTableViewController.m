@@ -154,7 +154,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - server side
 
 -(void)fetchRuleSetIdsForFile {
-    [self.globalDataManager.invServerClient  getAllRuleSetsForFile:self.fileId WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient  getAllRuleSetsForFile:self.fileMasterId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
             [self updateRuleSetsFromServer ];
@@ -170,18 +170,21 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)runRuleInstances {
 #warning For now ignoring rulesets and only executing on per rule instance basis. Hoping for a better API to combine them
     __block NSNumber* ruleInstanceId;
-    [self.selectedRuleInstanceIds enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        ruleInstanceId = obj;
-        [self.globalDataManager.invServerClient  executeRuleInstance:ruleInstanceId againstFileVersionId:self.fileId againstModel:nil withCompletionBlock:^(INVEmpireMobileError *error) {
+    void(^runRuleInstanceBlock)(void) = ^(void){
+        [self.globalDataManager.invServerClient  executeRuleInstance:ruleInstanceId againstFileVersionId:self.fileVersionId againstModel:self.modelId withCompletionBlock:^(INVEmpireMobileError *error) {
             [self.hud hide:YES];
             if (!error) {
                 NSLog(@"%s. Success",__func__);
-#warning - display sucess
             }
             else {
-#warning - display error
+#warning May need to show a message if one or more fail....
+                 NSLog(@"%s. Error:%@",__func__,error);
             }
-        }];
+    }];
+    };
+    [self.selectedRuleInstanceIds enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        ruleInstanceId = obj;
+        dispatch_async(dispatch_get_main_queue(), runRuleInstanceBlock);
     }];
 
 }
@@ -302,7 +305,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 #pragma mark - helpers
 -(void)updateRuleSetsFromServer {
-    NSArray* rulesetIdsInFile = [self.rulesManager ruleSetIdsForFile:self.fileId];
+    NSArray* rulesetIdsInFile = [self.rulesManager ruleSetIdsForFile:self.fileMasterId];
     INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:rulesetIdsInFile]mutableCopy];
     self.ruleSets = ruleSetsAssociatedWithFile;
    
@@ -317,7 +320,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 #pragma mark - UIEvent Handlers
-- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender {
-    [self runRuleInstances];
+
+- (IBAction)onRunRulesSelected:(UIButton *)sender {
+     [self runRuleInstances];
 }
 @end

@@ -48,8 +48,7 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
- //   [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModePrimaryHidden ];
-}
+ }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -58,7 +57,6 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-  //  [self.splitViewController setPreferredDisplayMode : UISplitViewControllerDisplayModePrimaryHidden ];
     [self removeWebviewObservers];
     self.webView = nil;
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1917,10 +1917,10 @@
                                             <state key="normal" title="Run Rules">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onRunRulesSelected:" destination="AUh-Ql-GT9" eventType="touchUpInside" id="9O4-2m-5Fd"/>
+                                            </connections>
                                         </button>
-                                        <connections>
-                                            <action selector="onRunRulesSelected:" destination="AUh-Ql-GT9" id="Zs9-cb-Sh7"/>
-                                        </connections>
                                     </barButtonItem>
                                 </navigationItem>
                             </items>

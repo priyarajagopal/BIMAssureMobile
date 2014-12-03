@@ -10,7 +10,9 @@
 
 @interface INVRunRulesTableViewController : INVCustomTableViewController
 @property (nonatomic,copy)NSNumber* projectId;
-@property (nonatomic,copy)NSNumber* fileId;
+@property (nonatomic,copy)NSNumber* fileVersionId;
+@property (nonatomic,copy)NSNumber* fileMasterId;
+@property (nonatomic,copy)NSNumber* modelId;
+- (IBAction)onRunRulesSelected:(UIButton *)sender;
 
-- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender;
 @end
