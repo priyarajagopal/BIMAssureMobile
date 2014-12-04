@@ -301,6 +301,20 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 -(void)deleteProjectWithId:(NSNumber*)projectId ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
 
 
+/**
+ Asynchornously ,get thumbnail image for specified file versionId. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
+ 
+ @param fileVersionId File Version Id
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ */
+-(void)getThumbnailImageForFileVersion:(NSNumber*)fileVersionId ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData) handler;
+
+
 #pragma mark - Rule Sets Related
 /**
  Asynchornously ,get list of all rulesets associated with a project. Users must have signed into an account in order to be able to fetch rule sets.
