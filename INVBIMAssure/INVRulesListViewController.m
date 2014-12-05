@@ -101,7 +101,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             else {
 #warning - display error
             }
-            
         }
         else {
 #warning - display error

@@ -118,7 +118,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
         [self.hud hide:YES];
         if (!error) {
 
-#pragma note Yes - you could have directly accessed accounts from project manager. Using FetchResultsController directly makes it simpler
+#pragma note Yes - you could have directly access files from project manager. Using FetchResultsController directly makes it simpler
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {

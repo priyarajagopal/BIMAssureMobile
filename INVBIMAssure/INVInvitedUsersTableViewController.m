@@ -30,7 +30,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     self.accountManager = self.globalDataManager.invServerClient.accountManager;
     
     [self setupTableViewDataSource];
-    self.tableView.dataSource = self.dataSource;
+
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
@@ -58,6 +58,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
         
     };
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
+    self.tableView.dataSource = self.dataSource;
 }
 
 
