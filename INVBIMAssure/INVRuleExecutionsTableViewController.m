@@ -9,7 +9,7 @@
 #import "INVRuleExecutionsTableViewController.h"
 #import "INVRuleInstanceExecutionResultTableViewCell.h"
 
-static const NSInteger DEFAULT_CELL_HEIGHT = 186;
+static const NSInteger DEFAULT_CELL_HEIGHT = 100;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 @interface INVRuleExecutionsTableViewController ()
@@ -26,7 +26,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = NSLocalizedString(@"RULE_EXECUTIONS", nil);
+    self.title = NSLocalizedString(@"EXECUTIONS", nil);
     
     UINib* reNib = [UINib nibWithNibName:@"INVRuleInstanceExecutionResultTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:reNib forCellReuseIdentifier:@"RuleExecutionTVC"];
@@ -90,21 +90,31 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             [self.dataSource updateWithDataArray:@[] forSection:section];
         }
         else {
-            self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:@[] forSection:section];
+            self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:@[] forSection:section forTableView:self.tableView];
         }
         
     }];
-    
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceExecutionResultTableViewCell *cell,INVRuleInstanceExecution* execution,NSIndexPath* indexPath ){
         cell.ruleInstanceName.text = @"RULE INSTANCE NAME GOES HERE";
         cell.ruleInstanceOverview.text = execution.overview;
         
         NSString* executedAtStr = NSLocalizedString(@"EXECUTED_AT", nil);
+        
+#warning Fix this when server side is fixed
+#ifdef _DATEINUTC_
         NSString* executedAtWithDateStr =[NSString stringWithFormat:@"%@ : %@",executedAtStr, [self.dateFormatter stringFromDate:execution.executedAt]];
         NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:executedAtWithDateStr];
         [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, executedAtStr.length-1)];
         [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(executedAtStr.length,executedAtWithDateStr.length-executedAtStr.length)];
         cell.ruleInstanceExecutionDate.attributedText = attrString;
+#else
+        NSString* executedAtWithDateStr =[NSString stringWithFormat:@"%@ : %@",executedAtStr, execution.executedAt];
+        NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:executedAtWithDateStr];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, executedAtStr.length-1)];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(executedAtStr.length,executedAtWithDateStr.length-executedAtStr.length)];
+        cell.ruleInstanceExecutionDate.attributedText = attrString;
+        
+#endif
         
 #warning Add colors based on status
         cell.executionStatus.text = execution.status;
@@ -124,9 +134,12 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 
 #pragma mark - UITableViewCellDelegate
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-#warning Use sizeThatFits to get height
-    return DEFAULT_CELL_HEIGHT;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.dataSource heightOfRowContentAtIndexPath:indexPath];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return DEFAULT_HEADER_HEIGHT;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -134,7 +147,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #warning  Use attributed text for header label
     UILabel* headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,0, CGRectGetWidth(tableView.frame), DEFAULT_HEADER_HEIGHT )];
     INVFile* file = self.files[section];
-    headerLabel.text = file.fileName;
+    INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
+    
+    headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",file.fileName, (unsigned long)(executions? executions.count:0)] ;
     
     return headerLabel;
 }
@@ -143,8 +158,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - server side
 -(void)fetchFilesFromServer {
     [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
-        if (!error) {
+         if (!error) {
             self.files = self.projectManager.projectFiles;
             if (!self.dataSource) {
                 [self initializeTableViewDataSource];
@@ -155,6 +169,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             [self fetchExecutionsForFilesFromServer];
         }
         else {
+            [self.hud hide:YES];
+            
 #warning - display error
         }
     }];
@@ -164,16 +180,18 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVFile* file = obj;
         NSInteger section = idx;
-        [self.globalDataManager.invServerClient fetchRuleExecutionsForFileVersion:file.fileId withCompletionBlock:^(INVEmpireMobileError *error) {
+        [self.globalDataManager.invServerClient fetchRuleExecutionsForFileVersion:file.tipId withCompletionBlock:^(INVEmpireMobileError *error) {
             [self.hud hide:YES];
             if (!error) {
-                INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.fileId];
-
+                INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
+                NSLog(@"%s. section %d. Num executions %d for file Id %d",__func__,section,executions.count,file.tipId);
                 [self.dataSource updateWithDataArray:executions forSection:section];
+                 
             }
             else {
 #warning - display error
             }
+            [self.tableView reloadData];
         }];
     }];
     

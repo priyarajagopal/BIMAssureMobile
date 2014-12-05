@@ -12,10 +12,12 @@
 #import "INVProjectFilesListViewController.h"
 #import "INVRulesListViewController.h"
 #import "INVProjectListSplitViewController.h"
+#import "INVRuleExecutionsTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger TABINDEX_PROJECT_FILES = 0;
 static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
+static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 
 @interface INVProjectsTableViewController ()
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
@@ -52,7 +54,6 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-   
     
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.view addSubview:self.hud];
@@ -61,7 +62,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 }
 
 -(void)setupTableViewDataSource {
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
+    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
         cell.name.text = project.name;
         NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
@@ -77,8 +78,6 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
         NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
         cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
         
-        
-        
     };
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
     self.tableView.dataSource = self.dataSource;
@@ -93,8 +92,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
-                [self.tableView reloadData];
+                 [self.tableView reloadData];
             }
             else {
 #warning - display error
@@ -152,6 +150,12 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
          [ruleSetController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
          
          ruleSetController.projectId = project.projectId;
+         
+         UINavigationController* reNavController = projectDetailsController.viewControllers[TABINDEX_PROJECT_RULEEXECUTIONS];;
+         
+         INVRuleExecutionsTableViewController* ruleExecutionController = (INVRuleExecutionsTableViewController*) reNavController.topViewController;
+         [ruleExecutionController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
+         ruleExecutionController.projectId = project.projectId;
 
 
      }

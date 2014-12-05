@@ -62,7 +62,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 -(void)setupTableViewDataSource {
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
+    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
       INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleDefinitionTableViewCell *cell,INVRule* rule,NSIndexPath* indexPath){
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.ruleName.text = rule.ruleName;

@@ -167,7 +167,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(INVGenericTableViewDataSource*)ruleSetsDataSource {
     if (!_ruleSetsDataSource) {
         
-        _ruleSetsDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
+        _ruleSetsDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST forTableView:self.tableView];
         
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVGeneralAddRemoveTableViewCell *cell,INVRuleSet* ruleSet,NSIndexPath* indexPath ){
             cell.name.text = ruleSet.name;

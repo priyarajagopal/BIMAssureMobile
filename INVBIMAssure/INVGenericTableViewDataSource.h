@@ -13,14 +13,14 @@ typedef void (^INV_CellConfigurationBlock)(id cell, id cellData, NSIndexPath* in
 typedef void (^INV_HeaderConfigurationBlock)(id headerView, id headerData, NSInteger section);
 
 @interface INVGenericTableViewDataSource : NSObject <UITableViewDataSource>
--(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController;
+-(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController forTableView:(UITableView*)tableView;
+-(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section forTableView:(UITableView*)tableView;
 
--(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section;
 -(void)updateWithDataArray:(NSArray*)updatedDataArray forSection:(NSInteger)section;
 
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock ;
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forSection:(NSInteger)section;
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
 
-
+-(CGFloat)heightOfRowContentAtIndexPath:(NSIndexPath*)indexPath ;
 @end

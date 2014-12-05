@@ -137,7 +137,7 @@ static NSString* INV_ActualParamValue = @"Value";
             self.intermediateRuleOverview = @"";
          }
         NSArray* ruleInfoArray = @[self.ruleName,self.intermediateRuleOverview];
-        self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
+        self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS forTableView:self.tableView];
 
     }
     return _dataSource;

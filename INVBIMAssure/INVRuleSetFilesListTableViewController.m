@@ -167,7 +167,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(INVGenericTableViewDataSource*)filesDataSource {
     if (!_filesDataSource) {
         
-        _filesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.files forSection:SECTION_RULESETFILES];
+        _filesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.files forSection:SECTION_RULESETFILES forTableView:self.tableView];
         
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVGeneralAddRemoveTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
             cell.name.text = file.fileName;

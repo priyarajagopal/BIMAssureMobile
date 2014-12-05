@@ -10,6 +10,8 @@
 
 static const NSInteger DEFAULT_SECTION_INDEX = 0;
 static const NSInteger DEFAULT_ROW_INDEX = 0;
+static const NSInteger DEFAULT_CELL_HEIGHT = 100;
+
 typedef NSDictionary* INVCellContentDictionary;
 typedef NSDictionary* INVHeaderContentDictionary;
 
@@ -33,30 +35,39 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 @property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController; // Alternative to using explicit data arrays
 @property (nonatomic,strong)NSMutableDictionary* dataDictionary; // dictionary of section=>array of data elements
 @property (nonatomic,strong)NSMutableDictionary* cellConfigDictionary; // dictionary of section=>array of INVCellContentDictionary objects
+@property (nonatomic,weak) UITableView* tableView;
 @end
 
 @implementation INVGenericTableViewDataSource
 
--(id)initWithFetchedResultsController:(NSFetchedResultsController*)resultsController {
+-(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController forTableView:(UITableView*)tableView{
     self = [super init];
     if (self) {
-         self.fetchedResultsController = resultsController;
+         self.fetchedResultsController = fetchedResultsController;
          self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
+        self.tableView = tableView;
     }
     return self;
 }
 
--(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section{
+-(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section forTableView:(UITableView *)tableView{
     self = [super init];
     if (self) {
         self.dataDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
         self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
+        self.tableView = tableView;
+        if (section == NSNotFound) {
+            section = DEFAULT_SECTION_INDEX;
+        }
         [self updateWithDataArray:dataArray forSection:section];
     }
     return self;
 }
 
 -(void)updateWithDataArray:(NSArray*)updatedDataArray forSection:(NSInteger)section{
+    if (section == NSNotFound) {
+        section = DEFAULT_SECTION_INDEX;
+    }
     self.dataDictionary[@(section)] = [updatedDataArray copy];
 
 }
@@ -78,6 +89,41 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     }
     [cellContentForSection addObject:content];
     self.cellConfigDictionary[@(indexPath.section)] = cellContentForSection;
+}
+
+-(CGFloat)heightOfRowContentAtIndexPath:(NSIndexPath*)indexPath{
+    __block INVCellContentDictionary cellContext;
+    
+    NSArray* cellContextsForSection = self.cellConfigDictionary[@(indexPath.section)];
+    if (!cellContextsForSection) {
+        cellContextsForSection = self.cellConfigDictionary[@(DEFAULT_SECTION_INDEX)];
+    }
+    if (cellContextsForSection.count == 1)
+    {
+        cellContext = cellContextsForSection[0];
+    }
+    else {
+        [cellContextsForSection enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            cellContext = obj;
+            NSIndexPath* indexPathEntry = cellContext[INV_CellContextIndexPath];
+            if ([indexPathEntry isEqual:indexPath]) {
+                *stop = YES;
+            }
+        }];
+    }
+    if (cellContext) {
+        NSString* matchIdentifier = cellContext[INV_CellContextIdentifier];
+        id cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        if (cell) {
+            [self configureCell:cell atIndexPath:indexPath withCellContext:cellContext];
+            [cell layoutIfNeeded];
+            CGSize size = [((UITableViewCell*)cell).contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        
+            return size.height;
+        }
+        
+    }
+    return DEFAULT_CELL_HEIGHT;
 }
 
 #pragma mark - UITableViewDataSource
@@ -134,6 +180,14 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     if (cellContext) {
         NSString* matchIdentifier = cellContext[INV_CellContextIdentifier];
         id cell = [tableView dequeueReusableCellWithIdentifier:matchIdentifier];
+        [self configureCell:cell atIndexPath:indexPath withCellContext:cellContext];
+        return cell;
+    }
+    return nil;
+}
+
+#pragma mark - helper
+-(void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath withCellContext:(INVCellContentDictionary)cellContext{
         id cellData = nil;
         if (self.dataDictionary) {
             NSArray* dataArray = self.dataDictionary[@(indexPath.section)];
@@ -147,20 +201,7 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
         if (matchBlock) {
             matchBlock(cell,cellData,indexPath);
         }
-        
-        return cell;
-    }
-    return nil;
+
 }
 
-
-#pragma mark - accessor
-/*
--(NSMutableDictionary*)dataDictionary {
-    if (!_dataDictionary) {
-        _dataDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
-    }
-    return _dataDictionary;
-}
- */
 @end

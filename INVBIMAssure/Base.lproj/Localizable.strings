@@ -51,3 +51,4 @@
 "SELECT_RULES_TO_RUN"="Select Rules to Run";
 "EXECUTED_AT"="Executed At";
 "NO_ISSUES"="No Issues";
+"NUM_ERRORS"="Error Count";
