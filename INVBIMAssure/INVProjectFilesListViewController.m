@@ -12,6 +12,7 @@
 #import "INVFileManageRuleSetsContainerViewController.h"
 #import "INVRunRulesTableViewController.h"
 #import "INVSearchView.h"
+#import "UIImage+INVCustomizations.h"
 
 @import  CoreData;
 
@@ -87,11 +88,38 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     cell.tipId = file.tipId;
     cell.fileName.text = file.fileName;
     cell.delegate = self;
-    
-#warning - get the thumbnail image from server and update asynchronously. For now pick from bundle
+    cell.fileThumbnail.image = nil;
+    [cell.loaderActivity startAnimating];
+        
+#ifdef _USE_CANNED_THUMBNAILS_
     NSString* thumbNailFile = [file.fileName stringByReplacingOccurrencesOfString:@"epk" withString:@"png"];
     cell.fileThumbnail.image = [UIImage imageNamed:thumbNailFile];
+    
+#else
+    
+    [self.globalDataManager.invServerClient getThumbnailImageForFileVersion:file.tipId ForSignedInAccountWithCompletionBlock:^(id data,INVEmpireMobileError *error){
+        if (!error) {
+            
+            INVProjectFileCollectionViewCell* cell = (INVProjectFileCollectionViewCell*) [self.collectionView cellForItemAtIndexPath:indexPath];
+            if (cell) {
+                [cell.loaderActivity stopAnimating];
+                  UIImage* origImage = [UIImage imageWithData:data];
+                cell.fileThumbnail.image = [UIImage resizeImage:origImage toSize:cell.fileThumbnail.frame.size];
+            }
+                
+        }
+        else {
+             UIImage* placeHolder = [UIImage imageNamed:@"ImageNotFound.jpg"];
+            [cell.loaderActivity stopAnimating];
+            cell.fileThumbnail.image = [UIImage resizeImage:placeHolder toSize:cell.fileThumbnail.frame.size];
+            
+        }
+    }];
+    
+#endif
+    
 #warning - eventually deal with file versions
+    
     return cell;
 }
 
@@ -339,6 +367,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 -(void) searchView:(INVSearchView *)searchView onTagsSaved:(NSOrderedSet *)tags withName:(NSString *)name {
     // TODO: Save search
 }
+
 
 @end
 

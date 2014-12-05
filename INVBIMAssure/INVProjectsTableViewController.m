@@ -78,6 +78,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
         cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
         
         
+        
     };
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
     self.tableView.dataSource = self.dataSource;

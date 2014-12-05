@@ -7,9 +7,10 @@
 //
 
 #import "INVRuleExecutionsTableViewController.h"
+#import "INVRuleInstanceExecutionResultTableViewCell.h"
 
-
-static const NSInteger DEFAULT_CELL_HEIGHT = 80;
+static const NSInteger DEFAULT_CELL_HEIGHT = 186;
+static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 @interface INVRuleExecutionsTableViewController ()
 @property (nonatomic,strong)INVProjectManager* projectManager;
@@ -17,6 +18,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,strong)INVFileArray files;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
+
 @end
 
 @implementation INVRuleExecutionsTableViewController
@@ -26,17 +28,18 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"RULE_EXECUTIONS", nil);
     
-    UINib* reNib = [UINib nibWithNibName:@"INVRuleExecutionTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
+    UINib* reNib = [UINib nibWithNibName:@"INVRuleInstanceExecutionResultTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:reNib forCellReuseIdentifier:@"RuleExecutionTVC"];
 
-    
+    [self initializeTableViewDataSource];
+    self.rulesManager = self.globalDataManager.invServerClient.rulesManager;
     self.projectManager = self.globalDataManager.invServerClient.projectManager;
     
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
+    self.tableView.estimatedSectionHeaderHeight = DEFAULT_HEADER_HEIGHT;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.refreshControl = nil;
     
-    [self setupTableViewDataSource];
     
 }
 
@@ -62,32 +65,80 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
+    
+#warning  Use cached files and executions and then schedule a fetch
     [self fetchFilesFromServer];
 }
 
--(void)setupTableViewDataSource {
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
-        cell.name.text = project.name;
-        NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
-        NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
-        NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:createdOnWithDateStr];
-        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, createdOnStr.length-1)];
-        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(createdOnStr.length,createdOnWithDateStr.length-createdOnStr.length)];
+-(void)updateTableViewDataSource {
+    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSInteger section = idx;
+        INVFile* file = obj;
+        INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.fileId];
+        if (executions) {
+            [self.dataSource updateWithDataArray:executions forSection:section];
+        }
         
-        cell.createdOnLabel.attributedText = attrString;
+    }];
+}
+
+-(void)initializeTableViewDataSource {
+    
+    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSInteger section = idx;
+        if (self.dataSource) {
+            [self.dataSource updateWithDataArray:@[] forSection:section];
+        }
+        else {
+            self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:@[] forSection:section];
+        }
         
-        NSUInteger random = self.dataResultsController.fetchedObjects.count;
-        NSInteger index = arc4random_uniform(random);
-        NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
-        cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
+    }];
+    
+    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceExecutionResultTableViewCell *cell,INVRuleInstanceExecution* execution,NSIndexPath* indexPath ){
+        cell.ruleInstanceName.text = @"RULE INSTANCE NAME GOES HERE";
+        cell.ruleInstanceOverview.text = execution.overview;
         
+        NSString* executedAtStr = NSLocalizedString(@"EXECUTED_AT", nil);
+        NSString* executedAtWithDateStr =[NSString stringWithFormat:@"%@ : %@",executedAtStr, [self.dateFormatter stringFromDate:execution.executedAt]];
+        NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:executedAtWithDateStr];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, executedAtStr.length-1)];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(executedAtStr.length,executedAtWithDateStr.length-executedAtStr.length)];
+        cell.ruleInstanceExecutionDate.attributedText = attrString;
+        
+#warning Add colors based on status
+        cell.executionStatus.text = execution.status;
+        
+        NSString* issuesText = NSLocalizedString(@"NO_ISSUES", nil);
+        if (execution.issueCount) {
+            issuesText = [NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"NUM_ERRORS", nil),execution.issueCount];
+        }
+        cell.numIssues.text = issuesText;
+        
+#warning Change the alert Icon based on issues count.
         
     };
-    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
-
+    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleExecutionTVC" configureBlock:cellConfigurationBlock];
     self.tableView.dataSource = self.dataSource;
 }
+
+
+#pragma mark - UITableViewCellDelegate
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+#warning Use sizeThatFits to get height
+    return DEFAULT_CELL_HEIGHT;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+#warning  Use attributed text for header label
+    UILabel* headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,0, CGRectGetWidth(tableView.frame), DEFAULT_HEADER_HEIGHT )];
+    INVFile* file = self.files[section];
+    headerLabel.text = file.fileName;
+    
+    return headerLabel;
+}
+
 
 #pragma mark - server side
 -(void)fetchFilesFromServer {
@@ -95,6 +146,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         [self.hud hide:YES];
         if (!error) {
             self.files = self.projectManager.projectFiles;
+            if (!self.dataSource) {
+                [self initializeTableViewDataSource];
+            }
+            else {
+                [self updateTableViewDataSource];
+            }
+            [self fetchExecutionsForFilesFromServer];
         }
         else {
 #warning - display error
@@ -102,10 +160,34 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }];
 }
 
+-(void)fetchExecutionsForFilesFromServer {
+    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVFile* file = obj;
+        NSInteger section = idx;
+        [self.globalDataManager.invServerClient fetchRuleExecutionsForFileVersion:file.fileId withCompletionBlock:^(INVEmpireMobileError *error) {
+            [self.hud hide:YES];
+            if (!error) {
+                INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.fileId];
 
--(void)fetch
+                [self.dataSource updateWithDataArray:executions forSection:section];
+            }
+            else {
+#warning - display error
+            }
+        }];
+    }];
+    
+}
 
 #pragma mark - accessor
 
+-(NSDateFormatter*)dateFormatter {
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc]init];
+        _dateFormatter.timeStyle = NSDateFormatterShortStyle;
+        _dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    }
+    return _dateFormatter;
+}
 
 @end

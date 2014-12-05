@@ -32,7 +32,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JK7-ep-sEv" userLabel="Token Field Container">
-                    <rect key="frame" x="0.0" y="0.0" width="491" height="48"/>
+                    <rect key="frame" x="0.0" y="0.0" width="529" height="48"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuo-1q-p6g">
                             <rect key="frame" x="8" y="16" width="16" height="17"/>
@@ -41,7 +41,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNM-c8-qt9" customClass="VENTokenField">
-                            <rect key="frame" x="24" y="0.0" width="403" height="48"/>
+                            <rect key="frame" x="24" y="0.0" width="441" height="48"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
                                 <outlet property="dataSource" destination="iN0-l3-epB" id="Y8X-Tw-pui"/>
@@ -49,7 +49,7 @@
                             </connections>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Uk-qB-3df">
-                            <rect key="frame" x="435" y="9" width="48" height="30"/>
+                            <rect key="frame" x="473" y="9" width="48" height="30"/>
                             <state key="normal" title="Cancel">
                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,8 +72,8 @@
                         <constraint firstItem="2Uk-qB-3df" firstAttribute="leading" secondItem="iNM-c8-qt9" secondAttribute="trailing" constant="8" id="x4y-1G-zmx"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-8u-343">
-                    <rect key="frame" x="499" y="8" width="30" height="32"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-8u-343">
+                    <rect key="frame" x="537" y="8" width="30" height="32"/>
                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="20"/>
                     <state key="normal" title="">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -90,10 +90,10 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="JK7-ep-sEv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="24y-Fz-f7J"/>
-                <constraint firstItem="jxY-PG-luq" firstAttribute="leading" secondItem="RWz-8u-343" secondAttribute="trailing" constant="8" id="6fr-oh-c1Y"/>
                 <constraint firstAttribute="bottom" secondItem="JK7-ep-sEv" secondAttribute="bottom" id="G2i-cF-Gf9"/>
                 <constraint firstItem="JK7-ep-sEv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Lrg-s4-qFr"/>
                 <constraint firstAttribute="centerY" secondItem="RWz-8u-343" secondAttribute="centerY" id="aTY-Wp-fpz"/>
+                <constraint firstItem="jxY-PG-luq" firstAttribute="leading" secondItem="JK7-ep-sEv" secondAttribute="trailing" constant="8" id="fVt-y9-ynb"/>
                 <constraint firstAttribute="trailing" secondItem="jxY-PG-luq" secondAttribute="trailing" constant="8" id="iYg-tN-5cn"/>
                 <constraint firstItem="RWz-8u-343" firstAttribute="leading" secondItem="JK7-ep-sEv" secondAttribute="trailing" constant="8" id="inF-j0-4iL"/>
                 <constraint firstAttribute="centerY" secondItem="jxY-PG-luq" secondAttribute="centerY" id="kwI-JF-a5W"/>

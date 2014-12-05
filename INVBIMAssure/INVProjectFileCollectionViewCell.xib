@@ -19,7 +19,7 @@
                         <color key="textColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="thumbnail_project" translatesAutoresizingMaskIntoConstraints="NO" id="zPx-1h-YND">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPx-1h-YND">
                         <rect key="frame" x="7" y="45" width="294" height="193"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
@@ -49,6 +49,11 @@
                         </items>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </toolbar>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="29Y-yi-rNW">
+                        <rect key="frame" x="137" y="123" width="37" height="37"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </activityIndicatorView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -57,13 +62,13 @@
             <connections>
                 <outlet property="fileName" destination="svN-tC-bn7" id="TZC-UZ-M6j"/>
                 <outlet property="fileThumbnail" destination="zPx-1h-YND" id="Rbn-Nt-xWn"/>
+                <outlet property="loaderActivity" destination="29Y-yi-rNW" id="glX-bJ-Ha3"/>
             </connections>
             <point key="canvasLocation" x="505.5" y="507"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="manage_rules" width="25" height="25"/>
-        <image name="thumbnail_project" width="446" height="68"/>
         <image name="view_file" width="25" height="25"/>
     </resources>
 </document>

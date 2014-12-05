@@ -10,7 +10,7 @@
 #define SECTION_SEARCH_HISTORY 1
 #define SECTION_COUNT 2
 
-#define MAX_TAG_RESULTS 5
+#define MAX_TAG_RESULTS INT_MAX
 
 #import "INVSearchViewQuickSearchDataSource.h"
 #import "INVSearchViewPrivate.h"
