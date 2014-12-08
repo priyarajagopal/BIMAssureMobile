@@ -14,8 +14,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 @interface INVRuleExecutionsTableViewController ()
 @property (nonatomic,strong)INVProjectManager* projectManager;
-@property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVRulesManager* rulesManager;
+@property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVFileArray files;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 
@@ -95,7 +95,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         
     }];
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceExecutionResultTableViewCell *cell,INVRuleInstanceExecution* execution,NSIndexPath* indexPath ){
-        cell.ruleInstanceName.text = @"RULE INSTANCE NAME GOES HERE";
+        
+        cell.ruleInstanceName.text = execution.groupName;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         NSString* overView = execution.overview && execution.overview.length?execution.overview:NSLocalizedString(@"DESCRIPTION_UNAVAILABLE", nil);
         cell.ruleInstanceOverview.text = overView;
@@ -113,27 +115,35 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         NSString* executedAtWithDateStr =[NSString stringWithFormat:@"%@ : %@",executedAtStr, execution.executedAt];
         NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:executedAtWithDateStr];
         [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, executedAtStr.length-1)];
-        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(executedAtStr.length,executedAtWithDateStr.length-executedAtStr.length)];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(executedAtStr.length,executedAtWithDateStr.length-executedAtStr.length)];
         cell.ruleInstanceExecutionDate.attributedText = attrString;
         
 #endif
+        UIColor* successColor = [UIColor colorWithRed:63.0/255 green:166.0/255 blue:125.0/255 alpha:1.0];
+        UIColor* failColor = [UIColor colorWithRed:212.0/255 green:38.0/255 blue:58.0/255 alpha:1.0];
+        UIColor* otherColor = [UIColor darkGrayColor];
         
         if ([execution.status isEqualToString:@"Completed"]) {
-            cell.executionStatus.backgroundColor = [UIColor colorWithRed:63.0/255 green:166.0/255 blue:125.0/255 alpha:1.0];
+            cell.executionStatus.backgroundColor = successColor;
         }
         else if ([execution.status isEqualToString:@"Failed"]) {
-            cell.executionStatus.backgroundColor = [UIColor colorWithRed:212.0/255 green:38.0/255 blue:58.0/255 alpha:1.0];
+            cell.executionStatus.backgroundColor = failColor;
         }
         else {
-             cell.executionStatus.backgroundColor = [UIColor darkGrayColor];
+             cell.executionStatus.backgroundColor = otherColor;
         }
         
-        
         cell.executionStatus.text = execution.status;
-        
         NSString* issuesText = NSLocalizedString(@"NO_ISSUES", nil);
-        if (execution.issueCount) {
+        
+        if (execution.issueCount.integerValue ) {
             issuesText = [NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"NUM_ERRORS", nil),execution.issueCount];
+            cell.numIssues.textColor = failColor;
+            [cell.alertIconLabel setHidden:NO];
+        }
+        else {
+            cell.numIssues.textColor = [UIColor darkTextColor];
+            [cell.alertIconLabel setHidden:YES];
         }
         cell.numIssues.text = issuesText;
         
@@ -145,6 +155,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 
 #pragma mark - UITableViewCellDelegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self.dataSource heightOfRowContentAtIndexPath:indexPath];
 }
@@ -154,16 +165,23 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
 #warning  Use attributed text for header label
     UILabel* headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,0, CGRectGetWidth(tableView.frame), DEFAULT_HEADER_HEIGHT )];
     if (self.files) {
         INVFile* file = self.files[section];
         INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
-        
         headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",file.fileName, (unsigned long)(executions? executions.count:0)] ;
     }
     return headerLabel;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    INVRuleInstanceExecutionResultTableViewCell* cell = (INVRuleInstanceExecutionResultTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+    if (cell.alertIconLabel.isHidden) {
+        return;
+    }
+    [self performSegueWithIdentifier:@"ShowIssuesSegue" sender:self];
+    
 }
 
 
