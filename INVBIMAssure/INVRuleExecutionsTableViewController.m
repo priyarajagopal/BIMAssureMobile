@@ -11,6 +11,7 @@
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 100;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
+static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
 @interface INVRuleExecutionsTableViewController ()
 @property (nonatomic,strong)INVProjectManager* projectManager;
@@ -35,6 +36,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.rulesManager = self.globalDataManager.invServerClient.rulesManager;
     self.projectManager = self.globalDataManager.invServerClient.projectManager;
     
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.estimatedSectionHeaderHeight = DEFAULT_HEADER_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -164,12 +166,17 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     return DEFAULT_HEADER_HEIGHT;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return DEFAULT_FOOTER_HEIGHT;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 #warning  Use attributed text for header label
     UILabel* headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,0, CGRectGetWidth(tableView.frame), DEFAULT_HEADER_HEIGHT )];
     if (self.files) {
         INVFile* file = self.files[section];
         INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
+        [headerLabel setBackgroundColor:[UIColor lightGrayColor]];
         headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",file.fileName, (unsigned long)(executions? executions.count:0)] ;
     }
     return headerLabel;
