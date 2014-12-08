@@ -52,3 +52,5 @@
 "EXECUTED_AT"="Executed At";
 "NO_ISSUES"="No Issues";
 "NUM_ERRORS"="Error Count";
+"EXECUTIONS"="Executions";
+"DESCRIPTION_UNAVAILABLE"="Description Unavailable";

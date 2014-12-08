@@ -30,12 +30,11 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 @interface INVGenericTableViewDataSource ()
 
-//@property (nonatomic,strong)NSMutableArray* cellConfigContextArray; // array of INVCellContentDictionary objects
 @property (nonatomic,strong)NSMutableArray* headerConfigContextArray; // array of INVHeaderContentDictionary objects
-@property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController; // Alternative to using explicit data arrays
+@property (nonatomic,readwrite)NSFetchedResultsController* fetchedResultsController; // Alternative to using explicit data arrays
 @property (nonatomic,strong)NSMutableDictionary* dataDictionary; // dictionary of section=>array of data elements
 @property (nonatomic,strong)NSMutableDictionary* cellConfigDictionary; // dictionary of section=>array of INVCellContentDictionary objects
-@property (nonatomic,weak) UITableView* tableView;
+@property (nonatomic,readwrite,weak) UITableView* tableView;
 @end
 
 @implementation INVGenericTableViewDataSource
@@ -113,13 +112,13 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     }
     if (cellContext) {
         NSString* matchIdentifier = cellContext[INV_CellContextIdentifier];
-        id cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        id cell = [self.tableView dequeueReusableCellWithIdentifier:matchIdentifier];
         if (cell) {
             [self configureCell:cell atIndexPath:indexPath withCellContext:cellContext];
             [cell layoutIfNeeded];
             CGSize size = [((UITableViewCell*)cell).contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         
-            return size.height;
+            return size.height + 10;
         }
         
     }

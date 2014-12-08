@@ -19,8 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxl-QC-RpD">
-                        <rect key="frame" x="8" y="8" width="232" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxl-QC-RpD">
+                        <rect key="frame" x="8" y="8" width="216" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="i1Y-Ey-tYe"/>
                         </constraints>
@@ -55,8 +55,8 @@
                         <color key="textColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uca-D9-Nfp">
-                        <rect key="frame" x="238" y="8" width="73" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uca-D9-Nfp">
+                        <rect key="frame" x="232" y="8" width="79" height="21"/>
                         <color key="backgroundColor" red="0.56078431370000004" green="0.69864849452554745" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="m1R-kT-e0G"/>
@@ -91,15 +91,17 @@
                     <constraint firstItem="e7T-hj-31X" firstAttribute="leading" secondItem="w1i-JN-AK1" secondAttribute="trailing" constant="20" id="eqG-Be-TQr"/>
                     <constraint firstItem="w1i-JN-AK1" firstAttribute="top" secondItem="iuU-Oc-Le3" secondAttribute="bottom" constant="6" id="gVk-BM-NQL"/>
                     <constraint firstItem="Dxl-QC-RpD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="gad-gU-4sK"/>
-                    <constraint firstItem="uca-D9-Nfp" firstAttribute="leading" secondItem="Dxl-QC-RpD" secondAttribute="trailing" constant="-2" id="ldy-Ly-m0h"/>
+                    <constraint firstItem="uca-D9-Nfp" firstAttribute="leading" secondItem="Dxl-QC-RpD" secondAttribute="trailing" constant="8" id="ldy-Ly-m0h"/>
                     <constraint firstItem="ABI-9C-Neg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="q6q-sR-EPc"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ABI-9C-Neg" secondAttribute="trailing" id="sWy-ZD-8Vv"/>
+                    <constraint firstItem="uca-D9-Nfp" firstAttribute="leading" secondItem="Dxl-QC-RpD" secondAttribute="trailing" constant="8" id="t6F-s9-An1"/>
                     <constraint firstItem="Dxl-QC-RpD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="uL9-Kh-HyL"/>
                     <constraint firstAttribute="bottomMargin" secondItem="w1i-JN-AK1" secondAttribute="bottom" constant="1.5" id="wcE-9h-zXt"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="Jsz-EP-rca"/>
+                        <exclude reference="ldy-Ly-m0h"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

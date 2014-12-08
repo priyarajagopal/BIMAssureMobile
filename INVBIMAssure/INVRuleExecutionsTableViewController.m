@@ -96,7 +96,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     }];
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceExecutionResultTableViewCell *cell,INVRuleInstanceExecution* execution,NSIndexPath* indexPath ){
         cell.ruleInstanceName.text = @"RULE INSTANCE NAME GOES HERE";
-        cell.ruleInstanceOverview.text = execution.overview;
+        
+        NSString* overView = execution.overview && execution.overview.length?execution.overview:NSLocalizedString(@"DESCRIPTION_UNAVAILABLE", nil);
+        cell.ruleInstanceOverview.text = overView;
         
         NSString* executedAtStr = NSLocalizedString(@"EXECUTED_AT", nil);
         
@@ -116,7 +118,17 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         
 #endif
         
-#warning Add colors based on status
+        if ([execution.status isEqualToString:@"Completed"]) {
+            cell.executionStatus.backgroundColor = [UIColor colorWithRed:63.0/255 green:166.0/255 blue:125.0/255 alpha:1.0];
+        }
+        else if ([execution.status isEqualToString:@"Failed"]) {
+            cell.executionStatus.backgroundColor = [UIColor colorWithRed:212.0/255 green:38.0/255 blue:58.0/255 alpha:1.0];
+        }
+        else {
+             cell.executionStatus.backgroundColor = [UIColor darkGrayColor];
+        }
+        
+        
         cell.executionStatus.text = execution.status;
         
         NSString* issuesText = NSLocalizedString(@"NO_ISSUES", nil);
@@ -125,7 +137,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         }
         cell.numIssues.text = issuesText;
         
-#warning Change the alert Icon based on issues count.
         
     };
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleExecutionTVC" configureBlock:cellConfigurationBlock];
@@ -146,11 +157,12 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     
 #warning  Use attributed text for header label
     UILabel* headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,0, CGRectGetWidth(tableView.frame), DEFAULT_HEADER_HEIGHT )];
-    INVFile* file = self.files[section];
-    INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
-    
-    headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",file.fileName, (unsigned long)(executions? executions.count:0)] ;
-    
+    if (self.files) {
+        INVFile* file = self.files[section];
+        INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
+        
+        headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",file.fileName, (unsigned long)(executions? executions.count:0)] ;
+    }
     return headerLabel;
 }
 

@@ -13,25 +13,18 @@
 @interface INVRulesTableViewDataSource () <INVRuleInstanceTableViewCellStateDelegate>
 @property (nonatomic,strong)INV_CellConfigurationBlock cellConfigBlock;
 @property (nonatomic,strong)NSString* cellIdentifier;
-@property (nonatomic,strong)NSFetchedResultsController* fetchedResultsController;
 @property (nonatomic,strong) NSMutableSet *indexPathsOfOpenCells;
-@property (nonatomic,weak) UITableView* tableView;
 @end
 
 @implementation INVRulesTableViewDataSource
 
+
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)resultsController forTableView:(UITableView*)tableView {
-    self = [super init];
+    self = [super initWithFetchedResultsController:resultsController forTableView:tableView];
     if (self) {
-        self.fetchedResultsController = resultsController;
         self.indexPathsOfOpenCells = [[NSMutableSet alloc]initWithCapacity:0];
-        self.tableView = tableView;
     }
     return self;
-}
-
--(id)initWithFetchedResultsController:(NSFetchedResultsController*)resultsController {
-    return [self initWithFetchedResultsController:resultsController forTableView:nil];
 }
 
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock {
@@ -39,23 +32,19 @@
     self.cellConfigBlock = configBlock;
 }
 
--(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CollectionCellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath {
-#warning This method is unsupported
-    
-}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   INVRuleSet* ruleSet = self.fetchedResultsController.fetchedObjects[section];
+   INVRuleSet* ruleSet = super.fetchedResultsController.fetchedObjects[section];
     return ruleSet.ruleInstances.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.fetchedResultsController.fetchedObjects.count;
+    return super.fetchedResultsController.fetchedObjects.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    INVRuleSet* ruleSet = self.fetchedResultsController.fetchedObjects[section];
+    INVRuleSet* ruleSet = super.fetchedResultsController.fetchedObjects[section];
     return ruleSet.name;
 }
 
@@ -69,6 +58,7 @@
     if (matchBlock) {
         matchBlock(cell,cellData,indexPath);
     }
+    
     if ([self.indexPathsOfOpenCells containsObject:indexPath]) {
         [cell openCell];
     }
@@ -79,12 +69,12 @@
 #pragma INVRuleInstanceTableViewCellStateDelegate
 
 - (void)cellDidOpen:(UITableViewCell *)cell {
-    NSIndexPath *currentEditingIndexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *currentEditingIndexPath = [super.tableView indexPathForCell:cell];
     [self.indexPathsOfOpenCells addObject:currentEditingIndexPath];
 }
 
 - (void)cellDidClose:(UITableViewCell *)cell {
-    [self.indexPathsOfOpenCells removeObject:[self.tableView indexPathForCell:cell]];
+    [self.indexPathsOfOpenCells removeObject:[super.tableView indexPathForCell:cell]];
 }
 
 @end

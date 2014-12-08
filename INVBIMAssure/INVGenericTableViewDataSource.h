@@ -13,6 +13,11 @@ typedef void (^INV_CellConfigurationBlock)(id cell, id cellData, NSIndexPath* in
 typedef void (^INV_HeaderConfigurationBlock)(id headerView, id headerData, NSInteger section);
 
 @interface INVGenericTableViewDataSource : NSObject <UITableViewDataSource>
+
+@property (nonatomic,readonly)NSFetchedResultsController* fetchedResultsController; // Alternative to using explicit data arrays
+@property (nonatomic,readonly,weak) UITableView* tableView;
+
+
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController forTableView:(UITableView*)tableView;
 -(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section forTableView:(UITableView*)tableView;
 
