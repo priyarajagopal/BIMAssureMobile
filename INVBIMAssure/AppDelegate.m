@@ -25,6 +25,7 @@
         [self.globalManager deleteCurrentlySavedCredentialsFromKC];
         [self.globalManager deleteCurrentlySavedDefaultAccountFromKC];
     }
+    [self setupNetworkCache];
     [self registerGlobalNotifications];
     [self displayLoginRootViewController];
     [self setUpViewAppearance];
@@ -227,5 +228,10 @@
 -(void)onAccountSwitch:(NSNotification*)notification {
     NSLog(@"%s with notification %@",__func__,notification.userInfo);
     [self displayProjectsListRootViewController];
+}
+
+#pragma mark - Global Config
+-(void)setupNetworkCache {
+    
 }
 @end
