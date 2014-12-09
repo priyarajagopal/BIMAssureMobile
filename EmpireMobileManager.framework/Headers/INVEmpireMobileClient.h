@@ -11,7 +11,7 @@
 #import "INVAccountManager.h"
 #import "INVProjectManager.h"
 #import "INVRulesManager.h"
-
+#import "INVBuildingManager.h"
 
 
 /**
@@ -52,6 +52,11 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  Rules Manager resposible for managing responses to rules related requests
  */
 @property (nonatomic,readonly)INVRulesManager* rulesManager;
+
+/**
+ Building Manager resposible for managing responses to building related requests
+ */
+@property (nonatomic,readonly)INVBuildingManager* buildingManager;
 
 
 #pragma mark - Creation
@@ -392,21 +397,6 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
 
 /**
- Asynchornously ,fetch a specified rule instance.
- 
- @param ruleInstanceId The Id of the rule instance
-
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
- 
- @see -signIntoAccount:withCompletionBlock:
- 
- 
- */
-
-
-
-
-/**
  Asynchornously ,create a specified rule instance.
   
  @param ruleId The Id of the rule definition corresponding to the instance
@@ -595,6 +585,22 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  
  */
 -(void)fetchRuleExecutionsForRuleInstanceId:(NSNumber*)ruleInstanceId withCompletionBlock:(CompletionHandler) handler;
+
+
+#pragma mark - Model/Building Related
+/**
+ Asynchornously , fetch list the details of specified building element
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ @param elementId The Id of the building whose details are to be fetched
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, details can be queried via the INVBuildingManager interface
+ 
+ @see buildingManager
+ 
+ */
+-(void)fetchBuildingElementDetailsForId:(NSNumber*)elementId withCompletionBlock:(CompletionHandler) handler;
+
 
 #pragma mark - General Account Related
 

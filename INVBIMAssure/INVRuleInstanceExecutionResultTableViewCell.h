@@ -15,5 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *numIssues;
 @property (weak, nonatomic) IBOutlet UILabel *executionStatus;
 @property (weak, nonatomic) IBOutlet UILabel *alertIconLabel;
-
+@property (copy, nonatomic) NSArray* associatedBuildingElementsWithIssues;
 @end

@@ -8,6 +8,7 @@
 
 #import "INVRuleExecutionsTableViewController.h"
 #import "INVRuleInstanceExecutionResultTableViewCell.h"
+#import "INVExecutionIssuesTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 100;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
@@ -41,7 +42,6 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     self.tableView.estimatedSectionHeaderHeight = DEFAULT_HEADER_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.refreshControl = nil;
-    
     
 }
 
@@ -139,13 +139,18 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         NSString* issuesText = NSLocalizedString(@"NO_ISSUES", nil);
         
         if (execution.issueCount.integerValue ) {
-            issuesText = [NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"NUM_ERRORS", nil),execution.issueCount];
+            NSDictionary* issueElement = execution.issues[0];
+            NSArray* buildingElements = issueElement[@"buildingElements"];
+            issuesText = [NSString stringWithFormat:@"%@: %d",NSLocalizedString(@"NUM_ERRORS", nil),buildingElements.count];
             cell.numIssues.textColor = failColor;
+            cell.associatedBuildingElementsWithIssues = buildingElements;
+            
             [cell.alertIconLabel setHidden:NO];
         }
         else {
-            cell.numIssues.textColor = [UIColor darkTextColor];
+            cell.numIssues.textColor = [UIColor colorWithRed:60.0/255 green:130.0/255 blue:102.0/255 alpha:1.0];
             [cell.alertIconLabel setHidden:YES];
+            cell.associatedBuildingElementsWithIssues = nil;
         }
         cell.numIssues.text = issuesText;
         
@@ -244,5 +249,17 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     }
     return _dateFormatter;
 }
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowIssuesSegue"]) {
+        INVRuleInstanceExecutionResultTableViewCell* cell = (INVRuleInstanceExecutionResultTableViewCell*)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        INVExecutionIssuesTableViewController* executionTVC = (INVExecutionIssuesTableViewController*)segue.destinationViewController;
+        executionTVC.buildingElementsWithIssues = cell.associatedBuildingElementsWithIssues;
+    }
+}
+
 
 @end
