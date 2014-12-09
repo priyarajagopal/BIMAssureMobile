@@ -77,10 +77,6 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
 
 #pragma mark - UITableViewCellDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.dataSource heightOfRowContentAtIndexPath:indexPath];
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return DEFAULT_HEADER_HEIGHT;
 }
