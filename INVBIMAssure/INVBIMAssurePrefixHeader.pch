@@ -9,21 +9,24 @@
 #ifndef INVBIMAssure_INVBimAssurePrefixHeader_pch
 #define INVBIMAssure_INVBimAssurePrefixHeader_pch
 
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-@import MessageUI;
+    // Include any system framework and library headers here that should be included in all compilation units.
+    // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
-#import "INVGlobalDataManager.h"
-#import <MBProgressHUD/MBProgressHUD.h>
-#import <FontAwesomeKit/FAKFontAwesome.h>
-#import "INVCustomViewController.h"
-#import "INVGlobalDataManager.h"
-#import "INVCustomCollectionViewController.h"
-#import "INVCustomViewController.h"
-#import "INVCustomTableViewController.h"
-#import "INVCustomSplitViewController.h"
-#import "INVCustomTabBarController.h"
-#import "MBProgressHUD+INVBAHUD.h"
-#import "INVGenericTableViewDataSource.h"
-#import "INVGenericCollectionViewDataSource.h"
+    #ifdef __OBJC__
+        @import MessageUI;
+
+        #import "INVGlobalDataManager.h"
+        #import <MBProgressHUD/MBProgressHUD.h>
+        #import <FontAwesomeKit/FAKFontAwesome.h>
+        #import "INVCustomViewController.h"
+        #import "INVGlobalDataManager.h"
+        #import "INVCustomCollectionViewController.h"
+        #import "INVCustomViewController.h"
+        #import "INVCustomTableViewController.h"
+        #import "INVCustomSplitViewController.h"
+        #import "INVCustomTabBarController.h"
+        #import "MBProgressHUD+INVBAHUD.h"
+        #import "INVGenericTableViewDataSource.h"
+        #import "INVGenericCollectionViewDataSource.h"
+    #endif
 #endif

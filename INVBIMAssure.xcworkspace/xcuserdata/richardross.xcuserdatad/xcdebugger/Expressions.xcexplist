@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[INVStreamBasedCTMParserChunk appendContext:withMatrix:andColor:]:INVStreamBasedCTMParserChunk.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[INVStreamBasedCTMParserChunk _transformVerticesInRange:withMatrix:]:INVStreamBasedCTMParserChunk.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[INVStreamBasedCTMParserChunk toNode]:INVStreamBasedCTMParserChunk.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[INVStreamBasedCTMParserChunk _transformIndicesInRange:withAmount:]:INVStreamBasedCTMParserChunk.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[INVModelViewerViewController streamBasedCTMParser:didCompleteChunk:shouldStop:]:INVModelViewerViewController.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

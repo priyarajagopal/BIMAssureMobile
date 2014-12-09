@@ -285,6 +285,10 @@ CTMEXPORT CTMcontext CTMCALL ctmNewContext(CTMenum aMode);
 ///            ctmNewContext().
 /// @see ctmNewContext()
 CTMEXPORT void CTMCALL ctmFreeContext(CTMcontext aContext);
+    
+/// Clear an OpenCTM Context.
+/// @param[in] aCondex An OpenCTM context that has been created by ctmNewContext.
+CTMEXPORT void CTMCALL ctmClearContext(CTMcontext aContext);
 
 /// Returns the latest error. Calling this function will return the last
 /// produced error code, or CTM_NO_ERROR (zero) if no error has occured since
