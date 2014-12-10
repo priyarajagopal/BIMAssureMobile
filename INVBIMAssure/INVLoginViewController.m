@@ -53,6 +53,12 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     }
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.userToken = nil;
+    self.loginFailureAlertController = nil;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -110,7 +116,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 #warning - Show alert
         return;
     }
-    [self showLoginProgress];
     [self loginToServer];
 }
 
@@ -128,7 +133,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 #pragma mark - server side
 -(void)loginToServer {
-    
+    [self showLoginProgress ];
     [self.globalDataManager.invServerClient signInWithUserName:self.emailTextEntry.text andPassword:self.passwordTextEntry.text withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideLoginProgress];
         if (!error) {

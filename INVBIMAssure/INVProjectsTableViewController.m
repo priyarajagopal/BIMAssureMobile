@@ -25,7 +25,6 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVProjectDetailsTabViewController* projectDetailsController;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
-
 @end
 
 @implementation INVProjectsTableViewController
@@ -35,9 +34,7 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"PROJECTS", nil);
    
-    self.projectManager = self.globalDataManager.invServerClient.projectManager;
-   
-    [self setupTableViewDataSource];
+    self.clearsSelectionOnViewWillAppear = NO;
     
     UINib* nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
@@ -45,6 +42,7 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.dataSource = self.dataSource;
+    [self fetchProjectList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,41 +50,32 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.projectManager = nil;
+    self.dateFormatter = nil;
+    self.projectDetailsController = nil;
+}
+
+-(void)onRefreshControlSelected:(id)event {
     [self fetchProjectList];
 }
 
--(void)setupTableViewDataSource {
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
-        cell.name.text = project.name;
-        NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
-        NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
-        NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:createdOnWithDateStr];
-        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, createdOnStr.length-1)];
-        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(createdOnStr.length,createdOnWithDateStr.length-createdOnStr.length)];
-        
-        cell.createdOnLabel.attributedText = attrString;
-        
-        NSUInteger random = self.dataResultsController.fetchedObjects.count;
-        NSInteger index = arc4random_uniform(random);
-        NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
-        cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
-        
-    };
-    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
-    self.tableView.dataSource = self.dataSource;
-}
+
 
 #pragma mark - server side
 -(void)fetchProjectList {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllProjectsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
+        if ([self.refreshControl isRefreshing]) {
+            [self.refreshControl endRefreshing];
+        }
         if (!error) {
 #pragma note Yes - you could have directly accessed accounts from accountManager. Using FetchResultsController directly makes it simpler
             NSError* dbError;
@@ -162,8 +151,45 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
     
  }
 
+#pragma mark - helper
+-(void)showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+}
 
 #pragma mark - accessor
+-(INVGenericTableViewDataSource*)dataSource {
+    if (!_dataSource) {
+        _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
+            cell.name.text = project.name;
+            NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
+            NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
+            NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:createdOnWithDateStr];
+            [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkTextColor] range:NSMakeRange(0, createdOnStr.length-1)];
+            [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(createdOnStr.length,createdOnWithDateStr.length-createdOnStr.length)];
+            
+            cell.createdOnLabel.attributedText = attrString;
+            
+            NSUInteger random = self.dataResultsController.fetchedObjects.count;
+            NSInteger index = arc4random_uniform(random);
+            NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
+            cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
+            
+        };
+        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
+    
+    }
+    return _dataSource;
+}
+
+-(INVProjectManager*) projectManager {
+    if (!_projectManager) {
+        _projectManager = self.globalDataManager.invServerClient.projectManager;
+    }
+    return _projectManager;
+}
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {

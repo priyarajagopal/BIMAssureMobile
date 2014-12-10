@@ -35,6 +35,8 @@
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self deregisterMainMenuObservers];
+    self.detailContainerViewController = nil;
+    self.mainMenuVC = nil;
 }
 
 #pragma mark - Navigation

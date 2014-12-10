@@ -42,12 +42,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.clearsSelectionOnViewWillAppear = NO;
     
     self.title = NSLocalizedString(@"ACCOUNTS", nil);
-    
-    self.accountManager = self.globalDataManager.invServerClient.accountManager;
-    
-    [self setupCollectionViewDataSource];
-    
-    
+      
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
@@ -67,7 +62,10 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.collectionView.dataSource = self.dataSource;
     
+    [self fetchListOfAccounts];
+
     NSNumber* defaultAcnt = self.globalDataManager.defaultAccountId;
     if (defaultAcnt && self.autoSignIntoDefaultAccount) {
         self.globalDataManager.loggedInAccount = defaultAcnt;
@@ -81,31 +79,43 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.alertView = nil;
+    self.accountManager = nil;
+    self.dataResultsController = nil;
+    self.loginFailureAlertController = nil;
+    self.logoutPromptAlertController = nil;
+    self.dataSource = nil;
+}
+
+
 
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     [self setEstimatedSizeForCells];
 }
 
--(void)setupCollectionViewDataSource {
-    self.dataSource = [[INVGenericCollectionViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
-    INV_CollectionCellConfigurationBlock cellConfigurationBlock = ^(INVAccountViewCell *cell,INVAccount* account ,NSIndexPath* indexPath){
-        cell.name.text = account.name;
-        cell.overview.text = account.overview;
-        NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
-        if (currentAcnt && [account.accountId isEqualToNumber:currentAcnt]) {
-            cell.isDefault = YES;
-        }
-        else {
-            cell.isDefault = NO;
-        }
-        
-        
-    };
-    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"AccountCell" configureBlock:cellConfigurationBlock];
-    self.collectionView.dataSource = self.dataSource;
-
+-(INVGenericCollectionViewDataSource*)dataSource {
+    if (!_dataSource) {
+        _dataSource = [[INVGenericCollectionViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
+        INV_CollectionCellConfigurationBlock cellConfigurationBlock = ^(INVAccountViewCell *cell,INVAccount* account ,NSIndexPath* indexPath){
+            cell.name.text = account.name;
+            cell.overview.text = account.overview;
+            NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
+            if (currentAcnt && [account.accountId isEqualToNumber:currentAcnt]) {
+                cell.isDefault = YES;
+            }
+            else {
+                cell.isDefault = NO;
+            }
+            
+        };
+        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"AccountCell" configureBlock:cellConfigurationBlock];
+    }
+    return _dataSource;
 }
+
 
 #pragma mark - Navigation
 
@@ -123,12 +133,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self fetchListOfAccounts];
-    
-}
+
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
@@ -216,9 +221,16 @@ static NSString * const reuseIdentifier = @"Cell";
     return  _dataResultsController;
 }
 
+-(INVAccountManager*)accountManager {
+    if (!_accountManager) {
+        _accountManager = self.globalDataManager.invServerClient.accountManager;
+    }
+    return _accountManager;
+}
 
 #pragma mark - server side 
 -(void)fetchListOfAccounts {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
@@ -245,6 +257,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)loginAccount {
+    [self showLoginProgress];
     [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
@@ -307,6 +320,12 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - helpers
+-(void)showLoadProgress {
+    self.collectionView.dataSource = self.dataSource;
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+
+}
+
 -(void)setEstimatedSizeForCells {
     UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
     [currLayout setEstimatedItemSize:CGSizeMake((CGRectGetWidth(self.parentViewController.view.frame) - (currLayout.minimumInteritemSpacing + currLayout.collectionView.contentInset.left + currLayout.collectionView.contentInset.left))/2, currLayout.itemSize.height)];

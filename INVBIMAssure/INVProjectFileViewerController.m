@@ -34,9 +34,7 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.globalDataManager = [INVGlobalDataManager sharedInstance];
-    [self loadWebView];
-    [self loadViewer];
+  
 
 }
 
@@ -46,23 +44,21 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
     [[NSURLCache sharedURLCache]removeAllCachedResponses];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
- }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.globalDataManager = [INVGlobalDataManager sharedInstance];
+    [self loadWebView];
+    [self loadViewer];
     [self.navigationController hidesBarsOnTap];
-                  }
-
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self removeWebviewObservers];
-    self.webView = nil;
 }
+
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [self removeWebviewObservers];
+    self.globalDataManager = nil;
+    self.webView = nil;
 
 }
 

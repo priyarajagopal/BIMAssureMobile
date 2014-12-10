@@ -25,6 +25,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.hud = nil;
+}
 /*
 #pragma mark - Navigation
 

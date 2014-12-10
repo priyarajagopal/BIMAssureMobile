@@ -35,6 +35,7 @@
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self deregisterKeyboardNotifications];
+    self.hud = nil;
 }
 /*
 #pragma mark - Navigation

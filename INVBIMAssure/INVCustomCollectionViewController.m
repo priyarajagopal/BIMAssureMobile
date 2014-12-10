@@ -42,7 +42,10 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.hud = nil;
+}
  
 /*
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {

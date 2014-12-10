@@ -44,6 +44,10 @@
   
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.hud = nil;
+}
 
 /*
 #pragma mark - Navigation

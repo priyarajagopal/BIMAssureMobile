@@ -38,7 +38,6 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.projectManager = self.globalDataManager.invServerClient.projectManager;
     
     self.title = NSLocalizedString(@"FILES", nil);
     
@@ -57,13 +56,16 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self fetchListOfProjectFiles];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.dataResultsController = nil;
+    self.projectManager = nil;
+    self.searchView = nil;
 }
 #pragma mark <UICollectionViewDataSource>
 
@@ -142,6 +144,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 
 #pragma mark - server side
 -(void)fetchListOfProjectFiles {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
@@ -192,6 +195,15 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     
     return _searchView;
 }
+
+-(INVProjectManager*)projectManager {
+    if (!_projectManager) {
+        _projectManager = self.globalDataManager.invServerClient.projectManager;
+        
+    }
+    return _projectManager;
+}
+
 #pragma mark - INVProjectFileCollectionViewCellDelegate
 -(void)onViewProjectFile:(id)sender {
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
@@ -249,25 +261,6 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 
      }
  }
-
-#pragma mark - helpers
--(NSNumber*)modelIdForTipOfFile:(INVFile*)file {
-    __block INVFileVersion* tip;
-    [file.fileVersions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-       // tip = [MTLManagedObjectAdapter modelOfClass:[INVFileVersion class] fromManagedObject:obj error:nil];
-        tip = obj;
-        if (tip.fileVersionId == file.tipId) {
-            *stop = YES;
-        }
-    }];
-    
-    if (tip) {
-        return tip.modelId;
-    }
-    else {
-        return nil;
-    }
-}
 
 #pragma mark - UIEvent Handlers
 - (IBAction)onFilterTapped:(UIButton *)sender {
@@ -368,6 +361,31 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     // TODO: Save search
 }
 
+
+#pragma mark - helpers
+-(void) showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+}
+
+-(NSNumber*)modelIdForTipOfFile:(INVFile*)file {
+    __block INVFileVersion* tip;
+    [file.fileVersions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        // tip = [MTLManagedObjectAdapter modelOfClass:[INVFileVersion class] fromManagedObject:obj error:nil];
+        tip = obj;
+        if (tip.fileVersionId == file.tipId) {
+            *stop = YES;
+        }
+    }];
+    
+    if (tip) {
+        return tip.modelId;
+    }
+    else {
+        return nil;
+    }
+}
 
 @end
 
