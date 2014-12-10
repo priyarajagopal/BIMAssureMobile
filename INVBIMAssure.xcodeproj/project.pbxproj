@@ -152,6 +152,7 @@
 		F5BD340D1A38929900BFF101 /* INVStreamBasedJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */; };
 		F5BD340E1A38929900BFF101 /* ModelViewer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = F5BD34071A38929900BFF101 /* ModelViewer.fsh */; };
 		F5BD340F1A38929900BFF101 /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F5BD34081A38929900BFF101 /* ModelViewer.vsh */; };
+		F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BD34101A38934500BFF101 /* libYajl.a */; };
 		F5C57B201A1FB8E20042C96C /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */; };
 		F5C57B221A1FBA680042C96C /* SampleHouse.json in Resources */ = {isa = PBXBuildFile; fileRef = F5C57B211A1FBA680042C96C /* SampleHouse.json */; };
 		F5E401661A1FC7A7004DBA93 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */; };
@@ -320,6 +321,7 @@
 		F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedJSONParser.m; sourceTree = "<group>"; };
 		F5BD34071A38929900BFF101 /* ModelViewer.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.fsh; sourceTree = "<group>"; };
 		F5BD34081A38929900BFF101 /* ModelViewer.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.vsh; sourceTree = "<group>"; };
+		F5BD34101A38934500BFF101 /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../../../Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F5C57B1C1A1FB8E20042C96C /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
 		F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerViewController.m; sourceTree = "<group>"; };
 		F5C57B211A1FBA680042C96C /* SampleHouse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleHouse.json; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */,
 				023F2B3619FE81C900E4C985 /* libPods-FontAwesomeKit.a in Frameworks */,
 				023F2B3719FE81C900E4C985 /* libPods-FrameAccessor.a in Frameworks */,
 				023F2B3819FE81C900E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
@@ -577,6 +580,7 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F5BD34101A38934500BFF101 /* libYajl.a */,
 				F5E401611A1FC6F8004DBA93 /* OpenCTM.framework */,
 				F5E4015F1A1FC5D6004DBA93 /* OpenCTM.framework */,
 				F5E4015B1A1FC57F004DBA93 /* OpenCTM.framework */,
@@ -614,8 +618,8 @@
 				F5BD34041A38929900BFF101 /* INVStreamBasedCTMParserChunk.m */,
 				F5BD34051A38929900BFF101 /* INVStreamBasedJSONParser.h */,
 				F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */,
-				F5BD34071A38929900BFF101 /* ModelViewer.fsh */,
 				F5BD34081A38929900BFF101 /* ModelViewer.vsh */,
+				F5BD34071A38929900BFF101 /* ModelViewer.fsh */,
 				F5C57B211A1FBA680042C96C /* SampleHouse.json */,
 			);
 			path = "Model Viewer";
@@ -1085,11 +1089,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
 				);
 				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
 			};
 			name = Debug;
 		};
@@ -1115,11 +1121,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
 				);
 				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
 			};
 			name = Release;
 		};

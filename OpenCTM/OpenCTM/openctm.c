@@ -202,6 +202,13 @@ CTMEXPORT CTMcontext CTMCALL ctmNewContext(CTMenum aMode)
   return (CTMcontext) self;
 }
 
+CTMEXPORT void CTMCALL ctmClearContext(CTMcontext aContext) {
+    _CTMcontext *self = (_CTMcontext *) aContext;
+    if (!self) return;
+    
+    _ctmClearMesh(self);
+}
+
 //-----------------------------------------------------------------------------
 // ctmFreeContext()
 //-----------------------------------------------------------------------------

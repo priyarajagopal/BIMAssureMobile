@@ -280,6 +280,8 @@ typedef CTMuint (CTMCALL * CTMwritefn)(const void * aBuf, CTMuint aCount, void *
 /// @return An OpenCTM context handle (or NULL if no context could be created).
 CTMEXPORT CTMcontext CTMCALL ctmNewContext(CTMenum aMode);
 
+CTMEXPORT void CTMCALL ctmClearContext(CTMcontext aContext);
+    
 /// Free an OpenCTM context.
 /// @param[in] aContext An OpenCTM context that has been created by
 ///            ctmNewContext().
