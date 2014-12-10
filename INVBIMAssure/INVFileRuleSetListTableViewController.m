@@ -33,9 +33,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
-    self.tableView.dataSource = self.ruleSetsDataSource;
-    if (self.showRuleSetsForFileId) {
-
+     if (self.showRuleSetsForFileId) {
          [self setHeaderViewWithHeading:NSLocalizedString(@"RULESETS_INCLUDED_IN_FILE", nil)];
     }
     else {
@@ -49,24 +47,26 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.dataSource = self.ruleSetsDataSource;
     
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
     [self addObserversForFileMoveNotification];
     [self fetchListOfProjectRuleSets];
-    [self fetchRuleSetIdsForFile];
+   // [self fetchRuleSetIdsForFile];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self removeObserversForFileMoveNotification];
     if (self.showRuleSetsForFileId) {
         [self pushUpdatedRuleSetsForFileToServer];
     }
+    
+//    self.ruleSetsDataSource = nil;
+    self.rulesManager = nil;
+    self.projectManager = nil;
+    self.ruleSets = nil;
+    [self removeObserversForFileMoveNotification];
 }
 
 #pragma mark - public
@@ -78,12 +78,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 #pragma mark - server side
 -(void)fetchListOfProjectRuleSets {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllRuleSetsForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
-            [self updateRuleSetsFromServer];
-            [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
-            [self.tableView reloadData];
+           // [self updateRuleSetsFromServer];
+           // [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
+           // [self.tableView reloadData];
+            [self fetchRuleSetIdsForFile];
         }
         else {
 #warning - display error
@@ -92,6 +94,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 -(void)fetchRuleSetIdsForFile {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient  getAllRuleSetsForFile:self.fileId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
@@ -272,14 +275,12 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 
 
-#pragma mark - Navigation
+#pragma mark - Helpers
+-(void)showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
 }
-
 
 @end

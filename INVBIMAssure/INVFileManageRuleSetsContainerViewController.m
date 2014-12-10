@@ -28,6 +28,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.includedRuleSetsTVC = nil;
+    self.excludedRuleSetsTVC = nil;
+}
 
 
 #pragma mark - Navigation

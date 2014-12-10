@@ -25,17 +25,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"SELECT_RULE_TEMPLATES", nil);
-    self.rulesManager = self.globalDataManager.invServerClient.rulesManager;
-    
-    [self setupTableViewDataSource];
     
     UINib* nib = [UINib nibWithNibName:@"INVRuleDefinitionTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleDefinitionCell"];
@@ -54,24 +45,16 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.hud show:YES];
-    [self.view addSubview:self.hud];
+    self.tableView.dataSource = self.dataSource;
     [self fetchListOfRuleDefinitions];
+    
 }
 
-
--(void)setupTableViewDataSource {
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
-      INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleDefinitionTableViewCell *cell,INVRule* rule,NSIndexPath* indexPath){
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.ruleName.text = rule.ruleName;
-        cell.ruleDescription.text = rule.overview;
-
-      };
-#warning Use custom table view cell
-    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleDefinitionCell" configureBlock:cellConfigurationBlock];
-    self.tableView.dataSource = self.dataSource;
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.rulesManager = nil;
+    self.dataSource = nil;
+    self.dataResultsController = nil;
 }
 
 #pragma mark - UIEvent handler
@@ -81,6 +64,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 #pragma mark - server side
 -(void)fetchListOfRuleDefinitions {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
@@ -127,9 +111,35 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }
 }
 
+#pragma mark - helpers
+-(void)showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.hud show:YES];
+    [self.view addSubview:self.hud];
 
+}
 
 #pragma mark - accessor
+-(INVGenericTableViewDataSource*)dataSource {
+    if (!_dataSource) {
+        _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleDefinitionTableViewCell *cell,INVRule* rule,NSIndexPath* indexPath){
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.ruleName.text = rule.ruleName;
+            cell.ruleDescription.text = rule.overview;
+            
+        };
+        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleDefinitionCell" configureBlock:cellConfigurationBlock];
+    }
+    return _dataSource;
+
+}
+-(INVRulesManager*)rulesManager {
+    if (!_rulesManager) {
+        _rulesManager = self.globalDataManager.invServerClient.rulesManager;
+    }
+    return _rulesManager;
+}
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {

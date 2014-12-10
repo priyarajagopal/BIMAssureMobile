@@ -27,12 +27,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"INVITED_USERS", nil);
-    self.accountManager = self.globalDataManager.invServerClient.accountManager;
-    
-    [self setupTableViewDataSource];
-
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,24 +38,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
+    self.tableView.dataSource = self.dataSource;
     [self fetchListOfInvitedUsers];
 }
 
-
--(void)setupTableViewDataSource {
-    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVInvite* invite,NSIndexPath* indexPath ){
-        cell.textLabel.text = invite.email;
-        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString (@"INVITED_BY_ON",nil),[self userForId:invite.updatedBy], [self.dateFormatter stringFromDate:invite.updatedAt]];
-        
-    };
-    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
-    self.tableView.dataSource = self.dataSource;
-}
 
 
 -(void) setupTableFooter {
@@ -72,6 +54,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 #pragma mark - server side
 -(void)fetchListOfInvitedUsers {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         [self.refreshControl endRefreshing];
@@ -134,6 +117,27 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 }
 
 #pragma mark - accessor
+-(INVGenericTableViewDataSource*)dataSource {
+    if (!_dataSource) {
+        _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVInvite* invite,NSIndexPath* indexPath ){
+            cell.textLabel.text = invite.email;
+            cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString (@"INVITED_BY_ON",nil),[self userForId:invite.updatedBy], [self.dateFormatter stringFromDate:invite.updatedAt]];
+            
+        };
+        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
+
+    }
+    return _dataSource;
+}
+
+-(INVAccountManager*) accountManager {
+    if (!_accountManager) {
+        _accountManager = self.globalDataManager.invServerClient.accountManager;
+    }
+    return _accountManager;
+}
+
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForPendingInvitesForAccount managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
@@ -154,6 +158,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 #pragma mark - UIRefreshControl
 -(void)onRefreshControlSelected:(id)event {
     [self fetchListOfInvitedUsers];
+}
+
+#pragma mark - helper
+-(void) showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
 }
 
 @end

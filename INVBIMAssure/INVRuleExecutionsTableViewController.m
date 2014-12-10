@@ -20,7 +20,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVFileArray files;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
-
+@property (nonatomic,assign) NSInteger fetchedFilesExecutionCallbackCount;
 @end
 
 @implementation INVRuleExecutionsTableViewController
@@ -33,10 +33,6 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     UINib* reNib = [UINib nibWithNibName:@"INVRuleInstanceExecutionResultTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:reNib forCellReuseIdentifier:@"RuleExecutionTVC"];
 
-    [self initializeTableViewDataSource];
-    self.rulesManager = self.globalDataManager.invServerClient.rulesManager;
-    self.projectManager = self.globalDataManager.invServerClient.projectManager;
-    
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.estimatedSectionHeaderHeight = DEFAULT_HEADER_HEIGHT;
@@ -50,33 +46,28 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
-    
-#warning  Use cached files and executions and then schedule a fetch
+    self.fetchedFilesExecutionCallbackCount = 0;
     [self fetchFilesFromServer];
+    
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.projectManager = nil;
+    self.rulesManager = nil;
+    self.dateFormatter = nil;
+    self.files = nil;
+    self.dataSource = nil;
 }
 
 -(void)updateTableViewDataSource {
     [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSInteger section = idx;
         INVFile* file = obj;
-        INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.fileId];
+        INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
         if (executions) {
             [self.dataSource updateWithDataArray:executions forSection:section];
         }
@@ -88,11 +79,15 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     
     [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSInteger section = idx;
+        INVFile* file = obj;
+        INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
+    
+        
         if (self.dataSource) {
-            [self.dataSource updateWithDataArray:@[] forSection:section];
+            [self.dataSource updateWithDataArray:executions forSection:section];
         }
         else {
-            self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:@[] forSection:section forTableView:self.tableView];
+            self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:executions forSection:section forTableView:self.tableView];
         }
         
     }];
@@ -199,15 +194,11 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
 #pragma mark - server side
 -(void)fetchFilesFromServer {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
          if (!error) {
             self.files = self.projectManager.projectFiles;
-            if (!self.dataSource) {
-                [self initializeTableViewDataSource];
-            }
-            else {
-                [self updateTableViewDataSource];
-            }
+             
             [self fetchExecutionsForFilesFromServer];
         }
         else {
@@ -225,21 +216,44 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         [self.globalDataManager.invServerClient fetchRuleExecutionsForFileVersion:file.tipId withCompletionBlock:^(INVEmpireMobileError *error) {
             [self.hud hide:YES];
             if (!error) {
-                INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
-                NSLog(@"%s. section %d. Num executions %d for file Id %d",__func__,section,executions.count,file.tipId);
-                [self.dataSource updateWithDataArray:executions forSection:section];
-                 
+                if (!self.dataSource) {
+                    [self initializeTableViewDataSource];
+                }
+                else {
+                    [self updateTableViewDataSource];
+                }
+                self.fetchedFilesExecutionCallbackCount ++;
+                if (self.fetchedFilesExecutionCallbackCount == self.files.count) {
+                    self.fetchedFilesExecutionCallbackCount = 0;
+                    [self.tableView reloadData];
+                }
             }
             else {
 #warning - display error
             }
-            [self.tableView reloadData];
+            
+
         }];
     }];
     
 }
 
 #pragma mark - accessor
+
+-(INVRulesManager*)rulesManager {
+    if (!_rulesManager) {
+        _rulesManager = self.globalDataManager.invServerClient.rulesManager;
+        
+    }
+    return _rulesManager;
+}
+
+-(INVProjectManager*)projectManager {
+    if (!_projectManager) {
+        _projectManager = self.globalDataManager.invServerClient.projectManager;
+    }
+    return _projectManager;
+}
 
 -(NSDateFormatter*)dateFormatter {
     if (!_dateFormatter) {
@@ -261,5 +275,12 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     }
 }
 
+#pragma mark - helper
+-(void)showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+    
+}
 
 @end

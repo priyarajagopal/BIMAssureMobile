@@ -27,7 +27,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"SELECT_RULES_TO_RUN", nil);
-    self.rulesManager = self.globalDataManager.invServerClient.rulesManager;
     
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
@@ -45,10 +44,15 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
     [self fetchRuleSetIdsForFile];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.selectedRuleInstanceIds = nil;
+    self.selectedRuleSetIds = nil;
+    self.ruleSets = nil;
+    self.rulesManager = nil;
 }
 
 
@@ -154,6 +158,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - server side
 
 -(void)fetchRuleSetIdsForFile {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient  getAllRuleSetsForFile:self.fileMasterId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
@@ -259,7 +264,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 
-
 #pragma mark - accessor
 -(NSMutableSet*)selectedRuleInstanceIds {
     if (!_selectedRuleInstanceIds) {
@@ -300,6 +304,19 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 
 #pragma mark - helpers
+-(INVRulesManager*)rulesManager {
+    if (!_rulesManager) {
+         _rulesManager = self.globalDataManager.invServerClient.rulesManager;
+    }
+    return _rulesManager;
+}
+
+-(void) showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+
+}
 -(void)updateRuleSetsFromServer {
     NSArray* rulesetIdsInFile = [self.rulesManager ruleSetIdsForFile:self.fileMasterId];
     INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:rulesetIdsInFile]mutableCopy];

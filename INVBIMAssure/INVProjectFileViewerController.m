@@ -45,8 +45,8 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 }
 
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
     [self loadWebView];
     [self loadViewer];

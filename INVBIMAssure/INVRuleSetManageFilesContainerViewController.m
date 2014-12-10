@@ -28,7 +28,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.includedFilesTVC = nil;
+    self.excludedFilesTVC = nil;
+}
 
 #pragma mark - Navigation
 

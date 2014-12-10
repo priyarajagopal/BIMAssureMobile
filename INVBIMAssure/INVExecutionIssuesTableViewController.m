@@ -26,9 +26,6 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"BUILDING_ELEMENTS_WITH_ISSUES", nil);
     
-    [self initializeTableViewDataSource];
-    self.buildingManager = self.globalDataManager.invServerClient.buildingManager;
-    
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.estimatedSectionHeaderHeight = DEFAULT_HEADER_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
@@ -43,19 +40,22 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
-    
-#warning  Use cached files and executions and then schedule a fetch
+    self.tableView.dataSource = self.dataSource;
     [self fetchBuildingElementDetailsFromServer];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.buildingElementDetails = nil;
+    self.dataSource = nil;
+    self.buildingManager = nil;
+    self.buildingElementsWithIssues = nil;
 }
 
 -(void)updateTableViewDataSource {
     [self.dataSource updateWithDataArray:self.buildingElementDetails forSection:DEFAULT_SECTION_INDEX];
 }
-
+/*
 -(void)initializeTableViewDataSource {
     
     if (self.buildingElementsWithIssues) {
@@ -80,10 +80,12 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return DEFAULT_HEADER_HEIGHT;
 }
+ */
 
 
 #pragma mark - server side
 -(void)fetchBuildingElementDetailsFromServer {
+    [self showLoadProgress];
     [self.buildingElementsWithIssues enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
 #warning  This is for now. When backend changes, this will be an array of NSNumbers corresponding to element Id
@@ -95,29 +97,48 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
             
             if (!error) {
                 INVBuildingElement* buildingElement = [self.buildingManager buildingElementForID:elementId];
-
-                [self.buildingElementDetails addObject:buildingElement];
-                
-#warning  How about loading only after all elements are fetched?
-                if (!self.dataSource) {
-                    [self initializeTableViewDataSource];
+                if (buildingElement) {
+                    [self.buildingElementDetails addObject:buildingElement];
                 }
-                else {
-                    [self updateTableViewDataSource];
-                }
-                [self.tableView reloadData];
             }
             else {
                 
 #warning - display error
             }
+            
+            if (idx == self.buildingElementsWithIssues.count-1) {
+                [self updateTableViewDataSource];
+                [self.tableView reloadData];
+            }
+            
         }];
+        
 
     }];
 }
 
 
 #pragma mark - accessor
+-(INVGenericTableViewDataSource*)dataSource {
+    if (!_dataSource) {
+        if (self.buildingElementsWithIssues) {
+            _dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.buildingElementDetails forSection:DEFAULT_SECTION_INDEX forTableView:self.tableView];
+        }
+        else {
+            _dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:@[] forSection:DEFAULT_SECTION_INDEX forTableView:self.tableView];
+        }
+        
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVBuildingElement* buildingElement,NSIndexPath* indexPath ){
+            
+            cell.textLabel.text = buildingElement.name;
+            cell.detailTextLabel.text = @"MORE_DETAILS_OF_ELEMENT_GO_HERE";
+            
+        };
+        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"BuildingElementTVC" configureBlock:cellConfigurationBlock];
+    }
+    return _dataSource;
+}
+
 -(INVBuildingElementMutableArray)buildingElementDetails {
     if (!_buildingElementDetails) {
         _buildingElementDetails = [[NSMutableArray alloc]initWithCapacity:0];
@@ -125,6 +146,19 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
     return _buildingElementDetails;
 }
 
+-(INVBuildingManager*)buildingManager {
+    if (!_buildingManager) {
+        _buildingManager = self.globalDataManager.invServerClient.buildingManager;
+    }
+    return _buildingManager;
+    
+}
 
+#pragma mark - helper
+-(void)showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+}
 
 @end

@@ -43,6 +43,7 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.dataSource = self.dataSource;
     [self fetchProjectList];
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,13 +51,10 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-}
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    self.dataResultsController = nil;
     self.projectManager = nil;
     self.dateFormatter = nil;
     self.projectDetailsController = nil;

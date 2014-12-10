@@ -39,7 +39,7 @@ static NSString* INV_ActualParamValue = @"Value";
 @property (nonatomic,strong)UIAlertController* successAlertController;
 
 @property (nonatomic, strong)UIBarButtonItem* saveBarButton;
-@property (nonatomic, weak) UITableViewCell* ruleInstanceCellBeingEdited;
+@property (nonatomic, weak)UITableViewCell* ruleInstanceCellBeingEdited;
 
 @end
 
@@ -50,7 +50,6 @@ static NSString* INV_ActualParamValue = @"Value";
     
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"GIVE NAME OF RULE INSTANCE HERE", nil);
-    self.rulesManager = self.globalDataManager.invServerClient.rulesManager;
     
     UINib* riNib = [UINib nibWithNibName:@"INVRuleInstanceActualParamTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:riNib forCellReuseIdentifier:@"RuleInstanceDetailCell"];
@@ -64,11 +63,8 @@ static NSString* INV_ActualParamValue = @"Value";
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.refreshControl = nil;
-    [self setupTableViewDataSource];
-
-    [self.navigationBar.topItem setRightBarButtonItem:self.saveBarButton];
-    [self.saveBarButton setEnabled:NO];
-
+   
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,20 +74,31 @@ static NSString* INV_ActualParamValue = @"Value";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-   
+    [self.navigationBar.topItem setRightBarButtonItem:self.saveBarButton];
+    [self.saveBarButton setEnabled:NO];
+
+    [self setupTableViewDataSource];
+
     if (self.ruleInstanceId) {
-        [self.hud show:YES];
+
         [self fetchRuleInstance];
     }
     else if (self.ruleId) {
-        [self.hud show:YES];
         [self fetchRuleDefinitionForRuleId:self.ruleId];
     }
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    self.dataSource = nil;
+    self.rulesManager = nil;
+    self.intermediateRuleInstanceActualParams = nil;
+    self.ruleDefinition = nil;
+    self.successAlertController = nil;
+    self.saveBarButton = nil;
+
+}
 
 -(void) setupTableFooter {
     
@@ -123,25 +130,6 @@ static NSString* INV_ActualParamValue = @"Value";
     
 }
 
--(INVGenericTableViewDataSource*)dataSource {
-    
-    // Return the right object depending on whether rule instance is modified or a new rule instance is created
-    if (!_dataSource) {
-        if (self.ruleInstanceId) {
-            INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
-            self.intermediateRuleOverview = ruleInstance.overview;
-            self.ruleName = ruleInstance.ruleName;
-            
-        }
-        else {
-            self.intermediateRuleOverview = @"";
-         }
-        NSArray* ruleInfoArray = @[self.ruleName,self.intermediateRuleOverview];
-        self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS forTableView:self.tableView];
-
-    }
-    return _dataSource;
-}
 
 -(void)setupRuleNameDataSource {
     NSIndexPath* indexPathForRuleName = [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_NAME inSection:SECTION_RULEINSTANCEDETAILS];
@@ -181,8 +169,8 @@ static NSString* INV_ActualParamValue = @"Value";
 
 #pragma mark - server side
 -(void)fetchRuleInstance {
+    
     if (!self.ruleSetId || !self.ruleInstanceId) {
-        [self.hud hide:YES];
 #warning Show an error alert or a default page
         NSLog(@"%s. Cannot fetch rule instance details for RuleSet %@ and RuleInstanceId %@",__func__,self.ruleSetId,self.ruleInstanceId);
     }
@@ -201,7 +189,6 @@ static NSString* INV_ActualParamValue = @"Value";
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
         [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
      }
-    [self.hud hide:YES];
     [self.tableView reloadData];
     [self setupTableFooter];
 }
@@ -212,7 +199,10 @@ static NSString* INV_ActualParamValue = @"Value";
         NSLog(@"%s. Cannot fetch rule  definition for ruleId %@",__func__,ruleId);
     }
     else {
+        [self showLoadProgress ];
         [self.globalDataManager.invServerClient getRuleDefinitionForRuleId:ruleId WithCompletionBlock:^(INVEmpireMobileError *error) {
+            [self.hud hide:YES];
+            
             if (!error) {
                 self.ruleDefinition = [self.globalDataManager.invServerClient.rulesManager ruleDefinitionForRuleId:ruleId];
                 INVRuleFormalParam* ruleFormalParam = self.ruleDefinition.formalParams;
@@ -224,8 +214,7 @@ static NSString* INV_ActualParamValue = @"Value";
 #warning show error alert
             }
             
-            [self.hud hide:YES];
-            [self.tableView reloadData];
+              [self.tableView reloadData];
             [self setupTableFooter];
 
         }];
@@ -278,21 +267,6 @@ static NSString* INV_ActualParamValue = @"Value";
     return NO;
 }
 
-#pragma mark - accessors
--(NSMutableArray*)intermediateRuleInstanceActualParams {
-    if (!_intermediateRuleInstanceActualParams) {
-        _intermediateRuleInstanceActualParams = [[NSMutableArray alloc]initWithCapacity:0];
-    }
-    return _intermediateRuleInstanceActualParams;
-}
-
--(UIBarButtonItem*)saveBarButton {
-    if (!_saveBarButton) {
-        _saveBarButton = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"SAVE",nil) style:UIBarButtonItemStyleDone target:self action:@selector(onSaveRuleInstanceTapped:)];
-        
-    }
-    return _saveBarButton;
-}
 
 #pragma mark - UIEventHandler
 
@@ -378,6 +352,12 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 #pragma mark - helper
+
+-(void)showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+}
 
 -(void)showSuccessAlertMessage:(NSString*)message {
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -471,6 +451,51 @@ static NSString* INV_ActualParamValue = @"Value";
     }];
     self.intermediateRuleInstanceActualParams = [NSMutableArray arrayWithArray:updatedActualParamsArray];
     
+}
+
+#pragma mark - accessor
+-(NSMutableArray*)intermediateRuleInstanceActualParams {
+    if (!_intermediateRuleInstanceActualParams) {
+        _intermediateRuleInstanceActualParams = [[NSMutableArray alloc]initWithCapacity:0];
+    }
+    return _intermediateRuleInstanceActualParams;
+}
+
+-(UIBarButtonItem*)saveBarButton {
+    if (!_saveBarButton) {
+        
+       _saveBarButton = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"SAVE",nil) style:UIBarButtonItemStyleDone target:self action:@selector(onSaveRuleInstanceTapped:)];
+    }
+    return _saveBarButton;
+}
+
+-(INVGenericTableViewDataSource*)dataSource {
+    
+    // Return the right object depending on whether rule instance is modified or a new rule instance is created
+    if (!_dataSource) {
+        if (self.ruleInstanceId) {
+            INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
+            self.intermediateRuleOverview = ruleInstance.overview;
+            self.ruleName = ruleInstance.ruleName;
+            
+        }
+        else {
+            self.intermediateRuleOverview = @"";
+        }
+        NSArray* ruleInfoArray = @[self.ruleName,self.intermediateRuleOverview];
+        self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS forTableView:self.tableView];
+        
+    }
+    return _dataSource;
+}
+
+
+-(INVRulesManager*)rulesManager {
+    if (!_rulesManager) {
+        _rulesManager = self.globalDataManager.invServerClient.rulesManager;
+        
+    }
+    return _rulesManager;
 }
 
 @end

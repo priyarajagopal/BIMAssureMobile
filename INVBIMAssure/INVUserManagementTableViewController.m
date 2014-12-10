@@ -30,8 +30,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"USER_MANAGEMENT_ACCOUNT", nil);
-    self.accountManager = self.globalDataManager.invServerClient.accountManager;
-    self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
+      self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
 }
@@ -45,10 +44,13 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.tableHeaderView = [self headerViewWithAccountName];
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.hud show:YES];
-    [self.view addSubview:self.hud];
     [self fetchListOfAccountMembers];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.dataResultsController = nil;
+    self.accountManager = nil;
 }
 
 #pragma mark - UITableViewDataSource
@@ -123,6 +125,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 
 #pragma mark - server side / data model integration
 -(void)fetchListOfAccountMembers {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getMembershipForAccount:self.globalDataManager.loggedInAccount withCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         [self.refreshControl endRefreshing];
@@ -131,8 +134,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
-                [self.tableView reloadData];
+                 [self.tableView reloadData];
             }
             else {
 #warning - display error
@@ -170,17 +172,24 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
      }
  }
 
-
-/*
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
+#pragma mark - helpers
+-(void)showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.hud show:YES];
+    [self.view addSubview:self.hud];
+    
 }
- */
+
 #pragma mark - accessor
+-(INVAccountManager*)accountManager {
+    if (!_accountManager ) {
+        _accountManager = self.globalDataManager.invServerClient.accountManager;
+    }
+    return _accountManager;
+}
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForAccountMembership managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-        
     }
     return  _dataResultsController;
 }

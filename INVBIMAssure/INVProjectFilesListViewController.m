@@ -56,8 +56,8 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self fetchListOfProjectFiles];
 }
 

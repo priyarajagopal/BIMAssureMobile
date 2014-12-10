@@ -34,7 +34,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     self.title = NSLocalizedString(@"INVITE_USERS", nil);
     
     self.refreshControl = nil;
-    self.accountManager = self.globalDataManager.invServerClient.accountManager;
     self.messageRowHeight = DEFAULT_MESSAGE_CELL_HEIGHT;
     
     UINib* nib = [UINib nibWithNibName:@"INVTextViewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
@@ -51,6 +50,11 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.tokens = nil;
+    self.accountManager = nil;
+}
 
 /*
 #pragma mark - Navigation
@@ -90,7 +94,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     }
     return nil;
 }
-
 
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
@@ -177,6 +180,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
             [self performSegueWithIdentifier:@"ReturnToUserManagementSegue" sender:self];
         }
     }];
+}
+
+#pragma mark - accessors
+-(INVAccountManager*)accountManager {
+    if (!_accountManager) {
+        _accountManager = self.globalDataManager.invServerClient.accountManager;
+    }
+    return _accountManager;
 }
 
 

@@ -36,10 +36,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"RULES", nil);
     
-    self.rulesManager = self.globalDataManager.invServerClient.rulesManager;
-    
-    [self setupTableViewDataSource];
-
     UINib* nib = [UINib nibWithNibName:@"INVRuleInstanceTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleInstanceCell"];
     
@@ -58,37 +54,23 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
+    self.tableView.dataSource = self.dataSource;
     [self fetchRuleSets];
 }
 
--(void)setupTableViewDataSource {
-    self.dataSource = [[INVRulesTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceTableViewCell *cell,id ruleSetManagedObject,NSIndexPath* indexPath){
-        INVRuleSet* ruleSet = [MTLManagedObjectAdapter modelOfClass:[INVRuleSet class] fromManagedObject:ruleSetManagedObject error:nil];
-        NSArray* ruleInstances = ruleSet.ruleInstances;
-        NSInteger cellRow = indexPath.row;
-        if (ruleInstances && ruleInstances.count >= cellRow) {
-            INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.name.text = ruleInstance.ruleName;
-            cell.overview.text = ruleInstance.overview;
-            cell.ruleInstanceId = ruleInstance.ruleInstanceId;
-            cell.ruleSetId = ruleInstance.ruleSetId;
-            cell.actionDelegate = self;
-        }
-    
-    };
-    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleInstanceCell" configureBlock:cellConfigurationBlock];
-    self.tableView.dataSource = self.dataSource;
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.rulesManager = nil;
+    self.dataSource = nil;
+    self.dataResultsController = nil;
+    self.cellsCurrentlyEditing = nil;
+    self.deletePromptAlertController = nil;
+    self.selectedRowInstanceCell = nil;
 }
 
 #pragma mark - server side
 -(void)fetchRuleSets {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllRuleSetsForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
@@ -263,6 +245,36 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 #pragma mark - accessor
+-(INVRulesTableViewDataSource*)dataSource {
+    if (!_dataSource) {
+        _dataSource = [[INVRulesTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceTableViewCell *cell,id ruleSetManagedObject,NSIndexPath* indexPath){
+            INVRuleSet* ruleSet = [MTLManagedObjectAdapter modelOfClass:[INVRuleSet class] fromManagedObject:ruleSetManagedObject error:nil];
+            NSArray* ruleInstances = ruleSet.ruleInstances;
+            NSInteger cellRow = indexPath.row;
+            if (ruleInstances && ruleInstances.count >= cellRow) {
+                INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.name.text = ruleInstance.ruleName;
+                cell.overview.text = ruleInstance.overview;
+                cell.ruleInstanceId = ruleInstance.ruleInstanceId;
+                cell.ruleSetId = ruleInstance.ruleSetId;
+                cell.actionDelegate = self;
+            }
+            
+        };
+        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleInstanceCell" configureBlock:cellConfigurationBlock];
+    }
+    return _dataSource;
+
+}
+
+-(INVRulesManager*)rulesManager {
+    if (!_rulesManager) {
+        _rulesManager = self.globalDataManager.invServerClient.rulesManager;
+    }
+    return _rulesManager;
+}
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
@@ -276,6 +288,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 #pragma mark - helpers
+-(void)showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+}
+
 -(void)logRulesToConsole {
     [self.dataResultsController.fetchedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleSet* ruleSet = obj;
