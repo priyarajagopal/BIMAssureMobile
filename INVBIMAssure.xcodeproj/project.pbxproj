@@ -143,7 +143,6 @@
 		02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
-		65C8A3452CF4993C7C14C584 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCFAB6FC8A404E1594DB60D5 /* libPods.a */; };
 		DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCFAB6FC8A404E1594DB60D5 /* libPods.a */; };
 		F5BD34091A38929900BFF101 /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD33FF1A38929900BFF101 /* ClassDump.m */; };
 		F5BD340A1A38929900BFF101 /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34001A38929900BFF101 /* fp16.c */; };
@@ -153,6 +152,8 @@
 		F5BD340E1A38929900BFF101 /* ModelViewer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = F5BD34071A38929900BFF101 /* ModelViewer.fsh */; };
 		F5BD340F1A38929900BFF101 /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F5BD34081A38929900BFF101 /* ModelViewer.vsh */; };
 		F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BD34101A38934500BFF101 /* libYajl.a */; };
+		F5BD34141A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34131A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m */; };
+		F5BD34171A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34161A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m */; };
 		F5C57B201A1FB8E20042C96C /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */; };
 		F5C57B221A1FBA680042C96C /* SampleHouse.json in Resources */ = {isa = PBXBuildFile; fileRef = F5C57B211A1FBA680042C96C /* SampleHouse.json */; };
 		F5E401661A1FC7A7004DBA93 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */; };
@@ -322,6 +323,11 @@
 		F5BD34071A38929900BFF101 /* ModelViewer.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.fsh; sourceTree = "<group>"; };
 		F5BD34081A38929900BFF101 /* ModelViewer.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.vsh; sourceTree = "<group>"; };
 		F5BD34101A38934500BFF101 /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../../../Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos/libYajl.a"; sourceTree = "<group>"; };
+		F5BD34121A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserGLESMesh.h; sourceTree = "<group>"; };
+		F5BD34131A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserGLESMesh.m; sourceTree = "<group>"; };
+		F5BD34151A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserGLESCamera.h; sourceTree = "<group>"; };
+		F5BD34161A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserGLESCamera.m; sourceTree = "<group>"; };
+		F5BD34181A38A34700BFF101 /* INVStreamBasedCTMParserChunkInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserChunkInternal.h; sourceTree = "<group>"; };
 		F5C57B1C1A1FB8E20042C96C /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
 		F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerViewController.m; sourceTree = "<group>"; };
 		F5C57B211A1FBA680042C96C /* SampleHouse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleHouse.json; sourceTree = "<group>"; };
@@ -343,7 +349,6 @@
 				023F2B3819FE81C900E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
 				023F2B3919FE81C900E4C985 /* libPods-VENTokenField.a in Frameworks */,
 				F5E401661A1FC7A7004DBA93 /* EmpireMobileManager.framework in Frameworks */,
-				65C8A3452CF4993C7C14C584 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,10 +619,15 @@
 				F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */,
 				F5BD34011A38929900BFF101 /* INVStreamBasedCTMParser.h */,
 				F5BD34021A38929900BFF101 /* INVStreamBasedCTMParser.m */,
+				F5BD34181A38A34700BFF101 /* INVStreamBasedCTMParserChunkInternal.h */,
 				F5BD34031A38929900BFF101 /* INVStreamBasedCTMParserChunk.h */,
 				F5BD34041A38929900BFF101 /* INVStreamBasedCTMParserChunk.m */,
 				F5BD34051A38929900BFF101 /* INVStreamBasedJSONParser.h */,
 				F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */,
+				F5BD34121A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.h */,
+				F5BD34131A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m */,
+				F5BD34151A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.h */,
+				F5BD34161A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m */,
 				F5BD34081A38929900BFF101 /* ModelViewer.vsh */,
 				F5BD34071A38929900BFF101 /* ModelViewer.fsh */,
 				F5C57B211A1FBA680042C96C /* SampleHouse.json */,
@@ -832,6 +842,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02AAD3FC19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
+				F5BD34141A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
 				024CDCDA19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */,
 				0246E7351A11179E000C487D /* INVFileRuleSetListTableViewController.m in Sources */,
 				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
@@ -859,6 +870,7 @@
 				02457E2519ED88AC00E714BA /* INVMainViewController.m in Sources */,
 				02FC608D1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */,
 				023F2B7D1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */,
+				F5BD34171A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
 				023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
 				02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
 				02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
@@ -1093,6 +1105,33 @@
 				);
 				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
@@ -1125,6 +1164,33 @@
 				);
 				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;

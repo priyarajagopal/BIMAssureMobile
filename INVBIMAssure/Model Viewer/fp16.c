@@ -12,8 +12,6 @@
  *===------------------------------------------------------------------------------===
  */
 
-// #include "int_lib.h"
-
 float __gnu_h2f_ieee(short param) {
     unsigned short expHalf16 = param & 0x7C00;
     int exp1 = (int)expHalf16;

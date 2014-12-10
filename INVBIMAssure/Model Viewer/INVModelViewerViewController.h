@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@import SceneKit;
+@import GLKit;
 
-@interface INVModelViewerViewController : UIViewController
+@interface INVModelViewerViewController : GLKViewController
 
 @property (nonatomic,strong)NSNumber* fileVersionId;
 @property (nonatomic,strong)NSNumber* modelId;

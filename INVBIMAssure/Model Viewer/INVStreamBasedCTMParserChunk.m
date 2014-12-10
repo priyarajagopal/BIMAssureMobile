@@ -7,8 +7,19 @@
 //
 
 #import "INVStreamBasedCTMParserChunk.h"
+#import "INVStreamBasedCTMParserChunkInternal.h"
+
+@import OpenGLES;
 
 static NSString *const vertexShader = @"";
+
+static inline int indiciesPerPrimitiveType(enum INVStreamBasedCTMParserChunkPrimitiveType primitiveType) {
+    int indexCounts[] = {
+        3, 2, 1
+    };
+    
+    return indexCounts[primitiveType];
+}
 
 // Max buffer size: 64mb. Any larger than that and we may have issues.
 // Trying to allocate a contiguous region larger than that is asking for trouble.
@@ -16,119 +27,25 @@ static NSString *const vertexShader = @"";
 #define MAX_VERTEX_COUNT UINT16_MAX
 #define MAX_INDEX_COUNT UINT32_MAX
 
-#if TARGET_IPHONE_SIMULATOR
-typedef float vertex_position_element_type;
-typedef float vertex_normal_element_type;
-typedef float vertex_color_element_type;
-#else
-typedef float vertex_position_element_type;
-typedef float vertex_normal_element_type;
-typedef float vertex_color_element_type;
-#endif
-
-typedef uint16_t index_index_type;
-
-struct __attribute__((packed)) vertex_struct {
-    vertex_position_element_type position[3];
-    vertex_normal_element_type normal[3];
-    vertex_color_element_type color[4];
-};
-
-struct __attribute__((packed)) index_struct {
-    index_index_type index;
-};
-
 @implementation INVStreamBasedCTMParserChunk {
-    SCNNode *_node;
     NSInteger _indicesPerPrimitive;
     
     NSMutableData *_vertexData;
     NSMutableData *_indexData;
 }
 
--(id) initWithPrimitiveType:(SCNGeometryPrimitiveType)primitiveType {
+-(id) initWithPrimitiveType:(enum INVStreamBasedCTMParserChunkPrimitiveType) primitiveType {
     if (self = [super init]) {
         _primitiveType = primitiveType;
         _mutable = YES;
         
-        // TODO: Properly support primitives other than triangles
-        _indicesPerPrimitive = 3;
+        _indicesPerPrimitive = indiciesPerPrimitiveType(primitiveType);
         
         _vertexData = [NSMutableData new];
         _indexData = [NSMutableData new];
     }
     
     return self;
-}
-
--(SCNNode *) toNode {
-    if (_node) {
-        return _node;
-    }
-    
-    if (_mutable) {
-        return nil;
-    }
-    
-    SCNGeometrySource *positionSource = [SCNGeometrySource geometrySourceWithData:_vertexData
-                                                                         semantic:SCNGeometrySourceSemanticVertex
-                                                                      vectorCount:[self vertexCount]
-                                                                  floatComponents:YES
-                                                              componentsPerVector:3
-                                                                bytesPerComponent:sizeof(vertex_position_element_type)
-                                                                       dataOffset:offsetof(struct vertex_struct, position)
-                                                                       dataStride:sizeof(struct vertex_struct)];
-    
-    
-    SCNGeometrySource *normalSource = [SCNGeometrySource geometrySourceWithData:_vertexData
-                                                                       semantic:SCNGeometrySourceSemanticNormal
-                                                                    vectorCount:[self vertexCount]
-                                                                floatComponents:YES
-                                                            componentsPerVector:3
-                                                              bytesPerComponent:sizeof(vertex_normal_element_type)
-                                                                     dataOffset:offsetof(struct vertex_struct, normal)
-                                                                     dataStride:sizeof(struct vertex_struct)];
-    
-    SCNGeometrySource *colorSource = [SCNGeometrySource geometrySourceWithData:_vertexData
-                                                                      semantic:SCNGeometrySourceSemanticColor
-                                                                   vectorCount:[self vertexCount]
-                                                               floatComponents:YES
-                                                           componentsPerVector:4
-                                                             bytesPerComponent:sizeof(vertex_color_element_type)
-                                                                    dataOffset:offsetof(struct vertex_struct, color)
-                                                                    dataStride:sizeof(struct vertex_struct)];
-    
-    
-    SCNGeometryElement *primitivesElement = [SCNGeometryElement geometryElementWithData:_indexData
-                                                                          primitiveType:_primitiveType
-                                                                         primitiveCount:[self primitiveCount]
-                                                                          bytesPerIndex:sizeof(index_index_type)];
-    
-    SCNGeometry *geometry = [SCNGeometry geometryWithSources:@[ positionSource, normalSource, colorSource ]
-                                                    elements:@[ primitivesElement ]];
-    
-    SCNMaterial *material = [SCNMaterial material];
-    
-    material.shaderModifiers = @{
-        SCNShaderModifierEntryPointFragment:
-            @"#pragma transparent\n"
-            @"_output.color.a = v_vertexColor.a;",
-         SCNShaderModifierEntryPointLightingModel:
-            @"_light.intensity.rgb *= _light.att;"
-            @"_lightingContribution.diffuse += _light.intensity.rgb * v_vertexColor.a;"
-    };
-    
-    
-    //material.transparency = 1;
-    //material.litPerPixel = NO;
-    material.doubleSided = YES;
-    material.lightingModelName = SCNLightingModelLambert;
-    
-    // material.cullMode = SCNCullFront;
-    
-    geometry.materials = @[ material ];
-    
-    return [SCNNode nodeWithGeometry:geometry];
 }
 
 -(NSInteger) vertexCount {
@@ -145,6 +62,18 @@ struct __attribute__((packed)) index_struct {
 
 -(NSInteger) maxPrimitiveCount {
     return MAX_INDEX_COUNT / _indicesPerPrimitive;
+}
+
+-(NSData *) vertexData {
+    if (_mutable) return nil;
+    
+    return _vertexData;
+}
+
+-(NSData *) indexData {
+    if (_mutable) return nil;
+    
+    return _indexData;
 }
 
 -(size_t) dataSize {

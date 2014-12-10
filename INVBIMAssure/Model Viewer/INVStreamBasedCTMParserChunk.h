@@ -11,13 +11,17 @@
 @import SceneKit;
 @import OpenCTM;
 
+enum INVStreamBasedCTMParserChunkPrimitiveType {
+    INVStreamBasedCTMParserChunkPrimitiveTypeTriangles,
+    INVStreamBasedCTMParserChunkPrimitiveTypeLines,
+    INVStreamBasedCTMParserChunkPrimitiveTypePoints,
+};
 
 @interface INVStreamBasedCTMParserChunk : NSObject
 
--(id) initWithPrimitiveType:(SCNGeometryPrimitiveType) primitiveType;
+-(id) initWithPrimitiveType:(enum INVStreamBasedCTMParserChunkPrimitiveType) primitiveType;
 
-@property (readonly) SCNNode *toNode;
-@property (readonly) SCNGeometryPrimitiveType primitiveType;
+@property (readonly) enum INVStreamBasedCTMParserChunkPrimitiveType primitiveType;
 @property (readonly,getter=isMutable) BOOL mutable;
 
 @property (readonly) NSInteger vertexCount;
@@ -26,10 +30,12 @@
 @property (readonly) NSInteger maxVertexCount;
 @property (readonly) NSInteger maxPrimitiveCount;
 
+@property (readonly) NSData *vertexData;
+@property (readonly) NSData *indexData;
+
 @property (readonly) size_t dataSize;
 
 -(void) finalizeChunk;
-
 -(BOOL) appendContext:(CTMcontext) ctmContext
            withMatrix:(GLKMatrix4) matrix
              andColor:(UIColor *) color;

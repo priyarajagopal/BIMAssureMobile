@@ -72,8 +72,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         _sharedGeoms = [NSMutableDictionary new];
         _processedChunks = [NSMutableArray new];
         
-        _currentTrianglesChunk = [[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:SCNGeometryPrimitiveTypeTriangles];
-        _currentLinesChunk = [[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:SCNGeometryPrimitiveTypeLine];
+        _currentTrianglesChunk = [[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeTriangles];
+        _currentLinesChunk = [[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeLines];
         
         _ctmContext = ctmNewContext(CTM_IMPORT);
     }
@@ -99,11 +99,11 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         color = @0xFFFFFF;
     }
     
-    SCNGeometryPrimitiveType primitiveType = ([type intValue] == 0) ? SCNGeometryPrimitiveTypeTriangles : SCNGeometryPrimitiveTypeLine;
+    enum INVStreamBasedCTMParserChunkPrimitiveType primitiveType = [type intValue];
     INVStreamBasedCTMParserChunk *chunk = ([type intValue] == 0) ? _currentTrianglesChunk : _currentLinesChunk;
     
     // TODO: Support lines
-    if (primitiveType == SCNGeometryPrimitiveTypeLine)
+    if (primitiveType == INVStreamBasedCTMParserChunkPrimitiveTypeLines)
         return;
     
     float a = (([color intValue] >> 24) & 0xFF) / 255.0f;
@@ -143,8 +143,10 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     }
 }
 
--(void) _completeForPrimitiveType:(SCNGeometryPrimitiveType) primitiveType newChunk:(INVStreamBasedCTMParserChunk *) newChunk {
-    id oldChunk = primitiveType == SCNGeometryPrimitiveTypeTriangles ? _currentTrianglesChunk : _currentLinesChunk;
+-(void) _completeForPrimitiveType:(enum INVStreamBasedCTMParserChunkPrimitiveType) primitiveType
+                         newChunk:(INVStreamBasedCTMParserChunk *) newChunk {
+    
+    id oldChunk = primitiveType == INVStreamBasedCTMParserChunkPrimitiveTypeTriangles ? _currentTrianglesChunk : _currentLinesChunk;
     
     [oldChunk finalizeChunk];
     [_processedChunks addObject:oldChunk];
@@ -259,13 +261,13 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     
     if (!_isProcessingSharedGeoms && !_isProcessingElements) {
         if ([_currentTrianglesChunk vertexCount]) {
-            [self _completeForPrimitiveType:SCNGeometryPrimitiveTypeTriangles
-                                   newChunk:[[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:SCNGeometryPrimitiveTypeTriangles]];
+            [self _completeForPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeTriangles
+                                   newChunk:[[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeTriangles]];
         }
         
         if ([_currentLinesChunk vertexCount]) {
-            [self _completeForPrimitiveType:SCNGeometryPrimitiveTypeTriangles
-                                   newChunk:[[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:SCNGeometryPrimitiveTypeTriangles]];
+            [self _completeForPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeLines
+                                   newChunk:[[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeLines]];
         }
         
         [self _destroySharedGeoms];
