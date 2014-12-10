@@ -8,277 +8,156 @@
 
 #import "INVModelViewerViewController.h"
 
-#import "INVCTMModel.h"
-#import "INVJSONCTMManager.h"
+#import "INVStreamBasedCTMParser.h"
 
 @import OpenCTM;
+@import SceneKit;
 
-#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+void classDump(Class);
 
-// Uniform index.
-enum
-{
-    UNIFORM_MODELVIEWPROJECTION_MATRIX,
-    UNIFORM_NORMAL_MATRIX,
-    NUM_UNIFORMS
-};
-GLint uniforms[NUM_UNIFORMS];
-
-GLfloat gCubeVertexData[2048];
-GLushort gCubeIndices[2024];
-GLint triangleCount;
-
-@interface INVModelViewerViewController () {
-    GLKMatrix4 _projectionMatrix;
-    GLKMatrix4 _modelViewMatrix;
+@interface INVModelViewerViewController ()<INVStreamBasedCTMParserDelegate> {
+    SCNScene *_scene;
+    SCNNode *_modelNode;
     
-    INVJSONCTMManager *_manager;
-    NSArray *_models;
+    INVStreamBasedCTMParser *_ctmParser;
 }
-
-@property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) GLKBaseEffect *effect;
-
-- (void)setupGL;
-- (void)tearDownGL;
 
 @end
 
 @implementation INVModelViewerViewController
 
-
-struct _readDataStruct {
-    const void *ptr;
-    size_t remain;
-};
-
-CTMuint _ctmReadData(void *aBuf, CTMuint aCount, void *aUserData) {
-    struct _readDataStruct *readDataStruct = (struct _readDataStruct *) aUserData;
-    
-    unsigned long read = MIN(aCount, readDataStruct->remain);
-    memcpy(aBuf, readDataStruct->ptr, read);
-    
-    readDataStruct->ptr += read;
-    readDataStruct->remain -= read;
-    
-    return (unsigned) read;
+-(void) awakeFromNib {
+    self.hidesBottomBarWhenPushed = YES;
 }
 
--(void) loadCTM {
-    INVGlobalDataManager *dataMgr = [INVGlobalDataManager sharedInstance];
-    [dataMgr.invServerClient fetchModelViewForId:self.modelId withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-        self->_manager = [[INVJSONCTMManager alloc] initWithDictionary:result];
-        self->_models = [self->_manager allModels];
-        
-        unsigned long long polyCount = 0;
-        for (INVCTMModel *model in self->_models) {
-            polyCount += [model polyCount];
-        }
-        
-        NSLog(@"Polygon Count: %llu", polyCount);
-    }];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+-(void) setupScene {
+    classDump([SCNGeometry class]);
     
-    self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-
-    if (!self.context) {
-        NSLog(@"Failed to create ES context");
+    _scene = [SCNScene scene];
+    
+    // create and add a camera to the scene
+    SCNNode *cameraNode = [SCNNode node];
+    cameraNode.camera = [SCNCamera camera];
+    
+    cameraNode.camera.yFov = 55;
+    cameraNode.camera.zNear = 0.5;
+    cameraNode.camera.zFar = 10000;
+    
+    [_scene.rootNode addChildNode:cameraNode];
+    
+    cameraNode.position = SCNVector3Make(0, 15, 250);
+    
+    // place the camera
+    // cameraNode.position = SCNVector3Make(0, 0, 1000);
+    
+    _modelNode = [SCNNode node];
+    _modelNode.eulerAngles = SCNVector3Make(-M_PI / 2, 0, 0);
+    
+    /*
+    SCNNode *lightNode = [SCNNode node];
+    lightNode.light = [SCNLight light];
+    lightNode.light.type = SCNLightTypeOmni;
+    lightNode.light.color = [UIColor colorWithWhite:0.66274509803 alpha:1];
+    lightNode.position = SCNVector3Make(100, -100, 0);
+    
+    [_modelNode addChildNode:lightNode];
+    */
+    
+    [_scene.rootNode addChildNode:_modelNode];
+    
+    SCNVector3 lightPostions[6] = {
+        {  1000,     0,     0 },
+        {     0,  1000,     0 },
+        {     0,     0,  1000 },
+        { -1000,     0,     0 },
+        {     0, -1000,     0 },
+        {     0,     0, -1000 }
+    };
+    
+    for (int i = 0; i < 6; i++) {
+        // create and add a light to the scene
+        SCNNode *lightNode = [SCNNode node];
+        lightNode.light = [SCNLight light];
+        lightNode.light.type = SCNLightTypeOmni;
+        lightNode.light.color = [UIColor colorWithWhite:0.5 alpha:1];
+        
+        lightNode.position = lightPostions[i];
+        
+        [_scene.rootNode addChildNode:lightNode];
     }
     
+    /*
+    // create and add an ambient light to the scene
+    SCNNode *ambientLightNode = [SCNNode node];
+    ambientLightNode.light = [SCNLight light];
+    ambientLightNode.light.type = SCNLightTypeAmbient;
+    ambientLightNode.light.color = [UIColor darkGrayColor];
     
-    GLKView *view = (GLKView *)self.view;
-    view.context = self.context;
-    view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    
-    [self loadCTM];
-    [self setupGL];
-}
-
--(void) viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    _manager = nil;
-    _models = nil;
-}
-
--(void) dealloc
-{    
-    [self tearDownGL];
-    
-    if ([EAGLContext currentContext] == self.context) {
-        [EAGLContext setCurrentContext:nil];
-    }
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-
-    if ([self isViewLoaded] && ([[self view] window] == nil)) {
-        self.view = nil;
-        
-        [self tearDownGL];
-        
-        if ([EAGLContext currentContext] == self.context) {
-            [EAGLContext setCurrentContext:nil];
-        }
-        self.context = nil;
-    }
-
-    // Dispose of any resources that can be recreated.
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
-- (void)setupGL
-{
-    [EAGLContext setCurrentContext:self.context];
-    
-    self.effect = [[GLKBaseEffect alloc] init];
-    
-    self.effect.light0.enabled = GL_TRUE;
-    self.effect.colorMaterialEnabled = GL_TRUE;
-    
-    self.effect.light0.position = GLKVector4Make(0, 0, -10, 0);
-    
-    self.effect.lightModelTwoSided = YES;
-    
-    self.effect.material.emissiveColor = GLKVector4Make(0.5, 0.5, 0.5, 0.5);
-    self.effect.material.diffuseColor = GLKVector4Make(0.5, 0.5, 0.5, 1);
-    
-    self.effect.light0.specularColor = GLKVector4Make(0.9f, 0.9f, 0.9f, 0.5);
-    self.effect.light0.diffuseColor = GLKVector4Make(0.4f, 0.4f, 0.4f, 0.5);
-    self.effect.light0.ambientColor = GLKVector4Make(0.2f, 0.2f, 0.2f, 0.5);
+    [_scene.rootNode addChildNode:ambientLightNode];
+    */
      
-    GLKView *glkView = (GLKView *) self.view;
+    // retrieve the SCNView
+    SCNView *scnView = (SCNView *)self.view;
     
-    // NOTE: Turn this off for weaker devices?
-    glkView.drawableMultisample = GLKViewDrawableMultisample4X;
-    glkView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-
-    // glEnable(GL_DEPTH_TEST);
-    [self resetCamera];
+    // set the scene to the view
+    scnView.scene = _scene;
+    scnView.antialiasingMode = SCNAntialiasingModeMultisampling2X;
     
-    for (INVCTMModel *model in _models) {
-        [model prepare];
-    }
+    // allows the user to manipulate the camera
+    scnView.allowsCameraControl = YES;
+    
+    // show statistics such as fps and timing information
+    scnView.showsStatistics = YES;
+    
+    // configure the view
+    scnView.backgroundColor = [UIColor whiteColor];
+    
 }
 
-- (void)tearDownGL
+-(void) viewWillAppear:(BOOL)animated
 {
-    [EAGLContext setCurrentContext:self.context];
-
-    self.effect = nil;
-}
-
-#pragma mark - GLKView and GLKViewController delegate methods
-
-- (void)update
-{
-    self.effect.transform.projectionMatrix = _projectionMatrix;
-    self.effect.transform.modelviewMatrix = _modelViewMatrix;
-}
-
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
-{
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    [super viewWillAppear:animated];
+    [self setupScene];
     
-    // Render the object with GLKit
-    [self.effect prepareToDraw];
+    NSArray *urls = @[
+                      /*
+        @"http://richards-macbook-pro.local/progressive/test0-1.json",
+        @"http://richards-macbook-pro.local/progressive/test1-2.json",
+        @"http://richards-macbook-pro.local/progressive/test2-3.json",
+        @"http://richards-macbook-pro.local/progressive/test3-4.json",
+        @"http://richards-macbook-pro.local/progressive/test4-5.json",
+        @"http://richards-macbook-pro.local/progressive/test5-7.json",
+        @"http://richards-macbook-pro.local/progressive/test7-10.json",
+        @"http://richards-macbook-pro.local/progressive/test10-15.json",
+        @"http://richards-macbook-pro.local/progressive/test15-20.json",
+        @"http://richards-macbook-pro.local/progressive/test20-30.json",
+        @"http://richards-macbook-pro.local/progressive/test30-40.json",
+        @"http://richards-macbook-pro.local/progressive/test40-50.json",
+        @"http://richards-macbook-pro.local/progressive/test50.0-60.0.json",
+        @"http://richards-macbook-pro.local/progressive/test60.0-100.0.json",
+        @"http://richards-macbook-pro.local/progressive/test100.0-1000.0.json",
+                       */
+        @"http://richards-macbook-pro.local/test/models/Hospital.json"
+    ];
     
-    for (INVCTMModel *model in _models) {
-        [model draw];
-    }
-}
-
--(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    touches = [event allTouches];
+    urls = [[urls reverseObjectEnumerator] allObjects];
     
-    if (touches.count == 1) {
-        UITouch *touch = [touches anyObject];
-        
-        CGPoint lastPoint = [touch previousLocationInView:self.view];
-        CGPoint newPoint = [touch locationInView:self.view];
+    _ctmParser = [[INVStreamBasedCTMParser alloc] init];
+    _ctmParser.delegate = self;
     
-        float changedX = newPoint.x - lastPoint.x;
-        float changedY = newPoint.y - lastPoint.y;
-        
-        _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, changedY / 100, 1, 0, 0);
-        _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, changedX / 100, 0, 1, 0);
-    }
-    if (touches.count == 2) {
-        UITouch *touch1 = [touches allObjects][0];
-        UITouch *touch2 = [touches allObjects][1];
-        
-        CGPoint touch1Point = [touch1 locationInView:self.view];
-        CGPoint touch2Point = [touch2 locationInView:self.view];
-        
-        CGPoint touch1LastPoint = [touch1 previousLocationInView:self.view];
-        CGPoint touch2LastPoint = [touch2 previousLocationInView:self.view];
-        
-        float distance = GLKVector2Distance(
-            GLKVector2Make(touch1Point.x, touch1Point.y),
-            GLKVector2Make(touch2Point.x, touch2Point.y)
-        );
-        
-        float lastDistance = GLKVector2Distance(
-            GLKVector2Make(touch1LastPoint.x, touch1LastPoint.y),
-            GLKVector2Make(touch2LastPoint.x, touch2LastPoint.y)
-        );
-        
-        float sign = distance > lastDistance ? 1 : -1;
-        float scale = 1 + (sign * distance / 10000);
-
-        _modelViewMatrix = GLKMatrix4Scale(_modelViewMatrix, scale, scale, scale);
-    }
-    if (touches.count == 3) {
-        UITouch *touch = [touches anyObject];
-        
-        CGPoint lastPoint = [touch previousLocationInView:self.view];
-        CGPoint newPoint = [touch locationInView:self.view];
-        
-        float changedX = newPoint.x - lastPoint.x;
-        float changedY = newPoint.y - lastPoint.y;
-        
-        _modelViewMatrix = GLKMatrix4Multiply(
-            GLKMatrix4MakeTranslation(changedX / 10, -changedY / 10, 0),
-            _modelViewMatrix
-        );
+    for (NSString *url in urls) {
+        [_ctmParser process:[NSURL URLWithString:url]];
     }
 }
 
--(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
+-(void) streamBasedCTMParser:(INVStreamBasedCTMParser *)parser didCompleteChunk:(INVStreamBasedCTMParserChunk *)chunk shouldStop:(BOOL *)stop {
+    SCNNode *node = [chunk toNode];
     
-    if (touch.tapCount == 3) {
-        [self resetCamera];
-        return;
-    }
-    if (touch.tapCount == 4) {
-        [self toggleWireframe];
-        return;
-    }
-}
-
--(void) resetCamera {
-    float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
-    _projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(75), aspect, 0.0001, 10000.0f);
-    
-    _modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -100.0f);    _modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -100.0f);
-}
-
--(void) toggleWireframe {
-    for (INVCTMModel *model in _models) {
-        model.wireframe = !model.wireframe;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"Added chunk to scene.");
+        
+        [self->_modelNode addChildNode:node];
+    });
 }
 
 @end
