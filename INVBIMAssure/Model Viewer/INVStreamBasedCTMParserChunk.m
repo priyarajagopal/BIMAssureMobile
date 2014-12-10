@@ -113,9 +113,11 @@ struct __attribute__((packed)) index_struct {
         SCNShaderModifierEntryPointFragment:
             @"#pragma transparent\n"
             @"_output.color.a = v_vertexColor.a;",
-        SCNShaderModifierEntryPointLightingModel:
-            @"_lightingContribution.diffuse = vec3(v_vertexColor.a);"
+         SCNShaderModifierEntryPointLightingModel:
+            @"_light.intensity.rgb *= _light.att;"
+            @"_lightingContribution.diffuse += _light.intensity.rgb * v_vertexColor.a;"
     };
+    
     
     //material.transparency = 1;
     //material.litPerPixel = NO;

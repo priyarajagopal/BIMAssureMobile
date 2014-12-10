@@ -13,6 +13,8 @@
 @import OpenCTM;
 @import SceneKit;
 
+void classDump(Class);
+
 @interface INVModelViewerViewController ()<INVStreamBasedCTMParserDelegate> {
     SCNScene *_scene;
     SCNNode *_modelNode;
@@ -29,6 +31,8 @@
 }
 
 -(void) setupScene {
+    classDump([SCNGeometry class]);
+    
     _scene = [SCNScene scene];
     
     // create and add a camera to the scene
@@ -43,14 +47,11 @@
     
     cameraNode.position = SCNVector3Make(0, 15, 250);
     
-    
-    
     // place the camera
     // cameraNode.position = SCNVector3Make(0, 0, 1000);
     
     _modelNode = [SCNNode node];
     _modelNode.eulerAngles = SCNVector3Make(-M_PI / 2, 0, 0);
-    
     
     /*
     SCNNode *lightNode = [SCNNode node];
@@ -73,7 +74,7 @@
         {     0,     0, -1000 }
     };
     
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 6; i++) {
         // create and add a light to the scene
         SCNNode *lightNode = [SCNNode node];
         lightNode.light = [SCNLight light];
@@ -136,7 +137,7 @@
         @"http://richards-macbook-pro.local/progressive/test60.0-100.0.json",
         @"http://richards-macbook-pro.local/progressive/test100.0-1000.0.json",
                        */
-        @"http://richards-macbook-pro.local/test/models/rac_basic.json"
+        @"http://richards-macbook-pro.local/test/models/Hospital.json"
     ];
     
     urls = [[urls reverseObjectEnumerator] allObjects];
