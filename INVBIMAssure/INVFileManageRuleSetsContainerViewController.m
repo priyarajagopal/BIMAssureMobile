@@ -28,8 +28,8 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.includedRuleSetsTVC = nil;
     self.excludedRuleSetsTVC = nil;
 }

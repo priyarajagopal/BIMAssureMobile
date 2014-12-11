@@ -52,9 +52,8 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 }
 
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    self.dataResultsController = nil;
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.projectManager = nil;
     self.dateFormatter = nil;
     self.projectDetailsController = nil;

@@ -50,9 +50,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.rulesManager = nil;
+    self.tableView.dataSource = nil;
     self.dataSource = nil;
     self.dataResultsController = nil;
 }

@@ -47,8 +47,8 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     [self fetchListOfAccountMembers];
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.dataResultsController = nil;
     self.accountManager = nil;
 }

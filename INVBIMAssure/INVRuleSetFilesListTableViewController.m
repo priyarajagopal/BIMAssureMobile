@@ -33,7 +33,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
-    self.tableView.dataSource = self.filesDataSource;
     
     if (self.showFilesForRuleSetId) {
          [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_INCLUDED_IN_RULESET", nil)];
@@ -49,24 +48,25 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.dataSource = self.filesDataSource;
     
-    
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
     [self addObserversForFileMoveNotification];
     [self fetchListOfProjectFiles];
-    [self fetchProjectFilesForRuleSetId];
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self removeObserversForFileMoveNotification];
     if (self.showFilesForRuleSetId) {
         [self pushUpdatedProjectFilesForRuleSetIdToServer];
     }
+    self.projectManager = nil;
+    self.rulesManager = nil;
+    self.tableView.dataSource = nil;
+    self.filesDataSource = nil;
+    self.files = nil;
 }
 
 #pragma mark - public
@@ -78,12 +78,11 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 #pragma mark - server side
 -(void)fetchListOfProjectFiles {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
-            [self updateFilesListFromServer];
-            [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
-            [self.tableView reloadData];
+            [self fetchProjectFilesForRuleSetId];
         }
         else {
 #warning - display error
@@ -92,6 +91,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 -(void)fetchProjectFilesForRuleSetId {
+    [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllFileMastersForRuleSet:self.ruleSetId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
@@ -181,6 +181,51 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     return _filesDataSource;
 }
 
+#pragma mark - Observer Handling
+-(void)addObserversForFileMoveNotification {
+    if (self.observersAdded) {
+        return;
+    }
+    NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
+    [notifCenter addObserverForName:INV_NotificationAddRemoveCell object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        NSDictionary* userInfo = note.userInfo;
+        INVGeneralAddRemoveTableViewCell* tableViewCell = userInfo[@"AddRemoveCell"];
+        
+        if (self.showFilesForRuleSetId) {
+            if (tableViewCell.isAdded) {
+                [self removeFromLocalFileList:tableViewCell.contentId];
+            }
+            else {
+                [self addToLocalFileList:tableViewCell.contentId];
+            }
+        }
+        else {
+            if (tableViewCell.isAdded) {
+                 [self addToLocalFileList:tableViewCell.contentId];
+            }
+            else {
+                 [self removeFromLocalFileList:tableViewCell.contentId];
+            }
+        }
+        [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
+
+        [self.tableView reloadData];
+    }];
+    self.observersAdded = YES;
+}
+
+-(void)removeObserversForFileMoveNotification {
+    if (!self.observersAdded) {
+        return;
+    }
+    NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
+    [notifCenter removeObserver:self name:INV_NotificationAddRemoveCell object:nil];
+    self.observersAdded = NO;
+}
+
+
+
+
 #pragma mark - helpers
 -(void)updateFilesListFromServer {
     self.files = [self.projectManager.projectFiles mutableCopy];
@@ -228,57 +273,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     }
 }
 
-#pragma mark - Observer Handling
--(void)addObserversForFileMoveNotification {
-    if (self.observersAdded) {
-        return;
-    }
-    NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
-    [notifCenter addObserverForName:INV_NotificationAddRemoveCell object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        NSDictionary* userInfo = note.userInfo;
-        INVGeneralAddRemoveTableViewCell* tableViewCell = userInfo[@"AddRemoveCell"];
-        
-        if (self.showFilesForRuleSetId) {
-            if (tableViewCell.isAdded) {
-                [self removeFromLocalFileList:tableViewCell.contentId];
-            }
-            else {
-                [self addToLocalFileList:tableViewCell.contentId];
-            }
-        }
-        else {
-            if (tableViewCell.isAdded) {
-                 [self addToLocalFileList:tableViewCell.contentId];
-            }
-            else {
-                 [self removeFromLocalFileList:tableViewCell.contentId];
-            }
-        }
-        [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
-
-        [self.tableView reloadData];
-    }];
-    self.observersAdded = YES;
-}
-
--(void)removeObserversForFileMoveNotification {
-    if (!self.observersAdded) {
-        return;
-    }
-    NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
-    [notifCenter removeObserver:self name:INV_NotificationAddRemoveCell object:nil];
-    self.observersAdded = NO;
-}
-
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
- 
+-(void) showLoadProgress {
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
 }
 
 

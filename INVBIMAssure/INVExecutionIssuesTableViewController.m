@@ -44,12 +44,14 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
     [self fetchBuildingElementDetailsFromServer];
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.buildingElementDetails = nil;
-    self.dataSource = nil;
+   
     self.buildingManager = nil;
     self.buildingElementsWithIssues = nil;
+    self.tableView.dataSource = nil;
+     self.dataSource = nil;
 }
 
 -(void)updateTableViewDataSource {

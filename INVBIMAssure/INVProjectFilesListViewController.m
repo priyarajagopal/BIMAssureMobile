@@ -61,8 +61,8 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     [self fetchListOfProjectFiles];
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.dataResultsController = nil;
     self.projectManager = nil;
     self.searchView = nil;

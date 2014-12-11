@@ -79,13 +79,14 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.alertView = nil;
     self.accountManager = nil;
     self.dataResultsController = nil;
     self.loginFailureAlertController = nil;
     self.logoutPromptAlertController = nil;
+    self.collectionView.dataSource = nil;
     self.dataSource = nil;
 }
 

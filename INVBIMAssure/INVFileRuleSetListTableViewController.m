@@ -53,16 +53,16 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     
     [self addObserversForFileMoveNotification];
     [self fetchListOfProjectRuleSets];
-   // [self fetchRuleSetIdsForFile];
+
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     if (self.showRuleSetsForFileId) {
         [self pushUpdatedRuleSetsForFileToServer];
     }
-    
-//    self.ruleSetsDataSource = nil;
+    self.tableView.dataSource = nil;
+    self.ruleSetsDataSource = nil;
     self.rulesManager = nil;
     self.projectManager = nil;
     self.ruleSets = nil;
@@ -82,9 +82,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [self.globalDataManager.invServerClient getAllRuleSetsForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
         [self.hud hide:YES];
         if (!error) {
-           // [self updateRuleSetsFromServer];
-           // [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
-           // [self.tableView reloadData];
             [self fetchRuleSetIdsForFile];
         }
         else {

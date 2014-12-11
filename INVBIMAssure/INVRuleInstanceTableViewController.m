@@ -88,15 +88,16 @@ static NSString* INV_ActualParamValue = @"Value";
     }
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
-    self.dataSource = nil;
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
     self.rulesManager = nil;
     self.intermediateRuleInstanceActualParams = nil;
     self.ruleDefinition = nil;
     self.successAlertController = nil;
     self.saveBarButton = nil;
+    self.tableView.dataSource = nil;
+    self.dataSource = nil;
 
 }
 

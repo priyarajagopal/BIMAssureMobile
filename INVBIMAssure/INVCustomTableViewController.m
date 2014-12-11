@@ -40,8 +40,9 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    NSLog(@"%s",__func__);
+    [super viewWillDisappear:animated];
     self.hud = nil;
 }
 

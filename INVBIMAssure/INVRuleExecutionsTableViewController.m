@@ -54,12 +54,13 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.projectManager = nil;
     self.rulesManager = nil;
     self.dateFormatter = nil;
     self.files = nil;
+    self.tableView.dataSource = nil;
     self.dataSource = nil;
 }
 

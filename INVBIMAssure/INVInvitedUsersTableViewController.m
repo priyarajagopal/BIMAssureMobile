@@ -42,7 +42,14 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     [self fetchListOfInvitedUsers];
 }
 
-
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.tableView.dataSource = nil;
+    self.dataSource = nil;
+    self.dateFormatter = nil;
+    self.accountManager = nil;
+    self.dataResultsController = nil;
+}
 
 -(void) setupTableFooter {
     NSInteger numberOfRows = [self.tableView numberOfRowsInSection:0];

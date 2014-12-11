@@ -32,8 +32,8 @@
     [self registerKeyboardNotifications];
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self deregisterKeyboardNotifications];
     self.hud = nil;
 }
