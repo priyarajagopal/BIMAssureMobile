@@ -178,21 +178,23 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     [self showLoadProgress];
 
     [self.globalDataManager.invServerClient fetchRuleExecutionsForFileVersion:self.fileVersionId withCompletionBlock:^(INVEmpireMobileError *error) {
+          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        
           if (!error) {
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[0];
-            NSLog(@"%s. %lu of size %lu with num sections %@ ",__func__,(unsigned long)objectInSection.numberOfObjects, self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
-            
+              
             if (!dbError) {
-                [self.tableView reloadData];
-            }
+                NSLog(@"%s. %lu of size %lu with num sections %@ ",__func__,(unsigned long)objectInSection.numberOfObjects, self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+             }
             else {
 #warning - display error
             }
               
         }
-        [self.hud hide:YES];
+  
         
     }];
     
@@ -261,7 +263,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 #pragma mark - helper
 -(void)showLoadProgress {
     self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.tableView addSubview:self.hud];
+    [self.view addSubview:self.hud];
     [self.hud show:YES];
     
 }

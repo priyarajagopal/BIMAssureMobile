@@ -190,8 +190,9 @@ static NSString* INV_ActualParamValue = @"Value";
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
         [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
      }
-    [self.tableView reloadData];
-    [self setupTableFooter];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(setupTableFooter) withObject:nil waitUntilDone:NO];
+
 }
 
 
@@ -202,7 +203,8 @@ static NSString* INV_ActualParamValue = @"Value";
     else {
         [self showLoadProgress ];
         [self.globalDataManager.invServerClient getRuleDefinitionForRuleId:ruleId WithCompletionBlock:^(INVEmpireMobileError *error) {
-            [self.hud hide:YES];
+             [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
             
             if (!error) {
                 self.ruleDefinition = [self.globalDataManager.invServerClient.rulesManager ruleDefinitionForRuleId:ruleId];
@@ -215,8 +217,9 @@ static NSString* INV_ActualParamValue = @"Value";
 #warning show error alert
             }
             
-              [self.tableView reloadData];
-            [self setupTableFooter];
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+         
+            [self performSelectorOnMainThread:@selector(setupTableFooter) withObject:nil waitUntilDone:NO];
 
         }];
     }

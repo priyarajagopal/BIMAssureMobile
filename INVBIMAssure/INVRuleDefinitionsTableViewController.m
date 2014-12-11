@@ -67,13 +67,14 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 -(void)fetchListOfRuleDefinitions {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (!error) {
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                [self.tableView reloadData];
-            }
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+             }
             else {
 #warning - display error
             }

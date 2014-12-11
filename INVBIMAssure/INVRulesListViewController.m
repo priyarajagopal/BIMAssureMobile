@@ -73,13 +73,15 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 -(void)fetchRuleSets {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllRuleSetsForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (!error) {
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
                 [self logRulesToConsole];
-                [self.tableView reloadData];
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                
             }
             else {
 #warning - display error
@@ -93,7 +95,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(void)deleteSelectedRuleInstance {
     [self.globalDataManager.invServerClient deleteRuleInstanceForId:self.selectedRuleInstanceId WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (!error) {
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];

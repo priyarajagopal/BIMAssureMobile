@@ -169,7 +169,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 -(void)inviteUsers:(NSArray*)users withMessage:(NSString*)message {
 #warning Message not supported by API for now
     [self.globalDataManager.invServerClient inviteUsersToSignedInAccount:users withCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (error) {
 #warning - display error
             [self showInviteFailureAlert];

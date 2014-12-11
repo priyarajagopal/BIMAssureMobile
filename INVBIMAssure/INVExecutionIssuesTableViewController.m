@@ -95,7 +95,8 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
         NSNumber* elementId = element[@"id"];
         
         [self.globalDataManager.invServerClient fetchBuildingElementDetailsForId:elementId withCompletionBlock:^(INVEmpireMobileError *error) {
-            [self.hud hide:YES];
+             [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
             
             if (!error) {
                 INVBuildingElement* buildingElement = [self.buildingManager buildingElementForID:elementId];
@@ -110,7 +111,8 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
             
             if (idx == self.buildingElementsWithIssues.count-1) {
                 [self updateTableViewDataSource];
-                [self.tableView reloadData];
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+         
             }
             
         }];

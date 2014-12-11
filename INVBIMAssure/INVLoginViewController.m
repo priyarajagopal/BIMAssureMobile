@@ -165,7 +165,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 }
 
 -(void)hideLoginProgress {
-    [self.hud hide:YES];
+     [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
 }
 
 -(void)showLoginFailureAlert {

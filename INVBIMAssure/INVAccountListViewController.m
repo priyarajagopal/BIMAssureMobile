@@ -233,7 +233,8 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)fetchListOfAccounts {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        
         if (!error) {
       
 #pragma note Yes - you could have directly accessed accounts from accountManager. Using FetchResultsController directly makes it simpler
@@ -243,7 +244,7 @@ static NSString * const reuseIdentifier = @"Cell";
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
                 NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
-                [self.collectionView reloadData];
+                [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             }
             
             else {
@@ -260,7 +261,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)loginAccount {
     [self showLoginProgress];
     [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
         if (!error) {
             self.globalDataManager.loggedInAccount = self.currentAccountId;
             
@@ -282,7 +283,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)logoutAccount {
     [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (!error) {
             self.currentAccountId = nil;
             self.globalDataManager.loggedInAccount = nil;
@@ -294,7 +296,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)switchToSelectedAccount {
     [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
         if (!error) {
             self.globalDataManager.loggedInAccount = nil;
             [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];

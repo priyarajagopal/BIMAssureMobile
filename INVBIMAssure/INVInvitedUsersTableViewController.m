@@ -63,7 +63,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 -(void)fetchListOfInvitedUsers {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         [self.refreshControl endRefreshing];
         if (!error) { 
 #pragma note Yes - you could have directly accessed accounts from account manager. Using FetchResultsController directly makes it simpler
@@ -71,7 +72,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
                 NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
-                [self.tableView reloadData];
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+         
             }
             else {
 #warning - display error

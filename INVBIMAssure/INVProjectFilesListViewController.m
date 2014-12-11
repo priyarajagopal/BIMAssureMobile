@@ -147,7 +147,8 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 -(void)fetchListOfProjectFiles {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (!error) {
 
 #pragma note Yes - you could have directly access files from project manager. Using FetchResultsController directly makes it simpler

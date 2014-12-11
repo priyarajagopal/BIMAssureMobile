@@ -160,10 +160,11 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)fetchRuleSetIdsForFile {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient  getAllRuleSetsForFile:self.fileMasterId WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (!error) {
             [self updateRuleSetsFromServer ];
-            [self.tableView reloadData];
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
         else {
 #warning - display error
@@ -180,7 +181,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         ruleInstanceId = obj;
         NSLog(@"Will execure rule Instance %@",ruleInstanceId);
         [self.globalDataManager.invServerClient  executeRuleInstance:ruleInstanceId againstFileVersionId:self.fileVersionId againstModel:self.modelId withCompletionBlock:^(INVEmpireMobileError *error) {
-            [self.hud hide:YES];
+             [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
             if (!error) {
                 NSLog(@"%s. Success",__func__);
             }

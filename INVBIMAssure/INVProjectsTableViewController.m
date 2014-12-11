@@ -69,7 +69,8 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 -(void)fetchProjectList {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllProjectsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if ([self.refreshControl isRefreshing]) {
             [self.refreshControl endRefreshing];
         }
@@ -78,7 +79,7 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                 [self.tableView reloadData];
+                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             }
             else {
 #warning - display error

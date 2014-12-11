@@ -127,14 +127,15 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 -(void)fetchListOfAccountMembers {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getMembershipForAccount:self.globalDataManager.loggedInAccount withCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         [self.refreshControl endRefreshing];
         if (!error) {
 #pragma note Yes - you could have directly accessed accounts from project manager. Using FetchResultsController directly makes it simpler
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                 [self.tableView reloadData];
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             }
             else {
 #warning - display error

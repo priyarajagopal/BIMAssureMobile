@@ -80,7 +80,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)fetchListOfProjectFiles {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (!error) {
             [self fetchProjectFilesForRuleSetId];
         }
@@ -93,11 +94,13 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)fetchProjectFilesForRuleSetId {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllFileMastersForRuleSet:self.ruleSetId WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (!error) {
             [self updateFilesListFromServer ];
             [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
-            [self.tableView reloadData];
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            
         }
         else {
 #warning - display error
@@ -112,7 +115,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         [fileMasterIds addObject:file.fileId];
     }];
     [self.globalDataManager.invServerClient updateRuleSet:self.ruleSetId withFileMasters:fileMasterIds withCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud hide:YES];
+         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+     
         if (error) {
 #warning Show error alert
         }
@@ -208,8 +212,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             }
         }
         [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
-
-        [self.tableView reloadData];
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        
     }];
     self.observersAdded = YES;
 }
