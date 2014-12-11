@@ -11,6 +11,7 @@
 #import "INVProjectFileViewerController.h"
 #import "INVFileManageRuleSetsContainerViewController.h"
 #import "INVRunRulesTableViewController.h"
+#import "INVRuleExecutionsTableViewController.h"
 #import "INVSearchView.h"
 #import "UIImage+INVCustomizations.h"
 
@@ -205,7 +206,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 }
 
 #pragma mark - INVProjectFileCollectionViewCellDelegate
--(void)onViewProjectFile:(id)sender {
+-(void)onViewProjectFile:(INVProjectFileCollectionViewCell*)sender {
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedModelId = fileCell.modelId;
     self.selectedFileId = fileCell.fileId;
@@ -213,7 +214,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     [self performSegueWithIdentifier:@"FileViewerSegue" sender:self];
 }
 
--(void)onManageRuleSetsForProjectFile:(id)sender {
+-(void)onManageRuleSetsForProjectFile:(INVProjectFileCollectionViewCell*)sender {
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedModelId = fileCell.modelId;
     self.selectedFileId = fileCell.fileId;
@@ -221,7 +222,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     [self performSegueWithIdentifier:@"RuleSetFilesSegue" sender:self];
 }
 
--(void)onRunRulesForProjectFile:(id)sender {
+-(void)onRunRulesForProjectFile:(INVProjectFileCollectionViewCell*)sender {
 
     INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
     self.selectedModelId = fileCell.modelId;
@@ -231,6 +232,14 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 }
 
 
+-(void)onShowExecutionsForProjectFile:(INVProjectFileCollectionViewCell*)sender {
+    
+    INVProjectFileCollectionViewCell* fileCell = (INVProjectFileCollectionViewCell*)sender;
+    self.selectedModelId = fileCell.modelId;
+    self.selectedFileId = fileCell.fileId;
+    self.selectedFileTipId = fileCell.tipId;
+    [self performSegueWithIdentifier:@"ShowExecutionsSegue" sender:self];
+}
 
 
  #pragma mark - Navigation
@@ -259,6 +268,14 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
          vc.fileMasterId = self.selectedFileId;
          vc.modelId = self.selectedModelId;
 
+     }
+     if ([segue.identifier isEqualToString:@"ShowExecutionsSegue"]) {
+         INVRuleExecutionsTableViewController* vc =  (INVRuleExecutionsTableViewController*)segue.destinationViewController;
+         vc.projectId = self.projectId;
+         vc.fileVersionId = self.selectedFileTipId;
+         vc.fileMasterId = self.selectedFileId;
+         vc.modelId = self.selectedModelId;
+         
      }
  }
 

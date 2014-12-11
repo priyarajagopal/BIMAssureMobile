@@ -36,4 +36,11 @@
         [self.delegate onRunRulesForProjectFile:self];
     }
 }
+
+- (IBAction)onShowExecutionsSelected:(UIBarButtonItem *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onShowExecutionsForProjectFile:)]) {
+        [self.delegate onShowExecutionsForProjectFile:self];
+    }
+
+}
 @end

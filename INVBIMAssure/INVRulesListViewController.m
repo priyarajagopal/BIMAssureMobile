@@ -280,9 +280,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRuleSets;
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.rulesManager.fetchRequestForRuleSets managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"projectId==%@",self.projectId ];
         [fetchRequest setPredicate:fetchPredicate];
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+       
         
     }
     return  _dataResultsController;

@@ -18,9 +18,10 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
-@property (nonatomic,strong)INVFileArray files;
+@property (nonatomic,strong)INVFile* file;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,assign) NSInteger fetchedFilesExecutionCallbackCount;
+@property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @end
 
 @implementation INVRuleExecutionsTableViewController
@@ -49,9 +50,9 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+     [self initializeTableViewDataSource];
     self.fetchedFilesExecutionCallbackCount = 0;
-    [self fetchFilesFromServer];
-    
+    [self fetchExecutionsForFilesFromServer];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -59,39 +60,15 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     self.projectManager = nil;
     self.rulesManager = nil;
     self.dateFormatter = nil;
-    self.files = nil;
+    self.file = nil;
+    self.dataResultsController = nil;
     self.tableView.dataSource = nil;
     self.dataSource = nil;
 }
 
--(void)updateTableViewDataSource {
-    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSInteger section = idx;
-        INVFile* file = obj;
-        INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
-        if (executions) {
-            [self.dataSource updateWithDataArray:executions forSection:section];
-        }
-        
-    }];
-}
-
 -(void)initializeTableViewDataSource {
     
-    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSInteger section = idx;
-        INVFile* file = obj;
-        INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
-    
-        
-        if (self.dataSource) {
-            [self.dataSource updateWithDataArray:executions forSection:section];
-        }
-        else {
-            self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:executions forSection:section forTableView:self.tableView];
-        }
-        
-    }];
+    self.dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
     INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceExecutionResultTableViewCell *cell,INVRuleInstanceExecution* execution,NSIndexPath* indexPath ){
         
         cell.ruleInstanceName.text = execution.groupName;
@@ -174,13 +151,15 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 #warning  Use attributed text for header label
     UILabel* headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10,0, CGRectGetWidth(tableView.frame), DEFAULT_HEADER_HEIGHT )];
-    if (self.files) {
-        INVFile* file = self.files[section];
-        INVRuleInstanceExecutionArray executions = [self.rulesManager allRuleExecutionsForFileVersion:file.tipId];
-        [headerLabel setBackgroundColor:[UIColor lightGrayColor]];
-        headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",file.fileName, (unsigned long)(executions? executions.count:0)] ;
-    }
+ 
+    id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[section];
+    [headerLabel setBackgroundColor:[UIColor lightGrayColor]];
+    headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",self.file.fileName, (unsigned long)(objectInSection.numberOfObjects)] ;
+    headerLabel.textAlignment = NSTextAlignmentCenter;
     return headerLabel;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,47 +173,27 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
 
 #pragma mark - server side
--(void)fetchFilesFromServer {
-    [self showLoadProgress];
-    [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
-         if (!error) {
-            self.files = self.projectManager.projectFiles;
-             
-            [self fetchExecutionsForFilesFromServer];
-        }
-        else {
-            [self.hud hide:YES];
-            
-#warning - display error
-        }
-    }];
-}
 
 -(void)fetchExecutionsForFilesFromServer {
-    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        INVFile* file = obj;
-        NSInteger section = idx;
-        [self.globalDataManager.invServerClient fetchRuleExecutionsForFileVersion:file.tipId withCompletionBlock:^(INVEmpireMobileError *error) {
-            [self.hud hide:YES];
-            if (!error) {
-                if (!self.dataSource) {
-                    [self initializeTableViewDataSource];
-                }
-                else {
-                    [self updateTableViewDataSource];
-                }
-                self.fetchedFilesExecutionCallbackCount ++;
-                if (self.fetchedFilesExecutionCallbackCount == self.files.count) {
-                    self.fetchedFilesExecutionCallbackCount = 0;
-                    [self.tableView reloadData];
-                }
+    [self showLoadProgress];
+
+    [self.globalDataManager.invServerClient fetchRuleExecutionsForFileVersion:self.fileVersionId withCompletionBlock:^(INVEmpireMobileError *error) {
+          if (!error) {
+            NSError* dbError;
+            [self.dataResultsController performFetch:&dbError];
+            id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[0];
+            NSLog(@"%s. %lu of size %lu with num sections %@ ",__func__,(unsigned long)objectInSection.numberOfObjects, self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
+            
+            if (!dbError) {
+                [self.tableView reloadData];
             }
             else {
 #warning - display error
             }
-            
-
-        }];
+              
+        }
+        [self.hud hide:YES];
+        
     }];
     
 }
@@ -265,6 +224,29 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     return _dateFormatter;
 }
 
+-(NSFetchedResultsController*) dataResultsController {
+    if (!_dataResultsController) {
+        NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRuleInstanceExecutions;
+        NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"fileVersionId==%@",self.fileVersionId ];
+        [fetchRequest setPredicate:fetchPredicate];
+  
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        
+    }
+    return  _dataResultsController;
+}
+
+-(INVFile*)file {
+    if (!_file) {
+        NSPredicate* matchPred = [NSPredicate predicateWithFormat:@"tipId==%@",self.fileVersionId];
+        NSArray* match = [self.projectManager.projectFiles filteredArrayUsingPredicate:matchPred];
+        if (match && match.count) {
+            _file = match[0];
+        }
+    }
+    return _file;
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -279,7 +261,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 #pragma mark - helper
 -(void)showLoadProgress {
     self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
+    [self.tableView addSubview:self.hud];
     [self.hud show:YES];
     
 }

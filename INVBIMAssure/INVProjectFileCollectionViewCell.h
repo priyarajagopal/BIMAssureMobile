@@ -16,7 +16,7 @@
 -(void)onViewProjectFile:(INVProjectFileCollectionViewCell*)sender;
 -(void)onManageRuleSetsForProjectFile:(INVProjectFileCollectionViewCell*)sender;
 -(void)onRunRulesForProjectFile:(INVProjectFileCollectionViewCell*)sender;
-
+-(void)onShowExecutionsForProjectFile:(INVProjectFileCollectionViewCell*)sender;
 @end
 
 @interface INVProjectFileCollectionViewCell : UICollectionViewCell
@@ -31,5 +31,6 @@
 - (IBAction)onViewProjectSelected:(UIBarButtonItem*)sender;
 - (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender;
 - (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender;
+- (IBAction)onShowExecutionsSelected:(UIBarButtonItem *)sender;
 
 @end

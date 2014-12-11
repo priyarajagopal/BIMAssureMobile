@@ -136,13 +136,13 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
          [ruleSetController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
          
          ruleSetController.projectId = project.projectId;
-         
+         /*
          UINavigationController* reNavController = projectDetailsController.viewControllers[TABINDEX_PROJECT_RULEEXECUTIONS];;
          
          INVRuleExecutionsTableViewController* ruleExecutionController = (INVRuleExecutionsTableViewController*) reNavController.topViewController;
          [ruleExecutionController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
          ruleExecutionController.projectId = project.projectId;
-
+*/
 
      }
     
