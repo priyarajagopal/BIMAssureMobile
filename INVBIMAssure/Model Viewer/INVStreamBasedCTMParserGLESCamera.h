@@ -1,6 +1,13 @@
 @import Foundation;
 @import GLKit;
 
+extern int INVStreamBasedCTMParserGLESCamera_ProjectionTransformUniformLocation;
+extern int INVStreamBasedCTMParserGLESCamera_ModelViewTransformUniformLocation;
+extern int INVStreamBasedCTMParserGLESCamera_NormalTransformUniformLocation;
+
+extern int INVStreamBasedCTMParserGLESCamera_LightColorUniformLocation[6];
+extern int INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation[6];
+
 // All lights are omnidirectional.
 @interface INVStreamBasedCTMParserGLESLight : NSObject
 

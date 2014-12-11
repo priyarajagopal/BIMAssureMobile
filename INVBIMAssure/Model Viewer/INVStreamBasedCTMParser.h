@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "INVStreamBasedCTMParserChunk.h"
+#import "INVStreamBasedCTMParserGLESMesh.h"
 
 @class INVStreamBasedCTMParser;
 @protocol INVStreamBasedCTMParserDelegate <NSObject>
 @optional
 
 -(void) streamBasedCTMParserDidStartLoad:(INVStreamBasedCTMParser *) parser;
--(void) streamBasedCTMParser:(INVStreamBasedCTMParser *) parser didCompleteChunk:(INVStreamBasedCTMParserChunk *) chunk shouldStop:(BOOL *) stop;
+-(void) streamBasedCTMParser:(INVStreamBasedCTMParser *) parser didCompleteMesh:(INVStreamBasedCTMParserGLESMesh *) mesh shouldStop:(BOOL *) stop;
 -(void) streamBasedCTMParserDidFinishLoad:(INVStreamBasedCTMParser *) parser;
 
 @end

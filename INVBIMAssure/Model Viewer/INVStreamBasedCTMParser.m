@@ -13,8 +13,6 @@
 @import GLKit;
 @import SceneKit;
 
-#define MAX_CHUNK_SIZE UINT16_MAX
-
 struct _ctmReadNSDataUserData {
     __unsafe_unretained NSData *buffer;
     off_t offset;
@@ -37,11 +35,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
 @implementation INVStreamBasedCTMParser {
     INVStreamBasedJSONParser *_jsonParser;
     
-    INVStreamBasedCTMParserChunk *_currentTrianglesChunk;
-    INVStreamBasedCTMParserChunk *_currentLinesChunk;
-    
     NSMutableDictionary *_sharedGeoms;
-    NSMutableArray *_processedChunks;
+    INVStreamBasedCTMParserGLESMesh *_currentMesh;
     
     BOOL _isProcessingSharedGeoms;
     BOOL _isProcessingElements;
@@ -70,10 +65,6 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         _jsonParser.delegate = self;
         
         _sharedGeoms = [NSMutableDictionary new];
-        _processedChunks = [NSMutableArray new];
-        
-        _currentTrianglesChunk = [[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeTriangles];
-        _currentLinesChunk = [[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeLines];
         
         _ctmContext = ctmNewContext(CTM_IMPORT);
     }
@@ -99,74 +90,65 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         color = @0xFFFFFF;
     }
     
-    enum INVStreamBasedCTMParserChunkPrimitiveType primitiveType = [type intValue];
-    INVStreamBasedCTMParserChunk *chunk = ([type intValue] == 0) ? _currentTrianglesChunk : _currentLinesChunk;
-    
-    // TODO: Support lines
-    if (primitiveType == INVStreamBasedCTMParserChunkPrimitiveTypeLines)
-        return;
+    // NOTE: Support primtives other than triangles.
+    if ([type intValue] != 0) return;
     
     float a = (([color intValue] >> 24) & 0xFF) / 255.0f;
     float r = (([color intValue] >> 16) & 0xFF) / 255.0f;
     float g = (([color intValue] >>  8) & 0xFF) / 255.0f;
     float b = (([color intValue] >>  0) & 0xFF) / 255.0f;
     
-    if (a == 0) {
+    // r = g = b = a = 1;
+    
+    if (a == 0 || a == 1) {
         a = 1;
     } else {
-        a = a * 0.5;
+        a *= 0.5;
     }
     
-    UIColor *uiColor = [UIColor colorWithRed:r green:g blue:b alpha:a];
+    GLKVector4 glkColor = GLKVector4Make(r, g, b, a);
     
+    INVStreamBasedCTMParserGLESMesh *mesh = _currentMesh;
     int times = 0;
+    
     do {
-        BOOL success = [chunk appendContext:context
-                                 withMatrix:matrix
-                                   andColor:uiColor];
+        if (mesh == nil) {
+            mesh = [[INVStreamBasedCTMParserGLESMesh alloc] initWithElementType:GL_TRIANGLES transparent:(a < 1)];
+        }
+    
+        BOOL success = [mesh appendCTMContext:context
+                               withMatrix:matrix
+                                 andColor:glkColor];
+    
+        if (success) {
+            break;
+        }
         
-        if (success) break;
-        
-        chunk = [[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:primitiveType];
-        times++;
+        [self _completeMesh:mesh];
+        mesh = nil;
         
         if (times > 1) {
-            NSLog(@"Failed to parse geometry!");
-            // TODO: Notify delegate.
-            return;
+            CTMuint vertCount = ctmGetInteger(context, CTM_VERTEX_COUNT);
+            CTMuint triCount = ctmGetInteger(context, CTM_TRIANGLE_COUNT);
+            
+            NSLog(@"Failed to parse geometry with verts: %ui, tris: %ui", vertCount, triCount);
+            break;
         }
+        
+        times++;
     } while (YES);
     
-    if (times) {
-        [self _completeForPrimitiveType:primitiveType
-                               newChunk:times > 0 ? chunk : [[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:primitiveType]];
-    }
+    _currentMesh = mesh;
 }
 
--(void) _completeForPrimitiveType:(enum INVStreamBasedCTMParserChunkPrimitiveType) primitiveType
-                         newChunk:(INVStreamBasedCTMParserChunk *) newChunk {
+-(void) _completeMesh:(INVStreamBasedCTMParserGLESMesh *) mesh {
+    _currentMesh = nil;
     
-    id oldChunk = primitiveType == INVStreamBasedCTMParserChunkPrimitiveTypeTriangles ? _currentTrianglesChunk : _currentLinesChunk;
+    [mesh printWastedSpace];
     
-    [oldChunk finalizeChunk];
-    [_processedChunks addObject:oldChunk];
-    
-    switch (primitiveType) {
-        case SCNGeometryPrimitiveTypeTriangles:
-            _currentTrianglesChunk = newChunk;
-            break;
-        case SCNGeometryPrimitiveTypeLine:
-            _currentLinesChunk = newChunk;
-            break;
-        default:
-            break;
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(streamBasedCTMParser:didCompleteChunk:shouldStop:)]) {
-        NSLog(@"Old chunk size: %li", [oldChunk dataSize]);
-        
+    if ([self.delegate respondsToSelector:@selector(streamBasedCTMParser:didCompleteMesh:shouldStop:)]) {
         BOOL shouldStop = NO;
-        [self.delegate streamBasedCTMParser:self didCompleteChunk:oldChunk shouldStop:&shouldStop];
+        [self.delegate streamBasedCTMParser:self didCompleteMesh:mesh shouldStop:&shouldStop];
     }
 }
 
@@ -260,15 +242,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     }
     
     if (!_isProcessingSharedGeoms && !_isProcessingElements) {
-        if ([_currentTrianglesChunk vertexCount]) {
-            [self _completeForPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeTriangles
-                                   newChunk:[[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeTriangles]];
-        }
-        
-        if ([_currentLinesChunk vertexCount]) {
-            [self _completeForPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeLines
-                                   newChunk:[[INVStreamBasedCTMParserChunk alloc] initWithPrimitiveType:INVStreamBasedCTMParserChunkPrimitiveTypeLines]];
-        }
+        [self _completeMesh:_currentMesh];
         
         [self _destroySharedGeoms];
     }

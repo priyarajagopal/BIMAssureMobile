@@ -76,6 +76,26 @@ void classDump(Class);
         
         glDeleteShader(vsh);
         glDeleteShader(fsh);
+        
+        INVStreamBasedCTMParser_PositionAttributeLocation = glGetAttribLocation(program, "a_position");
+        INVStreamBasedCTMParser_NormalAttributeLocation = glGetAttribLocation(program, "a_normal");
+        INVStreamBasedCTMParser_ColorAttributeLocation = glGetAttribLocation(program, "a_color");
+        
+        INVStreamBasedCTMParserGLESCamera_ProjectionTransformUniformLocation = glGetUniformLocation(program, "u_projectionTransform");
+        INVStreamBasedCTMParserGLESCamera_ModelViewTransformUniformLocation = glGetUniformLocation(program, "u_modelViewTransform");
+        INVStreamBasedCTMParserGLESCamera_NormalTransformUniformLocation = glGetUniformLocation(program, "u_normalTransform");
+        
+        int lightCount = sizeof(INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation) / sizeof(*INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation);
+        for (int i = 0; i < lightCount; i++) {
+            char positionLocationStr[64];
+            char colorLocationStr[64];
+            
+            snprintf(positionLocationStr, 64, "u_light%i_position", i);
+            snprintf(colorLocationStr, 64, "u_light%i_color", i);
+            
+            INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation[i] = glGetUniformLocation(program, positionLocationStr);
+            INVStreamBasedCTMParserGLESCamera_LightColorUniformLocation[i] = glGetUniformLocation(program, colorLocationStr);
+        }
     });
     
     return program;
@@ -119,37 +139,16 @@ void classDump(Class);
     GLKView *view = (GLKView *)self.view;
     view.context = _context;
     
-    [self setupScene];
-}
-
--(void) update {
-    _camera.modelViewTransform = GLKMatrix4Rotate(_camera.modelViewTransform, self.timeSinceLastUpdate, 1, 1, 0);
-}
-
--(void) glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(0.5, 0.5, 0.5, 0.5);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
     
-    float aspect = (self.view.bounds.size.width / self.view.bounds.size.height);
-    _camera.projectionTransform = GLKMatrix4MakePerspective(55, aspect, 0.5, 10000);
-    _camera.projectionTransform = GLKMatrix4Translate(_camera.projectionTransform, 0, 15, -100);
-        
-    glUseProgram(_program);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendEquation(GL_FUNC_ADD);
     
-    [_camera bindTo:_program];
-    
-    for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
-        [mesh drawUsing:_program];
-    }
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     [self setupScene];
     
     NSArray *urls = @[
-        @"http://richards-macbook-pro.local/test/models/SampleHouse.json"
+        @"http://richards-macbook-pro.local/test/models/Hospital.json"
     ];
     
     urls = [[urls reverseObjectEnumerator] allObjects];
@@ -162,11 +161,31 @@ void classDump(Class);
     }
 }
 
--(void) streamBasedCTMParser:(INVStreamBasedCTMParser *)parser didCompleteChunk:(INVStreamBasedCTMParserChunk *)chunk shouldStop:(BOOL *)stop {
-    INVStreamBasedCTMParserGLESMesh *mesh = [[INVStreamBasedCTMParserGLESMesh alloc] initWithChunk:chunk];
+-(void) update {
+    float aspect = (self.view.bounds.size.width / self.view.bounds.size.height);
     
+    _camera.projectionTransform = GLKMatrix4MakePerspective(55, aspect, 0.5, 10000);
+    _camera.projectionTransform = GLKMatrix4Translate(_camera.projectionTransform, 0, 15, -100);
+    
+    // _camera.modelViewTransform = GLKMatrix4Rotate(_camera.modelViewTransform, self.timeSinceLastUpdate, 1, 1, 0);
+}
+
+-(void) glkView:(GLKView *)view drawInRect:(CGRect)rect {
+    glClearColor(0.5, 0.5, 0.5, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    glUseProgram(_program);
+    
+    [_camera bindTo:_program];
+    
+    for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
+        [mesh draw];
+    }
+}
+
+-(void) streamBasedCTMParser:(INVStreamBasedCTMParser *)parser didCompleteMesh:(INVStreamBasedCTMParserGLESMesh *)mesh shouldStop:(BOOL *)stop {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"Added chunk to scene.");
+        // NSLog(@"Added mesh to scene.");
         
         [self->_meshes addObject:mesh];
     });

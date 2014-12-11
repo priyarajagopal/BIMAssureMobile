@@ -147,7 +147,6 @@
 		F5BD34091A38929900BFF101 /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD33FF1A38929900BFF101 /* ClassDump.m */; };
 		F5BD340A1A38929900BFF101 /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34001A38929900BFF101 /* fp16.c */; };
 		F5BD340B1A38929900BFF101 /* INVStreamBasedCTMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34021A38929900BFF101 /* INVStreamBasedCTMParser.m */; };
-		F5BD340C1A38929900BFF101 /* INVStreamBasedCTMParserChunk.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34041A38929900BFF101 /* INVStreamBasedCTMParserChunk.m */; };
 		F5BD340D1A38929900BFF101 /* INVStreamBasedJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */; };
 		F5BD340E1A38929900BFF101 /* ModelViewer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = F5BD34071A38929900BFF101 /* ModelViewer.fsh */; };
 		F5BD340F1A38929900BFF101 /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F5BD34081A38929900BFF101 /* ModelViewer.vsh */; };
@@ -316,8 +315,6 @@
 		F5BD34001A38929900BFF101 /* fp16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp16.c; sourceTree = "<group>"; };
 		F5BD34011A38929900BFF101 /* INVStreamBasedCTMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParser.h; sourceTree = "<group>"; };
 		F5BD34021A38929900BFF101 /* INVStreamBasedCTMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParser.m; sourceTree = "<group>"; };
-		F5BD34031A38929900BFF101 /* INVStreamBasedCTMParserChunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserChunk.h; sourceTree = "<group>"; };
-		F5BD34041A38929900BFF101 /* INVStreamBasedCTMParserChunk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserChunk.m; sourceTree = "<group>"; };
 		F5BD34051A38929900BFF101 /* INVStreamBasedJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedJSONParser.h; sourceTree = "<group>"; };
 		F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedJSONParser.m; sourceTree = "<group>"; };
 		F5BD34071A38929900BFF101 /* ModelViewer.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.fsh; sourceTree = "<group>"; };
@@ -327,7 +324,6 @@
 		F5BD34131A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserGLESMesh.m; sourceTree = "<group>"; };
 		F5BD34151A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserGLESCamera.h; sourceTree = "<group>"; };
 		F5BD34161A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserGLESCamera.m; sourceTree = "<group>"; };
-		F5BD34181A38A34700BFF101 /* INVStreamBasedCTMParserChunkInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserChunkInternal.h; sourceTree = "<group>"; };
 		F5C57B1C1A1FB8E20042C96C /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
 		F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerViewController.m; sourceTree = "<group>"; };
 		F5C57B211A1FBA680042C96C /* SampleHouse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleHouse.json; sourceTree = "<group>"; };
@@ -619,9 +615,6 @@
 				F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */,
 				F5BD34011A38929900BFF101 /* INVStreamBasedCTMParser.h */,
 				F5BD34021A38929900BFF101 /* INVStreamBasedCTMParser.m */,
-				F5BD34181A38A34700BFF101 /* INVStreamBasedCTMParserChunkInternal.h */,
-				F5BD34031A38929900BFF101 /* INVStreamBasedCTMParserChunk.h */,
-				F5BD34041A38929900BFF101 /* INVStreamBasedCTMParserChunk.m */,
 				F5BD34051A38929900BFF101 /* INVStreamBasedJSONParser.h */,
 				F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */,
 				F5BD34121A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.h */,
@@ -857,7 +850,6 @@
 				02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
 				02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
 				023F2B991A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */,
-				F5BD340C1A38929900BFF101 /* INVStreamBasedCTMParserChunk.m in Sources */,
 				0223355519F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */,
 				0234D6281A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */,
 				023F2B691A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m in Sources */,
@@ -1093,7 +1085,6 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
 				);
-				GCC_FAST_MATH = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = INVBIMAssure/Info.plist;
@@ -1103,7 +1094,6 @@
 					"${PROJECT_DIR}/**",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
 				);
-				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1151,8 +1141,6 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
 				);
-				GCC_FAST_MATH = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = INVBIMAssure/Info.plist;
@@ -1162,7 +1150,6 @@
 					"${PROJECT_DIR}/**",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
 				);
-				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
