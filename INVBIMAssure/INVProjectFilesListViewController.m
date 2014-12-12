@@ -8,7 +8,7 @@
 
 #import "INVProjectFilesListViewController.h"
 #import "INVProjectFileCollectionViewCell.h"
-#import "INVProjectFileViewerController.h"
+#import "INVModelViewerViewController.h"
 #import "INVFileManageRuleSetsContainerViewController.h"
 #import "INVRunRulesTableViewController.h"
 #import "INVRuleExecutionsTableViewController.h"
@@ -251,7 +251,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     if ([segue.identifier isEqualToString:@"FileViewerSegue"]) {
 
         [self.tabBarController setHidesBottomBarWhenPushed:YES];
-        INVProjectFileViewerController *vc = (INVProjectFileViewerController*)segue.destinationViewController;
+        INVModelViewerViewController *vc = (INVModelViewerViewController *) segue.destinationViewController;
         
         vc.modelId = self.selectedModelId;
         vc.fileVersionId = self.selectedFileTipId;

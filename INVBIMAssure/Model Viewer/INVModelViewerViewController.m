@@ -89,12 +89,15 @@ void classDump(Class);
                       @"http://richards-macbook-pro.local/progressive/office/office_4.json",
                       @"http://richards-macbook-pro.local/progressive/office/office_5.json",
                        */
-                      @"http://richards-macbook-pro.local/test/models/SampleHouse.json"
+                      @"http://richards-macbook-pro.local/test/models/Hospital.json"
     ];
     
     for (NSString *url in urls) {
         [_ctmParser process:[NSURL URLWithString:url]];
     }
+}
+
+-(void) viewDidLoad {
 }
 
 -(void) viewDidAppear:(BOOL)animated {

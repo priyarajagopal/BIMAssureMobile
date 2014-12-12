@@ -11,8 +11,6 @@
 		021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 021E85BA19F825F2003E35E0 /* Localizable.strings */; };
 		021E85C019F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */; };
 		021E85C119F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */; };
-		022079FB1A3B55F9002C64B3 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 022079F91A3B55F9002C64B3 /* EmpireMobileManager.framework */; };
-		022079FC1A3B5609002C64B3 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 022079F91A3B55F9002C64B3 /* EmpireMobileManager.framework */; };
 		022079FD1A3B5609002C64B3 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 022079F91A3B55F9002C64B3 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223351919F6A82900224E0C /* INVLoginScrollView.m */; };
 		0223351B19F6A82900224E0C /* INVLoginScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223351919F6A82900224E0C /* INVLoginScrollView.m */; };
@@ -73,7 +71,6 @@
 		0249AAE61A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAE31A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m */; };
 		0249AAE71A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0249AAE41A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib */; };
 		0249AAE81A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0249AAE41A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib */; };
-		0249AAF81A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAF71A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m */; };
 		0249AAF91A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAF71A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m */; };
 		024BB6151A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024BB6131A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m */; };
 		024BB6161A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024BB6131A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m */; };
@@ -91,13 +88,11 @@
 		024CDCE819FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */; };
 		024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
 		024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
-		02549F401A37596100FF51B4 /* INVExecutionIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */; };
 		02549F411A37596100FF51B4 /* INVExecutionIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */; };
 		0278206C1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206D1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
 		0278206F1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
-		02A07F771A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		02A07F781A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
 		02A07F871A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
@@ -157,21 +152,28 @@
 		02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
+		2613D0D477436CAA743E8B1F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ACB782AED9709E7884D7905 /* libPods.a */; };
 		DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCFAB6FC8A404E1594DB60D5 /* libPods.a */; };
-		F5BD34091A38929900BFF101 /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD33FF1A38929900BFF101 /* ClassDump.m */; };
-		F5BD340A1A38929900BFF101 /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34001A38929900BFF101 /* fp16.c */; };
-		F5BD340B1A38929900BFF101 /* INVStreamBasedCTMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34021A38929900BFF101 /* INVStreamBasedCTMParser.m */; };
-		F5BD340D1A38929900BFF101 /* INVStreamBasedJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */; };
-		F5BD340E1A38929900BFF101 /* ModelViewer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = F5BD34071A38929900BFF101 /* ModelViewer.fsh */; };
-		F5BD340F1A38929900BFF101 /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F5BD34081A38929900BFF101 /* ModelViewer.vsh */; };
+		F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27E91A3B7C7200685F3F /* ClassDump.m */; };
+		F57D27F81A3B7C7200685F3F /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EA1A3B7C7200685F3F /* fp16.c */; };
+		F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */; };
+		F57D27FA1A3B7C7200685F3F /* INVStreamBasedCTMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EE1A3B7C7200685F3F /* INVStreamBasedCTMParser.m */; };
+		F57D27FB1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27F01A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.m */; };
+		F57D27FC1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27F21A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.m */; };
+		F57D27FD1A3B7C7200685F3F /* INVStreamBasedJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27F41A3B7C7200685F3F /* INVStreamBasedJSONParser.m */; };
+		F57D27FE1A3B7C7200685F3F /* ModelViewer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = F57D27F51A3B7C7200685F3F /* ModelViewer.fsh */; };
+		F57D27FF1A3B7C7200685F3F /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F57D27F61A3B7C7200685F3F /* ModelViewer.vsh */; };
+		F57D280B1A3B7C9A00685F3F /* INVSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D28021A3B7C9A00685F3F /* INVSearchView.m */; };
+		F57D280C1A3B7C9A00685F3F /* INVSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57D28031A3B7C9A00685F3F /* INVSearchView.xib */; };
+		F57D280D1A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D28061A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.m */; };
+		F57D280E1A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D28081A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m */; };
+		F57D280F1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */; };
+		F57D28151A3B7DB200685F3F /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; };
+		F57D28161A3B7DB200685F3F /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F57D28171A3B7E7B00685F3F /* INVRuleExecutionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAF71A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m */; };
+		F57D28181A3B7E7B00685F3F /* INVExecutionIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */; };
+		F57D28191A3B7E8800685F3F /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BD34101A38934500BFF101 /* libYajl.a */; };
-		F5BD34141A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34131A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m */; };
-		F5BD34171A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BD34161A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m */; };
-		F5C57B201A1FB8E20042C96C /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */; };
-		F5C57B221A1FBA680042C96C /* SampleHouse.json in Resources */ = {isa = PBXBuildFile; fileRef = F5C57B211A1FBA680042C96C /* SampleHouse.json */; };
-		F5E401661A1FC7A7004DBA93 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */; };
-		F5E401671A1FC7A7004DBA93 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F5E4016A1A1FC8A0004DBA93 /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F5E401631A1FC780004DBA93 /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +194,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				022079FD1A3B5609002C64B3 /* EmpireMobileManager.framework in Embed Frameworks */,
+				F57D28161A3B7DB200685F3F /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,7 +281,6 @@
 		02A07F831A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionTableViewCell.h; sourceTree = "<group>"; };
 		02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionTableViewCell.m; sourceTree = "<group>"; };
 		02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleDefinitionTableViewCell.xib; sourceTree = "<group>"; };
-		02A07F8A1A2CF8F2003CAC7E /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		02AAD3E719E6F8D6002901DA /* INVCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSplitViewController.h; sourceTree = "<group>"; };
 		02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSplitViewController.m; sourceTree = "<group>"; };
 		02AAD3EB19E6FE80002901DA /* INVProjectListSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectListSplitViewController.h; sourceTree = "<group>"; };
@@ -336,27 +338,34 @@
 		02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGeneralAddRemoveTableViewCell.m; sourceTree = "<group>"; };
 		02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVGeneralAddRemoveTableViewCell.xib; sourceTree = "<group>"; };
 		20CB161BD4FAECBBC93BEBAC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		5ACB782AED9709E7884D7905 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24123BCDF1407EC573B44A9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		F5BD33FF1A38929900BFF101 /* ClassDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDump.m; sourceTree = "<group>"; };
-		F5BD34001A38929900BFF101 /* fp16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp16.c; sourceTree = "<group>"; };
-		F5BD34011A38929900BFF101 /* INVStreamBasedCTMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParser.h; sourceTree = "<group>"; };
-		F5BD34021A38929900BFF101 /* INVStreamBasedCTMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParser.m; sourceTree = "<group>"; };
-		F5BD34051A38929900BFF101 /* INVStreamBasedJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedJSONParser.h; sourceTree = "<group>"; };
-		F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedJSONParser.m; sourceTree = "<group>"; };
-		F5BD34071A38929900BFF101 /* ModelViewer.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.fsh; sourceTree = "<group>"; };
-		F5BD34081A38929900BFF101 /* ModelViewer.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.vsh; sourceTree = "<group>"; };
+		F57D27E91A3B7C7200685F3F /* ClassDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDump.m; sourceTree = "<group>"; };
+		F57D27EA1A3B7C7200685F3F /* fp16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp16.c; sourceTree = "<group>"; };
+		F57D27EB1A3B7C7200685F3F /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
+		F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerViewController.m; sourceTree = "<group>"; };
+		F57D27ED1A3B7C7200685F3F /* INVStreamBasedCTMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParser.h; sourceTree = "<group>"; };
+		F57D27EE1A3B7C7200685F3F /* INVStreamBasedCTMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParser.m; sourceTree = "<group>"; };
+		F57D27EF1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserGLESCamera.h; sourceTree = "<group>"; };
+		F57D27F01A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserGLESCamera.m; sourceTree = "<group>"; };
+		F57D27F11A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserGLESMesh.h; sourceTree = "<group>"; };
+		F57D27F21A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserGLESMesh.m; sourceTree = "<group>"; };
+		F57D27F31A3B7C7200685F3F /* INVStreamBasedJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedJSONParser.h; sourceTree = "<group>"; };
+		F57D27F41A3B7C7200685F3F /* INVStreamBasedJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedJSONParser.m; sourceTree = "<group>"; };
+		F57D27F51A3B7C7200685F3F /* ModelViewer.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.fsh; sourceTree = "<group>"; };
+		F57D27F61A3B7C7200685F3F /* ModelViewer.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.vsh; sourceTree = "<group>"; };
+		F57D28011A3B7C9A00685F3F /* INVSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchView.h; sourceTree = "<group>"; };
+		F57D28021A3B7C9A00685F3F /* INVSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchView.m; sourceTree = "<group>"; };
+		F57D28031A3B7C9A00685F3F /* INVSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVSearchView.xib; sourceTree = "<group>"; };
+		F57D28041A3B7C9A00685F3F /* INVSearchViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchViewPrivate.h; sourceTree = "<group>"; };
+		F57D28051A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchViewQuickSearchBackgroundView.h; sourceTree = "<group>"; };
+		F57D28061A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchViewQuickSearchBackgroundView.m; sourceTree = "<group>"; };
+		F57D28071A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchViewQuickSearchDataSource.h; sourceTree = "<group>"; };
+		F57D28081A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchViewQuickSearchDataSource.m; sourceTree = "<group>"; };
+		F57D28091A3B7C9A00685F3F /* INVSearchViewTagsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchViewTagsDataSource.h; sourceTree = "<group>"; };
+		F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchViewTagsDataSource.m; sourceTree = "<group>"; };
+		F57D28141A3B7DB200685F3F /* OpenCTM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OpenCTM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BD34101A38934500BFF101 /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../../../Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos/libYajl.a"; sourceTree = "<group>"; };
-		F5BD34121A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserGLESMesh.h; sourceTree = "<group>"; };
-		F5BD34131A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserGLESMesh.m; sourceTree = "<group>"; };
-		F5BD34151A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStreamBasedCTMParserGLESCamera.h; sourceTree = "<group>"; };
-		F5BD34161A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStreamBasedCTMParserGLESCamera.m; sourceTree = "<group>"; };
-		F5C57B1C1A1FB8E20042C96C /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
-		F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerViewController.m; sourceTree = "<group>"; };
-		F5C57B211A1FBA680042C96C /* SampleHouse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SampleHouse.json; sourceTree = "<group>"; };
-		F5E4015B1A1FC57F004DBA93 /* OpenCTM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCTM.framework; path = "OpenCTM/build/Debug-iphoneos/OpenCTM.framework"; sourceTree = "<group>"; };
-		F5E4015F1A1FC5D6004DBA93 /* OpenCTM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCTM.framework; path = "OpenCTM/build/Debug-iphoneos/OpenCTM.framework"; sourceTree = "<group>"; };
-		F5E401611A1FC6F8004DBA93 /* OpenCTM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCTM.framework; path = "OpenCTM/build/Release-iphoneos/OpenCTM.framework"; sourceTree = "<group>"; };
-		F5E401631A1FC780004DBA93 /* OpenCTM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = OpenCTM.framework; path = "/Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos/OpenCTM.framework"; sourceTree = "<absolute>"; };
 		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -366,11 +375,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */,
-				023F2B3619FE81C900E4C985 /* libPods-FontAwesomeKit.a in Frameworks */,
-				023F2B3719FE81C900E4C985 /* libPods-FrameAccessor.a in Frameworks */,
-				023F2B3819FE81C900E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
-				023F2B3919FE81C900E4C985 /* libPods-VENTokenField.a in Frameworks */,
-				F5E401661A1FC7A7004DBA93 /* EmpireMobileManager.framework in Frameworks */,
+				2613D0D477436CAA743E8B1F /* libPods.a in Frameworks */,
+				F57D28151A3B7DB200685F3F /* OpenCTM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,11 +384,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				023F2B5419FE875300E4C985 /* libPods-VENTokenField.a in Frameworks */,
-				023F2B5319FE875000E4C985 /* libPods-MBProgressHUD.a in Frameworks */,
-				023F2B5119FE874B00E4C985 /* libPods-FontAwesomeKit.a in Frameworks */,
-				0263D71E1A1FBEF800BD3F94 /* EmpireMobileManager.framework in Frameworks */,
-				023F2B5219FE874D00E4C985 /* libPods-FrameAccessor.a in Frameworks */,
 				DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,7 +405,7 @@
 		0240900519E45A9400B218ED /* views */ = {
 			isa = PBXGroup;
 			children = (
-				F5DF9EA81A2CB1D70085DEFF /* search */,
+				F57D28001A3B7C9A00685F3F /* search */,
 				0223351819F6A82900224E0C /* INVLoginScrollView.h */,
 				0223351919F6A82900224E0C /* INVLoginScrollView.m */,
 				0240900719E45B4E00B218ED /* INVAccountViewCell.h */,
@@ -500,6 +501,7 @@
 		02C8844E19E317E900DFB4E2 = {
 			isa = PBXGroup;
 			children = (
+				F57D28141A3B7DB200685F3F /* OpenCTM.framework */,
 				021E85BA19F825F2003E35E0 /* Localizable.strings */,
 				02C8845919E317E900DFB4E2 /* INVBIMAssure */,
 				02C8847319E317E900DFB4E2 /* INVBIMAssureTests */,
@@ -563,6 +565,7 @@
 		02C8848B19E328FE00DFB4E2 /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
+				F57D27E81A3B7C7200685F3F /* Model Viewer */,
 				02AAD41719EB2C7F002901DA /* CustomBaseViewControllers */,
 				02C8848719E328EF00DFB4E2 /* INVLoginViewController.h */,
 				02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */,
@@ -620,29 +623,12 @@
 			name = viewcontrollers;
 			sourceTree = "<group>";
 		};
-		4C310EB661910595D40EC305 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				078D0047CBB70F687773A696 /* Pods.debug.xcconfig */,
-				276EE51184116471BA61F1FC /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				F5BD34101A38934500BFF101 /* libYajl.a */,
-				F5E401611A1FC6F8004DBA93 /* OpenCTM.framework */,
-				F5E4015F1A1FC5D6004DBA93 /* OpenCTM.framework */,
-				F5E4015B1A1FC57F004DBA93 /* OpenCTM.framework */,
-				0263D71C1A1FBEF800BD3F94 /* EmpireMobileManager.framework */,
-				023F2B3A19FE81DD00E4C985 /* libPods-FDKeychain.a */,
-				023F2B3219FE81C900E4C985 /* libPods-FontAwesomeKit.a */,
-				023F2B3319FE81C900E4C985 /* libPods-FrameAccessor.a */,
-				023F2B3419FE81C900E4C985 /* libPods-MBProgressHUD.a */,
-				023F2B3519FE81C900E4C985 /* libPods-VENTokenField.a */,
 				021E85B319F81C30003E35E0 /* MessageUI.framework */,
+				5ACB782AED9709E7884D7905 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -656,24 +642,40 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		F5C57B171A1FB8BF0042C96C /* Model Viewer */ = {
+		F57D27E81A3B7C7200685F3F /* Model Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				F5BD33FF1A38929900BFF101 /* ClassDump.m */,
-				F5BD34001A38929900BFF101 /* fp16.c */,
-				F5C57B1C1A1FB8E20042C96C /* INVModelViewerViewController.h */,
-				F5C57B1D1A1FB8E20042C96C /* INVModelViewerViewController.m */,
-				F5BD34011A38929900BFF101 /* INVStreamBasedCTMParser.h */,
-				F5BD34021A38929900BFF101 /* INVStreamBasedCTMParser.m */,
-				F5BD34051A38929900BFF101 /* INVStreamBasedJSONParser.h */,
-				F5BD34061A38929900BFF101 /* INVStreamBasedJSONParser.m */,
-				F5BD34121A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.h */,
-				F5BD34131A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m */,
-				F5BD34151A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.h */,
-				F5BD34161A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m */,
-				F5BD34081A38929900BFF101 /* ModelViewer.vsh */,
-				F5BD34071A38929900BFF101 /* ModelViewer.fsh */,
-				F5C57B211A1FBA680042C96C /* SampleHouse.json */,
+				F57D27E91A3B7C7200685F3F /* ClassDump.m */,
+				F57D27EA1A3B7C7200685F3F /* fp16.c */,
+				F57D27EB1A3B7C7200685F3F /* INVModelViewerViewController.h */,
+				F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */,
+				F57D27ED1A3B7C7200685F3F /* INVStreamBasedCTMParser.h */,
+				F57D27EE1A3B7C7200685F3F /* INVStreamBasedCTMParser.m */,
+				F57D27EF1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.h */,
+				F57D27F01A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.m */,
+				F57D27F11A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.h */,
+				F57D27F21A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.m */,
+				F57D27F31A3B7C7200685F3F /* INVStreamBasedJSONParser.h */,
+				F57D27F41A3B7C7200685F3F /* INVStreamBasedJSONParser.m */,
+				F57D27F51A3B7C7200685F3F /* ModelViewer.fsh */,
+				F57D27F61A3B7C7200685F3F /* ModelViewer.vsh */,
+			);
+			path = "Model Viewer";
+			sourceTree = "<group>";
+		};
+		F57D28001A3B7C9A00685F3F /* search */ = {
+			isa = PBXGroup;
+			children = (
+				F57D28011A3B7C9A00685F3F /* INVSearchView.h */,
+				F57D28021A3B7C9A00685F3F /* INVSearchView.m */,
+				F57D28031A3B7C9A00685F3F /* INVSearchView.xib */,
+				F57D28041A3B7C9A00685F3F /* INVSearchViewPrivate.h */,
+				F57D28051A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.h */,
+				F57D28061A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.m */,
+				F57D28071A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.h */,
+				F57D28081A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m */,
+				F57D28091A3B7C9A00685F3F /* INVSearchViewTagsDataSource.h */,
+				F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */,
 			);
 			path = search;
 			sourceTree = "<group>";
@@ -767,7 +769,7 @@
 			files = (
 				02AAD40F19E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */,
 				02B43A0A19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
-				F5E8282D1A2537780062BFA2 /* INVSearchView.xib in Resources */,
+				F57D27FE1A3B7C7200685F3F /* ModelViewer.fsh in Resources */,
 				02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
 				0234D6311A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.xib in Resources */,
 				021E85B519F81C61003E35E0 /* Main.storyboard in Resources */,
@@ -776,18 +778,17 @@
 				023F2B9C1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */,
 				02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */,
 				023F2B741A015B0500E4C985 /* INVRuleInstanceTableViewCell.xib in Resources */,
+				F57D27FF1A3B7C7200685F3F /* ModelViewer.vsh in Resources */,
 				0249AAE71A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */,
 				0278206C1A1A98EF00BDAA5E /* Visualize_files in Resources */,
 				021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */,
 				024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */,
 				0234D62A1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
-				F5C57B221A1FBA680042C96C /* SampleHouse.json in Resources */,
-				F5BD340F1A38929900BFF101 /* ModelViewer.vsh in Resources */,
+				F57D280C1A3B7C9A00685F3F /* INVSearchView.xib in Resources */,
 				024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */,
 				0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */,
-				F5BD340E1A38929900BFF101 /* ModelViewer.fsh in Resources */,
 				02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
 				023F2B881A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
 			);
@@ -891,8 +892,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F57D28191A3B7E8800685F3F /* INVRuleDefinitionsTableViewController.m in Sources */,
+				F57D28171A3B7E7B00685F3F /* INVRuleExecutionsTableViewController.m in Sources */,
+				F57D28181A3B7E7B00685F3F /* INVExecutionIssuesTableViewController.m in Sources */,
 				02AAD3FC19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
-				F5BD34141A389B6B00BFF101 /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
 				024CDCDA19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */,
 				0246E7351A11179E000C487D /* INVFileRuleSetListTableViewController.m in Sources */,
 				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
@@ -902,51 +905,52 @@
 				02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
 				0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */,
 				02C595801A2D134100ADD392 /* INVRunRulesTableViewController.m in Sources */,
+				F57D280B1A3B7C9A00685F3F /* INVSearchView.m in Sources */,
 				024CDCD419FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
-				F5BD340A1A38929900BFF101 /* fp16.c in Sources */,
-				027A5E651A0A7B400075530D /* INVRuleSetFilesTableViewDataSource.m in Sources */,
 				02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
+				F57D280D1A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.m in Sources */,
 				02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
 				024BB63E1A30F8FB00DEA82D /* UIImage+INVCustomizations.m in Sources */,
 				023F2B991A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */,
-				F5DF9EB21A2CB32D0085DEFF /* INVSearchViewTagsDataSource.m in Sources */,
 				0223355519F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */,
+				F57D280F1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m in Sources */,
+				F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */,
+				F57D280E1A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m in Sources */,
 				0234D6281A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */,
+				F57D27F81A3B7C7200685F3F /* fp16.c in Sources */,
 				023F2B691A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m in Sources */,
 				02C8848E19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
-				F5BD34091A38929900BFF101 /* ClassDump.m in Sources */,
 				02AAD40D19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */,
 				02C8846019E317E900DFB4E2 /* AppDelegate.m in Sources */,
 				02AAD41A19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */,
 				023F2B721A015B0500E4C985 /* INVRuleInstanceTableViewCell.m in Sources */,
 				02457E2519ED88AC00E714BA /* INVMainViewController.m in Sources */,
-				F5807F511A24EBF100ABB8FF /* INVSearchView.m in Sources */,
 				02FC608D1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */,
 				023F2B7D1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */,
-				F5BD34171A389B8F00BFF101 /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
+				F57D27FB1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
 				023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
 				02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
 				02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
 				0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
+				F57D27FA1A3B7C7200685F3F /* INVStreamBasedCTMParser.m in Sources */,
 				02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */,
+				F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */,
 				0234D62F1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m in Sources */,
 				02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
-				F5DF9EAF1A2CB2F50085DEFF /* INVSearchViewQuickSearchBackgroundView.m in Sources */,
 				02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */,
 				02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
-				F5BD340B1A38929900BFF101 /* INVStreamBasedCTMParser.m in Sources */,
 				023F2B6D1A0159BE00E4C985 /* INVRulesListViewController.m in Sources */,
-				F5BD340D1A38929900BFF101 /* INVStreamBasedJSONParser.m in Sources */,
 				0246E7311A111730000C487D /* INVFileManageRuleSetsContainerViewController.m in Sources */,
+				F57D27FD1A3B7C7200685F3F /* INVStreamBasedJSONParser.m in Sources */,
 				0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */,
 				024CDCE719FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */,
+				F57D27FC1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
 				02DB77FF1A092022004F4980 /* INVRuleSetManageFilesContainerViewController.m in Sources */,
 				021E85C019F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */,
 				02457E2119ED882C00E714BA /* INVMainMenuViewController.m in Sources */,
 				024BB6151A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */,
 				02C8845D19E317E900DFB4E2 /* main.m in Sources */,
-				F5DF9EAC1A2CB2AA0085DEFF /* INVSearchViewQuickSearchDataSource.m in Sources */,
 				023F2B811A03B9D400E4C985 /* INVRuleInstanceTableViewController.m in Sources */,
 				02AAD3F619E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
 				02AAD40019E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
@@ -1155,6 +1159,7 @@
 					"$(PROJECT_DIR)/**",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-gbvmecfcolpuvqdmruccmipspnyw/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-eoyknibvjliuhwfeyrwvlgcvoxqk/Build/Products/Debug-iphoneos",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
@@ -1210,6 +1215,7 @@
 					"$(PROJECT_DIR)/**",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-gbvmecfcolpuvqdmruccmipspnyw/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-eoyknibvjliuhwfeyrwvlgcvoxqk/Build/Products/Debug-iphoneos",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
@@ -1256,6 +1262,7 @@
 		};
 		02C8847E19E317E900DFB4E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A24123BCDF1407EC573B44A9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1285,6 +1292,7 @@
 		};
 		02C8847F19E317E900DFB4E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20CB161BD4FAECBBC93BEBAC /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

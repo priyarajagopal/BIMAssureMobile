@@ -441,9 +441,9 @@
                     </navigationItem>
                     <connections>
                         <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
-                        <segue destination="Eb5-Mc-1Dg" kind="show" identifier="FileViewerSegue" id="0Qy-9h-2Xh"/>
                         <segue destination="AUh-Ql-GT9" kind="presentation" identifier="RunRulesSegue" modalPresentationStyle="formSheet" id="G8m-0f-E8j"/>
                         <segue destination="l61-lF-AkI" kind="show" identifier="ShowExecutionsSegue" id="yRG-Uw-32c"/>
+                        <segue destination="GL2-uL-zZe" kind="show" identifier="FileViewerSegue" id="R5T-wB-Arv"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -635,9 +635,9 @@
                 </glkViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igs-h5-g41" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4393" y="4220"/>
+            <point key="canvasLocation" x="5161" y="4204"/>
         </scene>
-        <!--Files-->
+        <!--FilesNavigation Controller-->
         <scene sceneID="y7V-3v-ILL">
             <objects>
                 <navigationController id="V93-Se-Jud" userLabel="FilesNavigation Controller" sceneMemberID="viewController">
@@ -2123,6 +2123,7 @@
         <image name="folder" width="25" height="25"/>
         <image name="manage_rules" width="25" height="25"/>
         <image name="orange" width="21" height="21"/>
+        <image name="ruleresults" width="16" height="16"/>
         <image name="rules" width="25" height="25"/>
     </resources>
 </document>
