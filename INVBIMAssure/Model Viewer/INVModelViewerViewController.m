@@ -20,8 +20,6 @@ void classDump(Class);
 @interface INVModelViewerViewController ()<INVStreamBasedCTMParserDelegate> {
     EAGLContext *_context;
     
-    GLuint _program;
-    
     INVStreamBasedCTMParser *_ctmParser;
     INVStreamBasedCTMParserGLESCamera *_camera;
     
@@ -32,81 +30,13 @@ void classDump(Class);
 
 @implementation INVModelViewerViewController
 
--(GLuint) createProgram {
-    static GLuint program;
-    static dispatch_once_t onceToken;
-    
-    dispatch_once(&onceToken, ^{
-        GLuint vsh = glCreateShader(GL_VERTEX_SHADER);
-        GLuint fsh = glCreateShader(GL_FRAGMENT_SHADER);
-        
-        NSString *vshSource = [[NSBundle mainBundle] pathForResource:@"ModelViewer" ofType:@"vsh"];
-        vshSource = [NSString stringWithContentsOfFile:vshSource encoding:NSUTF8StringEncoding error:nil];
-        const char *vshSourceStr = [vshSource UTF8String];
-        
-        NSString *fshSource = [[NSBundle mainBundle] pathForResource:@"ModelViewer" ofType:@"fsh"];
-        fshSource = [NSString stringWithContentsOfFile:fshSource encoding:NSUTF8StringEncoding error:nil];
-        const char *fshSourceStr = [fshSource UTF8String];
-        
-        glShaderSource(vsh, 1, &vshSourceStr, NULL);
-        glShaderSource(fsh, 1, &fshSourceStr, NULL);
-        
-        glCompileShader(vsh);
-        glCompileShader(fsh);
-        
-        char errorLog[1024];
-        glGetShaderInfoLog(vsh, 1024, NULL, errorLog);
-        puts(errorLog);
-        
-        glGetShaderInfoLog(fsh, 1024, NULL, errorLog);
-        puts(errorLog);
-        
-        program = glCreateProgram();
-        
-        glAttachShader(program, vsh);
-        glAttachShader(program, fsh);
-        
-        glLinkProgram(program);
-        
-        glGetProgramInfoLog(program, 1024, NULL, errorLog);
-        puts(errorLog);
-        
-        glDetachShader(program, vsh);
-        glDetachShader(program, fsh);
-        
-        glDeleteShader(vsh);
-        glDeleteShader(fsh);
-        
-        INVStreamBasedCTMParser_PositionAttributeLocation = glGetAttribLocation(program, "a_position");
-        INVStreamBasedCTMParser_NormalAttributeLocation = glGetAttribLocation(program, "a_normal");
-        INVStreamBasedCTMParser_ColorAttributeLocation = glGetAttribLocation(program, "a_color");
-        
-        INVStreamBasedCTMParserGLESCamera_ProjectionTransformUniformLocation = glGetUniformLocation(program, "u_projectionTransform");
-        INVStreamBasedCTMParserGLESCamera_ModelViewTransformUniformLocation = glGetUniformLocation(program, "u_modelViewTransform");
-        INVStreamBasedCTMParserGLESCamera_NormalTransformUniformLocation = glGetUniformLocation(program, "u_normalTransform");
-        
-        int lightCount = sizeof(INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation) / sizeof(*INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation);
-        for (int i = 0; i < lightCount; i++) {
-            char positionLocationStr[64];
-            char colorLocationStr[64];
-            
-            snprintf(positionLocationStr, 64, "u_light%i_position", i);
-            snprintf(colorLocationStr, 64, "u_light%i_color", i);
-            
-            INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation[i] = glGetUniformLocation(program, positionLocationStr);
-            INVStreamBasedCTMParserGLESCamera_LightColorUniformLocation[i] = glGetUniformLocation(program, colorLocationStr);
-        }
-    });
-    
-    return program;
-}
-
 -(void) setupScene {
     // create and add a camera to the scene
-    _program = [self createProgram];
     _meshes = [NSMutableArray new];
     
     _camera = [INVStreamBasedCTMParserGLESCamera new];
+    [_camera loadProgramNamed:@"ModelViewer"];
+    
     // _camera.projectionTransform = GLKMatrix4Translate(_camera.projectionTransform, 0, 15, 250);
     // _camera.modelViewTransform = GLKMatrix4MakeRotation(M_PI / 2, 1, 0, 0);
 
@@ -142,13 +72,13 @@ void classDump(Class);
     glEnable(GL_DEPTH_TEST);
     
     glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBlendEquation(GL_FUNC_ADD);
     
     [self setupScene];
     
     NSArray *urls = @[
-        @"http://richards-macbook-pro.local/test/models/Hospital.json"
+        @"http://richards-macbook-pro.local/test/models/SampleHouse.json"
     ];
     
     urls = [[urls reverseObjectEnumerator] allObjects];
@@ -171,24 +101,33 @@ void classDump(Class);
 }
 
 -(void) glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(0.5, 0.5, 0.5, 1);
+    glClearColor(1, 1, 1, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    glUseProgram(_program);
-    
-    [_camera bindTo:_program];
+    [_camera bindProgram];
     
     for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
         [mesh draw];
     }
 }
 
--(void) streamBasedCTMParser:(INVStreamBasedCTMParser *)parser didCompleteMesh:(INVStreamBasedCTMParserGLESMesh *)mesh shouldStop:(BOOL *)stop {
+-(void) streamBasedCTMParser:(INVStreamBasedCTMParser *)parser
+             didCompleteMesh:(INVStreamBasedCTMParserGLESMesh *)mesh
+                  shouldStop:(BOOL *)stop {
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        // NSLog(@"Added mesh to scene.");
-        
         [self->_meshes addObject:mesh];
     });
+}
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+}
+
+-(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if ([event.allTouches count] == 1) {
+        
+    }
 }
 
 @end

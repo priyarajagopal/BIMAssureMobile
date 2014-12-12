@@ -103,7 +103,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     if (a == 0 || a == 1) {
         a = 1;
     } else {
-        a *= 0.5;
+        // a *= 0.5;
     }
     
     GLKVector4 glkColor = GLKVector4Make(r, g, b, a);

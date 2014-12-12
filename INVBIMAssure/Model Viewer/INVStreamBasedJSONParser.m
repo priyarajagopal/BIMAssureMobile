@@ -236,7 +236,7 @@ static yajl_callbacks callbacks = {
         };
         
         blockDelegate.didRecieveData = ^(NSURLConnection *connection, NSData *data) {
-            [self sendData:data complete:nil];
+            [self sendData:data complete:nil async:NO];
         };
         
         blockDelegate.didFinishLoading = ^(NSURLConnection *connection) {
@@ -256,7 +256,7 @@ static yajl_callbacks callbacks = {
     dispatch_async(_consumeQueue, ^{
         [self sendData:data complete:^{
             dispatch_semaphore_signal(self->_consumeSemaphore);
-        }];
+        } async:YES];
         
         dispatch_semaphore_wait(self->_consumeSemaphore, DISPATCH_TIME_FOREVER);
     });
@@ -291,7 +291,7 @@ static yajl_callbacks callbacks = {
                     return;
                 }
                 
-                [self sendData:buffer complete:nil];
+                [self sendData:buffer complete:nil async:NO];
             }
         };
         
@@ -327,8 +327,10 @@ static yajl_callbacks callbacks = {
     dispatch_suspend(_readingQueue);
 }
 
--(void) sendData:(NSData *) data complete:(dispatch_block_t) complete {
-    dispatch_async(_readingQueue, ^{
+-(void) sendData:(NSData *) data complete:(dispatch_block_t) complete async:(BOOL) async {
+    void (*dispatchFunc)(dispatch_queue_t, dispatch_block_t) = async ? dispatch_async : dispatch_sync;
+    
+    dispatchFunc(_readingQueue, ^{
         yajl_parse(self->_yajlHandle, [data bytes], [data length]);
         
         if (complete) {

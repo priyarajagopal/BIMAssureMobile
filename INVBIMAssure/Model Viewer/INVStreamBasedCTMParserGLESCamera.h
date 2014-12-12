@@ -24,6 +24,7 @@ extern int INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation[6];
 // Max lights: 6
 @property (nonatomic) NSArray *lights;
 
--(void) bindTo:(unsigned) program;
+-(void) loadProgramNamed:(NSString *) programName;
+-(void) bindProgram;
 
 @end
