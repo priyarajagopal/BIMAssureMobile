@@ -36,12 +36,15 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     INVStreamBasedJSONParser *_jsonParser;
     
     NSMutableDictionary *_sharedGeoms;
-    INVStreamBasedCTMParserGLESMesh *_currentMesh;
+    
+    INVStreamBasedCTMParserGLESMesh *_opaqueMesh;
+    INVStreamBasedCTMParserGLESMesh *_transparentMesh;
     
     BOOL _isProcessingSharedGeoms;
     BOOL _isProcessingElements;
     BOOL _isProcessingElementGeometries;
     BOOL _isProcessingMatrix;
+    BOOL _isProcessingBox;
     
     NSString *_lastKey;
     
@@ -103,12 +106,12 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     if (a == 0 || a == 1) {
         a = 1;
     } else {
-        // a *= 0.5;
+        a *= 0.5;
     }
     
     GLKVector4 glkColor = GLKVector4Make(r, g, b, a);
     
-    INVStreamBasedCTMParserGLESMesh *mesh = _currentMesh;
+    INVStreamBasedCTMParserGLESMesh *mesh = (a == 1) ? _opaqueMesh : _transparentMesh;
     int times = 0;
     
     do {
@@ -138,11 +141,19 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         times++;
     } while (YES);
     
-    _currentMesh = mesh;
+    if (mesh.transparent) {
+        _transparentMesh = mesh;
+    } else {
+        _opaqueMesh = mesh;
+    }
 }
 
 -(void) _completeMesh:(INVStreamBasedCTMParserGLESMesh *) mesh {
-    _currentMesh = nil;
+    if (mesh.transparent) {
+        _transparentMesh = nil;
+    } else {
+        _opaqueMesh = nil;
+    }
     
     [mesh printWastedSpace];
     
@@ -186,6 +197,10 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
             
             if ([color isKindOfClass:[NSNull class]]) {
                 color = nil;
+            }
+            
+            if (_geometryColor != nil) {
+                color = _geometryColor;
             }
             
             [self _appendGeometry:context
@@ -242,7 +257,12 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     }
     
     if (!_isProcessingSharedGeoms && !_isProcessingElements) {
-        [self _completeMesh:_currentMesh];
+        if (_opaqueMesh) {
+            [self _completeMesh:_opaqueMesh];
+        }
+        if (_transparentMesh) {
+            [self _completeMesh:_transparentMesh];
+        }
         
         [self _destroySharedGeoms];
     }
@@ -267,12 +287,18 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         _isProcessingMatrix = YES;
     }
     
+    if ([_lastKey isEqualToString:@"box"]) {
+        _isProcessingBox = YES;
+    }
+    
     _lastKey = nil;
 }
 
 -(void) jsonParserDidEndArray:(INVStreamBasedJSONParser *)parser {
     if (_isProcessingMatrix) {
         _isProcessingMatrix = NO;
+    } else if (_isProcessingBox) {
+        _isProcessingBox = NO;
     } else if (_isProcessingElementGeometries) {
         _isProcessingElementGeometries = NO;
     } else if (_isProcessingElements) {

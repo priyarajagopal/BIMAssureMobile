@@ -103,13 +103,13 @@ int INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation[6];
     for (NSUInteger lightIndex = 0; lightIndex < 6; lightIndex++) {
         INVStreamBasedCTMParserGLESLight *light = lightIndex < self.lights.count ? self.lights[lightIndex] : nil;
         
-        GLKVector3 lightPosition = light ? light.position : GLKVector3Make(0, 0, 0);
+        GLKVector4 lightPosition = light ? GLKVector4MakeWithVector3(light.position, 1) : GLKVector4Make(0, 0, 0, 0);
         GLKVector4 lightColor = light ? light.color : GLKVector4Make(0, 0, 0, 0);
         
-        lightPosition = GLKMatrix4MultiplyVector3WithTranslation(_modelViewTransform, lightPosition);
+        lightPosition = GLKMatrix4MultiplyVector4(_modelViewTransform, lightPosition);
         
         glUniform4fv(INVStreamBasedCTMParserGLESCamera_LightColorUniformLocation[lightIndex], 1, lightColor.v);
-        glUniform3fv(INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation[lightIndex], 1, lightPosition.v);
+        glUniform4fv(INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation[lightIndex], 1, lightPosition.v);
     }
 }
 

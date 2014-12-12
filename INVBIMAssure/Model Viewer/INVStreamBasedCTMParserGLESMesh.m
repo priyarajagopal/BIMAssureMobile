@@ -199,7 +199,9 @@ struct __attribute__((packed)) index_struct {
     glDeleteBuffers(1, &_indexBuffer);
 }
 
--(BOOL) appendCTMContext:(CTMcontext) ctmContext withMatrix:(GLKMatrix4)matrix andColor:(GLKVector4)color {
+-(BOOL) appendCTMContext:(CTMcontext) ctmContext
+              withMatrix:(GLKMatrix4)matrix
+                andColor:(GLKVector4)color {
     if (![NSThread isMainThread]) {
         __block BOOL success = NO;
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -317,8 +319,9 @@ struct __attribute__((packed)) index_struct {
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
-    // glDepthMask(!_transparent);
-    glDrawElements(GL_TRIANGLES, _indexCount, _indexType, NULL);
+    glDepthMask(!_transparent);
+    glDrawElements(_elementType, _indexCount, _indexType, NULL);
+    glDepthMask(GL_TRUE);
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

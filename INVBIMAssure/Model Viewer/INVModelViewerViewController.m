@@ -53,7 +53,7 @@ void classDump(Class);
     for (int i = 0; i < 6; i++) {
         // create and add a light to the scene
         INVStreamBasedCTMParserGLESLight *light = [INVStreamBasedCTMParserGLESLight new];
-        light.color = GLKVector4Make(0.66, 0.66, 0.66, 1);
+        light.color = GLKVector4Make(0.8, 0.8, 0.8, 1);
         light.position = lightPostions[i];
         
         [lights addObject:light];
@@ -62,7 +62,7 @@ void classDump(Class);
     _camera.lights = lights;
 }
 
--(void) viewDidLoad {
+-(void) prepareGL {
     _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     [EAGLContext setCurrentContext:_context];
     
@@ -70,15 +70,15 @@ void classDump(Class);
     view.context = _context;
     
     glEnable(GL_DEPTH_TEST);
-    
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     glBlendEquation(GL_FUNC_ADD);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     [self setupScene];
     
     NSArray *urls = @[
-        @"http://richards-macbook-pro.local/test/models/SampleHouse.json"
+        @"http://richards-macbook-pro.local/progressive/office/office_mg2.json",
     ];
     
     urls = [[urls reverseObjectEnumerator] allObjects];
@@ -89,6 +89,10 @@ void classDump(Class);
     for (NSString *url in urls) {
         [_ctmParser process:[NSURL URLWithString:url]];
     }
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [self prepareGL];
 }
 
 -(void) update {
@@ -120,13 +124,73 @@ void classDump(Class);
     });
 }
 
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    touches = [event allTouches];
     
+    if (touches.count == 1) {
+        UITouch *touch = [touches anyObject];
+        
+        CGPoint lastPoint = [touch previousLocationInView:self.view];
+        CGPoint newPoint = [touch locationInView:self.view];
+        
+        float changedX = newPoint.x - lastPoint.x;
+        float changedY = newPoint.y - lastPoint.y;
+        
+        _camera.modelViewTransform = GLKMatrix4Multiply(
+            GLKMatrix4MakeRotation(0.05, changedX, changedY, 0),
+            _camera.modelViewTransform
+        );
+    }
+    if (touches.count == 2) {
+        UITouch *touch1 = [touches allObjects][0];
+        UITouch *touch2 = [touches allObjects][1];
+        
+        CGPoint touch1Point = [touch1 locationInView:self.view];
+        CGPoint touch2Point = [touch2 locationInView:self.view];
+        
+        CGPoint touch1LastPoint = [touch1 previousLocationInView:self.view];
+        CGPoint touch2LastPoint = [touch2 previousLocationInView:self.view];
+        
+        float distance = GLKVector2Distance(
+            GLKVector2Make(touch1Point.x, touch1Point.y),
+            GLKVector2Make(touch2Point.x, touch2Point.y)
+        );
+        
+        float lastDistance = GLKVector2Distance(
+            GLKVector2Make(touch1LastPoint.x, touch1LastPoint.y),
+            GLKVector2Make(touch2LastPoint.x, touch2LastPoint.y)
+        );
+        
+        float sign = distance > lastDistance ? 1 : -1;
+        float scale = sign * (fabs(lastDistance -  distance)) * 0.5;
+        
+        _camera.modelViewTransform = GLKMatrix4Multiply(
+            GLKMatrix4MakeTranslation(0, 0, scale),
+            _camera.modelViewTransform
+        );
+    }
+    if (touches.count == 3) {
+        UITouch *touch = [touches anyObject];
+        
+        CGPoint lastPoint = [touch previousLocationInView:self.view];
+        CGPoint newPoint = [touch locationInView:self.view];
+        
+        float changedX = newPoint.x - lastPoint.x;
+        float changedY = newPoint.y - lastPoint.y;
+        
+        _camera.modelViewTransform = GLKMatrix4Multiply(
+            GLKMatrix4MakeTranslation(-changedX / 4, changedY / 4, 0),
+            _camera.modelViewTransform
+        );
+    }
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if ([event.allTouches count] == 1) {
-        
+    UITouch *touch = [touches anyObject];
+    
+    if (touch.tapCount == 3) {
+        _camera.modelViewTransform = GLKMatrix4Identity;
+        return;
     }
 }
 
