@@ -53,7 +53,7 @@ void classDump(Class);
     for (int i = 0; i < 6; i++) {
         // create and add a light to the scene
         INVStreamBasedCTMParserGLESLight *light = [INVStreamBasedCTMParserGLESLight new];
-        light.color = GLKVector4Make(0.8, 0.8, 0.8, 1);
+        light.color = GLKVector4Make(0.66, 0.66, 0.66, 1);
         light.position = lightPostions[i];
         
         [lights addObject:light];
@@ -80,21 +80,10 @@ void classDump(Class);
     _ctmParser = [[INVStreamBasedCTMParser alloc] init];
     _ctmParser.delegate = self;
     
-    NSArray *urls = @[
-                      /*
-                      @"http://richards-macbook-pro.local/progressive/office/office_0.json",
-                      @"http://richards-macbook-pro.local/progressive/office/office_1.json",
-                      @"http://richards-macbook-pro.local/progressive/office/office_2.json",
-                      @"http://richards-macbook-pro.local/progressive/office/office_3.json",
-                      @"http://richards-macbook-pro.local/progressive/office/office_4.json",
-                      @"http://richards-macbook-pro.local/progressive/office/office_5.json",
-                       */
-                      @"http://richards-macbook-pro.local/test/models/Hospital.json"
-    ];
+    NSURLRequest *request = [INVGlobalDataManager.sharedInstance.invServerClient requestToFetchModelViewForId:self.modelId];
+    // NSURL *url = [NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/rac_basic.json"];
     
-    for (NSString *url in urls) {
-        [_ctmParser process:[NSURL URLWithString:url]];
-    }
+    [_ctmParser process:request];
 }
 
 -(void) viewDidLoad {

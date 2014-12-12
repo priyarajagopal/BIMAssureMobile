@@ -14,19 +14,9 @@ int INVStreamBasedCTMParser_ColorAttributeLocation;
 #define MAX_VERTEX_COUNT 65535
 #define MAX_INDEX_COUNT 200000
 
-#if TARGET_IPHONE_SIMULATOR
-
 typedef float vertex_position_element_type;
 typedef float vertex_normal_element_type;
-typedef float vertex_color_element_type;
-
-#else
-
-typedef float vertex_position_element_type;
-typedef float vertex_normal_element_type;
-typedef float vertex_color_element_type;
-
-#endif
+typedef uint8_t vertex_color_element_type;
 
 typedef uint16_t index_index_type;
 
@@ -128,7 +118,7 @@ struct __attribute__((packed)) index_struct {
     
     glEnableVertexAttribArray(INVStreamBasedCTMParser_ColorAttributeLocation);
     glVertexAttribPointer(
-        INVStreamBasedCTMParser_ColorAttributeLocation, 4, _colorType, GL_FALSE,
+        INVStreamBasedCTMParser_ColorAttributeLocation, 4, _colorType, GL_TRUE,
         sizeof(struct vertex_struct), (void *) offsetof(struct vertex_struct, color)
     );
     
@@ -250,10 +240,10 @@ struct __attribute__((packed)) index_struct {
         _vertexPointer[oldVertexEnd + vertexIndex].normal[1] = 0;
         _vertexPointer[oldVertexEnd + vertexIndex].normal[2] = 0;
         
-        _vertexPointer[oldVertexEnd + vertexIndex].color[0] = color.r;
-        _vertexPointer[oldVertexEnd + vertexIndex].color[1] = color.g;
-        _vertexPointer[oldVertexEnd + vertexIndex].color[2] = color.b;
-        _vertexPointer[oldVertexEnd + vertexIndex].color[3] = color.a;
+        _vertexPointer[oldVertexEnd + vertexIndex].color[0] = color.r * 0xFF;
+        _vertexPointer[oldVertexEnd + vertexIndex].color[1] = color.g * 0xFF;
+        _vertexPointer[oldVertexEnd + vertexIndex].color[2] = color.b * 0xFF;
+        _vertexPointer[oldVertexEnd + vertexIndex].color[3] = color.a * 0xFF;
     }
     
     for (int primitiveIndex = 0; primitiveIndex < ctmIndexCount; primitiveIndex += 3) {
