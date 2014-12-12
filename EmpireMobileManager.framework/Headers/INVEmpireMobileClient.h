@@ -11,7 +11,7 @@
 #import "INVAccountManager.h"
 #import "INVProjectManager.h"
 #import "INVRulesManager.h"
-
+#import "INVBuildingManager.h"
 
 
 /**
@@ -52,6 +52,11 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  Rules Manager resposible for managing responses to rules related requests
  */
 @property (nonatomic,readonly)INVRulesManager* rulesManager;
+
+/**
+ Building Manager resposible for managing responses to building related requests
+ */
+@property (nonatomic,readonly)INVBuildingManager* buildingManager;
 
 
 #pragma mark - Creation
@@ -260,6 +265,22 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 -(void)fetchModelViewForId:(NSNumber*)modelId withCompletionBlock:(CompletionHandlerWithData) handler;
 
 
+
+
+/**
+ Convenience method that retuns a NSURLRequest to fetch the JSON model data. This provides the flexibility for clients to fetch and process the data
+ as they choose to. If there is an error, a nil value is returned
+ 
+ @param modelId the Id of the model whose JSON data is to fetched
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see accountManager
+ 
+ */
+-(NSURLRequest*)requestToFetchModelViewForId:(NSNumber*)modelId ;
+
+
 #pragma mark - Projects Related
 
 /**
@@ -299,6 +320,20 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  
  */
 -(void)deleteProjectWithId:(NSNumber*)projectId ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+
+/**
+ Asynchornously ,get thumbnail image for specified file versionId. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
+ 
+ @param fileVersionId File Version Id
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ */
+-(void)getThumbnailImageForFileVersion:(NSNumber*)fileVersionId ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData) handler;
 
 
 #pragma mark - Rule Sets Related
@@ -375,21 +410,6 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
 
 #pragma mark - Rule Instances management
-
-
-/**
- Asynchornously ,fetch a specified rule instance.
- 
- @param ruleInstanceId The Id of the rule instance
-
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
- 
- @see -signIntoAccount:withCompletionBlock:
- 
- 
- */
-
-
 
 
 /**
@@ -581,6 +601,22 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  
  */
 -(void)fetchRuleExecutionsForRuleInstanceId:(NSNumber*)ruleInstanceId withCompletionBlock:(CompletionHandler) handler;
+
+
+#pragma mark - Model/Building Related
+/**
+ Asynchornously , fetch list the details of specified building element
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ @param elementId The Id of the building whose details are to be fetched
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, details can be queried via the INVBuildingManager interface
+ 
+ @see buildingManager
+ 
+ */
+-(void)fetchBuildingElementDetailsForId:(NSNumber*)elementId withCompletionBlock:(CompletionHandler) handler;
+
 
 #pragma mark - General Account Related
 

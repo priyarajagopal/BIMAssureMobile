@@ -151,6 +151,7 @@ struct __attribute__((packed)) index_struct {
     if (!_isPrepared) return;
     if (_isMapped) return;
     
+    glBindVertexArrayOES(_vertexArray);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
@@ -177,6 +178,7 @@ struct __attribute__((packed)) index_struct {
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindVertexArrayOES(0);
     
     _isMapped = NO;
 }
@@ -225,8 +227,8 @@ struct __attribute__((packed)) index_struct {
         return NO;
     }
     
-    uint16_t oldVertexEnd = _vertexCount;
-    uint16_t oldIndexEnd = _indexCount;
+    long oldVertexEnd = _vertexCount;
+    long oldIndexEnd = _indexCount;
     
     _vertexCount += ctmVertexCount;
     _indexCount += ctmIndexCount;
@@ -254,10 +256,6 @@ struct __attribute__((packed)) index_struct {
         _vertexPointer[oldVertexEnd + vertexIndex].color[3] = color.a;
     }
     
-    for (int indexIndex = 0; indexIndex < ctmIndexCount; indexIndex++) {
-        _indexPointer[oldIndexEnd + indexIndex].index = ctmIndices[indexIndex] + oldVertexEnd;
-    }
-    
     for (int primitiveIndex = 0; primitiveIndex < ctmIndexCount; primitiveIndex += 3) {
         struct index_struct *i0 = &_indexPointer[oldIndexEnd + primitiveIndex + 0];
         struct index_struct *i1 = &_indexPointer[oldIndexEnd + primitiveIndex + 1];
@@ -280,6 +278,7 @@ struct __attribute__((packed)) index_struct {
         
         GLKVector3 normal = GLKVector3CrossProduct(va, vb);
         
+        
         p0->normal[0] += normal.x;
         p0->normal[1] += normal.y;
         p0->normal[2] += normal.z;
@@ -297,9 +296,9 @@ struct __attribute__((packed)) index_struct {
         struct vertex_struct *vertex = &_vertexPointer[oldVertexEnd + vertexIndex];
         
         GLKVector3 vector = GLKVector3Make(
-            vertex->position[0],
-            vertex->position[1],
-            vertex->position[2]
+            vertex->normal[0],
+            vertex->normal[1],
+            vertex->normal[2]
         );
         
         vector = GLKVector3Normalize(vector);
@@ -319,8 +318,8 @@ struct __attribute__((packed)) index_struct {
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
-    glDepthMask(!_transparent);
-    glDrawElements(_elementType, _indexCount, _indexType, NULL);
+    // glDepthMask(!_transparent);
+    glDrawElements(GL_TRIANGLES, _indexCount, _indexType, NULL);
     glDepthMask(GL_TRUE);
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

@@ -607,7 +607,7 @@
                         <viewControllerLayoutGuide type="top" id="7mG-8a-Gz8"/>
                         <viewControllerLayoutGuide type="bottom" id="8D9-Ct-9VY"/>
                     </layoutGuides>
-                    <glkView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" drawableMultisample="4X" enableSetNeedsDisplay="NO" id="4ov-Ct-Enc">
+                    <glkView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" enableSetNeedsDisplay="NO" id="4ov-Ct-Enc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
@@ -618,7 +618,7 @@
                 </glkViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igs-h5-g41" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4397" y="4220"/>
+            <point key="canvasLocation" x="4393" y="4220"/>
         </scene>
         <!--Files-->
         <scene sceneID="y7V-3v-ILL">

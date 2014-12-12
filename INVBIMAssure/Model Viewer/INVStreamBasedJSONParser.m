@@ -195,7 +195,7 @@ static yajl_callbacks callbacks = {
         return [self _consumeURL:input];
     }
     
-    if ([input isKindOfClass:[NSURLConnection class]]) {
+    if ([input isKindOfClass:[NSURLRequest class]]) {
         return [self _consumeURLRequest:input];
     }
     

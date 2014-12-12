@@ -77,14 +77,20 @@ void classDump(Class);
     
     [self setupScene];
     
-    NSArray *urls = @[
-        @"http://richards-macbook-pro.local/progressive/office/office_mg2.json",
-    ];
-    
-    urls = [[urls reverseObjectEnumerator] allObjects];
-    
     _ctmParser = [[INVStreamBasedCTMParser alloc] init];
     _ctmParser.delegate = self;
+    
+    NSArray *urls = @[
+                      /*
+                      @"http://richards-macbook-pro.local/progressive/office/office_0.json",
+                      @"http://richards-macbook-pro.local/progressive/office/office_1.json",
+                      @"http://richards-macbook-pro.local/progressive/office/office_2.json",
+                      @"http://richards-macbook-pro.local/progressive/office/office_3.json",
+                      @"http://richards-macbook-pro.local/progressive/office/office_4.json",
+                      @"http://richards-macbook-pro.local/progressive/office/office_5.json",
+                       */
+                      @"http://richards-macbook-pro.local/test/models/SampleHouse.json"
+    ];
     
     for (NSString *url in urls) {
         [_ctmParser process:[NSURL URLWithString:url]];
@@ -137,8 +143,8 @@ void classDump(Class);
         float changedY = newPoint.y - lastPoint.y;
         
         _camera.modelViewTransform = GLKMatrix4Multiply(
-            GLKMatrix4MakeRotation(0.05, changedX, changedY, 0),
-            _camera.modelViewTransform
+            _camera.modelViewTransform,
+            GLKMatrix4MakeRotation(1, changedX, changedY, 0)
         );
     }
     if (touches.count == 2) {
