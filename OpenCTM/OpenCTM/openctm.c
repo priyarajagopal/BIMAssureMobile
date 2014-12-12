@@ -202,6 +202,13 @@ CTMEXPORT CTMcontext CTMCALL ctmNewContext(CTMenum aMode)
   return (CTMcontext) self;
 }
 
+CTMEXPORT void CTMCALL ctmClearContext(CTMcontext aContext) {
+    _CTMcontext *self = (_CTMcontext *) aContext;
+    if (!self) return;
+    
+    _ctmClearMesh(self);
+}
+
 //-----------------------------------------------------------------------------
 // ctmFreeContext()
 //-----------------------------------------------------------------------------
@@ -913,7 +920,7 @@ CTMEXPORT void CTMCALL ctmFileComment(CTMcontext aContext,
   // Get length of string (if empty, do nothing)
   if(!aFileComment)
     return;
-  len = strlen(aFileComment);
+  len = (CTMuint) strlen(aFileComment);
   if(!len)
     return;
 
@@ -1005,7 +1012,7 @@ static _CTMfloatmap * _ctmAddFloatMap(_CTMcontext * self,
   if(aName)
   {
     // Get length of string (if empty, do nothing)
-    len = strlen(aName);
+    len = (CTMuint) strlen(aName);
     if(len)
     {
       // Copy the string
@@ -1024,7 +1031,7 @@ static _CTMfloatmap * _ctmAddFloatMap(_CTMcontext * self,
   if(aFileName)
   {
     // Get length of string (if empty, do nothing)
-    len = strlen(aFileName);
+    len = (CTMuint) strlen(aFileName);
     if(len)
     {
       // Copy the string

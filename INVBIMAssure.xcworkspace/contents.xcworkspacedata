@@ -5,6 +5,12 @@
       location = "group:INVBIMAssure.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Yajl/Yajl.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:OpenCTM/OpenCTM.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
