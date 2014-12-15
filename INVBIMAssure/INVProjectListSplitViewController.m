@@ -20,6 +20,7 @@
     // Do any additional setup after loading the view.
     self.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     self.splitViewPanGestureRecognizer.delegate = self;
+    self.presentsWithGesture = NO;
     
 }
 
