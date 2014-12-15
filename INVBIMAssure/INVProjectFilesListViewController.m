@@ -84,12 +84,11 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     
     // Configure the cell
     NSManagedObject* managedFileObj = [self.dataResultsController objectAtIndexPath:indexPath];
-    INVFile* file = [MTLManagedObjectAdapter modelOfClass:[INVFile class] fromManagedObject:managedFileObj error:nil];
+    INVPackage* file = [MTLManagedObjectAdapter modelOfClass:[INVPackage class] fromManagedObject:managedFileObj error:nil];
     
-    cell.modelId = [self modelIdForTipOfFile:file];
-    cell.fileId  = file.fileId;
+    cell.fileId  = file.packageId;
     cell.tipId = file.tipId;
-    cell.fileName.text = file.fileName;
+    cell.fileName.text = file.packageName;
     cell.delegate = self;
     cell.fileThumbnail.image = nil;
     [cell.loaderActivity startAnimating];
@@ -146,7 +145,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 #pragma mark - server side
 -(void)fetchListOfProjectFiles {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient getAllPkgMastersForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
@@ -387,7 +386,8 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     [self.hud show:YES];
 }
 
--(NSNumber*)modelIdForTipOfFile:(INVFile*)file {
+/**** DEPRECATED ******
+-(NSNumber*)modelIdForTipOfFile:(INVPackage*)file {
     __block INVFileVersion* tip;
     [file.fileVersions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         // tip = [MTLManagedObjectAdapter modelOfClass:[INVFileVersion class] fromManagedObject:obj error:nil];
@@ -404,6 +404,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
         return nil;
     }
 }
+ ***** DEPRECATED *******/
 
 @end
 

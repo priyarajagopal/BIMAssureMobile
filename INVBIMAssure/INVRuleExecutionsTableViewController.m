@@ -18,7 +18,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
-@property (nonatomic,strong)INVFile* file;
+@property (nonatomic,strong)INVPackage* file;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,assign) NSInteger fetchedFilesExecutionCallbackCount;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
@@ -154,7 +154,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
  
     id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[section];
     [headerLabel setBackgroundColor:[UIColor lightGrayColor]];
-    headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",self.file.fileName, (unsigned long)(objectInSection.numberOfObjects)] ;
+    headerLabel.text = [NSString stringWithFormat:@"%@ (%lu)",self.file.packageName, (unsigned long)(objectInSection.numberOfObjects)] ;
     headerLabel.textAlignment = NSTextAlignmentCenter;
     return headerLabel;
 }
@@ -177,7 +177,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 -(void)fetchExecutionsForFilesFromServer {
     [self showLoadProgress];
 
-    [self.globalDataManager.invServerClient fetchRuleExecutionsForFileVersion:self.fileVersionId withCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient fetchRuleExecutionsForPackageVersionId:self.fileVersionId withCompletionBlock:^(INVEmpireMobileError *error) {
           [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
         
           if (!error) {
@@ -238,10 +238,10 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     return  _dataResultsController;
 }
 
--(INVFile*)file {
+-(INVPackage*)file {
     if (!_file) {
         NSPredicate* matchPred = [NSPredicate predicateWithFormat:@"tipId==%@",self.fileVersionId];
-        NSArray* match = [self.projectManager.projectFiles filteredArrayUsingPredicate:matchPred];
+        NSArray* match = [self.projectManager.projectPackages filteredArrayUsingPredicate:matchPred];
         if (match && match.count) {
             _file = match[0];
         }

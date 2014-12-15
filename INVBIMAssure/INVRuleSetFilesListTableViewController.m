@@ -17,7 +17,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 @property (nonatomic,strong)INVGenericTableViewDataSource* filesDataSource;
 @property (nonatomic, strong) INVProjectManager* projectManager;
 @property (nonatomic, strong) INVRulesManager* rulesManager;
-@property (nonatomic, strong) INVFileMutableArray files;
+@property (nonatomic, strong) INVPackageMutableArray files;
 @property (nonatomic, assign) BOOL observersAdded;
 @end
 
@@ -79,7 +79,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - server side
 -(void)fetchListOfProjectFiles {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient getAllFilesForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient getAllPkgMastersForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
@@ -93,7 +93,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 -(void)fetchProjectFilesForRuleSetId {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient getAllFileMastersForRuleSet:self.ruleSetId WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient getAllPkgMastersForRuleSet:self.ruleSetId WithCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
@@ -111,10 +111,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)pushUpdatedProjectFilesForRuleSetIdToServer {
     NSMutableArray* fileMasterIds = [[NSMutableArray alloc]initWithCapacity:0];
     [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        INVFile* file = obj;
-        [fileMasterIds addObject:file.fileId];
+        INVPackage* file = obj;
+        [fileMasterIds addObject:file.packageId];
     }];
-    [self.globalDataManager.invServerClient updateRuleSet:self.ruleSetId withFileMasters:fileMasterIds withCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient updateRuleSet:self.ruleSetId withPkgMasters:fileMasterIds withCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (error) {
@@ -161,7 +161,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     return _rulesManager;
 }
 
--(INVFileMutableArray)files {
+-(INVPackageMutableArray)files {
     if (!_files) {
         _files = [[NSMutableArray alloc]initWithCapacity:0];
     }
@@ -173,10 +173,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         
         _filesDataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.files forSection:SECTION_RULESETFILES forTableView:self.tableView];
         
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVGeneralAddRemoveTableViewCell *cell,INVFile* file,NSIndexPath* indexPath ){
-            cell.name.text = file.fileName;
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(INVGeneralAddRemoveTableViewCell *cell,INVPackage* file,NSIndexPath* indexPath ){
+            cell.name.text = file.packageName;
             cell.isAdded = self.showFilesForRuleSetId;
-            cell.contentId = file.fileId;
+            cell.contentId = file.packageId;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
         };
@@ -232,9 +232,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 #pragma mark - helpers
 -(void)updateFilesListFromServer {
-    self.files = [self.projectManager.projectFiles mutableCopy];
+    self.files = [self.projectManager.projectPackages mutableCopy];
     NSArray* filesMasterIdsInRuleSet = [self.rulesManager fileMasterIdsForRuleSetId:self.ruleSetId];
-    INVFileMutableArray filesAssociatedWithRuleSet = [[self.projectManager filesForMasterIds:filesMasterIdsInRuleSet]mutableCopy];
+    INVPackageMutableArray filesAssociatedWithRuleSet = [[self.projectManager packageFilesForMasterIds:filesMasterIdsInRuleSet]mutableCopy];
     if (self.showFilesForRuleSetId) {
         self.files = filesAssociatedWithRuleSet;
     }
@@ -247,10 +247,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 -(void)removeFromLocalFileList:(NSNumber*)fileMasterId {
     @synchronized (self) {
-        __block INVFile* file;
+        __block INVPackage* file;
         [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            INVFile* temp = obj;
-            if ([temp.fileId isEqualToNumber:fileMasterId]) {
+            INVPackage* temp = obj;
+            if ([temp.packageId isEqualToNumber:fileMasterId]) {
                 file = obj;
                 *stop = YES;
             }
@@ -263,10 +263,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 -(void)addToLocalFileList:(NSNumber*)fileMasterId {
     @synchronized (self) {
-        __block INVFile* file;
-        [self.projectManager.projectFiles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            INVFile* temp = obj;
-            if ([temp.fileId isEqualToNumber:fileMasterId]) {
+        __block INVPackage* file;
+        [self.projectManager.projectPackages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            INVPackage* temp = obj;
+            if ([temp.packageId isEqualToNumber:fileMasterId]) {
                 file = obj;
                 *stop = YES;
             }

@@ -159,7 +159,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 -(void)fetchRuleSetIdsForFile {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient  getAllRuleSetsForFile:self.fileMasterId WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient  getAllRuleSetsForPkgMasterId:self.fileMasterId WithCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
@@ -179,8 +179,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
   
     [self.selectedRuleInstanceIds enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         ruleInstanceId = obj;
-        NSLog(@"Will execure rule Instance %@",ruleInstanceId);
-        [self.globalDataManager.invServerClient  executeRuleInstance:ruleInstanceId againstFileVersionId:self.fileVersionId againstModel:self.modelId withCompletionBlock:^(INVEmpireMobileError *error) {
+         [self.globalDataManager.invServerClient  executeRuleInstance:ruleInstanceId againstPackageVersionId:self.fileVersionId withCompletionBlock:^(INVEmpireMobileError *error) {
              [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
             if (!error) {

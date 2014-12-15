@@ -11,7 +11,6 @@
 		021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 021E85BA19F825F2003E35E0 /* Localizable.strings */; };
 		021E85C019F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */; };
 		021E85C119F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */; };
-		022079FD1A3B5609002C64B3 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 022079F91A3B55F9002C64B3 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223351919F6A82900224E0C /* INVLoginScrollView.m */; };
 		0223351B19F6A82900224E0C /* INVLoginScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223351919F6A82900224E0C /* INVLoginScrollView.m */; };
 		0223355519F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223355419F7F24D00224E0C /* INVUserManagementTableViewController.m */; };
@@ -129,6 +128,11 @@
 		02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B43A1019E5B70B007A2FC5 /* INVDefaultAccountAlertView.m */; };
 		02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */; };
 		02B43A1519E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */; };
+		02B56BBD1A3F9740002F0B89 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B56BBC1A3F9740002F0B89 /* EmpireMobileManager.framework */; };
+		02B56BC21A3F9A41002F0B89 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B56BC11A3F9A41002F0B89 /* EmpireMobileManager.framework */; };
+		02B56BC31A3F9A41002F0B89 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B56BC11A3F9A41002F0B89 /* EmpireMobileManager.framework */; };
+		02B56BC41A3F9D6E002F0B89 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B56BC11A3F9A41002F0B89 /* EmpireMobileManager.framework */; };
+		02B56BC51A3F9D6E002F0B89 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02B56BC11A3F9A41002F0B89 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02C595801A2D134100ADD392 /* INVRunRulesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C5957F1A2D134100ADD392 /* INVRunRulesTableViewController.m */; };
 		02C595811A2D134100ADD392 /* INVRunRulesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C5957F1A2D134100ADD392 /* INVRunRulesTableViewController.m */; };
 		02C8845D19E317E900DFB4E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8845C19E317E900DFB4E2 /* main.m */; };
@@ -193,7 +197,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				022079FD1A3B5609002C64B3 /* EmpireMobileManager.framework in Embed Frameworks */,
+				02B56BC51A3F9D6E002F0B89 /* EmpireMobileManager.framework in Embed Frameworks */,
 				F57D28161A3B7DB200685F3F /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -206,7 +210,6 @@
 		021E85BB19F825F2003E35E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = INVBIMAssure/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		021E85BE19F829F8003E35E0 /* INVInvitedUsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVInvitedUsersTableViewController.h; sourceTree = "<group>"; };
 		021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVInvitedUsersTableViewController.m; sourceTree = "<group>"; };
-		022079F91A3B55F9002C64B3 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		0223351819F6A82900224E0C /* INVLoginScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVLoginScrollView.h; sourceTree = "<group>"; };
 		0223351919F6A82900224E0C /* INVLoginScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVLoginScrollView.m; sourceTree = "<group>"; };
 		0223355319F7F24D00224E0C /* INVUserManagementTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVUserManagementTableViewController.h; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 		02B43A0F19E5B70B007A2FC5 /* INVDefaultAccountAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVDefaultAccountAlertView.h; path = ../INVDefaultAccountAlertView.h; sourceTree = "<group>"; };
 		02B43A1019E5B70B007A2FC5 /* INVDefaultAccountAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVDefaultAccountAlertView.m; path = ../INVDefaultAccountAlertView.m; sourceTree = "<group>"; };
 		02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVDefaultAccountAlertView.xib; sourceTree = "<group>"; };
+		02B56BBC1A3F9740002F0B89 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
+		02B56BC11A3F9A41002F0B89 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		02C5957E1A2D134100ADD392 /* INVRunRulesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRunRulesTableViewController.h; sourceTree = "<group>"; };
 		02C5957F1A2D134100ADD392 /* INVRunRulesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRunRulesTableViewController.m; sourceTree = "<group>"; };
 		02C8845719E317E900DFB4E2 /* INVBIMAssure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INVBIMAssure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -377,6 +382,9 @@
 			files = (
 				F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */,
 				2613D0D477436CAA743E8B1F /* libPods.a in Frameworks */,
+				02B56BBD1A3F9740002F0B89 /* EmpireMobileManager.framework in Frameworks */,
+				02B56BC21A3F9A41002F0B89 /* EmpireMobileManager.framework in Frameworks */,
+				02B56BC41A3F9D6E002F0B89 /* EmpireMobileManager.framework in Frameworks */,
 				F57D28151A3B7DB200685F3F /* OpenCTM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +393,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B56BC31A3F9A41002F0B89 /* EmpireMobileManager.framework in Frameworks */,
 				DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,6 +547,7 @@
 		02C8845A19E317E900DFB4E2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				02B56BC11A3F9A41002F0B89 /* EmpireMobileManager.framework */,
 				02AAD42719ECB349002901DA /* Localizable.strings */,
 				02C8849019E3357000DFB4E2 /* INVBIMAssurePrefixHeader.pch */,
 				02C8845B19E317E900DFB4E2 /* Info.plist */,
@@ -1162,6 +1172,7 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-gbvmecfcolpuvqdmruccmipspnyw/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-eoyknibvjliuhwfeyrwvlgcvoxqk/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)/INVBIMAssure",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
@@ -1218,6 +1229,7 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-gbvmecfcolpuvqdmruccmipspnyw/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-eoyknibvjliuhwfeyrwvlgcvoxqk/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)/INVBIMAssure",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";

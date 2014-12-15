@@ -93,7 +93,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 -(void)fetchRuleSetIdsForFile {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient  getAllRuleSetsForFile:self.fileId WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient  getAllRuleSetsForPkgMasterId:self.fileId WithCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
@@ -114,7 +114,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         INVRuleSet* ruleSet = obj;
         [ruleSetIds addObject:ruleSet.ruleSetId];
     }];
-    [self.globalDataManager.invServerClient updateFileId:self.fileId withRuleSets:ruleSetIds withCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient updatePkgMaster:self.fileId withRuleSets:ruleSetIds withCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (error) {
