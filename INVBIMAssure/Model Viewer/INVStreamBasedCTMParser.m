@@ -8,6 +8,7 @@
 
 #import "INVStreamBasedCTMParser.h"
 #import "INVStreamBasedJSONParser.h"
+#import "GLKBBox.h"
 
 @import OpenCTM;
 @import GLKit;
@@ -44,7 +45,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     BOOL _isProcessingElements;
     BOOL _isProcessingElementGeometries;
     BOOL _isProcessingMatrix;
-    BOOL _isProcessingBox;
+    BOOL _isProcessingBBox;
     
     NSString *_lastKey;
     
@@ -54,6 +55,9 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     NSString *_geometryRefId;
     NSNumber *_geometryType;
     NSNumber *_geometryColor;
+    
+    NSUInteger _geometryBBoxIndex;
+    GLKBBox _geometryBBox;
     
     NSUInteger _geometryMatrixIndex;
     GLKMatrix4 _geometryMatrix;
@@ -88,7 +92,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
 -(void) _appendGeometry:(CTMcontext) context
                withType:(NSNumber *) type
               andMatrix:(GLKMatrix4) matrix
-               andColor:(NSNumber *) color {
+               andColor:(NSNumber *) color
+                andBBox:(GLKBBox) bbox {
     if (color == nil) {
         color = @0xFFFFFF;
     }
@@ -121,7 +126,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     
         BOOL success = [mesh appendCTMContext:context
                                withMatrix:matrix
-                                 andColor:glkColor];
+                                 andColor:glkColor
+                            andBoundingBox:bbox];
     
         if (success) {
             break;
@@ -206,7 +212,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
             [self _appendGeometry:context
                          withType:type
                         andMatrix:_geometryMatrix
-                         andColor:color];
+                         andColor:color
+                          andBBox:_geometryBBox];
         }
         
         return;
@@ -215,7 +222,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     [self _appendGeometry:_ctmContext
                  withType:_geometryType
                 andMatrix:_geometryMatrix
-                 andColor:_geometryColor];
+                 andColor:_geometryColor
+                  andBBox:_geometryBBox];
 }
 
 -(void) _destroySharedGeoms {
@@ -249,6 +257,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         _geometryRefId = nil;
         _geometryMatrixIndex = 0;
         _geometryMatrix = GLKMatrix4Identity;
+        _geometryBBoxIndex = 0;
+        _geometryBBox = GLKBBoxMake(GLKVector3Make(0, 0, 0), GLKVector3Make(0, 0, 0));
         
         ctmClearContext(_ctmContext);
     } else if (_isProcessingElements) {
@@ -288,7 +298,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     }
     
     if ([_lastKey isEqualToString:@"box"]) {
-        _isProcessingBox = YES;
+        _isProcessingBBox = YES;
     }
     
     _lastKey = nil;
@@ -297,8 +307,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
 -(void) jsonParserDidEndArray:(INVStreamBasedJSONParser *)parser {
     if (_isProcessingMatrix) {
         _isProcessingMatrix = NO;
-    } else if (_isProcessingBox) {
-        _isProcessingBox = NO;
+    } else if (_isProcessingBBox) {
+        _isProcessingBBox = NO;
     } else if (_isProcessingElementGeometries) {
         _isProcessingElementGeometries = NO;
     } else if (_isProcessingElements) {
@@ -318,8 +328,10 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     if (_isProcessingMatrix) {
         _geometryMatrix.m[_geometryMatrixIndex] = [value floatValue];
         _geometryMatrixIndex++;
-    }
-    else if (_isProcessingElementGeometries) {
+    } else if (_isProcessingBBox) {
+        _geometryBBox.b[_geometryBBoxIndex] = [value floatValue];
+        _geometryBBoxIndex++;
+    } else if (_isProcessingElementGeometries) {
         if ([_lastKey isEqualToString:@"type"]) {
             _geometryType = value;
         }
@@ -338,8 +350,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
             
             ctmLoadCustom(_ctmContext, _ctmReadNSData, &userData);
         }
-    }
-    else if (_isProcessingElements || _isProcessingSharedGeoms) {
+    } else if (_isProcessingElements || _isProcessingSharedGeoms) {
         if ([_lastKey isEqualToString:@"type"]) {
             _elementType = value;
         }

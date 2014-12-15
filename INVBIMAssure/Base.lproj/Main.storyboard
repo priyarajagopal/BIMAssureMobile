@@ -619,7 +619,7 @@
         <!--GLKit View Controller-->
         <scene sceneID="Jzl-hh-E8g">
             <objects>
-                <glkViewController preferredFramesPerSecond="30" id="GL2-uL-zZe" customClass="INVModelViewerViewController" sceneMemberID="viewController">
+                <glkViewController preferredFramesPerSecond="60" id="GL2-uL-zZe" customClass="INVModelViewerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7mG-8a-Gz8"/>
                         <viewControllerLayoutGuide type="bottom" id="8D9-Ct-9VY"/>

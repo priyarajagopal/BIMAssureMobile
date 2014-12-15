@@ -1,31 +1,31 @@
-uniform mat4 u_projectionTransform;
-uniform mat4 u_modelViewTransform;
-uniform mat3 u_normalTransform;
+uniform highp mat4 u_projectionTransform;
+uniform highp mat4 u_modelViewTransform;
+uniform highp mat3 u_normalTransform;
 
-attribute vec3 a_position;
-attribute vec3 a_normal;
-attribute vec4 a_color;
+attribute highp vec3 a_position;
+attribute highp vec3 a_normal;
+attribute highp vec4 a_color;
 
-uniform lowp vec4 u_light0_color;
-uniform lowp vec4 u_light0_position;
-uniform lowp vec4 u_light1_color;
-uniform lowp vec4 u_light1_position;
-uniform lowp vec4 u_light2_color;
-uniform lowp vec4 u_light2_position;
-uniform lowp vec4 u_light3_color;
-uniform lowp vec4 u_light3_position;
-uniform lowp vec4 u_light4_color;
-uniform lowp vec4 u_light4_position;
-uniform lowp vec4 u_light5_color;
-uniform lowp vec4 u_light5_position;
+uniform highp vec4 u_light0_color;
+uniform highp vec4 u_light0_position;
+uniform highp vec4 u_light1_color;
+uniform highp vec4 u_light1_position;
+uniform highp vec4 u_light2_color;
+uniform highp vec4 u_light2_position;
+uniform highp vec4 u_light3_color;
+uniform highp vec4 u_light3_position;
+uniform highp vec4 u_light4_color;
+uniform highp vec4 u_light4_position;
+uniform highp vec4 u_light5_color;
+uniform highp vec4 u_light5_position;
 
-varying lowp vec3 v_vertexPosition;
-varying lowp vec3 v_vertexNormal;
-varying lowp vec4 v_vertexColor;
+varying highp vec3 v_vertexPosition;
+varying highp vec3 v_vertexNormal;
+varying highp vec4 v_vertexColor;
 
 void calcLight(
-    lowp vec4 lightColor, lowp vec4 lightPosition,
-    lowp vec3 position, lowp vec3 normal, lowp vec4 color,
+    highp vec4 lightColor, highp vec4 lightPosition,
+    highp vec3 position, highp vec3 normal, highp vec4 color,
     inout highp vec3 lightContrib) {
     
     highp vec4 lightIntensity = lightColor;
@@ -52,7 +52,7 @@ void main(void) {
     // Properly support front and back facing normals.
     // highp float frontFacing = float(gl_FrontFacing);
     // frontFacing = (frontFacing * 2.0) - 1.0;
-    // lowp vec3 normal = normalize(v_vertexNormal.xyz);
+    // highp vec3 normal = normalize(v_vertexNormal.xyz);
     
     calcLight(u_light0_color, u_light0_position, v_vertexPosition, normal, v_vertexColor, lightContrib);
     calcLight(u_light1_color, u_light1_position, v_vertexPosition, normal, v_vertexColor, lightContrib);
@@ -62,9 +62,9 @@ void main(void) {
     calcLight(u_light5_color, u_light5_position, v_vertexPosition, normal, v_vertexColor, lightContrib);
     
     // Average the light values
-    lightContrib = lightContrib / 6.0;
+    // lightContrib = lightContrib / 6.0;
     
-    lowp vec4 outputColor = vec4(0);
+    highp vec4 outputColor = vec4(0);
     outputColor.rgb = v_vertexColor.rgb * lightContrib;
     outputColor.a = v_vertexColor.a;
     

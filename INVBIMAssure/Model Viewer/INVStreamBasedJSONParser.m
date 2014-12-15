@@ -157,12 +157,11 @@ static yajl_callbacks callbacks = {
 };
 
 @implementation INVStreamBasedJSONParser {
-    BOOL _queuesPrepared;
+    NSMutableArray *_pendingData;
+    NSThread *_backgroundThread;
+    NSRunLoop *_backgroundRunLoop;
     
-    dispatch_queue_t _consumeQueue;
-    dispatch_queue_t _readingQueue;
-    
-    dispatch_semaphore_t _consumeSemaphore;
+    NSCondition *_hasDataCondition;
     
     yajl_handle _yajlHandle;
 }
@@ -171,22 +170,56 @@ static yajl_callbacks callbacks = {
     if (self = [super init]) {
         _yajlHandle = yajl_alloc(&callbacks, NULL, (__bridge void *) self);
         yajl_config(_yajlHandle, yajl_allow_multiple_values, 1);
+        
+        _pendingData = [NSMutableArray new];
+        _hasDataCondition = [NSCondition new];
+        
+        [NSThread detachNewThreadSelector:@selector(_backgroundThread) toTarget:self withObject:nil];
     }
     
     return self;
 }
 
 -(void) dealloc {
+    [_backgroundThread cancel];
     yajl_free(_yajlHandle);
-    
-    [self destroyQueue];
+}
+
+-(void) _backgroundThread {
+    @autoreleasepool {
+        _backgroundThread = [NSThread currentThread];
+        _backgroundRunLoop = [NSRunLoop currentRunLoop];
+        
+        while (YES) {
+            if ([[NSThread currentThread] isCancelled])
+                return;
+            
+            [_hasDataCondition lock];
+            
+            if (_pendingData.count == 0) {
+                [_hasDataCondition wait];
+            }
+            
+            NSDictionary *toConsume = [_pendingData lastObject];
+            [_pendingData removeLastObject];
+            
+            [_hasDataCondition unlock];
+            
+            if (toConsume) {
+                NSData *data = toConsume[@"data"];
+                id callback = toConsume[@"callback"];
+                
+                yajl_parse(_yajlHandle, [data bytes], [data length]);
+                
+                if (callback) {
+                    [callback invoke];
+                }
+            }
+        }
+    }
 }
 
 -(void) consume:(id)input {
-    if (!_queuesPrepared) {
-        [self prepareQueue];
-    }
-    
     if ([input isKindOfClass:[NSString class]]) {
         return [self _consumeString:input];
     }
@@ -225,83 +258,69 @@ static yajl_callbacks callbacks = {
 }
 
 -(void) _consumeURLRequest:(NSURLRequest *) request {
-    dispatch_async(_consumeQueue, ^{
-        NSURLConnectionBlockDelegate *blockDelegate = [NSURLConnectionBlockDelegate new];
-        [blockDelegate retainSelf];
+    NSURLConnectionBlockDelegate *blockDelegate = [NSURLConnectionBlockDelegate new];
+    __weak typeof(blockDelegate) weakBlockDelegate = blockDelegate;
+    [blockDelegate retainSelf];
         
-        blockDelegate.didFailWithError = ^(NSURLConnection *connection, NSError *error) {
-            NSLog(@"NSURLConnection error: %@", error);
-            
-            dispatch_semaphore_signal(self->_consumeSemaphore);
-        };
+    blockDelegate.didFailWithError = ^(NSURLConnection *connection, NSError *error) {
+        NSLog(@"NSURLConnection error: %@", error);
         
-        blockDelegate.didRecieveData = ^(NSURLConnection *connection, NSData *data) {
-            [self sendData:data complete:nil async:NO];
-        };
+        [weakBlockDelegate releaseSelf];
+    };
         
-        blockDelegate.didFinishLoading = ^(NSURLConnection *connection) {
-            dispatch_semaphore_signal(self->_consumeSemaphore);
-        };
+    blockDelegate.didRecieveData = ^(NSURLConnection *connection, NSData *data) {
+        [self sendData:data complete:nil async:NO];
+    };
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:blockDelegate startImmediately:NO];
+    blockDelegate.didFinishLoading = ^(NSURLConnection *connection) {
         
-        [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-        [connection start];
+        [weakBlockDelegate releaseSelf];
+    };
         
-        dispatch_semaphore_wait(self->_consumeSemaphore, DISPATCH_TIME_FOREVER);
-    });
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:blockDelegate startImmediately:NO];
+        
+    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [connection start];
 }
 
 -(void) _consumeData:(NSData *) data {
-    dispatch_async(_consumeQueue, ^{
-        [self sendData:data complete:^{
-            dispatch_semaphore_signal(self->_consumeSemaphore);
-        } async:YES];
-        
-        dispatch_semaphore_wait(self->_consumeSemaphore, DISPATCH_TIME_FOREVER);
-    });
+    [self sendData:data complete:nil async:YES];
 }
 
 -(void) _consumeInputStream:(NSInputStream *) inputStream {
-    dispatch_async(_consumeQueue, ^{
-        NSInputStreamBlockDelegate *blockDelegate = [NSInputStreamBlockDelegate new];
-        __weak typeof(blockDelegate) weakBlockDelegate = blockDelegate;
-        [blockDelegate retainSelf];
+    NSInputStreamBlockDelegate *blockDelegate = [NSInputStreamBlockDelegate new];
+    __weak typeof(blockDelegate) weakBlockDelegate = blockDelegate;
+    [blockDelegate retainSelf];
         
-        blockDelegate.handleEvent = ^(NSStream *stream, NSStreamEvent event) {
-            if (event == NSStreamEventEndEncountered || event == NSStreamEventErrorOccurred) {
-                dispatch_semaphore_signal(self->_consumeSemaphore);
-                
-                [weakBlockDelegate releaseSelf];
+    blockDelegate.handleEvent = ^(NSStream *stream, NSStreamEvent event) {
+        if (event == NSStreamEventEndEncountered || event == NSStreamEventErrorOccurred) {
+            [weakBlockDelegate releaseSelf];
+            return;
+        }
+            
+        if ([inputStream hasBytesAvailable]) {
+            NSUInteger length = 0;
+            
+            if (![inputStream getBuffer:NULL length:&length]) {
+                NSLog(@"InputStream getBuffer:length: error.");
                 return;
             }
             
-            if ([inputStream hasBytesAvailable]) {
-                NSUInteger length = 0;
-                
-                if (![inputStream getBuffer:NULL length:&length]) {
-                    NSLog(@"InputStream getBuffer:length: error.");
-                    return;
-                }
-                
-                NSMutableData *buffer = [NSMutableData dataWithLength:length];
-                
-                if (![inputStream read:[buffer mutableBytes] maxLength:[buffer length]]) {
-                    NSLog(@"InputStream read:maxLength: error.");
-                    return;
-                }
-                
-                [self sendData:buffer complete:nil async:NO];
+            NSMutableData *buffer = [NSMutableData dataWithLength:length];
+            
+            if (![inputStream read:[buffer mutableBytes] maxLength:[buffer length]]) {
+                NSLog(@"InputStream read:maxLength: error.");
+                return;
             }
-        };
+                
+            [self sendData:buffer complete:nil async:NO];
+        }
+    };
         
-        inputStream.delegate = blockDelegate;
+    inputStream.delegate = blockDelegate;
         
-        [inputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-        [inputStream open];
-        
-        dispatch_semaphore_wait(self->_consumeSemaphore, DISPATCH_TIME_FOREVER);
-    });
+    [inputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [inputStream open];
 }
 
 -(void) _consumeDictionary:(NSDictionary *) dictionary {
@@ -312,31 +331,15 @@ static yajl_callbacks callbacks = {
     // TODO: Consume array
 }
 
--(void) prepareQueue {
-    _consumeSemaphore = dispatch_semaphore_create(0);
-    
-    _consumeQueue = dispatch_queue_create("com.invicara.json.parser.consume", DISPATCH_QUEUE_SERIAL);
-    _readingQueue = dispatch_queue_create("com.invicara.json.parser.reading", DISPATCH_QUEUE_SERIAL);
-    
-    _queuesPrepared = YES;
-}
-
--(void) destroyQueue {
-    dispatch_suspend(_consumeSemaphore);
-    dispatch_suspend(_consumeQueue);
-    dispatch_suspend(_readingQueue);
-}
-
 -(void) sendData:(NSData *) data complete:(dispatch_block_t) complete async:(BOOL) async {
-    void (*dispatchFunc)(dispatch_queue_t, dispatch_block_t) = async ? dispatch_async : dispatch_sync;
+    [_hasDataCondition lock];
     
-    dispatchFunc(_readingQueue, ^{
-        yajl_parse(self->_yajlHandle, [data bytes], [data length]);
-        
-        if (complete) {
-            complete();
-        }
-    });
+    [_pendingData insertObject:@{
+        @"data": data
+    } atIndex:0];
+    
+    [_hasDataCondition signal];
+    [_hasDataCondition unlock];
 }
 
 #pragma mark - YAJL callbacks

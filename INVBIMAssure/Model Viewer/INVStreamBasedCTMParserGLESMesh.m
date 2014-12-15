@@ -1,11 +1,13 @@
 #import "INVStreamBasedCTMParserGLESMesh.h"
 
+#import <libkern/OSAtomic.h>
+
 @import OpenGLES;
-@import OpenGLES.ES3.glext;
 
 int INVStreamBasedCTMParser_PositionAttributeLocation;
 int INVStreamBasedCTMParser_NormalAttributeLocation;
 int INVStreamBasedCTMParser_ColorAttributeLocation;
+
 
 // Max buffer size: 256kb. Any larger than that and we may have issues.
 // Trying to allocate a contiguous region larger than that is asking for trouble.
@@ -74,6 +76,10 @@ struct __attribute__((packed)) index_struct {
         _positionType = GL_TYPE_FROM_TYPE(vertex_position_element_type);
         _normalType   = GL_TYPE_FROM_TYPE(vertex_normal_element_type);
         _colorType    = GL_TYPE_FROM_TYPE(vertex_color_element_type);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self _prepareBuffers];
+        });
     }
  
     return self;
@@ -84,12 +90,6 @@ struct __attribute__((packed)) index_struct {
 }
 
 -(void) _prepareBuffers {
-    if (![NSThread isMainThread]) {
-        // OpenGL operations can only happen on the main thread.
-        [self performSelectorOnMainThread:@selector(_prepareBuffers) withObject:nil waitUntilDone:YES];
-        return;
-    }
-    
     if (_isPrepared) return;
     
     glGenVertexArraysOES(1, &_vertexArray);
@@ -130,35 +130,32 @@ struct __attribute__((packed)) index_struct {
     glBindVertexArrayOES(0);
     
     _isPrepared = YES;
+    
+    [self _mapBuffers];
 }
 
 -(void) _mapBuffers {
-    if (![NSThread isMainThread]) {
-        // OpenGL operations can only happen on the main thread.
-        return [self performSelectorOnMainThread:@selector(_mapBuffers) withObject:nil waitUntilDone:YES];
-    }
-    
     if (!_isPrepared) return;
     if (_isMapped) return;
     
-    glBindVertexArrayOES(_vertexArray);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
     _vertexPointer = glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
     _indexPointer = glMapBufferOES(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
     
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    
     _isMapped = YES;
 }
 
 -(void) _unmapBuffers {
-    if (![NSThread isMainThread]) {
-        // OpenGL operations can only happen on the main thread.
-        return [self performSelectorOnMainThread:@selector(_unmapBuffers) withObject:nil waitUntilDone:YES];
-    }
-    
     if (!_isPrepared) return;
     if (!_isMapped) return;
+    
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
     glUnmapBufferOES(GL_ARRAY_BUFFER);
     glUnmapBufferOES(GL_ELEMENT_ARRAY_BUFFER);
@@ -168,18 +165,11 @@ struct __attribute__((packed)) index_struct {
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glBindVertexArrayOES(0);
     
     _isMapped = NO;
 }
 
 -(void) _destroyBuffers {
-    if (![NSThread isMainThread]) {
-        // OpenGL operations can only happen on the main thread.
-        [self performSelectorOnMainThread:@selector(_destroyBuffers) withObject:nil waitUntilDone:YES];
-        return;
-    }
-    
     if (!_isPrepared) return;
     if (_isMapped) {
         [self _unmapBuffers];
@@ -193,18 +183,12 @@ struct __attribute__((packed)) index_struct {
 
 -(BOOL) appendCTMContext:(CTMcontext) ctmContext
               withMatrix:(GLKMatrix4)matrix
-                andColor:(GLKVector4)color {
-    if (![NSThread isMainThread]) {
-        __block BOOL success = NO;
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            success = [self appendCTMContext:ctmContext withMatrix:matrix andColor:color];
-        });
-        
-        return success;
-    }
+                andColor:(GLKVector4)color
+          andBoundingBox:(GLKBBox)boundingBox {
     
-    [self _prepareBuffers];
-    [self _mapBuffers];
+    while (!_isMapped) {
+        // wait
+    }
     
     CTMuint ctmVertexCount = ctmGetInteger(ctmContext, CTM_VERTEX_COUNT);
     const CTMfloat *ctmVertices = ctmGetFloatArray(ctmContext, CTM_VERTICES);
@@ -222,6 +206,8 @@ struct __attribute__((packed)) index_struct {
     
     _vertexCount += ctmVertexCount;
     _indexCount += ctmIndexCount;
+    
+    _boundingBox = GLKBBoxUnion(_boundingBox, boundingBox);
     
     for (int vertexIndex = 0; vertexIndex < ctmVertexCount; vertexIndex++) {
         GLKVector3 position = GLKVector3Make(
@@ -298,18 +284,20 @@ struct __attribute__((packed)) index_struct {
         vertex->normal[2] = vector.z;
     }
     
-    [self _unmapBuffers];
-    
     return YES;
 }
 
 -(void) draw {
+    if (_isMapped) {
+        [self _unmapBuffers];
+    }
+    
     glBindVertexArrayOES(_vertexArray);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
-    // glDepthMask(!_transparent);
-    glDrawElements(GL_TRIANGLES, _indexCount, _indexType, NULL);
+    glDepthMask(!_transparent);
+    glDrawElements(_elementType, _indexCount, _indexType, NULL);
     glDepthMask(GL_TRUE);
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

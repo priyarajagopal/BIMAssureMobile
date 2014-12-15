@@ -24,6 +24,8 @@ void classDump(Class);
     INVStreamBasedCTMParserGLESCamera *_camera;
     
     NSMutableArray *_meshes;
+    
+    GLKBBox _overallBBox;
 }
 
 @end
@@ -64,6 +66,8 @@ void classDump(Class);
 
 -(void) prepareGL {
     _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    _context.multiThreaded = YES;
+    
     [EAGLContext setCurrentContext:_context];
     
     GLKView *view = (GLKView *)self.view;
@@ -80,10 +84,10 @@ void classDump(Class);
     _ctmParser = [[INVStreamBasedCTMParser alloc] init];
     _ctmParser.delegate = self;
     
-    NSURLRequest *request = [INVGlobalDataManager.sharedInstance.invServerClient requestToFetchModelViewForId:self.modelId];
-    // NSURL *url = [NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/rac_basic.json"];
+    // NSURLRequest *request = [INVGlobalDataManager.sharedInstance.invServerClient requestToFetchModelViewForId:self.modelId];
+    NSURL *url = [NSURL URLWithString:@"http://richards-macbook-pro.local/progressive/office/office_mg2.json"];
     
-    [_ctmParser process:request];
+    [_ctmParser process:url];
 }
 
 -(void) viewDidLoad {
@@ -97,8 +101,14 @@ void classDump(Class);
     float aspect = (self.view.bounds.size.width / self.view.bounds.size.height);
     
     _camera.projectionTransform = GLKMatrix4MakePerspective(55, aspect, 0.5, 10000);
-    _camera.projectionTransform = GLKMatrix4Translate(_camera.projectionTransform, 0, 15, -100);
     
+    GLKVector3 mid = GLKBBoxCenter(_overallBBox);
+    mid = GLKVector3Add(mid, GLKVector3Make(0.5, 0.5, 0));
+    
+    _camera.projectionTransform = GLKMatrix4Translate(_camera.projectionTransform, -mid.x, -mid.y, -mid.z - 150);
+    _camera.projectionTransform = GLKMatrix4Rotate(_camera.projectionTransform, M_PI / 2, 1, 0, 0);
+    
+    // Make sure the bbox is visible
     // _camera.modelViewTransform = GLKMatrix4Rotate(_camera.modelViewTransform, self.timeSinceLastUpdate, 1, 1, 0);
 }
 
@@ -118,6 +128,8 @@ void classDump(Class);
                   shouldStop:(BOOL *)stop {
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        self->_overallBBox = GLKBBoxUnion(self->_overallBBox, mesh.boundingBox);
+        
         [self->_meshes addObject:mesh];
     });
 }
@@ -134,10 +146,19 @@ void classDump(Class);
         float changedX = newPoint.x - lastPoint.x;
         float changedY = newPoint.y - lastPoint.y;
         
+        GLKVector3 cameraPosition = GLKVector3Make(0, 0, 0);
+        cameraPosition = GLKMatrix4MultiplyAndProjectVector3(_camera.projectionTransform, cameraPosition);
+        
+        _camera.modelViewTransform = GLKMatrix4TranslateWithVector3(
+            _camera.modelViewTransform, GLKVector3Negate(cameraPosition)
+        );
+        
         _camera.modelViewTransform = GLKMatrix4Multiply(
             _camera.modelViewTransform,
-            GLKMatrix4MakeRotation(1, changedX, changedY, 0)
+            GLKMatrix4MakeRotation(0.05, changedX, changedY, 0)
         );
+        
+        _camera.modelViewTransform= GLKMatrix4TranslateWithVector3(_camera.modelViewTransform, cameraPosition);
     }
     if (touches.count == 2) {
         UITouch *touch1 = [touches allObjects][0];
@@ -163,7 +184,7 @@ void classDump(Class);
         float scale = sign * (fabs(lastDistance -  distance)) * 0.5;
         
         _camera.modelViewTransform = GLKMatrix4Multiply(
-            GLKMatrix4MakeTranslation(0, 0, scale),
+            GLKMatrix4MakeTranslation(0, scale, 0),
             _camera.modelViewTransform
         );
     }
@@ -177,7 +198,7 @@ void classDump(Class);
         float changedY = newPoint.y - lastPoint.y;
         
         _camera.modelViewTransform = GLKMatrix4Multiply(
-            GLKMatrix4MakeTranslation(-changedX / 4, changedY / 4, 0),
+            GLKMatrix4MakeTranslation(-changedX / 4, 0, -changedY / 4),
             _camera.modelViewTransform
         );
     }
