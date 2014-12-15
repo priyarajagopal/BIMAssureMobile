@@ -658,8 +658,8 @@
 				F57D27F21A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.m */,
 				F57D27F31A3B7C7200685F3F /* INVStreamBasedJSONParser.h */,
 				F57D27F41A3B7C7200685F3F /* INVStreamBasedJSONParser.m */,
-				F57D27F51A3B7C7200685F3F /* ModelViewer.fsh */,
 				F57D27F61A3B7C7200685F3F /* ModelViewer.vsh */,
+				F57D27F51A3B7C7200685F3F /* ModelViewer.fsh */,
 				F57D281A1A3B8DCB00685F3F /* GLKBBox.h */,
 			);
 			path = "Model Viewer";

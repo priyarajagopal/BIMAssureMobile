@@ -25,8 +25,15 @@ static inline GLKBBox GLKBBoxMake(GLKVector3 min, GLKVector3 max) {
 
 static inline GLKBBox GLKBBoxUnion(GLKBBox left, GLKBBox right) {
     return (GLKBBox) {
-        GLKVector3Minimum(left.min, right.min),
-        GLKVector3Maximum(left.max, right.max)
+        GLKVector3Minimum(GLKVector3Minimum(left.min, right.min), GLKVector3Minimum(left.max, right.max)),
+        GLKVector3Maximum(GLKVector3Maximum(left.min, right.min), GLKVector3Maximum(left.max, right.max)),
+    };
+}
+
+static inline GLKBBox GLKBBoxUnionVector3(GLKBBox left, GLKVector3 right) {
+    return (GLKBBox) {
+        GLKVector3Minimum(left.min, right),
+        GLKVector3Maximum(left.max, right)
     };
 }
 
@@ -36,6 +43,10 @@ static inline GLKVector3 GLKBBoxCenter(GLKBBox bbox) {
     difference = GLKVector3Add(difference, bbox.min);
     
     return difference;
+}
+
+static inline GLKVector3 GLKBBoxSize(GLKBBox bbox) {
+    return GLKVector3Subtract(bbox.max, bbox.min);
 }
 
 static inline BOOL GLKBBoxContains(GLKBBox bbox, GLKVector3 vector) {

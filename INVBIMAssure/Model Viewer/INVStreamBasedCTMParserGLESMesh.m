@@ -254,7 +254,6 @@ struct __attribute__((packed)) index_struct {
         
         GLKVector3 normal = GLKVector3CrossProduct(va, vb);
         
-        
         p0->normal[0] += normal.x;
         p0->normal[1] += normal.y;
         p0->normal[2] += normal.z;

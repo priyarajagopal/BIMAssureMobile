@@ -26,6 +26,9 @@ void classDump(Class);
     NSMutableArray *_meshes;
     
     GLKBBox _overallBBox;
+    
+    GLKVector3 cameraPosition;
+    GLKVector3 lookAt;
 }
 
 @end
@@ -38,6 +41,8 @@ void classDump(Class);
     
     _camera = [INVStreamBasedCTMParserGLESCamera new];
     [_camera loadProgramNamed:@"ModelViewer"];
+    
+    [self _resetCamera];
     
     // _camera.projectionTransform = GLKMatrix4Translate(_camera.projectionTransform, 0, 15, 250);
     // _camera.modelViewTransform = GLKMatrix4MakeRotation(M_PI / 2, 1, 0, 0);
@@ -100,18 +105,44 @@ void classDump(Class);
 -(void) update {
     float aspect = (self.view.bounds.size.width / self.view.bounds.size.height);
     
-    _camera.projectionTransform = GLKMatrix4MakePerspective(55, aspect, 0.5, 10000);
+    _camera.projectionTransform = GLKMatrix4MakePerspective(55, aspect, 1, 10000);
     
     GLKVector3 mid = GLKBBoxCenter(_overallBBox);
-    mid = GLKVector3Add(mid, GLKVector3Make(0.5, 0.5, 0));
     
+    /*
     _camera.projectionTransform = GLKMatrix4Translate(_camera.projectionTransform, -mid.x, -mid.y, -mid.z - 150);
     _camera.projectionTransform = GLKMatrix4Rotate(_camera.projectionTransform, M_PI / 2, 1, 0, 0);
-    
-    // Make sure the bbox is visible
-    // _camera.modelViewTransform = GLKMatrix4Rotate(_camera.modelViewTransform, self.timeSinceLastUpdate, 1, 1, 0);
+    */
+
+    _camera.projectionTransform = GLKMatrix4Multiply(
+        GLKMatrix4MakePerspective(55, aspect, 1, 10000),
+        GLKMatrix4MakeLookAt(
+            cameraPosition.x, cameraPosition.y, cameraPosition.z,
+            lookAt.x, lookAt.y, lookAt.z,
+            0, 0, -1
+        )
+    );
 }
 
+-(void) _resetCamera {
+    GLKVector3 mid = GLKBBoxCenter(_overallBBox);
+    GLKVector3 size = GLKBBoxSize(_overallBBox);
+    float distance = GLKVector3Length(size) * 1.2f;
+    
+    cameraPosition = GLKVector3Make(100, -100, 10);
+    lookAt = GLKVector3Make(0, 0, 0);
+    
+    GLKVector3 direction = GLKVector3Normalize(GLKVector3Subtract(cameraPosition, lookAt));
+    cameraPosition = GLKVector3Make(
+        mid.x + direction.x * distance,
+        mid.y + direction.y * distance,
+        mid.z + direction.z * distance
+    );
+    
+    lookAt = mid;
+    
+    _camera.modelViewTransform = GLKMatrix4Identity;
+}
 -(void) glkView:(GLKView *)view drawInRect:(CGRect)rect {
     glClearColor(1, 1, 1, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -130,6 +161,7 @@ void classDump(Class);
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_overallBBox = GLKBBoxUnion(self->_overallBBox, mesh.boundingBox);
         
+        [self _resetCamera];
         [self->_meshes addObject:mesh];
     });
 }
@@ -142,23 +174,11 @@ void classDump(Class);
         
         CGPoint lastPoint = [touch previousLocationInView:self.view];
         CGPoint newPoint = [touch locationInView:self.view];
-        
-        float changedX = newPoint.x - lastPoint.x;
+    
+        float changedX = newPoint.x - lastPoint.y;
         float changedY = newPoint.y - lastPoint.y;
         
-        GLKVector3 cameraPosition = GLKVector3Make(0, 0, 0);
-        cameraPosition = GLKMatrix4MultiplyAndProjectVector3(_camera.projectionTransform, cameraPosition);
-        
-        _camera.modelViewTransform = GLKMatrix4TranslateWithVector3(
-            _camera.modelViewTransform, GLKVector3Negate(cameraPosition)
-        );
-        
-        _camera.modelViewTransform = GLKMatrix4Multiply(
-            _camera.modelViewTransform,
-            GLKMatrix4MakeRotation(0.05, changedX, changedY, 0)
-        );
-        
-        _camera.modelViewTransform= GLKMatrix4TranslateWithVector3(_camera.modelViewTransform, cameraPosition);
+        _camera.modelViewTransform = GLKMatrix4Rotate(_camera.modelViewTransform, 0.05, changedX, changedY, 0);
     }
     if (touches.count == 2) {
         UITouch *touch1 = [touches allObjects][0];
@@ -183,11 +203,11 @@ void classDump(Class);
         float sign = distance > lastDistance ? 1 : -1;
         float scale = sign * (fabs(lastDistance -  distance)) * 0.5;
         
-        _camera.modelViewTransform = GLKMatrix4Multiply(
-            GLKMatrix4MakeTranslation(0, scale, 0),
-            _camera.modelViewTransform
-        );
+        GLKVector3 change = GLKVector3Make(0, scale, 0);
+
+        cameraPosition = GLKVector3Add(cameraPosition, change);
     }
+    
     if (touches.count == 3) {
         UITouch *touch = [touches anyObject];
         
@@ -197,10 +217,9 @@ void classDump(Class);
         float changedX = newPoint.x - lastPoint.x;
         float changedY = newPoint.y - lastPoint.y;
         
-        _camera.modelViewTransform = GLKMatrix4Multiply(
-            GLKMatrix4MakeTranslation(-changedX / 4, 0, -changedY / 4),
-            _camera.modelViewTransform
-        );
+        GLKVector3 change = GLKVector3Make(-changedX / 4, 0, changedY / 4);
+        
+        cameraPosition = GLKVector3Add(cameraPosition, change);
     }
 }
 
@@ -208,8 +227,7 @@ void classDump(Class);
     UITouch *touch = [touches anyObject];
     
     if (touch.tapCount == 3) {
-        _camera.modelViewTransform = GLKMatrix4Identity;
-        return;
+        [self _resetCamera];
     }
 }
 
