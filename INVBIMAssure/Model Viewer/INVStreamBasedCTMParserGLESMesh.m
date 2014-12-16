@@ -16,9 +16,15 @@ int INVStreamBasedCTMParser_ColorAttributeLocation;
 #define MAX_VERTEX_COUNT 65535
 #define MAX_INDEX_COUNT 200000
 
+#define VERTEX_POSITION_GL_TYPE GL_FLOAT
+#define VERTEX_NORMAL_GL_TYPE GL_FLOAT
+#define VERTEX_COLOR_GL_TYPE GL_UNSIGNED_BYTE
+
 typedef float vertex_position_element_type;
 typedef float vertex_normal_element_type;
 typedef uint8_t vertex_color_element_type;
+
+#define INDEX_INDEX_GL_TYPE GL_UNSIGNED_SHORT
 
 typedef uint16_t index_index_type;
 
@@ -32,25 +38,21 @@ struct __attribute__((packed)) index_struct {
     index_index_type index;
 };
 
-// Unsigned types
-#define GL_TYPE_FROM_TYPE(type) _Generic(({ type t; t; }), \
-    int8_t:   GL_BYTE,           \
-    uint8_t:  GL_UNSIGNED_BYTE,  \
-    int16_t:  GL_SHORT,          \
-    uint16_t: GL_UNSIGNED_SHORT, \
-    int32_t:  GL_INT,            \
-    uint32_t: GL_UNSIGNED_INT,   \
-    __fp16:   GL_HALF_FLOAT_OES, \
-    float:    GL_FLOAT           \
-)
+@interface INVStreamBasedCTMParserGLESMeshElement : NSObject
+
+@property NSString *elementId;
+
+@property GLKBBox boundingBox;
+@property NSRange vertexRange;
+@property NSRange indexRange;
+
+@end
+
+@implementation INVStreamBasedCTMParserGLESMeshElement
+@end
 
 @implementation INVStreamBasedCTMParserGLESMesh {
     GLenum _elementType;
-    GLenum _indexType;
-    
-    GLenum _positionType;
-    GLenum _normalType;
-    GLenum _colorType;
     
     GLsizei _vertexCount;
     GLsizei _indexCount;
@@ -64,6 +66,8 @@ struct __attribute__((packed)) index_struct {
     
     BOOL _isPrepared;
     BOOL _isMapped;
+    
+    NSMutableDictionary *_elements;
 }
 
 -(id) initWithElementType:(GLenum)elementType transparent:(BOOL)transparent {
@@ -71,11 +75,7 @@ struct __attribute__((packed)) index_struct {
         _elementType = elementType;
         _transparent = transparent;
         
-        _indexType = GL_TYPE_FROM_TYPE(index_index_type);
-        
-        _positionType = GL_TYPE_FROM_TYPE(vertex_position_element_type);
-        _normalType   = GL_TYPE_FROM_TYPE(vertex_normal_element_type);
-        _colorType    = GL_TYPE_FROM_TYPE(vertex_color_element_type);
+        _elements = [NSMutableDictionary new];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self _prepareBuffers];
@@ -106,20 +106,20 @@ struct __attribute__((packed)) index_struct {
     
     glEnableVertexAttribArray(INVStreamBasedCTMParser_PositionAttributeLocation);
     glVertexAttribPointer(
-        INVStreamBasedCTMParser_PositionAttributeLocation, 3, _positionType, GL_FALSE,
-        sizeof(struct vertex_struct), (void *) offsetof(struct vertex_struct, position)
+        INVStreamBasedCTMParser_PositionAttributeLocation, 3, VERTEX_POSITION_GL_TYPE,
+        GL_FALSE, sizeof(struct vertex_struct), (void *) offsetof(struct vertex_struct, position)
     );
     
     glEnableVertexAttribArray(INVStreamBasedCTMParser_NormalAttributeLocation);
     glVertexAttribPointer(
-        INVStreamBasedCTMParser_NormalAttributeLocation, 3, _normalType, GL_FALSE,
-        sizeof(struct vertex_struct), (void *) offsetof(struct vertex_struct, normal)
+        INVStreamBasedCTMParser_NormalAttributeLocation, 3, VERTEX_NORMAL_GL_TYPE,
+        GL_FALSE, sizeof(struct vertex_struct), (void *) offsetof(struct vertex_struct, normal)
     );
     
     glEnableVertexAttribArray(INVStreamBasedCTMParser_ColorAttributeLocation);
     glVertexAttribPointer(
-        INVStreamBasedCTMParser_ColorAttributeLocation, 4, _colorType, GL_TRUE,
-        sizeof(struct vertex_struct), (void *) offsetof(struct vertex_struct, color)
+        INVStreamBasedCTMParser_ColorAttributeLocation, 4, VERTEX_COLOR_GL_TYPE,
+        GL_TRUE, sizeof(struct vertex_struct), (void *) offsetof(struct vertex_struct, color)
     );
     
     _vertexCount = 0;
@@ -184,7 +184,8 @@ struct __attribute__((packed)) index_struct {
 -(BOOL) appendCTMContext:(CTMcontext) ctmContext
               withMatrix:(GLKMatrix4)matrix
                 andColor:(GLKVector4)color
-          andBoundingBox:(GLKBBox)boundingBox {
+          andBoundingBox:(GLKBBox)boundingBox
+                   andId:(NSString *)elementId {
     
     while (!_isMapped) {
         // wait
@@ -207,7 +208,17 @@ struct __attribute__((packed)) index_struct {
     _vertexCount += ctmVertexCount;
     _indexCount += ctmIndexCount;
     
-    _boundingBox = GLKBBoxUnion(_boundingBox, boundingBox);
+    INVStreamBasedCTMParserGLESMeshElement *meshElement = [INVStreamBasedCTMParserGLESMeshElement new];
+    meshElement.elementId = elementId;
+    meshElement.vertexRange = NSMakeRange(oldVertexEnd, ctmVertexCount);
+    meshElement.indexRange = NSMakeRange(oldIndexEnd, ctmIndexCount);
+    
+    BOOL usingManualBBox = GLKVector3AllEqualToScalar(boundingBox.min, 0) && GLKVector3AllEqualToScalar(boundingBox.max, 0);
+    // _boundingBox = GLKBBoxUnion(_boundingBox, boundingBox);
+    
+    if (!usingManualBBox) {
+        meshElement.boundingBox = boundingBox;
+    }
     
     for (int vertexIndex = 0; vertexIndex < ctmVertexCount; vertexIndex++) {
         GLKVector3 position = GLKVector3Make(
@@ -218,13 +229,18 @@ struct __attribute__((packed)) index_struct {
         
         position = GLKMatrix4MultiplyVector3WithTranslation(matrix, position);
         
+        if (usingManualBBox) {
+            meshElement.boundingBox = GLKBBoxUnionVector3(_boundingBox, position);
+        }
+        
         _vertexPointer[oldVertexEnd + vertexIndex].position[0] = position.x;
         _vertexPointer[oldVertexEnd + vertexIndex].position[1] = position.y;
         _vertexPointer[oldVertexEnd + vertexIndex].position[2] = position.z;
-        
+    
         _vertexPointer[oldVertexEnd + vertexIndex].normal[0] = 0;
         _vertexPointer[oldVertexEnd + vertexIndex].normal[1] = 0;
         _vertexPointer[oldVertexEnd + vertexIndex].normal[2] = 0;
+        
         
         _vertexPointer[oldVertexEnd + vertexIndex].color[0] = color.r * 0xFF;
         _vertexPointer[oldVertexEnd + vertexIndex].color[1] = color.g * 0xFF;
@@ -283,6 +299,12 @@ struct __attribute__((packed)) index_struct {
         vertex->normal[2] = vector.z;
     }
     
+    _boundingBox = GLKBBoxUnion(_boundingBox, meshElement.boundingBox);
+    
+    if (meshElement.elementId) {
+        _elements[meshElement.elementId] = meshElement;
+    }
+    
     return YES;
 }
 
@@ -296,12 +318,55 @@ struct __attribute__((packed)) index_struct {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
     glDepthMask(!_transparent);
-    glDrawElements(_elementType, _indexCount, _indexType, NULL);
+    glDrawElements(_elementType, _indexCount, INDEX_INDEX_GL_TYPE, NULL);
     glDepthMask(GL_TRUE);
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArrayOES(0);
+}
+
+-(NSString *) elementIdOfElementInterceptingRay:(GLKVector3)rayPosition direction:(GLKVector3)rayDirection {
+    // First see if the overall bounding box intercepts the array
+    GLKVector3 hitPoint;
+    // if (!GLKBBoxInterceptsRay(_boundingBox, rayPosition, rayDirection, &hitPoint)) {
+    //     return nil;
+    // }
+    
+    NSString *closestElement = nil;
+    float closestDistSq = FLT_MAX;
+    
+    for (INVStreamBasedCTMParserGLESMeshElement *meshElement in [_elements allValues]) {
+        if (!GLKBBoxInterceptsRay(meshElement.boundingBox, rayPosition, rayDirection, &hitPoint)) {
+            continue;
+        }
+        
+        float distanceSq = GLKVector3DistanceSquared(rayPosition, hitPoint);
+        
+        if (distanceSq < closestDistSq) {
+            closestDistSq = distanceSq;
+            closestElement = meshElement.elementId;
+        }
+    }
+    
+    return closestElement;
+}
+
+-(void) setColorOfElementWithId:(NSString *)elementId withColor:(GLKVector4)color {
+    [self _mapBuffers];
+    
+    INVStreamBasedCTMParserGLESMeshElement *element = _elements[elementId];
+    
+    if (element) {
+        NSRange range = element.vertexRange;
+        
+        for (NSUInteger vertexIndex = 0; vertexIndex < range.length; vertexIndex++) {
+            _vertexPointer[range.location + vertexIndex].color[0] = color.r * 0xFF;
+            _vertexPointer[range.location + vertexIndex].color[1] = color.g * 0xFF;
+            _vertexPointer[range.location + vertexIndex].color[2] = color.b * 0xFF;
+            _vertexPointer[range.location + vertexIndex].color[3] = color.a * 0xFF;
+        }
+    }
 }
 
 -(void) printWastedSpace {

@@ -8,7 +8,7 @@
 
 #import "INVStreamBasedCTMParser.h"
 #import "INVStreamBasedJSONParser.h"
-#import "GLKBBox.h"
+#import "GLKExtensions.h"
 
 @import OpenCTM;
 @import GLKit;
@@ -93,9 +93,14 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
                withType:(NSNumber *) type
               andMatrix:(GLKMatrix4) matrix
                andColor:(NSNumber *) color
-                andBBox:(GLKBBox) bbox {
+                andBBox:(GLKBBox) bbox
+                  andId:(NSString *) id {
     if (color == nil) {
         color = @0xFFFFFF;
+    }
+    
+    if (id == nil) {
+        id = [[NSUUID UUID] UUIDString];
     }
     
     // NOTE: Support primtives other than triangles.
@@ -127,7 +132,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         BOOL success = [mesh appendCTMContext:context
                                withMatrix:matrix
                                  andColor:glkColor
-                            andBoundingBox:bbox];
+                            andBoundingBox:bbox
+                                    andId:id];
     
         if (success) {
             break;
@@ -140,7 +146,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
             CTMuint vertCount = ctmGetInteger(context, CTM_VERTEX_COUNT);
             CTMuint triCount = ctmGetInteger(context, CTM_TRIANGLE_COUNT);
             
-            NSLog(@"Failed to parse geometry with verts: %ui, tris: %ui", vertCount, triCount);
+            NSLog(@"Failed to parse geometry with verts: %u, tris: %u", vertCount, triCount);
             break;
         }
         
@@ -213,7 +219,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
                          withType:type
                         andMatrix:_geometryMatrix
                          andColor:color
-                          andBBox:_geometryBBox];
+                          andBBox:_geometryBBox
+                            andId:_elementId];
         }
         
         return;
@@ -223,7 +230,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
                  withType:_geometryType
                 andMatrix:_geometryMatrix
                  andColor:_geometryColor
-                  andBBox:_geometryBBox];
+                  andBBox:_geometryBBox
+                    andId:_elementId];
 }
 
 -(void) _destroySharedGeoms {

@@ -162,6 +162,7 @@ static yajl_callbacks callbacks = {
     NSRunLoop *_backgroundRunLoop;
     
     NSCondition *_hasDataCondition;
+    dispatch_queue_t _consumeQueue;
     
     yajl_handle _yajlHandle;
 }
@@ -174,6 +175,7 @@ static yajl_callbacks callbacks = {
         _pendingData = [NSMutableArray new];
         _hasDataCondition = [NSCondition new];
         
+        _consumeQueue = dispatch_queue_create("com.invicara.json.parser.consume", DISPATCH_QUEUE_SERIAL);
         [NSThread detachNewThreadSelector:@selector(_backgroundThread) toTarget:self withObject:nil];
     }
     
@@ -258,29 +260,37 @@ static yajl_callbacks callbacks = {
 }
 
 -(void) _consumeURLRequest:(NSURLRequest *) request {
-    NSURLConnectionBlockDelegate *blockDelegate = [NSURLConnectionBlockDelegate new];
-    __weak typeof(blockDelegate) weakBlockDelegate = blockDelegate;
-    [blockDelegate retainSelf];
+    dispatch_async(_consumeQueue, ^{
+        dispatch_semaphore_t consumeSemaphore = dispatch_semaphore_create(0);
+    
+        NSURLConnectionBlockDelegate *blockDelegate = [NSURLConnectionBlockDelegate new];
+        __weak typeof(blockDelegate) weakBlockDelegate = blockDelegate;
+        [blockDelegate retainSelf];
         
-    blockDelegate.didFailWithError = ^(NSURLConnection *connection, NSError *error) {
-        NSLog(@"NSURLConnection error: %@", error);
+        blockDelegate.didFailWithError = ^(NSURLConnection *connection, NSError *error) {
+            NSLog(@"NSURLConnection error: %@", error);
+            [weakBlockDelegate releaseSelf];
+            
+            dispatch_semaphore_signal(consumeSemaphore);
+        };
         
-        [weakBlockDelegate releaseSelf];
-    };
+        blockDelegate.didRecieveData = ^(NSURLConnection *connection, NSData *data) {
+            [self sendData:data complete:nil async:NO];
+        };
         
-    blockDelegate.didRecieveData = ^(NSURLConnection *connection, NSData *data) {
-        [self sendData:data complete:nil async:NO];
-    };
+        blockDelegate.didFinishLoading = ^(NSURLConnection *connection) {
+            [weakBlockDelegate releaseSelf];
+            
+            dispatch_semaphore_signal(consumeSemaphore);
+        };
         
-    blockDelegate.didFinishLoading = ^(NSURLConnection *connection) {
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:blockDelegate startImmediately:NO];
         
-        [weakBlockDelegate releaseSelf];
-    };
+        [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [connection start];
         
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:blockDelegate startImmediately:NO];
-        
-    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    [connection start];
+        dispatch_semaphore_wait(consumeSemaphore, DISPATCH_TIME_FOREVER);
+    });
 }
 
 -(void) _consumeData:(NSData *) data {
