@@ -70,7 +70,6 @@ static NSString * const reuseIdentifier = @"Cell";
     if (defaultAcnt && self.autoSignIntoDefaultAccount) {
         self.globalDataManager.loggedInAccount = defaultAcnt;
         self.currentAccountId = defaultAcnt;
-        [self showLoginProgress];
         [self loginAccount];
     }
     else {
