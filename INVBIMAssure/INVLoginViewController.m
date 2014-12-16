@@ -39,7 +39,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     if (loggedInPass && loggedInUser) {
         self.emailTextEntry.text = loggedInUser;
         self.passwordTextEntry.text = loggedInPass;
-        [self showLoginProgress];
         [self loginToServer];
     }
     else {
@@ -172,6 +171,9 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 -(void)showLoginFailureAlert {
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [self.loginFailureAlertController dismissViewControllerAnimated:YES completion:nil];
+        self.passwordTextEntry.text = nil;
+        [self hideLoginProgress];
+        
     }];
     self.loginFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOGIN_FAILURE", nil) message:NSLocalizedString(@"GENERIC_LOGIN_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
     [self.loginFailureAlertController addAction:action];
