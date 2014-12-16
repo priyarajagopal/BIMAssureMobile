@@ -191,7 +191,7 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.projectManager.fetchRequestForProjects managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:@"name" cacheName:nil];
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.projectManager.fetchRequestForProjects managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:@"projectId" cacheName:nil];
         
     }
     return  _dataResultsController;
