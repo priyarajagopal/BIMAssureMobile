@@ -19,6 +19,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 @property (nonatomic, strong) INVRuleSetMutableArray  ruleSets;
 @property (nonatomic, strong) NSMutableSet*  selectedRuleInstanceIds;
 @property (nonatomic, strong) NSMutableSet*  selectedRuleSetIds;
+@property (nonatomic, strong) UIAlertController* successAlertController;
 @end
 
 @implementation INVRunRulesTableViewController
@@ -184,6 +185,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
      
             if (!error) {
                 NSLog(@"%s. Success",__func__);
+                [self showSuccessAlertMessage:NSLocalizedString(@"RUN_RULE_SUCCESS", nil)];
+
             }
             else {
 #warning May need to show a message if one or more fail....
@@ -305,6 +308,21 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 
 #pragma mark - helpers
+-(void)showSuccessAlertMessage:(NSString*)message {
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }];
+    self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    [self.successAlertController.view setTintColor:[UIColor darkGrayColor]];
+    [self.successAlertController addAction:action];
+    [self presentViewController:self.successAlertController animated:YES completion:^{
+        
+    }];
+    
+}
+
 -(INVRulesManager*)rulesManager {
     if (!_rulesManager) {
          _rulesManager = self.globalDataManager.invServerClient.rulesManager;

@@ -235,7 +235,7 @@ static NSString* INV_ActualParamValue = @"Value";
             NSLog (@"%s. Error %@",__func__,error);
         }
         else {
-            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_MODIFIED_SUCCESS", nil)];
+            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil)];
         }
     }];
      

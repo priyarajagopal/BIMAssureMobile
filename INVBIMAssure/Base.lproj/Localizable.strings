@@ -55,3 +55,6 @@
 "EXECUTIONS"="Executions";
 "DESCRIPTION_UNAVAILABLE"="Description Unavailable";
 "BUILDING_ELEMENTS_WITH_ISSUES"="Building Elements";
+"RULE_INSTANCE_CREATED_SUCCESS"="Succesfully created rule instance";
+"RULE_INSTANCE_UPDATED_SUCCESS"="Succesfully updated rule instance";
+"RUN_RULE_SUCCESS"="Succesfully started rule execution.";
