@@ -307,9 +307,9 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
 
 /**
- Asynchornously ,get thumbnail image for specified file versionId. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
+ Asynchornously ,get thumbnail image for specified package versionId. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
  
- @param fileVersionId File Version Id
+ @param pkgVersionId Package Version Id
  
  @param handler The completion handler that returns error object if there was any error.
  
@@ -317,7 +317,7 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  
  
  */
--(void)getThumbnailImageForFileVersion:(NSNumber*)fileVersionId ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData) handler;
+-(void)getThumbnailImageForPkgVersion:(NSNumber*)pkgVersionId ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData) handler;
 
 
 #pragma mark - Rule Sets Related

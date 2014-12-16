@@ -99,7 +99,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     
 #else
     
-    [self.globalDataManager.invServerClient getThumbnailImageForFileVersion:file.tipId ForSignedInAccountWithCompletionBlock:^(id data,INVEmpireMobileError *error){
+    [self.globalDataManager.invServerClient getThumbnailImageForPkgVersion:file.tipId ForSignedInAccountWithCompletionBlock:^(id data,INVEmpireMobileError *error){
         if (!error) {
             
             INVProjectFileCollectionViewCell* cell = (INVProjectFileCollectionViewCell*) [self.collectionView cellForItemAtIndexPath:indexPath];

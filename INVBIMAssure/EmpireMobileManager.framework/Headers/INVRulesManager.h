@@ -176,7 +176,7 @@
  
  @return The array of all rule executions for file version
  */
--(INVRuleInstanceExecutionArray)allRuleExecutionsForPackageVersion:(NSNumber*)fileVersionId;
+-(INVRuleInstanceExecutionArray)allRuleExecutionsForPackageVersion:(NSNumber*)pkgVersionId;
 
 
 /**

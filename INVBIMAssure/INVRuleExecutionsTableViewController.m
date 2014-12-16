@@ -229,7 +229,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRuleInstanceExecutions;
-        NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"fileVersionId==%@",self.fileVersionId ];
+        NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"pkgVersionId==%@",self.fileVersionId ];
         [fetchRequest setPredicate:fetchPredicate];
   
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
