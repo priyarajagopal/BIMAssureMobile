@@ -180,7 +180,7 @@ static NSString* INV_ActualParamValue = @"Value";
 
         INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
         
-        self.intermediateRuleOverview = ruleInstance.overview;
+        self.intermediateRuleOverview = ruleInstance.overview?ruleInstance.overview:@"";
         self.ruleName = ruleInstance.ruleName;
         
         NSArray* ruleInfoArray = ruleInstance?@[self.ruleName,self.intermediateRuleOverview]:[NSArray array];
@@ -479,7 +479,7 @@ static NSString* INV_ActualParamValue = @"Value";
     if (!_dataSource) {
         if (self.ruleInstanceId) {
             INVRuleInstance* ruleInstance = [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId forRuleSetId:self.ruleSetId];
-            self.intermediateRuleOverview = ruleInstance.overview;
+            self.intermediateRuleOverview = ruleInstance.overview ? ruleInstance.overview:@"";
             self.ruleName = ruleInstance.ruleName;
             
         }
