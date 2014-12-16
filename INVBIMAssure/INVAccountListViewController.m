@@ -158,9 +158,10 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog (@"%s",__func__);
     INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
-    if ( self.globalDataManager.loggedInAccount == account.accountId) {
+    if ( [self.globalDataManager.loggedInAccount isEqualToNumber:account.accountId]) {
         [self showLogoutPromptAlertForAccount:account];
     }
+    
     else {
         self.currentAccountId = account.accountId;
         // [self showBlurEffect];
