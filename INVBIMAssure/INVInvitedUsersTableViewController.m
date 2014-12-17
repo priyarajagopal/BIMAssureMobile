@@ -119,7 +119,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"userId==%@",userId];
     NSArray* matches = [members filteredArrayUsingPredicate:predicate];
     if (matches && matches.count) {
-        INVMembership* member = matches[0];
+        INVAccountMembership* member = matches[0];
         return member.email;
     }
     return nil;

@@ -13,7 +13,7 @@
 #import "INVUser.h"
 #import "INVSignedInUser.h"
 #import "INVSignedInAccount.h"
-#import "INVMembership.h"
+#import "INVAccountMembership.h"
 #import "INVInvite.h"
 
 @interface INVAccountManager : NSObject

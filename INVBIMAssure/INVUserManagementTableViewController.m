@@ -77,7 +77,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     }
     if (indexPath.section == SECTIONINDEX_CURRENTUSERS) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" ];
-        INVMembership* member = [self.dataResultsController objectAtIndexPath:indexPath];
+        INVAccountMembership* member = [self.dataResultsController objectAtIndexPath:indexPath];
         cell.textLabel.text = member.name;
         cell.detailTextLabel.text = member.email;
     }
