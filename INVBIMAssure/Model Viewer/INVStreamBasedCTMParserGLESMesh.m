@@ -13,8 +13,8 @@ int INVStreamBasedCTMParser_ColorAttributeLocation;
 // Trying to allocate a contiguous region larger than that is asking for trouble.
 #define MAX_VERTEX_BUFFER_SIZE (sizeof(struct vertex_struct) * MAX_VERTEX_COUNT)
 #define MAX_INDEX_BUFFER_SIZE (sizeof(struct index_struct) * MAX_INDEX_COUNT)
-#define MAX_VERTEX_COUNT 65535
-#define MAX_INDEX_COUNT 200000
+#define MAX_VERTEX_COUNT 150000
+#define MAX_INDEX_COUNT  625000
 
 #define VERTEX_POSITION_GL_TYPE GL_FLOAT
 #define VERTEX_NORMAL_GL_TYPE GL_FLOAT
@@ -24,9 +24,9 @@ typedef float vertex_position_element_type;
 typedef float vertex_normal_element_type;
 typedef uint8_t vertex_color_element_type;
 
-#define INDEX_INDEX_GL_TYPE GL_UNSIGNED_SHORT
+#define INDEX_INDEX_GL_TYPE GL_UNSIGNED_INT
 
-typedef uint16_t index_index_type;
+typedef uint32_t index_index_type;
 
 struct __attribute__((packed)) vertex_struct {
     vertex_position_element_type position[3];
@@ -49,6 +49,15 @@ struct __attribute__((packed)) index_struct {
 @end
 
 @implementation INVStreamBasedCTMParserGLESMeshElement
+
+-(id) init {
+    if (self =[ super init]) {
+        _boundingBox = GLKBBoxEmpty;
+    }
+    
+    return self;
+}
+
 @end
 
 @implementation INVStreamBasedCTMParserGLESMesh {
@@ -75,6 +84,7 @@ struct __attribute__((packed)) index_struct {
         _elementType = elementType;
         _transparent = transparent;
         
+        _boundingBox = GLKBBoxEmpty;
         _elements = [NSMutableDictionary new];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -213,7 +223,7 @@ struct __attribute__((packed)) index_struct {
     meshElement.vertexRange = NSMakeRange(oldVertexEnd, ctmVertexCount);
     meshElement.indexRange = NSMakeRange(oldIndexEnd, ctmIndexCount);
     
-    BOOL usingManualBBox = GLKVector3AllEqualToScalar(boundingBox.min, 0) && GLKVector3AllEqualToScalar(boundingBox.max, 0);
+    BOOL usingManualBBox = NO;
     // _boundingBox = GLKBBoxUnion(_boundingBox, boundingBox);
     
     if (!usingManualBBox) {
@@ -228,10 +238,6 @@ struct __attribute__((packed)) index_struct {
         );
         
         position = GLKMatrix4MultiplyVector3WithTranslation(matrix, position);
-        
-        if (usingManualBBox) {
-            meshElement.boundingBox = GLKBBoxUnionVector3(_boundingBox, position);
-        }
         
         _vertexPointer[oldVertexEnd + vertexIndex].position[0] = position.x;
         _vertexPointer[oldVertexEnd + vertexIndex].position[1] = position.y;
@@ -264,6 +270,12 @@ struct __attribute__((packed)) index_struct {
         GLKVector3 v0 = GLKVector3Make(p0->position[0], p0->position[1], p0->position[2]);
         GLKVector3 v1 = GLKVector3Make(p1->position[0], p1->position[1], p1->position[2]);
         GLKVector3 v2 = GLKVector3Make(p2->position[0], p2->position[1], p2->position[2]);
+        
+        if (usingManualBBox) {
+            meshElement.boundingBox = GLKBBoxUnionVector3(meshElement.boundingBox, v0);
+            meshElement.boundingBox = GLKBBoxUnionVector3(meshElement.boundingBox, v1);
+            meshElement.boundingBox = GLKBBoxUnionVector3(meshElement.boundingBox, v2);
+        }
         
         GLKVector3 va = GLKVector3Subtract(v2, v1);
         GLKVector3 vb = GLKVector3Subtract(v0, v1);
@@ -317,13 +329,11 @@ struct __attribute__((packed)) index_struct {
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
-    glDepthMask(!_transparent);
     glDrawElements(_elementType, _indexCount, INDEX_INDEX_GL_TYPE, NULL);
-    glDepthMask(GL_TRUE);
     
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArrayOES(0);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    // glBindBuffer(GL_ARRAY_BUFFER, 0);
+    // glBindVertexArrayOES(0);
 }
 
 -(NSString *) elementIdOfElementInterceptingRay:(GLKVector3)rayPosition direction:(GLKVector3)rayDirection {
@@ -371,6 +381,14 @@ struct __attribute__((packed)) index_struct {
 
 -(void) printWastedSpace {
     printf("vb: %zu\tib: %zu\n", (MAX_VERTEX_COUNT - _vertexCount) * sizeof(struct vertex_struct), (MAX_INDEX_COUNT - _indexCount) * sizeof(struct index_struct));
+}
+
+-(size_t) vertexCount {
+    return _vertexCount;
+}
+
+-(size_t) triangleCount {
+    return _indexCount / 3;
 }
 
 @end

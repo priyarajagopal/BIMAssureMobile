@@ -20,7 +20,7 @@
 
 @interface INVStreamBasedJSONParser : NSObject
 
-@property id<INVStreamBasedJSONParserDelegate> delegate;
+@property (weak) id<INVStreamBasedJSONParserDelegate> delegate;
 
 /** 
  Consume the input.

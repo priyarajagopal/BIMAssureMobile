@@ -167,7 +167,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         _opaqueMesh = nil;
     }
     
-    [mesh printWastedSpace];
+    // [mesh printWastedSpace];
     
     if ([self.delegate respondsToSelector:@selector(streamBasedCTMParser:didCompleteMesh:shouldStop:)]) {
         BOOL shouldStop = NO;

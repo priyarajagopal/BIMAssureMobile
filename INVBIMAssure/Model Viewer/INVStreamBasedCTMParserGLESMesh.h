@@ -32,4 +32,7 @@ extern int INVStreamBasedCTMParser_ColorAttributeLocation;
 -(void) setColorOfElementWithId:(NSString *) elementId
                       withColor:(GLKVector4) color;
 
+-(size_t) vertexCount;
+-(size_t) triangleCount;
+
 @end

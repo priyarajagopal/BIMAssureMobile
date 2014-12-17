@@ -159,7 +159,7 @@ static yajl_callbacks callbacks = {
 @implementation INVStreamBasedJSONParser {
     NSMutableArray *_pendingData;
     NSThread *_backgroundThread;
-    NSRunLoop *_backgroundRunLoop;
+    // NSRunLoop *_backgroundRunLoop;
     
     NSCondition *_hasDataCondition;
     dispatch_queue_t _consumeQueue;
@@ -190,7 +190,7 @@ static yajl_callbacks callbacks = {
 -(void) _backgroundThread {
     @autoreleasepool {
         _backgroundThread = [NSThread currentThread];
-        _backgroundRunLoop = [NSRunLoop currentRunLoop];
+        // _backgroundRunLoop = [NSRunLoop currentRunLoop];
         
         while (YES) {
             if ([[NSThread currentThread] isCancelled])
@@ -303,19 +303,24 @@ static yajl_callbacks callbacks = {
     [blockDelegate retainSelf];
         
     blockDelegate.handleEvent = ^(NSStream *stream, NSStreamEvent event) {
-        if (event == NSStreamEventEndEncountered || event == NSStreamEventErrorOccurred) {
+        if (event == NSStreamEventEndEncountered) {
+            [stream close];
+            
             [weakBlockDelegate releaseSelf];
+            return;
+        }
+        
+        if (event == NSStreamEventErrorOccurred) {
+            [stream close];
+            
+            NSLog(@"Stream error occurred!");
+            [weakBlockDelegate releaseSelf];
+            
             return;
         }
             
         if ([inputStream hasBytesAvailable]) {
-            NSUInteger length = 0;
-            
-            if (![inputStream getBuffer:NULL length:&length]) {
-                NSLog(@"InputStream getBuffer:length: error.");
-                return;
-            }
-            
+            NSUInteger length = 1024;
             NSMutableData *buffer = [NSMutableData dataWithLength:length];
             
             if (![inputStream read:[buffer mutableBytes] maxLength:[buffer length]]) {

@@ -449,7 +449,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ihQ-SW-zzl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3303" y="3484"/>
+            <point key="canvasLocation" x="3302" y="3484"/>
         </scene>
         <!--Project File Viewer Controller-->
         <scene sceneID="fqY-Jw-B2u">
@@ -627,6 +627,20 @@
                     <glkView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" enableSetNeedsDisplay="NO" id="4ov-Ct-Enc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP4-oq-N5W">
+                                <rect key="frame" x="0.0" y="443" width="600" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <barButtonItem title="Item" id="vKe-ds-41p"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="XP4-oq-N5W" secondAttribute="width" id="6bC-4v-HKd"/>
+                            <constraint firstAttribute="centerX" secondItem="XP4-oq-N5W" secondAttribute="centerX" id="Iqk-Zu-kAK"/>
+                            <constraint firstItem="8D9-Ct-9VY" firstAttribute="top" secondItem="XP4-oq-N5W" secondAttribute="bottom" id="gb3-QW-6TI"/>
+                        </constraints>
                         <connections>
                             <outlet property="delegate" destination="GL2-uL-zZe" id="BOa-nm-Fo9"/>
                         </connections>

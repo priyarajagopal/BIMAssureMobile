@@ -24,11 +24,17 @@ void classDump(Class);
     INVStreamBasedCTMParserGLESCamera *_camera;
     
     NSMutableArray *_meshes;
+    NSMutableArray *_transparentMeshes;
     
     GLKBBox _overallBBox;
     
     GLKVector3 cameraPosition;
     GLKVector3 cameraDirection;
+    
+    GLKMatrix4 rotationMatrix;
+    
+    NSUInteger _vertexCount;
+    NSUInteger _triangleCount;
 }
 
 @end
@@ -37,8 +43,9 @@ void classDump(Class);
 
 -(void) setupScene {
     // create and add a camera to the scene
-    // _overallBBox = GLKBBoxEmpty;
+    _overallBBox = GLKBBoxEmpty;
     _meshes = [NSMutableArray new];
+    _transparentMeshes = [NSMutableArray new];
     
     _camera = [INVStreamBasedCTMParserGLESCamera new];
     [_camera loadProgramNamed:@"ModelViewer"];
@@ -104,13 +111,28 @@ void classDump(Class);
     );
      */
     
+    /*
     int modelCount = 16;
     NSString *urlBase = @"http://richards-macbook-pro.local/progressive/apartment/apartment_%i.json";
     
     for (int modelIndex = 0; modelIndex <= modelCount; modelIndex++) {
         [_ctmParser process:[NSURL URLWithString:[NSString stringWithFormat:urlBase, modelIndex]]];
     }
+     */
     
+    
+    /*
+    int modelCount = 16;
+     NSString *urlBase = @"http://richards-macbook-pro.local/progressive/apartment/apartment_%i.json";
+     
+     for (int modelIndex = 0; modelIndex <= modelCount; modelIndex++) {
+         [_ctmParser process:[NSURL URLWithString:[NSString stringWithFormat:urlBase, modelIndex]]];
+     }
+     */
+    
+    NSInputStream *inputStream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle] pathForResource:@"aptMG2" ofType:@"json"]];
+    
+    [_ctmParser process:inputStream];
     // [_ctmParser process:[NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/samplehouse.json"]];
 }
 
@@ -133,16 +155,19 @@ void classDump(Class);
     _camera.projectionTransform = GLKMatrix4Rotate(_camera.projectionTransform, M_PI / 2, 1, 0, 0);
     */
     
-    GLKVector3 extrapolatedPosition = GLKVector3Add(cameraPosition, cameraDirection);
+    GLKVector3 projectedPosition = GLKVector3Make(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+    projectedPosition = GLKVector3Add(projectedPosition, cameraDirection);
 
     _camera.projectionTransform = GLKMatrix4Multiply(
         GLKMatrix4MakePerspective(55, aspect, 1, 10000),
         GLKMatrix4MakeLookAt(
             cameraPosition.x, cameraPosition.y, cameraPosition.z,
-            extrapolatedPosition.x, extrapolatedPosition.y, extrapolatedPosition.z,
+            projectedPosition.x, projectedPosition.y, projectedPosition.z,
             0, 0, -1
         )
     );
+    
+    _camera.modelViewTransform = rotationMatrix;
 }
 
 -(void) _resetCamera {
@@ -150,11 +175,12 @@ void classDump(Class);
     // GLKVector3 size = GLKBBoxSize(_overallBBox);
     // float distance = GLKVector3Length(size) * 0.5f;
     
-    cameraPosition = GLKVector3Make(mid.x, mid.z - 50, mid.y);
-    GLKVector3 lookAt = GLKVector3Make(mid.x, mid.z, mid.y);
-    GLKVector3 direction = GLKVector3Subtract(lookAt, cameraPosition);
+    cameraPosition = GLKVector3Make(mid.x, mid.y - 250, mid.z);
+    GLKVector3 lookAt = cameraPosition;
+    lookAt.y += 1;
     
-    cameraDirection = direction;
+    cameraDirection = GLKVector3Subtract(lookAt, cameraPosition);
+    rotationMatrix = GLKMatrix4Identity;
 }
 
 -(void) glkView:(GLKView *)view drawInRect:(CGRect)rect {
@@ -163,9 +189,19 @@ void classDump(Class);
     
     [_camera bindProgram];
     
+    glDepthMask(GL_TRUE);
+    
     for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
         [mesh draw];
     }
+    
+    glDepthMask(GL_FALSE);
+    
+    for (INVStreamBasedCTMParserGLESMesh *mesh in _transparentMeshes) {
+        [mesh draw];
+    }
+    
+    glDepthMask(GL_TRUE);
 }
 
 -(void) streamBasedCTMParser:(INVStreamBasedCTMParser *)parser
@@ -174,12 +210,27 @@ void classDump(Class);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_overallBBox = GLKBBoxUnion(self->_overallBBox, mesh.boundingBox);
+        self->_overallBBox.min.z = fmaxf(self->_overallBBox.min.z, 0);
+        
+        self->_vertexCount += [mesh vertexCount];
+        self->_triangleCount += [mesh triangleCount];
+        
+        NSLog(@"Currently: %10lu verts, %10lu tris.", (unsigned long)self->_vertexCount, (unsigned long)self->_triangleCount);
+        
+        if (self->_vertexCount >= 4956024) {
+            self.navigationItem.title = @"Complete";
+        }
         
         if ([self->_meshes count] == 0) {
             [self _resetCamera];
         }
         
-        [self->_meshes addObject:mesh];
+        
+        if (mesh.transparent) {
+            [self->_transparentMeshes addObject:mesh];
+        } else {
+            [self->_meshes addObject:mesh];
+        }
     });
 }
 
@@ -192,8 +243,27 @@ void classDump(Class);
         CGPoint lastPoint = [touch previousLocationInView:self.view];
         CGPoint newPoint = [touch locationInView:self.view];
     
-        float changedX = newPoint.x - lastPoint.y;
-        float changedY = newPoint.y - lastPoint.y;
+        float changedX = (newPoint.x - lastPoint.x) / 1000;
+        float changedY = (newPoint.y - lastPoint.y) / 1000;
+        
+        GLKVector3 camera = GLKVector3Make(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        camera = GLKMatrix4MultiplyAndProjectVector3(GLKMatrix4Invert(_camera.projectionTransform, NULL), camera);
+        
+        /*
+        rotationMatrix = GLKMatrix4Multiply(
+            GLKMatrix4Translate(
+                GLKMatrix4Rotate(
+                    GLKMatrix4MakeTranslation(-camera.x, camera.y, -camera.z),
+                    0.05, -changedY, 0, -changedX
+                ),
+                camera.x, -camera.y, camera.z
+            ),
+            rotationMatrix
+        );
+         */
+        
+        // cameraDirection.x += cosf(changedX);
+        // cameraDirection.y += tanf(changedX);
         
         // cameraDirection.x += changedX / 1000;
         // cameraDirection.y += changedY / 1000;
@@ -219,9 +289,10 @@ void classDump(Class);
         );
         
         float sign = distance > lastDistance ? 1 : -1;
-        float scale = sign * (fabs(lastDistance -  distance)) * 0.5;
+        float scale = sign * (fabs(lastDistance -  distance)) * 0.25;
         
         GLKVector3 change = GLKVector3Make(0, scale, 0);
+        //change = GLKVector3Multiply(change, cameraDirection);
 
         cameraPosition = GLKVector3Add(cameraPosition, change);
     }
@@ -236,6 +307,7 @@ void classDump(Class);
         float changedY = newPoint.y - lastPoint.y;
         
         GLKVector3 change = GLKVector3Make(-changedX / 4, 0, changedY / 4);
+        //change = GLKVector3Multiply(change, cameraDirection);
         
         cameraPosition = GLKVector3Add(cameraPosition, change);
     }
@@ -268,6 +340,7 @@ void classDump(Class);
         GLKVector3 rayPosition = cameraPosition;
         rayPosition = GLKMatrix4MultiplyVector3WithTranslation(GLKMatrix4Invert(_camera.modelViewTransform, NULL), rayPosition);
         
+        /*
         // Now do a ray-cast.
         for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
             NSString *elementId = [mesh elementIdOfElementInterceptingRay:rayPosition direction:rayDirection];
@@ -275,6 +348,7 @@ void classDump(Class);
             // [mesh setColorOfElementWithId:elementId withColor:GLKVector4Make(1, 0, 1, 1)];
             // NSLog(@"%@", elementId);
         }
+         */
     }
 }
 

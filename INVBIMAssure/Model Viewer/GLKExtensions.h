@@ -19,9 +19,13 @@ typedef union {
     float b[6];
 } GLKBBox;
 
+static inline GLKVector3 GLKQuaternionGetAngleAxis(GLKQuaternion quaternion) {
+    return GLKVector3MultiplyScalar(GLKQuaternionAxis(quaternion), GLKQuaternionAngle(quaternion));
+}
+
 static const GLKBBox GLKBBoxEmpty = {
-    FLT_MAX, FLT_MAX,
-    FLT_MIN, FLT_MIN
+    FLT_MAX, FLT_MAX, FLT_MAX,
+    -FLT_MAX, -FLT_MAX, -FLT_MAX
 };
 
 static inline GLKBBox GLKBBoxMake(GLKVector3 min, GLKVector3 max) {
@@ -30,8 +34,8 @@ static inline GLKBBox GLKBBoxMake(GLKVector3 min, GLKVector3 max) {
 
 static inline GLKBBox GLKBBoxUnion(GLKBBox left, GLKBBox right) {
     return (GLKBBox) {
-        GLKVector3Minimum(GLKVector3Minimum(left.min, right.min), GLKVector3Minimum(left.max, right.max)),
-        GLKVector3Maximum(GLKVector3Maximum(left.min, right.min), GLKVector3Maximum(left.max, right.max)),
+        GLKVector3Minimum(left.min, right.min),
+        GLKVector3Maximum(left.max, right.max),
     };
 }
 
