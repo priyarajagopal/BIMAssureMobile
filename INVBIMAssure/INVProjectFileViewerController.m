@@ -109,9 +109,9 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
   
     [self.webView loadFileURL:[NSURL URLWithString:vizFile]];
 #else
-    NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/mobileviewer/Visualize.html"]];
-    // NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://localhost/Visualize.html"]];
-    [self.webView loadRequest:request];
+ //   NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/mobileviewer/Visualize.html"]];
+    NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://10.0.1.10:8888/WebViewer/Visualize.html"]];
+     [self.webView loadRequest:request];
 
 #endif
     [self addWebviewObservers] ;
@@ -142,13 +142,13 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
     NSString* emServer = self.globalDataManager.invServerClient.empireManageServer;
     NSString* acntToken = self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount;
     NSString* emServerUrl =  [NSString stringWithFormat:@"http://%@/empiremanage/api/",emServer];
-    NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_VIEWER,emServerUrl,self.modelId,acntToken];
+    NSString* jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_VIEWER,emServerUrl,self.fileVersionId,acntToken];
     
     [self executeJS:jsToInvoke];
     
     // Add the file version
     jsToInvoke = [NSString stringWithFormat:INV_JS_LOAD_SIDEBAR, emServerUrl, self.modelId, acntToken,self.fileVersionId];
-    [self executeJS:jsToInvoke];    
+    [self executeJS:jsToInvoke];
 }
 
 /**** Unused for now. Jquery loaded remotely

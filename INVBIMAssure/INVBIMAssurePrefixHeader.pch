@@ -28,5 +28,7 @@
         #import "MBProgressHUD+INVBAHUD.h"
         #import "INVGenericTableViewDataSource.h"
         #import "INVGenericCollectionViewDataSource.h"
+        #import "UIAlertController+INVCustomizations.h"
+
     #endif
 #endif

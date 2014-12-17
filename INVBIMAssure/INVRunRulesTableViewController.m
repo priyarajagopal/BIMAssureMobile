@@ -168,7 +168,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{ }];
+
         }
     }];
 }
@@ -189,8 +191,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
             }
             else {
-#warning May need to show a message if one or more fail....
-                NSLog(@"%s. Error:%@",__func__,error);
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RUN_RULES", nil),error.code]];
+                [self presentViewController:errController animated:YES completion:^{ }];
+
             }
         }];
 

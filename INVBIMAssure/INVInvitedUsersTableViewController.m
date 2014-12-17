@@ -76,12 +76,18 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
          
             }
             else {
-#warning - display error
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),dbError.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
             }
             
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
         }
     }];
     [self setupTableFooter];
@@ -101,7 +107,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             [mailVC setSubject:@"test"];
         }
         else {
-#warning display error that mail cannot be composed
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:NSLocalizedString(@"ERROR_MAILNOTCONFIGURED", nil)];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
         }
     }
 }

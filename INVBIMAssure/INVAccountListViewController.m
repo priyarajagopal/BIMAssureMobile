@@ -248,12 +248,22 @@ static NSString * const reuseIdentifier = @"Cell";
             }
             
             else {
-                #warning - display error
+                if (error) {
+                    UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil),dbError.code]];
+                    [self presentViewController:errController animated:YES completion:^{
+                        
+                    }];
+                }
             }
             
         }
         else {
-#warning - display error
+            if (error) {
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil),error.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
+            }
         }
     }];
 }
@@ -272,6 +282,7 @@ static NSString * const reuseIdentifier = @"Cell";
                     NSLog(@"%s. Error: %@",__func__,error);
                 }
             }
+            NSLog(@"Account TOken is %@",self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
             [self notifyAccountLogin];
 
         }

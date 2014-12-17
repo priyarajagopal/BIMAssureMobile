@@ -17,7 +17,7 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger TABINDEX_PROJECT_FILES = 0;
 static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
-static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
+//static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 
 @interface INVProjectsTableViewController ()
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
@@ -82,12 +82,19 @@ static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
                  [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             }
             else {
-#warning - display error
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),dbError.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
             }
             
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
+
         }
     }];
 }

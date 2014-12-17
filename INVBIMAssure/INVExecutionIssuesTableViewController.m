@@ -106,7 +106,10 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
             }
             else {
                 
-#warning - display error
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_BUILDING_ELEMENT_LOAD", nil),error.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
             }
             
             if (idx == self.buildingElementsWithIssues.count-1) {

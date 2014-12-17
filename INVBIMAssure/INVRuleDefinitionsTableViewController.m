@@ -72,16 +72,24 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         if (!error) {
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
+          
             if (!dbError) {
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
              }
             else {
-#warning - display error
+                
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULE_DEFINITION_LOAD", nil),dbError.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
             }
             
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULE_DEFINITION_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
         }
     }];
 }

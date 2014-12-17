@@ -11,12 +11,12 @@
 #import "INVAccount.h"
 
 /**
- Array of INVMembership objects
+ Array of INVAccountMembership objects
  */
 typedef NSArray* INVMembersArray;
 
 /**
- Mutable array of INVMembership objects
+ Mutable array of INVAccountMembership objects
  */
 typedef NSMutableArray* INVMembersMutableArray;
 

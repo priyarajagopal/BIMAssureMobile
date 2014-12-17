@@ -25,6 +25,7 @@ typedef NSMutableArray* INVRuleInstanceExecutionMutableArray;
 @property (copy, nonatomic, readonly) NSString* overview;
 @property (copy, nonatomic, readonly) NSString* status;
 @property (copy, nonatomic, readonly) NSDate* executedAt;
+@property (copy, nonatomic, readonly) NSDate* completedAt;
 @property (copy, nonatomic, readonly) NSNumber* pkgVersionId;
 @property (copy, nonatomic, readonly) NSNumber* ruleInstanceId;
 @property (copy, nonatomic, readonly) NSNumber* issueCount;

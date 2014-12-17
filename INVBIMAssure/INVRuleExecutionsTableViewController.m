@@ -80,6 +80,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         NSString* executedAtStr = NSLocalizedString(@"EXECUTED_AT", nil);
         
 #warning Fix this when server side is fixed
+#define _DATEINUTC_
 #ifdef _DATEINUTC_
         NSString* executedAtWithDateStr =[NSString stringWithFormat:@"%@ : %@",executedAtStr, [self.dateFormatter stringFromDate:execution.executedAt]];
         NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:executedAtWithDateStr];
@@ -186,14 +187,26 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
             id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[0];
               
             if (!dbError) {
-                NSLog(@"%s. %lu of size %lu with num sections %@ ",__func__,(unsigned long)objectInSection.numberOfObjects, self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
+                NSLog(@"%s. %lu of size %lu with num sections %@ ",__func__,(unsigned long)objectInSection.numberOfObjects, (unsigned long)self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
              }
             else {
-#warning - display error
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),dbError.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
+
             }
               
-        }
+              
+          }
+          else {
+              UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),error.code]];
+              [self presentViewController:errController animated:YES completion:^{
+                  
+              }];
+
+          }
   
         
     }];

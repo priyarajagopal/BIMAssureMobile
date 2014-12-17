@@ -138,12 +138,14 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             }
             else {
-#warning - display error
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_FETCH_ACCOUNTMEMBERS", nil),dbError.code]];
+                [self presentViewController:errController animated:YES completion:^{ }];
             }
             
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_FETCH_ACCOUNTMEMBERS", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{ }];
         }
     }];
 }

@@ -7,7 +7,6 @@
 //
 
 #import "INVTokensTableViewCell.h"
-const static NSInteger BASELINE_HEIGHT = 50;
 
 @interface INVTokensTableViewCell() <VENTokenFieldDelegate, VENTokenFieldDataSource>
 @property (readwrite, nonatomic) NSMutableArray *tokens;
@@ -102,7 +101,7 @@ const static NSInteger BASELINE_HEIGHT = 50;
 
 - (NSString *)tokenFieldCollapsedText:(VENTokenField *)tokenField
 {
-    return  [NSString stringWithFormat:@"%ld",self.tokens.count ];
+    return  [NSString stringWithFormat:@"%ld",(unsigned long)self.tokens.count ];
 }
 
 

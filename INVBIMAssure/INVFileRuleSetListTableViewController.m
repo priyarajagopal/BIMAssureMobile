@@ -86,7 +86,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             [self fetchRuleSetIdsForFile];
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
         }
     }];
 }
@@ -103,7 +106,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
         }
     }];
 }
@@ -118,7 +124,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (error) {
-#warning Show error alert
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_UPDATE", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
         }
     }];
 }

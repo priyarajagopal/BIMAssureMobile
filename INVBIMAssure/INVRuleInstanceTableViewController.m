@@ -214,7 +214,12 @@ static NSString* INV_ActualParamValue = @"Value";
                 [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
             }
             else {
-#warning show error alert
+                if (error) {
+                    UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULE_DEFINITION_FORINSTANCE_LOAD", nil),error.code]];
+                    [self presentViewController:errController animated:YES completion:^{
+                        
+                    }];
+                }
             }
             
             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
@@ -231,8 +236,12 @@ static NSString* INV_ActualParamValue = @"Value";
     
     [self.globalDataManager.invServerClient createRuleInstanceForRuleId:self.ruleId inRuleSetId:self.ruleSetId withRuleName:self.ruleName andDescription:self.intermediateRuleOverview andActualParameters:actualParam WithCompletionBlock:^(INVEmpireMobileError *error) {
         if (error) {
-#warning show error alert
-            NSLog (@"%s. Error %@",__func__,error);
+            if (error) {
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_CREATE", nil),error.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
+            }
         }
         else {
             [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil)];
@@ -247,8 +256,12 @@ static NSString* INV_ActualParamValue = @"Value";
     INVRuleInstanceActualParamDictionary actualParam = [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
     [self.globalDataManager.invServerClient modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId forRuleId:ruleInstance.accountRuleId inRuleSetId:self.ruleSetId withRuleName:self.ruleName andDescription:self.intermediateRuleOverview andActualParameters:actualParam WithCompletionBlock:^(INVEmpireMobileError *error) {
         if (error) {
-#warning show error alert
-            NSLog (@"%s. Error %@",__func__,error);
+            if (error) {
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_UPDATE", nil),error.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
+            }
         }
         else {
             [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_UPDATED_SUCCESS", nil)];

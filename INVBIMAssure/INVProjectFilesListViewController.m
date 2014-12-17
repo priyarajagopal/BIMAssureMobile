@@ -9,6 +9,7 @@
 #import "INVProjectFilesListViewController.h"
 #import "INVProjectFileCollectionViewCell.h"
 #import "INVModelViewerViewController.h"
+#import "INVProjectFileViewerController.h"
 #import "INVFileManageRuleSetsContainerViewController.h"
 #import "INVRunRulesTableViewController.h"
 #import "INVRuleExecutionsTableViewController.h"
@@ -158,12 +159,19 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
                 [self.collectionView reloadData];
             }
             else {
-#warning - display error
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTFILES_LOAD", nil),dbError.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
             }
             
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTFILES_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
+
         }
     }];
 }
@@ -250,7 +258,9 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     if ([segue.identifier isEqualToString:@"FileViewerSegue"]) {
 
         [self.tabBarController setHidesBottomBarWhenPushed:YES];
-        INVModelViewerViewController *vc = (INVModelViewerViewController *) segue.destinationViewController;
+        INVProjectFileViewerController * vc = (INVProjectFileViewerController*)segue.destinationViewController;
+        
+    //    INVModelViewerViewController *vc = (INVModelViewerViewController *) segue.destinationViewController;
         
         vc.modelId = self.selectedModelId;
         vc.fileVersionId = self.selectedFileTipId;

@@ -81,14 +81,19 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             if (!dbError) {
                 [self logRulesToConsole];
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                
             }
             else {
-#warning - display error
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),dbError.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
             }
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
         }
     }];
 }
@@ -104,16 +109,22 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                 [self logRulesToConsole];
                 [self removeSelectedRowFromTableView];
                 
-#warning - There are false negatives today on server side
+#warning - There are false negatives  on server side. This API is not fully functional;
 
                }
             else {
-#warning - display error
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_DELETE", nil),dbError.code]];
+                [self presentViewController:errController animated:YES completion:^{
+                    
+                }];
             }
 
         }
         else {
-#warning - display error
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_DELETE", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
 
         }
     }];
