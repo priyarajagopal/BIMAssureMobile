@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ea0-Az-nkO">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -449,7 +449,7 @@
                         <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
                         <segue destination="AUh-Ql-GT9" kind="presentation" identifier="RunRulesSegue" modalPresentationStyle="formSheet" id="G8m-0f-E8j"/>
                         <segue destination="l61-lF-AkI" kind="show" identifier="ShowExecutionsSegue" id="yRG-Uw-32c"/>
-                        <segue destination="Eb5-Mc-1Dg" kind="showDetail" identifier="FileViewerSegue" id="fc2-9E-YUG"/>
+                        <segue destination="GL2-uL-zZe" kind="show" identifier="FileViewerSegue" id="ZwD-6V-7ux"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -631,7 +631,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8D9-Ct-9VY"/>
                     </layoutGuides>
                     <glkView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" enableSetNeedsDisplay="NO" id="4ov-Ct-Enc">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP4-oq-N5W">

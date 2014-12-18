@@ -258,9 +258,9 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     if ([segue.identifier isEqualToString:@"FileViewerSegue"]) {
 
         [self.tabBarController setHidesBottomBarWhenPushed:YES];
-        INVProjectFileViewerController * vc = (INVProjectFileViewerController*)segue.destinationViewController;
+        // INVProjectFileViewerController * vc = (INVProjectFileViewerController*)segue.destinationViewController;
         
-    //    INVModelViewerViewController *vc = (INVModelViewerViewController *) segue.destinationViewController;
+        INVModelViewerViewController *vc = (INVModelViewerViewController *) segue.destinationViewController;
         
         vc.modelId = self.selectedModelId;
         vc.fileVersionId = self.selectedFileTipId;

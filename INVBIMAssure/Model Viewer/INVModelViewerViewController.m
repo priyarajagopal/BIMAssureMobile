@@ -135,7 +135,7 @@ void classDump(Class);
     // NSInputStream *inputStream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle] pathForResource:@"aptMG2" ofType:@"json"]];
     // [_ctmParser process:inputStream];
     
-    [_ctmParser process:[[INVGlobalDataManager sharedInstance].invServerClient requestToFetchModelViewForId:self.modelId]];
+    [_ctmParser process:[[INVGlobalDataManager sharedInstance].invServerClient requestToFetchModelViewForId:self.fileVersionId]];
     // [_ctmParser process:[NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/samplehouse-new.json"]];
 }
 
@@ -317,6 +317,7 @@ void classDump(Class);
     }
     
     if (touch.tapCount == 2) {
+        /*
         // Do a raycast
         CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
         
@@ -347,6 +348,7 @@ void classDump(Class);
                 NSLog(@"%@", elementId);
             }
         }
+         */
     }
 }
 
