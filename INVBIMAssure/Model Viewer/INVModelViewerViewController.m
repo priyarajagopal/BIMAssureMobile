@@ -135,7 +135,8 @@ void classDump(Class);
     // NSInputStream *inputStream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle] pathForResource:@"aptMG2" ofType:@"json"]];
     // [_ctmParser process:inputStream];
     
-    [_ctmParser process:[NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/samplehouse-new.json"]];
+    [_ctmParser process:[[INVGlobalDataManager sharedInstance].invServerClient requestToFetchModelViewForId:self.modelId]];
+    // [_ctmParser process:[NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/samplehouse-new.json"]];
 }
 
 -(void) viewDidLoad {
