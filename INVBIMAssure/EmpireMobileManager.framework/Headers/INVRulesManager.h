@@ -113,7 +113,27 @@
 
 
 /**
- Returns list of fileIds. Details of the files can be retrieved via the INVProjectManager
+ Returns rule sets for signed in account
+ 
+ @see INVRule
+ 
+ @return The array of INVRuleSet objects
+ */
+-(INVRuleSetArray) ruleSetsForSignedInAccount;
+
+
+
+/**
+ Returns rulesets for rulesetIds
+ 
+ @see INVMobileClient
+ 
+ @return The array of INVRuleSet objects corresponding to the list of rulesetIds
+ */
+-(INVRuleSetArray)ruleSetsForIds:(NSArray*)ruleSetIds;
+
+/**
+ Returns list of pkg master Ids. Details of the packages can be retrieved via the INVProjectManager
  
  @param ruleSetId Id for rule set
  
@@ -123,16 +143,7 @@
  
  @return The array of rule Ids
  */
--(NSArray*)fileMasterIdsForRuleSetId:(NSNumber*)ruleSetId;
-
-/**
- Returns rule sets for signed in account
- 
- @see INVRule
- 
- @return The array of INVRuleSet objects
- */
--(INVRuleSetArray) ruleSetsForSignedInAccount;
+-(NSSet*)pkgMastersForRuleSetId:(NSNumber*)ruleSetId;
 
 
 /**
@@ -146,16 +157,8 @@
  
  @return The array of rule sets
  */
--(NSArray*)ruleSetIdsForFile:(NSNumber*)fileId;
+-(NSSet*)ruleSetIdsForPkgMaster:(NSNumber*)fileId;
 
-/**
- Returns rulesets for rulesetIds
- 
- @see INVMobileClient
- 
- @return The array of INVRuleSet objects corresponding to the list of rulesetIds
- */
--(INVRuleSetArray)ruleSetsForIds:(NSArray*)ruleSetIds;
 
 /**
  Returns list of all rule executions.
@@ -220,25 +223,27 @@
 -(BOOL)updateCachedRuleInstanceForRuleInstanceId:(NSNumber*)ruleInstanceId forRuleId:(NSNumber*)ruleId inRuleSetId:(NSNumber*)ruleSetId withRuleName:(NSString*)ruleName andDescription:(NSString*)overview andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams;
 
 /**
- Update local cache of files to rulesetId mapping.
+ Remove package master associated with a rule set Id from local cache
  @param ruleSetId The Id of rule set to be updated
  
- @param fileMasters The Ids of Files to be associated with the ruleSet
+ @param pkgMasterId the Id of Pkg master to be removed
  
- @return  YES if success else NO
+ @return nil is success or error object
  */
--(BOOL)updateCachedRuleSet:(NSNumber*)ruleSetId withFileMasterIds:(NSArray*)fileMasters ;
+-(NSError*)removeFromLocalCacheRuleSet:(NSNumber*)ruleSetId associatedWithPkgMaster:(NSNumber*)pkgMasterId;
+
 
 /**
- Update local cache of ruleSet to fileIds mapping.
+ Remove rulesetId  associated with a package master from local cache
  
- @param fileId The Id of file  to be updated
+ @param ruleSetId The Id of rule set to be updated
  
- @param rulesets The Ids of rulesets to be associated with the file
-
- @return YES if success else NO
+ @param pkgMasterId the Id of Pkg master to be removed
+ 
+ @return nil is success or error object
  */
--(BOOL)updateCachedFileId:(NSNumber*)fileId withRuleSetIds:(INVRuleSetArray)rulesets;
+-(NSError*)removeFromLocalCachePkgMasterId:(NSNumber*)pkgMasterId associatedWithRuleSet:(NSNumber*)ruleSetId;
+
 
 
 #warning Include way to asyncronously Notify when deletion is done

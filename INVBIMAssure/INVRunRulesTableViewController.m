@@ -160,7 +160,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 -(void)fetchRuleSetIdsForFile {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient  getAllRuleSetsForPkgMasterId:self.fileMasterId WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient getAllRuleSetMembersForPkgMaster:self.fileMasterId WithCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
@@ -340,7 +340,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 }
 -(void)updateRuleSetsFromServer {
-    NSArray* rulesetIdsInFile = [self.rulesManager ruleSetIdsForFile:self.fileMasterId];
+    NSArray* rulesetIdsInFile = [self.rulesManager ruleSetIdsForPkgMaster:self.fileMasterId];
     INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:rulesetIdsInFile]mutableCopy];
     self.ruleSets = ruleSetsAssociatedWithFile;
    

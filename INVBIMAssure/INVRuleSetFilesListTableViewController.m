@@ -60,7 +60,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [super viewWillDisappear:animated];
     [self removeObserversForFileMoveNotification];
     if (self.showFilesForRuleSetId) {
-        [self pushUpdatedProjectFilesForRuleSetIdToServer];
+        [self pushAddedPkgMastersForRuleSetIdToServer];
+        [self pushRemovedPkgMastersForRuleSetIdToServer];
     }
     self.projectManager = nil;
     self.rulesManager = nil;
@@ -115,6 +116,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     }];
 }
 
+/******DEPRECATED *******
 -(void)pushUpdatedProjectFilesForRuleSetIdToServer {
     NSMutableArray* fileMasterIds = [[NSMutableArray alloc]initWithCapacity:0];
     [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -132,6 +134,55 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         }
     }];
 }
+*****DEPRECATED *******/
+
+-(void)pushAddedPkgMastersForRuleSetIdToServer {
+    NSSet* currentPkgMastersForRuleSet = [self.globalDataManager.invServerClient.rulesManager pkgMastersForRuleSetId:self.ruleSetId];
+    NSMutableSet* updatedPkgMasterIds = [[NSMutableSet alloc]initWithCapacity:0];
+    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVPackage* package = obj;
+        [updatedPkgMasterIds addObject:package.packageId];
+    }];
+    
+    [updatedPkgMasterIds minusSet:currentPkgMastersForRuleSet];
+    
+    [self.globalDataManager.invServerClient addToRuleSet:self.ruleSetId pkgMasters:[updatedPkgMasterIds allObjects] withCompletionBlock:^(INVEmpireMobileError *error) {
+        if (error ) {
+            NSLog(@"Failed to add pkg masters  %@ for rule set %@ with error %@",updatedPkgMasterIds,self.ruleSetId,error);
+        }
+        else {
+            NSLog(@"Succesfully added pkg master %@ for rule set %@ ",updatedPkgMasterIds,self.ruleSetId);
+        }
+    }];
+    
+}
+
+-(void)pushRemovedPkgMastersForRuleSetIdToServer {
+    NSMutableSet* currentPkgMastersForRuleSet = [[self.globalDataManager.invServerClient.rulesManager pkgMastersForRuleSetId:self.ruleSetId]mutableCopy];
+    NSMutableSet* updatedPkgMasterIds = [[NSMutableSet alloc]initWithCapacity:0];
+    [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVPackage* package = obj;
+        [updatedPkgMasterIds addObject:package.packageId];
+    }];
+    
+    [currentPkgMastersForRuleSet minusSet:updatedPkgMasterIds];
+    
+    [currentPkgMastersForRuleSet enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        NSNumber* pkgMasterToRemove = obj;
+        [self.globalDataManager.invServerClient removeFromRuleSet:self.ruleSetId pkgMaster:pkgMasterToRemove  withCompletionBlock:^(INVEmpireMobileError *error) {
+            if (error ) {
+                NSLog(@"Failed to remove pkg masters  %@ for rule set %@ with error %@",pkgMasterToRemove,self.ruleSetId, error);
+            }
+            else {
+                NSLog(@"Succesfully removed pkg master %@ for rule set %@ ",updatedPkgMasterIds,self.ruleSetId);
+            }
+        }];
+
+    }];
+    
+    
+}
+
 
 #pragma mark - UITableView
 -(void)setHeaderViewWithHeading:(NSString*)heading {
@@ -243,8 +294,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - helpers
 -(void)updateFilesListFromServer {
     self.files = [self.projectManager.projectPackages mutableCopy];
-    NSArray* filesMasterIdsInRuleSet = [self.rulesManager fileMasterIdsForRuleSetId:self.ruleSetId];
-    INVPackageMutableArray filesAssociatedWithRuleSet = [[self.projectManager packageFilesForMasterIds:filesMasterIdsInRuleSet]mutableCopy];
+    NSSet* filesMasterIdsInRuleSet = [self.rulesManager pkgMastersForRuleSetId:self.ruleSetId];
+    INVPackageMutableArray filesAssociatedWithRuleSet = [[self.projectManager packageFilesForMasterIds:[filesMasterIdsInRuleSet allObjects]]mutableCopy];
     if (self.showFilesForRuleSetId) {
         self.files = filesAssociatedWithRuleSet;
     }

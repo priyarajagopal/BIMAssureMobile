@@ -59,7 +59,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.showRuleSetsForFileId) {
-        [self pushUpdatedRuleSetsForFileToServer];
+        [self pushAddedRuleSetsForPkgMasterToServer];
+        [self pushRemovedRuleSetsForPkgMasterToServer];
     }
     self.tableView.dataSource = nil;
     self.ruleSetsDataSource = nil;
@@ -96,7 +97,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 -(void)fetchRuleSetIdsForFile {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient  getAllRuleSetsForPkgMasterId:self.fileId WithCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient  getAllRuleSetMembersForPkgMaster:self.fileId WithCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
@@ -114,6 +115,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     }];
 }
 
+/***** DEPRECATED ******
 -(void)pushUpdatedRuleSetsForFileToServer {
     NSMutableArray* ruleSetIds = [[NSMutableArray alloc]initWithCapacity:0];
     [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -130,6 +132,52 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             }];
         }
     }];
+}
+***** DEPRECATED ******/
+-(void)pushAddedRuleSetsForPkgMasterToServer {
+    NSSet* currentRuleSetsForPkgMaster = [self.globalDataManager.invServerClient.rulesManager ruleSetIdsForPkgMaster:self.fileId];
+    NSMutableSet* updatedRuleSetIds = [[NSMutableSet alloc]initWithCapacity:0];
+    [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVRuleSet* ruleSet = obj;
+        [updatedRuleSetIds addObject:ruleSet.ruleSetId];
+    }];
+    
+    [updatedRuleSetIds minusSet:currentRuleSetsForPkgMaster];
+    
+    [self.globalDataManager.invServerClient addToPkgMaster:self.fileId ruleSets:[updatedRuleSetIds allObjects] withCompletionBlock:^(INVEmpireMobileError *error) {
+        if (error ) {
+            NSLog(@"Failed to add rule set %@ for pkg master %@ with error %@",updatedRuleSetIds,self.fileId,error);
+        }
+        else {
+            NSLog(@"Succesfully added rule set %@ for pkg master %@ ",updatedRuleSetIds,self.fileId);
+        }
+    }];
+
+}
+
+-(void)pushRemovedRuleSetsForPkgMasterToServer {
+    NSMutableSet* currentRuleSetsForPkgMaster = [[self.globalDataManager.invServerClient.rulesManager ruleSetIdsForPkgMaster:self.fileId]mutableCopy];
+    NSMutableSet* updatedRuleSetIds = [[NSMutableSet alloc]initWithCapacity:0];
+    [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVRuleSet* ruleSet = obj;
+        [updatedRuleSetIds addObject:ruleSet.ruleSetId];
+    }];
+    
+    [currentRuleSetsForPkgMaster minusSet:updatedRuleSetIds];
+    
+    [currentRuleSetsForPkgMaster enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        NSNumber* idToRemove = obj;
+        NSLog(@"Will remove rule set Id %@",idToRemove);
+        [self.globalDataManager.invServerClient removeFromPkgMaster:self.fileId ruleSet:idToRemove withCompletionBlock:^(INVEmpireMobileError *error) {
+            if (error ) {
+                NSLog(@"Failed to remove rule set %@ for pkg master %@ with error %@",idToRemove,self.fileId,error);
+            }
+            else {
+                NSLog(@"Succesfully removed rule set %@ for pkg master %@ ",idToRemove,self.fileId);
+            }
+        }];
+    }];
+    
 }
 
 #pragma mark - UITableView
@@ -197,8 +245,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - helpers
 -(void)updateRuleSetsFromServer {
     self.ruleSets = [[self.rulesManager ruleSetsForProject:self.projectId]mutableCopy];
-    NSArray* rulesetIdsInFile = [self.rulesManager ruleSetIdsForFile:self.fileId];
-    INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:rulesetIdsInFile]mutableCopy];
+    NSSet* rulesetIdsInFile = [self.rulesManager ruleSetIdsForPkgMaster:self.fileId];
+    INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:[rulesetIdsInFile  allObjects]]mutableCopy];
     if (self.showRuleSetsForFileId) {
         self.ruleSets = ruleSetsAssociatedWithFile;
     }
