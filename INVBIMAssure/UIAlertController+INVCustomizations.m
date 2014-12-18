@@ -17,7 +17,7 @@
     
     self= [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ERROR", nil) message:errorMesg preferredStyle:UIAlertControllerStyleAlert];
     if (self) {
-        [self.view setTintColor:[UIColor darkGrayColor]];
+        [[UIView appearanceWhenContainedIn:[self class], nil] setTintColor:[UIColor darkGrayColor]];
         [self addAction:action];
     }
     return self;

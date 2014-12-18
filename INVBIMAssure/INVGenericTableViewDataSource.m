@@ -43,8 +43,12 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     self = [super init];
     if (self) {
          self.fetchedResultsController = fetchedResultsController;
+         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.fetchedResultsController performFetch:nil];
+         });
+        
          self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
-        self.tableView = tableView;
+         self.tableView = tableView;
     }
     return self;
 }

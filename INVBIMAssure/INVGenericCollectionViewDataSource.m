@@ -32,6 +32,9 @@ const static NSString* INV_CellContextIdentifier = @"Identifier";
     self = [super init];
     if (self) {
         self.fetchedResultsController = resultsController;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.fetchedResultsController performFetch:nil];
+        });
         self.cellConfigContextArray = [[NSMutableArray alloc]initWithCapacity:0];
     }
     return self;
