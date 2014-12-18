@@ -178,6 +178,7 @@
 		F57D28181A3B7E7B00685F3F /* INVExecutionIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */; };
 		F57D28191A3B7E8800685F3F /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BD34101A38934500BFF101 /* libYajl.a */; };
+		F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455A1A41CAED00C6BE2E /* aptMG2.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -371,8 +372,9 @@
 		F57D28091A3B7C9A00685F3F /* INVSearchViewTagsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSearchViewTagsDataSource.h; sourceTree = "<group>"; };
 		F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchViewTagsDataSource.m; sourceTree = "<group>"; };
 		F57D28141A3B7DB200685F3F /* OpenCTM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OpenCTM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F57D281A1A3B8DCB00685F3F /* GLKBBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKBBox.h; sourceTree = "<group>"; };
+		F57D281A1A3B8DCB00685F3F /* GLKExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKExtensions.h; sourceTree = "<group>"; };
 		F5BD34101A38934500BFF101 /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../../../Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos/libYajl.a"; sourceTree = "<group>"; };
+		F5FA455A1A41CAED00C6BE2E /* aptMG2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aptMG2.json; sourceTree = "<group>"; };
 		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -657,6 +659,7 @@
 		F57D27E81A3B7C7200685F3F /* Model Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				F5FA455A1A41CAED00C6BE2E /* aptMG2.json */,
 				F57D27E91A3B7C7200685F3F /* ClassDump.m */,
 				F57D27EA1A3B7C7200685F3F /* fp16.c */,
 				F57D27EB1A3B7C7200685F3F /* INVModelViewerViewController.h */,
@@ -671,7 +674,7 @@
 				F57D27F41A3B7C7200685F3F /* INVStreamBasedJSONParser.m */,
 				F57D27F61A3B7C7200685F3F /* ModelViewer.vsh */,
 				F57D27F51A3B7C7200685F3F /* ModelViewer.fsh */,
-				F57D281A1A3B8DCB00685F3F /* GLKBBox.h */,
+				F57D281A1A3B8DCB00685F3F /* GLKExtensions.h */,
 			);
 			path = "Model Viewer";
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				F57D27FE1A3B7C7200685F3F /* ModelViewer.fsh in Resources */,
 				02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */,
 				0234D6311A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.xib in Resources */,
+				F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */,
 				021E85B519F81C61003E35E0 /* Main.storyboard in Resources */,
 				024BB6171A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
 				02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */,

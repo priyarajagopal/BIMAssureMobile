@@ -8,7 +8,7 @@
 
 #import "INVStreamBasedCTMParser.h"
 #import "INVStreamBasedJSONParser.h"
-#import "GLKBBox.h"
+#import "GLKExtensions.h"
 
 @import OpenCTM;
 @import GLKit;
@@ -41,6 +41,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     INVStreamBasedCTMParserGLESMesh *_opaqueMesh;
     INVStreamBasedCTMParserGLESMesh *_transparentMesh;
     
+    BOOL _isProcessingModels;
+    BOOL _isProcessingModelGeometry;
     BOOL _isProcessingSharedGeoms;
     BOOL _isProcessingElements;
     BOOL _isProcessingElementGeometries;
@@ -48,6 +50,9 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     BOOL _isProcessingBBox;
     
     NSString *_lastKey;
+    
+    NSString *_modelId;
+    NSString *_modelFileId;
     
     NSString *_elementId;
     NSNumber *_elementType;
@@ -93,9 +98,14 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
                withType:(NSNumber *) type
               andMatrix:(GLKMatrix4) matrix
                andColor:(NSNumber *) color
-                andBBox:(GLKBBox) bbox {
+                andBBox:(GLKBBox) bbox
+                  andId:(NSString *) id {
     if (color == nil) {
         color = @0xFFFFFF;
+    }
+    
+    if (id == nil) {
+        id = [[NSUUID UUID] UUIDString];
     }
     
     // NOTE: Support primtives other than triangles.
@@ -127,7 +137,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         BOOL success = [mesh appendCTMContext:context
                                withMatrix:matrix
                                  andColor:glkColor
-                            andBoundingBox:bbox];
+                            andBoundingBox:bbox
+                                    andId:id];
     
         if (success) {
             break;
@@ -140,7 +151,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
             CTMuint vertCount = ctmGetInteger(context, CTM_VERTEX_COUNT);
             CTMuint triCount = ctmGetInteger(context, CTM_TRIANGLE_COUNT);
             
-            NSLog(@"Failed to parse geometry with verts: %ui, tris: %ui", vertCount, triCount);
+            NSLog(@"Failed to parse geometry with verts: %u, tris: %u", vertCount, triCount);
             break;
         }
         
@@ -161,7 +172,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         _opaqueMesh = nil;
     }
     
-    [mesh printWastedSpace];
+    // [mesh printWastedSpace];
     
     if ([self.delegate respondsToSelector:@selector(streamBasedCTMParser:didCompleteMesh:shouldStop:)]) {
         BOOL shouldStop = NO;
@@ -213,7 +224,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
                          withType:type
                         andMatrix:_geometryMatrix
                          andColor:color
-                          andBBox:_geometryBBox];
+                          andBBox:_geometryBBox
+                            andId:_elementId];
         }
         
         return;
@@ -223,7 +235,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
                  withType:_geometryType
                 andMatrix:_geometryMatrix
                  andColor:_geometryColor
-                  andBBox:_geometryBBox];
+                  andBBox:_geometryBBox
+                    andId:_elementId];
 }
 
 -(void) _destroySharedGeoms {
@@ -245,6 +258,11 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
 }
 
 -(void) jsonParserDidStartObject:(INVStreamBasedJSONParser *)parser {
+    if (_isProcessingModels && [_lastKey isEqualToString:@"modelGeometry"]) {
+        _isProcessingModelGeometry = YES;
+    }
+    
+    
     _lastKey = nil;
 }
 
@@ -275,12 +293,18 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         }
         
         [self _destroySharedGeoms];
+        
+        _isProcessingModelGeometry = NO;
     }
     
     _lastKey = nil;
 }
 
 -(void) jsonParserDidStartArray:(INVStreamBasedJSONParser *)parser {
+    if ([_lastKey isEqualToString:@"models"]) {
+        _isProcessingModels = YES;
+    }
+    
     if ([_lastKey isEqualToString:@"sharedGeometries"]) {
         _isProcessingSharedGeoms = YES;
     }
@@ -315,6 +339,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         _isProcessingElements = NO;
     } else if (_isProcessingSharedGeoms) {
         _isProcessingSharedGeoms = NO;
+    } else if (_isProcessingModels) {
+        _isProcessingModels = NO;
     }
     
     _lastKey = nil;

@@ -24,11 +24,19 @@ void classDump(Class);
     INVStreamBasedCTMParserGLESCamera *_camera;
     
     NSMutableArray *_meshes;
+    NSMutableArray *_transparentMeshes;
     
     GLKBBox _overallBBox;
     
     GLKVector3 cameraPosition;
-    GLKVector3 lookAt;
+    GLKVector3 cameraDirection;
+    
+    GLKMatrix4 rotationMatrix;
+    
+    NSUInteger _vertexCount;
+    NSUInteger _triangleCount;
+    
+    BOOL _transparentEnabled;
 }
 
 @end
@@ -37,7 +45,10 @@ void classDump(Class);
 
 -(void) setupScene {
     // create and add a camera to the scene
+    _overallBBox = GLKBBoxEmpty;
     _meshes = [NSMutableArray new];
+    _transparentMeshes = [NSMutableArray new];
+    _transparentEnabled = YES;
     
     _camera = [INVStreamBasedCTMParserGLESCamera new];
     [_camera loadProgramNamed:@"ModelViewer"];
@@ -89,10 +100,43 @@ void classDump(Class);
     _ctmParser = [[INVStreamBasedCTMParser alloc] init];
     _ctmParser.delegate = self;
     
-    // NSURLRequest *request = [INVGlobalDataManager.sharedInstance.invServerClient requestToFetchModelViewForId:self.modelId];
-    NSURL *url = [NSURL URLWithString:@"http://richards-macbook-pro.local/progressive/office/office_mg2.json"];
+    /*
+    _overallBBox = GLKBBoxMake(
+        GLKVector3Make(15.8181,-264.09,1000.8),
+        GLKVector3Make(1128.38,3654.2,1116.8)
+    );
+     */
     
-    [_ctmParser process:url];
+    /*
+    _overallBBox = GLKBBoxMake(
+        GLKVector3Make(-426.808,-291.553,-0.1),
+        GLKVector3Make(801.192,564.447,313.167)
+    );
+     */
+    
+    /*
+    int modelCount = 16;
+    NSString *urlBase = @"http://richards-macbook-pro.local/progressive/apartment/apartment_%i.json";
+    
+    for (int modelIndex = 0; modelIndex <= modelCount; modelIndex++) {
+        [_ctmParser process:[NSURL URLWithString:[NSString stringWithFormat:urlBase, modelIndex]]];
+    }
+     */
+    
+    /*
+    int modelCount = 16;
+    NSString *urlBase = @"http://richards-macbook-pro.local/progressive/apartment/apartment_%i.json";
+     
+    for (int modelIndex = 0; modelIndex <= modelCount; modelIndex++) {
+        [_ctmParser process:[NSURL URLWithString:[NSString stringWithFormat:urlBase, modelIndex]]];
+    }
+     */
+    
+    // NSInputStream *inputStream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle] pathForResource:@"aptMG2" ofType:@"json"]];
+    // [_ctmParser process:inputStream];
+    
+    [_ctmParser process:[[INVGlobalDataManager sharedInstance].invServerClient requestToFetchModelViewForId:self.modelId]];
+    // [_ctmParser process:[NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/samplehouse-new.json"]];
 }
 
 -(void) viewDidLoad {
@@ -113,36 +157,35 @@ void classDump(Class);
     _camera.projectionTransform = GLKMatrix4Translate(_camera.projectionTransform, -mid.x, -mid.y, -mid.z - 150);
     _camera.projectionTransform = GLKMatrix4Rotate(_camera.projectionTransform, M_PI / 2, 1, 0, 0);
     */
+    
+    GLKVector3 projectedPosition = GLKVector3Make(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+    projectedPosition = GLKVector3Add(projectedPosition, cameraDirection);
 
     _camera.projectionTransform = GLKMatrix4Multiply(
         GLKMatrix4MakePerspective(55, aspect, 1, 10000),
         GLKMatrix4MakeLookAt(
             cameraPosition.x, cameraPosition.y, cameraPosition.z,
-            lookAt.x, lookAt.y, lookAt.z,
+            projectedPosition.x, projectedPosition.y, projectedPosition.z,
             0, 0, -1
         )
     );
+    
+    _camera.modelViewTransform = rotationMatrix;
 }
 
 -(void) _resetCamera {
     GLKVector3 mid = GLKBBoxCenter(_overallBBox);
-    GLKVector3 size = GLKBBoxSize(_overallBBox);
-    float distance = GLKVector3Length(size) * 1.2f;
+    // GLKVector3 size = GLKBBoxSize(_overallBBox);
+    // float distance = GLKVector3Length(size) * 0.5f;
     
-    cameraPosition = GLKVector3Make(100, -100, 10);
-    lookAt = GLKVector3Make(0, 0, 0);
+    cameraPosition = GLKVector3Make(mid.x, mid.y - 250, mid.z);
+    GLKVector3 lookAt = cameraPosition;
+    lookAt.y += 1;
     
-    GLKVector3 direction = GLKVector3Normalize(GLKVector3Subtract(cameraPosition, lookAt));
-    cameraPosition = GLKVector3Make(
-        mid.x + direction.x * distance,
-        mid.y + direction.y * distance,
-        mid.z + direction.z * distance
-    );
-    
-    lookAt = mid;
-    
-    _camera.modelViewTransform = GLKMatrix4Identity;
+    cameraDirection = GLKVector3Subtract(lookAt, cameraPosition);
+    rotationMatrix = GLKMatrix4Identity;
 }
+
 -(void) glkView:(GLKView *)view drawInRect:(CGRect)rect {
     glClearColor(1, 1, 1, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -152,6 +195,16 @@ void classDump(Class);
     for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
         [mesh draw];
     }
+    
+    if (_transparentEnabled) {
+        glDepthMask(GL_FALSE);
+    
+        for (INVStreamBasedCTMParserGLESMesh *mesh in _transparentMeshes) {
+            [mesh draw];
+        }
+    
+        glDepthMask(GL_TRUE);
+    }
 }
 
 -(void) streamBasedCTMParser:(INVStreamBasedCTMParser *)parser
@@ -160,9 +213,22 @@ void classDump(Class);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_overallBBox = GLKBBoxUnion(self->_overallBBox, mesh.boundingBox);
+        self->_overallBBox.min.z = fmaxf(self->_overallBBox.min.z, 0);
         
-        [self _resetCamera];
-        [self->_meshes addObject:mesh];
+        self->_vertexCount += [mesh vertexCount];
+        self->_triangleCount += [mesh triangleCount];
+        
+        NSLog(@"Currently: %10lu verts, %10lu tris.", (unsigned long)self->_vertexCount, (unsigned long)self->_triangleCount);
+        
+        if ([self->_meshes count] == 0) {
+            [self _resetCamera];
+        }
+        
+        if (mesh.transparent) {
+            [self->_transparentMeshes addObject:mesh];
+        } else {
+            [self->_meshes addObject:mesh];
+        }
     });
 }
 
@@ -175,10 +241,28 @@ void classDump(Class);
         CGPoint lastPoint = [touch previousLocationInView:self.view];
         CGPoint newPoint = [touch locationInView:self.view];
     
-        float changedX = newPoint.x - lastPoint.y;
-        float changedY = newPoint.y - lastPoint.y;
+        float changedX = (newPoint.x - lastPoint.x) / 1000;
+        float changedY = (newPoint.y - lastPoint.y) / 1000;
         
-        _camera.modelViewTransform = GLKMatrix4Rotate(_camera.modelViewTransform, 0.05, changedX, changedY, 0);
+        GLKVector3 camera = GLKVector3Make(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        camera = GLKMatrix4MultiplyAndProjectVector3(GLKMatrix4Invert(_camera.projectionTransform, NULL), camera);
+        
+        rotationMatrix = GLKMatrix4Multiply(
+            GLKMatrix4Translate(
+                GLKMatrix4Rotate(
+                    GLKMatrix4MakeTranslation(-camera.x, camera.y, -camera.z),
+                    0.05, -changedY, 0, -changedX
+                ),
+                camera.x, -camera.y, camera.z
+            ),
+            rotationMatrix
+        );
+         
+        // cameraDirection.x += cosf(changedX);
+        // cameraDirection.y += tanf(changedX);
+        
+        // cameraDirection.x += changedX / 1000;
+        // cameraDirection.y += changedY / 1000;
     }
     if (touches.count == 2) {
         UITouch *touch1 = [touches allObjects][0];
@@ -201,9 +285,10 @@ void classDump(Class);
         );
         
         float sign = distance > lastDistance ? 1 : -1;
-        float scale = sign * (fabs(lastDistance -  distance)) * 0.5;
+        float scale = sign * (fabs(lastDistance -  distance)) * 0.25;
         
         GLKVector3 change = GLKVector3Make(0, scale, 0);
+        //change = GLKVector3Multiply(change, cameraDirection);
 
         cameraPosition = GLKVector3Add(cameraPosition, change);
     }
@@ -218,6 +303,7 @@ void classDump(Class);
         float changedY = newPoint.y - lastPoint.y;
         
         GLKVector3 change = GLKVector3Make(-changedX / 4, 0, changedY / 4);
+        //change = GLKVector3Multiply(change, cameraDirection);
         
         cameraPosition = GLKVector3Add(cameraPosition, change);
     }
@@ -229,6 +315,57 @@ void classDump(Class);
     if (touch.tapCount == 3) {
         [self _resetCamera];
     }
+    
+    if (touch.tapCount == 2) {
+        // Do a raycast
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
+        
+        float xNormalized = ((2 * touchPoint.x) / self.view.bounds.size.width) - 1;
+        float yNormalized = ((2 * touchPoint.y) / self.view.bounds.size.height) - 1;
+        
+        GLKVector3 normalizedDeviceCoords = GLKVector3Make(xNormalized, yNormalized, 1);
+        GLKVector4 rayClipCoordinates = GLKVector4Make(normalizedDeviceCoords.x, normalizedDeviceCoords.y, -1, 1);
+        
+        GLKVector4 rayEyeCoordinates = GLKMatrix4MultiplyVector4(GLKMatrix4Invert(_camera.projectionTransform, NULL), rayClipCoordinates);
+        rayEyeCoordinates.z = 1;
+        rayEyeCoordinates.w = 0;
+        
+        GLKVector4 rayWorldCoordinates = GLKMatrix4MultiplyVector4(GLKMatrix4Invert(_camera.modelViewTransform, NULL), rayEyeCoordinates);
+        GLKVector3 rayDirection = GLKVector3Normalize(GLKVector3Make(rayWorldCoordinates.x, rayWorldCoordinates.y, rayWorldCoordinates.z));
+        
+        GLKVector3 camera = cameraPosition;
+        
+        camera = GLKMatrix4MultiplyAndProjectVector3(GLKMatrix4Invert(_camera.projectionTransform, NULL), camera);
+        camera = GLKMatrix4MultiplyVector3WithTranslation(GLKMatrix4Invert(_camera.modelViewTransform, NULL), camera);
+        
+        // Now do a ray-cast.
+        for (INVStreamBasedCTMParserGLESMesh *mesh in [_meshes arrayByAddingObjectsFromArray:_transparentMeshes]) {
+            NSString *elementId = [mesh elementIdOfElementInterceptingRay:camera direction:rayDirection];
+            
+            if (elementId) {
+                [mesh setColorOfElementWithId:elementId withColor:GLKVector4Make(1, 0, 1, 1)];
+                NSLog(@"%@", elementId);
+            }
+        }
+    }
+}
+
+-(IBAction) toggleSidebar:(id)sender {
+}
+
+-(IBAction) goHome:(id)sender {
+    [self _resetCamera];
+}
+
+
+-(IBAction) toggleShadow:(id)sender {
+}
+
+-(IBAction) toggleGlass:(id)sender {
+    _transparentEnabled = !_transparentEnabled;
+}
+
+-(IBAction) toggleVisible:(id)sender {
 }
 
 @end
