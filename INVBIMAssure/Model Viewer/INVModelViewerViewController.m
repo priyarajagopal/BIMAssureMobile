@@ -35,6 +35,8 @@ void classDump(Class);
     
     NSUInteger _vertexCount;
     NSUInteger _triangleCount;
+    
+    BOOL _transparentEnabled;
 }
 
 @end
@@ -46,6 +48,7 @@ void classDump(Class);
     _overallBBox = GLKBBoxEmpty;
     _meshes = [NSMutableArray new];
     _transparentMeshes = [NSMutableArray new];
+    _transparentEnabled = YES;
     
     _camera = [INVStreamBasedCTMParserGLESCamera new];
     [_camera loadProgramNamed:@"ModelViewer"];
@@ -120,20 +123,19 @@ void classDump(Class);
     }
      */
     
-    
     /*
     int modelCount = 16;
-     NSString *urlBase = @"http://richards-macbook-pro.local/progressive/apartment/apartment_%i.json";
+    NSString *urlBase = @"http://richards-macbook-pro.local/progressive/apartment/apartment_%i.json";
      
-     for (int modelIndex = 0; modelIndex <= modelCount; modelIndex++) {
-         [_ctmParser process:[NSURL URLWithString:[NSString stringWithFormat:urlBase, modelIndex]]];
-     }
+    for (int modelIndex = 0; modelIndex <= modelCount; modelIndex++) {
+        [_ctmParser process:[NSURL URLWithString:[NSString stringWithFormat:urlBase, modelIndex]]];
+    }
      */
     
-    NSInputStream *inputStream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle] pathForResource:@"aptMG2" ofType:@"json"]];
+    // NSInputStream *inputStream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle] pathForResource:@"aptMG2" ofType:@"json"]];
+    // [_ctmParser process:inputStream];
     
-    [_ctmParser process:inputStream];
-    // [_ctmParser process:[NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/samplehouse.json"]];
+    [_ctmParser process:[NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/samplehouse-new.json"]];
 }
 
 -(void) viewDidLoad {
@@ -189,19 +191,19 @@ void classDump(Class);
     
     [_camera bindProgram];
     
-    glDepthMask(GL_TRUE);
-    
     for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
         [mesh draw];
     }
     
-    glDepthMask(GL_FALSE);
+    if (_transparentEnabled) {
+        glDepthMask(GL_FALSE);
     
-    for (INVStreamBasedCTMParserGLESMesh *mesh in _transparentMeshes) {
-        [mesh draw];
+        for (INVStreamBasedCTMParserGLESMesh *mesh in _transparentMeshes) {
+            [mesh draw];
+        }
+    
+        glDepthMask(GL_TRUE);
     }
-    
-    glDepthMask(GL_TRUE);
 }
 
 -(void) streamBasedCTMParser:(INVStreamBasedCTMParser *)parser
@@ -217,14 +219,9 @@ void classDump(Class);
         
         NSLog(@"Currently: %10lu verts, %10lu tris.", (unsigned long)self->_vertexCount, (unsigned long)self->_triangleCount);
         
-        if (self->_vertexCount >= 4956024) {
-            self.navigationItem.title = @"Complete";
-        }
-        
         if ([self->_meshes count] == 0) {
             [self _resetCamera];
         }
-        
         
         if (mesh.transparent) {
             [self->_transparentMeshes addObject:mesh];
@@ -249,7 +246,6 @@ void classDump(Class);
         GLKVector3 camera = GLKVector3Make(cameraPosition.x, cameraPosition.y, cameraPosition.z);
         camera = GLKMatrix4MultiplyAndProjectVector3(GLKMatrix4Invert(_camera.projectionTransform, NULL), camera);
         
-        /*
         rotationMatrix = GLKMatrix4Multiply(
             GLKMatrix4Translate(
                 GLKMatrix4Rotate(
@@ -260,8 +256,7 @@ void classDump(Class);
             ),
             rotationMatrix
         );
-         */
-        
+         
         // cameraDirection.x += cosf(changedX);
         // cameraDirection.y += tanf(changedX);
         
@@ -331,25 +326,45 @@ void classDump(Class);
         GLKVector4 rayClipCoordinates = GLKVector4Make(normalizedDeviceCoords.x, normalizedDeviceCoords.y, -1, 1);
         
         GLKVector4 rayEyeCoordinates = GLKMatrix4MultiplyVector4(GLKMatrix4Invert(_camera.projectionTransform, NULL), rayClipCoordinates);
-        rayEyeCoordinates.z = -1;
+        rayEyeCoordinates.z = 1;
         rayEyeCoordinates.w = 0;
         
         GLKVector4 rayWorldCoordinates = GLKMatrix4MultiplyVector4(GLKMatrix4Invert(_camera.modelViewTransform, NULL), rayEyeCoordinates);
         GLKVector3 rayDirection = GLKVector3Normalize(GLKVector3Make(rayWorldCoordinates.x, rayWorldCoordinates.y, rayWorldCoordinates.z));
         
-        GLKVector3 rayPosition = cameraPosition;
-        rayPosition = GLKMatrix4MultiplyVector3WithTranslation(GLKMatrix4Invert(_camera.modelViewTransform, NULL), rayPosition);
+        GLKVector3 camera = cameraPosition;
         
-        /*
+        camera = GLKMatrix4MultiplyAndProjectVector3(GLKMatrix4Invert(_camera.projectionTransform, NULL), camera);
+        camera = GLKMatrix4MultiplyVector3WithTranslation(GLKMatrix4Invert(_camera.modelViewTransform, NULL), camera);
+        
         // Now do a ray-cast.
-        for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
-            NSString *elementId = [mesh elementIdOfElementInterceptingRay:rayPosition direction:rayDirection];
+        for (INVStreamBasedCTMParserGLESMesh *mesh in [_meshes arrayByAddingObjectsFromArray:_transparentMeshes]) {
+            NSString *elementId = [mesh elementIdOfElementInterceptingRay:camera direction:rayDirection];
             
-            // [mesh setColorOfElementWithId:elementId withColor:GLKVector4Make(1, 0, 1, 1)];
-            // NSLog(@"%@", elementId);
+            if (elementId) {
+                [mesh setColorOfElementWithId:elementId withColor:GLKVector4Make(1, 0, 1, 1)];
+                NSLog(@"%@", elementId);
+            }
         }
-         */
     }
+}
+
+-(IBAction) toggleSidebar:(id)sender {
+}
+
+-(IBAction) goHome:(id)sender {
+    [self _resetCamera];
+}
+
+
+-(IBAction) toggleShadow:(id)sender {
+}
+
+-(IBAction) toggleGlass:(id)sender {
+    _transparentEnabled = !_transparentEnabled;
+}
+
+-(IBAction) toggleVisible:(id)sender {
 }
 
 @end

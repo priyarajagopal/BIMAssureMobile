@@ -41,6 +41,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     INVStreamBasedCTMParserGLESMesh *_opaqueMesh;
     INVStreamBasedCTMParserGLESMesh *_transparentMesh;
     
+    BOOL _isProcessingModels;
+    BOOL _isProcessingModelGeometry;
     BOOL _isProcessingSharedGeoms;
     BOOL _isProcessingElements;
     BOOL _isProcessingElementGeometries;
@@ -48,6 +50,9 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     BOOL _isProcessingBBox;
     
     NSString *_lastKey;
+    
+    NSString *_modelId;
+    NSString *_modelFileId;
     
     NSString *_elementId;
     NSNumber *_elementType;
@@ -253,6 +258,11 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
 }
 
 -(void) jsonParserDidStartObject:(INVStreamBasedJSONParser *)parser {
+    if (_isProcessingModels && [_lastKey isEqualToString:@"modelGeometry"]) {
+        _isProcessingModelGeometry = YES;
+    }
+    
+    
     _lastKey = nil;
 }
 
@@ -283,12 +293,18 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         }
         
         [self _destroySharedGeoms];
+        
+        _isProcessingModelGeometry = NO;
     }
     
     _lastKey = nil;
 }
 
 -(void) jsonParserDidStartArray:(INVStreamBasedJSONParser *)parser {
+    if ([_lastKey isEqualToString:@"models"]) {
+        _isProcessingModels = YES;
+    }
+    
     if ([_lastKey isEqualToString:@"sharedGeometries"]) {
         _isProcessingSharedGeoms = YES;
     }
@@ -323,6 +339,8 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
         _isProcessingElements = NO;
     } else if (_isProcessingSharedGeoms) {
         _isProcessingSharedGeoms = NO;
+    } else if (_isProcessingModels) {
+        _isProcessingModels = NO;
     }
     
     _lastKey = nil;

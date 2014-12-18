@@ -223,7 +223,7 @@ struct __attribute__((packed)) index_struct {
     meshElement.vertexRange = NSMakeRange(oldVertexEnd, ctmVertexCount);
     meshElement.indexRange = NSMakeRange(oldIndexEnd, ctmIndexCount);
     
-    BOOL usingManualBBox = NO;
+    BOOL usingManualBBox = YES;
     // _boundingBox = GLKBBoxUnion(_boundingBox, boundingBox);
     
     if (!usingManualBBox) {
