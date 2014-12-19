@@ -184,6 +184,7 @@
 				TargetAttributes = {
 					F548D47C1A1CE7DB00503F2F = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = EP9R7952XB;
 					};
 				};
 			};
@@ -323,6 +324,7 @@
 		F548D4941A1CE7DB00503F2F /* Dev */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -338,6 +340,7 @@
 		F548D4951A1CE7DB00503F2F /* Prod */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -392,6 +395,7 @@
 		F5FA456F1A447D8200C6BE2E /* QA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
