@@ -172,14 +172,16 @@
 		F57D280D1A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D28061A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.m */; };
 		F57D280E1A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D28081A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m */; };
 		F57D280F1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */; };
-		F57D28151A3B7DB200685F3F /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; };
-		F57D28161A3B7DB200685F3F /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F57D28171A3B7E7B00685F3F /* INVRuleExecutionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAF71A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m */; };
 		F57D28181A3B7E7B00685F3F /* INVExecutionIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */; };
 		F57D28191A3B7E8800685F3F /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
-		F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BD34101A38934500BFF101 /* libYajl.a */; };
 		F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455A1A41CAED00C6BE2E /* aptMG2.json */; };
 		F5FA455D1A4463D900C6BE2E /* Startup.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455C1A4463D900C6BE2E /* Startup.json */; };
+		F5FA45691A447D2000C6BE2E /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FA45681A447D2000C6BE2E /* libYajl.a */; };
+		F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; };
+		F5FA456B1A447D3200C6BE2E /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F5FA45721A44812100C6BE2E /* ServerConfig-Prod.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5FA45701A44812100C6BE2E /* ServerConfig-Prod.xcconfig */; };
+		F5FA45731A44812100C6BE2E /* ServerConfig-QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5FA45711A44812100C6BE2E /* ServerConfig-QA.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,7 +202,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				029080711A43576C00B39F48 /* EmpireMobileManager.framework in Embed Frameworks */,
-				F57D28161A3B7DB200685F3F /* OpenCTM.framework in Embed Frameworks */,
+				F5FA456B1A447D3200C6BE2E /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,7 +285,7 @@
 		0278206B1A1A98EF00BDAA5E /* Visualize.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Visualize.html; sourceTree = "<group>"; };
 		029080501A41C76100B39F48 /* UIAlertController+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+INVCustomizations.h"; sourceTree = "<group>"; };
 		029080511A41C76100B39F48 /* UIAlertController+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+INVCustomizations.m"; sourceTree = "<group>"; };
-		0290806D1A43575F00B39F48 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		0290806D1A43575F00B39F48 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = INVBIMAssure/EmpireMobileManager.framework; sourceTree = "<group>"; };
 		02A07F751A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionsTableViewController.h; sourceTree = "<group>"; };
 		02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionsTableViewController.m; sourceTree = "<group>"; };
 		02A07F831A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionTableViewCell.h; sourceTree = "<group>"; };
@@ -374,9 +376,12 @@
 		F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchViewTagsDataSource.m; sourceTree = "<group>"; };
 		F57D28141A3B7DB200685F3F /* OpenCTM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OpenCTM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57D281A1A3B8DCB00685F3F /* GLKExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKExtensions.h; sourceTree = "<group>"; };
-		F5BD34101A38934500BFF101 /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../../../Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F5FA455A1A41CAED00C6BE2E /* aptMG2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aptMG2.json; sourceTree = "<group>"; };
 		F5FA455C1A4463D900C6BE2E /* Startup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Startup.json; sourceTree = "<group>"; };
+		F5FA45671A44768700C6BE2E /* ServerConfig-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ServerConfig-Dev.xcconfig"; sourceTree = "<group>"; };
+		F5FA45681A447D2000C6BE2E /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../../../Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Release-iphoneos/libYajl.a"; sourceTree = "<group>"; };
+		F5FA45701A44812100C6BE2E /* ServerConfig-Prod.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ServerConfig-Prod.xcconfig"; sourceTree = "<group>"; };
+		F5FA45711A44812100C6BE2E /* ServerConfig-QA.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ServerConfig-QA.xcconfig"; sourceTree = "<group>"; };
 		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -385,10 +390,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */,
+				F5FA45691A447D2000C6BE2E /* libYajl.a in Frameworks */,
 				2613D0D477436CAA743E8B1F /* libPods.a in Frameworks */,
 				029080701A43576C00B39F48 /* EmpireMobileManager.framework in Frameworks */,
-				F57D28151A3B7DB200685F3F /* OpenCTM.framework in Frameworks */,
+				F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,7 +522,7 @@
 		02C8844E19E317E900DFB4E2 = {
 			isa = PBXGroup;
 			children = (
-				F57D28141A3B7DB200685F3F /* OpenCTM.framework */,
+				F5FA45741A44816700C6BE2E /* Build Configuration */,
 				021E85BA19F825F2003E35E0 /* Localizable.strings */,
 				02C8845919E317E900DFB4E2 /* INVBIMAssure */,
 				02C8847319E317E900DFB4E2 /* INVBIMAssureTests */,
@@ -545,7 +550,6 @@
 				02C8846419E317E900DFB4E2 /* Main.storyboard */,
 				02C8846719E317E900DFB4E2 /* Images.xcassets */,
 				02C8846919E317E900DFB4E2 /* LaunchScreen.xib */,
-				0290806D1A43575F00B39F48 /* EmpireMobileManager.framework */,
 				02C8845A19E317E900DFB4E2 /* Supporting Files */,
 			);
 			path = INVBIMAssure;
@@ -643,7 +647,9 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F5BD34101A38934500BFF101 /* libYajl.a */,
+				0290806D1A43575F00B39F48 /* EmpireMobileManager.framework */,
+				F57D28141A3B7DB200685F3F /* OpenCTM.framework */,
+				F5FA45681A447D2000C6BE2E /* libYajl.a */,
 				021E85B319F81C30003E35E0 /* MessageUI.framework */,
 				5ACB782AED9709E7884D7905 /* libPods.a */,
 			);
@@ -697,6 +703,16 @@
 				F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */,
 			);
 			path = search;
+			sourceTree = "<group>";
+		};
+		F5FA45741A44816700C6BE2E /* Build Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				F5FA45701A44812100C6BE2E /* ServerConfig-Prod.xcconfig */,
+				F5FA45711A44812100C6BE2E /* ServerConfig-QA.xcconfig */,
+				F5FA45671A44768700C6BE2E /* ServerConfig-Dev.xcconfig */,
+			);
+			name = "Build Configuration";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -801,8 +817,10 @@
 				F57D27FF1A3B7C7200685F3F /* ModelViewer.vsh in Resources */,
 				0249AAE71A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */,
 				0278206C1A1A98EF00BDAA5E /* Visualize_files in Resources */,
+				F5FA45731A44812100C6BE2E /* ServerConfig-QA.xcconfig in Resources */,
 				021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */,
 				024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */,
+				F5FA45721A44812100C6BE2E /* ServerConfig-Prod.xcconfig in Resources */,
 				0234D62A1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
 				F57D280C1A3B7C9A00685F3F /* INVSearchView.xib in Resources */,
@@ -1087,8 +1105,9 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		02C8847819E317E900DFB4E2 /* Debug */ = {
+		F5FA455E1A4475CB00C6BE2E /* Dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5FA45671A44768700C6BE2E /* ServerConfig-Dev.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -1130,10 +1149,97 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
-			name = Debug;
+			name = Dev;
 		};
-		02C8847919E317E900DFB4E2 /* Release */ = {
+		F5FA455F1A4475CB00C6BE2E /* Dev */ = {
 			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-gbvmecfcolpuvqdmruccmipspnyw/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-eoyknibvjliuhwfeyrwvlgcvoxqk/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)/INVBIMAssure",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
+				INFOPLIST_FILE = INVBIMAssure/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PROJECT_DIR}/**",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Release-iphoneos",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
+			};
+			name = Dev;
+		};
+		F5FA45601A4475CB00C6BE2E /* Dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)/INVBIMAssure/**",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/INVBIMAssure",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = INVBIMAssureTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
+			};
+			name = Dev;
+		};
+		F5FA45611A4475DE00C6BE2E /* Prod */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5FA45701A44812100C6BE2E /* ServerConfig-Prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -1169,11 +1275,10 @@
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Prod;
 		};
-		02C8847B19E317E900DFB4E2 /* Debug */ = {
+		F5FA45621A4475DE00C6BE2E /* Prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A24123BCDF1407EC573B44A9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -1193,6 +1298,7 @@
 					"$(inherited)",
 					"${PROJECT_DIR}/**",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Release-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1226,11 +1332,75 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
 			};
-			name = Debug;
+			name = Prod;
 		};
-		02C8847C19E317E900DFB4E2 /* Release */ = {
+		F5FA45631A4475DE00C6BE2E /* Prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20CB161BD4FAECBBC93BEBAC /* Pods.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)/INVBIMAssure/**",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/INVBIMAssure",
+				);
+				INFOPLIST_FILE = INVBIMAssureTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
+			};
+			name = Prod;
+		};
+		F5FA45641A4475E300C6BE2E /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5FA45711A44812100C6BE2E /* ServerConfig-QA.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = QA;
+		};
+		F5FA45651A4475E300C6BE2E /* QA */ = {
+			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -1250,6 +1420,7 @@
 					"$(inherited)",
 					"${PROJECT_DIR}/**",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Release-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1283,41 +1454,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
 			};
-			name = Release;
+			name = QA;
 		};
-		02C8847E19E317E900DFB4E2 /* Debug */ = {
+		F5FA45661A4475E300C6BE2E /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A24123BCDF1407EC573B44A9 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(PROJECT_DIR)/**",
-					"$(PROJECT_DIR)/INVBIMAssure/**",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/INVBIMAssure",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = INVBIMAssureTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/**",
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
-				);
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
-			};
-			name = Debug;
-		};
-		02C8847F19E317E900DFB4E2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20CB161BD4FAECBBC93BEBAC /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1339,7 +1479,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
 			};
-			name = Release;
+			name = QA;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1347,29 +1487,32 @@
 		02C8845219E317E900DFB4E2 /* Build configuration list for PBXProject "INVBIMAssure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				02C8847819E317E900DFB4E2 /* Debug */,
-				02C8847919E317E900DFB4E2 /* Release */,
+				F5FA455E1A4475CB00C6BE2E /* Dev */,
+				F5FA45641A4475E300C6BE2E /* QA */,
+				F5FA45611A4475DE00C6BE2E /* Prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Dev;
 		};
 		02C8847A19E317E900DFB4E2 /* Build configuration list for PBXNativeTarget "INVBIMAssure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				02C8847B19E317E900DFB4E2 /* Debug */,
-				02C8847C19E317E900DFB4E2 /* Release */,
+				F5FA455F1A4475CB00C6BE2E /* Dev */,
+				F5FA45651A4475E300C6BE2E /* QA */,
+				F5FA45621A4475DE00C6BE2E /* Prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Dev;
 		};
 		02C8847D19E317E900DFB4E2 /* Build configuration list for PBXNativeTarget "INVBIMAssureTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				02C8847E19E317E900DFB4E2 /* Debug */,
-				02C8847F19E317E900DFB4E2 /* Release */,
+				F5FA45601A4475CB00C6BE2E /* Dev */,
+				F5FA45661A4475E300C6BE2E /* QA */,
+				F5FA45631A4475DE00C6BE2E /* Prod */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Dev;
 		};
 /* End XCConfigurationList section */
 	};

@@ -11,7 +11,13 @@
 
 // NOTE: Using http rather than https as our SSL certs aren't properly set-up for this subdomain.
 #define CONFIG_URL @"http://com.invicara.empire.dev-td.us-west-2.s3-us-west-2.amazonaws.com/System/Config/Startup.json?AWSAccessKeyId=AKIAIHLRHQHYGULUVRSA&Expires=1611118800&Signature=ok6Sk%2FBxOxw2ME92ak3c6jMwUss%3D"
-#define DEPLOY_NAME nil
+#define _STRINGIFY(str) #str
+#define STRINGIFY(str) _STRINGIFY(str)
+
+#ifndef INV_DEPLOYMENT_NAME
+#warning Deployment name not set!
+#define INV_DEPLOYMENT_NAME nil
+#endif
 
 static BOOL getConfigFromURL(NSURL *url, NSString *__autoreleasing * passportServerUrl, NSString *__autoreleasing * empireManageServerUrl) {
     NSData *configData = [NSData dataWithContentsOfURL:url];
@@ -20,18 +26,29 @@ static BOOL getConfigFromURL(NSURL *url, NSString *__autoreleasing * passportSer
     }
     
     NSDictionary *jsonConfig = [NSJSONSerialization JSONObjectWithData:configData options:0 error:NULL];
-    NSString *deployName = DEPLOY_NAME ?: jsonConfig[@"defaultdeploy"];
+
+    NSString *deployName = @STRINGIFY(INV_DEPLOYMENT_NAME);
+    NSString *defaultDeployName = jsonConfig[@"defaultdeploy"];
+    
+    NSDictionary *defaultDeploy = nil;
     NSDictionary *selectedDeploy = nil;
     
     for (NSDictionary *deploy in jsonConfig[@"deploys"] ) {
         if ([deployName isEqual:deploy[@"name"]]) {
             selectedDeploy = deploy;
-            break;
+        }
+        
+        if ([defaultDeployName isEqual:deploy[@"name"]]) {
+            defaultDeploy = deploy;
         }
     }
     
     if (selectedDeploy == nil) {
-        return NO;
+        if (defaultDeploy == nil) {
+            return NO;
+        }
+        
+        selectedDeploy = defaultDeploy;
     }
     
     if (passportServerUrl) {
