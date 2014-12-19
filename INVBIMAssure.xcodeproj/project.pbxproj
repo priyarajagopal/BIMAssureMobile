@@ -157,6 +157,11 @@
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		2613D0D477436CAA743E8B1F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ACB782AED9709E7884D7905 /* libPods.a */; };
+		D2CB67051A44C98A003FE3CA /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67011A44C98A003FE3CA /* libPods-FontAwesomeKit.a */; };
+		D2CB67061A44C98A003FE3CA /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67021A44C98A003FE3CA /* libPods-FrameAccessor.a */; };
+		D2CB67071A44C98A003FE3CA /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67031A44C98A003FE3CA /* libPods-MBProgressHUD.a */; };
+		D2CB67081A44C98A003FE3CA /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67041A44C98A003FE3CA /* libPods-VENTokenField.a */; };
+		D2CB670A1A44C98E003FE3CA /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67091A44C98E003FE3CA /* libYajl.a */; };
 		DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCFAB6FC8A404E1594DB60D5 /* libPods.a */; };
 		F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27E91A3B7C7200685F3F /* ClassDump.m */; };
 		F57D27F81A3B7C7200685F3F /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EA1A3B7C7200685F3F /* fp16.c */; };
@@ -350,6 +355,11 @@
 		20CB161BD4FAECBBC93BEBAC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		5ACB782AED9709E7884D7905 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24123BCDF1407EC573B44A9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D2CB67011A44C98A003FE3CA /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Dev-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
+		D2CB67021A44C98A003FE3CA /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "Pods/build/Dev-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
+		D2CB67031A44C98A003FE3CA /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Dev-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
+		D2CB67041A44C98A003FE3CA /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Dev-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
+		D2CB67091A44C98E003FE3CA /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Library/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F57D27E91A3B7C7200685F3F /* ClassDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDump.m; sourceTree = "<group>"; };
 		F57D27EA1A3B7C7200685F3F /* fp16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp16.c; sourceTree = "<group>"; };
 		F57D27EB1A3B7C7200685F3F /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
@@ -401,6 +411,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2CB670A1A44C98E003FE3CA /* libYajl.a in Frameworks */,
+				D2CB67051A44C98A003FE3CA /* libPods-FontAwesomeKit.a in Frameworks */,
+				D2CB67061A44C98A003FE3CA /* libPods-FrameAccessor.a in Frameworks */,
+				D2CB67071A44C98A003FE3CA /* libPods-MBProgressHUD.a in Frameworks */,
+				D2CB67081A44C98A003FE3CA /* libPods-VENTokenField.a in Frameworks */,
 				0290806F1A43575F00B39F48 /* EmpireMobileManager.framework in Frameworks */,
 				DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */,
 			);
@@ -647,6 +662,11 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2CB67091A44C98E003FE3CA /* libYajl.a */,
+				D2CB67011A44C98A003FE3CA /* libPods-FontAwesomeKit.a */,
+				D2CB67021A44C98A003FE3CA /* libPods-FrameAccessor.a */,
+				D2CB67031A44C98A003FE3CA /* libPods-MBProgressHUD.a */,
+				D2CB67041A44C98A003FE3CA /* libPods-VENTokenField.a */,
 				0290806D1A43575F00B39F48 /* EmpireMobileManager.framework */,
 				F57D28141A3B7DB200685F3F /* OpenCTM.framework */,
 				F5FA45681A447D2000C6BE2E /* libYajl.a */,
@@ -1230,6 +1250,8 @@
 					"$(PROJECT_DIR)/**",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Pods/build/Dev-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1352,6 +1374,8 @@
 					"$(PROJECT_DIR)/**",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Pods/build/Dev-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1474,6 +1498,8 @@
 					"$(PROJECT_DIR)/**",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Pods/build/Dev-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
