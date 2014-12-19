@@ -45,6 +45,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
 
     self.tableView.allowsSelectionDuringEditing = NO;
+     [self.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
 }
 
 - (void)didReceiveMemoryWarning {

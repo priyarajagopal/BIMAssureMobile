@@ -135,14 +135,12 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 
          UINavigationController* navController = projectDetailsController.viewControllers[TABINDEX_PROJECT_FILES];
          INVProjectFilesListViewController* fileListController = (INVProjectFilesListViewController*) navController.topViewController;
-         [fileListController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
-
+    
          fileListController.projectId = project.projectId;
          
          UINavigationController* rsNavController = projectDetailsController.viewControllers[TABINDEX_PROJECT_RULESETS];;
          INVRulesListViewController* ruleSetController = (INVRulesListViewController*) rsNavController.topViewController;
-         [ruleSetController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
-         
+          
          ruleSetController.projectId = project.projectId;
          /*
          UINavigationController* reNavController = projectDetailsController.viewControllers[TABINDEX_PROJECT_RULEEXECUTIONS];;
