@@ -179,6 +179,7 @@
 		F57D28191A3B7E8800685F3F /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		F5BD34111A38934500BFF101 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BD34101A38934500BFF101 /* libYajl.a */; };
 		F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455A1A41CAED00C6BE2E /* aptMG2.json */; };
+		F5FA455D1A4463D900C6BE2E /* Startup.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455C1A4463D900C6BE2E /* Startup.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -375,6 +376,7 @@
 		F57D281A1A3B8DCB00685F3F /* GLKExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKExtensions.h; sourceTree = "<group>"; };
 		F5BD34101A38934500BFF101 /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../../../Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F5FA455A1A41CAED00C6BE2E /* aptMG2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aptMG2.json; sourceTree = "<group>"; };
+		F5FA455C1A4463D900C6BE2E /* Startup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Startup.json; sourceTree = "<group>"; };
 		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -473,6 +475,7 @@
 		0240900619E45AA000B218ED /* data */ = {
 			isa = PBXGroup;
 			children = (
+				F5FA455C1A4463D900C6BE2E /* Startup.json */,
 				02C8849219E339F200DFB4E2 /* INVGlobalDataManager.h */,
 				02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */,
 				023F2B5819FEDCA700E4C985 /* INVGenericTableViewDataSource.h */,
@@ -806,6 +809,7 @@
 				024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */,
 				0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */,
+				F5FA455D1A4463D900C6BE2E /* Startup.json in Resources */,
 				02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
 				023F2B881A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
 			);

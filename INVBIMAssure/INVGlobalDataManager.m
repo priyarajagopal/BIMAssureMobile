@@ -9,6 +9,54 @@
 #import "INVGlobalDataManager.h"
 #import <FDKeychain/FDKeychain.h>
 
+// NOTE: Using http rather than https as our SSL certs aren't properly set-up for this subdomain.
+#define CONFIG_URL @"http://com.invicara.empire.dev-td.us-west-2.s3-us-west-2.amazonaws.com/System/Config/Startup.json?AWSAccessKeyId=AKIAIHLRHQHYGULUVRSA&Expires=1611118800&Signature=ok6Sk%2FBxOxw2ME92ak3c6jMwUss%3D"
+#define DEPLOY_NAME nil
+
+static BOOL getConfigFromURL(NSURL *url, NSString *__autoreleasing * passportServerUrl, NSString *__autoreleasing * empireManageServerUrl) {
+    NSData *configData = [NSData dataWithContentsOfURL:url];
+    if (configData == nil) {
+        return NO;
+    }
+    
+    NSDictionary *jsonConfig = [NSJSONSerialization JSONObjectWithData:configData options:0 error:NULL];
+    NSString *deployName = DEPLOY_NAME ?: jsonConfig[@"defaultdeploy"];
+    NSDictionary *selectedDeploy = nil;
+    
+    for (NSDictionary *deploy in jsonConfig[@"deploys"] ) {
+        if ([deployName isEqual:deploy[@"name"]]) {
+            selectedDeploy = deploy;
+            break;
+        }
+    }
+    
+    if (selectedDeploy == nil) {
+        return NO;
+    }
+    
+    if (passportServerUrl) {
+        *passportServerUrl = nil;
+    }
+    
+    if (empireManageServerUrl) {
+        *empireManageServerUrl = nil;
+    }
+    
+    for (NSDictionary *server in selectedDeploy[@"servers"]) {
+        NSString *serverName = server[@"server"];
+        
+        if ([serverName isEqual:@"xospassport"] && passportServerUrl) {
+            *passportServerUrl = server[@"url"];
+        }
+        
+        if ([serverName isEqualToString:@"empiremanage"] && empireManageServerUrl) {
+            *empireManageServerUrl = server[@"url"];
+        }
+    }
+    
+    return YES;
+}
+
 @import EmpireMobileManager;
 
 // Notifications
@@ -38,8 +86,20 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[self class]alloc]init];
+        
         if (sharedInstance) {
-#warning pick up server config from plist file (eventually from json server)
+            NSString *xosPassportServer = nil;
+            NSString *empireManageServer = nil;
+            
+            if (!getConfigFromURL([NSURL URLWithString:CONFIG_URL], &xosPassportServer, &empireManageServer)) {
+                NSURL *url = [[NSBundle mainBundle] URLForResource:@"Startup" withExtension:@"json"];
+                
+                if (!getConfigFromURL(url, &xosPassportServer, &empireManageServer)) {
+                    NSLog(@"Failed to load config from local file! Application probably will not work.");
+                    return;
+                }
+            }
+            
             sharedInstance.invServerClient = [INVEmpireMobileClient sharedInstanceWithXOSPassportServer:@"54.149.63.51" andPort:@"8080"];
             [sharedInstance.invServerClient configureWithEmpireManageServer:@"54.149.7.76" andPort:@"8080"];
         }
