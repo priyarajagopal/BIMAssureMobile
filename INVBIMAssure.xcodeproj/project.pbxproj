@@ -156,8 +156,16 @@
 		02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
-		2613D0D477436CAA743E8B1F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ACB782AED9709E7884D7905 /* libPods.a */; };
-		DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCFAB6FC8A404E1594DB60D5 /* libPods.a */; };
+		D257A20C1A4867BE00584D4C /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A2081A4867BE00584D4C /* libPods-FontAwesomeKit.a */; };
+		D257A20D1A4867BE00584D4C /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A2091A4867BE00584D4C /* libPods-FrameAccessor.a */; };
+		D257A20E1A4867BE00584D4C /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A20A1A4867BE00584D4C /* libPods-MBProgressHUD.a */; };
+		D257A20F1A4867BE00584D4C /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A20B1A4867BE00584D4C /* libPods-VENTokenField.a */; };
+		D2CB670A1A44C98E003FE3CA /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67091A44C98E003FE3CA /* libYajl.a */; };
+		D2CB67171A44CB21003FE3CA /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67131A44CB21003FE3CA /* libPods-FontAwesomeKit.a */; };
+		D2CB67181A44CB21003FE3CA /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67141A44CB21003FE3CA /* libPods-FrameAccessor.a */; };
+		D2CB67191A44CB21003FE3CA /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67151A44CB21003FE3CA /* libPods-MBProgressHUD.a */; };
+		D2CB671A1A44CB21003FE3CA /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67161A44CB21003FE3CA /* libPods-VENTokenField.a */; };
+		D2CB671B1A44CD0D003FE3CA /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67091A44C98E003FE3CA /* libYajl.a */; };
 		F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27E91A3B7C7200685F3F /* ClassDump.m */; };
 		F57D27F81A3B7C7200685F3F /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EA1A3B7C7200685F3F /* fp16.c */; };
 		F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */; };
@@ -177,7 +185,6 @@
 		F57D28191A3B7E8800685F3F /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455A1A41CAED00C6BE2E /* aptMG2.json */; };
 		F5FA455D1A4463D900C6BE2E /* Startup.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455C1A4463D900C6BE2E /* Startup.json */; };
-		F5FA45691A447D2000C6BE2E /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FA45681A447D2000C6BE2E /* libYajl.a */; };
 		F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; };
 		F5FA456B1A447D3200C6BE2E /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F5FA45721A44812100C6BE2E /* ServerConfig-Prod.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5FA45701A44812100C6BE2E /* ServerConfig-Prod.xcconfig */; };
@@ -347,9 +354,21 @@
 		02FC608A1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGeneralAddRemoveTableViewCell.h; sourceTree = "<group>"; };
 		02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGeneralAddRemoveTableViewCell.m; sourceTree = "<group>"; };
 		02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVGeneralAddRemoveTableViewCell.xib; sourceTree = "<group>"; };
+		1FEB4EB99E7784431328B55D /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
 		20CB161BD4FAECBBC93BEBAC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		5ACB782AED9709E7884D7905 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		98F7C52BDAC8651593A75D64 /* Pods.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.prod.xcconfig; path = "Pods/Target Support Files/Pods/Pods.prod.xcconfig"; sourceTree = "<group>"; };
 		A24123BCDF1407EC573B44A9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D257A2081A4867BE00584D4C /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Dev-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
+		D257A2091A4867BE00584D4C /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "Pods/build/Dev-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
+		D257A20A1A4867BE00584D4C /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Dev-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
+		D257A20B1A4867BE00584D4C /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Dev-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
+		D2CB67091A44C98E003FE3CA /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Library/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos/libYajl.a"; sourceTree = "<group>"; };
+		D2CB67131A44CB21003FE3CA /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Prod-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
+		D2CB67141A44CB21003FE3CA /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "Pods/build/Prod-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
+		D2CB67151A44CB21003FE3CA /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Prod-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
+		D2CB67161A44CB21003FE3CA /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Prod-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
+		D6F0F6A2F1B5AEDE80AFC326 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF25BF4311C8C43FD60438CC /* Pods.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.dev.xcconfig; path = "Pods/Target Support Files/Pods/Pods.dev.xcconfig"; sourceTree = "<group>"; };
 		F57D27E91A3B7C7200685F3F /* ClassDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDump.m; sourceTree = "<group>"; };
 		F57D27EA1A3B7C7200685F3F /* fp16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp16.c; sourceTree = "<group>"; };
 		F57D27EB1A3B7C7200685F3F /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
@@ -379,10 +398,8 @@
 		F5FA455A1A41CAED00C6BE2E /* aptMG2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aptMG2.json; sourceTree = "<group>"; };
 		F5FA455C1A4463D900C6BE2E /* Startup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Startup.json; sourceTree = "<group>"; };
 		F5FA45671A44768700C6BE2E /* ServerConfig-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ServerConfig-Dev.xcconfig"; sourceTree = "<group>"; };
-		F5FA45681A447D2000C6BE2E /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../../../Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Release-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F5FA45701A44812100C6BE2E /* ServerConfig-Prod.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ServerConfig-Prod.xcconfig"; sourceTree = "<group>"; };
 		F5FA45711A44812100C6BE2E /* ServerConfig-QA.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ServerConfig-QA.xcconfig"; sourceTree = "<group>"; };
-		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,8 +407,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5FA45691A447D2000C6BE2E /* libYajl.a in Frameworks */,
-				2613D0D477436CAA743E8B1F /* libPods.a in Frameworks */,
+				D2CB671B1A44CD0D003FE3CA /* libYajl.a in Frameworks */,
+				D2CB67171A44CB21003FE3CA /* libPods-FontAwesomeKit.a in Frameworks */,
+				D2CB67181A44CB21003FE3CA /* libPods-FrameAccessor.a in Frameworks */,
+				D2CB67191A44CB21003FE3CA /* libPods-MBProgressHUD.a in Frameworks */,
+				D2CB671A1A44CB21003FE3CA /* libPods-VENTokenField.a in Frameworks */,
 				029080701A43576C00B39F48 /* EmpireMobileManager.framework in Frameworks */,
 				F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */,
 			);
@@ -401,8 +421,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D257A20C1A4867BE00584D4C /* libPods-FontAwesomeKit.a in Frameworks */,
+				D257A20D1A4867BE00584D4C /* libPods-FrameAccessor.a in Frameworks */,
+				D257A20E1A4867BE00584D4C /* libPods-MBProgressHUD.a in Frameworks */,
+				D257A20F1A4867BE00584D4C /* libPods-VENTokenField.a in Frameworks */,
+				D2CB670A1A44C98E003FE3CA /* libYajl.a in Frameworks */,
 				0290806F1A43575F00B39F48 /* EmpireMobileManager.framework in Frameworks */,
-				DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,11 +671,19 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D257A2081A4867BE00584D4C /* libPods-FontAwesomeKit.a */,
+				D257A2091A4867BE00584D4C /* libPods-FrameAccessor.a */,
+				D257A20A1A4867BE00584D4C /* libPods-MBProgressHUD.a */,
+				D257A20B1A4867BE00584D4C /* libPods-VENTokenField.a */,
+				D2CB67131A44CB21003FE3CA /* libPods-FontAwesomeKit.a */,
+				D2CB67141A44CB21003FE3CA /* libPods-FrameAccessor.a */,
+				D2CB67151A44CB21003FE3CA /* libPods-MBProgressHUD.a */,
+				D2CB67161A44CB21003FE3CA /* libPods-VENTokenField.a */,
+				D2CB67091A44C98E003FE3CA /* libYajl.a */,
 				0290806D1A43575F00B39F48 /* EmpireMobileManager.framework */,
 				F57D28141A3B7DB200685F3F /* OpenCTM.framework */,
-				F5FA45681A447D2000C6BE2E /* libYajl.a */,
 				021E85B319F81C30003E35E0 /* MessageUI.framework */,
-				5ACB782AED9709E7884D7905 /* libPods.a */,
+				D6F0F6A2F1B5AEDE80AFC326 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -661,6 +693,9 @@
 			children = (
 				A24123BCDF1407EC573B44A9 /* Pods.debug.xcconfig */,
 				20CB161BD4FAECBBC93BEBAC /* Pods.release.xcconfig */,
+				DF25BF4311C8C43FD60438CC /* Pods.dev.xcconfig */,
+				1FEB4EB99E7784431328B55D /* Pods.qa.xcconfig */,
+				98F7C52BDAC8651593A75D64 /* Pods.prod.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -722,12 +757,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02C8847A19E317E900DFB4E2 /* Build configuration list for PBXNativeTarget "INVBIMAssure" */;
 			buildPhases = (
-				EC5F4FADFB834EB5AA8816EC /* Check Pods Manifest.lock */,
+				6818A4635886A4FB4B457415 /* Check Pods Manifest.lock */,
 				02C8845319E317E900DFB4E2 /* Sources */,
 				02C8845419E317E900DFB4E2 /* Frameworks */,
 				02C8845519E317E900DFB4E2 /* Resources */,
-				C2E27837D5E64D1F952B5A55 /* Copy Pods Resources */,
 				F5DF9EEC1A2CF5C90085DEFF /* Embed Frameworks */,
+				65CBE5C0D8D7B35B1C03FDA4 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -864,7 +899,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C2E27837D5E64D1F952B5A55 /* Copy Pods Resources */ = {
+		65CBE5C0D8D7B35B1C03FDA4 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -877,6 +912,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6818A4635886A4FB4B457415 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		D426C52CA71B4632881E7425 /* Check Pods Manifest.lock */ = {
@@ -907,21 +957,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EC5F4FADFB834EB5AA8816EC /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1153,6 +1188,7 @@
 		};
 		F5FA455F1A4475CB00C6BE2E /* Dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF25BF4311C8C43FD60438CC /* Pods.dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -1164,15 +1200,12 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-eoyknibvjliuhwfeyrwvlgcvoxqk/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)/INVBIMAssure",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = INVBIMAssure/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/**",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Release-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1210,8 +1243,8 @@
 		};
 		F5FA45601A4475CB00C6BE2E /* Dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF25BF4311C8C43FD60438CC /* Pods.dev.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1220,18 +1253,43 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/INVBIMAssure",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = INVBIMAssureTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Pods/build/Dev-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
 			};
@@ -1279,6 +1337,7 @@
 		};
 		F5FA45621A4475DE00C6BE2E /* Prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98F7C52BDAC8651593A75D64 /* Pods.prod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -1290,15 +1349,12 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-eoyknibvjliuhwfeyrwvlgcvoxqk/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)/INVBIMAssure",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = INVBIMAssure/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/**",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Release-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1336,8 +1392,8 @@
 		};
 		F5FA45631A4475DE00C6BE2E /* Prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98F7C52BDAC8651593A75D64 /* Pods.prod.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1352,8 +1408,37 @@
 					"$(PROJECT_DIR)/**",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Pods/build/Dev-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
 			};
@@ -1401,6 +1486,7 @@
 		};
 		F5FA45651A4475E300C6BE2E /* QA */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FEB4EB99E7784431328B55D /* Pods.qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -1412,15 +1498,12 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-eoyknibvjliuhwfeyrwvlgcvoxqk/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)/INVBIMAssure",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/INVBIMAssure/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = INVBIMAssure/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/**",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Debug-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Release-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1458,8 +1541,8 @@
 		};
 		F5FA45661A4475E300C6BE2E /* QA */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FEB4EB99E7784431328B55D /* Pods.qa.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1474,8 +1557,37 @@
 					"$(PROJECT_DIR)/**",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Pods/build/Dev-iphoneos",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
 			};
