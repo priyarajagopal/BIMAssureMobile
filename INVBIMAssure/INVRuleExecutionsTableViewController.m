@@ -9,6 +9,7 @@
 #import "INVRuleExecutionsTableViewController.h"
 #import "INVRuleInstanceExecutionResultTableViewCell.h"
 #import "INVExecutionIssuesTableViewController.h"
+#import "EmpireMobileManager/INVRuleInstanceExecution.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 100;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
@@ -17,6 +18,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 @interface INVRuleExecutionsTableViewController ()
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)INVRulesManager* rulesManager;
+@property (nonatomic,strong)INVRuleExecutionManager* rulesExecManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVPackage* file;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
@@ -59,6 +61,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     [super viewWillDisappear:animated];
     self.projectManager = nil;
     self.rulesManager = nil;
+    self.rulesExecManager = nil;
     self.dateFormatter = nil;
     self.file = nil;
     self.dataResultsController = nil;
@@ -115,7 +118,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         if (execution.issues.count ) {
             NSDictionary* issueElement = execution.issues[0];
             NSArray* buildingElements = issueElement[@"buildingElements"];
-            issuesText = [NSString stringWithFormat:@"%@: %d",NSLocalizedString(@"NUM_ERRORS", nil),execution.issues.count];
+            issuesText = [NSString stringWithFormat:@"%@: %d",NSLocalizedString(@"NUM_ERRORS", nil),execution.errorCount];
             cell.numIssues.textColor = failColor;
             cell.associatedBuildingElementsWithIssues = buildingElements;
             
@@ -197,8 +200,6 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
                 }];
 
             }
-              
-              
           }
           else {
               UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),error.code]];
@@ -223,6 +224,14 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     return _rulesManager;
 }
 
+-(INVRuleExecutionManager*)rulesExecManager {
+    if (!_rulesExecManager) {
+        _rulesExecManager = self.globalDataManager.invServerClient.ruleExecutionManager;
+        
+    }
+    return _rulesExecManager;
+}
+
 -(INVProjectManager*)projectManager {
     if (!_projectManager) {
         _projectManager = self.globalDataManager.invServerClient.projectManager;
@@ -241,7 +250,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRuleInstanceExecutions;
+        NSFetchRequest* fetchRequest = self.rulesExecManager.fetchRequestForRuleInstanceExecutions;
         NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"pkgVersionId==%@",self.fileVersionId ];
         [fetchRequest setPredicate:fetchPredicate];
   
@@ -254,11 +263,14 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 -(INVPackage*)file {
     if (!_file) {
         NSPredicate* matchPred = [NSPredicate predicateWithFormat:@"tipId==%@",self.fileVersionId];
-        NSArray* match = [self.projectManager.projectPackages filteredArrayUsingPredicate:matchPred];
+        
+        NSArray* packages = [self.projectManager packagesForProjectId:self.projectId];
+        NSArray* match = [packages filteredArrayUsingPredicate:matchPred];
         if (match && match.count) {
             _file = match[0];
         }
     }
+ 
     return _file;
 }
 

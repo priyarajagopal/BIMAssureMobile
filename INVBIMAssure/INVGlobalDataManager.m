@@ -89,7 +89,7 @@ static NSString* const INV_CredentialsKeychainKey = @"BACredentials";
 static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 
 @interface INVGlobalDataManager()
-@property (nonatomic,readwrite)INVEmpireMobileClient* invServerClient;
+@property (nonatomic, readwrite)INVEmpireMobileClient* invServerClient;
 @property (nonatomic,readwrite)NSDictionary* credentials;
 @property (nonatomic,readwrite)NSNumber* defaultAccountId;
 @end
@@ -116,9 +116,10 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
                     return;
                 }
             }
-            
-            sharedInstance.invServerClient = [INVEmpireMobileClient sharedInstanceWithXOSPassportServer:xosPassportServer andPort:@"8080"];
-            [sharedInstance.invServerClient configureWithEmpireManageServer:empireManageServer andPort:@"8080"];
+            NSURL* passportUrl = [NSURL URLWithString:xosPassportServer];
+            NSURL* emUrl = [NSURL URLWithString:empireManageServer];
+            sharedInstance.invServerClient = [INVEmpireMobileClient sharedInstanceWithXOSPassportServer:passportUrl.host andPort:[passportUrl.port stringValue]];
+            [sharedInstance.invServerClient configureWithEmpireManageServer:emUrl.host andPort:[emUrl.port stringValue]];
         }
     });
     
