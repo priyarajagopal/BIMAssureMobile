@@ -809,6 +809,7 @@
 					};
 					02C8846F19E317E900DFB4E2 = {
 						CreatedOnToolsVersion = 6.0.1;
+						TestTargetID = 02C8845619E317E900DFB4E2;
 					};
 				};
 			};
@@ -1290,6 +1291,7 @@
 					"\"UIKit\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
 			};
 			name = Dev;
 		};
@@ -1438,6 +1440,7 @@
 					"\"UIKit\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
 			};
 			name = Prod;
 		};
@@ -1586,6 +1589,7 @@
 					"\"UIKit\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/INVBIMAssure.app/INVBIMAssure";
 			};
 			name = QA;
 		};
