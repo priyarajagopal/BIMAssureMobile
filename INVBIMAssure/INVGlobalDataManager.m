@@ -117,13 +117,12 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
                 }
             }
             
-            sharedInstance.invServerClient = [INVEmpireMobileClient sharedInstanceWithXOSPassportServer:@"54.149.63.51" andPort:@"8080"];
-            [sharedInstance.invServerClient configureWithEmpireManageServer:@"54.149.7.76" andPort:@"8080"];
+            sharedInstance.invServerClient = [INVEmpireMobileClient sharedInstanceWithXOSPassportServer:xosPassportServer andPort:@"8080"];
+            [sharedInstance.invServerClient configureWithEmpireManageServer:empireManageServer andPort:@"8080"];
         }
     });
-    return sharedInstance;
     
-
+    return sharedInstance;
 }
 
 -(NSError*)saveCredentialsInKCForLoggedInUser:(NSString*)email withPassword:(NSString*)password {
