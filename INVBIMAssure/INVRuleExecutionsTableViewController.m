@@ -112,10 +112,10 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         cell.executionStatus.text = execution.status;
         NSString* issuesText = NSLocalizedString(@"NO_ISSUES", nil);
         
-        if (execution.issueCount.integerValue ) {
+        if (execution.issues.count ) {
             NSDictionary* issueElement = execution.issues[0];
             NSArray* buildingElements = issueElement[@"buildingElements"];
-            issuesText = [NSString stringWithFormat:@"%@: %d",NSLocalizedString(@"NUM_ERRORS", nil),buildingElements.count];
+            issuesText = [NSString stringWithFormat:@"%@: %d",NSLocalizedString(@"NUM_ERRORS", nil),execution.issues.count];
             cell.numIssues.textColor = failColor;
             cell.associatedBuildingElementsWithIssues = buildingElements;
             
