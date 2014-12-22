@@ -183,6 +183,8 @@
 		F57D28171A3B7E7B00685F3F /* INVRuleExecutionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAF71A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m */; };
 		F57D28181A3B7E7B00685F3F /* INVExecutionIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */; };
 		F57D28191A3B7E8800685F3F /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
+		F5CB5AA71A4873D800927FB9 /* NSURLConnectionBlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CB5AA61A4873D800927FB9 /* NSURLConnectionBlockDelegate.m */; };
+		F5CB5AA91A48771D00927FB9 /* invicara_config_server.cer in Resources */ = {isa = PBXBuildFile; fileRef = F5CB5AA81A48771D00927FB9 /* invicara_config_server.cer */; };
 		F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455A1A41CAED00C6BE2E /* aptMG2.json */; };
 		F5FA455D1A4463D900C6BE2E /* Startup.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455C1A4463D900C6BE2E /* Startup.json */; };
 		F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; };
@@ -395,6 +397,9 @@
 		F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSearchViewTagsDataSource.m; sourceTree = "<group>"; };
 		F57D28141A3B7DB200685F3F /* OpenCTM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OpenCTM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57D281A1A3B8DCB00685F3F /* GLKExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLKExtensions.h; sourceTree = "<group>"; };
+		F5CB5AA51A4873D800927FB9 /* NSURLConnectionBlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLConnectionBlockDelegate.h; sourceTree = "<group>"; };
+		F5CB5AA61A4873D800927FB9 /* NSURLConnectionBlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLConnectionBlockDelegate.m; sourceTree = "<group>"; };
+		F5CB5AA81A48771D00927FB9 /* invicara_config_server.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = invicara_config_server.cer; sourceTree = "<group>"; };
 		F5FA455A1A41CAED00C6BE2E /* aptMG2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aptMG2.json; sourceTree = "<group>"; };
 		F5FA455C1A4463D900C6BE2E /* Startup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Startup.json; sourceTree = "<group>"; };
 		F5FA45671A44768700C6BE2E /* ServerConfig-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ServerConfig-Dev.xcconfig"; sourceTree = "<group>"; };
@@ -504,6 +509,7 @@
 		0240900619E45AA000B218ED /* data */ = {
 			isa = PBXGroup;
 			children = (
+				F5CB5AA81A48771D00927FB9 /* invicara_config_server.cer */,
 				F5FA455C1A4463D900C6BE2E /* Startup.json */,
 				02C8849219E339F200DFB4E2 /* INVGlobalDataManager.h */,
 				02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */,
@@ -719,6 +725,8 @@
 				F57D27F61A3B7C7200685F3F /* ModelViewer.vsh */,
 				F57D27F51A3B7C7200685F3F /* ModelViewer.fsh */,
 				F57D281A1A3B8DCB00685F3F /* GLKExtensions.h */,
+				F5CB5AA51A4873D800927FB9 /* NSURLConnectionBlockDelegate.h */,
+				F5CB5AA61A4873D800927FB9 /* NSURLConnectionBlockDelegate.m */,
 			);
 			path = "Model Viewer";
 			sourceTree = "<group>";
@@ -845,6 +853,7 @@
 				F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */,
 				021E85B519F81C61003E35E0 /* Main.storyboard in Resources */,
 				024BB6171A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
+				F5CB5AA91A48771D00927FB9 /* invicara_config_server.cer in Resources */,
 				02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */,
 				023F2B9C1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */,
 				02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */,
@@ -1019,6 +1028,7 @@
 				0246E7311A111730000C487D /* INVFileManageRuleSetsContainerViewController.m in Sources */,
 				F57D27FD1A3B7C7200685F3F /* INVStreamBasedJSONParser.m in Sources */,
 				0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */,
+				F5CB5AA71A4873D800927FB9 /* NSURLConnectionBlockDelegate.m in Sources */,
 				024CDCE719FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */,
 				F57D27FC1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
 				02DB77FF1A092022004F4980 /* INVRuleSetManageFilesContainerViewController.m in Sources */,

@@ -8,9 +8,10 @@
 
 #import "INVGlobalDataManager.h"
 #import <FDKeychain/FDKeychain.h>
+#import <AFNetworking/AFNetworking.h>
 
 // NOTE: Using http rather than https as our SSL certs aren't properly set-up for this subdomain.
-#define CONFIG_URL @"http://com.invicara.empire.dev-td.us-west-2.s3-us-west-2.amazonaws.com/System/Config/Startup.json?AWSAccessKeyId=AKIAIHLRHQHYGULUVRSA&Expires=1611118800&Signature=ok6Sk%2FBxOxw2ME92ak3c6jMwUss%3D"
+#define CONFIG_URL @"https://com.invicara.empire.dev-td.us-west-2.s3-us-west-2.amazonaws.com/System/Config/Startup.json?AWSAccessKeyId=AKIAIHLRHQHYGULUVRSA&Expires=1611118800&Signature=ok6Sk%2FBxOxw2ME92ak3c6jMwUss%3D"
 #define _STRINGIFY(str) #str
 #define STRINGIFY(str) _STRINGIFY(str)
 
@@ -20,7 +21,35 @@
 #endif
 
 static BOOL getConfigFromURL(NSURL *url, NSString *__autoreleasing * passportServerUrl, NSString *__autoreleasing * empireManageServerUrl) {
-    NSData *configData = [NSData dataWithContentsOfURL:url];
+    __block NSData *configData = nil;
+    dispatch_semaphore_t completionSemaphore = dispatch_semaphore_create(0);
+    
+    AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
+    requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    requestManager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+    requestManager.securityPolicy.validatesCertificateChain = NO;
+    requestManager.securityPolicy.validatesDomainName = NO;
+    
+    requestManager.securityPolicy.pinnedCertificates = @[
+        [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"invicara_config_server" ofType:@"cer"]],
+    ];
+    
+    requestManager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    
+    [requestManager GET:[url absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        configData = responseObject;
+        
+        dispatch_semaphore_signal(completionSemaphore);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Config HTTP error: %@", error);
+        
+        dispatch_semaphore_signal(completionSemaphore);
+    }];
+    
+    // 60s timeout. OS will probably kill us long before that happens however.
+    dispatch_semaphore_wait(completionSemaphore, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 60));
+    
     if (configData == nil) {
         return NO;
     }
@@ -109,6 +138,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
             NSString *empireManageServer = nil;
             
             if (!getConfigFromURL([NSURL URLWithString:CONFIG_URL], &xosPassportServer, &empireManageServer)) {
+                NSLog(@"Warning! Using local config! This could potentially cause issues with invalid state.");
                 NSURL *url = [[NSBundle mainBundle] URLForResource:@"Startup" withExtension:@"json"];
                 
                 if (!getConfigFromURL(url, &xosPassportServer, &empireManageServer)) {
@@ -117,8 +147,12 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
                 }
             }
             
-            sharedInstance.invServerClient = [INVEmpireMobileClient sharedInstanceWithXOSPassportServer:xosPassportServer andPort:@"8080"];
-            [sharedInstance.invServerClient configureWithEmpireManageServer:empireManageServer andPort:@"8080"];
+            NSURL *xosPassportURL = [NSURL URLWithString:xosPassportServer];
+            NSURL *empireManageURL = [NSURL URLWithString:empireManageServer];
+            
+            sharedInstance.invServerClient = [INVEmpireMobileClient sharedInstanceWithXOSPassportServer:[xosPassportURL host] andPort:[[xosPassportURL port] stringValue]];
+            
+            [sharedInstance.invServerClient configureWithEmpireManageServer:[empireManageURL host] andPort:[[empireManageURL port] stringValue]];
         }
     });
     
