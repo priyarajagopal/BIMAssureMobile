@@ -156,14 +156,16 @@
 		02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
-		6B2885E8519BC30193A58517 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F0F6A2F1B5AEDE80AFC326 /* libPods.a */; };
+		D257A20C1A4867BE00584D4C /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A2081A4867BE00584D4C /* libPods-FontAwesomeKit.a */; };
+		D257A20D1A4867BE00584D4C /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A2091A4867BE00584D4C /* libPods-FrameAccessor.a */; };
+		D257A20E1A4867BE00584D4C /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A20A1A4867BE00584D4C /* libPods-MBProgressHUD.a */; };
+		D257A20F1A4867BE00584D4C /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A20B1A4867BE00584D4C /* libPods-VENTokenField.a */; };
 		D2CB670A1A44C98E003FE3CA /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67091A44C98E003FE3CA /* libYajl.a */; };
 		D2CB67171A44CB21003FE3CA /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67131A44CB21003FE3CA /* libPods-FontAwesomeKit.a */; };
 		D2CB67181A44CB21003FE3CA /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67141A44CB21003FE3CA /* libPods-FrameAccessor.a */; };
 		D2CB67191A44CB21003FE3CA /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67151A44CB21003FE3CA /* libPods-MBProgressHUD.a */; };
 		D2CB671A1A44CB21003FE3CA /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67161A44CB21003FE3CA /* libPods-VENTokenField.a */; };
 		D2CB671B1A44CD0D003FE3CA /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67091A44C98E003FE3CA /* libYajl.a */; };
-		DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCFAB6FC8A404E1594DB60D5 /* libPods.a */; };
 		F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27E91A3B7C7200685F3F /* ClassDump.m */; };
 		F57D27F81A3B7C7200685F3F /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EA1A3B7C7200685F3F /* fp16.c */; };
 		F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */; };
@@ -356,6 +358,10 @@
 		20CB161BD4FAECBBC93BEBAC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		98F7C52BDAC8651593A75D64 /* Pods.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.prod.xcconfig; path = "Pods/Target Support Files/Pods/Pods.prod.xcconfig"; sourceTree = "<group>"; };
 		A24123BCDF1407EC573B44A9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D257A2081A4867BE00584D4C /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Dev-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
+		D257A2091A4867BE00584D4C /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "Pods/build/Dev-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
+		D257A20A1A4867BE00584D4C /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "Pods/build/Dev-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
+		D257A20B1A4867BE00584D4C /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Dev-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
 		D2CB67091A44C98E003FE3CA /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Library/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		D2CB67131A44CB21003FE3CA /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "Pods/build/Prod-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
 		D2CB67141A44CB21003FE3CA /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "Pods/build/Prod-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
@@ -394,7 +400,6 @@
 		F5FA45671A44768700C6BE2E /* ServerConfig-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ServerConfig-Dev.xcconfig"; sourceTree = "<group>"; };
 		F5FA45701A44812100C6BE2E /* ServerConfig-Prod.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ServerConfig-Prod.xcconfig"; sourceTree = "<group>"; };
 		F5FA45711A44812100C6BE2E /* ServerConfig-QA.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ServerConfig-QA.xcconfig"; sourceTree = "<group>"; };
-		FCFAB6FC8A404E1594DB60D5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,7 +414,6 @@
 				D2CB671A1A44CB21003FE3CA /* libPods-VENTokenField.a in Frameworks */,
 				029080701A43576C00B39F48 /* EmpireMobileManager.framework in Frameworks */,
 				F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */,
-				6B2885E8519BC30193A58517 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,9 +421,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D257A20C1A4867BE00584D4C /* libPods-FontAwesomeKit.a in Frameworks */,
+				D257A20D1A4867BE00584D4C /* libPods-FrameAccessor.a in Frameworks */,
+				D257A20E1A4867BE00584D4C /* libPods-MBProgressHUD.a in Frameworks */,
+				D257A20F1A4867BE00584D4C /* libPods-VENTokenField.a in Frameworks */,
 				D2CB670A1A44C98E003FE3CA /* libYajl.a in Frameworks */,
 				0290806F1A43575F00B39F48 /* EmpireMobileManager.framework in Frameworks */,
-				DD9565763E360750A7DF2A83 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +671,10 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D257A2081A4867BE00584D4C /* libPods-FontAwesomeKit.a */,
+				D257A2091A4867BE00584D4C /* libPods-FrameAccessor.a */,
+				D257A20A1A4867BE00584D4C /* libPods-MBProgressHUD.a */,
+				D257A20B1A4867BE00584D4C /* libPods-VENTokenField.a */,
 				D2CB67131A44CB21003FE3CA /* libPods-FontAwesomeKit.a */,
 				D2CB67141A44CB21003FE3CA /* libPods-FrameAccessor.a */,
 				D2CB67151A44CB21003FE3CA /* libPods-MBProgressHUD.a */,
@@ -798,7 +809,6 @@
 					};
 					02C8846F19E317E900DFB4E2 = {
 						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = 02C8845619E317E900DFB4E2;
 					};
 				};
 			};
@@ -1197,6 +1207,33 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
@@ -1207,7 +1244,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DF25BF4311C8C43FD60438CC /* Pods.dev.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1228,6 +1264,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
 					"-framework",
 					"\"Accounts\"",
 					"-framework",
@@ -1315,6 +1355,33 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
@@ -1325,7 +1392,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98F7C52BDAC8651593A75D64 /* Pods.prod.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1346,6 +1412,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
 					"-framework",
 					"\"Accounts\"",
 					"-framework",
@@ -1433,6 +1503,33 @@
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
@@ -1443,7 +1540,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1FEB4EB99E7784431328B55D /* Pods.qa.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1464,6 +1560,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-FrameAccessor\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-VENTokenField\"",
 					"-framework",
 					"\"Accounts\"",
 					"-framework",
