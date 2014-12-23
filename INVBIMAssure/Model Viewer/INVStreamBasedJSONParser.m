@@ -1,5 +1,4 @@
 #import "INVStreamBasedJSONParser.h"
-
 #import "NSURLConnectionBlockDelegate.h"
 
 #include "yajl/yajl_parse.h"
