@@ -10,23 +10,15 @@
 		021E85B519F81C61003E35E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		021E85BC19F825F2003E35E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 021E85BA19F825F2003E35E0 /* Localizable.strings */; };
 		021E85C019F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */; };
-		021E85C119F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E85BF19F829F8003E35E0 /* INVInvitedUsersTableViewController.m */; };
 		0223351A19F6A82900224E0C /* INVLoginScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223351919F6A82900224E0C /* INVLoginScrollView.m */; };
-		0223351B19F6A82900224E0C /* INVLoginScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223351919F6A82900224E0C /* INVLoginScrollView.m */; };
 		0223355519F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223355419F7F24D00224E0C /* INVUserManagementTableViewController.m */; };
-		0223355619F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0223355419F7F24D00224E0C /* INVUserManagementTableViewController.m */; };
 		0224B8AC19EDBB550083EA6E /* INVEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */; };
-		0224B8AD19EDBB550083EA6E /* INVEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */; };
 		0224B8C719F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */; };
-		0224B8C819F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B8C619F048F20083EA6E /* INVSimpleUserInfoTableViewController.m */; };
 		0224B90319F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */; };
-		0224B90419F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0224B90219F171030083EA6E /* MBProgressHUD+INVBAHUD.m */; };
 		0234D6281A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */; };
-		0234D6291A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */; };
 		0234D62A1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */; };
 		0234D62B1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */; };
 		0234D62F1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0234D62D1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m */; };
-		0234D6301A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0234D62D1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m */; };
 		0234D6311A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0234D62E1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.xib */; };
 		0234D6321A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0234D62E1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.xib */; };
 		023CF0EC1A490A4F00D01A28 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023CF0EB1A490A4F00D01A28 /* EmpireMobileManager.framework */; };
@@ -36,125 +28,80 @@
 		023F2B5619FE889200E4C985 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846719E317E900DFB4E2 /* Images.xcassets */; };
 		023F2B5719FE889A00E4C985 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846919E317E900DFB4E2 /* LaunchScreen.xib */; };
 		023F2B5A19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */; };
-		023F2B5B19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B5919FEDCA700E4C985 /* INVGenericTableViewDataSource.m */; };
 		023F2B691A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B681A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m */; };
-		023F2B6A1A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B681A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m */; };
 		023F2B6D1A0159BE00E4C985 /* INVRulesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B6C1A0159BE00E4C985 /* INVRulesListViewController.m */; };
-		023F2B6E1A0159BE00E4C985 /* INVRulesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B6C1A0159BE00E4C985 /* INVRulesListViewController.m */; };
 		023F2B721A015B0500E4C985 /* INVRuleInstanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B701A015B0500E4C985 /* INVRuleInstanceTableViewCell.m */; };
-		023F2B731A015B0500E4C985 /* INVRuleInstanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B701A015B0500E4C985 /* INVRuleInstanceTableViewCell.m */; };
 		023F2B741A015B0500E4C985 /* INVRuleInstanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B711A015B0500E4C985 /* INVRuleInstanceTableViewCell.xib */; };
 		023F2B751A015B0500E4C985 /* INVRuleInstanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B711A015B0500E4C985 /* INVRuleInstanceTableViewCell.xib */; };
 		023F2B7D1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B7C1A017F4E00E4C985 /* INVRulesTableViewDataSource.m */; };
-		023F2B7E1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B7C1A017F4E00E4C985 /* INVRulesTableViewDataSource.m */; };
 		023F2B811A03B9D400E4C985 /* INVRuleInstanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B801A03B9D400E4C985 /* INVRuleInstanceTableViewController.m */; };
-		023F2B821A03B9D400E4C985 /* INVRuleInstanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B801A03B9D400E4C985 /* INVRuleInstanceTableViewController.m */; };
 		023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B841A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m */; };
-		023F2B871A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B841A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m */; };
 		023F2B881A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B851A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib */; };
 		023F2B891A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B851A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.xib */; };
 		023F2B991A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */; };
-		023F2B9A1A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 023F2B981A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m */; };
 		023F2B9C1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B9B1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib */; };
 		023F2B9D1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 023F2B9B1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib */; };
 		02408FFC19E447BF00B218ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846419E317E900DFB4E2 /* Main.storyboard */; };
 		02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
-		0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02408FFE19E45A2700B218ED /* INVAccountListViewController.m */; };
 		0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0240900819E45B4E00B218ED /* INVAccountViewCell.m */; };
-		0240900A19E45B4E00B218ED /* INVAccountViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0240900819E45B4E00B218ED /* INVAccountViewCell.m */; };
 		02457E2119ED882C00E714BA /* INVMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2019ED882C00E714BA /* INVMainMenuViewController.m */; };
-		02457E2219ED882C00E714BA /* INVMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2019ED882C00E714BA /* INVMainMenuViewController.m */; };
 		02457E2519ED88AC00E714BA /* INVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2419ED88AC00E714BA /* INVMainViewController.m */; };
-		02457E2619ED88AC00E714BA /* INVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02457E2419ED88AC00E714BA /* INVMainViewController.m */; };
 		0246E7311A111730000C487D /* INVFileManageRuleSetsContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0246E7301A111730000C487D /* INVFileManageRuleSetsContainerViewController.m */; };
-		0246E7321A111730000C487D /* INVFileManageRuleSetsContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0246E7301A111730000C487D /* INVFileManageRuleSetsContainerViewController.m */; };
 		0246E7351A11179E000C487D /* INVFileRuleSetListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0246E7341A11179E000C487D /* INVFileRuleSetListTableViewController.m */; };
-		0246E7361A11179E000C487D /* INVFileRuleSetListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0246E7341A11179E000C487D /* INVFileRuleSetListTableViewController.m */; };
 		0249AAE51A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAE31A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m */; };
-		0249AAE61A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAE31A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m */; };
 		0249AAE71A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0249AAE41A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib */; };
 		0249AAE81A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0249AAE41A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib */; };
-		0249AAF91A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0249AAF71A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m */; };
 		024BB6151A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024BB6131A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m */; };
-		024BB6161A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024BB6131A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m */; };
 		024BB6171A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024BB6141A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.xib */; };
 		024BB6181A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024BB6141A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.xib */; };
 		024BB63E1A30F8FB00DEA82D /* UIImage+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 024BB63D1A30F8FB00DEA82D /* UIImage+INVCustomizations.m */; };
-		024BB63F1A30F8FB00DEA82D /* UIImage+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 024BB63D1A30F8FB00DEA82D /* UIImage+INVCustomizations.m */; };
 		024CDCD419FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */; };
-		024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD219FA822400A2F527 /* INVTextViewTableViewCell.m */; };
 		024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCD319FA822400A2F527 /* INVTextViewTableViewCell.xib */; };
 		024CDCD719FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCD319FA822400A2F527 /* INVTextViewTableViewCell.xib */; };
 		024CDCDA19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD919FA85D600A2F527 /* INVInviteUsersTableViewController.m */; };
-		024CDCDB19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCD919FA85D600A2F527 /* INVInviteUsersTableViewController.m */; };
 		024CDCE719FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */; };
-		024CDCE819FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */; };
 		024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
 		024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
-		02549F411A37596100FF51B4 /* INVExecutionIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */; };
 		0278206C1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206D1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
 		0278206F1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
 		029080521A41C76100B39F48 /* UIAlertController+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 029080511A41C76100B39F48 /* UIAlertController+INVCustomizations.m */; };
-		029080531A41C76100B39F48 /* UIAlertController+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 029080511A41C76100B39F48 /* UIAlertController+INVCustomizations.m */; };
-		02A07F781A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
-		02A07F871A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
 		02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */; };
 		02A07F891A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */; };
 		02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
-		02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3E819E6F8D6002901DA /* INVCustomSplitViewController.m */; };
 		02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */; };
-		02AAD3EE19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */; };
 		02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3F019E7121E002901DA /* INVProjectsTableViewController.m */; };
-		02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3F019E7121E002901DA /* INVProjectsTableViewController.m */; };
 		02AAD3F619E71B16002901DA /* INVProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3F419E71B16002901DA /* INVProjectTableViewCell.m */; };
-		02AAD3F719E71B16002901DA /* INVProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3F419E71B16002901DA /* INVProjectTableViewCell.m */; };
 		02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD3F519E71B16002901DA /* INVProjectTableViewCell.xib */; };
 		02AAD3F919E71B17002901DA /* INVProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD3F519E71B16002901DA /* INVProjectTableViewCell.xib */; };
 		02AAD3FC19E81E52002901DA /* INVCustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3FB19E81E52002901DA /* INVCustomTabBarController.m */; };
-		02AAD3FD19E81E52002901DA /* INVCustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3FB19E81E52002901DA /* INVCustomTabBarController.m */; };
 		02AAD40019E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3FF19E81FDF002901DA /* INVProjectDetailsTabViewController.m */; };
-		02AAD40119E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD3FF19E81FDF002901DA /* INVProjectDetailsTabViewController.m */; };
 		02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD40319E82558002901DA /* INVProjectFilesListViewController.m */; };
-		02AAD40519E82558002901DA /* INVProjectFilesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD40319E82558002901DA /* INVProjectFilesListViewController.m */; };
 		02AAD40D19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD40B19E82624002901DA /* INVProjectFileCollectionViewCell.m */; };
-		02AAD40E19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD40B19E82624002901DA /* INVProjectFileCollectionViewCell.m */; };
 		02AAD40F19E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */; };
 		02AAD41019E82624002901DA /* INVProjectFileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD40C19E82624002901DA /* INVProjectFileCollectionViewCell.xib */; };
 		02AAD41A19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD41919EB2CCF002901DA /* INVProjectFileViewerController.m */; };
-		02AAD41B19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AAD41919EB2CCF002901DA /* INVProjectFileViewerController.m */; };
 		02AAD42A19ECB349002901DA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02AAD42719ECB349002901DA /* Localizable.strings */; };
 		02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */; };
-		02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B439DB19E45C88007A2FC5 /* INVCustomCollectionViewController.m */; };
 		02B43A0A19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A0919E58FE0007A2FC5 /* INVAccountViewCell.xib */; };
 		02B43A0B19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A0919E58FE0007A2FC5 /* INVAccountViewCell.xib */; };
 		02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B43A1019E5B70B007A2FC5 /* INVDefaultAccountAlertView.m */; };
-		02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B43A1019E5B70B007A2FC5 /* INVDefaultAccountAlertView.m */; };
 		02B43A1419E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */; };
 		02B43A1519E5B740007A2FC5 /* INVDefaultAccountAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */; };
 		02C595801A2D134100ADD392 /* INVRunRulesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C5957F1A2D134100ADD392 /* INVRunRulesTableViewController.m */; };
-		02C595811A2D134100ADD392 /* INVRunRulesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C5957F1A2D134100ADD392 /* INVRunRulesTableViewController.m */; };
 		02C8845D19E317E900DFB4E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8845C19E317E900DFB4E2 /* main.m */; };
 		02C8846019E317E900DFB4E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8845F19E317E900DFB4E2 /* AppDelegate.m */; };
 		02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846719E317E900DFB4E2 /* Images.xcassets */; };
 		02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C8846919E317E900DFB4E2 /* LaunchScreen.xib */; };
-		02C8847719E317E900DFB4E2 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8847619E317E900DFB4E2 /* INVBIMAssureTests.m */; };
 		02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848419E31D3D00DFB4E2 /* INVCustomTableViewController.m */; };
-		02C8848619E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848419E31D3D00DFB4E2 /* INVCustomTableViewController.m */; };
 		02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */; };
-		02C8848A19E328EF00DFB4E2 /* INVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */; };
 		02C8848E19E3353600DFB4E2 /* INVCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848D19E3353600DFB4E2 /* INVCustomViewController.m */; };
-		02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8848D19E3353600DFB4E2 /* INVCustomViewController.m */; };
 		02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */; };
-		02C8849519E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8849319E339F200DFB4E2 /* INVGlobalDataManager.m */; };
 		02DB77FF1A092022004F4980 /* INVRuleSetManageFilesContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DB77FE1A092022004F4980 /* INVRuleSetManageFilesContainerViewController.m */; };
-		02DB78001A092022004F4980 /* INVRuleSetManageFilesContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DB77FE1A092022004F4980 /* INVRuleSetManageFilesContainerViewController.m */; };
 		02DB78121A096C13004F4980 /* INVRuleSetFilesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DB78111A096C13004F4980 /* INVRuleSetFilesListTableViewController.m */; };
-		02DB78131A096C13004F4980 /* INVRuleSetFilesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DB78111A096C13004F4980 /* INVRuleSetFilesListTableViewController.m */; };
 		02FC608D1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
-		02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */; };
 		02FC608F1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		02FC60901A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */; };
 		D257A20C1A4867BE00584D4C /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A2081A4867BE00584D4C /* libPods-FontAwesomeKit.a */; };
@@ -167,6 +114,7 @@
 		D2CB67191A44CB21003FE3CA /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67151A44CB21003FE3CA /* libPods-MBProgressHUD.a */; };
 		D2CB671A1A44CB21003FE3CA /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67161A44CB21003FE3CA /* libPods-VENTokenField.a */; };
 		D2CB671B1A44CD0D003FE3CA /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67091A44C98E003FE3CA /* libYajl.a */; };
+		D2E0CF841A49E5CB002405D7 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8847619E317E900DFB4E2 /* INVBIMAssureTests.m */; };
 		F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27E91A3B7C7200685F3F /* ClassDump.m */; };
 		F57D27F81A3B7C7200685F3F /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EA1A3B7C7200685F3F /* fp16.c */; };
 		F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */; };
@@ -194,16 +142,6 @@
 		F5FA45721A44812100C6BE2E /* ServerConfig-Prod.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5FA45701A44812100C6BE2E /* ServerConfig-Prod.xcconfig */; };
 		F5FA45731A44812100C6BE2E /* ServerConfig-QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5FA45711A44812100C6BE2E /* ServerConfig-QA.xcconfig */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		023F2B4A19FE849400E4C985 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 02C8844F19E317E900DFB4E2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 02C8845619E317E900DFB4E2;
-			remoteInfo = INVBIMAssure;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F5DF9EEC1A2CF5C90085DEFF /* Embed Frameworks */ = {
@@ -801,7 +739,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				023F2B4B19FE849400E4C985 /* PBXTargetDependency */,
 			);
 			name = INVBIMAssureTests;
 			productName = INVBIMAssureTests;
@@ -1056,71 +993,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02AAD40519E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
-				023F2B9A1A04203E00E4C985 /* INVRuleSetTableViewHeaderView.m in Sources */,
-				02C8849519E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
-				02457E2219ED882C00E714BA /* INVMainMenuViewController.m in Sources */,
-				02AAD3EE19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
-				023F2B821A03B9D400E4C985 /* INVRuleInstanceTableViewController.m in Sources */,
-				02FC608E1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */,
-				02A07F871A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */,
-				0249AAE61A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m in Sources */,
-				029080531A41C76100B39F48 /* UIAlertController+INVCustomizations.m in Sources */,
-				023F2B6A1A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m in Sources */,
-				02B439DD19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
-				02B43A1219E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
-				02C8847719E317E900DFB4E2 /* INVBIMAssureTests.m in Sources */,
-				02DB78001A092022004F4980 /* INVRuleSetManageFilesContainerViewController.m in Sources */,
-				024CDCDB19FA85D600A2F527 /* INVInviteUsersTableViewController.m in Sources */,
-				0223351B19F6A82900224E0C /* INVLoginScrollView.m in Sources */,
-				023F2B6E1A0159BE00E4C985 /* INVRulesListViewController.m in Sources */,
-				0246E7361A11179E000C487D /* INVFileRuleSetListTableViewController.m in Sources */,
-				0224B90419F171030083EA6E /* MBProgressHUD+INVBAHUD.m in Sources */,
-				02AAD41B19EB2CCF002901DA /* INVProjectFileViewerController.m in Sources */,
-				0224B8C819F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */,
-				023F2B7E1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */,
-				0240900A19E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
-				021E85C119F829F8003E35E0 /* INVInvitedUsersTableViewController.m in Sources */,
-				02AAD3FD19E81E52002901DA /* INVCustomTabBarController.m in Sources */,
-				0234D6301A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m in Sources */,
-				0224B8AD19EDBB550083EA6E /* INVEmptySegue.m in Sources */,
-				02C8848A19E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
-				02AAD40119E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
-				024BB6161A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */,
-				0246E7321A111730000C487D /* INVFileManageRuleSetsContainerViewController.m in Sources */,
-				02C595811A2D134100ADD392 /* INVRunRulesTableViewController.m in Sources */,
-				02C8848619E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
-				023F2B871A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
-				02AAD40E19E82624002901DA /* INVProjectFileCollectionViewCell.m in Sources */,
-				02AAD3F719E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
-				02457E2619ED88AC00E714BA /* INVMainViewController.m in Sources */,
-				0223355619F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */,
-				02C8848F19E3353600DFB4E2 /* INVCustomViewController.m in Sources */,
-				02AAD3EA19E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
-				02DB78131A096C13004F4980 /* INVRuleSetFilesListTableViewController.m in Sources */,
-				0234D6291A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */,
-				02549F411A37596100FF51B4 /* INVExecutionIssuesTableViewController.m in Sources */,
-				02AAD3F219E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
-				023F2B5B19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */,
-				0249AAF91A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m in Sources */,
-				024CDCD519FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
-				024BB63F1A30F8FB00DEA82D /* UIImage+INVCustomizations.m in Sources */,
-				0240900019E45A2700B218ED /* INVAccountListViewController.m in Sources */,
-				023F2B731A015B0500E4C985 /* INVRuleInstanceTableViewCell.m in Sources */,
-				02A07F781A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m in Sources */,
-				024CDCE819FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */,
+				D2E0CF841A49E5CB002405D7 /* INVBIMAssureTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		023F2B4B19FE849400E4C985 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 02C8845619E317E900DFB4E2 /* INVBIMAssure */;
-			targetProxy = 023F2B4A19FE849400E4C985 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		021E85BA19F825F2003E35E0 /* Localizable.strings */ = {
