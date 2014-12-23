@@ -153,7 +153,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
-
+         
 #pragma note Yes - you could have directly access files from project manager. Using FetchResultsController directly makes it simpler
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
@@ -183,7 +183,11 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 #pragma mark - accessor
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.projectManager.fetchRequestForProjectFiles managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        NSFetchRequest *fetchRequest = self.projectManager.fetchRequestForPackages;
+        NSPredicate* matchPredicate = [NSPredicate predicateWithFormat:@"projectId == %@",self.projectId];
+        [fetchRequest setPredicate:matchPredicate];
+
+         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         
     }
     return  _dataResultsController;

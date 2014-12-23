@@ -293,7 +293,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 #pragma mark - helpers
 -(void)updateFilesListFromServer {
-    self.files = [self.projectManager.projectPackages mutableCopy];
+    self.files = [[self.projectManager  packagesForProjectId:self.projectId] mutableCopy];
     NSSet* filesMasterIdsInRuleSet = [self.rulesManager pkgMastersForRuleSetId:self.ruleSetId];
     INVPackageMutableArray filesAssociatedWithRuleSet = [[self.projectManager packageFilesForMasterIds:[filesMasterIdsInRuleSet allObjects]]mutableCopy];
     if (self.showFilesForRuleSetId) {
@@ -325,7 +325,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 -(void)addToLocalFileList:(NSNumber*)fileMasterId {
     @synchronized (self) {
         __block INVPackage* file;
-        [self.projectManager.projectPackages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSArray* packages = [self.projectManager packagesForProjectId:self.projectId];
+        [packages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             INVPackage* temp = obj;
             if ([temp.packageId isEqualToNumber:fileMasterId]) {
                 file = obj;
