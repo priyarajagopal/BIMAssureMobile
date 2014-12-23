@@ -30,7 +30,7 @@
 /**
  Can be used to directly fetch information on project files
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForProjectPackages;
+@property (nonatomic,readonly) NSFetchRequest* fetchRequestForPackages;
 
 
 /**

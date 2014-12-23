@@ -183,7 +183,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 #pragma mark - accessor
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        NSFetchRequest *fetchRequest = self.projectManager.fetchRequestForProjectPackages;
+        NSFetchRequest *fetchRequest = self.projectManager.fetchRequestForPackages;
         NSPredicate* matchPredicate = [NSPredicate predicateWithFormat:@"projectId == %@",self.projectId];
         [fetchRequest setPredicate:matchPredicate];
 
