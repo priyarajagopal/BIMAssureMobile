@@ -1,5 +1,7 @@
 #import "INVStreamBasedJSONParser.h"
 
+#import "NSURLConnectionBlockDelegate.h"
+
 #include "yajl/yajl_parse.h"
 
 @interface NSInputStreamBlockDelegate : NSObject<NSStreamDelegate>
@@ -18,56 +20,6 @@
 -(void) stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
     if (self.handleEvent) {
         self.handleEvent(aStream, eventCode);
-    }
-}
-
--(void) retainSelf {
-    _retainedSelf = self;
-}
-
--(void) releaseSelf {
-    _retainedSelf = nil;
-}
-
-@end
-
-@interface NSURLConnectionBlockDelegate : NSObject<NSURLConnectionDataDelegate>
-
-@property (copy) void(^didRecieveData)(NSURLConnection *, NSData *);
-@property (copy) void(^didFailWithError)(NSURLConnection *, NSError *);
-@property (copy) void(^didRecieveResponse)(NSURLConnection *, NSURLResponse *);
-@property (copy) void(^didFinishLoading)(NSURLConnection *);
-
--(void) retainSelf;
--(void) releaseSelf;
-
-@end
-
-@implementation NSURLConnectionBlockDelegate {
-    id _retainedSelf;
-}
-
--(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    if (self.didRecieveData) {
-        self.didRecieveData(connection, data);
-    }
-}
-
--(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    if (self.didFailWithError) {
-        self.didFailWithError(connection, error);
-    }
-}
-
--(void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    if (self.didRecieveResponse) {
-        self.didRecieveResponse(connection, response);
-    }
-}
-
--(void) connectionDidFinishLoading:(NSURLConnection *)connection {
-    if (self.didFinishLoading) {
-        self.didFinishLoading(connection);
     }
 }
 
