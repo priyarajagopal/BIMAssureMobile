@@ -185,6 +185,7 @@
 		F57D28191A3B7E8800685F3F /* INVRuleDefinitionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */; };
 		F5CB5AA71A4873D800927FB9 /* NSURLConnectionBlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CB5AA61A4873D800927FB9 /* NSURLConnectionBlockDelegate.m */; };
 		F5CB5AA91A48771D00927FB9 /* invicara_config_server.cer in Resources */ = {isa = PBXBuildFile; fileRef = F5CB5AA81A48771D00927FB9 /* invicara_config_server.cer */; };
+		F5CB5AAC1A49A3F300927FB9 /* INVServerConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CB5AAB1A49A3F300927FB9 /* INVServerConfigManager.m */; };
 		F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455A1A41CAED00C6BE2E /* aptMG2.json */; };
 		F5FA455D1A4463D900C6BE2E /* Startup.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455C1A4463D900C6BE2E /* Startup.json */; };
 		F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; };
@@ -400,6 +401,8 @@
 		F5CB5AA51A4873D800927FB9 /* NSURLConnectionBlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLConnectionBlockDelegate.h; sourceTree = "<group>"; };
 		F5CB5AA61A4873D800927FB9 /* NSURLConnectionBlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLConnectionBlockDelegate.m; sourceTree = "<group>"; };
 		F5CB5AA81A48771D00927FB9 /* invicara_config_server.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = invicara_config_server.cer; sourceTree = "<group>"; };
+		F5CB5AAA1A49A3F300927FB9 /* INVServerConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVServerConfigManager.h; sourceTree = "<group>"; };
+		F5CB5AAB1A49A3F300927FB9 /* INVServerConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVServerConfigManager.m; sourceTree = "<group>"; };
 		F5FA455A1A41CAED00C6BE2E /* aptMG2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aptMG2.json; sourceTree = "<group>"; };
 		F5FA455C1A4463D900C6BE2E /* Startup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Startup.json; sourceTree = "<group>"; };
 		F5FA45671A44768700C6BE2E /* ServerConfig-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ServerConfig-Dev.xcconfig"; sourceTree = "<group>"; };
@@ -519,6 +522,8 @@
 				023F2B681A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m */,
 				023F2B7B1A017F4E00E4C985 /* INVRulesTableViewDataSource.h */,
 				023F2B7C1A017F4E00E4C985 /* INVRulesTableViewDataSource.m */,
+				F5CB5AAA1A49A3F300927FB9 /* INVServerConfigManager.h */,
+				F5CB5AAB1A49A3F300927FB9 /* INVServerConfigManager.m */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -991,6 +996,7 @@
 				F57D280B1A3B7C9A00685F3F /* INVSearchView.m in Sources */,
 				024CDCD419FA822400A2F527 /* INVTextViewTableViewCell.m in Sources */,
 				02B439DC19E45C88007A2FC5 /* INVCustomCollectionViewController.m in Sources */,
+				F5CB5AAC1A49A3F300927FB9 /* INVServerConfigManager.m in Sources */,
 				F57D280D1A3B7C9A00685F3F /* INVSearchViewQuickSearchBackgroundView.m in Sources */,
 				02C8848519E31D3D00DFB4E2 /* INVCustomTableViewController.m in Sources */,
 				024BB63E1A30F8FB00DEA82D /* UIImage+INVCustomizations.m in Sources */,
