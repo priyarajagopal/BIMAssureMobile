@@ -10,6 +10,8 @@
 #import "INVLoginViewController.h"
 #import "INVAccountListViewController.h"
 #import "INVProjectListSplitViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 @property (nonatomic,assign)BOOL registeredForLoginEvents;
@@ -25,6 +27,7 @@
         [self.globalManager deleteCurrentlySavedCredentialsFromKC];
         [self.globalManager deleteCurrentlySavedDefaultAccountFromKC];
     }
+    [self enableCrashReporting];
     [self setupNetworkCache];
     [self registerGlobalNotifications];
     [self displayLoginRootViewController];
@@ -124,6 +127,9 @@
 }
 
 #pragma mark - helpers
+-(void)enableCrashReporting {
+    [Fabric with:@[CrashlyticsKit]];
+}
 -(void)registerLoginObservers {
     if ([[self rootController] isKindOfClass:[INVLoginViewController class]]) {
         if (!self.registeredForLoginEvents) {
