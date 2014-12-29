@@ -38,7 +38,7 @@
     return configManager;
 }
 
--(BOOL) _loadConfigNamed:(NSString *) configName fromUrl:(NSURL *) url configData:(NSData *__autoreleasing *) data {
+-(BOOL) _loadConfigNamed:(NSString *) configName fromUrl:(NSURLRequest *) url configData:(NSData *__autoreleasing *) data {
     __block NSData *configData = nil;
     dispatch_semaphore_t completionSemaphore = dispatch_semaphore_create(0);
     
@@ -55,7 +55,7 @@
     
     requestManager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     
-    [requestManager GET:[url absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[requestManager HTTPRequestOperationWithRequest:url success:^(AFHTTPRequestOperation *operation, id responseObject) {
         configData = responseObject;
         
         dispatch_semaphore_signal(completionSemaphore);
@@ -63,10 +63,10 @@
         NSLog(@"Config HTTP error: %@", error);
         
         dispatch_semaphore_signal(completionSemaphore);
-    }];
+    }] start];
     
-    // 60s timeout. OS will probably kill us long before that happens however.
-    dispatch_semaphore_wait(completionSemaphore, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 60));
+    // 30s timeout. OS will probably kill us long before that happens however.
+    dispatch_semaphore_wait(completionSemaphore, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 30));
     
     if (configData == nil) {
         return NO;
@@ -122,7 +122,7 @@
 }
 
 -(void) loadConfigNamed:(NSString *)configName {
-    NSURL *configURL = [NSURL URLWithString:CONFIG_URL];
+    NSURLRequest *configURL = [INVEmpireMobileClient requestToFetchSystemConfiguration];
     NSData *configData = nil;
     
     if ([self _loadConfigNamed:configName fromUrl:configURL configData:&configData]) {
@@ -131,12 +131,12 @@
         return;
     }
     
-    configURL = [NSURL fileURLWithPath:CONFIG_CACHE_FILE_PATH];
+    configURL = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:CONFIG_CACHE_FILE_PATH]];
     if ([self _loadConfigNamed:configName fromUrl:configURL configData:nil]) {
         return;
     }
     
-    configURL = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:LOCAL_CACHE_FILE_NAME];
+    configURL = [NSURLRequest requestWithURL:[[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:LOCAL_CACHE_FILE_NAME]];
     if ([self _loadConfigNamed:configName fromUrl:configURL configData:nil]) {
         return;
     }
