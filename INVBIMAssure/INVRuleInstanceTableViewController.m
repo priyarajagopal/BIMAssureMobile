@@ -149,6 +149,7 @@ static NSString* INV_ActualParamValue = @"Value";
     INV_CellConfigurationBlock cellConfigurationBlockForRuleOverview = ^(INVRuleInstanceOverviewTableViewCell *cell,NSString* overview ,NSIndexPath* indexPath ){
         cell.ruleDescription.text = overview;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+     
         cell.delegate = self;
     };
     [self.dataSource registerCellWithIdentifier:@"RuleInstanceOverviewTVC" configureBlock:cellConfigurationBlockForRuleOverview forIndexPath:indexPathForRuleOverview];
@@ -382,7 +383,6 @@ static NSString* INV_ActualParamValue = @"Value";
         [self performSegueWithIdentifier:@"CancelSegue" sender:self];
     }];
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-    [self.successAlertController.view setTintColor:[UIColor darkGrayColor]];
     [self.successAlertController addAction:action];
     [self presentViewController:self.successAlertController animated:YES completion:^{
         

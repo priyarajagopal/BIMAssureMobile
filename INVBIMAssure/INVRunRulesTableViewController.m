@@ -318,7 +318,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         }];
     }];
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-    [self.successAlertController.view setTintColor:[UIColor darkGrayColor]];
     [self.successAlertController addAction:action];
     [self presentViewController:self.successAlertController animated:YES completion:^{
         

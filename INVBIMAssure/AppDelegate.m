@@ -83,6 +83,9 @@
     [[UIView appearanceWhenContainedIn:[UITabBar class], nil] setTintColor:[UIColor darkGrayColor]];
     [[UITabBar appearance]setBarTintColor:ltGreyColor];
     [[UITabBar appearance]setTintColor:cyanBlueColor];
+    
+    [[UIView appearanceWhenContainedIn:[UIAlertController class], nil] setTintColor:darkGreyColor];
+    
 }
 
 #pragma mark - VC management
