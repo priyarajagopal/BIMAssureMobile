@@ -57,32 +57,6 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
 -(void)updateTableViewDataSource {
     [self.dataSource updateWithDataArray:self.buildingElementDetails forSection:DEFAULT_SECTION_INDEX];
 }
-/*
--(void)initializeTableViewDataSource {
-    
-    if (self.buildingElementsWithIssues) {
-        self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:self.buildingElementDetails forSection:DEFAULT_SECTION_INDEX forTableView:self.tableView];
-    }
-    else {
-        self.dataSource = [[INVGenericTableViewDataSource alloc]initWithDataArray:@[] forSection:DEFAULT_SECTION_INDEX forTableView:self.tableView];
-    }
-
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell,INVBuildingElement* buildingElement,NSIndexPath* indexPath ){
-        
-        cell.textLabel.text = buildingElement.name;
-        cell.detailTextLabel.text = @"MORE_DETAILS_OF_ELEMENT_GO_HERE";
-        
-    };
-    [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"BuildingElementTVC" configureBlock:cellConfigurationBlock];
-    self.tableView.dataSource = self.dataSource;
-}
-
-#pragma mark - UITableViewCellDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return DEFAULT_HEADER_HEIGHT;
-}
- */
 
 
 #pragma mark - server side
