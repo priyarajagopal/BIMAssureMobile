@@ -15,7 +15,7 @@
         }];
     }];
     
-    self= [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ERROR", nil) message:errorMesg preferredStyle:UIAlertControllerStyleAlert];
+    self= [UIAlertController alertControllerWithTitle:nil message:errorMesg preferredStyle:UIAlertControllerStyleAlert];
     if (self) {
         [[UIView appearanceWhenContainedIn:[self class], nil] setTintColor:[UIColor darkGrayColor]];
         [self addAction:action];
