@@ -54,8 +54,9 @@ const NSInteger INDEX_ROW_LOGOUT = 0;
             self.globalDataManager.loggedInUser = nil;
             [self.globalDataManager deleteCurrentlySavedCredentialsFromKC];
             [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
+            [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationUserLogOutSuccess object:nil];
         }];
-        [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationUserLogOutSuccess object:nil];
+        
     }
 }
 

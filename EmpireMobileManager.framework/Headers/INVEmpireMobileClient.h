@@ -162,7 +162,7 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 -(void)getSignedInUserProfileWithCompletionBlock:(CompletionHandler) handler;
 
 /**
- Asynchornously ,delete a user from a project. Only an admin is capable of exercising this call.
+ Asynchornously ,create project with specified name. Only an admin is capable of exercising this call.
  
  @param projectName name of project
  
@@ -283,6 +283,38 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  
  */
 -(NSURLRequest*)requestToFetchModelViewForId:(NSNumber*)pkgVersion ;
+
+
+
+/**
+ Convenience method that retuns a NSURLRequest to fetch the JSON model data. This provides the flexibility for clients to fetch and process the data
+ as they choose to. If there is an error, a nil value is returned
+ 
+ @param modelId the Id of the model whose JSON data is to fetched
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see accountManager
+ 
+ */
+-(NSURLRequest*)requestToFetchModelViewForId:(NSNumber*)modelId ;
+
+
+
+
+/**
+ Convenience method that retuns a NSURLRequest to fetch the JSON model data. This provides the flexibility for clients to fetch and process the data
+ as they choose to. If there is an error, a nil value is returned
+ 
+ @param modelId the Id of the model whose JSON data is to fetched
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see accountManager
+ 
+ */
+-(NSURLRequest*)requestToFetchModelViewForId:(NSNumber*)modelId ;
+
 
 #pragma mark - Projects Related
 
@@ -634,7 +666,7 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  Convenience method that retuns a NSURLRequest to fetch the system configuration. If there is an error, a nil value is returned
 
  */
--(NSURLRequest*)requestToFetchSystemConfiguration;
++(NSURLRequest*)requestToFetchSystemConfiguration;
     
 
 
