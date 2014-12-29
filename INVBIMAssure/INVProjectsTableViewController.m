@@ -13,6 +13,7 @@
 #import "INVRulesListViewController.h"
 #import "INVProjectListSplitViewController.h"
 #import "INVRuleExecutionsTableViewController.h"
+#import "UIImage+INVCustomizations.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger TABINDEX_PROJECT_FILES = 0;
@@ -175,10 +176,11 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
             
             cell.createdOnLabel.attributedText = attrString;
             
-            NSUInteger random = self.dataResultsController.fetchedObjects.count;
-            NSInteger index = arc4random_uniform(random);
+#warning This shoud eventually be provided as a selected by user during project creation and should subsequently be pulled from server. If user does not select one, we randomly pick one
+            NSInteger index = arc4random_uniform(5); // We have 5 canned images
             NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
-            cell.thumbnailImageView.image = [UIImage imageNamed:thumbnail];
+            UIImage* tempImage = [UIImage imageNamed:thumbnail];
+            cell.thumbnailImageView.image = [UIImage resizeImage:tempImage toSize:cell.thumbnailImageView.frame.size];
             
         };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
