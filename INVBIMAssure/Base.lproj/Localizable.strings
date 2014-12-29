@@ -78,3 +78,5 @@
 "ERROR_ACCOUNT_LOAD"="There was an error loading account information for the user .[%1@]";
 "ERROR_RULEINSTANCE_CREATE"="There was an error creating the rule instance.[%1@]";
 "ERROR_RULEINSTANCE_UPDATE"="There was an error updating the rule instance.[%1@]";
+"SETTINGS"="Settings";
+"APP_VERSION"="App Version: %1@(%2@)";

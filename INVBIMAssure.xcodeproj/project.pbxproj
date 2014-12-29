@@ -64,6 +64,8 @@
 		024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
 		0271A6BB1A4B1F4C00ECF4F6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0271A6B91A4B1F4C00ECF4F6 /* Crashlytics.framework */; };
 		0271A6BC1A4B1F4C00ECF4F6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0271A6BA1A4B1F4C00ECF4F6 /* Fabric.framework */; };
+		0271A7201A51992700ECF4F6 /* INVSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0271A71F1A51992700ECF4F6 /* INVSettingsViewController.m */; };
+		0271A7211A51992700ECF4F6 /* INVSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0271A71F1A51992700ECF4F6 /* INVSettingsViewController.m */; };
 		0278206C1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206D1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
@@ -235,6 +237,8 @@
 		02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVExecutionIssuesTableViewController.m; sourceTree = "<group>"; };
 		0271A6B91A4B1F4C00ECF4F6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0271A6BA1A4B1F4C00ECF4F6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		0271A71E1A51992700ECF4F6 /* INVSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSettingsViewController.h; sourceTree = "<group>"; };
+		0271A71F1A51992700ECF4F6 /* INVSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSettingsViewController.m; sourceTree = "<group>"; };
 		0278206A1A1A98EF00BDAA5E /* Visualize_files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Visualize_files; sourceTree = "<group>"; };
 		0278206B1A1A98EF00BDAA5E /* Visualize.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Visualize.html; sourceTree = "<group>"; };
 		029080501A41C76100B39F48 /* UIAlertController+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+INVCustomizations.h"; sourceTree = "<group>"; };
@@ -617,6 +621,8 @@
 				0246E7341A11179E000C487D /* INVFileRuleSetListTableViewController.m */,
 				02DB78101A096C13004F4980 /* INVRuleSetFilesListTableViewController.h */,
 				02DB78111A096C13004F4980 /* INVRuleSetFilesListTableViewController.m */,
+				0271A71E1A51992700ECF4F6 /* INVSettingsViewController.h */,
+				0271A71F1A51992700ECF4F6 /* INVSettingsViewController.m */,
 				0224B8AA19EDBB550083EA6E /* INVEmptySegue.h */,
 				0224B8AB19EDBB550083EA6E /* INVEmptySegue.m */,
 				027820701A1A98FB00BDAA5E /* visualizer */,
@@ -1004,6 +1010,7 @@
 				024BB6151A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */,
 				02C8845D19E317E900DFB4E2 /* main.m in Sources */,
 				023F2B811A03B9D400E4C985 /* INVRuleInstanceTableViewController.m in Sources */,
+				0271A7201A51992700ECF4F6 /* INVSettingsViewController.m in Sources */,
 				02AAD3F619E71B16002901DA /* INVProjectTableViewCell.m in Sources */,
 				02AAD40019E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
 				0249AAE51A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m in Sources */,
@@ -1016,6 +1023,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2E0CF841A49E5CB002405D7 /* INVBIMAssureTests.m in Sources */,
+				0271A7211A51992700ECF4F6 /* INVSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
