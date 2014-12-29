@@ -65,8 +65,8 @@
         dispatch_semaphore_signal(completionSemaphore);
     }];
     
-    // 60s timeout. OS will probably kill us long before that happens however.
-    dispatch_semaphore_wait(completionSemaphore, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 60));
+    // 30s timeout. OS will probably kill us long before that happens however.
+    dispatch_semaphore_wait(completionSemaphore, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 30));
     
     if (configData == nil) {
         return NO;
