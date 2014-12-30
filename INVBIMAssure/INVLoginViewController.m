@@ -92,6 +92,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
                                                                       multiplier:1.0
                                                                         constant:0];
     [self.view addConstraint:rightConstraint];
+    
+    [self.loginButton setEnabled:NO];
 
 }
 /*
@@ -200,6 +202,18 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     }
     else if (textField == self.emailTextEntry) {
         [self.passwordTextEntry becomeFirstResponder];
+    }
+    return YES;
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger length = textField.text.length - range.length + string.length;
+    
+    UITextField* otherTextField = textField == self.emailTextEntry ? self.passwordTextEntry:self.emailTextEntry;
+    if (length > 0 && otherTextField.text.length ) {
+        self.loginButton.enabled = YES;
+    } else {
+        self.loginButton.enabled = NO;
     }
     return YES;
 }
