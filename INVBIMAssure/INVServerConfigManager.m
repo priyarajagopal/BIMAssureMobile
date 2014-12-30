@@ -10,8 +10,6 @@
 
 #import <AFNetworking/AFNetworking.h>
 
-#define CONFIG_URL @"https://com.invicara.empire.dev-td.us-west-2.s3-us-west-2.amazonaws.com/System/Config/Startup.json?AWSAccessKeyId=AKIAIHLRHQHYGULUVRSA&Expires=1611118800&Signature=ok6Sk%2FBxOxw2ME92ak3c6jMwUss%3D"
-
 #define LOCAL_CACHE_FILE_NAME @"Startup.json"
 #define CONFIG_CACHE_FILE_PATH [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:LOCAL_CACHE_FILE_NAME]
 
@@ -65,8 +63,7 @@
         dispatch_semaphore_signal(completionSemaphore);
     }] start];
     
-    // 30s timeout. OS will probably kill us long before that happens however.
-    dispatch_semaphore_wait(completionSemaphore, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 30));
+    dispatch_semaphore_wait(completionSemaphore, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 60));
     
     if (configData == nil) {
         return NO;
