@@ -167,12 +167,19 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:@"The issues list is not supported in this version!"];
+    [self presentViewController:errController animated:YES completion:^{
+        
+    }];
+
+#ifdef _SERVER_SUPPORT_AVAILABLE_
     INVRuleInstanceExecutionResultTableViewCell* cell = (INVRuleInstanceExecutionResultTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
     if (cell.alertIconLabel.isHidden) {
         return;
     }
     [self performSegueWithIdentifier:@"ShowIssuesSegue" sender:self];
     
+#endif
 }
 
 

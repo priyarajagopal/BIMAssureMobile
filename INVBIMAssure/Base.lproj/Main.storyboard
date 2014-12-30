@@ -2040,7 +2040,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="onRunRulesSelected:" destination="AUh-Ql-GT9" eventType="touchUpInside" id="9O4-2m-5Fd"/>
+                                                <action selector="onRunRulesSelected:" destination="AUh-Ql-GT9" eventType="touchUpInside" id="Vm6-Q7-RRi"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -2074,6 +2074,9 @@
                             <outlet property="delegate" destination="AUh-Ql-GT9" id="2ip-Ah-4hx"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="runRulesButton" destination="KHK-qq-5YG" id="Te0-LM-hPp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JvC-lG-X5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -115,25 +115,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     }];
 }
 
-/***** DEPRECATED ******
--(void)pushUpdatedRuleSetsForFileToServer {
-    NSMutableArray* ruleSetIds = [[NSMutableArray alloc]initWithCapacity:0];
-    [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        INVRuleSet* ruleSet = obj;
-        [ruleSetIds addObject:ruleSet.ruleSetId];
-    }];
-    [self.globalDataManager.invServerClient updatePkgMaster:self.fileId withRuleSets:ruleSetIds withCompletionBlock:^(INVEmpireMobileError *error) {
-         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-     
-        if (error) {
-            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_UPDATE", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
-        }
-    }];
-}
-***** DEPRECATED ******/
+
 -(void)pushAddedRuleSetsForPkgMasterToServer {
     NSSet* currentRuleSetsForPkgMaster = [self.globalDataManager.invServerClient.rulesManager ruleSetIdsForPkgMaster:self.fileId];
     NSMutableSet* updatedRuleSetIds = [[NSMutableSet alloc]initWithCapacity:0];

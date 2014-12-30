@@ -15,7 +15,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 60;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 @interface INVRunRulesTableViewController ()<UITableViewDataSource,UITableViewDelegate,INVRunRuleSetHeaderViewActionDelegate>
-@property (nonatomic,strong)INVRulesManager* rulesManager;
+@property (nonatomic, strong) INVRulesManager* rulesManager;
 @property (nonatomic, strong) INVRuleSetMutableArray  ruleSets;
 @property (nonatomic, strong) NSMutableSet*  selectedRuleInstanceIds;
 @property (nonatomic, strong) NSMutableSet*  selectedRuleSetIds;
@@ -28,7 +28,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"SELECT_RULES_TO_RUN", nil);
-    
+    [self.runRulesButton setEnabled:NO];
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
@@ -165,6 +165,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
      
         if (!error) {
             [self updateRuleSetsFromServer ];
+            if (!self.ruleSets.count) {
+                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_EMPTY", nil),error.code]];
+                [self presentViewController:errController animated:YES completion:^{ }];
+                
+            }
+            else {
+                [self.runRulesButton setEnabled:YES];
+            }
             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
         else {
@@ -318,7 +326,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         }];
     }];
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-    [self.successAlertController.view setTintColor:[UIColor darkGrayColor]];
     [self.successAlertController addAction:action];
     [self presentViewController:self.successAlertController animated:YES completion:^{
         

@@ -12,6 +12,7 @@
 @property (nonatomic,copy)NSNumber* projectId;
 @property (nonatomic,copy)NSNumber* fileVersionId;
 @property (nonatomic,copy)NSNumber* fileMasterId;
+@property (weak, nonatomic) IBOutlet UIButton *runRulesButton;
 @property (nonatomic,copy)NSNumber* modelId;
 - (IBAction)onRunRulesSelected:(UIButton *)sender;
 
