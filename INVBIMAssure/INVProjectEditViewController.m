@@ -55,6 +55,22 @@
 }
 
 -(void) save:(id)sender {
+    NSString *projectName = self.projectNameTextField.text;
+    NSString *projectDescription = self.projectDescriptionTextField.text;
+    
+    projectName = [projectName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    projectDescription = [projectDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (projectName.length == 0) {
+        self.navigationItem.prompt = @"Invalid Project Name";
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.navigationItem.prompt = nil;
+        });
+        
+        return;
+    }
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [[[INVGlobalDataManager sharedInstance] invServerClient] createProjectWithName:self.projectNameTextField.text
