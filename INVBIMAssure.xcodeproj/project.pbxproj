@@ -138,6 +138,8 @@
 		F5CB5AA71A4873D800927FB9 /* NSURLConnectionBlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CB5AA61A4873D800927FB9 /* NSURLConnectionBlockDelegate.m */; };
 		F5CB5AA91A48771D00927FB9 /* invicara_config_server.cer in Resources */ = {isa = PBXBuildFile; fileRef = F5CB5AA81A48771D00927FB9 /* invicara_config_server.cer */; };
 		F5CB5AAC1A49A3F300927FB9 /* INVServerConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CB5AAB1A49A3F300927FB9 /* INVServerConfigManager.m */; };
+		F5CB5AAF1A5ADF1700927FB9 /* INVProjectEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CB5AAE1A5ADF1700927FB9 /* INVProjectEditViewController.m */; };
+		F5CB5AB31A5AE5F000927FB9 /* UIResponder+IBHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CB5AB21A5AE5F000927FB9 /* UIResponder+IBHelpers.m */; };
 		F5FA455B1A41CAED00C6BE2E /* aptMG2.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455A1A41CAED00C6BE2E /* aptMG2.json */; };
 		F5FA455D1A4463D900C6BE2E /* Startup.json in Resources */ = {isa = PBXBuildFile; fileRef = F5FA455C1A4463D900C6BE2E /* Startup.json */; };
 		F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57D28141A3B7DB200685F3F /* OpenCTM.framework */; };
@@ -349,6 +351,10 @@
 		F5CB5AA81A48771D00927FB9 /* invicara_config_server.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = invicara_config_server.cer; sourceTree = "<group>"; };
 		F5CB5AAA1A49A3F300927FB9 /* INVServerConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVServerConfigManager.h; sourceTree = "<group>"; };
 		F5CB5AAB1A49A3F300927FB9 /* INVServerConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVServerConfigManager.m; sourceTree = "<group>"; };
+		F5CB5AAD1A5ADF1700927FB9 /* INVProjectEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectEditViewController.h; sourceTree = "<group>"; };
+		F5CB5AAE1A5ADF1700927FB9 /* INVProjectEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectEditViewController.m; sourceTree = "<group>"; };
+		F5CB5AB11A5AE5F000927FB9 /* UIResponder+IBHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+IBHelpers.h"; sourceTree = "<group>"; };
+		F5CB5AB21A5AE5F000927FB9 /* UIResponder+IBHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+IBHelpers.m"; sourceTree = "<group>"; };
 		F5FA455A1A41CAED00C6BE2E /* aptMG2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aptMG2.json; sourceTree = "<group>"; };
 		F5FA455C1A4463D900C6BE2E /* Startup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Startup.json; sourceTree = "<group>"; };
 		F5FA45671A44768700C6BE2E /* ServerConfig-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ServerConfig-Dev.xcconfig"; sourceTree = "<group>"; };
@@ -529,6 +535,7 @@
 		02C8845919E317E900DFB4E2 /* INVBIMAssure */ = {
 			isa = PBXGroup;
 			children = (
+				F5CB5AB01A5AE5B600927FB9 /* utilities */,
 				02C8845E19E317E900DFB4E2 /* AppDelegate.h */,
 				02C8845F19E317E900DFB4E2 /* AppDelegate.m */,
 				02C8848B19E328FE00DFB4E2 /* viewcontrollers */,
@@ -585,6 +592,8 @@
 				02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */,
 				02AAD3EF19E7121E002901DA /* INVProjectsTableViewController.h */,
 				02AAD3F019E7121E002901DA /* INVProjectsTableViewController.m */,
+				F5CB5AAD1A5ADF1700927FB9 /* INVProjectEditViewController.h */,
+				F5CB5AAE1A5ADF1700927FB9 /* INVProjectEditViewController.m */,
 				02AAD3FE19E81FDF002901DA /* INVProjectDetailsTabViewController.h */,
 				02AAD3FF19E81FDF002901DA /* INVProjectDetailsTabViewController.m */,
 				02AAD40219E82558002901DA /* INVProjectFilesListViewController.h */,
@@ -703,6 +712,15 @@
 				F57D280A1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m */,
 			);
 			path = search;
+			sourceTree = "<group>";
+		};
+		F5CB5AB01A5AE5B600927FB9 /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F5CB5AB11A5AE5F000927FB9 /* UIResponder+IBHelpers.h */,
+				F5CB5AB21A5AE5F000927FB9 /* UIResponder+IBHelpers.m */,
+			);
+			name = utilities;
 			sourceTree = "<group>";
 		};
 		F5FA45741A44816700C6BE2E /* Build Configuration */ = {
@@ -982,6 +1000,7 @@
 				02FC608D1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m in Sources */,
 				029080521A41C76100B39F48 /* UIAlertController+INVCustomizations.m in Sources */,
 				023F2B7D1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */,
+				F5CB5AAF1A5ADF1700927FB9 /* INVProjectEditViewController.m in Sources */,
 				F57D27FB1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
 				023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
 				02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
@@ -1013,6 +1032,7 @@
 				02AAD40019E81FDF002901DA /* INVProjectDetailsTabViewController.m in Sources */,
 				0249AAE51A2E45D400EE5D09 /* INVRunRuleSetHeaderView.m in Sources */,
 				0224B8AC19EDBB550083EA6E /* INVEmptySegue.m in Sources */,
+				F5CB5AB31A5AE5F000927FB9 /* UIResponder+IBHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

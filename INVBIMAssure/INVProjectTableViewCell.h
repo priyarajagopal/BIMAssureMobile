@@ -8,7 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class INVProjectTableViewCell;
+
+@protocol INVProjectTableViewCellDelegate <NSObject>
+
+@optional
+-(void) onProjectDeleted:(INVProjectTableViewCell *) sender;
+
+@end
+
 @interface INVProjectTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) id<INVProjectTableViewCellDelegate> delegate;
+
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *createdOnLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;

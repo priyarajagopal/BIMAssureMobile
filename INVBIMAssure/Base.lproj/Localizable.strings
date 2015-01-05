@@ -58,6 +58,8 @@
 "RULE_INSTANCE_CREATED_SUCCESS"="Succesfully created rule instance";
 "RULE_INSTANCE_UPDATED_SUCCESS"="Succesfully updated rule instance";
 "RUN_RULE_SUCCESS"="Succesfully started rule execution.";
+"CREATE_PROJECT"="Create Project";
+"EDIT_PROJECT"="Edit %@";
 "ERROR"="Error";
 "ERROR_RULE_DEFINITION_LOAD"="There was an error while loading rule definitions [%1@]";
 "ERROR_RULE_DEFINITION_FORINSTANCE_LOAD"="There was an error while loading rule definition for rule instance [%1@]";
