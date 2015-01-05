@@ -20,7 +20,7 @@ static const NSInteger TABINDEX_PROJECT_FILES = 0;
 static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 //static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 
-@interface INVProjectsTableViewController ()
+@interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate>
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
@@ -167,7 +167,11 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
     if (!_dataSource) {
         _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
+            cell.delegate = self;
+            cell.projectId = project.projectId;
+            
             cell.name.text = project.name;
+            
             NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
             NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
             NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:createdOnWithDateStr];
@@ -211,6 +215,14 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
         _dateFormatter.dateStyle = NSDateFormatterShortStyle;
     }
     return _dateFormatter;
+}
+
+-(void) onProjectDeleted:(INVProjectTableViewCell *)sender {
+    NSNumber *projectId = sender.projectId;
+    
+    [[[INVGlobalDataManager sharedInstance] invServerClient] deleteProjectWithId:projectId ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+        [self fetchProjectList];
+    }];
 }
 
 @end

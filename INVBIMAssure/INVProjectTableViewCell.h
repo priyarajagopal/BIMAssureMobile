@@ -21,6 +21,8 @@
 
 @property (weak, nonatomic) id<INVProjectTableViewCellDelegate> delegate;
 
+@property (strong, nonatomic) NSNumber *projectId;
+
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *createdOnLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
