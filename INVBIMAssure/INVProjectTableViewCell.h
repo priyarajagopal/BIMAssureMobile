@@ -27,4 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *createdOnLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 
+@property (weak, nonatomic) IBOutlet UILabel *fileCount;
+@property (weak, nonatomic) IBOutlet UILabel *userCount;
+
 @end

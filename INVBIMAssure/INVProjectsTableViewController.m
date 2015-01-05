@@ -172,6 +172,10 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
             
             cell.name.text = project.name;
             
+            // TODO: Get the file count and user count for the project
+            cell.fileCount.text = @"\uf0c5 0";
+            cell.userCount.text = @"\uf0c0 0";
+            
             NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
             NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
             NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:createdOnWithDateStr];

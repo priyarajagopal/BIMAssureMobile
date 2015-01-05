@@ -7,6 +7,8 @@
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -50,11 +52,27 @@
                                     <action selector="onProjectDeleted:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jSr-kf-7Bk"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fD-iz-oLT">
+                                <rect key="frame" x="8" y="5" width="38" height="21"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="21"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ez-7W-4qk">
+                                <rect key="frame" x="62" y="5" width="40" height="21"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="21"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3SR-UU-hjb" firstAttribute="top" secondItem="75P-dp-ChF" secondAttribute="top" id="01H-xm-Ht9"/>
+                            <constraint firstItem="7fD-iz-oLT" firstAttribute="baseline" secondItem="3SR-UU-hjb" secondAttribute="baseline" id="0E2-9C-gmq"/>
+                            <constraint firstItem="7fD-iz-oLT" firstAttribute="baseline" secondItem="9Ez-7W-4qk" secondAttribute="baseline" id="0gs-RB-BBU"/>
                             <constraint firstAttribute="trailing" secondItem="3SR-UU-hjb" secondAttribute="trailing" constant="8" id="5wm-YK-urV"/>
+                            <constraint firstItem="9Ez-7W-4qk" firstAttribute="leading" secondItem="7fD-iz-oLT" secondAttribute="trailing" constant="16" id="6jb-u8-WJu"/>
+                            <constraint firstItem="7fD-iz-oLT" firstAttribute="leading" secondItem="75P-dp-ChF" secondAttribute="leading" constant="8" id="Ca6-Oq-KBx"/>
                             <constraint firstAttribute="bottom" secondItem="3SR-UU-hjb" secondAttribute="bottom" id="Ekj-ki-fD4"/>
                             <constraint firstAttribute="height" constant="30" id="OEp-Tf-uPj"/>
                         </constraints>
@@ -79,8 +97,10 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="createdOnLabel" destination="Ard-Oq-uvi" id="hEO-q5-etX"/>
+                <outlet property="fileCount" destination="7fD-iz-oLT" id="t4q-Fa-dvh"/>
                 <outlet property="name" destination="e0G-Pw-T0H" id="IRY-br-Ieu"/>
                 <outlet property="thumbnailImageView" destination="OdG-Fp-3hC" id="FAq-WX-wPO"/>
+                <outlet property="userCount" destination="9Ez-7W-4qk" id="CBI-Ow-Ofl"/>
             </connections>
             <point key="canvasLocation" x="503.5" y="571"/>
         </tableViewCell>
