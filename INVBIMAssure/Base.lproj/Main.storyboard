@@ -798,7 +798,7 @@
                         <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
                         <segue destination="AUh-Ql-GT9" kind="presentation" identifier="RunRulesSegue" modalPresentationStyle="formSheet" id="G8m-0f-E8j"/>
                         <segue destination="l61-lF-AkI" kind="show" identifier="ShowExecutionsSegue" id="yRG-Uw-32c"/>
-                        <segue destination="GL2-uL-zZe" kind="show" identifier="FileViewerSegue" id="ZwD-6V-7ux"/>
+                        <segue destination="GL2-uL-zZe" kind="presentation" identifier="FileViewerSegue" modalPresentationStyle="fullScreen" id="ZwD-6V-7ux"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -980,11 +980,11 @@
                         <viewControllerLayoutGuide type="bottom" id="8D9-Ct-9VY"/>
                     </layoutGuides>
                     <glkView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" enableSetNeedsDisplay="NO" id="4ov-Ct-Enc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP4-oq-N5W">
-                                <rect key="frame" x="0.0" y="443" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="iA5-EL-oWn"/>
