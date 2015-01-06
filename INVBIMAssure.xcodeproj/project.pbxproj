@@ -118,6 +118,7 @@
 		D2CB671A1A44CB21003FE3CA /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67161A44CB21003FE3CA /* libPods-VENTokenField.a */; };
 		D2CB671B1A44CD0D003FE3CA /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB67091A44C98E003FE3CA /* libYajl.a */; };
 		D2E0CF841A49E5CB002405D7 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8847619E317E900DFB4E2 /* INVBIMAssureTests.m */; };
+		F509E09A1A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F509E0991A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m */; };
 		F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27E91A3B7C7200685F3F /* ClassDump.m */; };
 		F57D27F81A3B7C7200685F3F /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EA1A3B7C7200685F3F /* fp16.c */; };
 		F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */; };
@@ -320,6 +321,8 @@
 		D2CB67161A44CB21003FE3CA /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "Pods/build/Prod-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
 		D6F0F6A2F1B5AEDE80AFC326 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF25BF4311C8C43FD60438CC /* Pods.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.dev.xcconfig; path = "Pods/Target Support Files/Pods/Pods.dev.xcconfig"; sourceTree = "<group>"; };
+		F509E0981A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModalPresentationFromSplitViewControllerSegue.h; sourceTree = "<group>"; };
+		F509E0991A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModalPresentationFromSplitViewControllerSegue.m; sourceTree = "<group>"; };
 		F57D27E91A3B7C7200685F3F /* ClassDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDump.m; sourceTree = "<group>"; };
 		F57D27EA1A3B7C7200685F3F /* fp16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp16.c; sourceTree = "<group>"; };
 		F57D27EB1A3B7C7200685F3F /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
@@ -535,6 +538,7 @@
 		02C8845919E317E900DFB4E2 /* INVBIMAssure */ = {
 			isa = PBXGroup;
 			children = (
+				F509E0971A5C1DF0002C5548 /* segues */,
 				F5CB5AB01A5AE5B600927FB9 /* utilities */,
 				02C8845E19E317E900DFB4E2 /* AppDelegate.h */,
 				02C8845F19E317E900DFB4E2 /* AppDelegate.m */,
@@ -670,6 +674,15 @@
 				98F7C52BDAC8651593A75D64 /* Pods.prod.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F509E0971A5C1DF0002C5548 /* segues */ = {
+			isa = PBXGroup;
+			children = (
+				F509E0981A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.h */,
+				F509E0991A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m */,
+			);
+			name = segues;
 			sourceTree = "<group>";
 		};
 		F57D27E81A3B7C7200685F3F /* Model Viewer */ = {
@@ -1004,6 +1017,7 @@
 				F57D27FB1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
 				023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
 				02AAD3E919E6F8D6002901DA /* INVCustomSplitViewController.m in Sources */,
+				F509E09A1A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m in Sources */,
 				02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
 				0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
