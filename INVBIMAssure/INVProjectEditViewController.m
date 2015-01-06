@@ -11,7 +11,7 @@
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@interface INVProjectEditViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface INVProjectEditViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property IBOutlet UITextField *projectNameTextField;
 @property IBOutlet UITextField *projectDescriptionTextField;
@@ -28,8 +28,6 @@
 
 -(IBAction) save:(id)sender;
 -(IBAction) selectThumbnail:(id)sender;
-
--(IBAction) addNewMember:(id)sender;
 
 @end
 
@@ -186,7 +184,11 @@
     }
 }
 
--(void) addNewMember:(id)sender {
+-(BOOL) textFieldShouldReturn:(UITextField *)textField {
+    if (textField != self.addNewMemberTextField) {
+        return YES;
+    }
+    
     NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
     
     // TODO: Use address book?
@@ -210,8 +212,6 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.navigationItem.prompt = nil;
         });
-        
-        return;
     } else {
         self.addNewMemberTextField.text = nil;
         [self.addNewMemberTextField resignFirstResponder];
@@ -219,6 +219,8 @@
         [self.membersInProjectDataSource addObject:searchText];
         [self.membersInProjectTableView reloadData];
     }
+    
+    return NO;
 }
 
 @end

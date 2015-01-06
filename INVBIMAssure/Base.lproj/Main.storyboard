@@ -505,9 +505,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Email Address" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="xtH-Rz-PPP">
                                                     <rect key="frame" x="174" y="16" width="418" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="emailAddress"/>
                                                     <connections>
-                                                        <action selector="addNewMember:" destination="mBi-Kq-wHv" eventType="editingDidEndOnExit" id="r9c-NQ-CPl"/>
+                                                        <outlet property="delegate" destination="mBi-Kq-wHv" id="wed-KX-REU"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
