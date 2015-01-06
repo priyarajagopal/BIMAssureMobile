@@ -73,15 +73,27 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [[[INVGlobalDataManager sharedInstance] invServerClient] createProjectWithName:self.projectNameTextField.text
-                                                                    andDescription:self.projectDescriptionTextField.text
-                                             ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        // NOTE: We *probably* need more info about the created project here.
-        // TODO: Error handling
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                                 
-        [self performSegueWithIdentifier:@"unwind" sender:self];    
-    }];
+    if (self.currentProject) {
+        [[[INVGlobalDataManager sharedInstance] invServerClient] updateProjectWithId:self.currentProject.projectId
+                                                                            withName:projectName
+                                                                      andDescription:projectDescription
+                                               ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+                                                   // TODO: Error handling
+                                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                                   
+                                                   [self performSegueWithIdentifier:@"unwind" sender:self];
+                                               }];
+    } else {
+        [[[INVGlobalDataManager sharedInstance] invServerClient] createProjectWithName:projectName
+                                                                        andDescription:projectDescription
+                                                 ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+                                                     // NOTE: We *probably* need more info about the created project here.
+                                                     // TODO: Error handling
+                                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                                     
+                                                     [self performSegueWithIdentifier:@"unwind" sender:self];    
+                                                 }];
+    }
 }
 
 @end

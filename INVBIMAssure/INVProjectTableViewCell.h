@@ -14,6 +14,7 @@
 
 @optional
 -(void) onProjectDeleted:(INVProjectTableViewCell *) sender;
+-(void) onProjectEdited:(INVProjectTableViewCell *) sender;
 
 @end
 

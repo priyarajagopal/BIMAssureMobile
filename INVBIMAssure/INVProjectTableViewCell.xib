@@ -9,6 +9,7 @@
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -64,6 +65,17 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vma-ec-Oit">
+                                <rect key="frame" x="213" y="0.0" width="30" height="30"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="21"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onProjectEdited:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EW3-aN-Bsf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -75,6 +87,9 @@
                             <constraint firstItem="7fD-iz-oLT" firstAttribute="leading" secondItem="75P-dp-ChF" secondAttribute="leading" constant="8" id="Ca6-Oq-KBx"/>
                             <constraint firstAttribute="bottom" secondItem="3SR-UU-hjb" secondAttribute="bottom" id="Ekj-ki-fD4"/>
                             <constraint firstAttribute="height" constant="30" id="OEp-Tf-uPj"/>
+                            <constraint firstAttribute="bottom" secondItem="Vma-ec-Oit" secondAttribute="bottom" id="bU4-Kx-Bad"/>
+                            <constraint firstItem="Vma-ec-Oit" firstAttribute="top" secondItem="75P-dp-ChF" secondAttribute="top" id="f3m-ao-blt"/>
+                            <constraint firstItem="3SR-UU-hjb" firstAttribute="leading" secondItem="Vma-ec-Oit" secondAttribute="trailing" constant="8" id="kza-5L-ifd"/>
                         </constraints>
                     </view>
                 </subviews>

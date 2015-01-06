@@ -657,7 +657,7 @@
                     <navigationItem key="navigationItem" title="Root View Controller" id="K6w-aZ-NaQ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4xN-nE-B4l">
                             <connections>
-                                <segue destination="zzg-NI-VyV" kind="custom" customClass="INVModalPresentationFromSplitViewControllerSegue" id="xe7-6T-pDJ"/>
+                                <segue destination="zzg-NI-VyV" kind="custom" identifier="editProject" customClass="INVModalPresentationFromSplitViewControllerSegue" id="xe7-6T-pDJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

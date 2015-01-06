@@ -10,6 +10,7 @@
 #import "INVProjectTableViewCell.h"
 #import "INVProjectDetailsTabViewController.h"
 #import "INVProjectFilesListViewController.h"
+#import "INVProjectEditViewController.h"
 #import "INVRulesListViewController.h"
 #import "INVProjectListSplitViewController.h"
 #import "INVRuleExecutionsTableViewController.h"
@@ -125,10 +126,11 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
-    INVProject* project = [self.dataResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
- // Pass the selected object to the new view controller.
+     // Get the new view controller using [segue destinationViewController].
+     // Pass the selected object to the new view controller.
      if ([segue.identifier isEqual:@"ProjectDetailSegue"]) {
+         INVProject* project = [self.dataResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+         
          INVProjectListSplitViewController* projectsSplitViewController = (INVProjectListSplitViewController*)self.splitViewController;
          projectsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
          
@@ -143,14 +145,20 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
          INVRulesListViewController* ruleSetController = (INVRulesListViewController*) rsNavController.topViewController;
           
          ruleSetController.projectId = project.projectId;
-         /*
-         UINavigationController* reNavController = projectDetailsController.viewControllers[TABINDEX_PROJECT_RULEEXECUTIONS];;
+     }
+     
+     if ([segue.identifier isEqualToString:@"editProject"]) {
+         UINavigationController *editNavigationController = [segue destinationViewController];
+         INVProjectEditViewController *editViewController = [[editNavigationController viewControllers] firstObject];
          
-         INVRuleExecutionsTableViewController* ruleExecutionController = (INVRuleExecutionsTableViewController*) reNavController.topViewController;
-         [ruleExecutionController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
-         ruleExecutionController.projectId = project.projectId;
-*/
-
+         if ([sender isKindOfClass:[INVProjectTableViewCell class]]) {
+             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+             INVProject *project = [self.dataResultsController objectAtIndexPath:indexPath];
+             
+             editViewController.currentProject = project;
+         } else {
+             editViewController.currentProject = nil;
+         }
      }
     
  }
@@ -227,6 +235,10 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
     [[[INVGlobalDataManager sharedInstance] invServerClient] deleteProjectWithId:projectId ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         [self fetchProjectList];
     }];
+}
+
+-(void) onProjectEdited:(INVProjectTableViewCell *)sender {
+    [self performSegueWithIdentifier:@"editProject" sender:sender];
 }
 
 @end
