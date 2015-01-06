@@ -120,6 +120,10 @@
 		D2E0CF841A49E5CB002405D7 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C8847619E317E900DFB4E2 /* INVBIMAssureTests.m */; };
 		F509E09A1A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F509E0991A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m */; };
 		F5789C3D1A5C3DFB00D8CEE7 /* INVMutableArrayTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C3C1A5C3DFB00D8CEE7 /* INVMutableArrayTableViewDataSource.m */; };
+		F5789C3F1A5C6F6500D8CEE7 /* Stock Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5789C3E1A5C6F6500D8CEE7 /* Stock Thumbnails */; };
+		F5789C421A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C411A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.m */; };
+		F5789C461A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C441A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m */; };
+		F5789C471A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789C451A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib */; };
 		F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27E91A3B7C7200685F3F /* ClassDump.m */; };
 		F57D27F81A3B7C7200685F3F /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EA1A3B7C7200685F3F /* fp16.c */; };
 		F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */; };
@@ -325,6 +329,12 @@
 		F509E0991A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModalPresentationFromSplitViewControllerSegue.m; sourceTree = "<group>"; };
 		F5789C3B1A5C3DFB00D8CEE7 /* INVMutableArrayTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVMutableArrayTableViewDataSource.h; sourceTree = "<group>"; };
 		F5789C3C1A5C3DFB00D8CEE7 /* INVMutableArrayTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVMutableArrayTableViewDataSource.m; sourceTree = "<group>"; };
+		F5789C3E1A5C6F6500D8CEE7 /* Stock Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Stock Thumbnails"; sourceTree = "<group>"; };
+		F5789C401A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStockThumbnailCollectionViewController.h; sourceTree = "<group>"; };
+		F5789C411A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStockThumbnailCollectionViewController.m; sourceTree = "<group>"; };
+		F5789C431A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStockThumbnailCollectionViewCell.h; sourceTree = "<group>"; };
+		F5789C441A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStockThumbnailCollectionViewCell.m; sourceTree = "<group>"; };
+		F5789C451A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVStockThumbnailCollectionViewCell.xib; sourceTree = "<group>"; };
 		F57D27E91A3B7C7200685F3F /* ClassDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDump.m; sourceTree = "<group>"; };
 		F57D27EA1A3B7C7200685F3F /* fp16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp16.c; sourceTree = "<group>"; };
 		F57D27EB1A3B7C7200685F3F /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
@@ -463,6 +473,9 @@
 				024BB6121A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.h */,
 				024BB6131A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.m */,
 				024BB6141A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.xib */,
+				F5789C431A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.h */,
+				F5789C441A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m */,
+				F5789C451A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -539,6 +552,7 @@
 		02C8845919E317E900DFB4E2 /* INVBIMAssure */ = {
 			isa = PBXGroup;
 			children = (
+				F5789C3E1A5C6F6500D8CEE7 /* Stock Thumbnails */,
 				F509E0971A5C1DF0002C5548 /* segues */,
 				F5CB5AB01A5AE5B600927FB9 /* utilities */,
 				02C8845E19E317E900DFB4E2 /* AppDelegate.h */,
@@ -597,6 +611,9 @@
 				02AAD3EC19E6FE80002901DA /* INVProjectListSplitViewController.m */,
 				02AAD3EF19E7121E002901DA /* INVProjectsTableViewController.h */,
 				02AAD3F019E7121E002901DA /* INVProjectsTableViewController.m */,
+				F5789C401A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.h */,
+				F5789C411A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.m */,
+				023F2B7F1A03B9D400E4C985 /* INVRuleInstanceTableViewController.h */,
 				F5CB5AAD1A5ADF1700927FB9 /* INVProjectEditViewController.h */,
 				F5CB5AAE1A5ADF1700927FB9 /* INVProjectEditViewController.m */,
 				02AAD3FE19E81FDF002901DA /* INVProjectDetailsTabViewController.h */,
@@ -613,7 +630,6 @@
 				0249AAF71A2F993500EE5D09 /* INVRuleExecutionsTableViewController.m */,
 				02549F3E1A37596100FF51B4 /* INVExecutionIssuesTableViewController.h */,
 				02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */,
-				023F2B7F1A03B9D400E4C985 /* INVRuleInstanceTableViewController.h */,
 				023F2B801A03B9D400E4C985 /* INVRuleInstanceTableViewController.m */,
 				02A07F751A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.h */,
 				02A07F761A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.m */,
@@ -846,7 +862,9 @@
 				F5CB5AA91A48771D00927FB9 /* invicara_config_server.cer in Resources */,
 				02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */,
 				023F2B9C1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */,
+				F5789C3F1A5C6F6500D8CEE7 /* Stock Thumbnails in Resources */,
 				02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */,
+				F5789C471A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib in Resources */,
 				023F2B741A015B0500E4C985 /* INVRuleInstanceTableViewCell.xib in Resources */,
 				F57D27FF1A3B7C7200685F3F /* ModelViewer.vsh in Resources */,
 				0249AAE71A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */,
@@ -1003,6 +1021,7 @@
 				F57D280F1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m in Sources */,
 				F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */,
 				F57D280E1A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m in Sources */,
+				F5789C461A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m in Sources */,
 				0234D6281A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */,
 				F57D27F81A3B7C7200685F3F /* fp16.c in Sources */,
 				023F2B691A013A2D00E4C985 /* INVGenericCollectionViewDataSource.m in Sources */,
@@ -1016,6 +1035,7 @@
 				029080521A41C76100B39F48 /* UIAlertController+INVCustomizations.m in Sources */,
 				023F2B7D1A017F4E00E4C985 /* INVRulesTableViewDataSource.m in Sources */,
 				F5CB5AAF1A5ADF1700927FB9 /* INVProjectEditViewController.m in Sources */,
+				F5789C421A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.m in Sources */,
 				F5789C3D1A5C3DFB00D8CEE7 /* INVMutableArrayTableViewDataSource.m in Sources */,
 				F57D27FB1A3B7C7200685F3F /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
 				023F2B861A03BEB000E4C985 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,

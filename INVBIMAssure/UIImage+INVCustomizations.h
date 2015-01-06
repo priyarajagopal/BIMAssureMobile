@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImage (INVCustomizations)
+
++(NSArray *) imagesInFolderNamed:(NSString *) folderName;
++(NSArray *) imagesInFolderNamed:(NSString *)folderName recursive:(BOOL) recursive;
+
 + (UIImage *)resizeImage:(UIImage *)image toSize:(CGSize)newSize;
 @end

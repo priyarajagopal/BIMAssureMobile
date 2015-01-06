@@ -8,10 +8,11 @@
 
 #import "INVProjectEditViewController.h"
 #import "INVMutableArrayTableViewDataSource.h"
+#import "INVStockThumbnailCollectionViewController.h"
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@interface INVProjectEditViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
+@interface INVProjectEditViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, INVStockThumbnailCollectionViewControllerDelegate>
 
 @property IBOutlet UITextField *projectNameTextField;
 @property IBOutlet UITextField *projectDescriptionTextField;
@@ -117,6 +118,15 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Stock Images" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         // TODO: Stock images.
+        INVStockThumbnailCollectionViewController *stockThumbnailController = [[INVStockThumbnailCollectionViewController alloc] init];
+        stockThumbnailController.delegate = self;
+        
+        stockThumbnailController.modalPresentationStyle = UIModalPresentationPopover;
+        stockThumbnailController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+        stockThumbnailController.popoverPresentationController.sourceView = self.view;
+        stockThumbnailController.popoverPresentationController.sourceRect = [self.currentThumbnailButton convertRect:self.currentThumbnailButton.bounds toView:self.view];;
+        
+        [self presentViewController:stockThumbnailController animated:YES completion:nil];
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Photo Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -160,6 +170,11 @@
 
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self.currentThumbnailButton setImage:info[UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) stockThumbnailCollectionViewController:(INVStockThumbnailCollectionViewController *)controller didSelectStockThumbnail:(UIImage *)image {
+    [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
