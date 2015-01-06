@@ -58,6 +58,9 @@
 		024CDCE719FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */; };
 		024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
 		024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
+		025257121A5ADFF8002C8968 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 025257101A5ADFF8002C8968 /* EmpireMobileManager.framework */; };
+		025257131A5ADFFD002C8968 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 025257101A5ADFF8002C8968 /* EmpireMobileManager.framework */; };
+		025257141A5ADFFD002C8968 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 025257101A5ADFF8002C8968 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0271A6BB1A4B1F4C00ECF4F6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0271A6B91A4B1F4C00ECF4F6 /* Crashlytics.framework */; };
 		0271A6BC1A4B1F4C00ECF4F6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0271A6BA1A4B1F4C00ECF4F6 /* Fabric.framework */; };
 		0271A7201A51992700ECF4F6 /* INVSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0271A71F1A51992700ECF4F6 /* INVSettingsViewController.m */; };
@@ -66,9 +69,6 @@
 		0278206D1A1A98EF00BDAA5E /* Visualize_files in Resources */ = {isa = PBXBuildFile; fileRef = 0278206A1A1A98EF00BDAA5E /* Visualize_files */; };
 		0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
 		0278206F1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
-		028B14D71A530C1C00E755D7 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B14D51A530C1C00E755D7 /* EmpireMobileManager.framework */; };
-		028B14D81A530C2800E755D7 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B14D51A530C1C00E755D7 /* EmpireMobileManager.framework */; };
-		028B14D91A530C2800E755D7 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 028B14D51A530C1C00E755D7 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		029080521A41C76100B39F48 /* UIAlertController+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 029080511A41C76100B39F48 /* UIAlertController+INVCustomizations.m */; };
 		02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
 		02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */; };
@@ -153,7 +153,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				028B14D91A530C2800E755D7 /* EmpireMobileManager.framework in Embed Frameworks */,
+				025257141A5ADFFD002C8968 /* EmpireMobileManager.framework in Embed Frameworks */,
 				F5FA456B1A447D3200C6BE2E /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -231,6 +231,7 @@
 		024CDCE419FAAA9C00A2F527 /* INVTokensTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVTokensTableViewCell.h; sourceTree = "<group>"; };
 		024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVTokensTableViewCell.m; sourceTree = "<group>"; };
 		024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVTokensTableViewCell.xib; sourceTree = "<group>"; };
+		025257101A5ADFF8002C8968 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		02549F3E1A37596100FF51B4 /* INVExecutionIssuesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVExecutionIssuesTableViewController.h; sourceTree = "<group>"; };
 		02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVExecutionIssuesTableViewController.m; sourceTree = "<group>"; };
 		0271A6B91A4B1F4C00ECF4F6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -239,7 +240,6 @@
 		0271A71F1A51992700ECF4F6 /* INVSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSettingsViewController.m; sourceTree = "<group>"; };
 		0278206A1A1A98EF00BDAA5E /* Visualize_files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Visualize_files; sourceTree = "<group>"; };
 		0278206B1A1A98EF00BDAA5E /* Visualize.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Visualize.html; sourceTree = "<group>"; };
-		028B14D51A530C1C00E755D7 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		029080501A41C76100B39F48 /* UIAlertController+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+INVCustomizations.h"; sourceTree = "<group>"; };
 		029080511A41C76100B39F48 /* UIAlertController+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+INVCustomizations.m"; sourceTree = "<group>"; };
 		02A07F751A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionsTableViewController.h; sourceTree = "<group>"; };
@@ -362,13 +362,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2CB671B1A44CD0D003FE3CA /* libYajl.a in Frameworks */,
-				028B14D81A530C2800E755D7 /* EmpireMobileManager.framework in Frameworks */,
 				0271A6BC1A4B1F4C00ECF4F6 /* Fabric.framework in Frameworks */,
 				0271A6BB1A4B1F4C00ECF4F6 /* Crashlytics.framework in Frameworks */,
 				D2CB67171A44CB21003FE3CA /* libPods-FontAwesomeKit.a in Frameworks */,
 				D2CB67181A44CB21003FE3CA /* libPods-FrameAccessor.a in Frameworks */,
 				D2CB67191A44CB21003FE3CA /* libPods-MBProgressHUD.a in Frameworks */,
 				D2CB671A1A44CB21003FE3CA /* libPods-VENTokenField.a in Frameworks */,
+				025257131A5ADFFD002C8968 /* EmpireMobileManager.framework in Frameworks */,
 				F5FA456A1A447D3200C6BE2E /* OpenCTM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,7 +381,7 @@
 				D257A20D1A4867BE00584D4C /* libPods-FrameAccessor.a in Frameworks */,
 				D257A20E1A4867BE00584D4C /* libPods-MBProgressHUD.a in Frameworks */,
 				D257A20F1A4867BE00584D4C /* libPods-VENTokenField.a in Frameworks */,
-				028B14D71A530C1C00E755D7 /* EmpireMobileManager.framework in Frameworks */,
+				025257121A5ADFF8002C8968 /* EmpireMobileManager.framework in Frameworks */,
 				D2CB670A1A44C98E003FE3CA /* libYajl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -634,7 +634,7 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				028B14D51A530C1C00E755D7 /* EmpireMobileManager.framework */,
+				025257101A5ADFF8002C8968 /* EmpireMobileManager.framework */,
 				D257A2081A4867BE00584D4C /* libPods-FontAwesomeKit.a */,
 				D257A2091A4867BE00584D4C /* libPods-FrameAccessor.a */,
 				D257A20A1A4867BE00584D4C /* libPods-MBProgressHUD.a */,

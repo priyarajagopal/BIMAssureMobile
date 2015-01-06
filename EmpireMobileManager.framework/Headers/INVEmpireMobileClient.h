@@ -161,19 +161,6 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  */
 -(void)getSignedInUserProfileWithCompletionBlock:(CompletionHandler) handler;
 
-/**
- Asynchornously ,create project with specified name. Only an admin is capable of exercising this call.
- 
- @param projectName name of project
- 
- @param overview Description of project (currently unused in backend)
- 
- @param handler The completion handler that returns error object if there was any error.
- 
- @see -signIntoAccount:withCompletionBlock:
- 
- */
--(void)createProjectWithName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
 
 
 /**
@@ -256,6 +243,105 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  
  */
 -(void)removeUser:(NSNumber*)userId fromAccount:(NSNumber*)accountId withCompletionBlock:(CompletionHandler) handler;
+
+
+
+/**
+ Asynchornously , sign up for a user account with the XOS Passport service
+ 
+ @param userName The full name of user
+ 
+ @param email The email address of user
+ 
+ @param password The password of user
+ 
+ @param accountName Name of account to be created
+ 
+ @param accountDescription An optional description of account
+ 
+ @param type Subscription type Will always be mapped to 1 for now
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then accountManager can be used to retrieve the details of account
+ 
+ @see accountManager
+ 
+ 
+ */
+-(void)signUpUserWithName:(NSString*)userName andEmail:(NSString*)email andPassword:(NSString*)password withAccountName:(NSString*)accountName accountDescription:(NSString*)accountDescription subscriptionType:(NSNumber*)type withCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously , create an account for currently signed in user with the XOS Passport service
+ 
+ @param accountName Name of account to be created
+ 
+ @param accountDescription An optional description of account
+ 
+ @param type Subscription type Will always be mapped to 1 for now
+ 
+ @param userEmail The email address of signed in user. ***** THE SERVER API SHOULD BE UPDATED TO NOT REQUIRE THIS FIELD ******
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then accountManager can be used to retrieve the details of account
+ 
+ @see accountManager
+ 
+ 
+ */
+-(void)createAccountForSignedInUserWithAccountName:(NSString*)accountName accountDescription:(NSString*)accountDescription subscriptionType:(NSNumber*)type forUserEmail:(NSString*)userEmail withCompletionBlock:(CompletionHandler) handler;
+
+
+/**
+ Asynchornously , update details of specified account with the XOS Passport service
+ 
+ @param accountName updated name of account
+ 
+ @param accountDescription Updated optional description of account
+ 
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then accountManager can be used to retrieve the details of account
+ 
+ @see accountManager
+ 
+ 
+ */
+-(void)updateAccountWithAccountId:(NSNumber*)accountId withAccountName:(NSString*)accountName accountDescription:(NSString*)accountDescription withCompletionBlock:(CompletionHandler) handler;
+
+
+
+#pragma mark - project management
+
+/**
+ Asynchornously ,create project with specified name. Only an admin is capable of exercising this call.
+ 
+ @param projectName name of project
+ 
+ @param overview Description of project (currently unused in backend)
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ */
+-(void)createProjectWithName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+
+/**
+ Asynchornously ,edit project with specified Id. Only an admin is capable of exercising this call. This API is not supported in
+ the backend
+ 
+ @param projectId The Id of project to be updated
+ 
+ @param projectName updated name of project
+ 
+ @param overview updated Description of project (currently unused in backend)
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ */
+-(void)updateProjectWithId:(NSNumber*)projectId withName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+
 
 #pragma mark - Model Related
 

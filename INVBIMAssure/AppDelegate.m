@@ -84,7 +84,7 @@
     [[UITabBar appearance]setBarTintColor:ltGreyColor];
     [[UITabBar appearance]setTintColor:cyanBlueColor];
     
-    [[UIView appearanceWhenContainedIn:[UIAlertController class], nil] setTintColor:darkGreyColor];
+  //  [[UIView appearanceWhenContainedIn:[UIAlertController class], nil] setTintColor:darkGreyColor];
     
 }
 
