@@ -117,7 +117,6 @@
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Stock Images" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        // TODO: Stock images.
         INVStockThumbnailCollectionViewController *stockThumbnailController = [[INVStockThumbnailCollectionViewController alloc] init];
         stockThumbnailController.delegate = self;
         
