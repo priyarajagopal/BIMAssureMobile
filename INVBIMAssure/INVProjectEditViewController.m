@@ -7,23 +7,38 @@
 //
 
 #import "INVProjectEditViewController.h"
+#import "INVMutableArrayTableViewDataSource.h"
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@interface INVProjectEditViewController ()
+@interface INVProjectEditViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property IBOutlet UITextField *projectNameTextField;
 @property IBOutlet UITextField *projectDescriptionTextField;
+@property IBOutlet UITextField *addNewMemberTextField;
+@property IBOutlet UITextField *invitationMessageTextField;
+@property IBOutlet UIButton *currentThumbnailButton;
+
+@property IBOutlet UITableView *membersInAccountTableView;
+@property IBOutlet UITableView *membersInProjectTableView;
+
+// This is an IBOutlet, as it hooks into an INVMutableArrayTableViewDataSource object.
+@property IBOutlet INVMutableArrayTableViewDataSource *membersInAccountDataSource;
+@property IBOutlet INVMutableArrayTableViewDataSource *membersInProjectDataSource;
 
 -(IBAction) save:(id)sender;
+-(IBAction) selectThumbnail:(id)sender;
+
+-(IBAction) addNewMember:(id)sender;
 
 @end
 
 @implementation INVProjectEditViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
+    self.currentThumbnailButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     [self updateUI];
 }
@@ -52,6 +67,7 @@
         self.projectNameTextField.text = nil;
         self.projectDescriptionTextField.text = nil;
     }
+    
 }
 
 -(void) save:(id)sender {
@@ -93,6 +109,115 @@
                                                      
                                                      [self performSegueWithIdentifier:@"unwind" sender:self];    
                                                  }];
+    }
+}
+
+-(void) selectThumbnail:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Photo Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.allowsEditing = NO;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        imagePickerController.modalPresentationStyle = UIModalPresentationPopover;
+        imagePickerController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+        imagePickerController.popoverPresentationController.sourceView = self.view;
+        imagePickerController.popoverPresentationController.sourceRect = [self.currentThumbnailButton convertRect:self.currentThumbnailButton.bounds toView:self.view];;
+        
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }]];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = self;
+            imagePickerController.allowsEditing = NO;
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+            
+            [self presentViewController:imagePickerController animated:YES completion:nil];
+        }]];
+    }
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Remove Image" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self.currentThumbnailButton setImage:[UIImage imageNamed:@"ImageNotFound"] forState:UIControlStateNormal];
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    alertController.popoverPresentationController.sourceView = self.view;
+    alertController.popoverPresentationController.sourceRect = [self.currentThumbnailButton convertRect:self.currentThumbnailButton.bounds toView:self.view];;
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self.currentThumbnailButton setImage:info[UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.tableView) {
+        return;
+    }
+    
+    if (tableView == self.membersInAccountTableView || tableView == self.membersInProjectTableView) {
+        UITableView *sourceTableView = tableView;
+        UITableView *destinationTableView = (sourceTableView == self.membersInAccountTableView ? self.membersInProjectTableView : self.membersInAccountTableView);
+        
+        INVMutableArrayTableViewDataSource *sourceDataSource = (INVMutableArrayTableViewDataSource *) sourceTableView.dataSource;
+        INVMutableArrayTableViewDataSource *destinationDataSource =  (INVMutableArrayTableViewDataSource *) destinationTableView.dataSource;
+        
+        NSString *memberName = sourceDataSource[indexPath.row];
+        
+        [sourceDataSource removeObjectAtIndex:indexPath.row];
+        [destinationDataSource addObject:memberName];
+        
+        [sourceTableView reloadData];
+        [destinationTableView reloadData];
+        
+        NSLog(@"Source: %@", sourceDataSource);
+        NSLog(@"Destination: %@", destinationDataSource);
+    }
+}
+
+-(void) addNewMember:(id)sender {
+    NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    
+    // TODO: Use address book?
+    NSString *searchText = [self.addNewMemberTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    __block BOOL isEmail = NO;
+    
+    [dataDetector enumerateMatchesInString:searchText
+                                   options:0
+                                     range:NSMakeRange(0, searchText.length)
+                                usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+                                    if (result.range.length == searchText.length &&
+                                        result.resultType == NSTextCheckingTypeLink &&
+                                        [result.URL.scheme isEqualToString:@"mailto"]) {
+                                        isEmail = YES;
+                                    }
+                                }];
+    
+    if (!isEmail) {
+        self.navigationItem.prompt = @"Invalid Email";
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.navigationItem.prompt = nil;
+        });
+        
+        return;
+    } else {
+        self.addNewMemberTextField.text = nil;
+        [self.addNewMemberTextField resignFirstResponder];
+        
+        [self.membersInProjectDataSource addObject:searchText];
+        [self.membersInProjectTableView reloadData];
     }
 }
 
