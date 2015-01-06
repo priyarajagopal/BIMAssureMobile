@@ -115,6 +115,10 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Stock Images" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        // TODO: Stock images.
+    }]];
+    
     [alertController addAction:[UIAlertAction actionWithTitle:@"Photo Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
