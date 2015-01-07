@@ -181,9 +181,11 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
             
             cell.name.text = project.name;
             
-            // TODO: Get the file count and user count for the project
-            cell.fileCount.text = @"\uf0c5 0";
-            cell.userCount.text = @"\uf0c0 0";
+            NSArray *files = [self.globalDataManager.invServerClient.projectManager packagesForProjectId:project.projectId];
+            NSArray *members = self.globalDataManager.invServerClient.accountManager.accountMembership;
+            
+            cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %i", files.count];
+            cell.userCount.text = [NSString stringWithFormat:@"\uf0c0 %i", members.count];
             
             NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
             NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];

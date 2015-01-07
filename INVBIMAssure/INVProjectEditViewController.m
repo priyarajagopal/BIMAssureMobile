@@ -12,6 +12,44 @@
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
+@interface INVProjectEditViewControllerMembersTableViewDelegate : NSObject<UITableViewDelegate>
+
+@property IBOutlet UITableView *membersInAccountTableView;
+@property IBOutlet UITableView *membersInProjectTableView;
+
+@property IBOutlet INVMutableArrayTableViewDataSource *membersInAccountDataSource;
+@property IBOutlet INVMutableArrayTableViewDataSource *membersInProjectDataSource;
+
+@end
+
+@implementation INVProjectEditViewControllerMembersTableViewDelegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.membersInAccountTableView || tableView == self.membersInProjectTableView) {
+        UITableView *sourceTableView = tableView;
+        UITableView *destinationTableView = (sourceTableView == self.membersInAccountTableView ? self.membersInProjectTableView : self.membersInAccountTableView);
+        
+        INVMutableArrayTableViewDataSource *sourceDataSource = (INVMutableArrayTableViewDataSource *) sourceTableView.dataSource;
+        INVMutableArrayTableViewDataSource *destinationDataSource =  (INVMutableArrayTableViewDataSource *) destinationTableView.dataSource;
+        
+        NSString *memberName = sourceDataSource[indexPath.row];
+        
+        [sourceTableView beginUpdates];
+        [sourceDataSource removeObjectAtIndex:indexPath.row];
+        
+        [sourceTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [sourceTableView endUpdates];
+        
+        [destinationTableView beginUpdates];
+        [destinationDataSource addObject:memberName];
+        
+        [destinationTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [destinationTableView endUpdates];
+    }
+}
+
+@end
+
 @interface INVProjectEditViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, INVStockThumbnailCollectionViewControllerDelegate>
 
 @property IBOutlet UITextField *projectNameTextField;
@@ -23,7 +61,6 @@
 @property IBOutlet UITableView *membersInAccountTableView;
 @property IBOutlet UITableView *membersInProjectTableView;
 
-// This is an IBOutlet, as it hooks into an INVMutableArrayTableViewDataSource object.
 @property IBOutlet INVMutableArrayTableViewDataSource *membersInAccountDataSource;
 @property IBOutlet INVMutableArrayTableViewDataSource *membersInProjectDataSource;
 
@@ -38,6 +75,9 @@
     
     // Do any additional setup after loading the view.
     self.currentThumbnailButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    self.membersInAccountDataSource.tableViewCellIdentifier = @"memberCell";
+    self.membersInProjectDataSource.tableViewCellIdentifier = @"memberCell";
     
     [self updateUI];
 }
@@ -195,31 +235,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.tableView) {
-        return;
-    }
-    
-    if (tableView == self.membersInAccountTableView || tableView == self.membersInProjectTableView) {
-        UITableView *sourceTableView = tableView;
-        UITableView *destinationTableView = (sourceTableView == self.membersInAccountTableView ? self.membersInProjectTableView : self.membersInAccountTableView);
-        
-        INVMutableArrayTableViewDataSource *sourceDataSource = (INVMutableArrayTableViewDataSource *) sourceTableView.dataSource;
-        INVMutableArrayTableViewDataSource *destinationDataSource =  (INVMutableArrayTableViewDataSource *) destinationTableView.dataSource;
-        
-        NSString *memberName = sourceDataSource[indexPath.row];
-        
-        [sourceDataSource removeObjectAtIndex:indexPath.row];
-        [destinationDataSource addObject:memberName];
-        
-        [sourceTableView reloadData];
-        [destinationTableView reloadData];
-        
-        NSLog(@"Source: %@", sourceDataSource);
-        NSLog(@"Destination: %@", destinationDataSource);
-    }
-}
-
 -(BOOL) textFieldShouldReturn:(UITextField *)textField {
     if (textField != self.addNewMemberTextField) {
         return YES;
@@ -229,8 +244,8 @@
     
     // TODO: Use address book?
     NSString *searchText = [self.addNewMemberTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    __block BOOL isEmail = NO;
-    
+    __block BOOL isEmail = YES;
+   
     [dataDetector enumerateMatchesInString:searchText
                                    options:0
                                      range:NSMakeRange(0, searchText.length)
@@ -252,8 +267,12 @@
         self.addNewMemberTextField.text = nil;
         [self.addNewMemberTextField resignFirstResponder];
         
+        [self.membersInProjectTableView beginUpdates];
+        
         [self.membersInProjectDataSource addObject:searchText];
-        [self.membersInProjectTableView reloadData];
+        [self.membersInProjectTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self.membersInProjectTableView endUpdates];
     }
     
     return NO;

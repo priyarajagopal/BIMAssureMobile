@@ -560,7 +560,7 @@
                                                     </prototypes>
                                                     <connections>
                                                         <outlet property="dataSource" destination="1or-pA-DTB" id="bH8-a2-cup"/>
-                                                        <outlet property="delegate" destination="mBi-Kq-wHv" id="0Hg-5c-oG1"/>
+                                                        <outlet property="delegate" destination="ThN-TY-oc0" id="wVK-6a-hmP"/>
                                                     </connections>
                                                 </tableView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Members in project" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHf-QR-vmp">
@@ -591,7 +591,7 @@
                                                     </prototypes>
                                                     <connections>
                                                         <outlet property="dataSource" destination="yXu-Qk-WcG" id="jNL-SX-0gI"/>
-                                                        <outlet property="delegate" destination="mBi-Kq-wHv" id="F66-dn-a9h"/>
+                                                        <outlet property="delegate" destination="ThN-TY-oc0" id="lmD-or-L87"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
@@ -652,7 +652,7 @@
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="mBi-Kq-wHv" id="8y3-wX-rVq"/>
-                            <outlet property="delegate" destination="mBi-Kq-wHv" id="MVh-XN-V94"/>
+                            <outlet property="delegate" destination="mBi-Kq-wHv" id="zaS-rT-KlH"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="U8j-Ap-qRJ">
@@ -682,15 +682,15 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Gl-hm-Byd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="HDE-rL-y12" userLabel="Exit" sceneMemberID="exit"/>
-                <customObject id="yXu-Qk-WcG" userLabel="Members in Account Data Source" customClass="INVMutableArrayTableViewDataSource">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="tableViewCellIdentifier" value="memberCell"/>
-                    </userDefinedRuntimeAttributes>
-                </customObject>
-                <customObject id="1or-pA-DTB" userLabel="Members in Project Data Source" customClass="INVMutableArrayTableViewDataSource">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="tableViewCellIdentifier" value="memberCell"/>
-                    </userDefinedRuntimeAttributes>
+                <customObject id="yXu-Qk-WcG" userLabel="Members in Account Data Source" customClass="INVMutableArrayTableViewDataSource"/>
+                <customObject id="1or-pA-DTB" userLabel="Members in Project Data Source" customClass="INVMutableArrayTableViewDataSource"/>
+                <customObject id="ThN-TY-oc0" userLabel="Members Table Views Delegate" customClass="INVProjectEditViewControllerMembersTableViewDelegate">
+                    <connections>
+                        <outlet property="membersInAccountDataSource" destination="yXu-Qk-WcG" id="hqa-xJ-hVA"/>
+                        <outlet property="membersInAccountTableView" destination="ZNg-cQ-IJA" id="jJP-yg-v3O"/>
+                        <outlet property="membersInProjectDataSource" destination="1or-pA-DTB" id="kMG-rT-j22"/>
+                        <outlet property="membersInProjectTableView" destination="Z3B-IQ-iEv" id="ksA-0k-6YA"/>
+                    </connections>
                 </customObject>
             </objects>
             <point key="canvasLocation" x="3195" y="1164"/>
