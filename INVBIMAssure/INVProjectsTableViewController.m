@@ -181,11 +181,23 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
             
             cell.name.text = project.name;
             
-            NSArray *files = [self.globalDataManager.invServerClient.projectManager packagesForProjectId:project.projectId];
-            NSArray *members = self.globalDataManager.invServerClient.accountManager.accountMembership;
             
-            cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %i", files.count];
-            cell.userCount.text = [NSString stringWithFormat:@"\uf0c0 %i", members.count];
+            [self.globalDataManager.invServerClient getAllPkgMastersForProject:project.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
+                if (error) return;
+                
+                NSArray *files = [self.globalDataManager.invServerClient.projectManager packagesForProjectId:project.projectId];
+                cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %i", files.count];
+            }];
+            
+            [self.globalDataManager.invServerClient getMembershipForAccount:self.globalDataManager.invServerClient.accountManager.signedinAccount.accountId withCompletionBlock:^(INVEmpireMobileError *error) {
+                if (error) return;
+                
+                NSArray *members = self.globalDataManager.invServerClient.accountManager.accountMembership;
+                cell.userCount.text = [NSString stringWithFormat:@"\uf0c0 %i", members.count];
+            }];
+            
+            cell.fileCount.text = @"\uf0c5 0";
+            cell.userCount.text = @"\uf0c0 0";
             
             NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
             NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
