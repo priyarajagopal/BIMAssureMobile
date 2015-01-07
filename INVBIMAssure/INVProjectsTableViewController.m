@@ -21,12 +21,13 @@ static const NSInteger TABINDEX_PROJECT_FILES = 0;
 static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 //static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 
-@interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate>
+@interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate, INVProjectEditViewControllerDelegate>
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVProjectDetailsTabViewController* projectDetailsController;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
+
 @end
 
 @implementation INVProjectsTableViewController
@@ -150,6 +151,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
      if ([segue.identifier isEqualToString:@"editProject"]) {
          UINavigationController *editNavigationController = [segue destinationViewController];
          INVProjectEditViewController *editViewController = [[editNavigationController viewControllers] firstObject];
+         editViewController.delegate = self;
          
          if ([sender isKindOfClass:[INVProjectTableViewCell class]]) {
              NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
@@ -160,7 +162,6 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
              editViewController.currentProject = nil;
          }
      }
-    
  }
 
 #pragma mark - helper
@@ -239,6 +240,10 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 
 -(void) onProjectEdited:(INVProjectTableViewCell *)sender {
     [self performSegueWithIdentifier:@"editProject" sender:sender];
+}
+
+-(void) onProjectEditSaved:(INVProjectEditViewController *)controller {
+    [self fetchProjectList];
 }
 
 @end

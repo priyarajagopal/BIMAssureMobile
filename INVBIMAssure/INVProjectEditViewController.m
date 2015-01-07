@@ -69,6 +69,22 @@
     
 }
 
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"unwind"]) {
+        if (sender == self) {
+            // Save
+            if ([self.delegate respondsToSelector:@selector(onProjectEditSaved:)]) {
+                [self.delegate onProjectEditSaved:self];
+            }
+        } else {
+            // Cancel
+            if ([self.delegate respondsToSelector:@selector(onProjectEditCancelled:)] ) {
+                [self.delegate onProjectEditCancelled:self];
+            }
+        }
+    }
+}
+
 -(void) save:(id)sender {
     NSString *projectName = self.projectNameTextField.text;
     NSString *projectDescription = self.projectDescriptionTextField.text;
