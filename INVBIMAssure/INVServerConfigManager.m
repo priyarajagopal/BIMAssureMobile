@@ -9,6 +9,7 @@
 #import "INVServerConfigManager.h"
 
 #import <AFNetworking/AFNetworking.h>
+#import "INVServerConfigCertsEqualSecurityPolicy.h"
 
 #define LOCAL_CACHE_FILE_NAME @"Startup.json"
 #define CONFIG_CACHE_FILE_PATH [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:LOCAL_CACHE_FILE_NAME]
@@ -43,13 +44,10 @@
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
     requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    requestManager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
-    requestManager.securityPolicy.validatesCertificateChain = NO;
-    requestManager.securityPolicy.validatesDomainName = NO;
+    INVServerConfigCertsEqualSecurityPolicy *secPolicy = [INVServerConfigCertsEqualSecurityPolicy new];
+    secPolicy.requiredCertificateData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"invicara_config_server" ofType:@"cer"]];
     
-    requestManager.securityPolicy.pinnedCertificates = @[
-        [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"invicara_config_server" ofType:@"cer"]],
-    ];
+    requestManager.securityPolicy = (AFSecurityPolicy *) secPolicy;
     
     requestManager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     
@@ -59,6 +57,7 @@
         dispatch_semaphore_signal(completionSemaphore);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Config HTTP error: %@", error);
+        NSLog(@"Config error: %@", [[NSString alloc] initWithData:error.userInfo[@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding]);
         
         dispatch_semaphore_signal(completionSemaphore);
     }] start];

@@ -124,6 +124,7 @@
 		F5789C421A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C411A5C6FFF00D8CEE7 /* INVStockThumbnailCollectionViewController.m */; };
 		F5789C461A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C441A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m */; };
 		F5789C471A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789C451A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib */; };
+		F5789C4C1A5DA74000D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C4B1A5DA74000D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m */; };
 		F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27E91A3B7C7200685F3F /* ClassDump.m */; };
 		F57D27F81A3B7C7200685F3F /* fp16.c in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EA1A3B7C7200685F3F /* fp16.c */; };
 		F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57D27EC1A3B7C7200685F3F /* INVModelViewerViewController.m */; };
@@ -335,6 +336,8 @@
 		F5789C431A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVStockThumbnailCollectionViewCell.h; sourceTree = "<group>"; };
 		F5789C441A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVStockThumbnailCollectionViewCell.m; sourceTree = "<group>"; };
 		F5789C451A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVStockThumbnailCollectionViewCell.xib; sourceTree = "<group>"; };
+		F5789C4A1A5DA74000D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVServerConfigCertsEqualSecurityPolicy.h; sourceTree = "<group>"; };
+		F5789C4B1A5DA74000D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVServerConfigCertsEqualSecurityPolicy.m; sourceTree = "<group>"; };
 		F57D27E91A3B7C7200685F3F /* ClassDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDump.m; sourceTree = "<group>"; };
 		F57D27EA1A3B7C7200685F3F /* fp16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp16.c; sourceTree = "<group>"; };
 		F57D27EB1A3B7C7200685F3F /* INVModelViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController.h; sourceTree = "<group>"; };
@@ -495,6 +498,8 @@
 				023F2B7C1A017F4E00E4C985 /* INVRulesTableViewDataSource.m */,
 				F5CB5AAA1A49A3F300927FB9 /* INVServerConfigManager.h */,
 				F5CB5AAB1A49A3F300927FB9 /* INVServerConfigManager.m */,
+				F5789C4A1A5DA74000D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.h */,
+				F5789C4B1A5DA74000D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -1043,6 +1048,7 @@
 				F509E09A1A5C1E2F002C5548 /* INVModalPresentationFromSplitViewControllerSegue.m in Sources */,
 				02B43A1119E5B70B007A2FC5 /* INVDefaultAccountAlertView.m in Sources */,
 				02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
+				F5789C4C1A5DA74000D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m in Sources */,
 				0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
 				F57D27FA1A3B7C7200685F3F /* INVStreamBasedCTMParser.m in Sources */,
 				02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */,
