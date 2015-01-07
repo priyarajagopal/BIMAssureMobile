@@ -96,54 +96,24 @@ void classDump(Class);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     [self setupScene];
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [self prepareGL];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+
+        [self loadModel];
+    });
+    
+    [super viewWillAppear:animated];
+}
+
+-(void) loadModel {
     _ctmParser = [[INVStreamBasedCTMParser alloc] init];
     _ctmParser.delegate = self;
     
-    /*
-    _overallBBox = GLKBBoxMake(
-        GLKVector3Make(15.8181,-264.09,1000.8),
-        GLKVector3Make(1128.38,3654.2,1116.8)
-    );
-     */
-    
-    /*
-    _overallBBox = GLKBBoxMake(
-        GLKVector3Make(-426.808,-291.553,-0.1),
-        GLKVector3Make(801.192,564.447,313.167)
-    );
-     */
-    
-    /*
-    int modelCount = 16;
-    NSString *urlBase = @"http://richards-macbook-pro.local/progressive/apartment/apartment_%i.json";
-    
-    for (int modelIndex = 0; modelIndex <= modelCount; modelIndex++) {
-        [_ctmParser process:[NSURL URLWithString:[NSString stringWithFormat:urlBase, modelIndex]]];
-    }
-     */
-    
-    /*
-    int modelCount = 16;
-    NSString *urlBase = @"http://richards-macbook-pro.local/progressive/apartment/apartment_%i.json";
-     
-    for (int modelIndex = 0; modelIndex <= modelCount; modelIndex++) {
-        [_ctmParser process:[NSURL URLWithString:[NSString stringWithFormat:urlBase, modelIndex]]];
-    }
-     */
-    
-    // NSInputStream *inputStream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle] pathForResource:@"aptMG2" ofType:@"json"]];
-    // [_ctmParser process:inputStream];
-    
     [_ctmParser process:[[INVGlobalDataManager sharedInstance].invServerClient requestToFetchModelViewForId:self.fileVersionId]];
-    // [_ctmParser process:[NSURL URLWithString:@"http://richards-macbook-pro.local/test/models/samplehouse-new.json"]];
-}
-
--(void) viewDidLoad {
-}
-
--(void) viewDidAppear:(BOOL)animated {
-    [self prepareGL];
 }
 
 -(void) update {

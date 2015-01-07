@@ -109,7 +109,9 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
             INVProjectFileCollectionViewCell* cell = (INVProjectFileCollectionViewCell*) [self.collectionView cellForItemAtIndexPath:indexPath];
             if (cell) {
                 [cell.loaderActivity stopAnimating];
-                  UIImage* origImage = [UIImage imageWithData:data];
+                
+                // TODO: Optimize memory usage here - this resizing spikes memory usage upwards of 300MB, which isn't good.
+                UIImage* origImage = [UIImage imageWithData:data];
                 cell.fileThumbnail.image = [UIImage resizeImage:origImage toSize:cell.fileThumbnail.frame.size];
             }
                 
@@ -267,7 +269,8 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
         [self.tabBarController setHidesBottomBarWhenPushed:YES];
         // INVProjectFileViewerController * vc = (INVProjectFileViewerController*)segue.destinationViewController;
         
-        INVModelViewerViewController *vc = (INVModelViewerViewController *) segue.destinationViewController;
+        UINavigationController *navContorller = segue.destinationViewController;
+        INVModelViewerViewController *vc = [navContorller.viewControllers firstObject];
         
         vc.modelId = self.selectedModelId;
         vc.fileVersionId = self.selectedFileTipId;
