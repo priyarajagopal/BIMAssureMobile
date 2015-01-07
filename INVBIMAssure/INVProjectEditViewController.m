@@ -121,6 +121,8 @@
         stockThumbnailController.delegate = self;
         
         stockThumbnailController.modalPresentationStyle = UIModalPresentationPopover;
+        stockThumbnailController.preferredContentSize = CGSizeMake(320, 320);
+        
         stockThumbnailController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
         stockThumbnailController.popoverPresentationController.sourceView = self.view;
         stockThumbnailController.popoverPresentationController.sourceRect = [self.currentThumbnailButton convertRect:self.currentThumbnailButton.bounds toView:self.view];;
