@@ -178,9 +178,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
             cell.delegate = self;
             cell.projectId = project.projectId;
-            
             cell.name.text = project.name;
-            
             
             [self.globalDataManager.invServerClient getAllPkgMastersForProject:project.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
                 if (error) return;
