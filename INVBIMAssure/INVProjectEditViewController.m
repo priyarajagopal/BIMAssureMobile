@@ -133,7 +133,7 @@
     projectDescription = [projectDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if (projectName.length == 0) {
-        self.navigationItem.prompt = @"Invalid Project Name";
+        self.navigationItem.prompt = NSLocalizedString(@"INVALID_PROJECTNAME", nil);
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.navigationItem.prompt = nil;
@@ -172,7 +172,7 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Stock Images" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"STOCK_IMAGES", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         INVStockThumbnailCollectionViewController *stockThumbnailController = [[INVStockThumbnailCollectionViewController alloc] init];
         stockThumbnailController.delegate = self;
         
@@ -186,7 +186,7 @@
         [self presentViewController:stockThumbnailController animated:YES completion:nil];
     }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Photo Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"PHOTO_LIBRARY", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = NO;
@@ -201,7 +201,7 @@
     }]];
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"TAKE_PHOTO", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
             imagePickerController.delegate = self;
             imagePickerController.allowsEditing = NO;
@@ -212,7 +212,7 @@
         }]];
     }
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil]];
     
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
     alertController.popoverPresentationController.sourceView = self.view;
@@ -254,7 +254,7 @@
                                 }];
     
     if (!isEmail) {
-        self.navigationItem.prompt = @"Invalid Email";
+        self.navigationItem.prompt = NSLocalizedString(@"INVALID_EMAIL", nil);
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.navigationItem.prompt = nil;

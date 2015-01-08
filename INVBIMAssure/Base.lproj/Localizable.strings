@@ -60,6 +60,11 @@
 "RUN_RULE_SUCCESS"="Succesfully started rule execution.";
 "CREATE_PROJECT"="Create Project";
 "EDIT_PROJECT"="Edit %@";
+"INVALID_PROJECT_NAME"="Invalid Project Name";
+"STOCK_IMAGES"="Stock Images";
+"PHOTO_LIBRARY"="Photo Library";
+"TAKE_PHOTO"="Take Photo";
+"INVALID_EMAIL"="Invalid Email";
 "ERROR"="Error";
 "ERROR_RULE_DEFINITION_LOAD"="There was an error while loading rule definitions [%1@]";
 "ERROR_RULE_DEFINITION_FORINSTANCE_LOAD"="There was an error while loading rule definition for rule instance [%1@]";

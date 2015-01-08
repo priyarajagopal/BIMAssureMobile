@@ -197,6 +197,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
                 cell.userCount.text = [NSString stringWithFormat:@"\uf0c0 %i", members.count];
             }];
             
+            // TODO: Load this from a cache first?
             cell.fileCount.text = @"\uf0c5 0";
             cell.userCount.text = @"\uf0c0 0";
             
