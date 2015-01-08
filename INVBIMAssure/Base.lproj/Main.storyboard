@@ -455,18 +455,9 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qj0-oB-VNa" id="UX8-Nd-jLK">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Current Thumbnail:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOA-Ex-94S">
-                                                    <rect key="frame" x="16" y="16" width="150" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="150" id="pcW-Bf-OfL"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="8Tc-8S-z33">
-                                                    <rect key="frame" x="174" y="8" width="418" height="133"/>
-                                                    <state key="normal" image="ImageNotFound">
+                                                    <rect key="frame" x="8" y="8" width="584" height="133"/>
+                                                    <state key="normal" image="project_thumbnail_0">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -476,11 +467,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="8Tc-8S-z33" secondAttribute="trailing" id="66n-N8-MGB"/>
-                                                <constraint firstItem="8Tc-8S-z33" firstAttribute="leading" secondItem="JOA-Ex-94S" secondAttribute="trailing" constant="8" id="CFx-yb-B5A"/>
+                                                <constraint firstItem="8Tc-8S-z33" firstAttribute="leading" secondItem="UX8-Nd-jLK" secondAttribute="leadingMargin" id="J4r-zr-jNO"/>
                                                 <constraint firstItem="8Tc-8S-z33" firstAttribute="bottom" secondItem="UX8-Nd-jLK" secondAttribute="bottomMargin" id="cws-Nf-Zob"/>
                                                 <constraint firstItem="8Tc-8S-z33" firstAttribute="top" secondItem="UX8-Nd-jLK" secondAttribute="topMargin" id="h5V-O5-d5U"/>
-                                                <constraint firstItem="JOA-Ex-94S" firstAttribute="top" secondItem="UX8-Nd-jLK" secondAttribute="topMargin" constant="8" id="zUY-OJ-zo6"/>
-                                                <constraint firstItem="JOA-Ex-94S" firstAttribute="leading" secondItem="UX8-Nd-jLK" secondAttribute="leadingMargin" constant="8" id="ziJ-Nc-Tij"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -798,7 +787,7 @@
                         <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
                         <segue destination="AUh-Ql-GT9" kind="presentation" identifier="RunRulesSegue" modalPresentationStyle="formSheet" id="G8m-0f-E8j"/>
                         <segue destination="l61-lF-AkI" kind="show" identifier="ShowExecutionsSegue" id="yRG-Uw-32c"/>
-                        <segue destination="bnd-wv-v18" kind="presentation" identifier="FileViewerSegue" modalPresentationStyle="fullScreen" id="nsk-Hf-SI9"/>
+                        <segue destination="bnd-wv-v18" kind="presentation" identifier="FileViewerSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="nsk-Hf-SI9"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2600,10 +2589,10 @@
     </scenes>
     <resources>
         <image name="BALogo" width="446" height="68"/>
-        <image name="ImageNotFound" width="300" height="300"/>
         <image name="folder" width="25" height="25"/>
         <image name="manage_rules" width="25" height="25"/>
         <image name="orange" width="21" height="21"/>
+        <image name="project_thumbnail_0" width="445" height="377"/>
         <image name="ruleresults" width="16" height="16"/>
         <image name="rules" width="25" height="25"/>
     </resources>

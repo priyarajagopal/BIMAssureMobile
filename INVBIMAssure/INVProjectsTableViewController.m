@@ -188,7 +188,10 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
             }];
             
             [self.globalDataManager.invServerClient getMembershipForAccount:self.globalDataManager.invServerClient.accountManager.signedinAccount.accountId withCompletionBlock:^(INVEmpireMobileError *error) {
-                if (error) return;
+                if (error) {
+                    NSLog(@"%@", error);
+                    return;
+                }
                 
                 NSArray *members = self.globalDataManager.invServerClient.accountManager.accountMembership;
                 cell.userCount.text = [NSString stringWithFormat:@"\uf0c0 %i", members.count];

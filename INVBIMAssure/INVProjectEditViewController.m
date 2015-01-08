@@ -212,10 +212,6 @@
         }]];
     }
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Remove Image" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [self.currentThumbnailButton setImage:[UIImage imageNamed:@"ImageNotFound"] forState:UIControlStateNormal];
-    }]];
-    
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
