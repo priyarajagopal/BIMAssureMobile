@@ -48,7 +48,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
+    
     self.userToken = nil;
     self.loginFailureAlertController = nil;
 }
