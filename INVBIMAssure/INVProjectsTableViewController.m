@@ -209,7 +209,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
             cell.createdOnLabel.attributedText = attrString;
             
 #warning This shoud eventually be provided as a selected by user during project creation and should subsequently be pulled from server. If user does not select one, we randomly pick one
-            NSInteger index = indexPath.row % 5; // We have 5 canned images
+            NSInteger index = indexPath.section % 5; // We have 5 canned images
             NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
             UIImage* tempImage = [UIImage imageNamed:thumbnail];
             cell.thumbnailImageView.image = [UIImage resizeImage:tempImage toSize:cell.thumbnailImageView.frame.size];
