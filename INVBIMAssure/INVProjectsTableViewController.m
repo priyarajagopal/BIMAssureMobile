@@ -231,7 +231,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.projectManager.fetchRequestForProjects managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:@"projectId" cacheName:nil];
-        
+        _dataResultsController.fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO] ];
     }
     return  _dataResultsController;
 }

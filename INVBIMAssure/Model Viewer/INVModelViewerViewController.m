@@ -258,7 +258,7 @@ void classDump(Class);
         float scale = sign * (fabs(lastDistance -  distance)) * 0.25;
         
         GLKVector3 change = GLKVector3Make(0, scale, 0);
-        //change = GLKVector3Multiply(change, cameraDirection);
+        // change = GLKVector3Multiply(change, cameraDirection);
 
         cameraPosition = GLKVector3Add(cameraPosition, change);
     }
