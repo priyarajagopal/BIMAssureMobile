@@ -248,9 +248,19 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 -(void) onProjectDeleted:(INVProjectTableViewCell *)sender {
     NSNumber *projectId = sender.projectId;
     
-    [[[INVGlobalDataManager sharedInstance] invServerClient] deleteProjectWithId:projectId ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self fetchProjectList];
-    }];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_DELETE_PROJECT", nil)
+                                                                             message:NSLocalizedString(@"CONFIRM_DELETE_PROJECT_MESSAGE", nil)
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_PROJECT_CONFIRM_NEGATIVE", nil) style:UIAlertActionStyleCancel handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_PROJECT_CONFIRM_POSITIVE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self.globalDataManager.invServerClient deleteProjectWithId:projectId ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+            [self fetchProjectList];
+        }];
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void) onProjectEdited:(INVProjectTableViewCell *)sender {

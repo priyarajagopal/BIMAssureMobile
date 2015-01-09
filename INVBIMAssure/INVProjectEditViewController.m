@@ -145,7 +145,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     if (self.currentProject) {
-        [[[INVGlobalDataManager sharedInstance] invServerClient] updateProjectWithId:self.currentProject.projectId
+        [self.globalDataManager.invServerClient updateProjectWithId:self.currentProject.projectId
                                                                             withName:projectName
                                                                       andDescription:projectDescription
                                                ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
@@ -155,7 +155,7 @@
                                                    [self performSegueWithIdentifier:@"unwind" sender:self];
                                                }];
     } else {
-        [[[INVGlobalDataManager sharedInstance] invServerClient] createProjectWithName:projectName
+        [self.globalDataManager.invServerClient createProjectWithName:projectName
                                                                         andDescription:projectDescription
                                                  ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
                                                      // NOTE: We *probably* need more info about the created project here.

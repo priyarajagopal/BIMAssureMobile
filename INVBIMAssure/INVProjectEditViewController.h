@@ -17,7 +17,7 @@
 
 @end
 
-@interface INVProjectEditViewController : UITableViewController
+@interface INVProjectEditViewController : INVCustomTableViewController
 
 @property (nonatomic, weak) id<INVProjectEditViewControllerDelegate> delegate;
 @property (nonatomic) INVProject *currentProject;
