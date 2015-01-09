@@ -10,6 +10,7 @@
 #import "INVProjectTableViewCell.h"
 #import "INVProjectDetailsTabViewController.h"
 #import "INVProjectFilesListViewController.h"
+#import "INVProjectEditViewController.h"
 #import "INVRulesListViewController.h"
 #import "INVProjectListSplitViewController.h"
 #import "INVRuleExecutionsTableViewController.h"
@@ -20,12 +21,13 @@ static const NSInteger TABINDEX_PROJECT_FILES = 0;
 static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 //static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
 
-@interface INVProjectsTableViewController ()
+@interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate, INVProjectEditViewControllerDelegate>
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVProjectDetailsTabViewController* projectDetailsController;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
+
 @end
 
 @implementation INVProjectsTableViewController
@@ -125,10 +127,11 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
-    INVProject* project = [self.dataResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
- // Pass the selected object to the new view controller.
+     // Get the new view controller using [segue destinationViewController].
+     // Pass the selected object to the new view controller.
      if ([segue.identifier isEqual:@"ProjectDetailSegue"]) {
+         INVProject* project = [self.dataResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+         
          INVProjectListSplitViewController* projectsSplitViewController = (INVProjectListSplitViewController*)self.splitViewController;
          projectsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
          
@@ -143,16 +146,22 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
          INVRulesListViewController* ruleSetController = (INVRulesListViewController*) rsNavController.topViewController;
           
          ruleSetController.projectId = project.projectId;
-         /*
-         UINavigationController* reNavController = projectDetailsController.viewControllers[TABINDEX_PROJECT_RULEEXECUTIONS];;
-         
-         INVRuleExecutionsTableViewController* ruleExecutionController = (INVRuleExecutionsTableViewController*) reNavController.topViewController;
-         [ruleExecutionController.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
-         ruleExecutionController.projectId = project.projectId;
-*/
-
      }
-    
+     
+     if ([segue.identifier isEqualToString:@"editProject"]) {
+         UINavigationController *editNavigationController = [segue destinationViewController];
+         INVProjectEditViewController *editViewController = [[editNavigationController viewControllers] firstObject];
+         editViewController.delegate = self;
+         
+         if ([sender isKindOfClass:[INVProjectTableViewCell class]]) {
+             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+             INVProject *project = [self.dataResultsController objectAtIndexPath:indexPath];
+             
+             editViewController.currentProject = project;
+         } else {
+             editViewController.currentProject = nil;
+         }
+     }
  }
 
 #pragma mark - helper
@@ -167,7 +176,31 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
     if (!_dataSource) {
         _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
+            cell.delegate = self;
+            cell.projectId = project.projectId;
             cell.name.text = project.name;
+            
+            [self.globalDataManager.invServerClient getAllPkgMastersForProject:project.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
+                if (error) return;
+                
+                NSArray *files = [self.globalDataManager.invServerClient.projectManager packagesForProjectId:project.projectId];
+                cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %i", files.count];
+            }];
+            
+            [self.globalDataManager.invServerClient getMembershipForAccount:self.globalDataManager.invServerClient.accountManager.signedinAccount.accountId withCompletionBlock:^(INVEmpireMobileError *error) {
+                if (error) {
+                    NSLog(@"%@", error);
+                    return;
+                }
+                
+                NSArray *members = self.globalDataManager.invServerClient.accountManager.accountMembership;
+                cell.userCount.text = [NSString stringWithFormat:@"\uf0c0 %i", members.count];
+            }];
+            
+            // TODO: Load this from a cache first?
+            cell.fileCount.text = @"\uf0c5 0";
+            cell.userCount.text = @"\uf0c0 0";
+            
             NSString* createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
             NSString* createdOnWithDateStr =[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CREATED_ON", nil), [self.dateFormatter stringFromDate:project.createdAt]];
             NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:createdOnWithDateStr];
@@ -177,11 +210,10 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
             cell.createdOnLabel.attributedText = attrString;
             
 #warning This shoud eventually be provided as a selected by user during project creation and should subsequently be pulled from server. If user does not select one, we randomly pick one
-            NSInteger index = arc4random_uniform(5); // We have 5 canned images
+            NSInteger index = indexPath.section % 5; // We have 5 canned images
             NSString* thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld",(long)index];
             UIImage* tempImage = [UIImage imageNamed:thumbnail];
             cell.thumbnailImageView.image = [UIImage resizeImage:tempImage toSize:cell.thumbnailImageView.frame.size];
-            
         };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
     
@@ -199,7 +231,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.projectManager.fetchRequestForProjects managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:@"projectId" cacheName:nil];
-        
+        _dataResultsController.fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO] ];
     }
     return  _dataResultsController;
 }
@@ -211,6 +243,32 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
         _dateFormatter.dateStyle = NSDateFormatterShortStyle;
     }
     return _dateFormatter;
+}
+
+-(void) onProjectDeleted:(INVProjectTableViewCell *)sender {
+    NSNumber *projectId = sender.projectId;
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_DELETE_PROJECT", nil)
+                                                                             message:NSLocalizedString(@"CONFIRM_DELETE_PROJECT_MESSAGE", nil)
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_PROJECT_CONFIRM_NEGATIVE", nil) style:UIAlertActionStyleCancel handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_PROJECT_CONFIRM_POSITIVE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self.globalDataManager.invServerClient deleteProjectWithId:projectId ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+            [self fetchProjectList];
+        }];
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void) onProjectEdited:(INVProjectTableViewCell *)sender {
+    [self performSegueWithIdentifier:@"editProject" sender:sender];
+}
+
+-(void) onProjectEditSaved:(INVProjectEditViewController *)controller {
+    [self fetchProjectList];
 }
 
 @end

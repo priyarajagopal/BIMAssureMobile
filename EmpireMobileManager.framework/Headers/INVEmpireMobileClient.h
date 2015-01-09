@@ -161,19 +161,6 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  */
 -(void)getSignedInUserProfileWithCompletionBlock:(CompletionHandler) handler;
 
-/**
- Asynchornously ,create project with specified name. Only an admin is capable of exercising this call.
- 
- @param projectName name of project
- 
- @param overview Description of project (currently unused in backend)
- 
- @param handler The completion handler that returns error object if there was any error.
- 
- @see -signIntoAccount:withCompletionBlock:
- 
- */
--(void)createProjectWithName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
 
 
 /**
@@ -256,6 +243,44 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  
  */
 -(void)removeUser:(NSNumber*)userId fromAccount:(NSNumber*)accountId withCompletionBlock:(CompletionHandler) handler;
+
+
+
+#pragma mark - project management
+
+/**
+ Asynchornously ,create project with specified name. Only an admin is capable of exercising this call.
+ 
+ @param projectName name of project
+ 
+ @param overview Description of project (currently unused in backend)
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ */
+-(void)createProjectWithName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+
+/**
+ Asynchornously ,edit project with specified Id. Only an admin is capable of exercising this call. This API is not supported in
+ the backend
+ 
+ @param projectId The Id of project to be updated
+ 
+ @param projectName updated name of project
+ 
+ @param overview updated Description of project (currently unused in backend)
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ */
+-(void)updateProjectWithId:(NSNumber*)projectId withName:(NSString*)projectName andDescription:(NSString*)overview ForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
+
+
 
 #pragma mark - Model Related
 

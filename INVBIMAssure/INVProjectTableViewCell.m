@@ -28,5 +28,16 @@
 
 }
 
+-(IBAction) onProjectDeleted:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(onProjectDeleted:)]) {
+        [self.delegate onProjectDeleted:self];
+    }
+}
+
+-(IBAction) onProjectEdited:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(onProjectEdited:)]) {
+        [self.delegate onProjectEdited:self];
+    }
+}
 
 @end

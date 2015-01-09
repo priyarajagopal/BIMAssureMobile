@@ -76,6 +76,9 @@
     [self.window setTintColor:whiteColor  ];
     [[UINavigationBar appearance] setBarTintColor:cyanBlueColor ] ;
     [[UINavigationBar appearance] setTintColor:whiteColor] ;
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+        NSForegroundColorAttributeName: whiteColor
+    }];
     
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
     [[UITextField appearance] setTintColor:darkGreyColor];
