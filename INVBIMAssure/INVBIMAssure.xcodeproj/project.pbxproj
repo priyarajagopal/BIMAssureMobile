@@ -382,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				F5789D891A642A6200D8CEE7 /* Resources */,
+				F5789C901A642A5500D8CEE7 /* Source */,
 				F5789DCC1A642A6700D8CEE7 /* Tests */,
 				02C8845819E317E900DFB4E2 /* Products */,
 				B910EE3EE06846E99FD21754 /* Frameworks */,
@@ -444,8 +445,7 @@
 				F5789CC51A642A5500D8CEE7 /* Utilities */,
 				F5789CEF1A642A5500D8CEE7 /* View Controllers */,
 			);
-			name = Source;
-			path = ../../Source;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		F5789C911A642A5500D8CEE7 /* Custom Views */ = {
@@ -781,7 +781,6 @@
 		F5789DA71A642A6200D8CEE7 /* Stock Thumbnails */ = {
 			isa = PBXGroup;
 			children = (
-				F5789C901A642A5500D8CEE7 /* Source */,
 				F5789DA81A642A6200D8CEE7 /* project_thumbnail_00.jpg */,
 				F5789DA91A642A6200D8CEE7 /* project_thumbnail_01.jpg */,
 				F5789DAA1A642A6200D8CEE7 /* project_thumbnail_02.jpg */,
