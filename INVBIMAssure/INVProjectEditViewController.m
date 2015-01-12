@@ -57,6 +57,7 @@
 @property IBOutlet UITextField *addNewMemberTextField;
 @property IBOutlet UITextField *invitationMessageTextField;
 @property IBOutlet UIButton *currentThumbnailButton;
+@property IBOutlet UIBarButtonItem *saveBarButtonItem;
 
 @property IBOutlet UITableView *membersInAccountTableView;
 @property IBOutlet UITableView *membersInProjectTableView;
@@ -65,6 +66,7 @@
 @property IBOutlet INVMutableArrayTableViewDataSource *membersInProjectDataSource;
 
 -(IBAction) save:(id)sender;
+-(IBAction) projectNameChanged:(id)sender;
 -(IBAction) selectThumbnail:(id)sender;
 
 @end
@@ -74,6 +76,7 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    self.refreshControl = nil;
     self.currentThumbnailButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.membersInAccountDataSource.tableViewCellIdentifier = @"memberCell";
@@ -107,6 +110,12 @@
         self.projectDescriptionTextField.text = nil;
     }
     
+    [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+        NSArray *members = [self.globalDataManager.invServerClient.accountManager accountMembership];
+        
+        [self.membersInAccountDataSource addObjectsFromArray:[members valueForKey:@"email"]];
+        [self.membersInAccountTableView reloadData];
+    }];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -132,16 +141,6 @@
     projectName = [projectName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     projectDescription = [projectDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if (projectName.length == 0) {
-        self.navigationItem.prompt = NSLocalizedString(@"INVALID_PROJECTNAME", nil);
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.navigationItem.prompt = nil;
-        });
-        
-        return;
-    }
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     if (self.currentProject) {
@@ -165,6 +164,10 @@
                                                      [self performSegueWithIdentifier:@"unwind" sender:self];    
                                                  }];
     }
+}
+
+-(void) projectNameChanged:(id)sender {
+    self.saveBarButtonItem.enabled = ([sender text].length > 0);
 }
 
 -(void) selectThumbnail:(id)sender {
