@@ -34,7 +34,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 @property (nonatomic, weak)  UITextField* userNameTextField;
 @property (nonatomic, weak)  UITextField* emailTextField;
 @property (nonatomic, weak)  UITextField* passwordTextField;
-;
+@property (nonatomic, weak)  UISwitch* invitationSwitch;
 
 
 @end

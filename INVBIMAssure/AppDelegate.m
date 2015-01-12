@@ -119,7 +119,7 @@
 -(void)displayLoginRootViewController {
     [self deregisterAccountObservers];
 
-    INVLoginViewController* loginVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"LoginVC"];
+    INVLoginViewController* loginVC = [[self loginStoryboard]instantiateViewControllerWithIdentifier:@"LoginVC"];
     self.window.rootViewController = loginVC;
     [self registerLoginObservers];
 
@@ -197,6 +197,9 @@
     return [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle bundleForClass:[self class]]];
 }
 
+-(UIStoryboard*)loginStoryboard {
+    return [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle bundleForClass:[self class]]];
+}
 
 -(BOOL)isFirstRunOfApp {
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"INV_FirstTimeLaunch"]) {
