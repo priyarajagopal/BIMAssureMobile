@@ -66,7 +66,7 @@
 }
 
 
-#pragma INVRuleInstanceTableViewCellStateDelegate
+#pragma mark - INVRuleInstanceTableViewCellStateDelegate
 
 - (void)cellDidOpen:(UITableViewCell *)cell {
     NSIndexPath *currentEditingIndexPath = [super.tableView indexPathForCell:cell];

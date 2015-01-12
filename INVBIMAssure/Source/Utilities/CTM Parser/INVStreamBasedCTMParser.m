@@ -22,7 +22,7 @@ struct _ctmReadNSDataUserData {
 static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
     struct _ctmReadNSDataUserData *ctmReadNSDataUserData = (struct _ctmReadNSDataUserData *) userData;
     
-    CTMuint read = (CTMuint) MIN(size, [ctmReadNSDataUserData->buffer length] - ctmReadNSDataUserData->offset);
+    CTMuint read = (CTMuint) fmin(size, [ctmReadNSDataUserData->buffer length] - ctmReadNSDataUserData->offset);
     
     memcpy(buf, [ctmReadNSDataUserData->buffer bytes] + ctmReadNSDataUserData->offset, read);
     ctmReadNSDataUserData->offset += read;

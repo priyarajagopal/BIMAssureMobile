@@ -77,7 +77,7 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forSection:(NSInteger)section {
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:DEFAULT_ROW_INDEX inSection:section];
-    return [self registerCellWithIdentifier:cellIdentifier configureBlock:configBlock forIndexPath:indexPath];
+    [self registerCellWithIdentifier:cellIdentifier configureBlock:configBlock forIndexPath:indexPath];
 }
 
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock {

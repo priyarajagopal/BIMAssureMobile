@@ -35,7 +35,7 @@
     if (!_splitViewPanGestureRecognizer) {
         for (UIGestureRecognizer* recognizer in [self.view gestureRecognizers]) {
             if ([recognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-                _splitViewPanGestureRecognizer = recognizer;
+                _splitViewPanGestureRecognizer = (UIPanGestureRecognizer *) recognizer;
             }
         }
         

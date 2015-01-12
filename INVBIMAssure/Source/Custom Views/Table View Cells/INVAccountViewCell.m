@@ -27,6 +27,8 @@
 
 
 -(void)setIsDefault:(BOOL)isDefault {
+    _isDefault = isDefault;
+    
     if (isDefault) {
         [self setDefaultAccessoryLabel];
     }

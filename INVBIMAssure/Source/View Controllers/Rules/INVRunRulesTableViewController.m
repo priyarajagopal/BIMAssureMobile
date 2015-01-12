@@ -213,7 +213,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - INVRunRuleSetHeaderViewActionDelegate
 -(void)onRuleSetToggled:(INVRunRuleSetHeaderView*)sender {
     NSNumber* tappedRuleSetId = sender.ruleSetId;
-    return [self updateRuleSetEntryWithId:tappedRuleSetId];
+    [self updateRuleSetEntryWithId:tappedRuleSetId];
 }
 
 -(void)updateRuleSetEntryWithId:(NSNumber*)ruleSetId {

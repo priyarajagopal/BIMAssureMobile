@@ -32,23 +32,23 @@
 #pragma mark - NSMutableArray Methods
 
 -(void) insertObject:(id)anObject atIndex:(NSUInteger)index {
-    return [_contents insertObject:anObject atIndex:index];
+    [_contents insertObject:anObject atIndex:index];
 }
 
 -(void) removeObjectAtIndex:(NSUInteger)index {
-    return [_contents removeObjectAtIndex:index];
+    [_contents removeObjectAtIndex:index];
 }
 
 -(void) addObject:(id)anObject {
-    return [_contents addObject:anObject];
+    [_contents addObject:anObject];
 }
 
 -(void) removeLastObject {
-    return [_contents removeLastObject];
+    [_contents removeLastObject];
 }
 
 -(void) replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject {
-    return [_contents replaceObjectAtIndex:index withObject:anObject];
+    [_contents replaceObjectAtIndex:index withObject:anObject];
 }
 
 #pragma mark - UITableViewDataSource Methods
