@@ -20,6 +20,7 @@
 		F539D5361A64495D007A2BDC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F539D52F1A64495D007A2BDC /* LaunchScreen.xib */; };
 		F539D5381A64495D007A2BDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F539D5331A64495D007A2BDC /* Main.storyboard */; };
 		F539D53B1A644C1C007A2BDC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F539D5391A644C1C007A2BDC /* Localizable.strings */; };
+		F539D53E1A645497007A2BDC /* Stock Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F539D53D1A645497007A2BDC /* Stock Thumbnails */; };
 		F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C841A6429F200D8CEE7 /* Crashlytics.framework */; };
 		F5789C881A6429F200D8CEE7 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C851A6429F200D8CEE7 /* EmpireMobileManager.framework */; };
 		F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C861A6429F200D8CEE7 /* Fabric.framework */; };
@@ -121,11 +122,6 @@
 		F5789DC41A642A6200D8CEE7 /* Startup.json in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA31A642A6200D8CEE7 /* Startup.json */; };
 		F5789DC51A642A6200D8CEE7 /* ModelViewer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA51A642A6200D8CEE7 /* ModelViewer.fsh */; };
 		F5789DC61A642A6200D8CEE7 /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA61A642A6200D8CEE7 /* ModelViewer.vsh */; };
-		F5789DC71A642A6200D8CEE7 /* project_thumbnail_00.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA81A642A6200D8CEE7 /* project_thumbnail_00.jpg */; };
-		F5789DC81A642A6200D8CEE7 /* project_thumbnail_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA91A642A6200D8CEE7 /* project_thumbnail_01.jpg */; };
-		F5789DC91A642A6200D8CEE7 /* project_thumbnail_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5789DAA1A642A6200D8CEE7 /* project_thumbnail_02.jpg */; };
-		F5789DCA1A642A6200D8CEE7 /* project_thumbnail_03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5789DAB1A642A6200D8CEE7 /* project_thumbnail_03.jpg */; };
-		F5789DCB1A642A6200D8CEE7 /* project_thumbnail_04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5789DAC1A642A6200D8CEE7 /* project_thumbnail_04.jpg */; };
 		F5789DDC1A642B2900D8CEE7 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789DCE1A642A6700D8CEE7 /* INVBIMAssureTests.m */; };
 		F5789DDD1A642B2C00D8CEE7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5789DCD1A642A6700D8CEE7 /* Info.plist */; };
 		F5789DE91A642ED300D8CEE7 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789DE81A642ED300D8CEE7 /* libYajl.a */; };
@@ -161,6 +157,7 @@
 		F539D5301A64495D007A2BDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F539D5341A64495D007A2BDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F539D53A1A644C1C007A2BDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F539D53D1A645497007A2BDC /* Stock Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Stock Thumbnails"; sourceTree = "<group>"; };
 		F5789C841A6429F200D8CEE7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F5789C851A6429F200D8CEE7 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		F5789C861A6429F200D8CEE7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -338,11 +335,6 @@
 		F5789DA31A642A6200D8CEE7 /* Startup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Startup.json; sourceTree = "<group>"; };
 		F5789DA51A642A6200D8CEE7 /* ModelViewer.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.fsh; sourceTree = "<group>"; };
 		F5789DA61A642A6200D8CEE7 /* ModelViewer.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.vsh; sourceTree = "<group>"; };
-		F5789DA81A642A6200D8CEE7 /* project_thumbnail_00.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = project_thumbnail_00.jpg; sourceTree = "<group>"; };
-		F5789DA91A642A6200D8CEE7 /* project_thumbnail_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = project_thumbnail_01.jpg; sourceTree = "<group>"; };
-		F5789DAA1A642A6200D8CEE7 /* project_thumbnail_02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = project_thumbnail_02.jpg; sourceTree = "<group>"; };
-		F5789DAB1A642A6200D8CEE7 /* project_thumbnail_03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = project_thumbnail_03.jpg; sourceTree = "<group>"; };
-		F5789DAC1A642A6200D8CEE7 /* project_thumbnail_04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = project_thumbnail_04.jpg; sourceTree = "<group>"; };
 		F5789DCD1A642A6700D8CEE7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5789DCE1A642A6700D8CEE7 /* INVBIMAssureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBIMAssureTests.m; sourceTree = "<group>"; };
 		F5789DE81A642ED300D8CEE7 /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Yajl/build/Prod-iphoneos/libYajl.a"; sourceTree = "<group>"; };
@@ -728,7 +720,7 @@
 				F5789D8C1A642A6200D8CEE7 /* Interface Builder */,
 				F5789D9E1A642A6200D8CEE7 /* Server Config */,
 				F5789DA41A642A6200D8CEE7 /* Shaders */,
-				F5789DA71A642A6200D8CEE7 /* Stock Thumbnails */,
+				F539D53D1A645497007A2BDC /* Stock Thumbnails */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -776,18 +768,6 @@
 				F5789DA61A642A6200D8CEE7 /* ModelViewer.vsh */,
 			);
 			path = Shaders;
-			sourceTree = "<group>";
-		};
-		F5789DA71A642A6200D8CEE7 /* Stock Thumbnails */ = {
-			isa = PBXGroup;
-			children = (
-				F5789DA81A642A6200D8CEE7 /* project_thumbnail_00.jpg */,
-				F5789DA91A642A6200D8CEE7 /* project_thumbnail_01.jpg */,
-				F5789DAA1A642A6200D8CEE7 /* project_thumbnail_02.jpg */,
-				F5789DAB1A642A6200D8CEE7 /* project_thumbnail_03.jpg */,
-				F5789DAC1A642A6200D8CEE7 /* project_thumbnail_04.jpg */,
-			);
-			path = "Stock Thumbnails";
 			sourceTree = "<group>";
 		};
 		F5789DCC1A642A6700D8CEE7 /* Tests */ = {
@@ -888,7 +868,6 @@
 			files = (
 				F5789DBA1A642A6200D8CEE7 /* INVRuleSetTableViewHeaderView.xib in Resources */,
 				F5789DC01A642A6200D8CEE7 /* invicara_config_server.cer in Resources */,
-				F5789DC91A642A6200D8CEE7 /* project_thumbnail_02.jpg in Resources */,
 				F5789DBC1A642A6200D8CEE7 /* INVSearchView.xib in Resources */,
 				F5789DB61A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
 				F5789DAD1A642A6200D8CEE7 /* Images.xcassets in Resources */,
@@ -904,18 +883,15 @@
 				F5789DB31A642A6200D8CEE7 /* INVProjectTableViewCell.xib in Resources */,
 				F5789DBE1A642A6200D8CEE7 /* INVTextViewTableViewCell.xib in Resources */,
 				F5789DB71A642A6200D8CEE7 /* INVRuleInstanceNameTableViewCell.xib in Resources */,
-				F5789DC81A642A6200D8CEE7 /* project_thumbnail_01.jpg in Resources */,
 				F5789DC61A642A6200D8CEE7 /* ModelViewer.vsh in Resources */,
 				F5789DBD1A642A6200D8CEE7 /* INVStockThumbnailCollectionViewCell.xib in Resources */,
-				F5789DC71A642A6200D8CEE7 /* project_thumbnail_00.jpg in Resources */,
 				F5789DB21A642A6200D8CEE7 /* INVProjectFileCollectionViewCell.xib in Resources */,
-				F5789DCB1A642A6200D8CEE7 /* project_thumbnail_04.jpg in Resources */,
 				F5789DAF1A642A6200D8CEE7 /* INVAccountViewCell.xib in Resources */,
 				F5789DB91A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib in Resources */,
 				F5789DC21A642A6200D8CEE7 /* ServerConfig-Prod.xcconfig in Resources */,
+				F539D53E1A645497007A2BDC /* Stock Thumbnails in Resources */,
 				F539D5381A64495D007A2BDC /* Main.storyboard in Resources */,
 				F5789DB01A642A6200D8CEE7 /* INVDefaultAccountAlertView.xib in Resources */,
-				F5789DCA1A642A6200D8CEE7 /* project_thumbnail_03.jpg in Resources */,
 				F5789DC31A642A6200D8CEE7 /* ServerConfig-QA.xcconfig in Resources */,
 				F5789DBB1A642A6200D8CEE7 /* INVRunRuleSetHeaderView.xib in Resources */,
 				F5789DB81A642A6200D8CEE7 /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
