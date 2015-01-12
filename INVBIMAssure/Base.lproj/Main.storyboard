@@ -421,6 +421,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="DPl-Pc-fhp" eventType="editingDidEndOnExit" id="QNw-IX-j59"/>
+                                                        <action selector="projectNameChanged:" destination="mBi-Kq-wHv" eventType="editingChanged" id="PCT-KJ-7Z7"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -671,7 +672,7 @@
                                 <segue destination="HDE-rL-y12" kind="unwind" unwindAction="done:" id="9gL-6b-Td3"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Wen-HB-yhA">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="Wen-HB-yhA">
                             <connections>
                                 <action selector="save:" destination="mBi-Kq-wHv" id="jut-z1-3TN"/>
                             </connections>
@@ -687,6 +688,7 @@
                         <outlet property="membersInProjectTableView" destination="Z3B-IQ-iEv" id="xK4-TB-N94"/>
                         <outlet property="projectDescriptionTextField" destination="DPl-Pc-fhp" id="Rhi-WJ-l2k"/>
                         <outlet property="projectNameTextField" destination="mK0-hD-gwW" id="6bS-aa-G7H"/>
+                        <outlet property="saveBarButtonItem" destination="Wen-HB-yhA" id="EsD-K7-zOP"/>
                         <segue destination="HDE-rL-y12" kind="unwind" identifier="unwind" unwindAction="done:" id="1qY-Wc-IPO"/>
                     </connections>
                 </tableViewController>
