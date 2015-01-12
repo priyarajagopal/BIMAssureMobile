@@ -60,6 +60,12 @@
 		024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
 		0269F3BF1A641A0900E7079C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0269F3BD1A6419E900E7079C /* EmpireMobileManager.framework */; };
 		0269F3C01A641A0900E7079C /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0269F3BD1A6419E900E7079C /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0269F3C31A641C6200E7079C /* INVSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3C21A641C6200E7079C /* INVSignUpTableViewController.m */; };
+		0269F3C41A641C6200E7079C /* INVSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3C21A641C6200E7079C /* INVSignUpTableViewController.m */; };
+		0269F3C61A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0269F3C51A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib */; };
+		0269F3C71A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0269F3C51A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib */; };
+		0269F3CA1A64262800E7079C /* INVGenericTextEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3C91A64262800E7079C /* INVGenericTextEntryTableViewCell.m */; };
+		0269F3CB1A64262800E7079C /* INVGenericTextEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3C91A64262800E7079C /* INVGenericTextEntryTableViewCell.m */; };
 		0271A6BB1A4B1F4C00ECF4F6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0271A6B91A4B1F4C00ECF4F6 /* Crashlytics.framework */; };
 		0271A6BC1A4B1F4C00ECF4F6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0271A6BA1A4B1F4C00ECF4F6 /* Fabric.framework */; };
 		0271A7201A51992700ECF4F6 /* INVSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0271A71F1A51992700ECF4F6 /* INVSettingsViewController.m */; };
@@ -241,6 +247,11 @@
 		02549F3E1A37596100FF51B4 /* INVExecutionIssuesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVExecutionIssuesTableViewController.h; sourceTree = "<group>"; };
 		02549F3F1A37596100FF51B4 /* INVExecutionIssuesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVExecutionIssuesTableViewController.m; sourceTree = "<group>"; };
 		0269F3BD1A6419E900E7079C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		0269F3C11A641C6200E7079C /* INVSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSignUpTableViewController.h; sourceTree = "<group>"; };
+		0269F3C21A641C6200E7079C /* INVSignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSignUpTableViewController.m; sourceTree = "<group>"; };
+		0269F3C51A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVGenericTextEntryTableViewCell.xib; sourceTree = "<group>"; };
+		0269F3C81A64262800E7079C /* INVGenericTextEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGenericTextEntryTableViewCell.h; sourceTree = "<group>"; };
+		0269F3C91A64262800E7079C /* INVGenericTextEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGenericTextEntryTableViewCell.m; sourceTree = "<group>"; };
 		0271A6B91A4B1F4C00ECF4F6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0271A6BA1A4B1F4C00ECF4F6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		0271A71E1A51992700ECF4F6 /* INVSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSettingsViewController.h; sourceTree = "<group>"; };
@@ -462,6 +473,9 @@
 				02FC608A1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.h */,
 				02FC608B1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.m */,
 				02FC608C1A0A5CD000B67AED /* INVGeneralAddRemoveTableViewCell.xib */,
+				0269F3C81A64262800E7079C /* INVGenericTextEntryTableViewCell.h */,
+				0269F3C91A64262800E7079C /* INVGenericTextEntryTableViewCell.m */,
+				0269F3C51A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib */,
 				0234D6251A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.h */,
 				0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */,
 				0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */,
@@ -604,6 +618,8 @@
 				02AAD41719EB2C7F002901DA /* CustomBaseViewControllers */,
 				02C8848719E328EF00DFB4E2 /* INVLoginViewController.h */,
 				02C8848819E328EF00DFB4E2 /* INVLoginViewController.m */,
+				0269F3C11A641C6200E7079C /* INVSignUpTableViewController.h */,
+				0269F3C21A641C6200E7079C /* INVSignUpTableViewController.m */,
 				02408FFD19E45A2700B218ED /* INVAccountListViewController.h */,
 				02408FFE19E45A2700B218ED /* INVAccountListViewController.m */,
 				02457E2319ED88AC00E714BA /* INVMainViewController.h */,
@@ -863,6 +879,7 @@
 				021E85B519F81C61003E35E0 /* Main.storyboard in Resources */,
 				024BB6171A30A52900DEA82D /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
 				F5CB5AA91A48771D00927FB9 /* invicara_config_server.cer in Resources */,
+				0269F3C61A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib in Resources */,
 				02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */,
 				023F2B9C1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */,
 				F5789C3F1A5C6F6500D8CEE7 /* Stock Thumbnails in Resources */,
@@ -905,6 +922,7 @@
 				0249AAE81A2E45D400EE5D09 /* INVRunRuleSetHeaderView.xib in Resources */,
 				024CDCD719FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				02B43A0B19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
+				0269F3C71A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib in Resources */,
 				0234D62B1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02408FFC19E447BF00B218ED /* Main.storyboard in Resources */,
 				024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */,
@@ -1007,6 +1025,7 @@
 				0246E7351A11179E000C487D /* INVFileRuleSetListTableViewController.m in Sources */,
 				02C8848919E328EF00DFB4E2 /* INVLoginViewController.m in Sources */,
 				0224B8C719F048F20083EA6E /* INVSimpleUserInfoTableViewController.m in Sources */,
+				0269F3C31A641C6200E7079C /* INVSignUpTableViewController.m in Sources */,
 				023F2B5A19FEDCA700E4C985 /* INVGenericTableViewDataSource.m in Sources */,
 				02DB78121A096C13004F4980 /* INVRuleSetFilesListTableViewController.m in Sources */,
 				02AAD3ED19E6FE80002901DA /* INVProjectListSplitViewController.m in Sources */,
@@ -1023,6 +1042,7 @@
 				0223355519F7F24D00224E0C /* INVUserManagementTableViewController.m in Sources */,
 				F57D280F1A3B7C9A00685F3F /* INVSearchViewTagsDataSource.m in Sources */,
 				F57D27F71A3B7C7200685F3F /* ClassDump.m in Sources */,
+				0269F3CA1A64262800E7079C /* INVGenericTextEntryTableViewCell.m in Sources */,
 				F57D280E1A3B7C9A00685F3F /* INVSearchViewQuickSearchDataSource.m in Sources */,
 				F5789C461A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m in Sources */,
 				0234D6281A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m in Sources */,
@@ -1081,7 +1101,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2E0CF841A49E5CB002405D7 /* INVBIMAssureTests.m in Sources */,
+				0269F3CB1A64262800E7079C /* INVGenericTextEntryTableViewCell.m in Sources */,
 				0271A7211A51992700ECF4F6 /* INVSettingsViewController.m in Sources */,
+				0269F3C41A641C6200E7079C /* INVSignUpTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
