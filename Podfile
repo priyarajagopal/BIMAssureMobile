@@ -1,4 +1,5 @@
 platform :ios, '8.0'
+xcodeproj 'INVBIMAssure/INVBIMAssure.xcodeproj'
 
 link_with 'INVBIMAssure', 'INVBIMAssureTests'
 pod 'Overcoat', '~>2.0'

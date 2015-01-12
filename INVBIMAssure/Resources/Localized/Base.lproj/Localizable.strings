@@ -1,0 +1,98 @@
+/* 
+  Localized.strings
+  INVBIMAssure
+
+  Created by Priya Rajagopal on 10/8/14.
+  Copyright (c) 2014 Invicara Inc. All rights reserved.
+*/
+"SAVE"="Save";
+"CANCEL"="Cancel";
+"SET_ACCOUNT_AS_DEFAULT"="Set Account as Default?";
+"SHOW_THIS_ALERT"="Do not show this alert again";
+"LOGIN_FAILURE"="Login Failure";
+"GENERIC_LOGIN_FAILURE_MESSAGE"="There was an error while trying to log in. Please check the email and/or password and try again";
+"LOGGING_IN"="Logging In";
+"GENERIC_ACCOUNT_LOGIN_FAILURE_MESSAGE"="There was an error while trying to log into the account";
+"PROJECTS"="Projects";
+"ACCOUNTS"="Accounts";
+"FILES"="Files";
+"CREATED_ON"="Created On";
+"LOG_OUT"="Log Out";
+"LOGGING_IN_ACCOUNT"="Logging into Account";
+"LOADING_DATA"= "Loading...";
+"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE"="Are you sure you want to log into %1@ ?";
+"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE"="Are you sure you want to switch to %1@ ?";
+"USER_MANAGEMENT_ACCOUNT"="Manage Account Users";
+"CURRENT_USERS"="Current Users";
+"INVITED_USERS"="Invited Users";
+"INVITE_USER"="Invite User";
+"INVITED_BY_ON"="Invited by %1@ at %2@";
+"ACCOUNT:"= "Account: %1@";
+"ENTER_OPTIONAL_MESSAGE"="Enter Optional Message :";
+"ENTER_INVITED_USERS"="";
+"ENTER_EMAILS:"="Enter Emails";
+"INVITING"="Inviting";
+"INVITE_FAILURE"="Invite Failure";
+"GENERIC_INVITE_FAILURE_MESSAGE"="There was an error while trying to invite users to the account. Please try again";
+"GENERIC_ACCOUNT_LOGOUT_MESSAGE"="You will be logged out of the \" %1@ \" account.";
+"ARE_YOU_SURE"="Are you sure?";
+"RULES"="Rules";
+"MANAGE_RULESETS"="Manage RuleSets";
+"FILES_INCLUDED_IN_RULESET"="Files Associated with RuleSet";
+"FILES_NOT_INCLUDED_IN_RULESET"="Files Not Associated with RuleSet";
+"MANAGE_FILES"="Manage Files";
+"RULESETS_INCLUDED_IN_FILE"="RuleSets Associated with File";
+"RULESETS_NOT_INCLUDED_IN_FILE"="RuleSets Not Associated with File";
+"EDIT"="Edit";
+"SELECT_RULE_TEMPLATES"="Select Rule Template";
+"SEARCH"="Search";
+"RULE_INSTANCE_UPDATED_SUCCESS"="The rule instance was succesfully updated";
+"RULE_INSTANCE_CREATED_SUCCESS"="The rule instance was succesfully created";
+"SELECT_RULES_TO_RUN"="Select Rules to Run";
+"EXECUTED_AT"="Executed At";
+"NO_ISSUES"="No Errors Reported";
+"NUM_ERRORS"="Error Count";
+"EXECUTIONS"="Executions";
+"DESCRIPTION_UNAVAILABLE"="Description Unavailable";
+"BUILDING_ELEMENTS_WITH_ISSUES"="Building Elements";
+"RULE_INSTANCE_CREATED_SUCCESS"="Succesfully created rule instance";
+"RULE_INSTANCE_UPDATED_SUCCESS"="Succesfully updated rule instance";
+"RUN_RULE_SUCCESS"="Succesfully started rule execution.";
+"CREATE_PROJECT"="Create Project";
+"EDIT_PROJECT"="Edit %@";
+"INVALID_PROJECT_NAME"="Invalid Project Name";
+"STOCK_IMAGES"="Stock Images";
+"PHOTO_LIBRARY"="Photo Library";
+"TAKE_PHOTO"="Take Photo";
+"INVALID_EMAIL"="Invalid Email";
+"CONFIRM_DELETE_PROJECT"="Confirm Delete";
+"CONFIRM_DELETE_PROJECT_MESSAGE"="Are you sure you want to delete this project? This cannot be undone!";
+"CONFIRM_DELETE_PROJECT_CONFIRM_NEGATIVE"="No";
+"CONFIRM_DELETE_PROJECT_CONFIRM_POSITIVE"="Yes";
+"ERROR"="Error";
+"ERROR_RULE_DEFINITION_LOAD"="There was an error while loading rule definitions [%1d]";
+"ERROR_RULE_DEFINITION_FORINSTANCE_LOAD"="There was an error while loading rule definition for rule instance [%1d]";
+"ERROR_BUILDING_ELEMENT_LOAD"="There was an error while loading the list of building elements with issues [%1d]";
+"ERROR_EXECUTION_LOAD"="There was an error while fetching list of executions [%1d]";
+"ERROR_RULESET_MEMBERSHIP_LOAD"="There was an error while fetching ruleset membership [%1d]";
+"ERROR_PKGMASTER_MEMBERSHIP_LOAD"="There was an error while fetching package master membership [%1d]";
+"ERROR_RULESET_MEMBERSHIP_UPDATE"="There was an error while updating ruleset membership [%1d]";
+"ERROR_PKGMASTER_MEMBERSHIP_UPDATE"="There was an error while updating package master membership [%1d]";
+"ERROR_INVALID_LOGIN_PARAMS"="Please enter valid email address and/or password and try again [%1d]";
+"ERROR_RULESET_LOAD"="There was an error while loading rule sets [%1d]";
+"ERROR_FETCH_ACCOUNTMEMBERS"="There was an error while fetching account members [%1d]";
+"ERROR_RUN_RULES"="There was an error while scheduling rule execution(s)[%1d]";
+"ERROR_PROJECTFILES_LOAD"="There was an error while loading the project package(s)[%1d]";
+"ERROR_PROJECTS_LOAD"="There was an error while loading the project(s)[%1d]";
+"ERROR_RULEINSTANCE_DELETE"="There was an error while deleting rule instance [%1dd]";
+"ERROR_MAILNOTCONFIGURED"="It appears that you have not configured your device with an email account. Please set up your email account in \"Settings\" and try again";
+"ERROR_LISTOFINVITEDUSERS_LOAD"="There was an error while fetching list of users invited to the account [%1d]";
+"ERROR_ACCOUNT_LOAD"="There was an error loading account information for the user .[%1d]";
+"ERROR_RULEINSTANCE_CREATE"="There was an error creating the rule instance.[%1d]";
+"ERROR_RULEINSTANCE_UPDATE"="There was an error updating the rule instance.[%1d]";
+"ERROR_RULESET_EMPTY"="There are no rules associated with the package. You can add rules to the package through the \"Manage Rules\" menu option on the file";
+"ERROR_PKGMASTER_EMPTY"="There are no packages associated with the ruleset. You can add packages to the rule through the \"Manage Files\" menu option on the ruleset";
+
+
+"SETTINGS"="Settings";
+"APP_VERSION"="App Version: %1@(%2@)";
