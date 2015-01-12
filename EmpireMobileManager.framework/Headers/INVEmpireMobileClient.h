@@ -164,10 +164,9 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
 
 /**
- Asynchornously ,get list of members belonging to specified account If the request is made on behalf of admin user, then the list of accounts that a user is a member of is
+ Asynchornously ,get list of members belonging to currentrly signed in account. If the request is made on behalf of admin user, then the list of accounts that a user is a member of is
  also returned. The user must have succesfully used in via signIntoAccount:withCompletionBlock
  
- @param accountId The account Id
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then accountManager can be used to retrieve the account membership info
  
@@ -177,7 +176,7 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
  
  */
--(void)getMembershipForAccount:(NSNumber*)accountId withCompletionBlock:(CompletionHandler) handler;
+-(void)getMembershipForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
 
 
 /**

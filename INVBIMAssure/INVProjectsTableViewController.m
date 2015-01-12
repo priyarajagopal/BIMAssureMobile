@@ -187,7 +187,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
                 cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %i", files.count];
             }];
             
-            [self.globalDataManager.invServerClient getMembershipForAccount:self.globalDataManager.invServerClient.accountManager.signedinAccount.accountId withCompletionBlock:^(INVEmpireMobileError *error) {
+            [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
                 if (error) {
                     NSLog(@"%@", error);
                     return;
