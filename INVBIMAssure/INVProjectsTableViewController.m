@@ -187,16 +187,6 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
                 cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %i", files.count];
             }];
             
-            [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-                if (error) {
-                    NSLog(@"%@", error);
-                    return;
-                }
-                
-                NSArray *members = self.globalDataManager.invServerClient.accountManager.accountMembership;
-                cell.userCount.text = [NSString stringWithFormat:@"\uf0c0 %i", members.count];
-            }];
-            
             // TODO: Load this from a cache first?
             cell.fileCount.text = @"\uf0c5 0";
             cell.userCount.text = @"\uf0c0 0";

@@ -58,14 +58,14 @@
 		024CDCE719FAAA9C00A2F527 /* INVTokensTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 024CDCE519FAAA9C00A2F527 /* INVTokensTableViewCell.m */; };
 		024CDCE919FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
 		024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 024CDCE619FAAA9C00A2F527 /* INVTokensTableViewCell.xib */; };
-		0269F3BF1A641A0900E7079C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0269F3BD1A6419E900E7079C /* EmpireMobileManager.framework */; };
-		0269F3C01A641A0900E7079C /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0269F3BD1A6419E900E7079C /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0269F3C31A641C6200E7079C /* INVSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3C21A641C6200E7079C /* INVSignUpTableViewController.m */; };
 		0269F3C41A641C6200E7079C /* INVSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3C21A641C6200E7079C /* INVSignUpTableViewController.m */; };
 		0269F3C61A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0269F3C51A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib */; };
 		0269F3C71A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0269F3C51A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib */; };
 		0269F3CA1A64262800E7079C /* INVGenericTextEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3C91A64262800E7079C /* INVGenericTextEntryTableViewCell.m */; };
 		0269F3CB1A64262800E7079C /* INVGenericTextEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3C91A64262800E7079C /* INVGenericTextEntryTableViewCell.m */; };
+		0269F3D71A64543100E7079C /* INVGenericSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269F3D51A64543100E7079C /* INVGenericSwitchTableViewCell.m */; };
+		0269F3D81A64543100E7079C /* INVGenericSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0269F3D61A64543100E7079C /* INVGenericSwitchTableViewCell.xib */; };
 		0271A6BB1A4B1F4C00ECF4F6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0271A6B91A4B1F4C00ECF4F6 /* Crashlytics.framework */; };
 		0271A6BC1A4B1F4C00ECF4F6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0271A6BA1A4B1F4C00ECF4F6 /* Fabric.framework */; };
 		0271A7201A51992700ECF4F6 /* INVSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0271A71F1A51992700ECF4F6 /* INVSettingsViewController.m */; };
@@ -166,7 +166,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0269F3C01A641A0900E7079C /* EmpireMobileManager.framework in Embed Frameworks */,
 				F5FA456B1A447D3200C6BE2E /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -252,6 +251,9 @@
 		0269F3C51A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVGenericTextEntryTableViewCell.xib; sourceTree = "<group>"; };
 		0269F3C81A64262800E7079C /* INVGenericTextEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGenericTextEntryTableViewCell.h; sourceTree = "<group>"; };
 		0269F3C91A64262800E7079C /* INVGenericTextEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGenericTextEntryTableViewCell.m; sourceTree = "<group>"; };
+		0269F3D41A64543100E7079C /* INVGenericSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGenericSwitchTableViewCell.h; sourceTree = "<group>"; };
+		0269F3D51A64543100E7079C /* INVGenericSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGenericSwitchTableViewCell.m; sourceTree = "<group>"; };
+		0269F3D61A64543100E7079C /* INVGenericSwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVGenericSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		0271A6B91A4B1F4C00ECF4F6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0271A6BA1A4B1F4C00ECF4F6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		0271A71E1A51992700ECF4F6 /* INVSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSettingsViewController.h; sourceTree = "<group>"; };
@@ -294,7 +296,7 @@
 		02B43A1319E5B740007A2FC5 /* INVDefaultAccountAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVDefaultAccountAlertView.xib; sourceTree = "<group>"; };
 		02C5957E1A2D134100ADD392 /* INVRunRulesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRunRulesTableViewController.h; sourceTree = "<group>"; };
 		02C5957F1A2D134100ADD392 /* INVRunRulesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRunRulesTableViewController.m; sourceTree = "<group>"; };
-		02C8845719E317E900DFB4E2 /* INVBIMAssure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INVBIMAssure.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02C8845719E317E900DFB4E2 /* BIM Assure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BIM Assure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8845B19E317E900DFB4E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02C8845C19E317E900DFB4E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		02C8845E19E317E900DFB4E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -395,7 +397,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2CB671B1A44CD0D003FE3CA /* libYajl.a in Frameworks */,
-				0269F3BF1A641A0900E7079C /* EmpireMobileManager.framework in Frameworks */,
 				0271A6BC1A4B1F4C00ECF4F6 /* Fabric.framework in Frameworks */,
 				0271A6BB1A4B1F4C00ECF4F6 /* Crashlytics.framework in Frameworks */,
 				D2CB67171A44CB21003FE3CA /* libPods-FontAwesomeKit.a in Frameworks */,
@@ -476,6 +477,9 @@
 				0269F3C81A64262800E7079C /* INVGenericTextEntryTableViewCell.h */,
 				0269F3C91A64262800E7079C /* INVGenericTextEntryTableViewCell.m */,
 				0269F3C51A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib */,
+				0269F3D41A64543100E7079C /* INVGenericSwitchTableViewCell.h */,
+				0269F3D51A64543100E7079C /* INVGenericSwitchTableViewCell.m */,
+				0269F3D61A64543100E7079C /* INVGenericSwitchTableViewCell.xib */,
 				0234D6251A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.h */,
 				0234D6261A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.m */,
 				0234D6271A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib */,
@@ -560,7 +564,7 @@
 		02C8845819E317E900DFB4E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				02C8845719E317E900DFB4E2 /* INVBIMAssure.app */,
+				02C8845719E317E900DFB4E2 /* BIM Assure.app */,
 				02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */,
 			);
 			name = Products;
@@ -804,7 +808,7 @@
 			);
 			name = INVBIMAssure;
 			productName = INVBIMAssure;
-			productReference = 02C8845719E317E900DFB4E2 /* INVBIMAssure.app */;
+			productReference = 02C8845719E317E900DFB4E2 /* BIM Assure.app */;
 			productType = "com.apple.product-type.application";
 		};
 		02C8846F19E317E900DFB4E2 /* INVBIMAssureTests */ = {
@@ -881,6 +885,7 @@
 				F5CB5AA91A48771D00927FB9 /* invicara_config_server.cer in Resources */,
 				0269F3C61A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib in Resources */,
 				02AAD3F819E71B16002901DA /* INVProjectTableViewCell.xib in Resources */,
+				0269F3D81A64543100E7079C /* INVGenericSwitchTableViewCell.xib in Resources */,
 				023F2B9C1A0420A600E4C985 /* INVRuleSetTableViewHeaderView.xib in Resources */,
 				F5789C3F1A5C6F6500D8CEE7 /* Stock Thumbnails in Resources */,
 				02C8846B19E317E900DFB4E2 /* LaunchScreen.xib in Resources */,
@@ -1072,6 +1077,7 @@
 				02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */,
 				F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */,
 				0234D62F1A1E4A4500DF151C /* INVRuleInstanceNameTableViewCell.m in Sources */,
+				0269F3D71A64543100E7079C /* INVGenericSwitchTableViewCell.m in Sources */,
 				02AAD3F119E7121E002901DA /* INVProjectsTableViewController.m in Sources */,
 				02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */,
 				02C8849419E339F200DFB4E2 /* INVGlobalDataManager.m in Sources */,
@@ -1241,7 +1247,7 @@
 					"\"UIKit\"",
 				);
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "BIM Assure";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
 			};
 			name = Dev;
@@ -1390,7 +1396,7 @@
 					"\"UIKit\"",
 				);
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "BIM Assure";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
 			};
 			name = Prod;
@@ -1539,7 +1545,7 @@
 					"\"UIKit\"",
 				);
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "BIM Assure";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/Yajl;
 			};
 			name = QA;

@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "805F397B438C2364029E94B2"
+               BlueprintIdentifier = "282F5BF1CE0124091B32161C"
                BuildableName = "libPods.a"
                BlueprintName = "Pods"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -57,7 +57,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "02C8845619E317E900DFB4E2"
-               BuildableName = "INVBIMAssure.app"
+               BuildableName = "BIM Assure.app"
                BlueprintName = "INVBIMAssure"
                ReferencedContainer = "container:INVBIMAssure.xcodeproj">
             </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "02C8845619E317E900DFB4E2"
-            BuildableName = "INVBIMAssure.app"
+            BuildableName = "BIM Assure.app"
             BlueprintName = "INVBIMAssure"
             ReferencedContainer = "container:INVBIMAssure.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "02C8845619E317E900DFB4E2"
-            BuildableName = "INVBIMAssure.app"
+            BuildableName = "BIM Assure.app"
             BlueprintName = "INVBIMAssure"
             ReferencedContainer = "container:INVBIMAssure.xcodeproj">
          </BuildableReference>
@@ -112,7 +112,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "02C8845619E317E900DFB4E2"
-            BuildableName = "INVBIMAssure.app"
+            BuildableName = "BIM Assure.app"
             BlueprintName = "INVBIMAssure"
             ReferencedContainer = "container:INVBIMAssure.xcodeproj">
          </BuildableReference>
