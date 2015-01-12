@@ -58,6 +58,17 @@
 "RULE_INSTANCE_CREATED_SUCCESS"="Succesfully created rule instance";
 "RULE_INSTANCE_UPDATED_SUCCESS"="Succesfully updated rule instance";
 "RUN_RULE_SUCCESS"="Succesfully started rule execution.";
+"CREATE_PROJECT"="Create Project";
+"EDIT_PROJECT"="Edit %@";
+"INVALID_PROJECT_NAME"="Invalid Project Name";
+"STOCK_IMAGES"="Stock Images";
+"PHOTO_LIBRARY"="Photo Library";
+"TAKE_PHOTO"="Take Photo";
+"INVALID_EMAIL"="Invalid Email";
+"CONFIRM_DELETE_PROJECT"="Confirm Delete";
+"CONFIRM_DELETE_PROJECT_MESSAGE"="Are you sure you want to delete this project? This cannot be undone!";
+"CONFIRM_DELETE_PROJECT_CONFIRM_NEGATIVE"="No";
+"CONFIRM_DELETE_PROJECT_CONFIRM_POSITIVE"="Yes";
 "ERROR"="Error";
 "ERROR_RULE_DEFINITION_LOAD"="There was an error while loading rule definitions [%1d]";
 "ERROR_RULE_DEFINITION_FORINSTANCE_LOAD"="There was an error while loading rule definition for rule instance [%1d]";

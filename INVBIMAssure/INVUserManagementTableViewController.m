@@ -126,7 +126,7 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 #pragma mark - server side / data model integration
 -(void)fetchListOfAccountMembers {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient getMembershipForAccount:self.globalDataManager.loggedInAccount withCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         [self.refreshControl endRefreshing];

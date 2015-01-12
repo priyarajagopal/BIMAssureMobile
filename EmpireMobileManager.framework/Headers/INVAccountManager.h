@@ -25,12 +25,6 @@
 
 
 /**
- The profile of account into which user has currently signed in
- */
-@property (nonatomic,readonly)INVSignedInAccount* signedinAccount;
-
-
-/**
  The token of signed in user that is result of a succesful login to the XOSPassport server
  */
 @property (nonatomic,readonly,copy)NSString* tokenOfSignedInUser;
@@ -101,6 +95,7 @@
  @return The singleton instance
  */
 +(instancetype)sharedInstanceWithManagedContext:(NSManagedObjectContext*)managedContext;
+
 
 
 #warning Include way to asyncronously Notify when deletion is done
