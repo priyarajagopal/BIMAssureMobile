@@ -75,6 +75,10 @@
 		0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
 		0278206F1A1A98EF00BDAA5E /* Visualize.html in Resources */ = {isa = PBXBuildFile; fileRef = 0278206B1A1A98EF00BDAA5E /* Visualize.html */; };
 		0278BAC41A646200009E0E27 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAC31A646200009E0E27 /* Login.storyboard */; };
+		0278BAC81A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAC61A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m */; };
+		0278BAC91A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAC61A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m */; };
+		0278BACA1A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAC71A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */; };
+		0278BACB1A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAC71A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */; };
 		029080521A41C76100B39F48 /* UIAlertController+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 029080511A41C76100B39F48 /* UIAlertController+INVCustomizations.m */; };
 		02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
 		02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */; };
@@ -262,6 +266,9 @@
 		0278206A1A1A98EF00BDAA5E /* Visualize_files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Visualize_files; sourceTree = "<group>"; };
 		0278206B1A1A98EF00BDAA5E /* Visualize.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Visualize.html; sourceTree = "<group>"; };
 		0278BAC31A646200009E0E27 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		0278BAC51A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSubscriptionLevelsTableViewCell.h; sourceTree = "<group>"; };
+		0278BAC61A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSubscriptionLevelsTableViewCell.m; sourceTree = "<group>"; };
+		0278BAC71A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVSubscriptionLevelsTableViewCell.xib; sourceTree = "<group>"; };
 		029080501A41C76100B39F48 /* UIAlertController+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+INVCustomizations.h"; sourceTree = "<group>"; };
 		029080511A41C76100B39F48 /* UIAlertController+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+INVCustomizations.m"; sourceTree = "<group>"; };
 		02A07F751A24D19D003CAC7E /* INVRuleDefinitionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionsTableViewController.h; sourceTree = "<group>"; };
@@ -497,6 +504,9 @@
 				F5789C431A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.h */,
 				F5789C441A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.m */,
 				F5789C451A5C783100D8CEE7 /* INVStockThumbnailCollectionViewCell.xib */,
+				0278BAC51A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.h */,
+				0278BAC61A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m */,
+				0278BAC71A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -904,6 +914,7 @@
 				0234D62A1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02C8846819E317E900DFB4E2 /* Images.xcassets in Resources */,
 				F57D280C1A3B7C9A00685F3F /* INVSearchView.xib in Resources */,
+				0278BACA1A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */,
 				024CDCD619FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */,
 				0278206E1A1A98EF00BDAA5E /* Visualize.html in Resources */,
@@ -932,6 +943,7 @@
 				024CDCD719FA822400A2F527 /* INVTextViewTableViewCell.xib in Resources */,
 				02B43A0B19E58FE0007A2FC5 /* INVAccountViewCell.xib in Resources */,
 				0269F3C71A6425F500E7079C /* INVGenericTextEntryTableViewCell.xib in Resources */,
+				0278BACB1A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */,
 				0234D62B1A1D225300DF151C /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 				02408FFC19E447BF00B218ED /* Main.storyboard in Resources */,
 				024CDCEA19FAAA9C00A2F527 /* INVTokensTableViewCell.xib in Resources */,
@@ -1077,6 +1089,7 @@
 				02AAD40419E82558002901DA /* INVProjectFilesListViewController.m in Sources */,
 				F5789C4C1A5DA74000D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m in Sources */,
 				0240900919E45B4E00B218ED /* INVAccountViewCell.m in Sources */,
+				0278BAC81A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */,
 				F57D27FA1A3B7C7200685F3F /* INVStreamBasedCTMParser.m in Sources */,
 				02408FFF19E45A2700B218ED /* INVAccountListViewController.m in Sources */,
 				F57D27F91A3B7C7200685F3F /* INVModelViewerViewController.m in Sources */,
@@ -1112,6 +1125,7 @@
 			files = (
 				D2E0CF841A49E5CB002405D7 /* INVBIMAssureTests.m in Sources */,
 				0269F3CB1A64262800E7079C /* INVGenericTextEntryTableViewCell.m in Sources */,
+				0278BAC91A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */,
 				0271A7211A51992700ECF4F6 /* INVSettingsViewController.m in Sources */,
 				0269F3C41A641C6200E7079C /* INVSignUpTableViewController.m in Sources */,
 			);

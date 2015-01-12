@@ -9,5 +9,7 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVSignUpTableViewController : INVCustomTableViewController
+- (IBAction)onSignUpTapped:(UIBarButtonItem*)sender;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *signUpButton;
 
 @end

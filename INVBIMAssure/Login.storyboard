@@ -261,10 +261,11 @@
         <scene sceneID="bbB-2a-3gj">
             <objects>
                 <tableViewController storyboardIdentifier="SignUpVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dpj-KV-RY5" customClass="INVSignUpTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Az4-z4-lBo">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="10" sectionFooterHeight="10" id="Az4-z4-lBo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <inset key="separatorInset" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubscriptionCell" textLabel="7xn-e5-6z5" style="IBUITableViewCellStyleDefault" id="0iZ-ux-hQM">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -321,7 +322,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sign Up" id="BoY-X8-5yn">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="m5A-8o-nKL">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="m5A-8o-nKL" userLabel="Cancel">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wiK-XV-LZb">
                                 <rect key="frame" x="-23" y="-15" width="133" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -332,18 +333,29 @@
                                     <segue destination="iP5-ID-gkE" kind="unwind" unwindAction="done:" id="WaR-dm-do3"/>
                                 </connections>
                             </button>
+                            <connections>
+                                <segue destination="iP5-ID-gkE" kind="unwind" unwindAction="done:" id="QqG-IS-WWf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Sign Up" id="ml4-Nb-RdS">
+                            <connections>
+                                <action selector="onSignUpTapped:" destination="Dpj-KV-RY5" id="I7X-l6-C8K"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="signUpButton" destination="ml4-Nb-RdS" id="4it-Ie-P5O"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QIp-US-8As" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-33" y="1243"/>
+            <point key="canvasLocation" x="-173" y="1243"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--SignUp Nav Controller-->
         <scene sceneID="OT3-sA-Ubd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9uT-MQ-RHy" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9uT-MQ-RHy" userLabel="SignUp Nav Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wep-ur-3dt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

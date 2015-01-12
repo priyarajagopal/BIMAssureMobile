@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" placeholderIntrinsicWidth="584" placeholderIntrinsicHeight="207" selectionStyle="default" indentationWidth="10" rowHeight="207" id="KGk-i7-Jjw" customClass="INVSubscriptionLevelsTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="584" height="207"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="622" placeholderIntrinsicHeight="207" translatesAutoresizingMaskIntoConstraints="NO" id="ZGk-WI-uzA">
+                        <rect key="frame" x="0.0" y="0.0" width="622" height="207"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfJ-Uz-oXt" userLabel="containerView">
+                                <rect key="frame" x="0.0" y="0.0" width="585" height="207"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0b-Fa-rrc" userLabel="leftView">
+                                        <rect key="frame" x="8" y="8" width="185" height="191"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Professional" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfN-ds-fmd">
+                                                <rect key="frame" x="9" y="10" width="94" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="HQJ-Pe-rye" appends="YES" id="UNy-Ub-qax"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m8z-RY-Ux6" userLabel="rightView">
+                                        <rect key="frame" x="392" y="8" width="185" height="191"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enterprise" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdD-hP-8k2">
+                                                <rect key="frame" x="21" y="8" width="78" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="ECx-Ph-nxA" appends="YES" id="QJa-S1-OXd"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHh-3M-qtE" userLabel="centerView">
+                                        <rect key="frame" x="201" y="8" width="184" height="191"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcI-3Y-Gbi">
+                                                <rect key="frame" x="8" y="8" width="41" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="7eh-Po-jK8" appends="YES" id="aVW-Eu-1Nj"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="m8z-RY-Ux6" firstAttribute="leading" secondItem="cHh-3M-qtE" secondAttribute="trailing" priority="500" constant="8" id="1mZ-rH-a84"/>
+                                    <constraint firstItem="cHh-3M-qtE" firstAttribute="leading" secondItem="a0b-Fa-rrc" secondAttribute="trailing" priority="500" constant="8" id="2jS-yh-FLf"/>
+                                    <constraint firstAttribute="height" constant="207" id="3o5-j2-6fD"/>
+                                    <constraint firstItem="cHh-3M-qtE" firstAttribute="top" secondItem="mfJ-Uz-oXt" secondAttribute="top" constant="8" id="64u-T6-heZ"/>
+                                    <constraint firstItem="m8z-RY-Ux6" firstAttribute="top" secondItem="mfJ-Uz-oXt" secondAttribute="top" constant="8" id="8ah-vk-yJD"/>
+                                    <constraint firstItem="m8z-RY-Ux6" firstAttribute="height" secondItem="cHh-3M-qtE" secondAttribute="height" id="9C6-jr-20W"/>
+                                    <constraint firstItem="a0b-Fa-rrc" firstAttribute="top" secondItem="mfJ-Uz-oXt" secondAttribute="top" constant="8" id="I7w-an-RE6"/>
+                                    <constraint firstAttribute="trailing" secondItem="m8z-RY-Ux6" secondAttribute="trailing" constant="8" id="RCK-cF-i6R"/>
+                                    <constraint firstAttribute="bottom" secondItem="a0b-Fa-rrc" secondAttribute="bottom" constant="8" id="Rjb-E5-jqF"/>
+                                    <constraint firstAttribute="bottom" secondItem="cHh-3M-qtE" secondAttribute="bottom" constant="8" id="ZgS-Sz-Vmd"/>
+                                    <constraint firstItem="m8z-RY-Ux6" firstAttribute="width" secondItem="a0b-Fa-rrc" secondAttribute="width" id="byF-lw-kPj"/>
+                                    <constraint firstItem="a0b-Fa-rrc" firstAttribute="leading" secondItem="mfJ-Uz-oXt" secondAttribute="leading" constant="8" id="ene-3l-Utq"/>
+                                    <constraint firstAttribute="bottom" secondItem="m8z-RY-Ux6" secondAttribute="bottom" constant="8" id="hM6-Aa-QFZ"/>
+                                    <constraint firstItem="m8z-RY-Ux6" firstAttribute="width" secondItem="cHh-3M-qtE" secondAttribute="width" id="jvU-jy-alW"/>
+                                    <constraint firstItem="m8z-RY-Ux6" firstAttribute="height" secondItem="a0b-Fa-rrc" secondAttribute="height" id="mxi-51-pMe"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="mfJ-Uz-oXt" secondAttribute="width" constant="37" id="1HG-CN-Xjo"/>
+                            <constraint firstItem="mfJ-Uz-oXt" firstAttribute="top" secondItem="ZGk-WI-uzA" secondAttribute="top" id="50N-uS-Ug5"/>
+                            <constraint firstItem="mfJ-Uz-oXt" firstAttribute="leading" secondItem="ZGk-WI-uzA" secondAttribute="leading" id="Dxj-je-PDr"/>
+                            <constraint firstAttribute="bottom" secondItem="mfJ-Uz-oXt" secondAttribute="bottom" id="Ql4-cJ-vYo"/>
+                            <constraint firstAttribute="trailing" secondItem="mfJ-Uz-oXt" secondAttribute="trailing" constant="37" id="gZ1-6C-8mU"/>
+                        </constraints>
+                    </scrollView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="ZGk-WI-uzA" secondAttribute="bottom" constant="-8" id="5I8-MK-ZmH"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ZGk-WI-uzA" secondAttribute="trailing" constant="-46" id="Pcc-Kb-4Bc"/>
+                    <constraint firstItem="ZGk-WI-uzA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="gkV-fc-Lvz"/>
+                    <constraint firstItem="ZGk-WI-uzA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="rky-2N-eOQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="onProfessionalLevelTapped" destination="HQJ-Pe-rye" id="93x-3k-uP1"/>
+            </connections>
+            <point key="canvasLocation" x="743" y="484.5"/>
+        </tableViewCell>
+        <tapGestureRecognizer id="HQJ-Pe-rye" userLabel="profViewGestureRecognizer">
+            <connections>
+                <action selector="onProfessionalViewTapped:" destination="KGk-i7-Jjw" id="PcS-hA-icQ"/>
+                <outlet property="delegate" destination="KGk-i7-Jjw" id="0KY-wX-WtT"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="7eh-Po-jK8" userLabel="TeamViewGestureRecognizer">
+            <connections>
+                <action selector="onTeamViewTapped:" destination="KGk-i7-Jjw" id="eDv-CW-8ii"/>
+                <outlet property="delegate" destination="KGk-i7-Jjw" id="o7X-dO-RAx"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="ECx-Ph-nxA" userLabel="entViewGestureRecognizer">
+            <connections>
+                <action selector="onEnterpriseViewTapped:" destination="KGk-i7-Jjw" id="0ji-dR-5B7"/>
+                <outlet property="delegate" destination="KGk-i7-Jjw" id="yTj-UM-3pH"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>

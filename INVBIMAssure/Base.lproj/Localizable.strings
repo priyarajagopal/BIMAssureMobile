@@ -97,3 +97,8 @@
 "SETTINGS"="Settings";
 "APP_VERSION"="App Version: %1@(%2@)";
 "SIGN_UP"="Sign Up";
+"FULL_NAME"="Full Name";
+"EMAIL"="Email";
+"PASSWORD"="Password";
+"HAVE_INVITATION_CODE"="Have Invitation Code to an Account?";
+"INVITATION_CODE"="Enter the Invitation code";
