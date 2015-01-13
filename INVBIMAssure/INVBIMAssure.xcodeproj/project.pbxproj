@@ -168,7 +168,7 @@
 		0278BAE81A656E5F009E0E27 /* NSString+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+INVCustomizations.h"; sourceTree = "<group>"; };
 		0278BAE91A656E5F009E0E27 /* NSString+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+INVCustomizations.m"; sourceTree = "<group>"; };
 		0278BAEB1A65A1F8009E0E27 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
-		02C8845719E317E900DFB4E2 /* INVBIMAssure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INVBIMAssure.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02C8845719E317E900DFB4E2 /* BIM Assure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BIM Assure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INVBIMAssureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		051E433FAA6C6DF3BA9BA08B /* Pods.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.dev.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.dev.xcconfig"; sourceTree = "<group>"; };
 		2059B57D5C6E07B9D5C8B8A0 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
@@ -411,7 +411,7 @@
 		02C8845819E317E900DFB4E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				02C8845719E317E900DFB4E2 /* INVBIMAssure.app */,
+				02C8845719E317E900DFB4E2 /* BIM Assure.app */,
 				02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */,
 			);
 			name = Products;
@@ -840,7 +840,7 @@
 			);
 			name = INVBIMAssure;
 			productName = INVBIMAssure;
-			productReference = 02C8845719E317E900DFB4E2 /* INVBIMAssure.app */;
+			productReference = 02C8845719E317E900DFB4E2 /* BIM Assure.app */;
 			productType = "com.apple.product-type.application";
 		};
 		02C8846F19E317E900DFB4E2 /* INVBIMAssureTests */ = {
@@ -1255,7 +1255,7 @@
 					"\"UIKit\"",
 				);
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = INVBIMAssure;
+				PRODUCT_NAME = "BIM Assure";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/../Yajl;
 			};
 			name = Dev;
@@ -1403,7 +1403,7 @@
 					"\"UIKit\"",
 				);
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = INVBIMAssure;
+				PRODUCT_NAME = "BIM Assure";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/../Yajl;
 			};
 			name = Prod;
@@ -1551,7 +1551,7 @@
 					"\"UIKit\"",
 				);
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = INVBIMAssure;
+				PRODUCT_NAME = "BIM Assure";
 				USER_HEADER_SEARCH_PATHS = $SRCROOT/../Yajl;
 			};
 			name = QA;
