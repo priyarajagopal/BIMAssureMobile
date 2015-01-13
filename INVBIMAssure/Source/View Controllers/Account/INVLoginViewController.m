@@ -60,19 +60,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 }
 
 -(void)setupView {
-    [self.emailEntryView.layer setBorderColor:(__bridge CGColorRef)([UIColor lightGrayColor])];
-    [self.emailEntryView.layer setCornerRadius:2.0f];
-    [self.emailEntryView.layer setBorderWidth:1.0f];
-    [self.emailEntryView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.emailEntryView.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
-    [self.emailEntryView.layer setShadowOpacity:0.5];
-  
-    [self.passwordEntryView.layer setBorderColor:(__bridge CGColorRef)([UIColor lightGrayColor])];
-    [self.passwordEntryView.layer setCornerRadius:2.0f];
-    [self.passwordEntryView.layer setBorderWidth:1.0f];
-    [self.passwordEntryView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.passwordEntryView.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
-    [self.passwordEntryView.layer setShadowOpacity:0.5];
+    [self setLayerShadowForView:self.emailEntryView];
+    [self setLayerShadowForView:self.passwordEntryView];
 
     self.rememberMe.titleLabel.frame = self.rememberMe.frame;
     
@@ -188,12 +177,17 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 -(BOOL) isValidEmailEntry {
     NSString* email = self.emailTextEntry.text;
-    NSRange range = [email rangeOfString:@"@"];
-    if (!range.length)
-    {
-        return NO;
-    }
-    return  YES;
+    return [email isValidEmail];
+}
+
+-(void)setLayerShadowForView:(UIView*)view {
+    [view.layer setBorderColor:(__bridge CGColorRef)([UIColor lightGrayColor])];
+    [view.layer setCornerRadius:2.0f];
+    [view.layer setBorderWidth:1.0f];
+    [view.layer setShadowOffset:CGSizeMake(0, 0)];
+    [view.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowOpacity:0.5];
+    
 }
 
 #pragma mark - UITextFieldDelegate

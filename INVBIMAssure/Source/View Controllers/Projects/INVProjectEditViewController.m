@@ -238,23 +238,10 @@
     if (textField != self.addNewMemberTextField) {
         return YES;
     }
-    
-    NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
-    
+     
     // TODO: Use address book?
     NSString *searchText = [self.addNewMemberTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    __block BOOL isEmail = YES;
-   
-    [dataDetector enumerateMatchesInString:searchText
-                                   options:0
-                                     range:NSMakeRange(0, searchText.length)
-                                usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                                    if (result.range.length == searchText.length &&
-                                        result.resultType == NSTextCheckingTypeLink &&
-                                        [result.URL.scheme isEqualToString:@"mailto"]) {
-                                        isEmail = YES;
-                                    }
-                                }];
+    BOOL isEmail = [searchText isValidEmail];
     
     if (!isEmail) {
         self.navigationItem.prompt = NSLocalizedString(@"INVALID_EMAIL", nil);

@@ -37,6 +37,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 @property (nonatomic, weak)  UITextField* passwordTextField;
 @property (nonatomic, weak)  UITextField* invitationCodeTextField;
 @property (nonatomic, weak)  UISwitch* invitationSwitch;
+@property (nonatomic, weak)  INVSubscriptionLevelsTableViewCell* subscriptionCell;
 
 
 @end
@@ -161,8 +162,8 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
                 
             }
             else {
-                INVSubscriptionLevelsTableViewCell* cell = (INVSubscriptionLevelsTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"SubscriptionCell"];
-                return cell;
+                self.subscriptionCell = (INVSubscriptionLevelsTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"SubscriptionCell"];
+                return self.subscriptionCell;
              }
         }
     }
@@ -194,23 +195,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
         [self.emailTextField becomeFirstResponder];
     }
     else if (textField == self.emailTextField) {
-        NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
-        
-        
-        NSString *emailText = [self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        __block BOOL isEmail = YES;
-        
-        [dataDetector enumerateMatchesInString:emailText
-                                       options:0
-                                         range:NSMakeRange(0, emailText.length)
-                                    usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                                        if (result.range.length == emailText.length &&
-                                            result.resultType == NSTextCheckingTypeLink &&
-                                            [result.URL.scheme isEqualToString:@"mailto"]) {
-                                            isEmail = YES;
-                                        }
-                                    }];
-        
+        BOOL isEmail = [self.emailTextField.text isValidEmail];
         if (!isEmail) {
             self.navigationItem.prompt = NSLocalizedString(@"INVALID_EMAIL", nil);
             
@@ -242,7 +227,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 }
 
 
-#pragma mark - helpers
+#pragma mark - server integration
 
 
 #pragma mark - UIEvent Handlers
@@ -256,7 +241,8 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
         
     }
     else {
-        NSNumber* package = @1;
+        _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
+        NSNumber* package = @(subscriptionLevel);
     }
     
     NSLog(@"%@: %@: %@:", email,name,pass);

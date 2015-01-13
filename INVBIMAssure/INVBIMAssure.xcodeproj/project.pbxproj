@@ -17,6 +17,7 @@
 		0278BAE41A655D03009E0E27 /* INVGenericTextEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAE21A655D03009E0E27 /* INVGenericTextEntryTableViewCell.xib */; };
 		0278BAE61A655E05009E0E27 /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0278BAE51A655E05009E0E27 /* OpenCTM.framework */; };
 		0278BAE71A655E05009E0E27 /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0278BAE51A655E05009E0E27 /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0278BAEA1A656E5F009E0E27 /* NSString+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAE91A656E5F009E0E27 /* NSString+INVCustomizations.m */; };
 		1827E538D895002A1BC239B6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A017907C030AFB8C7812E225 /* libPods.a */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
 		F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */; };
@@ -164,6 +165,8 @@
 		0278BAE11A655D03009E0E27 /* INVGenericSwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVGenericSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		0278BAE21A655D03009E0E27 /* INVGenericTextEntryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVGenericTextEntryTableViewCell.xib; sourceTree = "<group>"; };
 		0278BAE51A655E05009E0E27 /* OpenCTM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = OpenCTM.framework; path = "/Users/priyarajagopal/Library/Developer/Xcode/DerivedData/INVBIMAssure-fucmvrxnagacyactegsqlcrhxllp/Build/Products/Dev-iphoneos/OpenCTM.framework"; sourceTree = "<absolute>"; };
+		0278BAE81A656E5F009E0E27 /* NSString+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+INVCustomizations.h"; sourceTree = "<group>"; };
+		0278BAE91A656E5F009E0E27 /* NSString+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+INVCustomizations.m"; sourceTree = "<group>"; };
 		02C8845719E317E900DFB4E2 /* INVBIMAssure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INVBIMAssure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INVBIMAssureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		051E433FAA6C6DF3BA9BA08B /* Pods.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.dev.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.dev.xcconfig"; sourceTree = "<group>"; };
@@ -580,6 +583,8 @@
 				F5789CCB1A642A5500D8CEE7 /* UIImage+INVCustomizations.h */,
 				F5789CCC1A642A5500D8CEE7 /* UIImage+INVCustomizations.m */,
 				F5789CCD1A642A5500D8CEE7 /* UIResponder+IBHelpers.h */,
+				0278BAE81A656E5F009E0E27 /* NSString+INVCustomizations.h */,
+				0278BAE91A656E5F009E0E27 /* NSString+INVCustomizations.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1080,6 +1085,7 @@
 				0278BAD51A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */,
 				F5789D4E1A642A5500D8CEE7 /* UIImage+INVCustomizations.m in Sources */,
 				F5789D3B1A642A5500D8CEE7 /* INVAccountViewCell.m in Sources */,
+				0278BAEA1A656E5F009E0E27 /* NSString+INVCustomizations.m in Sources */,
 				F5789D7B1A642A5500D8CEE7 /* INVRuleSetManageFilesContainerViewController.m in Sources */,
 				F5789D361A642A5500D8CEE7 /* INVLoginScrollView.m in Sources */,
 				F5789D591A642A5500D8CEE7 /* INVGenericTableViewDataSource.m in Sources */,
