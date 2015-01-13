@@ -16,7 +16,9 @@
     [self setLayerShadowForView:self.profView];
     [self setLayerShadowForView:self.teamView];
     [self setLayerShadowForView:self.enterpriseView];
-       
+    
+    self.selectedSubscriptionType = INV_SUBSCRIPTION_LEVEL_TEAM;
+
     UITapGestureRecognizer* profTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onProfessionalViewTapped:)];
     [self.profView addGestureRecognizer:profTapGesture];
     [self.profView setUserInteractionEnabled:YES];

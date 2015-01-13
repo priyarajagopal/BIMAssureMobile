@@ -21,7 +21,7 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cEg-pc-mX4" userLabel="textEntryField">
                         <rect key="frame" x="51" y="7" width="261" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8I-qi-xJm" userLabel="headingLabel">
                         <rect key="frame" x="8" y="8" width="35" height="29"/>
