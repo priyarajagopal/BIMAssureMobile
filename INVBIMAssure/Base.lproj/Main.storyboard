@@ -703,41 +703,6 @@
             </objects>
             <point key="canvasLocation" x="4090" y="3484"/>
         </scene>
-        <!--Results-->
-        <scene sceneID="w2G-bL-2KD">
-            <objects>
-                <viewController id="GzD-Rl-fng" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Nvm-uz-VG5"/>
-                        <viewControllerLayoutGuide type="bottom" id="KEC-JP-3mN"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3A6-cU-3mU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Execution Results Reports Go Here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0E-Bk-2dR">
-                                <rect key="frame" x="120" y="212" width="382" height="137"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="382" id="kM8-NB-3iS"/>
-                                    <constraint firstAttribute="height" constant="137" id="x0S-8W-myv"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerY" secondItem="w0E-Bk-2dR" secondAttribute="centerY" constant="19.5" id="71p-mJ-mUC"/>
-                            <constraint firstAttribute="centerX" secondItem="w0E-Bk-2dR" secondAttribute="centerX" constant="-11" id="7ZQ-dq-NjR"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Results" image="ruleresults" id="YI5-cb-IwT"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dfZ-Xy-sXT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1291" y="4303"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="P4s-ci-g9h">
             <objects>
@@ -1274,7 +1239,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHI-XY-xZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tXZ-fe-vN6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-453" y="1937"/>
+            <point key="canvasLocation" x="-443" y="1635"/>
         </scene>
         <!--Project List Split View Controller-->
         <scene sceneID="cTK-FM-F5X">
@@ -2409,7 +2374,6 @@
         <image name="folder" width="25" height="25"/>
         <image name="manage_rules" width="25" height="25"/>
         <image name="project_thumbnail_0" width="445" height="377"/>
-        <image name="ruleresults" width="16" height="16"/>
         <image name="rules" width="25" height="25"/>
     </resources>
 </document>
