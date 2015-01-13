@@ -185,7 +185,7 @@
                                                     <constraint firstAttribute="height" constant="43" id="htd-UV-nd2"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <state key="normal" title="Sign Up" backgroundImage="dkgray">
+                                                <state key="normal" title="Sign Up" backgroundImage="vdkgray">
                                                     <color key="titleColor" red="0.98232060190000003" green="0.99163773150000001" blue="0.99406828700000005" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -359,8 +359,8 @@
     </scenes>
     <resources>
         <image name="BALogo" width="446" height="68"/>
-        <image name="dkgray" width="21" height="21"/>
         <image name="login_bg" width="434" height="268"/>
         <image name="orange" width="21" height="21"/>
+        <image name="vdkgray" width="21" height="21"/>
     </resources>
 </document>
