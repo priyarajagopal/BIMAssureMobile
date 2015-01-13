@@ -149,7 +149,6 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 
         }
         else {
-            UITableViewCell* cell ;
             if (self.invitationCodeAvailable) {
                 INVGenericTextEntryTableViewCell* cell = (INVGenericTextEntryTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"InvitationCodeCell"];
                 FAKFontAwesome *ckIcon = [FAKFontAwesome checkIconWithSize:25];
@@ -162,9 +161,9 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
                 
             }
             else {
-                cell = [self.tableView dequeueReusableCellWithIdentifier:@"SubscriptionCell"];
+                INVSubscriptionLevelsTableViewCell* cell = (INVSubscriptionLevelsTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"SubscriptionCell"];
+                return cell;
              }
-            return cell;
         }
     }
     

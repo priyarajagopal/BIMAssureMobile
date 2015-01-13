@@ -79,6 +79,8 @@
 		0278BAC91A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAC61A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.m */; };
 		0278BACA1A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAC71A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */; };
 		0278BACB1A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAC71A64845A009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */; };
+		0278BACC1A64C19D009E0E27 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0269F3BD1A6419E900E7079C /* EmpireMobileManager.framework */; };
+		0278BACD1A64C19D009E0E27 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0269F3BD1A6419E900E7079C /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		029080521A41C76100B39F48 /* UIAlertController+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 029080511A41C76100B39F48 /* UIAlertController+INVCustomizations.m */; };
 		02A07F861A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A07F841A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.m */; };
 		02A07F881A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A07F851A2647E6003CAC7E /* INVRuleDefinitionTableViewCell.xib */; };
@@ -171,6 +173,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0278BACD1A64C19D009E0E27 /* EmpireMobileManager.framework in Embed Frameworks */,
 				F5FA456B1A447D3200C6BE2E /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -406,6 +409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2CB671B1A44CD0D003FE3CA /* libYajl.a in Frameworks */,
+				0278BACC1A64C19D009E0E27 /* EmpireMobileManager.framework in Frameworks */,
 				0271A6BC1A4B1F4C00ECF4F6 /* Fabric.framework in Frameworks */,
 				0271A6BB1A4B1F4C00ECF4F6 /* Crashlytics.framework in Frameworks */,
 				D2CB67171A44CB21003FE3CA /* libPods-FontAwesomeKit.a in Frameworks */,

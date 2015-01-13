@@ -21,11 +21,17 @@
 }
 
 - (IBAction)onProfessionalViewTapped:(UITapGestureRecognizer *)sender {
+    [self.profCheckLabel setHidden:NO];
+    self.selectedSubscriptionType = INV_SUBSCRIPTION_LEVEL_PROFESSIONAL;
 }
 
 - (IBAction)onTeamViewTapped:(UITapGestureRecognizer *)sender {
+    [self.teamCheckLabel setHidden:NO];
+    self.selectedSubscriptionType = INV_SUBSCRIPTION_LEVEL_TEAM;
 }
 
 - (IBAction)onEnterpriseViewTapped:(UITapGestureRecognizer *)sender {
+    [self.enterpriseCheckLabel setHidden:NO];
+    self.selectedSubscriptionType = INV_SUBSCRIPTION_LEVEL_ENTERPRISE;
 }
 @end
