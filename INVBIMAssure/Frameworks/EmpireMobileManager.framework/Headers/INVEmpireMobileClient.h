@@ -245,67 +245,6 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
 
 
-/**
- Asynchornously , sign up for a user account with the XOS Passport service
- 
- @param userName The full name of user
- 
- @param email The email address of user
- 
- @param password The password of user
- 
- @param accountName Name of account to be created
- 
- @param accountDescription An optional description of account
- 
- @param type Subscription type Will always be mapped to 1 for now
- 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then accountManager can be used to retrieve the details of account
- 
- @see accountManager
- 
- 
- */
--(void)signUpUserWithName:(NSString*)userName andEmail:(NSString*)email andPassword:(NSString*)password withAccountName:(NSString*)accountName accountDescription:(NSString*)accountDescription subscriptionType:(NSNumber*)type withCompletionBlock:(CompletionHandler) handler;
-
-/**
- Asynchornously , create an account for currently signed in user with the XOS Passport service
- 
- @param accountName Name of account to be created
- 
- @param accountDescription An optional description of account
- 
- @param type Subscription type Will always be mapped to 1 for now
- 
- @param userEmail The email address of signed in user. ***** THE SERVER API SHOULD BE UPDATED TO NOT REQUIRE THIS FIELD ******
- 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then accountManager can be used to retrieve the details of account
- 
- @see accountManager
- 
- 
- */
--(void)createAccountForSignedInUserWithAccountName:(NSString*)accountName accountDescription:(NSString*)accountDescription subscriptionType:(NSNumber*)type forUserEmail:(NSString*)userEmail withCompletionBlock:(CompletionHandler) handler;
-
-
-/**
- Asynchornously , update details of signed in account with the XOS Passport service
- 
- @param accountName updated name of account
- 
- @param accountDescription Updated optional description of account
- 
- @param type Subscription type Will always be mapped to 1 for now
- 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then accountManager can be used to retrieve the details of account
- 
- @see accountManager
- 
- 
- */
--(void)updateSignedInAccountDetailsWithName:(NSString*)accountName accountDescription:(NSString*)accountDescription type:(NSNumber*)type withCompletionBlock:(CompletionHandler) handler;
-
-
 #pragma mark - project management
 
 /**

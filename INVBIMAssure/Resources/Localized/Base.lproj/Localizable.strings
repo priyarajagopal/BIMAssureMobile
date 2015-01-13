@@ -20,8 +20,9 @@
 "LOG_OUT"="Log Out";
 "LOGGING_IN_ACCOUNT"="Logging into Account";
 "LOADING_DATA"= "Loading...";
-"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE"="Are you sure you want to log into %1@ ?";
-"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE"="Are you sure you want to switch to %1@ ?";
+"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE"="Are you sure you want to log into %1@?";
+"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE"="Are you sure you want to switch to %1@?";
+"ARE_YOU_SURE_INVITE_MESSAGE"="Are you sure you want to accept the invitation to %1@?";
 "USER_MANAGEMENT_ACCOUNT"="Manage Account Users";
 "CURRENT_USERS"="Current Users";
 "INVITED_USERS"="Invited Users";
@@ -92,7 +93,10 @@
 "ERROR_RULEINSTANCE_UPDATE"="There was an error updating the rule instance.[%1d]";
 "ERROR_RULESET_EMPTY"="There are no rules associated with the package. You can add rules to the package through the \"Manage Rules\" menu option on the file";
 "ERROR_PKGMASTER_EMPTY"="There are no packages associated with the ruleset. You can add packages to the rule through the \"Manage Files\" menu option on the ruleset";
-
+"ACCOUNT_STATUS_ACTIVE"="Active";
+"ACCOUNT_STATUS_DISABLED"="Disabled";
+"ACCOUNT_STATUS_INVITE"="Invited";
+"ACCOUNT_DESCRITPION_UNAVAILABLE"="Account description unavailable.";
 
 "SETTINGS"="Settings";
 "APP_VERSION"="App Version: %1@(%2@)";

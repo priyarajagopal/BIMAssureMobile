@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EmpireMobileManager/INVUserInvite.h>
 
 @interface INVAccountViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *overview;
-@property (weak, nonatomic) IBOutlet UILabel *accessoryLabel;
-@property (assign,nonatomic) BOOL isDefault;
+
+@property (strong, nonatomic) INVAccount *account;
+@property (strong, nonatomic) INVUserInvite *invite;
+@property (assign, nonatomic) BOOL isDefault;
+
 @end

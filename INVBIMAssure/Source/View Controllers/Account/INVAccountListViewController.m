@@ -14,6 +14,8 @@ const NSInteger INV_CELLSIZE = 100;
 #import "INVAccountViewCell.h"
 #import "INVDefaultAccountAlertView.h"
 #import "INVSimpleUserInfoTableViewController.h"
+#import "INVMergedFetchedResultsControler.h"
+#import "INVBlockUtils.h"
 
 #pragma mark - KVO
 NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
@@ -99,18 +101,24 @@ static NSString * const reuseIdentifier = @"Cell";
 -(INVGenericCollectionViewDataSource*)dataSource {
     if (!_dataSource) {
         _dataSource = [[INVGenericCollectionViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController];
-        INV_CollectionCellConfigurationBlock cellConfigurationBlock = ^(INVAccountViewCell *cell,INVAccount* account ,NSIndexPath* indexPath){
-            cell.name.text = account.name;
-            cell.overview.text = account.overview;
-            NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
-            if (currentAcnt && [account.accountId isEqualToNumber:currentAcnt]) {
-                cell.isDefault = YES;
-            }
-            else {
-                cell.isDefault = NO;
+        INV_CollectionCellConfigurationBlock cellConfigurationBlock = ^(INVAccountViewCell *cell, id accountOrInvite ,NSIndexPath* indexPath){
+            if (indexPath.section == 0) {
+                cell.account = accountOrInvite;
+                
+                NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
+                if (currentAcnt && [[accountOrInvite accountId] isEqualToNumber:currentAcnt]) {
+                    cell.isDefault = YES;
+                }
+                else {
+                    cell.isDefault = NO;
+                }
             }
             
+            if (indexPath.section == 1) {
+                cell.invite = accountOrInvite;
+            }
         };
+        
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"AccountCell" configureBlock:cellConfigurationBlock];
     }
     return _dataSource;
@@ -156,23 +164,31 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog (@"%s",__func__);
-    INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
-    if ( [self.globalDataManager.loggedInAccount isEqualToNumber:account.accountId]) {
-        [self showLogoutPromptAlertForAccount:account];
+    if (indexPath.section == 0) {
+        INVAccount* account = [self.dataResultsController objectAtIndexPath:indexPath];
+        if ( [self.globalDataManager.loggedInAccount isEqualToNumber:account.accountId]) {
+            [self showLogoutPromptAlertForAccount:account];
+        }
+    
+        else {
+            self.currentAccountId = account.accountId;
+            // [self showBlurEffect];
+            
+            NSString* message = (self.globalDataManager.loggedInAccount == nil) ?
+                                           @"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE" :
+                                           @"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE";
+            
+            message = [NSString stringWithFormat:NSLocalizedString(message, nil), account.name];
+            
+            [self showSaveAsDefaultAlertWithMessage:message];
+        }
     }
     
-    else {
-        self.currentAccountId = account.accountId;
-        // [self showBlurEffect];
-        if (!self.globalDataManager.loggedInAccount ) {
-            NSString* message = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE",nil),account.name];
-            [self showSaveAsDefaultAlertWithMessage:message];
-        }
-        else {
-            NSString* message = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE",nil),account.name];
-            [self showSaveAsDefaultAlertWithMessage:message];
-        }
+    if (indexPath.section == 1) {
+        INVUserInvite *invite = [self.dataResultsController objectAtIndexPath:indexPath];
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), invite.accountName];
+        
+        [self showSaveAsDefaultAlertWithMessage:message];
     }
 }
 
@@ -217,8 +233,21 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - accessor
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForAccountsOfSignedInUser managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        INVMergedFetchedResultsControler *mergedFetchResultsController = [[INVMergedFetchedResultsControler alloc] init];
+        
+        [mergedFetchResultsController addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:self.accountManager.fetchRequestForAccountsOfSignedInUser
+                                                                                                      managedObjectContext:self.accountManager.managedObjectContext
+                                                                                                        sectionNameKeyPath:nil
+                                                                                                                 cacheName:nil]];
+        
+        [mergedFetchResultsController addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:self.accountManager.fetchRequestForPendingInvitesForAccount
+                                                                                                      managedObjectContext:self.accountManager.managedObjectContext
+                                                                                                        sectionNameKeyPath:nil
+                                                                                                                 cacheName:nil]];
+        
+        _dataResultsController = mergedFetchResultsController;
     }
+    
     return  _dataResultsController;
 }
 
@@ -229,43 +258,50 @@ static NSString * const reuseIdentifier = @"Cell";
     return _accountManager;
 }
 
-#pragma mark - server side 
+-(void) presentError:(NSString *) format, ... {
+    va_list list;
+    va_start(list, format);
+    
+    NSString *errorMessage = [[NSString alloc] initWithFormat:format arguments:list];
+    
+    va_end(list);
+    
+    UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:errorMessage];
+    [self presentViewController:errController animated:YES completion:nil];
+}
+
+#pragma mark - server side
 -(void)fetchListOfAccounts {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+    
+    void (^failureBlock)(NSInteger) = ^(NSInteger errorCode) {
+        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        [self presentError:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), errorCode];
+    };
+    
+    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
         
-        if (!error) {
-      
-#pragma note Yes - you could have directly accessed accounts from accountManager. Using FetchResultsController directly makes it simpler
-             NSError* dbError;
-            
-           
-            [self.dataResultsController performFetch:&dbError];
-            if (!dbError) {
-                NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
-                [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-            }
-            
-            else {
-                if (error) {
-                    UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil),dbError.code]];
-                    [self presentViewController:errController animated:YES completion:^{
-                        
-                    }];
-                }
-            }
-            
+        NSError *dbError;
+        
+        [self.dataResultsController performFetch:&dbError];
+        [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        
+        if (dbError) {
+            failureBlock(dbError.code);
         }
-        else {
-            if (error) {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil),error.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
-            }
+    } afterNumberOfCalls:2];
+    
+    id completionBlock = ^(INVEmpireMobileError *error) {
+        [successBlock invoke];
+        
+        if (error) {
+            failureBlock(error.code.integerValue);
         }
-    }];
+    };
+
+    [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:completionBlock];
+    [self.globalDataManager.invServerClient getPendingInvitationsForSignedInUserWithCompletionBlock:completionBlock];
 }
 
 -(void)loginAccount {
@@ -341,9 +377,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)setEstimatedSizeForCells {
-    UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
-    [currLayout setEstimatedItemSize:CGSizeMake((CGRectGetWidth(self.parentViewController.view.frame) - (currLayout.minimumInteritemSpacing + currLayout.collectionView.contentInset.left + currLayout.collectionView.contentInset.left))/2, currLayout.itemSize.height)];
-    
 }
 
 -(void)notifyAccountLogin {
@@ -370,7 +403,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 -(void)showSaveAsDefaultAlertWithMessage:(NSString*)message {
-
     if (!self.alertView) {
         NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil];
         [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -381,27 +413,19 @@ static NSString * const reuseIdentifier = @"Cell";
         }];
         
         self.alertView.delegate = self;
-        
     }
+    
     self.alertView.alertMessage.text = message;
-    CGRect newFrame = self.alertView.frame;
-    NSInteger viewWidth = self.alertView.frame.size.width;
-    NSInteger viewHeight = self.alertView.frame.size.height;
-    newFrame.origin.x = (self.view.frame.size.width - viewWidth)/2;
-    newFrame.origin.y = (self.view.frame.size.height - viewHeight)/2;
-    self.alertView.frame = newFrame;
+    
     self.alertView.alpha = 0.0;
     [self.collectionView addSubview:self.alertView];
     
+    [self.alertView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self setDefaultAccountAlertConstraints];
+    
     [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
          self.alertView.alpha = 0.85;
-       
-    } completion:^(BOOL finished) {
-        
-          [self.alertView setTranslatesAutoresizingMaskIntoConstraints:NO];
-          [self setDefaultAccountAlertConstraints];
-    }];
-    
+    } completion:nil];
 }
 
 -(void) setDefaultAccountAlertConstraints {
@@ -416,11 +440,9 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)dismissSaveAsDefaultAlert {
     [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.alertView.alpha = 0;
-      
     } completion:^(BOOL finished) {
           [self.alertView removeFromSuperview];
     }];
-
 }
 
 

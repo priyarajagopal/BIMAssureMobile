@@ -8,48 +8,73 @@
 
 #import "INVAccountViewCell.h"
 
+@interface INVAccountViewCell()
+
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *accessoryLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *roleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *projectCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *projectStatusLabel;
+
+@end
+
 @implementation INVAccountViewCell
 
-- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
-    [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
+-(void) updateUI {
+    if (self.account) {
+        self.nameLabel.text = self.account.name;
+        self.descriptionLabel.text = self.account.overview;
+        self.projectStatusLabel.text = self.account.disabled.boolValue ?
+                    NSLocalizedString(@"ACCOUNT_STATUS_DISABLED", nil) :
+                    NSLocalizedString(@"ACCOUNT_STATUS_ACTIVE", nil);
     
-    UICollectionViewLayoutAttributes *attr = [layoutAttributes copy];
-    self.overview.numberOfLines = 0;
-    CGSize size = [self.overview sizeThatFits:CGSizeMake(CGRectGetWidth(layoutAttributes.frame),CGFLOAT_MAX)];
-    CGRect newFrame = attr.frame;
-    newFrame.size.height = size.height + 50;
-     
-    attr.frame = newFrame;
+        if (self.descriptionLabel.text.length == 0) {
+            self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
+        }
     
-    return attr;
+        if (_isDefault) {
+            self.accessoryLabel.textColor = [UIColor colorWithRed:88.0/255 green:161.0/255 blue:150.0/255 alpha:1.0];
+            self.accessoryLabel.text = @"\uf058";
+        } else {
+            self.accessoryLabel.textColor = [UIColor grayColor];
+            self.accessoryLabel.text = @"\uf08b";
+        }
+    }
+    
+    if (self.invite) {
+        self.nameLabel.text = self.invite.accountName;
+        self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
+        self.projectStatusLabel.text = NSLocalizedString(@"ACCOUNT_STATUS_INVITE", nil);
+        
+        self.accessoryLabel.text = @"";
+    }
 }
-
-
 
 -(void)setIsDefault:(BOOL)isDefault {
     _isDefault = isDefault;
     
-    if (isDefault) {
-        [self setDefaultAccessoryLabel];
-    }
-    else {
-        [self setNonDefaultAccessoryLabel];
-    }
+    [self updateUI];
 }
 
--(void)setDefaultAccessoryLabel {
-    UIColor* greenColor = [UIColor colorWithRed:88.0/255 green:161.0/255 blue:150.0/255 alpha:1.0];
-    FAKFontAwesome *isDefaultIcon = [FAKFontAwesome checkCircleIconWithSize:CGRectGetHeight(self.accessoryLabel.frame)];
-    [isDefaultIcon addAttribute:NSForegroundColorAttributeName value:greenColor];
-    self.accessoryLabel.attributedText = [isDefaultIcon attributedString];
-
-}
-
--(void)setNonDefaultAccessoryLabel {
-    FAKFontAwesome *isDefaultIcon = [FAKFontAwesome signOutIconWithSize:CGRectGetHeight(self.accessoryLabel.frame)];
+-(void) setAccount:(INVAccount *)account {
+    _account = account;
+    _invite = nil;
     
-    [isDefaultIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
-    self.accessoryLabel.attributedText = [isDefaultIcon attributedString];
+    [self updateUI];
+}
+
+-(void) setInvite:(INVUserInvite *)invite {
+    _invite = invite;
+    _account = nil;
+    
+    [self updateUI];
+}
+
+-(void) awakeFromNib {
+    [self updateUI];
 }
 
 @end
