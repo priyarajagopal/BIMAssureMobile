@@ -11,6 +11,8 @@
 #import "INVGenericSwitchTableViewCell.h"
 #import "INVSubscriptionLevelsTableViewCell.h"
 
+NSString* const KVO_INVSignupSuccess = @"signupSuccess";
+
 const NSInteger DEFAULT_CELL_HEIGHT = 50;
 const NSInteger SUBSCRIPTION_CELL_HEIGHT = 207;
 const NSInteger DEFAULT_NUM_CELLS = 5;
@@ -38,6 +40,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 @property (nonatomic, weak)  UITextField* invitationCodeTextField;
 @property (nonatomic, weak)  UISwitch* invitationSwitch;
 @property (nonatomic, weak)  INVSubscriptionLevelsTableViewCell* subscriptionCell;
+@property (nonatomic, strong) UIAlertController* signupFailureAlertController;
 
 
 @end
@@ -62,13 +65,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
     UINib* switchCellNib = [UINib nibWithNibName:@"INVGenericSwitchTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:switchCellNib forCellReuseIdentifier:@"ToggleCell"];
     
-/*
-    UIEdgeInsets contentInset = self.tableView.scrollIndicatorInsets;
-    contentInset.left =  30;
-    contentInset.right = 30;
-    self.tableView.contentInset = contentInset;
-  */
-    
+
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.refreshControl = nil;
@@ -227,9 +224,62 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 }
 
 
-#pragma mark - server integration
+
+#pragma mark - server side
+-(void)signupUserAndCreateDefaultAccount {
+    [self showSignupProgress ];
+    
+    NSString* email = self.emailTextField.text;
+    NSString* name = self.userNameTextField.text;
+    NSString* pass = self.passwordTextField.text;
+    _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
+    NSNumber* package = @(subscriptionLevel);
+
+    NSString* accountName = [self defaultAccountName];
+    [self.globalDataManager.invServerClient signUpUserWithName:name andEmail:email andPassword:pass withAccountName:accountName accountDescription:nil subscriptionType:package withCompletionBlock:^(INVEmpireMobileError *error) {
+        [self hideSignupProgress];
+        if (!error) {
+            NSLog(@"Succesfully signedup user %@ and created account %@",name,accountName);
+            self.signupSuccess = YES;
+        }
+        else {
+            [self showSignupFailureAlert];
+            
+        }
+    }];
+    
+}
 
 
+#pragma mark -helper
+-(void)showSignupProgress {
+    self.hud = [MBProgressHUD signupHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+}
+
+-(void)hideSignupProgress {
+    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+}
+
+-(NSString*) defaultAccountName {
+    NSString* name = self.userNameTextField.text;
+ 
+    return [NSString stringWithFormat:NSLocalizedString(@"DEFAULT_ACCOUNT_PREFIX", nil),name ];
+}
+
+-(void)showSignupFailureAlert {
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self.signupFailureAlertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    self.signupFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SIGNUP_FAILURE", nil) message:NSLocalizedString(@"GENERIC_SIGNUP_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [self.signupFailureAlertController addAction:action];
+    [self presentViewController:self.signupFailureAlertController animated:YES completion:^{
+        
+    }];
+}
+     
+     
 #pragma mark - UIEvent Handlers
 - (IBAction)onSignUpTapped:(UIBarButtonItem*)sender {
     NSString* email = self.emailTextField.text;
@@ -238,15 +288,24 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
     if (self.invitationCodeAvailable) {
         NSString* code = self.invitationCodeTextField.text;
         NSLog(@"%@: %@: %@: %@", email,name,pass, code);
+        //TODO:
         
     }
     else {
-        _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
-        NSNumber* package = @(subscriptionLevel);
+        [self signupUserAndCreateDefaultAccount];
     }
     
     NSLog(@"%@: %@: %@:", email,name,pass);
     
+}
+
+#pragma mark - accessors
+-(NSString*)signupEmail {
+    return self.emailTextField.text;
+}
+
+-(NSString*)signupPassword {
+    return self.passwordTextField.text;
 }
 
 

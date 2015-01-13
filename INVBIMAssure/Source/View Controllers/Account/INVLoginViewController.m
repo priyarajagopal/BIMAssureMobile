@@ -9,7 +9,7 @@
 @import QuartzCore;
 @import EmpireMobileManager;
 #import "INVLoginViewController.h"
-
+#import "INVSignUpTableViewController.h"
 
 #pragma mark - KVO
 NSString* const KVO_INVLoginSuccess = @"loginSuccess";
@@ -19,6 +19,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 @property (nonatomic,copy)NSString* userToken;
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;
 @property (nonatomic,assign)BOOL saveCredentials;
+@property (nonatomic,strong)INVSignUpTableViewController* signupController;
 
 @end
 
@@ -39,7 +40,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     if (loggedInPass && loggedInUser) {
         self.emailTextEntry.text = loggedInUser;
         self.passwordTextEntry.text = loggedInPass;
-        [self loginToServer];
+        [self loginToServerWithUser:loggedInUser andPassword:loggedInPass];
     }
     else {
         self.emailTextEntry.text = @"";
@@ -52,6 +53,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     
     self.userToken = nil;
     self.loginFailureAlertController = nil;
+    [self removeSignupObservers];
+    self.signupController = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,15 +89,28 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     [self.loginButton setEnabled:NO];
 
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"SignUpSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController* navController = (UINavigationController*) segue.destinationViewController;
+            self.signupController = (INVSignUpTableViewController*) navController.topViewController;
+            [self addSignUpObservers];
+
+        }
+        
+    }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
+-(IBAction)done:(UIStoryboardSegue*)segue {
+    NSLog(@"%s",__func__);
+    [self removeSignupObservers];
+}
 
 #pragma mark - UIEvent Handlers
 - (IBAction)onLoginClicked:(id)sender {
@@ -103,7 +119,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
         [self presentViewController:errController animated:YES completion:^{ }];
         return;
     }
-    [self loginToServer];
+    [self loginToServerWithUser:self.emailTextEntry.text andPassword:self.passwordTextEntry.text];
 }
 
 - (IBAction)onRememberMeClicked:(id)sender {
@@ -119,9 +135,9 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 
 #pragma mark - server side
--(void)loginToServer {
+-(void)loginToServerWithUser:(NSString*)user andPassword:(NSString*)password {
     [self showLoginProgress ];
-    [self.globalDataManager.invServerClient signInWithUserName:self.emailTextEntry.text andPassword:self.passwordTextEntry.text withCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient signInWithUserName:user andPassword:password withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideLoginProgress];
         if (!error) {
             if (self.saveCredentials) {
@@ -187,8 +203,17 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     [view.layer setShadowOffset:CGSizeMake(0, 0)];
     [view.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
     [view.layer setShadowOpacity:0.5];
+}
+
+-(void)addSignUpObservers {
+    [self.signupController addObserver:self forKeyPath:KVO_INVSignupSuccess options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void)removeSignupObservers {
+    [self.signupController removeObserver:self forKeyPath:KVO_INVSignupSuccess];
     
 }
+
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -240,6 +265,24 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     self.contentScrollView.scrollIndicatorInsets = contentInsets;
 }
 
+
+#pragma mark - KBO
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    NSLog(@"%s",__func__);
+    if ([keyPath isEqualToString:KVO_INVSignupSuccess]) {
+     
+        NSString* signedupEmail = self.signupController.signupEmail;
+        NSString* signedupPassword = self.signupController.signupPassword;
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self removeSignupObservers];
+            self.signupController = nil;
+        }];
+        if (self.signupController.signupSuccess) {
+            [self loginToServerWithUser:signedupEmail andPassword:signedupPassword];
+        }
+    }
+}
 
 
 @end

@@ -8,8 +8,14 @@
 
 #import "INVCustomTableViewController.h"
 
+extern NSString* const KVO_INVSignupSuccess ;
+
 @interface INVSignUpTableViewController : INVCustomTableViewController
-- (IBAction)onSignUpTapped:(UIBarButtonItem*)sender;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *signUpButton;
+@property (assign, nonatomic) BOOL signupSuccess;
+@property (copy,readonly,nonatomic) NSString* signupEmail;
+@property (copy,readonly,nonatomic) NSString* signupPassword;
+
+- (IBAction)onSignUpTapped:(UIBarButtonItem*)sender;
 
 @end

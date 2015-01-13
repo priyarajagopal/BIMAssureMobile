@@ -93,7 +93,6 @@
 "ERROR_RULESET_EMPTY"="There are no rules associated with the package. You can add rules to the package through the \"Manage Rules\" menu option on the file";
 "ERROR_PKGMASTER_EMPTY"="There are no packages associated with the ruleset. You can add packages to the rule through the \"Manage Files\" menu option on the ruleset";
 
-
 "SETTINGS"="Settings";
 "APP_VERSION"="App Version: %1@(%2@)";
 "SIGN_UP"="Sign Up";
@@ -102,3 +101,8 @@
 "PASSWORD"="Password";
 "HAVE_INVITATION_CODE"="Have Invitation Code to an Account?";
 "INVITATION_CODE"="Enter the Invitation code";
+"SIGNING_UP"="Signing Up";
+"DEFAULT_ACCOUNT_PREFIX"="Default-Account-For-%@";
+"SIGNUP_FAILURE"="User Signup Error";
+"GENERIC_SIGNUP_FAILURE_MESSAGE"="There was an error while trying to sign up new user. Please try again";
+
