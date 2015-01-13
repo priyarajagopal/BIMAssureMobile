@@ -50,7 +50,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = NSLocalizedString(@"SIGN_UP", nil);
+    self.title = NSLocalizedString(@"CREATE_USER_ACCOUNT", nil);
     self.invitationCodeAvailable = NO;
     
     UINib* userCellNib = [UINib nibWithNibName:@"INVGenericTextEntryTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
@@ -250,7 +250,26 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
     
 }
 
-
+-(void)signUpUser {
+    [self showSignupProgress ];
+    
+    NSString* email = self.emailTextField.text;
+    NSString* name = self.userNameTextField.text;
+    NSString* pass = self.passwordTextField.text;
+    [self.globalDataManager.invServerClient signUpUserWithName:name email:email password:pass withCompletionBlock:^(INVEmpireMobileError *error) {
+        [self hideSignupProgress];
+        if (!error) {
+            NSLog(@"Succesfully signedup user %@ ",name);
+            self.globalDataManager.invitationCodeToAutoAccept = self.invitationCodeTextField.text;
+            self.signupSuccess = YES;
+        }
+        else {
+            [self showSignupFailureAlert];
+            
+        }
+    }];
+    
+}
 #pragma mark -helper
 -(void)showSignupProgress {
     self.hud = [MBProgressHUD signupHUD:nil];
@@ -282,20 +301,12 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
      
 #pragma mark - UIEvent Handlers
 - (IBAction)onSignUpTapped:(UIBarButtonItem*)sender {
-    NSString* email = self.emailTextField.text;
-    NSString* name = self.userNameTextField.text;
-    NSString* pass = self.passwordTextField.text;
     if (self.invitationCodeAvailable) {
-        NSString* code = self.invitationCodeTextField.text;
-        NSLog(@"%@: %@: %@: %@", email,name,pass, code);
-        //TODO:
-        
+        [self signUpUser];
     }
     else {
         [self signupUserAndCreateDefaultAccount];
     }
-    
-    NSLog(@"%@: %@: %@:", email,name,pass);
     
 }
 
@@ -309,5 +320,8 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 }
 
 
+-(NSString*)invitationCode {
+    return self.invitationCodeTextField.text;
+}
 
 @end

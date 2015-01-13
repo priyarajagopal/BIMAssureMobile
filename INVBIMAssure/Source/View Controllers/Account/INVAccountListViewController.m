@@ -20,15 +20,15 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 
 
 @interface INVAccountListViewController () <INVDefaultAccountAlertViewDelegate,UICollectionViewDataSource>
-@property (nonatomic,assign) BOOL accountLoginSuccess;
-@property (nonatomic,strong) INVDefaultAccountAlertView* alertView ;
-@property (nonatomic,strong)INVAccountManager* accountManager;
+@property (nonatomic,assign)   BOOL accountLoginSuccess;
+@property (nonatomic,strong)   INVDefaultAccountAlertView* alertView ;
+@property (nonatomic,strong)   INVAccountManager* accountManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
-@property (nonatomic,strong)NSNumber* currentAccountId;
-@property (nonatomic,strong)UIAlertController* loginFailureAlertController;
-@property (nonatomic,strong)UIAlertController* logoutPromptAlertController;
-@property (nonatomic,assign)BOOL saveAsDefault;
-@property (nonatomic,strong)INVGenericCollectionViewDataSource* dataSource;
+@property (nonatomic,strong)   NSNumber* currentAccountId;
+@property (nonatomic,strong)   UIAlertController* loginFailureAlertController;
+@property (nonatomic,strong)   UIAlertController* logoutPromptAlertController;
+@property (nonatomic,assign)   BOOL saveAsDefault;
+@property (nonatomic,strong)   INVGenericCollectionViewDataSource* dataSource;
 @end
 
 @implementation INVAccountListViewController
@@ -71,6 +71,10 @@ static NSString * const reuseIdentifier = @"Cell";
         self.globalDataManager.loggedInAccount = defaultAcnt;
         self.currentAccountId = defaultAcnt;
         [self loginAccount];
+    }
+    else if (self.globalDataManager.invitationCodeToAutoAccept) {
+#warning Invoke the API to accept invite. This method should be available as part of EMOB-118
+        NSLog(@"Will accept invite for %@",self.globalDataManager.invitationCodeToAutoAccept);
     }
     else {
         self.currentAccountId = nil;

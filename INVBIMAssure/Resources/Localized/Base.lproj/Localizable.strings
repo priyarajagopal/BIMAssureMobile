@@ -105,4 +105,5 @@
 "DEFAULT_ACCOUNT_PREFIX"="Default-Account-For-%@";
 "SIGNUP_FAILURE"="User Signup Error";
 "GENERIC_SIGNUP_FAILURE_MESSAGE"="There was an error while trying to sign up new user. Please try again";
+"CREATE_USER_ACCOUNT"="Create User Account";
 

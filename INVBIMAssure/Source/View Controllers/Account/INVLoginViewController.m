@@ -110,6 +110,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 -(IBAction)done:(UIStoryboardSegue*)segue {
     NSLog(@"%s",__func__);
     [self removeSignupObservers];
+    self.signupController = nil;
 }
 
 #pragma mark - UIEvent Handlers
@@ -273,6 +274,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
      
         NSString* signedupEmail = self.signupController.signupEmail;
         NSString* signedupPassword = self.signupController.signupPassword;
+        BOOL invitationCodeEntered = self.signupController.invitationCode;
         
         [self dismissViewControllerAnimated:YES completion:^{
             [self removeSignupObservers];

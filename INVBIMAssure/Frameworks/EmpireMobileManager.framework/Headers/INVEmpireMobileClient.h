@@ -269,6 +269,24 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 -(void)signUpUserWithName:(NSString*)userName andEmail:(NSString*)email andPassword:(NSString*)password withAccountName:(NSString*)accountName accountDescription:(NSString*)accountDescription subscriptionType:(NSNumber*)type withCompletionBlock:(CompletionHandler) handler;
 
 /**
+ Asynchornously , sign up a user with the XOS Passport service
+
+ @param name Name of user to be added
+ 
+ @param userEmail email address of user
+ 
+ @param password user password
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then accountManager can be used to retrieve the details of account
+ 
+ @see accountManager
+ 
+ 
+ */
+-(void)signUpUserWithName:(NSString*)name email:(NSString*)userEmail password:(NSString*)password withCompletionBlock:(CompletionHandler) handler;
+
+
+/**
  Asynchornously , create an account for currently signed in user with the XOS Passport service
  
  @param accountName Name of account to be created
