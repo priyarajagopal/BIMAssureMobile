@@ -22,41 +22,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="622" placeholderIntrinsicHeight="207" translatesAutoresizingMaskIntoConstraints="NO" id="ZGk-WI-uzA">
-                        <rect key="frame" x="0.0" y="0.0" width="622" height="206.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="622" height="207"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfJ-Uz-oXt" userLabel="containerView">
                                 <rect key="frame" x="0.0" y="0.0" width="585" height="207"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0b-Fa-rrc" userLabel="profView">
-                                        <rect key="frame" x="8" y="8" width="184.5" height="191"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Professional" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfN-ds-fmd">
-                                                <rect key="frame" x="9" y="10" width="94" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SY-wv-BWK">
-                                                <rect key="frame" x="156" y="7" width="27" height="27"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="27" id="0yq-cV-pVY"/>
-                                                    <constraint firstAttribute="height" constant="27" id="F1Q-kC-6fV"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="28"/>
-                                                <color key="textColor" red="0.56078431370000004" green="0.69864849449999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstItem="6SY-wv-BWK" firstAttribute="top" secondItem="a0b-Fa-rrc" secondAttribute="top" constant="7" id="6pZ-FX-RSp"/>
-                                            <constraint firstAttribute="trailing" secondItem="6SY-wv-BWK" secondAttribute="trailing" constant="1.5" id="XMu-oA-Hfd"/>
-                                        </constraints>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m8z-RY-Ux6" userLabel="entView">
-                                        <rect key="frame" x="392" y="8" width="184.5" height="191"/>
+                                        <rect key="frame" x="392" y="8" width="185" height="191"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enterprise" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdD-hP-8k2">
                                                 <rect key="frame" x="21" y="8" width="78" height="21"/>
@@ -75,7 +47,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="yJT-5A-oIg" firstAttribute="top" secondItem="m8z-RY-Ux6" secondAttribute="top" constant="3" id="Emf-Tg-GPa"/>
@@ -107,6 +79,34 @@
                                         <constraints>
                                             <constraint firstItem="5MP-Xj-bnY" firstAttribute="top" secondItem="cHh-3M-qtE" secondAttribute="top" constant="5" id="7Vs-n3-Qib"/>
                                             <constraint firstAttribute="trailing" secondItem="5MP-Xj-bnY" secondAttribute="trailing" id="btR-DZ-c7L"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0b-Fa-rrc" userLabel="profView">
+                                        <rect key="frame" x="8" y="8" width="185" height="191"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Professional" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfN-ds-fmd">
+                                                <rect key="frame" x="9" y="10" width="94" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SY-wv-BWK">
+                                                <rect key="frame" x="156" y="7" width="27" height="27"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="27" id="0yq-cV-pVY"/>
+                                                    <constraint firstAttribute="height" constant="27" id="F1Q-kC-6fV"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="28"/>
+                                                <color key="textColor" red="0.56078431370000004" green="0.69864849449999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.82352941180000006" green="0.76470588240000004" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="6SY-wv-BWK" firstAttribute="top" secondItem="a0b-Fa-rrc" secondAttribute="top" constant="7" id="6pZ-FX-RSp"/>
+                                            <constraint firstAttribute="trailing" secondItem="6SY-wv-BWK" secondAttribute="trailing" constant="1.5" id="XMu-oA-Hfd"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -149,8 +149,11 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="enterpriseCheckLabel" destination="yJT-5A-oIg" id="nYq-eN-CU9"/>
+                <outlet property="enterpriseView" destination="m8z-RY-Ux6" id="1DJ-3F-n1o"/>
                 <outlet property="profCheckLabel" destination="6SY-wv-BWK" id="xl9-2h-Dq8"/>
+                <outlet property="profView" destination="a0b-Fa-rrc" id="bTl-rk-mGk"/>
                 <outlet property="teamCheckLabel" destination="5MP-Xj-bnY" id="ehZ-l6-fQi"/>
+                <outlet property="teamView" destination="cHh-3M-qtE" id="b3o-Lv-AzY"/>
             </connections>
             <point key="canvasLocation" x="743" y="484.5"/>
         </tableViewCell>

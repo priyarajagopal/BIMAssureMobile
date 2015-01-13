@@ -17,9 +17,10 @@ typedef enum {
 @interface INVSubscriptionLevelsTableViewCell : UITableViewCell
 
 @property (nonatomic,assign)_INV_SUBSCRIPTION_LEVEL selectedSubscriptionType;
-- (IBAction)onProfessionalViewTapped:(UITapGestureRecognizer *)sender;
-- (IBAction)onTeamViewTapped:(UITapGestureRecognizer *)sender;
-- (IBAction)onEnterpriseViewTapped:(UITapGestureRecognizer *)sender;
+@property (weak, nonatomic) IBOutlet UIView *profView;
+@property (weak, nonatomic) IBOutlet UIView *teamView;
+@property (weak, nonatomic) IBOutlet UIView *enterpriseView;
+
 @property (weak, nonatomic) IBOutlet UILabel *profCheckLabel;
 @property (weak, nonatomic) IBOutlet UILabel *teamCheckLabel;
 @property (weak, nonatomic) IBOutlet UILabel *enterpriseCheckLabel;
