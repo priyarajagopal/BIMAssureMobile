@@ -223,7 +223,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     
     if (self.currentInviteCode) {
-        [self.globalDataManager.invServerClient acceptInvite:self.currentInviteCode withCompletionBlock:^(INVEmpireMobileError *error) {
+        NSString *userEmail = self.globalDataManager.loggedInUser;
+        [self.globalDataManager.invServerClient acceptInvite:self.currentInviteCode forUser:userEmail withCompletionBlock:^(INVEmpireMobileError *error) {
             [self fetchListOfAccounts];
         }];
         
