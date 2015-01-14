@@ -266,11 +266,12 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
  // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"FileViewerSegue"]) {
 
-        [self.tabBarController setHidesBottomBarWhenPushed:YES];
-        // INVProjectFileViewerController * vc = (INVProjectFileViewerController*)segue.destinationViewController;
+         // INVProjectFileViewerController * vc = (INVProjectFileViewerController*)segue.destinationViewController;
+    //    INVModelViewerViewController *vc = (INVModelViewerViewController*)segue.destinationViewController;
         
         UINavigationController *navContorller = segue.destinationViewController;
         INVModelViewerViewController *vc = [navContorller.viewControllers firstObject];
+        [navContorller setHidesBottomBarWhenPushed:YES];
         
         vc.modelId = self.selectedModelId;
         vc.fileVersionId = self.selectedFileTipId;

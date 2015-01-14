@@ -324,8 +324,6 @@ static NSString* INV_ActualParamValue = @"Value";
 
 
 
-
-
 #pragma mark - INVRuleInstanceActualParamTableViewCellDelegate
 -(void)onBeginEditingRuleInstanceActualParamField:(INVRuleInstanceActualParamTableViewCell*)sender {
     [self.saveBarButton setEnabled:YES];

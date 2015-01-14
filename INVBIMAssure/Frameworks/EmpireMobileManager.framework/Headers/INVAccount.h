@@ -28,6 +28,6 @@ typedef NSMutableArray* INVAccountMutableArray;
 @property (copy, nonatomic, readonly) NSString* name;
 @property (copy, nonatomic, readonly) NSString* overview;
 @property (copy, nonatomic, readonly) NSString* typeVal;
-@property (nonatomic, readonly) BOOL disabled;
+@property (nonatomic, readonly) NSNumber *disabled;
 
 @end

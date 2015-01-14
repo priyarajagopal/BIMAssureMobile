@@ -56,15 +56,7 @@
 
 - (void)tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text
 {
-    __block BOOL isEmail = NO;
-    
-    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
-    [detector enumerateMatchesInString:text options:0 range:NSMakeRange(0, text.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        if ([result.URL.scheme isEqualToString:@"mailto"] && result.range.length == text.length) {
-            isEmail = YES;
-        }
-    }];
-    
+    BOOL isEmail = [text isValidEmail];
     if (isEmail) {
         [self.tokens addObject:text];
         if (self.cellDelegate && [self.cellDelegate respondsToSelector:@selector(tokensChanged:)]) {

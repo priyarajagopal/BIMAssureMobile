@@ -28,11 +28,12 @@ extern const NSString* INV_CredentialKeyPassword ;
 
 
 @interface INVGlobalDataManager : NSObject
-@property (nonatomic,readonly)INVEmpireMobileClient* invServerClient;
-@property (nonatomic,readonly)NSDictionary* credentials;
-@property (nonatomic,readonly)NSNumber* defaultAccountId;
-@property (nonatomic,copy)NSString* loggedInUser;
-@property (nonatomic,strong)NSNumber* loggedInAccount;
+@property (nonatomic,readonly) INVEmpireMobileClient* invServerClient;
+@property (nonatomic,readonly) NSDictionary* credentials;
+@property (nonatomic,readonly) NSNumber* defaultAccountId;
+@property (nonatomic,copy)     NSString* loggedInUser;
+@property (nonatomic,strong)   NSNumber* loggedInAccount;
+@property (nonatomic,copy)     NSString* invitationCodeToAutoAccept;
 
 
 +(INVGlobalDataManager*)sharedInstance;
@@ -42,4 +43,5 @@ extern const NSString* INV_CredentialKeyPassword ;
 
 -(NSError*)saveDefaultAccountInKCForLoggedInUser:(NSNumber*)accountId;
 -(NSError*)deleteCurrentlySavedDefaultAccountFromKC;
+
 @end

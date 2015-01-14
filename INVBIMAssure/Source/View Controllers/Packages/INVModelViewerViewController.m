@@ -99,6 +99,7 @@ void classDump(Class);
 }
 
 -(void) viewWillAppear:(BOOL)animated {
+    [self setHidesBottomBarWhenPushed:YES];
     [self prepareGL];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{

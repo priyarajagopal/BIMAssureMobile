@@ -39,6 +39,20 @@
     return hud;
 }
 
++(MBProgressHUD*)signupHUD:(NSString*)extra {
+    MBProgressHUD* hud = [[MBProgressHUD alloc]init];
+    
+    [hud setAnimationType:MBProgressHUDAnimationFade];
+    [hud setMode:MBProgressHUDModeIndeterminate];
+    NSString* mesg  = extra? [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"SIGNING_UP",nil),extra]:NSLocalizedString(@"SIGNING_UP",nil);
+    
+    [hud setLabelText:mesg];
+    [hud setDimBackground:YES];
+    [hud setRemoveFromSuperViewOnHide:YES];
+    
+    return hud;
+}
+
 +(MBProgressHUD*)loadingViewHUD:(NSString*)extra {
     MBProgressHUD* hud = [[MBProgressHUD alloc]init];
     

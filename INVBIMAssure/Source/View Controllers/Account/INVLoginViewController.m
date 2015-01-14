@@ -9,7 +9,7 @@
 @import QuartzCore;
 @import EmpireMobileManager;
 #import "INVLoginViewController.h"
-
+#import "INVSignUpTableViewController.h"
 
 #pragma mark - KVO
 NSString* const KVO_INVLoginSuccess = @"loginSuccess";
@@ -19,6 +19,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 @property (nonatomic,copy)NSString* userToken;
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;
 @property (nonatomic,assign)BOOL saveCredentials;
+@property (nonatomic,strong)INVSignUpTableViewController* signupController;
 
 @end
 
@@ -39,7 +40,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     if (loggedInPass && loggedInUser) {
         self.emailTextEntry.text = loggedInUser;
         self.passwordTextEntry.text = loggedInPass;
-        [self loginToServer];
+        [self loginToServerWithUser:loggedInUser andPassword:loggedInPass];
     }
     else {
         self.emailTextEntry.text = @"";
@@ -52,6 +53,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     
     self.userToken = nil;
     self.loginFailureAlertController = nil;
+    [self removeSignupObservers];
+    self.signupController = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,19 +63,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 }
 
 -(void)setupView {
-    [self.emailEntryView.layer setBorderColor:(__bridge CGColorRef)([UIColor lightGrayColor])];
-    [self.emailEntryView.layer setCornerRadius:2.0f];
-    [self.emailEntryView.layer setBorderWidth:1.0f];
-    [self.emailEntryView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.emailEntryView.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
-    [self.emailEntryView.layer setShadowOpacity:0.5];
-  
-    [self.passwordEntryView.layer setBorderColor:(__bridge CGColorRef)([UIColor lightGrayColor])];
-    [self.passwordEntryView.layer setCornerRadius:2.0f];
-    [self.passwordEntryView.layer setBorderWidth:1.0f];
-    [self.passwordEntryView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.passwordEntryView.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
-    [self.passwordEntryView.layer setShadowOpacity:0.5];
+    [self setLayerShadowForView:self.emailEntryView];
+    [self setLayerShadowForView:self.passwordEntryView];
 
     self.rememberMe.titleLabel.frame = self.rememberMe.frame;
     
@@ -97,15 +89,29 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     [self.loginButton setEnabled:NO];
 
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"SignUpSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController* navController = (UINavigationController*) segue.destinationViewController;
+            self.signupController = (INVSignUpTableViewController*) navController.topViewController;
+            [self addSignUpObservers];
+
+        }
+        
+    }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
+-(IBAction)done:(UIStoryboardSegue*)segue {
+    NSLog(@"%s",__func__);
+    [self removeSignupObservers];
+    self.signupController = nil;
+}
 
 #pragma mark - UIEvent Handlers
 - (IBAction)onLoginClicked:(id)sender {
@@ -114,7 +120,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
         [self presentViewController:errController animated:YES completion:^{ }];
         return;
     }
-    [self loginToServer];
+    [self loginToServerWithUser:self.emailTextEntry.text andPassword:self.passwordTextEntry.text];
 }
 
 - (IBAction)onRememberMeClicked:(id)sender {
@@ -130,9 +136,9 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 
 #pragma mark - server side
--(void)loginToServer {
+-(void)loginToServerWithUser:(NSString*)user andPassword:(NSString*)password {
     [self showLoginProgress ];
-    [self.globalDataManager.invServerClient signInWithUserName:self.emailTextEntry.text andPassword:self.passwordTextEntry.text withCompletionBlock:^(INVEmpireMobileError *error) {
+    [self.globalDataManager.invServerClient signInWithUserName:user andPassword:password withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideLoginProgress];
         if (!error) {
             if (self.saveCredentials) {
@@ -188,13 +194,27 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 -(BOOL) isValidEmailEntry {
     NSString* email = self.emailTextEntry.text;
-    NSRange range = [email rangeOfString:@"@"];
-    if (!range.length)
-    {
-        return NO;
-    }
-    return  YES;
+    return [email isValidEmail];
 }
+
+-(void)setLayerShadowForView:(UIView*)view {
+    [view.layer setBorderColor:(__bridge CGColorRef)([UIColor lightGrayColor])];
+    [view.layer setCornerRadius:2.0f];
+    [view.layer setBorderWidth:1.0f];
+    [view.layer setShadowOffset:CGSizeMake(0, 0)];
+    [view.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowOpacity:0.5];
+}
+
+-(void)addSignUpObservers {
+    [self.signupController addObserver:self forKeyPath:KVO_INVSignupSuccess options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void)removeSignupObservers {
+    [self.signupController removeObserver:self forKeyPath:KVO_INVSignupSuccess];
+    
+}
+
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -246,6 +266,25 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     self.contentScrollView.scrollIndicatorInsets = contentInsets;
 }
 
+
+#pragma mark - KBO
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    NSLog(@"%s",__func__);
+    if ([keyPath isEqualToString:KVO_INVSignupSuccess]) {
+     
+        NSString* signedupEmail = self.signupController.signupEmail;
+        NSString* signedupPassword = self.signupController.signupPassword;
+        BOOL invitationCodeEntered = self.signupController.invitationCode;
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self removeSignupObservers];
+            self.signupController = nil;
+        }];
+        if (self.signupController.signupSuccess) {
+            [self loginToServerWithUser:signedupEmail andPassword:signedupPassword];
+        }
+    }
+}
 
 
 @end
