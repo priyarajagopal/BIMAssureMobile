@@ -347,10 +347,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 }
 -(void)updateRuleSetsFromServer {
-    NSArray* rulesetIdsInFile = [self.rulesManager ruleSetIdsForPkgMaster:self.fileMasterId];
+    NSSet *rulesetIdsInFile = [self.rulesManager ruleSetIdsForPkgMaster:self.fileMasterId];
+    
     INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:rulesetIdsInFile]mutableCopy];
     self.ruleSets = ruleSetsAssociatedWithFile;
-   
 }
 -(void)logRulesToConsole {
     [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

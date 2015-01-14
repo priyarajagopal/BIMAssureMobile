@@ -1324,16 +1324,29 @@
                                     <action selector="onInfoViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="BGG-Ps-Evg"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amC-D2-9Kz">
+                                <rect key="frame" x="36" y="143" width="25" height="25"/>
+                                <color key="backgroundColor" red="0.98594826459884644" green="0.0" blue="0.026950567960739136" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="3d5-A9-tuW"/>
+                                    <constraint firstAttribute="width" constant="25" id="ia5-ue-f1V"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.5607843137254902" green="0.039215686274509803" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="JER-3B-GmM" firstAttribute="top" secondItem="eYV-xQ-9UI" secondAttribute="bottom" constant="31" id="01w-lD-HDe"/>
                             <constraint firstItem="bPy-sz-oMi" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leading" constant="18" id="I3A-hk-WMo"/>
                             <constraint firstItem="nri-MK-OcW" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leading" constant="18" id="IMR-eW-0Yz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="amC-D2-9Kz" secondAttribute="trailing" constant="8" id="Pd8-NX-Lr1"/>
                             <constraint firstItem="ln2-Sg-eb5" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leadingMargin" constant="2" id="Qfk-a9-2K0"/>
                             <constraint firstItem="nqe-7Z-PEz" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leading" constant="18" id="SxQ-hH-TI2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JER-3B-GmM" secondAttribute="trailing" constant="3" id="VFU-qB-XXi"/>
                             <constraint firstItem="nqe-7Z-PEz" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="8" id="VKF-dC-F9H"/>
+                            <constraint firstItem="amC-D2-9Kz" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="8" id="ZPX-H0-3R8"/>
                             <constraint firstItem="nri-MK-OcW" firstAttribute="top" secondItem="JER-3B-GmM" secondAttribute="bottom" constant="8" id="f1Q-1f-ONi"/>
                             <constraint firstItem="tiT-dW-lDO" firstAttribute="top" secondItem="ln2-Sg-eb5" secondAttribute="bottom" constant="8" id="if5-4P-y9J"/>
                             <constraint firstItem="JER-3B-GmM" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leading" constant="18" id="yLM-9W-O5c"/>
@@ -1348,6 +1361,10 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="85" height="600"/>
+                    <connections>
+                        <outlet property="accountsBadge" destination="amC-D2-9Kz" id="OHk-b9-Ctr"/>
+                        <outlet property="accountsButton" destination="nqe-7Z-PEz" id="A3M-qp-13t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4Y-wN-kxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

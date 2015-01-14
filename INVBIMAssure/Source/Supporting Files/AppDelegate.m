@@ -13,6 +13,8 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
+#import "INVNotificationPoller.h"
+
 @interface AppDelegate ()
 @property (nonatomic,assign)BOOL registeredForLoginEvents;
 @property (nonatomic,assign)BOOL registeredForAccountEvents;
@@ -30,8 +32,11 @@
     [self enableCrashReporting];
     [self setupNetworkCache];
     [self registerGlobalNotifications];
+    [self prepareNotificationPolling];
+    
     [self displayLoginRootViewController];
     [self setUpViewAppearance];
+    
     return YES;
 }
 
@@ -187,6 +192,9 @@
 
 }
 
+-(void) prepareNotificationPolling {
+    [[INVNotificationPoller instance] beginPolling];
+}
 
 -(UIViewController*)rootController {
     return self.window.rootViewController;
