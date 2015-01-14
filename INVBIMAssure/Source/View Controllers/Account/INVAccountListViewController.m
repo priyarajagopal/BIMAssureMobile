@@ -26,11 +26,12 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,strong)   INVDefaultAccountAlertView* alertView ;
 @property (nonatomic,strong)   INVAccountManager* accountManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
-@property (nonatomic,strong)   NSNumber* currentAccountId;
-@property (nonatomic,strong)   UIAlertController* loginFailureAlertController;
-@property (nonatomic,strong)   UIAlertController* logoutPromptAlertController;
-@property (nonatomic,assign)   BOOL saveAsDefault;
-@property (nonatomic,strong)   INVGenericCollectionViewDataSource* dataSource;
+@property (nonatomic,strong)NSNumber* currentAccountId;
+@property (nonatomic, strong) NSString *currentInviteCode;
+@property (nonatomic,strong)UIAlertController* loginFailureAlertController;
+@property (nonatomic,strong)UIAlertController* logoutPromptAlertController;
+@property (nonatomic,assign)BOOL saveAsDefault;
+@property (nonatomic,strong)INVGenericCollectionViewDataSource* dataSource;
 @end
 
 @implementation INVAccountListViewController
