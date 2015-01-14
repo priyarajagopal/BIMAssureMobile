@@ -107,7 +107,7 @@
 
 -(void)displayLoggedInRootViewController {
     [self deregisterLoginObservers];
-    UINavigationController* accountListNC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"AccountListNC"];
+    UINavigationController* accountListNC = [[self accountStoryboard]instantiateViewControllerWithIdentifier:@"AccountListNC"];
     self.window.rootViewController = accountListNC;
     INVAccountListViewController* accountListVC = (INVAccountListViewController*)accountListNC.topViewController;
     accountListVC.autoSignIntoDefaultAccount = YES;
@@ -190,6 +190,10 @@
 
 -(UIViewController*)rootController {
     return self.window.rootViewController;
+}
+
+-(UIStoryboard*)accountStoryboard {
+    return [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle bundleForClass:[self class]]];
 }
 
 
