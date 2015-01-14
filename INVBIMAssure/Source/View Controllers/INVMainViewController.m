@@ -144,7 +144,8 @@
         
     }
     if ([keyPath isEqualToString:KVO_INVOnInfoMenuSelected]) {
-        [self performSegueWithIdentifier:@"GlobalInfoSegue" sender:nil];
+        [self.infoTransitionObject perform:nil];
+      //  [self performSegueWithIdentifier:@"GlobalInfoSegue" sender:nil];
         
     }
 }

@@ -30,6 +30,7 @@
         #import "INVGenericCollectionViewDataSource.h"
         #import "UIAlertController+INVCustomizations.h"
         #import "NSString+INVCustomizations.h"
+        #import "INVTransitionToStoryboard.h"
 
 
     #endif

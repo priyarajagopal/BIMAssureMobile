@@ -11,5 +11,6 @@
 @interface INVMainViewController : INVCustomViewController
 @property (weak, nonatomic) IBOutlet UIView *detailContainerView;
 @property (weak, nonatomic) IBOutlet UIView *mainMenuContainerView;
+@property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *infoTransitionObject;
 -(IBAction)done:(UIStoryboardSegue*)segue;
 @end
