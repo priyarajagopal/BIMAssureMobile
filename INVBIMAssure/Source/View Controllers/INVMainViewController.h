@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UIView *detailContainerView;
 @property (weak, nonatomic) IBOutlet UIView *mainMenuContainerView;
 @property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *infoTransitionObject;
+@property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *userMgmtTransitionObject;
 -(IBAction)done:(UIStoryboardSegue*)segue;
 @end

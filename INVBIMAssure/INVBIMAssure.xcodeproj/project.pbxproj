@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0254892A1A66D62B00EE012D /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 025489291A66D62B00EE012D /* Account.storyboard */; };
 		0254892C1A66D99700EE012D /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0254892B1A66D99700EE012D /* Settings.storyboard */; };
+		0254892E1A6702EA00EE012D /* UserManagement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0254892D1A6702EA00EE012D /* UserManagement.storyboard */; };
 		0278BAD21A655C17009E0E27 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAD01A655C17009E0E27 /* Login.storyboard */; };
 		0278BAD51A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */; };
 		0278BAD71A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */; };
@@ -157,6 +158,7 @@
 /* Begin PBXFileReference section */
 		025489291A66D62B00EE012D /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		0254892B1A66D99700EE012D /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		0254892D1A6702EA00EE012D /* UserManagement.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserManagement.storyboard; sourceTree = "<group>"; };
 		0278BAD11A655C17009E0E27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		0278BAD31A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSubscriptionLevelsTableViewCell.h; sourceTree = "<group>"; };
 		0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSubscriptionLevelsTableViewCell.m; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				F539D5331A64495D007A2BDC /* Main.storyboard */,
 				0254892B1A66D99700EE012D /* Settings.storyboard */,
 				025489291A66D62B00EE012D /* Account.storyboard */,
+				0254892D1A6702EA00EE012D /* UserManagement.storyboard */,
 			);
 			path = Localized;
 			sourceTree = "<group>";
@@ -932,6 +935,7 @@
 				F5789DC01A642A6200D8CEE7 /* invicara_config_server.cer in Resources */,
 				F5789DBC1A642A6200D8CEE7 /* INVSearchView.xib in Resources */,
 				F5789DB61A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
+				0254892E1A6702EA00EE012D /* UserManagement.storyboard in Resources */,
 				0254892A1A66D62B00EE012D /* Account.storyboard in Resources */,
 				F5789DAD1A642A6200D8CEE7 /* Images.xcassets in Resources */,
 				0278BAD71A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */,
