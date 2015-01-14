@@ -1237,20 +1237,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-fucmvrxnagacyactegsqlcrhxllp/Build/Products/Dev-iphoneos",
-					"/Users/priyarajagopal/Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-fucmvrxnagacyactegsqlcrhxllp/Build/Products/Prod-iphoneos",
 				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/Source/Supporting Files/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Yajl/build/Prod-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Pods/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1387,20 +1378,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-fucmvrxnagacyactegsqlcrhxllp/Build/Products/Dev-iphoneos",
-					"/Users/priyarajagopal/Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-fucmvrxnagacyactegsqlcrhxllp/Build/Products/Prod-iphoneos",
 				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/Source/Supporting Files/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Yajl/build/Prod-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Pods/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1537,20 +1519,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-fucmvrxnagacyactegsqlcrhxllp/Build/Products/Dev-iphoneos",
-					"/Users/priyarajagopal/Users/richardross/Library/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphoneos",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-fucmvrxnagacyactegsqlcrhxllp/Build/Products/Prod-iphoneos",
 				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/Source/Supporting Files/INVBIMAssurePrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-buazjazdbnellndorxtonlaoygwv/Build/Products/QA-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Yajl/build/Prod-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Pods/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
