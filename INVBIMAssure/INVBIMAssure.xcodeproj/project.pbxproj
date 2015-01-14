@@ -19,6 +19,8 @@
 		0278BAF71A66051E009E0E27 /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0278BAF51A66051E009E0E27 /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0278BB021A66BCFF009E0E27 /* INVGlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAFF1A66BCFF009E0E27 /* INVGlobalDataManager.m */; };
 		0278BB031A66BCFF009E0E27 /* INVServerConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BB011A66BCFF009E0E27 /* INVServerConfigManager.m */; };
+		0278BB061A66BEC8009E0E27 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0278BB051A66BEC8009E0E27 /* EmpireMobileManager.framework */; };
+		0278BB081A66BED0009E0E27 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0278BB051A66BEC8009E0E27 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1827E538D895002A1BC239B6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A017907C030AFB8C7812E225 /* libPods.a */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
 		F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */; };
@@ -139,6 +141,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0278BB081A66BED0009E0E27 /* EmpireMobileManager.framework in Embed Frameworks */,
 				0278BAF71A66051E009E0E27 /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -166,6 +169,7 @@
 		0278BAFF1A66BCFF009E0E27 /* INVGlobalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVGlobalDataManager.m; path = "Data Managers/INVGlobalDataManager.m"; sourceTree = "<group>"; };
 		0278BB001A66BCFF009E0E27 /* INVServerConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVServerConfigManager.h; path = "Data Managers/INVServerConfigManager.h"; sourceTree = "<group>"; };
 		0278BB011A66BCFF009E0E27 /* INVServerConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVServerConfigManager.m; path = "Data Managers/INVServerConfigManager.m"; sourceTree = "<group>"; };
+		0278BB051A66BEC8009E0E27 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		02C8845719E317E900DFB4E2 /* BIM Assure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BIM Assure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INVBIMAssureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		051E433FAA6C6DF3BA9BA08B /* Pods.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.dev.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.dev.xcconfig"; sourceTree = "<group>"; };
@@ -364,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F539D51E1A6447CF007A2BDC /* OpenCTM.framework in Frameworks */,
+				0278BB061A66BEC8009E0E27 /* EmpireMobileManager.framework in Frameworks */,
 				F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */,
 				F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */,
 				F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */,
@@ -430,6 +435,7 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0278BB051A66BEC8009E0E27 /* EmpireMobileManager.framework */,
 				F539D51D1A6447CF007A2BDC /* OpenCTM.framework */,
 				F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */,
 				F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */,
