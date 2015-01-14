@@ -28,7 +28,6 @@
 		F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */; };
 		F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */; };
 		F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5181A644771007A2BDC /* libPods-VENTokenField.a */; };
-		F539D51E1A6447CF007A2BDC /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D51D1A6447CF007A2BDC /* OpenCTM.framework */; };
 		F539D5361A64495D007A2BDC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F539D52F1A64495D007A2BDC /* LaunchScreen.xib */; };
 		F539D5381A64495D007A2BDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F539D5331A64495D007A2BDC /* Main.storyboard */; };
 		F539D53B1A644C1C007A2BDC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F539D5391A644C1C007A2BDC /* Localizable.strings */; };
@@ -376,7 +375,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F539D51E1A6447CF007A2BDC /* OpenCTM.framework in Frameworks */,
 				F5024AD21A66CF11002EEE5F /* OpenCTM.framework in Frameworks */,
 				0278BB061A66BEC8009E0E27 /* EmpireMobileManager.framework in Frameworks */,
 				F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */,
