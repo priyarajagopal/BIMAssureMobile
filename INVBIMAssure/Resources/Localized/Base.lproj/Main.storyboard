@@ -565,13 +565,13 @@
                         <segue destination="gXt-Xj-ZXc" kind="presentation" identifier="RuleSetFilesSegue" modalPresentationStyle="formSheet" id="sFY-9q-5mt"/>
                         <segue destination="AUh-Ql-GT9" kind="presentation" identifier="RunRulesSegue" modalPresentationStyle="formSheet" id="G8m-0f-E8j"/>
                         <segue destination="l61-lF-AkI" kind="show" identifier="ShowExecutionsSegue" id="yRG-Uw-32c"/>
-                        <segue destination="bnd-wv-v18" kind="presentation" identifier="FileViewerSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="nsk-Hf-SI9"/>
+                        <segue destination="bnd-wv-v18" kind="show" identifier="FileViewerSegue" id="aka-or-voF"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ihQ-SW-zzl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3302" y="3484"/>
+            <point key="canvasLocation" x="3009" y="3833"/>
         </scene>
         <!--Project File Viewer Controller-->
         <scene sceneID="fqY-Jw-B2u">
@@ -703,10 +703,10 @@
             </objects>
             <point key="canvasLocation" x="4090" y="3484"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Model Viewer Nav Controller-->
         <scene sceneID="P4s-ci-g9h">
             <objects>
-                <navigationController id="bnd-wv-v18" sceneMemberID="viewController">
+                <navigationController id="bnd-wv-v18" userLabel="Model Viewer Nav Controller" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yS4-Qi-SeG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -722,7 +722,7 @@
         <!--Model Viewer-->
         <scene sceneID="Jzl-hh-E8g">
             <objects>
-                <glkViewController preferredFramesPerSecond="60" id="GL2-uL-zZe" customClass="INVModelViewerViewController" sceneMemberID="viewController">
+                <glkViewController extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="currentContext" hidesBottomBarWhenPushed="YES" preferredFramesPerSecond="60" id="GL2-uL-zZe" customClass="INVModelViewerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7mG-8a-Gz8"/>
                         <viewControllerLayoutGuide type="bottom" id="8D9-Ct-9VY"/>
@@ -731,8 +731,8 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP4-oq-N5W">
-                                <rect key="frame" x="0.0" y="492" width="600" height="44"/>
+                            <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP4-oq-N5W">
+                                <rect key="frame" x="0.0" y="443" width="600" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="iA5-EL-oWn"/>
@@ -830,18 +830,12 @@
                             <outlet property="delegate" destination="GL2-uL-zZe" id="BOa-nm-Fo9"/>
                         </connections>
                     </glkView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Model Viewer" id="Yud-PD-rt5">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="EM1-5s-Lxx">
-                            <connections>
-                                <segue destination="D3N-Sj-usz" kind="unwind" unwindAction="done:" id="GuQ-RX-KIK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Model Viewer" id="Yud-PD-rt5"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </glkViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igs-h5-g41" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="D3N-Sj-usz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5830" y="4205"/>
         </scene>
