@@ -27,6 +27,7 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,strong)INVAccountManager* accountManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* currentAccountId;
+@property (nonatomic, strong) NSString *currentInviteCode;
 @property (nonatomic,strong)UIAlertController* loginFailureAlertController;
 @property (nonatomic,strong)UIAlertController* logoutPromptAlertController;
 @property (nonatomic,assign)BOOL saveAsDefault;
@@ -180,15 +181,21 @@ static NSString * const reuseIdentifier = @"Cell";
             
             message = [NSString stringWithFormat:NSLocalizedString(message, nil), account.name];
             
-            [self showSaveAsDefaultAlertWithMessage:message];
+            [self showSaveAsDefaultAlertWithMessage:message
+                               andAcceptButtonTitle:NSLocalizedString(@"LOG_INTO_ACCOUNT", nil)
+                               andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)];
         }
     }
     
     if (indexPath.section == 1) {
         INVUserInvite *invite = [self.dataResultsController objectAtIndexPath:indexPath];
+        
+        self.currentInviteCode = invite.invitationCode;
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), invite.accountName];
         
-        [self showSaveAsDefaultAlertWithMessage:message];
+        [self showSaveAsDefaultAlertWithMessage:message
+                           andAcceptButtonTitle:NSLocalizedString(@"INVITE_ACCEPT", nil)
+                           andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)];
     }
 }
 
@@ -214,7 +221,18 @@ static NSString * const reuseIdentifier = @"Cell";
     [self dismissSaveAsDefaultAlert];
     self.saveAsDefault = isDefault;
     
-    NSNumber* prevLoggedInAccount =  self.globalDataManager.loggedInAccount ;
+    
+    if (self.currentInviteCode) {
+        [self.globalDataManager.invServerClient acceptInvite:self.currentInviteCode withCompletionBlock:^(INVEmpireMobileError *error) {
+            [self fetchListOfAccounts];
+        }];
+        
+        self.currentInviteCode = nil;
+        
+        return;
+    }
+    
+    NSNumber* prevLoggedInAccount = self.globalDataManager.loggedInAccount ;
     if (prevLoggedInAccount && (prevLoggedInAccount != self.currentAccountId))
     {
         [self showLoginProgress];
@@ -224,10 +242,13 @@ static NSString * const reuseIdentifier = @"Cell";
         [self showLoginProgress];
         [self loginAccount];
     }
+    
+    self.currentInviteCode = nil;
 }
 
 -(void)onCancelLogintoAccount {
     [self dismissSaveAsDefaultAlert];
+    
 }
 
 #pragma mark - accessor
@@ -402,7 +423,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
--(void)showSaveAsDefaultAlertWithMessage:(NSString*)message {
+-(void)showSaveAsDefaultAlertWithMessage:(NSString*)message andAcceptButtonTitle:(NSString *) acceptButtonTitle andCancelButtonTitle:(NSString *) cancelButtonTitle {
     if (!self.alertView) {
         NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil];
         [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -416,6 +437,8 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     self.alertView.alertMessage.text = message;
+    [self.alertView.acceptButton setTitle:acceptButtonTitle forState:UIControlStateNormal];
+    [self.alertView.cancelButton setTitle:cancelButtonTitle forState:UIControlStateNormal];
     
     self.alertView.alpha = 0.0;
     [self.collectionView addSubview:self.alertView];

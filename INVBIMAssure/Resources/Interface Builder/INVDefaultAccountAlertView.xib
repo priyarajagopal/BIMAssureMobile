@@ -110,7 +110,9 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="acceptButton" destination="dtE-H3-Hx5" id="Taz-3K-dQr"/>
                 <outlet property="alertMessage" destination="tW2-ej-T0d" id="E8k-Ep-FAV"/>
+                <outlet property="cancelButton" destination="hfG-SJ-Kq5" id="tjL-Ir-c7z"/>
                 <outlet property="defaultSwitch" destination="adC-d2-Zna" id="7Et-JW-6To"/>
             </connections>
             <point key="canvasLocation" x="579" y="331"/>
