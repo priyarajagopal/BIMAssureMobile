@@ -22,6 +22,7 @@
 		0278BB061A66BEC8009E0E27 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0278BB051A66BEC8009E0E27 /* EmpireMobileManager.framework */; };
 		0278BB081A66BED0009E0E27 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0278BB051A66BEC8009E0E27 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0278BB0B1A66C60D009E0E27 /* INVTransitionToStoryboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */; };
+		0278BB0D1A66CB3C009E0E27 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0278BB0C1A66CB3C009E0E27 /* Account.storyboard */; };
 		1827E538D895002A1BC239B6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A017907C030AFB8C7812E225 /* libPods.a */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
 		F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */; };
@@ -173,6 +174,7 @@
 		0278BB051A66BEC8009E0E27 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		0278BB091A66C60D009E0E27 /* INVTransitionToStoryboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVTransitionToStoryboard.h; sourceTree = "<group>"; };
 		0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVTransitionToStoryboard.m; sourceTree = "<group>"; };
+		0278BB0C1A66CB3C009E0E27 /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		02C8845719E317E900DFB4E2 /* BIM Assure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BIM Assure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INVBIMAssureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		051E433FAA6C6DF3BA9BA08B /* Pods.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.dev.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.dev.xcconfig"; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				F539D5391A644C1C007A2BDC /* Localizable.strings */,
 				F539D52F1A64495D007A2BDC /* LaunchScreen.xib */,
 				F539D5331A64495D007A2BDC /* Main.storyboard */,
+				0278BB0C1A66CB3C009E0E27 /* Account.storyboard */,
 			);
 			path = Localized;
 			sourceTree = "<group>";
@@ -927,6 +930,7 @@
 				F539D5361A64495D007A2BDC /* LaunchScreen.xib in Resources */,
 				F5789DC41A642A6200D8CEE7 /* Startup.json in Resources */,
 				F5789DB41A642A6200D8CEE7 /* INVRuleDefinitionTableViewCell.xib in Resources */,
+				0278BB0D1A66CB3C009E0E27 /* Account.storyboard in Resources */,
 				F539D53B1A644C1C007A2BDC /* Localizable.strings in Resources */,
 				F5789DC51A642A6200D8CEE7 /* ModelViewer.fsh in Resources */,
 				F5789DB31A642A6200D8CEE7 /* INVProjectTableViewCell.xib in Resources */,

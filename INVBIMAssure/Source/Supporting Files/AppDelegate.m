@@ -107,7 +107,7 @@
 
 -(void)displayLoggedInRootViewController {
     [self deregisterLoginObservers];
-    UINavigationController* accountListNC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"AccountListNC"];
+    UINavigationController* accountListNC = [[self accountStoryboard]instantiateViewControllerWithIdentifier:@"AccountListNC"];
     self.window.rootViewController = accountListNC;
     INVAccountListViewController* accountListVC = (INVAccountListViewController*)accountListNC.topViewController;
     accountListVC.autoSignIntoDefaultAccount = YES;
@@ -201,6 +201,9 @@
     return [UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle bundleForClass:[self class]]];
 }
 
+-(UIStoryboard*)accountStoryboard {
+    return [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle bundleForClass:[self class]]];
+}
 -(BOOL)isFirstRunOfApp {
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"INV_FirstTimeLaunch"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"INV_FirstTimeLaunch"];
