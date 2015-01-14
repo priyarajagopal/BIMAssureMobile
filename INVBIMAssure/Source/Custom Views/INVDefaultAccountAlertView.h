@@ -16,9 +16,13 @@
 @end
 
 @interface INVDefaultAccountAlertView : UIView
+
 @property (weak, nonatomic) IBOutlet UISwitch *defaultSwitch;
 @property (nonatomic,weak)id<INVDefaultAccountAlertViewDelegate> delegate;
+
 @property (weak, nonatomic) IBOutlet UILabel *alertMessage;
+@property (weak, nonatomic) IBOutlet UIButton *acceptButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 
 - (IBAction)setAsDefaultAccountSwitchToggled:(id)sender;

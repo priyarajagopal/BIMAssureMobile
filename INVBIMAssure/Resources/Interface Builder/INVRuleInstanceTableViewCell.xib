@@ -34,7 +34,7 @@
                             <action selector="onActionButtonTapped:" destination="kKo-Pw-45C" eventType="touchUpInside" id="Gct-QU-vcS"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0B-lg-bzL">
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0B-lg-bzL">
                         <rect key="frame" x="261" y="0.0" width="59" height="83"/>
                         <color key="backgroundColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -50,7 +50,7 @@
                             <action selector="onActionButtonTapped:" destination="kKo-Pw-45C" eventType="touchUpInside" id="zkt-Np-Mdt"/>
                         </connections>
                     </button>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7QC-q5-nOn" userLabel="ruleContentView">
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7QC-q5-nOn" userLabel="ruleContentView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uef-n8-Dcl">

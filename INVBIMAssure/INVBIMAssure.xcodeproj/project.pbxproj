@@ -132,6 +132,8 @@
 		F5789DDC1A642B2900D8CEE7 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789DCE1A642A6700D8CEE7 /* INVBIMAssureTests.m */; };
 		F5789DDD1A642B2C00D8CEE7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5789DCD1A642A6700D8CEE7 /* Info.plist */; };
 		F5789DE91A642ED300D8CEE7 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789DE81A642ED300D8CEE7 /* libYajl.a */; };
+		F5D41A2C1A659B2000780B9A /* INVMergedFetchedResultsControler.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */; };
+		F5D41A2F1A65A40E00780B9A /* INVBlockUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -359,6 +361,10 @@
 		F5789DCD1A642A6700D8CEE7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5789DCE1A642A6700D8CEE7 /* INVBIMAssureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBIMAssureTests.m; sourceTree = "<group>"; };
 		F5789DE81A642ED300D8CEE7 /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Yajl/build/Prod-iphoneos/libYajl.a"; sourceTree = "<group>"; };
+		F5D41A2A1A659B2000780B9A /* INVMergedFetchedResultsControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVMergedFetchedResultsControler.h; sourceTree = "<group>"; };
+		F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVMergedFetchedResultsControler.m; sourceTree = "<group>"; };
+		F5D41A2D1A65A40E00780B9A /* INVBlockUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBlockUtils.h; sourceTree = "<group>"; };
+		F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBlockUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -564,6 +570,10 @@
 				F5789CD81A642A5500D8CEE7 /* INVGlobalDataManager.m */,
 				F5789CDA1A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m */,
 				F5789CDC1A642A5500D8CEE7 /* INVServerConfigManager.m */,
+				F5D41A2A1A659B2000780B9A /* INVMergedFetchedResultsControler.h */,
+				F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */,
+				F5D41A2D1A65A40E00780B9A /* INVBlockUtils.h */,
+				F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1037,6 +1047,7 @@
 				F5789D6E1A642A5500D8CEE7 /* INVModelViewerViewController.m in Sources */,
 				0278BADA1A655CB4009E0E27 /* INVSignUpTableViewController.m in Sources */,
 				F5789D4F1A642A5500D8CEE7 /* fp16.c in Sources */,
+				F5D41A2F1A65A40E00780B9A /* INVBlockUtils.m in Sources */,
 				F5789D451A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.m in Sources */,
 				F5789D7A1A642A5500D8CEE7 /* INVRuleSetFilesListTableViewController.m in Sources */,
 				F5789D621A642A5500D8CEE7 /* INVSettingsViewController.m in Sources */,
@@ -1067,6 +1078,7 @@
 				F5789D5C1A642A5500D8CEE7 /* INVSearchViewQuickSearchDataSource.m in Sources */,
 				F5789D751A642A5500D8CEE7 /* INVStockThumbnailCollectionViewController.m in Sources */,
 				F5789D691A642A5500D8CEE7 /* INVCustomViewController.m in Sources */,
+				F5D41A2C1A659B2000780B9A /* INVMergedFetchedResultsControler.m in Sources */,
 				F5789D791A642A5500D8CEE7 /* INVRuleInstanceTableViewController.m in Sources */,
 				F5789D481A642A5500D8CEE7 /* INVEmptySegue.m in Sources */,
 				F5789D461A642A5500D8CEE7 /* INVTextViewTableViewCell.m in Sources */,

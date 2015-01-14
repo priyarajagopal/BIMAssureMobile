@@ -221,6 +221,10 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 /**
  Asynchornously, accept invite for user.  The user must have succesfully into the account via signIntoAccount:withCompletionBlock: to view invites for the account. The list of pending invitations can be retrieved using getPendingInvitationsForSignedInUserWithCompletionBlock: call.
  
+ @param invitationCode The invitation code
+ 
+ @param userEmail The email address of the user accepting the invitation
+ 
  @param handler The completion handler that returns error object if there was any error.
  
  @see -signIntoAccount:withCompletionBlock:
@@ -228,7 +232,7 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  @see accountManager
  
  */
--(void)acceptInvite:(NSString*)invitationCode withCompletionBlock:(CompletionHandler) handler;
+-(void)acceptInvite:(NSString*)invitationCode forUser:(NSString*)userEmail withCompletionBlock:(CompletionHandler) handler;
 
 
 /**
