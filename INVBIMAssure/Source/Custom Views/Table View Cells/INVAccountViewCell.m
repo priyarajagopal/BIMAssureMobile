@@ -30,6 +30,8 @@
         self.projectStatusLabel.text = self.account.disabled.boolValue ?
                     NSLocalizedString(@"ACCOUNT_STATUS_DISABLED", nil) :
                     NSLocalizedString(@"ACCOUNT_STATUS_ACTIVE", nil);
+        
+        self.projectStatusLabel.textColor = self.account.disabled.boolValue ? [UIColor redColor] : [UIColor greenColor];
     
         if (self.descriptionLabel.text.length == 0) {
             self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
@@ -48,6 +50,7 @@
         self.nameLabel.text = self.invite.accountName;
         self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
         self.projectStatusLabel.text = NSLocalizedString(@"ACCOUNT_STATUS_INVITE", nil);
+        self.projectStatusLabel.textColor = [UIColor orangeColor];
         
         self.accessoryLabel.text = @"";
     }
