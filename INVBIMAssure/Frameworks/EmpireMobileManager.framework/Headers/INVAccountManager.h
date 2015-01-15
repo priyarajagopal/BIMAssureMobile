@@ -15,6 +15,7 @@
 #import "INVSignedInAccount.h"
 #import "INVAccountMembership.h"
 #import "INVInvite.h"
+#import "INVUserInvite.h"
 
 @interface INVAccountManager : NSObject
 
@@ -49,7 +50,7 @@
 /**
  List of pending invites to account for currently signed in user
  */
-@property (nonatomic,readonly,copy)INVInviteArray accountInvitesForUser;
+@property (nonatomic,readonly,copy)INVUserInviteArray accountInvitesForUser;
 
 /**
  List of pending invites for account

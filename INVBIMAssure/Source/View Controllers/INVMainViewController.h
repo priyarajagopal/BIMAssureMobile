@@ -9,9 +9,13 @@
 #import "INVCustomViewController.h"
 
 @interface INVMainViewController : INVCustomViewController
+
 @property (weak, nonatomic) IBOutlet UIView *detailContainerView;
 @property (weak, nonatomic) IBOutlet UIView *mainMenuContainerView;
+
 @property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *infoTransitionObject;
 @property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *userMgmtTransitionObject;
+@property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *notificationsTransitionObject;
+
 -(IBAction)done:(UIStoryboardSegue*)segue;
 @end

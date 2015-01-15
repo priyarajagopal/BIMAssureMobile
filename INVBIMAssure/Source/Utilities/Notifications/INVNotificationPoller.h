@@ -26,6 +26,7 @@ extern NSString *const INVNotificationPoller_ChangesKey;
 @interface INVNotificationPoller : NSObject
 
 +(instancetype) instance;
+-(NSArray *) allNotifications;
 
 -(void) beginPolling;
 -(void) endPolling;

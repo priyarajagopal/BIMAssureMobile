@@ -100,7 +100,7 @@
 "ACCOUNT_STATUS_INVITE"="Invited";
 "ACCOUNT_DESCRITPION_UNAVAILABLE"="Account description unavailable.";
 
-"ACCOUNT_INVITE_NOTIFICATION_RECIEVED_TITLE"="Invited to account '%@' recieved";
+"ACCOUNT_INVITE_NOTIFICATION_RECIEVED_TITLE"="Invitation to account '%@' recieved";
 "ACCOUNT_INVITE_NOTIFICATION_ACCEPTED_TITLE"="Accepted invitation to account '%@'";
 
 "SETTINGS"="Settings";

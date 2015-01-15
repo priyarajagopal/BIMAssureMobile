@@ -41,6 +41,7 @@ NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_Chang
     dispatch_source_t _pollingTimer;
     
     NSMutableArray *_dataSources;
+    NSMutableArray *_notifications;
 }
 
 +(instancetype) instance {
@@ -70,6 +71,7 @@ NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_Chang
         });
         
         _dataSources = [NSMutableArray new];
+        _notifications = [NSMutableArray new];
         
         [self restartTimer];
     }
@@ -79,17 +81,30 @@ NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_Chang
 
 -(void) pollForNotifications {
     for (INVNotificationPollerDataSource *dataSource in _dataSources) {
-        [dataSource checkForNewData:^(NSArray *newData) {
-            if (newData.count) {
+        [dataSource checkForNewData:^(NSArray *changes) {
+            NSMutableArray *newObjects = [changes mutableCopy];
+            NSMutableArray *removedObjects = [changes mutableCopy];
+            
+            [newObjects removeObjectsInArray:self->_notifications];
+            [removedObjects removeObjectsInArray:newObjects];
+            
+            [self->_notifications removeObjectsInArray:removedObjects];
+            [self->_notifications addObjectsFromArray:newObjects];
+            
+            if (changes.count) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:INVNotificationPoller_DidRecieveNotificationNotification
                                                                     object:self
                                                                   userInfo:@{
                                                                         INVNotificationPoller_DataSourceKey: dataSource,
-                                                                        INVNotificationPoller_ChangesKey: newData
+                                                                        INVNotificationPoller_ChangesKey: changes
                                                                     }];
             }
         }];
     }
+}
+
+-(NSArray *) allNotifications {
+    return [_notifications copy];
 }
 
 -(void) beginPolling {

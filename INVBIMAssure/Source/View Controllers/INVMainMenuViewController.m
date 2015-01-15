@@ -17,15 +17,18 @@ NSString* const KVO_INVOnInfoMenuSelected = @"infoMenuSelected";
 NSString* const KVO_INVOnProjectsMenuSelected = @"projectsMenuSelected";
 NSString* const KVO_INVOnLogoutMenuSelected = @"logoutMenuSelected";
 NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
+NSString* const KVO_INVOnNotificationsMenuSelected = @"notificationsMenuSelected";
 
 #pragma mark - private interface
 @interface INVMainMenuViewController ()
-@property (nonatomic,assign)BOOL accountsMenuSelected;
-@property (nonatomic,assign)BOOL userProfileMenuSelected;
-@property (nonatomic,assign)BOOL infoMenuSelected;
-@property (nonatomic,assign)BOOL projectsMenuSelected;
-@property (nonatomic,assign)BOOL logoutMenuSelected;
-@property (nonatomic,assign)BOOL manageUsersMenuSelected;
+
+@property (nonatomic,assign) BOOL accountsMenuSelected;
+@property (nonatomic,assign) BOOL userProfileMenuSelected;
+@property (nonatomic,assign) BOOL infoMenuSelected;
+@property (nonatomic,assign) BOOL projectsMenuSelected;
+@property (nonatomic,assign) BOOL logoutMenuSelected;
+@property (nonatomic,assign) BOOL manageUsersMenuSelected;
+@property (nonatomic,assign) BOOL notificationsMenuSelected;
 
 @property IBOutlet UIButton *notificationsButton;
 @property IBOutlet UILabel *notificationsBadgeLabel;
@@ -33,9 +36,7 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
 @end
 
 #pragma mark - public implementation
-@implementation INVMainMenuViewController {
-    NSMutableArray *_pendingAlerts;
-}
+@implementation INVMainMenuViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,9 +46,7 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
     
     [self attachToPoller];
     
-    self.notificationsBadgeLabel.hidden = YES;
-    
-    self.notificationsBadgeLabel.layer.cornerRadius = 10;
+    self.notificationsBadgeLabel.layer.cornerRadius = 15;
     self.notificationsBadgeLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.notificationsBadgeLabel.layer.borderWidth = 2;
     self.notificationsBadgeLabel.layer.masksToBounds = YES;
@@ -72,18 +71,19 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
 */
 
 -(void) attachToPoller {
-    _pendingAlerts = [NSMutableArray new];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handlePendingInvite:)
                                                  name:INVNotificationPoller_DidRecieveNotificationNotification
                                                object:nil];
+    
+    [self handlePendingInvite:nil];
 }
 
 -(void) handlePendingInvite:(NSNotification *) notification {
-    [_pendingAlerts addObjectsFromArray:notification.userInfo[INVNotificationPoller_ChangesKey]];
+    NSArray *notifications = [[INVNotificationPoller instance] allNotifications];
     
-    self.notificationsBadgeLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long) _pendingAlerts.count];
+    self.notificationsBadgeLabel.hidden = notifications.count == 0;
+    self.notificationsBadgeLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long) notifications.count];
 }
 
 #pragma mark - UIEvent handlers
@@ -110,6 +110,10 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
 
 - (IBAction)onManageUsers:(UIButton *)sender {
     self.manageUsersMenuSelected = YES;
+}
+
+-(IBAction) onNotificationsTapped:(id)sender {
+    self.notificationsMenuSelected = YES;
 }
 
 @end

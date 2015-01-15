@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		025489401A6726A500EE012D /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0254893B1A6726A500EE012D /* Account.storyboard */; };
-		025489411A6726A500EE012D /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0254893C1A6726A500EE012D /* Login.storyboard */; };
-		025489421A6726A500EE012D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0254893D1A6726A500EE012D /* Main.storyboard */; };
-		025489431A6726A500EE012D /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0254893E1A6726A500EE012D /* Settings.storyboard */; };
-		025489441A6726A500EE012D /* UserManagement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0254893F1A6726A500EE012D /* UserManagement.storyboard */; };
 		025489481A67332D00EE012D /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 025489461A67332500EE012D /* EmpireMobileManager.framework */; };
 		025489491A67332D00EE012D /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 025489461A67332500EE012D /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0278BAD51A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */; };
@@ -29,19 +24,22 @@
 		F5024AD21A66CF11002EEE5F /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D51D1A6447CF007A2BDC /* OpenCTM.framework */; };
 		F5024AD31A66CF11002EEE5F /* OpenCTM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F539D51D1A6447CF007A2BDC /* OpenCTM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F5024AE91A66E7EE002EEE5F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5024AE71A66E7EE002EEE5F /* LaunchScreen.xib */; };
-		F5024AEF1A66E7FC002EEE5F /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5024AEC1A66E7FC002EEE5F /* Account.storyboard */; };
-		F5024AF01A66E7FC002EEE5F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5024AED1A66E7FC002EEE5F /* Login.storyboard */; };
-		F5024AF11A66E7FC002EEE5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5024AEE1A66E7FC002EEE5F /* Main.storyboard */; };
 		F5024AFD1A6808FA002EEE5F /* INVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024AFA1A6808FA002EEE5F /* INVNotification.m */; };
 		F5024AFE1A6808FA002EEE5F /* INVNotificationPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024AFC1A6808FA002EEE5F /* INVNotificationPoller.m */; };
 		F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */; };
-		F5024B031A680C27002EEE5F /* Alerts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5024B021A680C27002EEE5F /* Alerts.storyboard */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
 		F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */; };
 		F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */; };
 		F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5181A644771007A2BDC /* libPods-VENTokenField.a */; };
 		F539D53B1A644C1C007A2BDC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F539D5391A644C1C007A2BDC /* Localizable.strings */; };
 		F539D53E1A645497007A2BDC /* Stock Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F539D53D1A645497007A2BDC /* Stock Thumbnails */; };
+		F5426D501A680EA30040B2B5 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D4B1A680EA30040B2B5 /* Account.storyboard */; };
+		F5426D511A680EA30040B2B5 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D4C1A680EA30040B2B5 /* Login.storyboard */; };
+		F5426D521A680EA30040B2B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D4D1A680EA30040B2B5 /* Main.storyboard */; };
+		F5426D531A680EA30040B2B5 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D4E1A680EA30040B2B5 /* Settings.storyboard */; };
+		F5426D541A680EA30040B2B5 /* UserManagement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */; };
+		F5426D561A680F3F0040B2B5 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D551A680F3F0040B2B5 /* Notifications.storyboard */; };
+		F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5426D591A6816D40040B2B5 /* INVNotificationsTableViewController.m */; };
 		F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C841A6429F200D8CEE7 /* Crashlytics.framework */; };
 		F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C861A6429F200D8CEE7 /* Fabric.framework */; };
 		F5789D351A642A5500D8CEE7 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C931A642A5500D8CEE7 /* INVDefaultAccountAlertView.m */; };
@@ -163,11 +161,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0254893B1A6726A500EE012D /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Account.storyboard; path = Storyboards/Account.storyboard; sourceTree = "<group>"; };
-		0254893C1A6726A500EE012D /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Login.storyboard; path = Storyboards/Login.storyboard; sourceTree = "<group>"; };
-		0254893D1A6726A500EE012D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Storyboards/Main.storyboard; sourceTree = "<group>"; };
-		0254893E1A6726A500EE012D /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Settings.storyboard; path = Storyboards/Settings.storyboard; sourceTree = "<group>"; };
-		0254893F1A6726A500EE012D /* UserManagement.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserManagement.storyboard; path = Storyboards/UserManagement.storyboard; sourceTree = "<group>"; };
 		025489461A67332500EE012D /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		0278BAD31A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSubscriptionLevelsTableViewCell.h; sourceTree = "<group>"; };
 		0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSubscriptionLevelsTableViewCell.m; sourceTree = "<group>"; };
@@ -195,16 +188,12 @@
 		A017907C030AFB8C7812E225 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E081133EAE50CBE008BE55BB /* Pods.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.prod.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.prod.xcconfig"; sourceTree = "<group>"; };
 		F5024AE71A66E7EE002EEE5F /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		F5024AEC1A66E7FC002EEE5F /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
-		F5024AED1A66E7FC002EEE5F /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		F5024AEE1A66E7FC002EEE5F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F5024AF91A6808FA002EEE5F /* INVNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVNotification.h; sourceTree = "<group>"; };
 		F5024AFA1A6808FA002EEE5F /* INVNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotification.m; sourceTree = "<group>"; };
 		F5024AFB1A6808FA002EEE5F /* INVNotificationPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVNotificationPoller.h; sourceTree = "<group>"; };
 		F5024AFC1A6808FA002EEE5F /* INVNotificationPoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotificationPoller.m; sourceTree = "<group>"; };
 		F5024AFF1A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVPendingInvitesNotificationDataSource.h; sourceTree = "<group>"; };
 		F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVPendingInvitesNotificationDataSource.m; sourceTree = "<group>"; };
-		F5024B021A680C27002EEE5F /* Alerts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Alerts.storyboard; sourceTree = "<group>"; };
 		F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "../../Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
 		F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "../../Pods/build/Debug-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
 		F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "../../Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
@@ -212,6 +201,14 @@
 		F539D51D1A6447CF007A2BDC /* OpenCTM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenCTM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F539D53A1A644C1C007A2BDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F539D53D1A645497007A2BDC /* Stock Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Stock Thumbnails"; sourceTree = "<group>"; };
+		F5426D4B1A680EA30040B2B5 /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
+		F5426D4C1A680EA30040B2B5 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		F5426D4D1A680EA30040B2B5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F5426D4E1A680EA30040B2B5 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserManagement.storyboard; sourceTree = "<group>"; };
+		F5426D551A680F3F0040B2B5 /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
+		F5426D581A6816D40040B2B5 /* INVNotificationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVNotificationsTableViewController.h; sourceTree = "<group>"; };
+		F5426D591A6816D40040B2B5 /* INVNotificationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotificationsTableViewController.m; sourceTree = "<group>"; };
 		F5789C841A6429F200D8CEE7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F5789C861A6429F200D8CEE7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F5789C921A642A5500D8CEE7 /* INVDefaultAccountAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVDefaultAccountAlertView.h; sourceTree = "<group>"; };
@@ -421,16 +418,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		025489451A6726AB00EE012D /* storyboards */ = {
+		025489451A6726AB00EE012D /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				0254893B1A6726A500EE012D /* Account.storyboard */,
-				0254893C1A6726A500EE012D /* Login.storyboard */,
-				0254893D1A6726A500EE012D /* Main.storyboard */,
-				0254893E1A6726A500EE012D /* Settings.storyboard */,
-				0254893F1A6726A500EE012D /* UserManagement.storyboard */,
+				F5426D4B1A680EA30040B2B5 /* Account.storyboard */,
+				F5426D4C1A680EA30040B2B5 /* Login.storyboard */,
+				F5426D4D1A680EA30040B2B5 /* Main.storyboard */,
+				F5426D4E1A680EA30040B2B5 /* Settings.storyboard */,
+				F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */,
+				F5426D551A680F3F0040B2B5 /* Notifications.storyboard */,
 			);
-			name = storyboards;
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		0278BB041A66BD0F009E0E27 /* Data Managers */ = {
@@ -492,17 +490,6 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
-		F5024AEB1A66E7FC002EEE5F /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				F5024AEC1A66E7FC002EEE5F /* Account.storyboard */,
-				F5024AED1A66E7FC002EEE5F /* Login.storyboard */,
-				F5024AEE1A66E7FC002EEE5F /* Main.storyboard */,
-				F5024B021A680C27002EEE5F /* Alerts.storyboard */,
-			);
-			path = Storyboards;
-			sourceTree = "<group>";
-		};
 		F5024AF81A6808D8002EEE5F /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -522,6 +509,15 @@
 				F539D5391A644C1C007A2BDC /* Localizable.strings */,
 			);
 			path = Localized;
+			sourceTree = "<group>";
+		};
+		F5426D571A6816B40040B2B5 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				F5426D581A6816D40040B2B5 /* INVNotificationsTableViewController.h */,
+				F5426D591A6816D40040B2B5 /* INVNotificationsTableViewController.m */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		F5789C901A642A5500D8CEE7 /* Source */ = {
@@ -711,6 +707,7 @@
 		F5789CEF1A642A5500D8CEE7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F5426D571A6816B40040B2B5 /* Notifications */,
 				F5789CF01A642A5500D8CEE7 /* Account */,
 				F5789CFF1A642A5500D8CEE7 /* Base View Controllers  */,
 				F5789D0E1A642A5500D8CEE7 /* Packages */,
@@ -824,7 +821,7 @@
 		F5789D891A642A6200D8CEE7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				025489451A6726AB00EE012D /* storyboards */,
+				025489451A6726AB00EE012D /* Storyboards */,
 				F539D52E1A64495D007A2BDC /* Localized */,
 				F5789D8A1A642A6200D8CEE7 /* Images.xcassets */,
 				F5789D8B1A642A6200D8CEE7 /* Info.plist */,
@@ -985,39 +982,39 @@
 				F5789DC01A642A6200D8CEE7 /* invicara_config_server.cer in Resources */,
 				F5789DBC1A642A6200D8CEE7 /* INVSearchView.xib in Resources */,
 				F5789DB61A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
-				025489441A6726A500EE012D /* UserManagement.storyboard in Resources */,
 				F5789DAD1A642A6200D8CEE7 /* Images.xcassets in Resources */,
 				0278BAD71A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */,
 				F5789DB11A642A6200D8CEE7 /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
+				F5426D561A680F3F0040B2B5 /* Notifications.storyboard in Resources */,
 				F5789DBF1A642A6200D8CEE7 /* INVTokensTableViewCell.xib in Resources */,
-				F5024B031A680C27002EEE5F /* Alerts.storyboard in Resources */,
+				F5426D511A680EA30040B2B5 /* Login.storyboard in Resources */,
 				F5789DC11A642A6200D8CEE7 /* ServerConfig-Dev.xcconfig in Resources */,
 				F5789DB51A642A6200D8CEE7 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
 				F5024AE91A66E7EE002EEE5F /* LaunchScreen.xib in Resources */,
 				F5789DC41A642A6200D8CEE7 /* Startup.json in Resources */,
 				F5789DB41A642A6200D8CEE7 /* INVRuleDefinitionTableViewCell.xib in Resources */,
+				F5426D531A680EA30040B2B5 /* Settings.storyboard in Resources */,
 				F539D53B1A644C1C007A2BDC /* Localizable.strings in Resources */,
 				F5789DC51A642A6200D8CEE7 /* ModelViewer.fsh in Resources */,
 				F5789DB31A642A6200D8CEE7 /* INVProjectTableViewCell.xib in Resources */,
 				F5789DBE1A642A6200D8CEE7 /* INVTextViewTableViewCell.xib in Resources */,
 				F5789DB71A642A6200D8CEE7 /* INVRuleInstanceNameTableViewCell.xib in Resources */,
 				0278BAE31A655D03009E0E27 /* INVGenericSwitchTableViewCell.xib in Resources */,
+				F5426D521A680EA30040B2B5 /* Main.storyboard in Resources */,
 				F5789DC61A642A6200D8CEE7 /* ModelViewer.vsh in Resources */,
 				F5789DBD1A642A6200D8CEE7 /* INVStockThumbnailCollectionViewCell.xib in Resources */,
 				F5789DB21A642A6200D8CEE7 /* INVProjectFileCollectionViewCell.xib in Resources */,
-				025489401A6726A500EE012D /* Account.storyboard in Resources */,
-				025489421A6726A500EE012D /* Main.storyboard in Resources */,
 				F5789DAF1A642A6200D8CEE7 /* INVAccountViewCell.xib in Resources */,
 				0278BAE41A655D03009E0E27 /* INVGenericTextEntryTableViewCell.xib in Resources */,
 				F5789DB91A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib in Resources */,
 				F5789DC21A642A6200D8CEE7 /* ServerConfig-Prod.xcconfig in Resources */,
 				F539D53E1A645497007A2BDC /* Stock Thumbnails in Resources */,
+				F5426D501A680EA30040B2B5 /* Account.storyboard in Resources */,
 				F5789DB01A642A6200D8CEE7 /* INVDefaultAccountAlertView.xib in Resources */,
+				F5426D541A680EA30040B2B5 /* UserManagement.storyboard in Resources */,
 				F5789DC31A642A6200D8CEE7 /* ServerConfig-QA.xcconfig in Resources */,
 				F5789DBB1A642A6200D8CEE7 /* INVRunRuleSetHeaderView.xib in Resources */,
 				F5789DB81A642A6200D8CEE7 /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
-				025489411A6726A500EE012D /* Login.storyboard in Resources */,
-				025489431A6726A500EE012D /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1181,6 +1178,7 @@
 				F5789D5D1A642A5500D8CEE7 /* INVSearchViewTagsDataSource.m in Sources */,
 				F5789D741A642A5500D8CEE7 /* INVProjectsTableViewController.m in Sources */,
 				F5789D521A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
+				F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */,
 				F5789D391A642A5500D8CEE7 /* INVSearchView.m in Sources */,
 				F5789D681A642A5500D8CEE7 /* INVCustomTableViewController.m in Sources */,
 				F5789D6A1A642A5500D8CEE7 /* INVMainMenuViewController.m in Sources */,

@@ -14,6 +14,7 @@
 #import <Crashlytics/Crashlytics.h>
 
 #import "INVNotificationPoller.h"
+#import "INVPendingInvitesNotificationDataSource.h"
 
 @interface AppDelegate ()
 @property (nonatomic,assign)BOOL registeredForLoginEvents;
@@ -191,6 +192,7 @@
 }
 
 -(void) prepareNotificationPolling {
+    [[INVNotificationPoller instance] addDataSource:[INVPendingInvitesNotificationDataSource new]];
     [[INVNotificationPoller instance] beginPolling];
 }
 

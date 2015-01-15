@@ -86,14 +86,14 @@
         return;
     }
     self.registeredForMainMenuEvents = YES;
+    
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnAccountMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnProjectsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnInfoMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected options:NSKeyValueObservingOptionNew context:nil];
-
-    
+    [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnNotificationsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
 }
 
 -(void)deregisterMainMenuObservers {
@@ -101,12 +101,14 @@
         return;
     }
     self.registeredForMainMenuEvents = NO;
+    
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnAccountMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnProjectsMenuSelected ];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnUserProfileMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnInfoMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected];
+    [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnNotificationsMenuSelected];
 }
 
 - (void)swapFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
@@ -145,7 +147,10 @@
     }
     if ([keyPath isEqualToString:KVO_INVOnInfoMenuSelected]) {
         [self.infoTransitionObject perform:nil];
-        
+    }
+    
+    if ([keyPath isEqualToString:KVO_INVOnNotificationsMenuSelected]) {
+        [self.notificationsTransitionObject perform:nil];
     }
 }
 
