@@ -103,9 +103,9 @@
 "SETTINGS"="Settings";
 "APP_VERSION"="App Version: %1@(%2@)";
 "SIGN_UP"="Sign Up";
-"FULL_NAME"="Full Name";
-"EMAIL"="Email";
-"PASSWORD"="Password";
+"FULL_NAME"="Enter Full Name";
+"EMAIL"="Enter Email Address";
+"PASSWORD"="Enter Password";
 "HAVE_INVITATION_CODE"="Have Invitation Code to an Account?";
 "INVITATION_CODE"="Enter the Invitation code";
 "SIGNING_UP"="Signing Up";
@@ -113,4 +113,4 @@
 "SIGNUP_FAILURE"="User Signup Error";
 "GENERIC_SIGNUP_FAILURE_MESSAGE"="There was an error while trying to sign up new user. Please try again";
 "CREATE_USER_ACCOUNT"="Create User Account";
-
+"ACCOUNT_NAME"="Enter name of account";

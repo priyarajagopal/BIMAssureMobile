@@ -10,6 +10,7 @@
 #import "INVGenericTextEntryTableViewCell.h"
 #import "INVGenericSwitchTableViewCell.h"
 #import "INVSubscriptionLevelsTableViewCell.h"
+#import "INVTextViewTableViewCell.h"
 
 NSString* const KVO_INVSignupSuccess = @"signupSuccess";
 
@@ -17,23 +18,30 @@ const NSInteger DEFAULT_CELL_HEIGHT = 50;
 const NSInteger SUBSCRIPTION_CELL_HEIGHT = 207;
 const NSInteger DEFAULT_NUM_CELLS = 5;
 
-const NSInteger NUM_SECTIONS = 2;
+const NSInteger NUM_SECTIONS = 3;
 const NSInteger NUM_ROWS_USERDETAILS = 3;
-const NSInteger NUM_ROWS_ACCOUNT     = 2;
+const NSInteger NUM_ROWS_TOGGLESWITCH = 1;
+const NSInteger NUM_ROWS_ACCOUNT_INVITATIONCODE     = 1;
+const NSInteger NUM_ROWS_ACCOUNT_NOINVITATIONCODE    = 3;
 
-const NSInteger SECTIONINDEX_USERDETAILS = 0; // user details
-const NSInteger SECTIONINDEX_ACCOUNT     = 1; // subscription info or invitation code as appropriate
+const NSInteger SECTIONINDEX_USERDETAILS  = 0; // user details
+const NSInteger SECTIONINDEX_TOGGLESWITCH = 1; // toggle
+const NSInteger SECTIONINDEX_ACCOUNT      = 2; // subscription info or invitation code as appropriate
 
 const NSInteger CELLINDEX_USERNAME         = 0;
 const NSInteger CELLINDEX_EMAIL            = 1;
 const NSInteger CELLINDEX_PASSWORD         = 2;
 
-const NSInteger CELLINDEX_SUBSCRIPTIONTYPE = 1;
-const NSInteger CELLINDEX_INVITATIONCODE   = 1;
-const NSInteger CELLINDEX_TOGGLE           = 0;
+const NSInteger CELLINDEX_TOGGLE               = 0;
+const NSInteger CELLINDEX_ACCOUNTNAME          = 0;
+const NSInteger CELLINDEX_ACCOUNTDESCRIPTION   = 1;
+const NSInteger CELLINDEX_SUBSCRIPTIONTYPE     = 2;
+const NSInteger CELLINDEX_INVITATIONCODE       = 0;
 
-@interface INVSignUpTableViewController()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface INVSignUpTableViewController()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, INVTextViewTableViewCellDelegate>
 @property (nonatomic, assign)BOOL invitationCodeAvailable;
+@property (nonatomic, weak)  UITextField* acntNameTextField;
+@property (nonatomic, weak)  UITextView*  acntDescTextView;
 @property (nonatomic, weak)  UITextField* userNameTextField;
 @property (nonatomic, weak)  UITextField* emailTextField;
 @property (nonatomic, weak)  UITextField* passwordTextField;
@@ -41,7 +49,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 @property (nonatomic, weak)  UISwitch* invitationSwitch;
 @property (nonatomic, weak)  INVSubscriptionLevelsTableViewCell* subscriptionCell;
 @property (nonatomic, strong) UIAlertController* signupFailureAlertController;
-
+@property (nonatomic, assign) NSInteger descRowHeight;
 
 @end
 
@@ -56,6 +64,12 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
     UINib* userCellNib = [UINib nibWithNibName:@"INVGenericTextEntryTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:userCellNib forCellReuseIdentifier:@"UserCell"];
     
+    UINib* acntCellNib = [UINib nibWithNibName:@"INVGenericTextEntryTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
+    [self.tableView registerNib:acntCellNib forCellReuseIdentifier:@"AccountNameCell"];
+    
+    UINib* descCellNib = [UINib nibWithNibName:@"INVTextViewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
+    [self.tableView registerNib:descCellNib forCellReuseIdentifier:@"AccountDescCell"];
+    
     UINib* invCellNib = [UINib nibWithNibName:@"INVGenericTextEntryTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:invCellNib forCellReuseIdentifier:@"InvitationCodeCell"];
 
@@ -65,7 +79,7 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
     UINib* switchCellNib = [UINib nibWithNibName:@"INVGenericSwitchTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:switchCellNib forCellReuseIdentifier:@"ToggleCell"];
     
-
+    self.descRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.refreshControl = nil;
@@ -92,10 +106,20 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == SECTIONINDEX_ACCOUNT) {
-        return NUM_ROWS_ACCOUNT;
+        if (self.invitationCodeAvailable) {
+            return NUM_ROWS_ACCOUNT_INVITATIONCODE;
+        }
+        else {
+            return NUM_ROWS_ACCOUNT_NOINVITATIONCODE;
+        }
     }
     else if (section == SECTIONINDEX_USERDETAILS) {
+      
         return NUM_ROWS_USERDETAILS;
+    }
+    else if (section == SECTIONINDEX_TOGGLESWITCH) {
+        
+        return NUM_ROWS_TOGGLESWITCH;
     }
     return 0;
 }
@@ -131,38 +155,65 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
             
         }
         cell.textFieldEntry.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
         
     }
-    
+    if (indexPath.section == SECTIONINDEX_TOGGLESWITCH) {
+        INVGenericSwitchTableViewCell* cell = (INVGenericSwitchTableViewCell*) [self.tableView dequeueReusableCellWithIdentifier:@"ToggleCell"];
+        
+        self.invitationSwitch = cell.toggleSwitch;
+        [self.invitationSwitch addTarget:self action:@selector(onInvitationSwitchToggled:) forControlEvents:UIControlEventValueChanged];
+        [self.invitationSwitch setOn:self.invitationCodeAvailable];
+        cell.toggleLabel.text = NSLocalizedString(@"HAVE_INVITATION_CODE", nil);
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+ 
+    }
     if (indexPath.section == SECTIONINDEX_ACCOUNT) {
-        if (indexPath.row == CELLINDEX_TOGGLE) {
-            INVGenericSwitchTableViewCell* cell = (INVGenericSwitchTableViewCell*) [self.tableView dequeueReusableCellWithIdentifier:@"ToggleCell"];
+     
+        if (self.invitationCodeAvailable) {
+            INVGenericTextEntryTableViewCell* cell = (INVGenericTextEntryTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"InvitationCodeCell"];
+            FAKFontAwesome *ckIcon = [FAKFontAwesome checkIconWithSize:25];
+            cell.labelHeading.attributedText = ckIcon.attributedString;
+            cell.textFieldEntry.placeholder = NSLocalizedString(@"INVITATION_CODE", nil);
+            cell.textFieldEntry.delegate = self;
+            self.invitationCodeTextField = cell.textFieldEntry;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            self.invitationSwitch = cell.toggleSwitch;
-            [self.invitationSwitch addTarget:self action:@selector(onInvitationSwitchToggled:) forControlEvents:UIControlEventValueChanged];
-            [self.invitationSwitch setOn:NO];
-            cell.toggleLabel.text = NSLocalizedString(@"HAVE_INVITATION_CODE", nil);
             return cell;
-
+            
         }
         else {
-            if (self.invitationCodeAvailable) {
-                INVGenericTextEntryTableViewCell* cell = (INVGenericTextEntryTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"InvitationCodeCell"];
-                FAKFontAwesome *ckIcon = [FAKFontAwesome checkIconWithSize:25];
+            if (indexPath.row == CELLINDEX_ACCOUNTNAME) {
+                INVGenericTextEntryTableViewCell* cell = (INVGenericTextEntryTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"AccountNameCell"];
+                FAKFontAwesome *ckIcon = [FAKFontAwesome gearIconWithSize:25];
                 cell.labelHeading.attributedText = ckIcon.attributedString;
-                cell.textFieldEntry.placeholder = NSLocalizedString(@"INVITATION_CODE", nil);
+                cell.textFieldEntry.placeholder = NSLocalizedString(@"ACCOUNT_NAME", nil);
                 cell.textFieldEntry.delegate = self;
-                self.invitationCodeTextField = cell.textFieldEntry;
+                self.acntNameTextField = cell.textFieldEntry;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 return cell;
                 
             }
-            else {
+            if (indexPath.row == CELLINDEX_ACCOUNTDESCRIPTION) {
+                INVTextViewTableViewCell* cell = (INVTextViewTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"AccountDescCell"];
+                self.acntDescTextView = cell.textView;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.cellDelegate = self;
+                return cell;
+                
+            }
+            if (indexPath.row == CELLINDEX_SUBSCRIPTIONTYPE) {
+                
                 self.subscriptionCell = (INVSubscriptionLevelsTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"SubscriptionCell"];
+                self.subscriptionCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return self.subscriptionCell;
-             }
+            }
         }
+        
     }
     
     return nil;
@@ -171,9 +222,15 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.invitationCodeAvailable && indexPath.section == SECTIONINDEX_ACCOUNT && indexPath.row == CELLINDEX_SUBSCRIPTIONTYPE) {
-        return SUBSCRIPTION_CELL_HEIGHT;
+    if (!self.invitationCodeAvailable && indexPath.section == SECTIONINDEX_ACCOUNT) {
+        if (indexPath.row == CELLINDEX_SUBSCRIPTIONTYPE) {
+            return SUBSCRIPTION_CELL_HEIGHT;
+        }
+        else if (indexPath.row == CELLINDEX_ACCOUNTDESCRIPTION) {
+            return self.descRowHeight;
+        }
     }
+    
     return DEFAULT_CELL_HEIGHT;
 }
 
@@ -181,8 +238,8 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
 -(void)onInvitationSwitchToggled:(UISwitch*)sender {
     if (sender == self.invitationSwitch) {
         self.invitationCodeAvailable = self.invitationSwitch.isOn?:NO;
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:CELLINDEX_INVITATIONCODE inSection:SECTIONINDEX_ACCOUNT]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:SECTIONINDEX_ACCOUNT] withRowAnimation:UITableViewRowAnimationAutomatic];
+     }
  }
 
 #pragma mark - UITextFieldDelegate
@@ -206,7 +263,15 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
         }
     }
     else if (textField == self.passwordTextField) {
-        [self.invitationCodeTextField becomeFirstResponder];
+        if (self.invitationCodeAvailable) {
+            [self.invitationCodeTextField becomeFirstResponder];
+        }
+        else {
+            [self.acntNameTextField becomeFirstResponder];
+        }
+    }
+    else if (textField == self.acntNameTextField) {
+        [self.acntDescTextView becomeFirstResponder];
     }
     
     return YES;
@@ -235,8 +300,9 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
     _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
     NSNumber* package = @(subscriptionLevel);
 
-    NSString* accountName = [self defaultAccountName];
-    [self.globalDataManager.invServerClient signUpUserWithName:name andEmail:email andPassword:pass withAccountName:accountName accountDescription:nil subscriptionType:package withCompletionBlock:^(INVEmpireMobileError *error) {
+    NSString* accountName = self.acntNameTextField.text;
+    NSString* acntDesc = self.acntDescTextView.text;
+    [self.globalDataManager.invServerClient signUpUserWithName:name andEmail:email andPassword:pass withAccountName:accountName accountDescription:acntDesc subscriptionType:package withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideSignupProgress];
         if (!error) {
             NSLog(@"Succesfully signedup user %@ and created account %@",name,accountName);
@@ -298,7 +364,14 @@ const NSInteger CELLINDEX_TOGGLE           = 0;
     }];
 }
      
-     
+
+#pragma mark - INVTextViewTableViewCellDelegate
+-(void)cellSizeChanged:(CGSize)size withTextString:(NSString*)textStr {
+    [self.tableView beginUpdates];
+    self.descRowHeight = size.height;
+    [self.tableView endUpdates];
+}
+
 #pragma mark - UIEvent Handlers
 - (IBAction)onSignUpTapped:(UIBarButtonItem*)sender {
     if (self.invitationCodeAvailable) {
