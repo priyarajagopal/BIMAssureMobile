@@ -8,10 +8,13 @@
 
 #import "INVNotificationsTableViewController.h"
 #import "INVNotificationPoller.h"
+#import "INVNotificationTableViewCell.h"
 
 #import "INVDefaultAccountAlertView.h"
 
 @interface INVNotificationsTableViewController ()<INVDefaultAccountAlertViewDelegate>
+
+@property IBOutlet UILabel *noNotificationsLabel;
 
 @end
 
@@ -22,6 +25,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"INVNotificationTableViewCell"
+                                               bundle:[NSBundle mainBundle]]
+         forCellReuseIdentifier:@"notificationCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onNotificationRecieved:)
@@ -53,14 +60,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[INVNotificationPoller instance] allNotifications].count;
+    NSInteger count = [[INVNotificationPoller instance] allNotifications].count;
+    self.noNotificationsLabel.hidden = count > 0;
+    
+    return count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"notificationCell" forIndexPath:indexPath];
+    INVNotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"notificationCell" forIndexPath:indexPath];
     
     INVNotification *notification = [[INVNotificationPoller instance] allNotifications][indexPath.row];
-    cell.textLabel.text = [notification title];
+    cell.notification = notification;
     
     return cell;
 }
@@ -74,8 +84,9 @@
     if ([[_selectedNotification data] isKindOfClass:[INVUserInvite class]]) {
         // Handle account invite.
         _alertView = [[[NSBundle mainBundle] loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil] firstObject];
-        _alertView .delegate = self;
-        _alertView .translatesAutoresizingMaskIntoConstraints = NO;
+        _alertView.delegate = self;
+        _alertView.translatesAutoresizingMaskIntoConstraints = NO;
+        _alertView.setAsDefaultContainer.hidden = YES;
         
         [_alertView.acceptButton setTitle:NSLocalizedString(@"INVITE_ACCEPT", nil) forState:UIControlStateNormal];
         [_alertView.cancelButton setTitle:NSLocalizedString(@"CANCEL", nil) forState:UIControlStateNormal];
@@ -110,7 +121,7 @@
 }
 
 -(void) onCancelLogintoAccount {
-    
+    [_alertView removeFromSuperview];
 }
 
 @end

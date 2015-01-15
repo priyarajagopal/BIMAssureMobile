@@ -12,6 +12,7 @@
 
 @property NSString *title;
 @property id data;
+@property NSDate *creationDate;
 
 +(id) notificationWithTitle:(NSString *) title andData:(id) data;
 -(id) initWithTitle:(NSString *) title andData:(id) data;

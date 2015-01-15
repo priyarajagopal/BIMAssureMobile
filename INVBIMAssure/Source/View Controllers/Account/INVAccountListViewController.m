@@ -188,7 +188,8 @@ static NSString * const reuseIdentifier = @"Cell";
             
             [self showSaveAsDefaultAlertWithMessage:message
                                andAcceptButtonTitle:NSLocalizedString(@"LOG_INTO_ACCOUNT", nil)
-                               andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)];
+                               andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)
+                                  showDefaultOption:YES];
         }
     }
     
@@ -200,7 +201,8 @@ static NSString * const reuseIdentifier = @"Cell";
         
         [self showSaveAsDefaultAlertWithMessage:message
                            andAcceptButtonTitle:NSLocalizedString(@"INVITE_ACCEPT", nil)
-                           andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)];
+                           andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)
+                              showDefaultOption:NO];
     }
 }
 
@@ -430,7 +432,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
--(void)showSaveAsDefaultAlertWithMessage:(NSString*)message andAcceptButtonTitle:(NSString *) acceptButtonTitle andCancelButtonTitle:(NSString *) cancelButtonTitle {
+-(void)showSaveAsDefaultAlertWithMessage:(NSString*)message andAcceptButtonTitle:(NSString *) acceptButtonTitle andCancelButtonTitle:(NSString *) cancelButtonTitle showDefaultOption:(BOOL) showsDefaultOption {
     if (!self.alertView) {
         NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil];
         self.alertView = [objects firstObject];
@@ -439,6 +441,8 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     self.alertView.alertMessage.text = message;
+    self.alertView.setAsDefaultContainer.hidden = !showsDefaultOption;
+    
     [self.alertView.acceptButton setTitle:acceptButtonTitle forState:UIControlStateNormal];
     [self.alertView.cancelButton setTitle:cancelButtonTitle forState:UIControlStateNormal];
     

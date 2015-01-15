@@ -103,6 +103,17 @@
 "ACCOUNT_INVITE_NOTIFICATION_RECIEVED_TITLE"="Invitation to account '%@' recieved";
 "ACCOUNT_INVITE_NOTIFICATION_ACCEPTED_TITLE"="Accepted invitation to account '%@'";
 
+"NOTIFICATION_CREATED_AT"="At: %@";
+
+"AGO_JUST_NOW"="Just Now";
+"AGO_SECONDS"="%ld Seconds Ago";
+"AGO_MINUTES"="%ld Minutes Ago";
+"AGO_HOURS"="%ld Hours Ago";
+"AGO_DAYS"="%ld Days Ago";
+"AGO_WEEKS"="%ld Weeks Ago";
+"AGO_MONTHS"="%ld Months Ago";
+"AGO_YEARS"="%ld Years Ago";
+
 "SETTINGS"="Settings";
 "APP_VERSION"="App Version: %1@(%2@)";
 "SIGN_UP"="Sign Up";

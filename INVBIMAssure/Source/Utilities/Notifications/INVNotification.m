@@ -18,6 +18,7 @@
     if (self = [super init]) {
         self.title = title;
         self.data = data;
+        self.creationDate = [NSDate date];
     }
     
     return self;

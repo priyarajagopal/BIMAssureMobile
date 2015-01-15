@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="44" id="axS-cc-Hq9" customClass="INVNotificationTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="355" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="axS-cc-Hq9" id="V1U-2v-DpD">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="At: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNi-Bw-mad">
+                        <rect key="frame" x="15" y="25" width="18" height="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gv-6S-kYo">
+                        <rect key="frame" x="15" y="5" width="249" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LU8-lN-sXS">
+                        <rect key="frame" x="272" y="0.0" width="50" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="K5S-y3-icJ"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4Gv-6S-kYo" firstAttribute="top" secondItem="V1U-2v-DpD" secondAttribute="top" constant="5" id="2lP-Y1-jCC"/>
+                    <constraint firstAttribute="trailing" secondItem="LU8-lN-sXS" secondAttribute="trailing" id="PPb-0l-9jb"/>
+                    <constraint firstItem="LU8-lN-sXS" firstAttribute="leading" secondItem="4Gv-6S-kYo" secondAttribute="trailing" constant="8" id="XPz-Ve-24w"/>
+                    <constraint firstItem="LU8-lN-sXS" firstAttribute="top" secondItem="V1U-2v-DpD" secondAttribute="top" id="ZU7-dd-vAP"/>
+                    <constraint firstItem="YNi-Bw-mad" firstAttribute="top" secondItem="4Gv-6S-kYo" secondAttribute="bottom" id="dSL-AU-LKq"/>
+                    <constraint firstAttribute="bottom" secondItem="YNi-Bw-mad" secondAttribute="bottom" constant="4" id="ds5-Lz-Xyh"/>
+                    <constraint firstAttribute="bottom" secondItem="LU8-lN-sXS" secondAttribute="bottom" id="rax-T4-izt"/>
+                    <constraint firstItem="YNi-Bw-mad" firstAttribute="leading" secondItem="V1U-2v-DpD" secondAttribute="leadingMargin" constant="7" id="swj-Dt-Tnd"/>
+                    <constraint firstItem="4Gv-6S-kYo" firstAttribute="leading" secondItem="V1U-2v-DpD" secondAttribute="leadingMargin" constant="7" id="u7D-qs-yl1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="createdAtLabel" destination="YNi-Bw-mad" id="GjK-sy-jQM"/>
+                <outlet property="titleLabel" destination="4Gv-6S-kYo" id="9Wv-Mz-lb9"/>
+            </connections>
+            <point key="canvasLocation" x="283.5" y="714"/>
+        </tableViewCell>
+    </objects>
+</document>

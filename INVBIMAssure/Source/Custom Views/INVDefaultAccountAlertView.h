@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *alertMessage;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-
+@property (weak, nonatomic) IBOutlet UIView *setAsDefaultContainer;
 
 - (IBAction)setAsDefaultAccountSwitchToggled:(id)sender;
 - (IBAction)onLogintoAccount:(id)sender;
