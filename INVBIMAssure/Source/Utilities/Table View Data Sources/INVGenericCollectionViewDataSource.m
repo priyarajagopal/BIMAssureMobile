@@ -55,7 +55,8 @@ const static NSString* INV_CellContextIdentifier = @"Identifier";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section  {
     id<NSFetchedResultsSectionInfo> objectInSection = self.fetchedResultsController.sections[section];
-    return objectInSection.numberOfObjects;
+    NSInteger numObjects = objectInSection.numberOfObjects;
+    return numObjects;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView  {

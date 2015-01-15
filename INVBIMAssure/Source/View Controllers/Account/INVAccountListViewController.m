@@ -266,7 +266,7 @@ static NSString * const reuseIdentifier = @"Cell";
                                                                                                         sectionNameKeyPath:nil
                                                                                                                  cacheName:nil]];
         
-        [mergedFetchResultsController addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:self.accountManager.fetchRequestForPendingInvitesForAccount
+        [mergedFetchResultsController addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:self.accountManager.fetchRequestForPendingInvitesForSignedInUser
                                                                                                       managedObjectContext:self.accountManager.managedObjectContext
                                                                                                         sectionNameKeyPath:nil
                                                                                                                  cacheName:nil]];
