@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Invicara Inc. All rights reserved.
 //
 
-#import "INVSignUpTableViewDataSource.h"
+#import "INVSignUpTableViewConfigDataSource.h"
 
 // Configuration of table
 const NSInteger CELL_HEIGHT_DEFAULT = 50;
-const NSInteger CELL_HEIGHT_SUBSCRIPTION = 207;
-const NSInteger CELL_HEIGHT_ACCOUNT      = 100;
+const NSInteger CELL_HEIGHT_SUBSCRIPTION     = 207;
+const NSInteger CELL_HEIGHT_ACCOUNTDESC      = 100;
 
 const NSInteger NUM_SECTIONS_USERSIGNUP   = 3;
 const NSInteger NUM_SECTIONS_NOUSERSIGNUP = 1;
@@ -38,11 +38,11 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
 
 
 
-@interface INVSignUpTableViewDataSource()
+@interface INVSignUpTableViewConfigDataSource()
 @property (nonatomic,assign) BOOL shouldSignUpUser;
 @end
 
-@implementation INVSignUpTableViewDataSource
+@implementation INVSignUpTableViewConfigDataSource
 -(instancetype) initWithSignUpSetting:(BOOL)shouldSignUpUser {
     self = [super init];
     if (self) {
@@ -53,6 +53,12 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
 
 -(instancetype)init {
     return [self initWithSignUpSetting:NO];
+}
+
+
+#pragma public methods
+-(NSInteger) estimatedRowHeight {
+    return CELL_HEIGHT_DEFAULT;
 }
 
 -(NSInteger) numSections {
@@ -108,18 +114,37 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
     return _INVSignUpTableSectionType_Account;
 }
 
--(_INVSignUpTableSectionType) typeOfSectionAtIndex: (NSInteger) index {
-    if (self.shouldSignUpUser) {
-        switch (index) {
-            case SECTIONINDEX_USERDETAILS:
-                return _INVSignUpTableSectionType_UserDetails;
-            case SECTIONINDEX_TOGGLESWITCH:
-                return _INVSignUpTableSectionType_ToggleSwitch;
-            case SECTIONINDEX_ACCOUNT_USERSIGNUP:
-                return _INVSignUpTableSectionType_Account;
-        }
+-(_INVSignUpTableRowType) typeOfRowForSection:(_INVSignUpTableSectionType)section AtIndex:(NSInteger) row {
+    
+    switch(section) {
+        case _INVSignUpTableSectionType_UserDetails:
+            if (row == CELLINDEX_USERNAME) {
+                return _INVSignUpTableRowType_UserName;
+            }
+            else if (row == CELLINDEX_PASSWORD) {
+                return _INVSignUpTableRowType_Password;
+            }
+            else if (row == CELLINDEX_EMAIL) {
+                return _INVSignUpTableRowType_Email;
+            }
+            break;
+        case _INVSignUpTableSectionType_ToggleSwitch:
+            return _INVSignUpTableRowType_Subscription;
+            break;
+        case _INVSignUpTableSectionType_Account:
+            if (row == CELLINDEX_ACCOUNTNAME) {
+                return _INVSignUpTableRowType_AccountName;
+            }
+            if (row == CELLINDEX_ACCOUNTDESCRIPTION) {
+                return _INVSignUpTableRowType_AccountDesc;
+            }
+            if (row == CELLINDEX_SUBSCRIPTIONTYPE) {
+                return _INVSignUpTableRowType_Subscription;
+            }
+            
+            break;
     }
-    return _INVSignUpTableSectionType_Account;
+    return  _INVSignUpTableRowType_Email;
 }
 
 -(NSInteger) heightOfRowAtIndex:(NSInteger)rowIndex forSectionType: ( _INVSignUpTableSectionType) sectionType withInvitationCodeSet:(BOOL) setInvitationCode {
@@ -128,7 +153,7 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
             return CELL_HEIGHT_SUBSCRIPTION;
         }
         else if (rowIndex == CELLINDEX_ACCOUNTDESCRIPTION) {
-            return CELLINDEX_ACCOUNTDESCRIPTION;
+            return CELL_HEIGHT_ACCOUNTDESC;
         }
     }
     return CELL_HEIGHT_DEFAULT;

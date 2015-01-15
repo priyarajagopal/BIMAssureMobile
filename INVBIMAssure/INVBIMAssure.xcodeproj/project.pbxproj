@@ -14,8 +14,8 @@
 		025489441A6726A500EE012D /* UserManagement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0254893F1A6726A500EE012D /* UserManagement.storyboard */; };
 		025489481A67332D00EE012D /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 025489461A67332500EE012D /* EmpireMobileManager.framework */; };
 		025489491A67332D00EE012D /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 025489461A67332500EE012D /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		025489811A68622700EE012D /* INVSignUpTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 025489801A68622700EE012D /* INVSignUpTableViewDataSource.m */; };
-		025489821A68622800EE012D /* INVSignUpTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 025489801A68622700EE012D /* INVSignUpTableViewDataSource.m */; };
+		025489811A68622700EE012D /* INVSignUpTableViewConfigDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */; };
+		025489821A68622800EE012D /* INVSignUpTableViewConfigDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */; };
 		0278BAD51A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */; };
 		0278BAD71A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */; };
 		0278BADA1A655CB4009E0E27 /* INVSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAD91A655CB4009E0E27 /* INVSignUpTableViewController.m */; };
@@ -164,8 +164,8 @@
 		0254893E1A6726A500EE012D /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Settings.storyboard; path = Storyboards/Settings.storyboard; sourceTree = "<group>"; };
 		0254893F1A6726A500EE012D /* UserManagement.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserManagement.storyboard; path = Storyboards/UserManagement.storyboard; sourceTree = "<group>"; };
 		025489461A67332500EE012D /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
-		0254897F1A68622700EE012D /* INVSignUpTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSignUpTableViewDataSource.h; sourceTree = "<group>"; };
-		025489801A68622700EE012D /* INVSignUpTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSignUpTableViewDataSource.m; sourceTree = "<group>"; };
+		0254897F1A68622700EE012D /* INVSignUpTableViewConfigDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSignUpTableViewConfigDataSource.h; sourceTree = "<group>"; };
+		025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSignUpTableViewConfigDataSource.m; sourceTree = "<group>"; };
 		0278BAD31A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSubscriptionLevelsTableViewCell.h; sourceTree = "<group>"; };
 		0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSubscriptionLevelsTableViewCell.m; sourceTree = "<group>"; };
 		0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVSubscriptionLevelsTableViewCell.xib; sourceTree = "<group>"; };
@@ -666,8 +666,8 @@
 				F5789CEC1A642A5500D8CEE7 /* INVSearchViewQuickSearchDataSource.m */,
 				F5789CED1A642A5500D8CEE7 /* INVSearchViewTagsDataSource.h */,
 				F5789CEE1A642A5500D8CEE7 /* INVSearchViewTagsDataSource.m */,
-				0254897F1A68622700EE012D /* INVSignUpTableViewDataSource.h */,
-				025489801A68622700EE012D /* INVSignUpTableViewDataSource.m */,
+				0254897F1A68622700EE012D /* INVSignUpTableViewConfigDataSource.h */,
+				025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */,
 			);
 			path = "Table View Data Sources";
 			sourceTree = "<group>";
@@ -1117,7 +1117,7 @@
 				F5789D5C1A642A5500D8CEE7 /* INVSearchViewQuickSearchDataSource.m in Sources */,
 				F5789D751A642A5500D8CEE7 /* INVStockThumbnailCollectionViewController.m in Sources */,
 				F5789D691A642A5500D8CEE7 /* INVCustomViewController.m in Sources */,
-				025489811A68622700EE012D /* INVSignUpTableViewDataSource.m in Sources */,
+				025489811A68622700EE012D /* INVSignUpTableViewConfigDataSource.m in Sources */,
 				F5D41A2C1A659B2000780B9A /* INVMergedFetchedResultsControler.m in Sources */,
 				F5789D791A642A5500D8CEE7 /* INVRuleInstanceTableViewController.m in Sources */,
 				F5789D481A642A5500D8CEE7 /* INVEmptySegue.m in Sources */,
@@ -1164,7 +1164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				025489821A68622800EE012D /* INVSignUpTableViewDataSource.m in Sources */,
+				025489821A68622800EE012D /* INVSignUpTableViewConfigDataSource.m in Sources */,
 				F5789DDC1A642B2900D8CEE7 /* INVBIMAssureTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -98,7 +98,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
         if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
             UINavigationController* navController = (UINavigationController*) segue.destinationViewController;
             self.signupController = (INVSignUpTableViewController*) navController.topViewController;
-            self.signupController.shouldSignUpUser = NO;
+            self.signupController.shouldSignUpUser = YES;
             [self addSignUpObservers];
 
         }

@@ -11,133 +11,9 @@
 #import "INVGenericSwitchTableViewCell.h"
 #import "INVSubscriptionLevelsTableViewCell.h"
 #import "INVTextViewTableViewCell.h"
+#import "INVSignUpTableViewConfigDataSource.h"
 
 NSString* const KVO_INVSignupSuccess = @"signupSuccess";
-
-// Configuration of table
-const NSInteger DEFAULT_CELL_HEIGHT = 50;
-const NSInteger SUBSCRIPTION_CELL_HEIGHT = 207;
-const NSInteger NUM_SECTIONS_USERSIGNUP = 3;
-const NSInteger NUM_SECTIONS_NOUSERSIGNUP = 1;
-
-const NSInteger NUM_ROWS_USERDETAILS = 3;
-const NSInteger NUM_ROWS_TOGGLESWITCH = 1;
-const NSInteger NUM_ROWS_ACCOUNT_INVITATIONCODE     = 1;
-const NSInteger NUM_ROWS_ACCOUNT_NOINVITATIONCODE    = 3;
-
-const NSInteger SECTIONINDEX_USERDETAILS  = 0; // user details
-const NSInteger SECTIONINDEX_TOGGLESWITCH = 1; // toggle
-const NSInteger SECTIONINDEX_ACCOUNT_NOUSERSIGNUP     = 0; // subscription info or invitation code as appropriate
-const NSInteger SECTIONINDEX_ACCOUNT_USERSIGNUP       = 2; // subscription info or invitation code as appropriate
-
-const NSInteger CELLINDEX_USERNAME         = 0;
-const NSInteger CELLINDEX_EMAIL            = 1;
-const NSInteger CELLINDEX_PASSWORD         = 2;
-
-const NSInteger CELLINDEX_TOGGLE               = 0;
-const NSInteger CELLINDEX_ACCOUNTNAME          = 0;
-const NSInteger CELLINDEX_ACCOUNTDESCRIPTION   = 1;
-const NSInteger CELLINDEX_SUBSCRIPTIONTYPE     = 2;
-const NSInteger CELLINDEX_INVITATIONCODE       = 0;
-
-typedef enum {
-    _INVSignUpTableSectionType_UserDetails = 0,
-    _INVSignUpTableSectionType_ToggleSwitch = 1,
-    _INVSignUpTableSectionType_Account = 2
-}_INVSignUpTableSectionType;
-
-static NSInteger numSections (BOOL shouldSignUpUser) {
-    if (shouldSignUpUser) {
-        return NUM_SECTIONS_USERSIGNUP;
-    }
-    else {
-        return NUM_SECTIONS_NOUSERSIGNUP;
-    }
-}
-
-static NSInteger indexOfSection (_INVSignUpTableSectionType type, BOOL shouldSignUpUser) {
-    switch (type) {
-        case _INVSignUpTableSectionType_UserDetails:
-            if (shouldSignUpUser) {
-                return SECTIONINDEX_USERDETAILS;
-            }
-            else {
-                return NSNotFound;
-            }
-        case _INVSignUpTableSectionType_ToggleSwitch:
-            if (shouldSignUpUser) {
-                if (shouldSignUpUser) {
-                    return SECTIONINDEX_TOGGLESWITCH;
-                }
-                else {
-                    return NSNotFound;
-                }
-            }
-        case _INVSignUpTableSectionType_Account:
-            if (shouldSignUpUser) {
-                return SECTIONINDEX_ACCOUNT_USERSIGNUP;
-            }
-            else {
-                return SECTIONINDEX_ACCOUNT_NOUSERSIGNUP;
-            }
-            default:
-            return NSNotFound;
-    }
-}
-
-static _INVSignUpTableSectionType typeOfSectionAtIndex (NSInteger index, BOOL shouldSignUpUser) {
-    if (shouldSignUpUser) {
-        switch (index) {
-            case SECTIONINDEX_USERDETAILS:
-                return _INVSignUpTableSectionType_UserDetails;
-            case SECTIONINDEX_TOGGLESWITCH:
-                return _INVSignUpTableSectionType_ToggleSwitch;
-            case SECTIONINDEX_ACCOUNT_USERSIGNUP:
-                return _INVSignUpTableSectionType_Account;
-        }
-    }
-    return _INVSignUpTableSectionType_Account;
-    
-    
- }
-
-static NSInteger heightOfRowAtSection ( _INVSignUpTableSectionType sectionType, NSInteger rowIndex, BOOL setInvitationCode) {
-    if (!setInvitationCode && sectionType == _INVSignUpTableSectionType_Account) {
-        if (rowIndex== CELLINDEX_SUBSCRIPTIONTYPE) {
-            return SUBSCRIPTION_CELL_HEIGHT;
-        }
-        else if (rowIndex == CELLINDEX_ACCOUNTDESCRIPTION) {
-            return 100;
-        }
-    }
-    return DEFAULT_CELL_HEIGHT;
-    
-}
-
-
-static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitationCode) {
-    switch (sectionType) {
-        case _INVSignUpTableSectionType_UserDetails:
-            return NUM_ROWS_USERDETAILS;
-        case _INVSignUpTableSectionType_ToggleSwitch:
-            return NUM_ROWS_TOGGLESWITCH;
-        case _INVSignUpTableSectionType_Account:
-            if (setInvitationCode) {
-                return NUM_ROWS_ACCOUNT_INVITATIONCODE;
-            }
-            else {
-                return NUM_ROWS_ACCOUNT_NOINVITATIONCODE;
-            }
-            
-        default:
-            return 0;
-            break;
-    }
-    
-}
-
-
-
 
 @interface INVSignUpTableViewController()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, INVTextViewTableViewCellDelegate>
 @property (nonatomic, assign)BOOL invitationCodeAvailable;
@@ -151,6 +27,7 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
 @property (nonatomic, weak)  INVSubscriptionLevelsTableViewCell* subscriptionCell;
 @property (nonatomic, strong) UIAlertController* signupFailureAlertController;
 @property (nonatomic, assign) NSInteger descRowHeight;
+@property (nonatomic, strong) INVSignUpTableViewConfigDataSource* dataSource;
 
 @end
 
@@ -180,10 +57,11 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
     UINib* switchCellNib = [UINib nibWithNibName:@"INVGenericSwitchTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:switchCellNib forCellReuseIdentifier:@"ToggleCell"];
     
-    self.descRowHeight = DEFAULT_CELL_HEIGHT;
-    self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
+    self.dataSource = [[INVSignUpTableViewConfigDataSource alloc]initWithSignUpSetting:self.shouldSignUpUser];
+
+    self.tableView.estimatedRowHeight = self.dataSource.estimatedRowHeight;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.refreshControl = nil;
+     self.refreshControl = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -198,34 +76,37 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    self.dataSource = nil;
 }
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return  numSections(self.shouldSignUpUser);
+    return  [self.dataSource numSections];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    _INVSignUpTableSectionType sectionType = typeOfSectionAtIndex(section, self.shouldSignUpUser);
-    return numRows(sectionType, self.invitationCodeAvailable);
+    _INVSignUpTableSectionType sectionType = [self.dataSource typeOfSectionAtIndex:section];
+    return  [self.dataSource numRowsForSectionType:sectionType withInvitationCodeSet:self.invitationCodeAvailable];
+
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    _INVSignUpTableSectionType sectionType = typeOfSectionAtIndex(indexPath.section, self.shouldSignUpUser);
+    _INVSignUpTableSectionType sectionType =  [self.dataSource typeOfSectionAtIndex:indexPath.section];
+    _INVSignUpTableRowType rowType = [self.dataSource typeOfRowForSection:sectionType AtIndex:indexPath.row];
     
     if (sectionType == _INVSignUpTableSectionType_UserDetails) {
         INVGenericTextEntryTableViewCell* cell = (INVGenericTextEntryTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"UserCell"];
-        if (indexPath.row == CELLINDEX_USERNAME) {
+        if (rowType == _INVSignUpTableRowType_UserName) {
             FAKFontAwesome *userIcon = [FAKFontAwesome userIconWithSize:25];
             cell.labelHeading.attributedText = userIcon.attributedString;
             cell.textFieldEntry.placeholder = NSLocalizedString(@"FULL_NAME", nil);
             self.userNameTextField = cell.textFieldEntry;
         }
-        if (indexPath.row == CELLINDEX_PASSWORD) {
+        if (rowType == _INVSignUpTableRowType_Password) {
             FAKFontAwesome *pwdIcon = [FAKFontAwesome keyIconWithSize:25];
             cell.labelHeading.attributedText = pwdIcon.attributedString;
             cell.textFieldEntry.placeholder = NSLocalizedString(@"PASSWORD", nil);
@@ -233,7 +114,7 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
             
             self.passwordTextField = cell.textFieldEntry;
         }
-        if (indexPath.row == CELLINDEX_EMAIL) {
+        if (rowType == _INVSignUpTableRowType_Email) {
             FAKFontAwesome *emailIcon = [FAKFontAwesome envelopeIconWithSize:25];
             cell.labelHeading.attributedText = emailIcon.attributedString;
             cell.textFieldEntry.placeholder = NSLocalizedString(@"EMAIL", nil);
@@ -274,7 +155,7 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
             
         }
         else {
-            if (indexPath.row == CELLINDEX_ACCOUNTNAME) {
+            if (rowType == _INVSignUpTableRowType_AccountName) {
                 INVGenericTextEntryTableViewCell* cell = (INVGenericTextEntryTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"AccountNameCell"];
                 FAKFontAwesome *ckIcon = [FAKFontAwesome gearIconWithSize:25];
                 cell.labelHeading.attributedText = ckIcon.attributedString;
@@ -286,7 +167,7 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
                 return cell;
                 
             }
-            if (indexPath.row == CELLINDEX_ACCOUNTDESCRIPTION) {
+            if (rowType == _INVSignUpTableRowType_AccountDesc) {
                 INVTextViewTableViewCell* cell = (INVTextViewTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"AccountDescCell"];
                 self.acntDescTextView = cell.textView;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -294,8 +175,7 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
                 return cell;
                 
             }
-            if (indexPath.row == CELLINDEX_SUBSCRIPTIONTYPE) {
-                
+            if (rowType == _INVSignUpTableRowType_Subscription) {
                 self.subscriptionCell = (INVSubscriptionLevelsTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"SubscriptionCell"];
                 self.subscriptionCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return self.subscriptionCell;
@@ -310,9 +190,8 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    _INVSignUpTableSectionType sectionType = typeOfSectionAtIndex(indexPath.section, self.shouldSignUpUser);
-    
-    return heightOfRowAtSection(sectionType, indexPath.row,self.invitationCodeAvailable);
+    _INVSignUpTableSectionType sectionType =  [self.dataSource typeOfSectionAtIndex:indexPath.section];
+    return [self.dataSource heightOfRowAtIndex:indexPath.row forSectionType:sectionType withInvitationCodeSet:self.invitationCodeAvailable];
 
 }
 
@@ -320,7 +199,7 @@ static NSInteger numRows(_INVSignUpTableSectionType sectionType, BOOL setInvitat
 -(void)onInvitationSwitchToggled:(UISwitch*)sender {
     if (sender == self.invitationSwitch) {
         self.invitationCodeAvailable = self.invitationSwitch.isOn?:NO;
-        NSInteger section = indexOfSection(_INVSignUpTableSectionType_Account,self.shouldSignUpUser);
+        NSInteger section = [self.dataSource indexOfSection:_INVSignUpTableSectionType_Account];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
      }
  }

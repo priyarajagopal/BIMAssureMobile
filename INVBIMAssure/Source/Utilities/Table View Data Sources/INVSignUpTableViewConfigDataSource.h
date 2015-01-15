@@ -26,12 +26,13 @@ typedef enum {
 }_INVSignUpTableRowType;
 
 
-@interface INVSignUpTableViewDataSource : NSObject
+@interface INVSignUpTableViewConfigDataSource : NSObject
 -(instancetype) initWithSignUpSetting:(BOOL)shouldSignUpUser;
+-(NSInteger) estimatedRowHeight;
 -(NSInteger) numSections ;
 -(NSInteger) indexOfSection:(_INVSignUpTableSectionType) type;
 -(_INVSignUpTableSectionType) typeOfSectionAtIndex: (NSInteger)index;
 -(NSInteger) heightOfRowAtIndex:(NSInteger)rowIndex forSectionType: ( _INVSignUpTableSectionType) sectionType withInvitationCodeSet:(BOOL) setInvitationCode;
 -(NSInteger) numRowsForSectionType:(_INVSignUpTableSectionType) sectionType  withInvitationCodeSet:(BOOL) setInvitationCode ;
-
+-(_INVSignUpTableRowType) typeOfRowForSection:(_INVSignUpTableSectionType)section AtIndex:(NSInteger)row;
 @end

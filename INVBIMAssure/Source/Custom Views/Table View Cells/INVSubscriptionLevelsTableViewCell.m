@@ -97,7 +97,7 @@ static NSString* const INV_SUBSCRIPTION_PRICING    = @"Pricing";
         [detail setAttributes:attr range:NSMakeRange(0, heading.length)] ;
         
         attr[NSFontAttributeName] = [UIFont systemFontOfSize:14.0];
-        [detail setAttributes:attr range:NSMakeRange(heading.length, value.length)] ;
+        [detail setAttributes:attr range:NSMakeRange(heading.length, value.length +1)] ;
         
         UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(xOffset, yOffset, CGRectGetWidth(view.frame)- (xOffset *2), 20)];
         [label setBackgroundColor:[UIColor clearColor] ];
