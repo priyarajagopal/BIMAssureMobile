@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "INVNotification.h"
+
 extern NSString *const INVNotificationPoller_DidRecieveNotificationNotification;
 extern NSString *const INVNotificationPoller_DataSourceKey;
 extern NSString *const INVNotificationPoller_ChangesKey;

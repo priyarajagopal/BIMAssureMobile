@@ -29,6 +29,7 @@
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1249,27 +1250,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="85" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nri-MK-OcW">
-                                <rect key="frame" x="18" y="87" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="ppo-wt-sRk"/>
-                                    <constraint firstAttribute="width" constant="48" id="yyB-dt-Eyg"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
-                                <state key="normal" title="">
-                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onManageUsers:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="o9v-py-Jdq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JER-3B-GmM">
-                                <rect key="frame" x="18" y="31" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="ERF-ti-YAJ"/>
-                                    <constraint firstAttribute="width" constant="48" id="ehr-Va-frT"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JER-3B-GmM" userLabel="Projects List Button">
+                                <rect key="frame" x="27" y="31" width="30" height="42"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -1279,27 +1261,19 @@
                                     <action selector="onProjectsViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="50N-uh-iqa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ln2-Sg-eb5">
-                                <rect key="frame" x="18" y="544" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="o5I-Tj-wXD"/>
-                                    <constraint firstAttribute="width" constant="48" id="ycN-ij-Wvx"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nri-MK-OcW" userLabel="Users List Button">
+                                <rect key="frame" x="26" y="93" width="33" height="42"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
-                                <state key="normal" title="">
+                                <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onLogoutViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="jca-PV-GfV"/>
+                                    <action selector="onManageUsers:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="o9v-py-Jdq"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-7Z-PEz">
-                                <rect key="frame" x="18" y="143" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="Ey3-5P-wrA"/>
-                                    <constraint firstAttribute="width" constant="48" id="gVJ-Ua-5kP"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqe-7Z-PEz" userLabel="Accounts List Button">
+                                <rect key="frame" x="27" y="155" width="30" height="42"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -1309,12 +1283,8 @@
                                     <action selector="onAccountsViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="k7d-GJ-SLb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPy-sz-oMi">
-                                <rect key="frame" x="18" y="199" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="AyF-5g-tm8"/>
-                                    <constraint firstAttribute="width" constant="48" id="qF1-Y7-45T"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPy-sz-oMi" userLabel="Information Button">
+                                <rect key="frame" x="27" y="217" width="30" height="42"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -1324,8 +1294,16 @@
                                     <action selector="onInfoViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="BGG-Ps-Evg"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amC-D2-9Kz">
-                                <rect key="frame" x="36" y="143" width="25" height="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyf-vS-guK" userLabel="Notifications Button">
+                                <rect key="frame" x="27" y="279" width="30" height="42"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amC-D2-9Kz" userLabel="Notifications Badge Label">
+                                <rect key="frame" x="40" y="279" width="25" height="25"/>
                                 <color key="backgroundColor" red="0.98594826459884644" green="0.0" blue="0.026950567960739136" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="3d5-A9-tuW"/>
@@ -1335,35 +1313,42 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ln2-Sg-eb5" userLabel="Sign Out Button">
+                                <rect key="frame" x="27" y="550" width="30" height="42"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onLogoutViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="jca-PV-GfV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.5607843137254902" green="0.039215686274509803" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="JER-3B-GmM" firstAttribute="top" secondItem="eYV-xQ-9UI" secondAttribute="bottom" constant="31" id="01w-lD-HDe"/>
-                            <constraint firstItem="bPy-sz-oMi" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leading" constant="18" id="I3A-hk-WMo"/>
-                            <constraint firstItem="nri-MK-OcW" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leading" constant="18" id="IMR-eW-0Yz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="amC-D2-9Kz" secondAttribute="trailing" constant="8" id="Pd8-NX-Lr1"/>
-                            <constraint firstItem="ln2-Sg-eb5" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leadingMargin" constant="2" id="Qfk-a9-2K0"/>
-                            <constraint firstItem="nqe-7Z-PEz" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leading" constant="18" id="SxQ-hH-TI2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JER-3B-GmM" secondAttribute="trailing" constant="3" id="VFU-qB-XXi"/>
-                            <constraint firstItem="nqe-7Z-PEz" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="8" id="VKF-dC-F9H"/>
-                            <constraint firstItem="amC-D2-9Kz" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="8" id="ZPX-H0-3R8"/>
-                            <constraint firstItem="nri-MK-OcW" firstAttribute="top" secondItem="JER-3B-GmM" secondAttribute="bottom" constant="8" id="f1Q-1f-ONi"/>
+                            <constraint firstAttribute="centerX" secondItem="Gyf-vS-guK" secondAttribute="centerX" id="2PM-Nv-HNZ"/>
+                            <constraint firstAttribute="centerX" secondItem="nri-MK-OcW" secondAttribute="centerX" id="9fq-ax-fO3"/>
+                            <constraint firstAttribute="centerX" secondItem="bPy-sz-oMi" secondAttribute="centerX" id="EmJ-Iy-eDF"/>
+                            <constraint firstAttribute="centerX" secondItem="nqe-7Z-PEz" secondAttribute="centerX" id="SlC-Nj-B8e"/>
+                            <constraint firstItem="nqe-7Z-PEz" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="20" id="VKF-dC-F9H"/>
+                            <constraint firstItem="amC-D2-9Kz" firstAttribute="top" secondItem="Gyf-vS-guK" secondAttribute="top" id="X63-qR-coV"/>
+                            <constraint firstItem="nri-MK-OcW" firstAttribute="top" secondItem="JER-3B-GmM" secondAttribute="bottom" constant="20" id="f1Q-1f-ONi"/>
                             <constraint firstItem="tiT-dW-lDO" firstAttribute="top" secondItem="ln2-Sg-eb5" secondAttribute="bottom" constant="8" id="if5-4P-y9J"/>
-                            <constraint firstItem="JER-3B-GmM" firstAttribute="leading" secondItem="6qU-Js-ZkW" secondAttribute="leading" constant="18" id="yLM-9W-O5c"/>
-                            <constraint firstItem="bPy-sz-oMi" firstAttribute="top" secondItem="nqe-7Z-PEz" secondAttribute="bottom" constant="8" id="z0L-z1-OKK"/>
+                            <constraint firstAttribute="centerX" secondItem="ln2-Sg-eb5" secondAttribute="centerX" id="mW9-HR-CoW"/>
+                            <constraint firstItem="Gyf-vS-guK" firstAttribute="top" secondItem="bPy-sz-oMi" secondAttribute="bottom" constant="20" id="sad-tb-b88"/>
+                            <constraint firstItem="amC-D2-9Kz" firstAttribute="trailing" secondItem="Gyf-vS-guK" secondAttribute="trailing" constant="8" id="whe-bj-Edb"/>
+                            <constraint firstAttribute="centerX" secondItem="JER-3B-GmM" secondAttribute="centerX" id="yLO-n5-5ms"/>
+                            <constraint firstItem="bPy-sz-oMi" firstAttribute="top" secondItem="nqe-7Z-PEz" secondAttribute="bottom" constant="20" id="z0L-z1-OKK"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="VFU-qB-XXi"/>
-                            </mask>
-                        </variation>
                     </view>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="85" height="600"/>
                     <connections>
-                        <outlet property="accountsBadge" destination="amC-D2-9Kz" id="OHk-b9-Ctr"/>
-                        <outlet property="accountsButton" destination="nqe-7Z-PEz" id="A3M-qp-13t"/>
+                        <outlet property="notificationsBadgeLabel" destination="amC-D2-9Kz" id="W9o-gh-2Di"/>
+                        <outlet property="notificationsButton" destination="Gyf-vS-guK" id="RTE-D8-Zaq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4Y-wN-kxG" userLabel="First Responder" sceneMemberID="firstResponder"/>

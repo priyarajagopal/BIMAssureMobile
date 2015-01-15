@@ -27,14 +27,14 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
 @property (nonatomic,assign)BOOL logoutMenuSelected;
 @property (nonatomic,assign)BOOL manageUsersMenuSelected;
 
-@property IBOutlet UIButton *accountsButton;
-@property IBOutlet UILabel *accountsBadge;
+@property IBOutlet UIButton *notificationsButton;
+@property IBOutlet UILabel *notificationsBadgeLabel;
 
 @end
 
 #pragma mark - public implementation
 @implementation INVMainMenuViewController {
-    INVNotificationPollerDataSource *_notificationDataSource;
+    NSMutableArray *_pendingAlerts;
 }
 
 - (void)viewDidLoad {
@@ -45,12 +45,12 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
     
     [self attachToPoller];
     
-    self.accountsBadge.hidden = YES;
+    self.notificationsBadgeLabel.hidden = YES;
     
-    self.accountsBadge.layer.cornerRadius = 10;
-    self.accountsBadge.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.accountsBadge.layer.borderWidth = 2;
-    self.accountsBadge.layer.masksToBounds = YES;
+    self.notificationsBadgeLabel.layer.cornerRadius = 10;
+    self.notificationsBadgeLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.notificationsBadgeLabel.layer.borderWidth = 2;
+    self.notificationsBadgeLabel.layer.masksToBounds = YES;
 }
 
 -(void) awakeFromNib {
@@ -72,37 +72,18 @@ NSString* const KVO_INVOnManageUsersMenuSelected = @"manageUsersMenuSelected";
 */
 
 -(void) attachToPoller {
-    __block NSArray *_previousInvites = nil;
-    
-    _notificationDataSource = [INVNotificationPollerDataSource sourceWithBlock:^(void(^callback)(NSArray *)) {
-        [self.globalDataManager.invServerClient getPendingInvitationsForSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
-            NSArray *invites = [self.globalDataManager.invServerClient.accountManager accountInvitesForUser];
-            NSMutableArray *difference = [invites mutableCopy];
-            [difference removeObjectsInArray:_previousInvites];
-            
-            callback(difference);
-            
-            _previousInvites = invites;
-        }];
-    }];
+    _pendingAlerts = [NSMutableArray new];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handlePendingInvite:)
                                                  name:INVNotificationPoller_DidRecieveNotificationNotification
                                                object:nil];
-    
-    [[INVNotificationPoller instance] addDataSource:_notificationDataSource];
 }
 
 -(void) handlePendingInvite:(NSNotification *) notification {
-    if (notification.userInfo[INVNotificationPoller_DataSourceKey] != _notificationDataSource) {
-        return;
-    }
+    [_pendingAlerts addObjectsFromArray:notification.userInfo[INVNotificationPoller_ChangesKey]];
     
-    NSArray *invites = [self.globalDataManager.invServerClient.accountManager accountInvitesForUser];
-    
-    self.accountsBadge.text = [NSString stringWithFormat:@"%ld", (unsigned long)[invites count]];
-    self.accountsBadge.hidden = invites.count <= 0;
+    self.notificationsBadgeLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long) _pendingAlerts.count];
 }
 
 #pragma mark - UIEvent handlers

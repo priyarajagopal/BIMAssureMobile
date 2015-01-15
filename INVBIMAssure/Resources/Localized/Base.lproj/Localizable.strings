@@ -99,6 +99,9 @@
 "ACCOUNT_STATUS_INVITE"="Invited";
 "ACCOUNT_DESCRITPION_UNAVAILABLE"="Account description unavailable.";
 
+"ACCOUNT_INVITE_NOTIFICATION_RECIEVED_TITLE"="Invited to account '%@' recieved";
+"ACCOUNT_INVITE_NOTIFICATION_ACCEPTED_TITLE"="Accepted invitation to account '%@'";
+
 "SETTINGS"="Settings";
 "APP_VERSION"="App Version: %1@(%2@)";
 "SIGN_UP"="Sign Up";
