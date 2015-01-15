@@ -433,12 +433,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)showSaveAsDefaultAlertWithMessage:(NSString*)message andAcceptButtonTitle:(NSString *) acceptButtonTitle andCancelButtonTitle:(NSString *) cancelButtonTitle {
     if (!self.alertView) {
         NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil];
-        [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if ([obj isKindOfClass:[INVDefaultAccountAlertView class]]) {
-                self.alertView = (INVDefaultAccountAlertView*)obj;
-                *stop = YES;
-            }
-        }];
+        self.alertView = [objects firstObject];
         
         self.alertView.delegate = self;
     }

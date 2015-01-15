@@ -58,6 +58,10 @@ NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_Chang
     dispatch_source_set_timer(_pollingTimer, DISPATCH_TIME_NOW, NSEC_PER_SEC * 10, NSEC_PER_SEC * 5);
 }
 
+-(void) forceUpdate {
+    [self restartTimer];
+}
+
 -(id) init {
     if (self = [super init]) {
         _backgroundQueue = dispatch_queue_create("INVNotificationPoller", DISPATCH_QUEUE_SERIAL);

@@ -31,6 +31,8 @@ extern NSString *const INVNotificationPoller_ChangesKey;
 -(void) beginPolling;
 -(void) endPolling;
 
+-(void) forceUpdate;
+
 -(void) addDataSource:(INVNotificationPollerDataSource *) dataSource;
 -(void) removeDataSource:(INVNotificationPollerDataSource *) dataSource;
 

@@ -9,11 +9,16 @@
 #import "INVNotificationsTableViewController.h"
 #import "INVNotificationPoller.h"
 
-@interface INVNotificationsTableViewController ()
+#import "INVDefaultAccountAlertView.h"
+
+@interface INVNotificationsTableViewController ()<INVDefaultAccountAlertViewDelegate>
 
 @end
 
-@implementation INVNotificationsTableViewController
+@implementation INVNotificationsTableViewController {
+    INVDefaultAccountAlertView *_alertView;
+    INVNotification *_selectedNotification;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,6 +43,7 @@
 -(void)onRefreshControlSelected:(id)event {
     [self.refreshControl endRefreshing];
     
+    [[INVNotificationPoller instance] forceUpdate];
     [self.tableView reloadData];
 }
 
@@ -61,6 +67,26 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    // TODO: Handle for each type of notification.
+    _selectedNotification = [[INVNotificationPoller instance] allNotifications][indexPath.row];
+    
+    if ([[_selectedNotification data] isKindOfClass:[INVUserInvite class]]) {
+        // Handle account invite.
+        _alertView = [[[NSBundle mainBundle] loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil] firstObject];
+        _alertView .delegate = self;
+        _alertView .translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [_alertView.acceptButton setTitle:NSLocalizedString(@"INVITE_ACCEPT", nil) forState:UIControlStateNormal];
+        [_alertView.cancelButton setTitle:NSLocalizedString(@"CANCEL", nil) forState:UIControlStateNormal];
+        
+        _alertView.alertMessage.text = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), [_selectedNotification.data accountName]];
+        
+        [self.view.window addSubview:_alertView];
+        
+        [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    }
 }
 
 /*
@@ -72,5 +98,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void) onLogintoAccountWithDefault:(BOOL)isDefault {
+    [_alertView removeFromSuperview];
+    
+    [self.globalDataManager.invServerClient acceptInvite:[[_selectedNotification data] invitationCode]
+                                                 forUser:self.globalDataManager.loggedInUser
+                                     withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                     [[INVNotificationPoller instance] forceUpdate];
+                                                 }];
+}
+
+-(void) onCancelLogintoAccount {
+    
+}
 
 @end
