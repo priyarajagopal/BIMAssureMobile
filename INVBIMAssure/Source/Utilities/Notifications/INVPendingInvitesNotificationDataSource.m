@@ -14,6 +14,8 @@
 }
 
 -(void) checkForNewData:(void (^)(NSArray *))callback {
+    if (INVGlobalDataManager.sharedInstance.loggedInUser == nil) return;
+    
     [[INVGlobalDataManager sharedInstance].invServerClient getPendingInvitationsForSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
         if (error) {
             NSLog(@"%@: Error while getting pending invitations: %@", [self class], error);

@@ -30,7 +30,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="wdu-LK-lfF">
-                        <barButtonItem key="rightBarButtonItem" title="" style="plain" id="X55-kO-DqO">
+                        <barButtonItem key="rightBarButtonItem" title="" id="X55-kO-DqO">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="6R7-7t-1KM" kind="popoverPresentation" identifier="ShowUserInfoSegue" popoverAnchorBarButtonItem="X55-kO-DqO" id="nKs-6u-ZgI">
