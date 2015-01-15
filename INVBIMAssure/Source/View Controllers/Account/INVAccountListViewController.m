@@ -76,8 +76,9 @@ static NSString * const reuseIdentifier = @"Cell";
         [self loginAccount];
     }
     else if (self.globalDataManager.invitationCodeToAutoAccept) {
-#warning Invoke the API to accept invite. This method should be available as part of EMOB-118
-        NSLog(@"Will accept invite for %@",self.globalDataManager.invitationCodeToAutoAccept);
+        self.currentInviteCode = self.globalDataManager.invitationCodeToAutoAccept;
+        [self acceptInvitationWithSelectedInvitationCode];
+        self.globalDataManager.invitationCodeToAutoAccept = nil;
     }
     else {
         self.currentAccountId = nil;
@@ -225,15 +226,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self dismissSaveAsDefaultAlert];
     self.saveAsDefault = isDefault;
     
-    
-    if (self.currentInviteCode) {
-        NSString *userEmail = self.globalDataManager.loggedInUser;
-        [self.globalDataManager.invServerClient acceptInvite:self.currentInviteCode forUser:userEmail withCompletionBlock:^(INVEmpireMobileError *error) {
-            [self fetchListOfAccounts];
-        }];
-        
-        self.currentInviteCode = nil;
-        
+     if (self.currentInviteCode) {
+        [self acceptInvitationWithSelectedInvitationCode];
         return;
     }
     
@@ -393,6 +387,14 @@ static NSString * const reuseIdentifier = @"Cell";
             }];;
         }
     }];
+}
+
+-(void)acceptInvitationWithSelectedInvitationCode {
+    NSString *userEmail = self.globalDataManager.loggedInUser;
+    [self.globalDataManager.invServerClient acceptInvite:self.currentInviteCode forUser:userEmail withCompletionBlock:^(INVEmpireMobileError *error) {
+          [self fetchListOfAccounts];
+    }];
+    self.currentInviteCode = nil;
 }
 
 #pragma mark - helpers
