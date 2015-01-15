@@ -103,9 +103,7 @@
     [self deregisterLoginObservers];
     [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
     self.globalManager.loggedInAccount = nil;
-   // self.globalManager.loggedInUser = nil;
-
-        [self displayLoginRootViewController];
+    [self displayLoginRootViewController];
     }];
     
 }

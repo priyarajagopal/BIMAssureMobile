@@ -25,20 +25,22 @@
 
 -(void) updateUI {
     if (self.account) {
+        UIColor* greenShade = [UIColor colorWithRed:79.0/255 green:154.0/255 blue:65.0/255 alpha:1.0];;
+        
         self.nameLabel.text = self.account.name;
         self.descriptionLabel.text = self.account.overview;
         self.projectStatusLabel.text = self.account.disabled.boolValue ?
                     NSLocalizedString(@"ACCOUNT_STATUS_DISABLED", nil) :
                     NSLocalizedString(@"ACCOUNT_STATUS_ACTIVE", nil);
         
-        self.projectStatusLabel.textColor = self.account.disabled.boolValue ? [UIColor redColor] : [UIColor greenColor];
+        self.projectStatusLabel.textColor = self.account.disabled.boolValue ? [UIColor redColor] : greenShade;
     
         if (self.descriptionLabel.text.length == 0) {
             self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
         }
     
         if (_isDefault) {
-            self.accessoryLabel.textColor = [UIColor colorWithRed:88.0/255 green:161.0/255 blue:150.0/255 alpha:1.0];
+            self.accessoryLabel.textColor = greenShade;
             self.accessoryLabel.text = @"\uf058";
         } else {
             self.accessoryLabel.textColor = [UIColor grayColor];

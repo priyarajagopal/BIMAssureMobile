@@ -140,11 +140,11 @@
         
     }
     if ([keyPath isEqualToString:KVO_INVOnManageUsersMenuSelected]) {
-        [self performSegueWithIdentifier:@"MainManageUsersSegue" sender:nil];
+        [self.userMgmtTransitionObject perform:nil];
         
     }
     if ([keyPath isEqualToString:KVO_INVOnInfoMenuSelected]) {
-        [self performSegueWithIdentifier:@"GlobalInfoSegue" sender:nil];
+        [self.infoTransitionObject perform:nil];
         
     }
 }

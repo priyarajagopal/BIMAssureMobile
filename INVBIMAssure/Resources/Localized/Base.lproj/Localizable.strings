@@ -30,6 +30,7 @@
 "INVITE_USER"="Invite User";
 "INVITED_BY_ON"="Invited by %1@ at %2@";
 "ACCOUNT:"= "Account: %1@";
+"INVITE_ACCEPT" = "Accept Invite?";
 "ENTER_OPTIONAL_MESSAGE"="Enter Optional Message :";
 "ENTER_INVITED_USERS"="";
 "ENTER_EMAILS:"="Enter Emails";

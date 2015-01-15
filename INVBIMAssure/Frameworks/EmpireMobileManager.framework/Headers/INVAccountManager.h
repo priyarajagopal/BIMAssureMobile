@@ -64,9 +64,14 @@
 
 
 /**
- Can be used to obtain information on all pending invitations
+ Can be used to obtain information on all pending invitations for account
  */
 @property (nonatomic,readonly) NSFetchRequest* fetchRequestForPendingInvitesForAccount;
+
+/**
+ Can be used to obtain information on all pending invitations for users
+ */
+@property (nonatomic,readonly) NSFetchRequest* fetchRequestForPendingInvitesForSignedInUser;
 
 
 /**
