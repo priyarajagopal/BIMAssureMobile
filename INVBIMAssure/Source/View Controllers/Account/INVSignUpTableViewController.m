@@ -257,13 +257,14 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
     [self showSignupProgress ];
     
     NSString* email = self.emailTextField.text;
-    NSString* name = self.userNameTextField.text;
-    NSString* pass = self.passwordTextField.text;
+    NSString* name  = self.userNameTextField.text;
+    NSString* pass  = self.passwordTextField.text;
+    
     _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
-    NSNumber* package = @(subscriptionLevel);
-
+    NSNumber* package     = @(subscriptionLevel);
     NSString* accountName = self.acntNameTextField.text;
-    NSString* acntDesc = self.acntDescTextView.text;
+    NSString* acntDesc    = self.acntDescTextView.text;
+    
     [self.globalDataManager.invServerClient signUpUserWithName:name andEmail:email andPassword:pass withAccountName:accountName accountDescription:acntDesc subscriptionType:package withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideSignupProgress];
         if (!error) {
@@ -298,6 +299,30 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
     }];
     
 }
+
+-(void)createAccountOnly {
+    [self showSignupProgress ];
+    
+    NSString* email = self.globalDataManager.loggedInUser;
+    _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
+    NSNumber* package     = @(subscriptionLevel);
+    NSString* accountName = self.acntNameTextField.text;
+    NSString* acntDesc    = self.acntDescTextView.text;
+    
+    [self.globalDataManager.invServerClient  createAccountForSignedInUserWithAccountName:accountName accountDescription:acntDesc subscriptionType:package forUserEmail:email withCompletionBlock:^(INVEmpireMobileError *error) {
+        [self hideSignupProgress];
+        if (!error) {
+            NSLog(@"Succesfully created account  %@ ",accountName);
+            self.signupSuccess = YES;
+        }
+        else {
+            [self showSignupFailureAlert];
+            
+        }
+    }];
+    
+}
+
 #pragma mark -helper
 -(void)showSignupProgress {
     self.hud = [MBProgressHUD signupHUD:nil];
@@ -336,13 +361,17 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
 
 #pragma mark - UIEvent Handlers
 - (IBAction)onSignUpTapped:(UIBarButtonItem*)sender {
-    if (self.invitationCodeAvailable) {
-        [self signUpUser];
+    if (self.shouldSignUpUser) {
+        if (self.invitationCodeAvailable) {
+            [self signUpUser];
+        }
+        else {
+            [self signupUserAndCreateDefaultAccount];
+        }
     }
     else {
-        [self signupUserAndCreateDefaultAccount];
+        [self createAccountOnly];
     }
-    
 }
 
 #pragma mark - accessors

@@ -213,7 +213,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 -(void)removeSignupObservers {
     [self.signupController removeObserver:self forKeyPath:KVO_INVSignupSuccess];
-    
 }
 
 
@@ -275,7 +274,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
      
         NSString* signedupEmail = self.signupController.signupEmail;
         NSString* signedupPassword = self.signupController.signupPassword;
-        BOOL invitationCodeEntered = self.signupController.invitationCode.length > 0;
         
         [self dismissViewControllerAnimated:YES completion:^{
             [self removeSignupObservers];
