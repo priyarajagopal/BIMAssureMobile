@@ -28,6 +28,9 @@
 }
 
 int levenshteinDistance(const char *s, size_t len_s, const char *t, int len_t) {
+    if (len_s > 5) len_s = 5;
+    if (len_t > 5) len_t = 5;
+    
     if (len_s == 0) return len_t;
     if (len_t == 0) return len_s;
     
