@@ -471,7 +471,6 @@
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLG-e4-BRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="ihQ-SW-zzl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3441" y="3395"/>
         </scene>
@@ -826,15 +825,15 @@
                                 <rect key="frame" x="-4" y="0.0" width="608" height="44"/>
                                 <items>
                                     <navigationItem title="Manage Files" id="VnQ-3x-HH1">
-                                        <barButtonItem key="leftBarButtonItem" title="Done" id="0uv-vi-mTW">
-                                            <connections>
-                                                <segue destination="Yqn-p2-pNA" kind="unwind" unwindAction="done:" id="Lcm-9F-3z1"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Reset" id="Edd-Wc-bJz">
+                                        <barButtonItem key="leftBarButtonItem" title="Reset" id="Edd-Wc-bJz">
                                             <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="onResetTapped:" destination="aJs-hd-mPF" id="dJx-Un-go0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="aF6-PQ-nom">
+                                            <connections>
+                                                <segue destination="Dwd-G1-Kbk" kind="unwind" unwindAction="done:" id="h1h-FQ-YEN"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -896,6 +895,7 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2zD-7Y-ZHE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Dwd-G1-Kbk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5638" y="2641"/>
         </scene>
@@ -1003,17 +1003,10 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Select From Rule Templates" id="QGg-7O-O2Q">
-                                    <barButtonItem key="leftBarButtonItem" style="plain" id="nSE-Lp-4ws" userLabel="Cancel">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="luN-PG-YXb">
-                                            <rect key="frame" x="-23" y="-15" width="133" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Cancel">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <segue destination="Yqn-p2-pNA" kind="unwind" unwindAction="done:" id="sA0-Ye-aFP"/>
-                                            </connections>
-                                        </button>
+                                    <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2nK-cD-oMC">
+                                        <connections>
+                                            <segue destination="eNb-mG-tXX" kind="unwind" unwindAction="done:" id="RGK-w6-nyI"/>
+                                        </connections>
                                     </barButtonItem>
                                 </navigationItem>
                             </items>
@@ -1318,21 +1311,10 @@
                                     <action selector="onAccountsViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="k7d-GJ-SLb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPy-sz-oMi" userLabel="Information Button">
-                                <rect key="frame" x="27" y="217" width="30" height="42"/>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
-                                <state key="normal" title="">
-                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onInfoViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="BGG-Ps-Evg"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyf-vS-guK" userLabel="Notifications Button">
-                                <rect key="frame" x="27" y="279" width="30" height="42"/>
+                                <rect key="frame" x="27" y="205" width="30" height="42"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
-                                <state key="normal" title="">
+                                <state key="normal" title="">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1341,7 +1323,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amC-D2-9Kz" userLabel="Notifications Badge Label">
-                                <rect key="frame" x="40" y="279" width="25" height="25"/>
+                                <rect key="frame" x="40" y="205" width="25" height="25"/>
                                 <color key="backgroundColor" red="0.98594826459884644" green="0.0" blue="0.026950567960739136" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="3d5-A9-tuW"/>
@@ -1362,6 +1344,17 @@
                                     <action selector="onLogoutViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="jca-PV-GfV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPy-sz-oMi" userLabel="Information Button">
+                                <rect key="frame" x="27" y="255" width="30" height="42"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onInfoViewSelected:" destination="vbl-dm-Oc3" eventType="touchUpInside" id="BGG-Ps-Evg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.5607843137254902" green="0.039215686274509803" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1373,12 +1366,12 @@
                             <constraint firstItem="nqe-7Z-PEz" firstAttribute="top" secondItem="nri-MK-OcW" secondAttribute="bottom" constant="20" id="VKF-dC-F9H"/>
                             <constraint firstItem="amC-D2-9Kz" firstAttribute="top" secondItem="Gyf-vS-guK" secondAttribute="top" id="X63-qR-coV"/>
                             <constraint firstItem="nri-MK-OcW" firstAttribute="top" secondItem="JER-3B-GmM" secondAttribute="bottom" constant="20" id="f1Q-1f-ONi"/>
+                            <constraint firstItem="Gyf-vS-guK" firstAttribute="top" secondItem="nqe-7Z-PEz" secondAttribute="bottom" constant="8" id="hfd-PW-X1B"/>
                             <constraint firstItem="tiT-dW-lDO" firstAttribute="top" secondItem="ln2-Sg-eb5" secondAttribute="bottom" constant="8" id="if5-4P-y9J"/>
+                            <constraint firstItem="bPy-sz-oMi" firstAttribute="top" secondItem="Gyf-vS-guK" secondAttribute="bottom" constant="8" id="jqs-cW-DO9"/>
                             <constraint firstAttribute="centerX" secondItem="ln2-Sg-eb5" secondAttribute="centerX" id="mW9-HR-CoW"/>
-                            <constraint firstItem="Gyf-vS-guK" firstAttribute="top" secondItem="bPy-sz-oMi" secondAttribute="bottom" constant="20" id="sad-tb-b88"/>
                             <constraint firstItem="amC-D2-9Kz" firstAttribute="trailing" secondItem="Gyf-vS-guK" secondAttribute="trailing" constant="8" id="whe-bj-Edb"/>
                             <constraint firstAttribute="centerX" secondItem="JER-3B-GmM" secondAttribute="centerX" id="yLO-n5-5ms"/>
-                            <constraint firstItem="bPy-sz-oMi" firstAttribute="top" secondItem="nqe-7Z-PEz" secondAttribute="bottom" constant="20" id="z0L-z1-OKK"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -1538,15 +1531,15 @@
                                 <rect key="frame" x="-4" y="0.0" width="608" height="44"/>
                                 <items>
                                     <navigationItem title="Manage Rule Sets" id="avP-Jf-zkJ">
-                                        <barButtonItem key="leftBarButtonItem" title="Done" id="4TF-XS-WTo">
-                                            <connections>
-                                                <segue destination="ihQ-SW-zzl" kind="unwind" unwindAction="done:" id="orx-Kb-g2o"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Reset" id="btU-sd-0uh">
+                                        <barButtonItem key="leftBarButtonItem" title="Reset" id="btU-sd-0uh">
                                             <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="onResetTapped:" destination="gXt-Xj-ZXc" id="EnX-Ng-UB8"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="cdv-PT-sBq">
+                                            <connections>
+                                                <segue destination="aGU-Rl-MNe" kind="unwind" unwindAction="done:" id="kCM-cP-OFx"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1614,6 +1607,7 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQn-zF-gQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="aGU-Rl-MNe" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3195" y="4184"/>
         </scene>
@@ -1727,11 +1721,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Rule" id="OkB-do-pcz">
-                                    <barButtonItem key="leftBarButtonItem" title="Cancel" id="Rmo-px-uLG">
-                                        <connections>
-                                            <segue destination="eNb-mG-tXX" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="MWx-R8-B1J"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <barButtonItem key="leftBarButtonItem" title="Cancel" id="Rmo-px-uLG"/>
                                 </navigationItem>
                             </items>
                         </navigationBar>
@@ -1769,32 +1759,15 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Select Rules To Run" id="SbL-TE-xsD">
-                                    <barButtonItem key="leftBarButtonItem" style="plain" id="gCE-Zy-AeK" userLabel="Cancel">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uDP-P3-ASk">
-                                            <rect key="frame" x="-23" y="-15" width="133" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Cancel">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <segue destination="ihQ-SW-zzl" kind="unwind" unwindAction="done:" id="lsE-wz-RzN"/>
-                                            </connections>
-                                        </button>
+                                    <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="k3j-nm-7aD">
                                         <connections>
-                                            <segue destination="ihQ-SW-zzl" kind="unwind" unwindAction="done:" id="g4Y-UW-HzF"/>
+                                            <action selector="done:" destination="AUh-Ql-GT9" id="tgn-xk-FSm"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem key="rightBarButtonItem" style="plain" id="p0l-jH-dyS">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KHK-qq-5YG">
-                                            <rect key="frame" x="-23" y="-15" width="133" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Run Rules">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onRunRulesSelected:" destination="AUh-Ql-GT9" eventType="touchUpInside" id="Vm6-Q7-RRi"/>
-                                            </connections>
-                                        </button>
+                                    <barButtonItem key="rightBarButtonItem" title="Run Rules" id="NYg-tJ-GRd">
+                                        <connections>
+                                            <action selector="onRunRulesSelected:" destination="AUh-Ql-GT9" id="q8L-PM-Nwa"/>
+                                        </connections>
                                     </barButtonItem>
                                 </navigationItem>
                             </items>
@@ -1827,7 +1800,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="runRulesButton" destination="KHK-qq-5YG" id="Te0-LM-hPp"/>
+                        <outlet property="runRulesButton" destination="NYg-tJ-GRd" id="fUq-Lx-Uvg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JvC-lG-X5N" userLabel="First Responder" sceneMemberID="firstResponder"/>

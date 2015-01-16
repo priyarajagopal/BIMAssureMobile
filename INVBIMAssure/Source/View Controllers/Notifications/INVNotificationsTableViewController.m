@@ -21,6 +21,8 @@
 @implementation INVNotificationsTableViewController {
     INVDefaultAccountAlertView *_alertView;
     INVNotification *_selectedNotification;
+    
+    NSArray *_notifications;
 }
 
 - (void)viewDidLoad {
@@ -34,6 +36,8 @@
                                              selector:@selector(onNotificationRecieved:)
                                                  name:INVNotificationPoller_DidRecieveNotificationNotification
                                                object:nil];
+    
+    [self onNotificationRecieved:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,6 +48,11 @@
 #pragma mark - Table view data source
 
 -(void) onNotificationRecieved:(NSNotification *) notification {
+    _notifications = [[INVNotificationPoller instance] allNotifications];
+    _notifications = [_notifications sortedArrayUsingDescriptors: @[
+        [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]
+    ]];
+    
     [self.tableView reloadData];
 }
 
@@ -60,7 +69,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger count = [[INVNotificationPoller instance] allNotifications].count;
+    NSInteger count = _notifications.count;
     self.noNotificationsLabel.hidden = count > 0;
     
     return count;
@@ -69,7 +78,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     INVNotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"notificationCell" forIndexPath:indexPath];
     
-    INVNotification *notification = [[INVNotificationPoller instance] allNotifications][indexPath.row];
+    INVNotification *notification = _notifications[indexPath.row];
     cell.notification = notification;
     
     return cell;
@@ -79,7 +88,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     // TODO: Handle for each type of notification.
-    _selectedNotification = [[INVNotificationPoller instance] allNotifications][indexPath.row];
+    _selectedNotification = _notifications[indexPath.row];
     
     if ([[_selectedNotification data] isKindOfClass:[INVUserInvite class]]) {
         // Handle account invite.

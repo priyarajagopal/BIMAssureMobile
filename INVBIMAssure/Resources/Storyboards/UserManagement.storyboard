@@ -82,7 +82,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="User Management" id="FqH-bF-6fW">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="bzK-nj-04o">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bzK-nj-04o">
                             <connections>
                                 <segue destination="Ujv-JG-HIH" kind="unwind" unwindAction="done:" id="5j8-CH-EcH"/>
                             </connections>
@@ -134,7 +134,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PfU-xI-4DN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="699" y="3433"/>
+            <point key="canvasLocation" x="697" y="3416"/>
         </scene>
         <!--Invite Users Table View Controller-->
         <scene sceneID="f9j-FW-7QS">
@@ -150,8 +150,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Invite Users" id="505-IP-z9Y">
-                                    <barButtonItem key="leftBarButtonItem" title="Cancel" id="0Cg-by-y51">
-                                        <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0Cg-by-y51">
                                         <connections>
                                             <segue destination="Ujv-JG-HIH" kind="unwind" identifier="ReturnToUserManagementSegue" unwindAction="done:" id="SQI-Z5-HQw"/>
                                         </connections>
