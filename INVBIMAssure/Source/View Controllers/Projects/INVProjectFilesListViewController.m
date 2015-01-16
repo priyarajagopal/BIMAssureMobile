@@ -52,8 +52,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
     [currLayout setItemSize:CGSizeMake(CELL_WIDTH,CELL_HEIGHT)];
     
-    [self.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
-
+ 
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,6 +62,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
     [self fetchListOfProjectFiles];
 }
 
