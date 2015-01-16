@@ -98,6 +98,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
         if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
             UINavigationController* navController = (UINavigationController*) segue.destinationViewController;
             self.signupController = (INVSignUpTableViewController*) navController.topViewController;
+            self.signupController.shouldSignUpUser = YES;
             [self addSignUpObservers];
 
         }
@@ -212,7 +213,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 -(void)removeSignupObservers {
     [self.signupController removeObserver:self forKeyPath:KVO_INVSignupSuccess];
-    
 }
 
 
@@ -274,7 +274,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
      
         NSString* signedupEmail = self.signupController.signupEmail;
         NSString* signedupPassword = self.signupController.signupPassword;
-        BOOL invitationCodeEntered = self.signupController.invitationCode.length > 0;
         
         [self dismissViewControllerAnimated:YES completion:^{
             [self removeSignupObservers];

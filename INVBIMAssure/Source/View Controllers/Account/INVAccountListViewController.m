@@ -16,6 +16,7 @@ const NSInteger INV_CELLSIZE = 100;
 #import "INVSimpleUserInfoTableViewController.h"
 #import "INVMergedFetchedResultsControler.h"
 #import "INVBlockUtils.h"
+#import "INVSignUpTableViewController.h"
 
 #pragma mark - KVO
 NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
@@ -26,12 +27,14 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,strong)   INVDefaultAccountAlertView* alertView ;
 @property (nonatomic,strong)   INVAccountManager* accountManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
-@property (nonatomic,strong)NSNumber* currentAccountId;
-@property (nonatomic, strong) NSString *currentInviteCode;
-@property (nonatomic,strong)UIAlertController* loginFailureAlertController;
-@property (nonatomic,strong)UIAlertController* logoutPromptAlertController;
-@property (nonatomic,assign)BOOL saveAsDefault;
-@property (nonatomic,strong)INVGenericCollectionViewDataSource* dataSource;
+@property (nonatomic,strong)   NSNumber* currentAccountId;
+@property (nonatomic, strong)  NSString *currentInviteCode;
+@property (nonatomic,strong)   UIAlertController* loginFailureAlertController;
+@property (nonatomic,strong)   UIAlertController* logoutPromptAlertController;
+@property (nonatomic,assign)   BOOL saveAsDefault;
+@property (nonatomic,strong)   INVGenericCollectionViewDataSource* dataSource;
+@property (nonatomic,strong)     INVSignUpTableViewController* signUpController;
+
 @end
 
 @implementation INVAccountListViewController
@@ -49,11 +52,14 @@ static NSString * const reuseIdentifier = @"Cell";
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
-    UIBarButtonItem* settingsButton = self.navigationItem.rightBarButtonItem;
-    
+    UIBarButtonItem* settingsButton = self.navigationItem.leftBarButtonItem;
     FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
     [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 30)]];
  
+    UIBarButtonItem* addButton = self.navigationItem.rightBarButtonItem;
+    FAKFontAwesome *addIcon = [FAKFontAwesome plusIconWithSize:30.0];
+    [addButton setImage:[addIcon imageWithSize:CGSizeMake(30, 30)]];
+
     [self setEstimatedSizeForCells];
 
 }
@@ -95,6 +101,8 @@ static NSString * const reuseIdentifier = @"Cell";
     self.logoutPromptAlertController = nil;
     self.collectionView.dataSource = nil;
     self.dataSource = nil;
+    [self removeSignupObservers];
+    self.signUpController = nil;
 }
 
 
@@ -137,16 +145,16 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    /*
-    if ([segue.identifier isEqualToString:@"ShowUserInfoSegue"]) {
-        INVSimpleUserInfoTableViewController* userVC = segue.destinationViewController;
-        userVC.tableView.delegate = userVC;
-        userVC.tableView.dataSource = userVC;
+    if ([segue.identifier isEqualToString:@"SignUpUserSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController* navController = segue.destinationViewController;
+            self.signUpController = (INVSignUpTableViewController*)navController.topViewController;
+            [self addSignUpObservers];
+            self.signUpController.shouldSignUpUser = NO;
+            
+        }
     }
-    */
 }
-
-
 
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
@@ -158,7 +166,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark UICollectionViewDelegate
 
 // Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
 	return YES;
 }
 
@@ -399,6 +407,15 @@ static NSString * const reuseIdentifier = @"Cell";
     self.currentInviteCode = nil;
 }
 
+#pragma mark -
+-(IBAction)done:(UIStoryboardSegue*)segue {
+    NSLog(@"%s",__func__);
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self removeSignupObservers];
+        self.signUpController = nil;
+    }];
+}
+
 #pragma mark - helpers
 -(void)showLoadProgress {
     self.collectionView.dataSource = self.dataSource;
@@ -523,6 +540,28 @@ static NSString * const reuseIdentifier = @"Cell";
     return [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle bundleForClass:[self class]]];
 }
 
+-(void)addSignUpObservers {
+    [self.signUpController addObserver:self forKeyPath:KVO_INVSignupSuccess options:NSKeyValueObservingOptionNew context:nil];
+}
 
+-(void)removeSignupObservers {
+    [self.signUpController removeObserver:self forKeyPath:KVO_INVSignupSuccess];
+}
 
+#pragma mark - KVO
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    NSLog(@"%s",__func__);
+    if ([keyPath isEqualToString:KVO_INVSignupSuccess]) {
+
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self removeSignupObservers];
+            self.signUpController = nil;
+            NSError *dbError;
+            
+            [self.dataResultsController performFetch:&dbError];
+            [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            
+         }];
+    }
+}
 @end

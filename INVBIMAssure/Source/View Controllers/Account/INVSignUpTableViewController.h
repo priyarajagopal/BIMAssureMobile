@@ -16,6 +16,8 @@ extern NSString* const KVO_INVSignupSuccess ;
 @property (copy,readonly,nonatomic) NSString* signupEmail;
 @property (copy,readonly,nonatomic) NSString* signupPassword;
 @property (copy,readonly,nonatomic) NSString* invitationCode;
+@property (nonatomic)               BOOL shouldSignUpUser;
+
 
 - (IBAction)onSignUpTapped:(UIBarButtonItem*)sender;
 
