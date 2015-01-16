@@ -137,12 +137,13 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
          
          INVProjectDetailsTabViewController* projectDetailsController = (INVProjectDetailsTabViewController*)segue.destinationViewController;
 
-         UINavigationController* navController = projectDetailsController.viewControllers[TABINDEX_PROJECT_FILES];
+         INVTabBarStoryboardLoader* tabStoryBoardLoader = projectDetailsController.storyboardTransitionObject;
+         UINavigationController* navController = tabStoryBoardLoader.tabBarController.viewControllers[TABINDEX_PROJECT_FILES];
          INVProjectFilesListViewController* fileListController = (INVProjectFilesListViewController*) navController.topViewController;
     
          fileListController.projectId = project.projectId;
          
-         UINavigationController* rsNavController = projectDetailsController.viewControllers[TABINDEX_PROJECT_RULESETS];;
+         UINavigationController* rsNavController = tabStoryBoardLoader.tabBarController.viewControllers[TABINDEX_PROJECT_RULESETS];;
          INVRulesListViewController* ruleSetController = (INVRulesListViewController*) rsNavController.topViewController;
           
          ruleSetController.projectId = project.projectId;

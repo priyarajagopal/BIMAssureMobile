@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		024FEEF11A69859A001CA262 /* INVTabBarStoryboardLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */; };
+		024FEEF31A6986C1001CA262 /* Files.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 024FEEF21A6986C1001CA262 /* Files.storyboard */; };
+		024FEEF51A698E0E001CA262 /* Rules.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 024FEEF41A698E0E001CA262 /* Rules.storyboard */; };
 		025489481A67332D00EE012D /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 025489461A67332500EE012D /* EmpireMobileManager.framework */; };
 		025489491A67332D00EE012D /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 025489461A67332500EE012D /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		025489811A68622700EE012D /* INVSignUpTableViewConfigDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */; };
@@ -165,6 +168,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		024FEEEF1A69859A001CA262 /* INVTabBarStoryboardLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVTabBarStoryboardLoader.h; path = "Table View Data Sources/INVTabBarStoryboardLoader.h"; sourceTree = "<group>"; };
+		024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVTabBarStoryboardLoader.m; path = "Table View Data Sources/INVTabBarStoryboardLoader.m"; sourceTree = "<group>"; };
+		024FEEF21A6986C1001CA262 /* Files.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Files.storyboard; sourceTree = "<group>"; };
+		024FEEF41A698E0E001CA262 /* Rules.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rules.storyboard; sourceTree = "<group>"; };
 		025489461A67332500EE012D /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		0254897F1A68622700EE012D /* INVSignUpTableViewConfigDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSignUpTableViewConfigDataSource.h; sourceTree = "<group>"; };
 		025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSignUpTableViewConfigDataSource.m; sourceTree = "<group>"; };
@@ -437,6 +444,8 @@
 				F5426D4E1A680EA30040B2B5 /* Settings.storyboard */,
 				F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */,
 				F5426D551A680F3F0040B2B5 /* Notifications.storyboard */,
+				024FEEF21A6986C1001CA262 /* Files.storyboard */,
+				024FEEF41A698E0E001CA262 /* Rules.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -649,6 +658,8 @@
 				F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */,
 				F5D41A2D1A65A40E00780B9A /* INVBlockUtils.h */,
 				F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */,
+				024FEEEF1A69859A001CA262 /* INVTabBarStoryboardLoader.h */,
+				024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */,
 				0278BB091A66C60D009E0E27 /* INVTransitionToStoryboard.h */,
 				0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */,
 				F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */,
@@ -1007,10 +1018,12 @@
 				F5426D511A680EA30040B2B5 /* Login.storyboard in Resources */,
 				F5789DC11A642A6200D8CEE7 /* ServerConfig-Dev.xcconfig in Resources */,
 				F5789DB51A642A6200D8CEE7 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
+				024FEEF31A6986C1001CA262 /* Files.storyboard in Resources */,
 				F5024AE91A66E7EE002EEE5F /* LaunchScreen.xib in Resources */,
 				F5789DC41A642A6200D8CEE7 /* Startup.json in Resources */,
 				F5789DB41A642A6200D8CEE7 /* INVRuleDefinitionTableViewCell.xib in Resources */,
 				F5426D531A680EA30040B2B5 /* Settings.storyboard in Resources */,
+				024FEEF51A698E0E001CA262 /* Rules.storyboard in Resources */,
 				F539D53B1A644C1C007A2BDC /* Localizable.strings in Resources */,
 				F5789DC51A642A6200D8CEE7 /* ModelViewer.fsh in Resources */,
 				F5789DB31A642A6200D8CEE7 /* INVProjectTableViewCell.xib in Resources */,
@@ -1157,6 +1170,7 @@
 				F5789D571A642A5500D8CEE7 /* NSURLConnectionBlockDelegate.m in Sources */,
 				F5789D651A642A5500D8CEE7 /* INVCustomCollectionViewController.m in Sources */,
 				F5789D4C1A642A5500D8CEE7 /* MBProgressHUD+INVBAHUD.m in Sources */,
+				024FEEF11A69859A001CA262 /* INVTabBarStoryboardLoader.m in Sources */,
 				F5789D511A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
 				F5789D641A642A5500D8CEE7 /* INVUserManagementTableViewController.m in Sources */,
 				F5789D351A642A5500D8CEE7 /* INVDefaultAccountAlertView.m in Sources */,

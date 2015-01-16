@@ -9,5 +9,6 @@
 #import "INVCustomTabBarController.h"
 
 @interface INVProjectDetailsTabViewController : INVCustomTabBarController
+@property (weak, nonatomic) IBOutlet INVTabBarStoryboardLoader *storyboardTransitionObject;
 
 @end
