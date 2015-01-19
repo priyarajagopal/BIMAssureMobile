@@ -55,13 +55,8 @@ static NSString * const reuseIdentifier = @"Cell";
     UIBarButtonItem* settingsButton = self.navigationItem.leftBarButtonItem;
     FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
     [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 30)]];
- 
-    UIBarButtonItem* addButton = self.navigationItem.rightBarButtonItem;
-    FAKFontAwesome *addIcon = [FAKFontAwesome plusIconWithSize:30.0];
-    [addButton setImage:[addIcon imageWithSize:CGSizeMake(30, 30)]];
 
     [self setEstimatedSizeForCells];
-
 }
 
 - (void)didReceiveMemoryWarning {
