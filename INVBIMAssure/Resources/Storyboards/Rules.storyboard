@@ -35,7 +35,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E5q-I1-hyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="j5X-VZ-urg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4958" y="2639"/>
         </scene>
@@ -278,7 +277,7 @@
                                 <navigationItem title="Rule" id="5yB-O5-SyI">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="dEu-75-bB8">
                                         <connections>
-                                            <segue destination="j5X-VZ-urg" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="a0m-Xm-hwO"/>
+                                            <segue destination="5Ky-Lu-d5F" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="gfl-G4-eMf"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -302,6 +301,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tke-Ms-i6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="5Ky-Lu-d5F" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4901" y="3484"/>
         </scene>
@@ -338,7 +338,11 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Rule" id="ajd-xJ-ixN">
-                                    <barButtonItem key="leftBarButtonItem" title="Cancel" id="ngU-Et-fNt"/>
+                                    <barButtonItem key="leftBarButtonItem" title="Cancel" id="ngU-Et-fNt">
+                                        <connections>
+                                            <segue destination="gWq-qG-6wP" kind="unwind" unwindAction="done:" id="MVZ-y3-AAe"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </navigationItem>
                             </items>
                         </navigationBar>
@@ -360,6 +364,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgh-l2-OgT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="gWq-qG-6wP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6455" y="4509"/>
         </scene>
