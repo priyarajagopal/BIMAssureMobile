@@ -40,8 +40,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationController class], nil]setTintColor:[UIColor darkTextColor]];
-
     self.title = NSLocalizedString(@"PROJECTS", nil);
    
     self.clearsSelectionOnViewWillAppear = NO;
@@ -65,24 +63,19 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-  //  UIToolbar* toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,980, CGRectGetWidth(self.tableView.frame),44)];
-   UIToolbar* toolbar = self.navigationController.toolbar;
-    
+    UIToolbar* toolbar = self.navigationController.toolbar;
     
     UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0,0,CGRectGetWidth(self.tableView.frame), CGRectGetHeight(toolbar.frame)) ];
-    [label setTextColor:[UIColor blackColor]];
     [label setTintColor:[UIColor darkGrayColor]];
+    [label setTextAlignment:NSTextAlignmentCenter];
     [label setText:NSLocalizedString(@"UPDATING", nil)];
+    [label setFont:[UIFont systemFontOfSize:13.0]];
     self.updatedAtLabel = label;
+    
     UIBarButtonItem* buttonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
     [buttonItem setTintColor:[UIColor blackColor]];
-    [self.navigationController setToolbarItems:@[buttonItem]];
-  //  [self.navigationController.view addSubview:toolbar];
-   // [self.navigationController.toolbar setItems:@[buttonItem]];
-  
-  //  [self.bottomBarButtonItem setTintColor:[UIColor blackColor]];
+    [self.navigationController.visibleViewController setToolbarItems:@[buttonItem]];
     
-  //  [self.bottomBarButtonItem setTitle:NSLocalizedString(@"UPDATING", nil)];
     [self.navigationController setToolbarHidden:NO animated:YES];
 }
 
@@ -179,28 +172,19 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 
 #pragma mark - helper
 -(void)showLoadProgress {
-     self.hud = [MBProgressHUD loadingViewHUD:nil];
-    [self.view addSubview:self.hud];
-    [self.hud show:YES];
-}
+    [self.updatedAtLabel setText:NSLocalizedString(@"UPDATING", nil)];
+    [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
+ }
+     
 
 
 #pragma mark - INVPagingManagerDelegate
 
 -(void)onFetchedDataAtOffset:(NSInteger)offset pageSize:(NSInteger)size withError:(INVEmpireMobileError*)error {
-    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-   // [self.updatedAtLabel setText: [NSString stringWithFormat: NSLocalizedString(@"UPDATED_AT",nil),[self.dateFormatter stringFromDate:[NSDate date]]]];
-    UIToolbar* toolbar = self.navigationController.toolbar;
+    [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
     
-    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0,0,CGRectGetWidth(self.tableView.frame), CGRectGetHeight(toolbar.frame)) ];
-    [label setTextColor:[UIColor blackColor]];
-    [label setTintColor:[UIColor darkGrayColor]];
-    [label setText:[NSString stringWithFormat: NSLocalizedString(@"UPDATED_AT",nil),[self.dateFormatter stringFromDate:[NSDate date]]]];
-   // self.updatedAtLabel = label;
-    UIBarButtonItem* buttonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
-     [buttonItem setTintColor:[UIColor blackColor]];
-    [self.navigationController setToolbarItems:@[buttonItem]];
-   // [self.navigationController.view addSubview:toolbar];
+    [self.updatedAtLabel setText: [NSString stringWithFormat: NSLocalizedString(@"UPDATED_AT",nil),[self.dateFormatter stringFromDate:[NSDate date]]]];
+  
     if ([self.refreshControl isRefreshing]) {
         [self.refreshControl endRefreshing];
     }
