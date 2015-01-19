@@ -10,6 +10,7 @@
 
 #import "INVRunRulesTableViewController.h"
 #import "INVRunRuleSetHeaderView.h"
+#import "INVBlockUtils.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 60;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
@@ -186,24 +187,29 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 -(void)runRuleInstances {
 #warning For now ignoring rulesets and only executing on per rule instance basis. Hoping for a better API to combine them
-    __block NSNumber* ruleInstanceId;
-  
+    __block INVEmpireMobileError *ruleExecutionError;
+    
+    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
+        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        
+        if (ruleExecutionError) {
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RUN_RULES", nil), ruleExecutionError.code]];
+            [self presentViewController:errController animated:YES completion:nil];
+        } else {
+            [self showSuccessAlertMessage:NSLocalizedString(@"RUN_RULE_SUCCESS", nil)];
+        }
+    } afterNumberOfCalls:self.selectedRuleInstanceIds.count];
+    
     [self.selectedRuleInstanceIds enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        ruleInstanceId = obj;
-         [self.globalDataManager.invServerClient  executeRuleInstance:ruleInstanceId againstPackageVersionId:self.fileVersionId withCompletionBlock:^(INVEmpireMobileError *error) {
-             [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-     
-            if (!error) {
-                NSLog(@"%s. Success",__func__);
-                [self showSuccessAlertMessage:NSLocalizedString(@"RUN_RULE_SUCCESS", nil)];
-
-            }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RUN_RULES", nil),error.code]];
-                [self presentViewController:errController animated:YES completion:^{ }];
-
-            }
-        }];
+        [self.globalDataManager.invServerClient executeRuleInstance:obj
+                                            againstPackageVersionId:self.fileVersionId
+                                                withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                    if (error) {
+                                                        ruleExecutionError = error;
+                                                    }
+                                                    
+                                                    [successBlock invoke];
+                                                }];
 
   
     }];
@@ -320,11 +326,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 #pragma mark - helpers
 -(void)showSuccessAlertMessage:(NSString*)message {
-    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-        }];
-    }];
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
     [self.successAlertController addAction:action];
     [self presentViewController:self.successAlertController animated:YES completion:^{

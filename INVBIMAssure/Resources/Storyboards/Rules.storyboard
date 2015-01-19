@@ -340,7 +340,7 @@
                                 <navigationItem title="Rule" id="ajd-xJ-ixN">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="ngU-Et-fNt">
                                         <connections>
-                                            <segue destination="gWq-qG-6wP" kind="unwind" unwindAction="done:" id="MVZ-y3-AAe"/>
+                                            <segue destination="gWq-qG-6wP" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="MVZ-y3-AAe"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
