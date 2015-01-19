@@ -21,7 +21,7 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger TABINDEX_PROJECT_FILES = 0;
 static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
-static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
+static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 
 @interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate, INVProjectEditViewControllerDelegate,INVPagingManagerDelegate>
@@ -76,7 +76,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
     [buttonItem setTintColor:[UIColor blackColor]];
     [self.navigationController.visibleViewController setToolbarItems:@[buttonItem]];
     
-    [self.navigationController setToolbarHidden:NO animated:YES];
+    [self.navigationController setToolbarHidden:NO animated:NO];
 }
 
 
