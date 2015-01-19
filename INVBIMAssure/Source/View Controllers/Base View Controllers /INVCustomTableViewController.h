@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class  INVPagingManager;
+
 @interface INVCustomTableViewController : UITableViewController
 @property (nonatomic,readonly)INVGlobalDataManager* globalDataManager;
 @property (nonatomic,strong) MBProgressHUD* hud;

@@ -15,18 +15,22 @@
 #import "INVProjectListSplitViewController.h"
 #import "INVRuleExecutionsTableViewController.h"
 #import "UIImage+INVCustomizations.h"
+#import "INVPagingManager+ProjectListing.h"
+
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger TABINDEX_PROJECT_FILES = 0;
 static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
-//static const NSInteger TABINDEX_PROJECT_RULEEXECUTIONS = 2;
+static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 
-@interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate, INVProjectEditViewControllerDelegate>
+
+@interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate, INVProjectEditViewControllerDelegate,INVPagingManagerDelegate>
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVProjectDetailsTabViewController* projectDetailsController;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
+@property (nonatomic,strong)INVPagingManager* pagingManager;
 
 @end
 
@@ -38,10 +42,11 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
     self.title = NSLocalizedString(@"PROJECTS", nil);
    
     self.clearsSelectionOnViewWillAppear = NO;
+    self.pagingManager = [[INVPagingManager alloc]initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
     
     UINib* nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
-    
+      
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.dataSource = self.dataSource;
@@ -70,38 +75,8 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 
 #pragma mark - server side
 -(void)fetchProjectList {
-    [self showLoadProgress];
-    [self.globalDataManager.invServerClient getAllProjectsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-     
-        if ([self.refreshControl isRefreshing]) {
-            [self.refreshControl endRefreshing];
-        }
-        if (!error) {
-#pragma note Yes - you could have directly accessed accounts from accountManager. Using FetchResultsController directly makes it simpler
-            NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
-            if (!dbError) {
-                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-            }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
-            }
-            
-        }
-        else {
-            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
-
-        }
-    }];
+    [self.pagingManager fetchProjectsFromCurrentOffset];
 }
-
 
 /*
 #pragma mark - Navigation
@@ -119,11 +94,17 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
     [self performSegueWithIdentifier:@"ProjectDetailSegue" sender:self];
 }
 
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.dataResultsController.fetchedObjects.count- indexPath.row ==  DEFAULT_FETCH_PAGE_SIZE) {
+        NSLog(@"%s. Will fetch next batch",__func__);
+        [self fetchProjectList];
+    }
+}
  #pragma mark - Navigation
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     return YES;
 }
+
 
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -172,11 +153,49 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
     [self.hud show:YES];
 }
 
+
+#pragma mark - INVPagingManagerDelegate
+-(void)onStartedFetchingData {
+    [self showLoadProgress ];
+}
+
+-(void)onFetchedDataAtOffset:(NSInteger)offset pageSize:(NSInteger)size withError:(INVEmpireMobileError*)error {
+    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+    
+    if ([self.refreshControl isRefreshing]) {
+        [self.refreshControl endRefreshing];
+    }
+    if (!error) {
+        NSError* dbError;
+        [self.dataResultsController performFetch:&dbError];
+        if (!dbError) {
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }
+        else {
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),dbError.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
+        }
+    }
+    else {
+        UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),error.code]];
+        [self presentViewController:errController animated:YES completion:^{
+            
+        }];
+    }
+}
+
+
 #pragma mark - accessor
 -(INVGenericTableViewDataSource*)dataSource {
     if (!_dataSource) {
-        _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
+       // _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
+        
+        _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView enablePaging:YES];
+        
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
+            
             cell.delegate = self;
             cell.projectId = project.projectId;
             cell.name.text = project.name;
@@ -185,7 +204,7 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
                 if (error) return;
                 
                 NSArray *files = [self.globalDataManager.invServerClient.projectManager packagesForProjectId:project.projectId];
-                cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %i", files.count];
+                cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %lu", (unsigned long)files.count];
             }];
             
             // TODO: Load this from a cache first?
@@ -208,6 +227,10 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
         };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
     
+        [_dataSource registerPagingCellConfigBlock:^(NSIndexPath *indexPath) {
+            [self.pagingManager fetchProjectsFromCurrentOffset];
+        }];
+        
     }
     return _dataSource;
 }

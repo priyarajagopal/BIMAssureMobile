@@ -35,20 +35,28 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 @property (nonatomic,strong)NSMutableDictionary* dataDictionary; // dictionary of section=>array of data elements
 @property (nonatomic,strong)NSMutableDictionary* cellConfigDictionary; // dictionary of section=>array of INVCellContentDictionary objects
 @property (nonatomic,readwrite,weak) UITableView* tableView;
+@property (nonatomic,assign) BOOL enablePaging;
+@property (nonatomic,copy)INV_FetchMoreCellConfigurationBlock fetchMoreConfigBlock;
+
 @end
 
 @implementation INVGenericTableViewDataSource
 
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController forTableView:(UITableView*)tableView{
+    return  [self initWithFetchedResultsController:fetchedResultsController forTableView:tableView enablePaging:NO];
+}
+
+-(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController forTableView:(UITableView*)tableView enablePaging:(BOOL)enablePaging{
     self = [super init];
     if (self) {
-         self.fetchedResultsController = fetchedResultsController;
-         dispatch_async(dispatch_get_main_queue(), ^{
+        self.fetchedResultsController = fetchedResultsController;
+        self.enablePaging = enablePaging;
+        dispatch_async(dispatch_get_main_queue(), ^{
             [self.fetchedResultsController performFetch:nil];
-         });
+        });
         
-         self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
-         self.tableView = tableView;
+        self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
+        self.tableView = tableView;
     }
     return self;
 }
@@ -92,6 +100,10 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     }
     [cellContentForSection addObject:content];
     self.cellConfigDictionary[@(indexPath.section)] = cellContentForSection;
+}
+-(void)registerPagingCellConfigBlock:(INV_FetchMoreCellConfigurationBlock) configBlock {
+    self.fetchMoreConfigBlock = configBlock;
+    
 }
 
 -(CGFloat)heightOfRowContentAtIndexPath:(NSIndexPath*)indexPath{
@@ -156,7 +168,70 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     }
 }
 
+/*****
 
+// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __block INVCellContentDictionary cellContext;
+    
+    NSArray* cellContextsForSection = self.cellConfigDictionary[@(indexPath.section)];
+    if (!cellContextsForSection) {
+        cellContextsForSection = self.cellConfigDictionary[@(DEFAULT_SECTION_INDEX)];
+    }
+    if (cellContextsForSection.count == 1)
+    {
+        cellContext = cellContextsForSection[0];
+    }
+    else {
+        [cellContextsForSection enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            cellContext = obj;
+            NSIndexPath* indexPathEntry = cellContext[INV_CellContextIndexPath];
+            if ([indexPathEntry isEqual:indexPath]) {
+                *stop = YES;
+            }
+        }];
+    }
+    if (cellContext) {
+        NSString* matchIdentifier = cellContext[INV_CellContextIdentifier];
+        id cellData = nil;
+        if (self.dataDictionary) {
+            NSArray* dataArray = self.dataDictionary[@(indexPath.section)];
+            cellData = dataArray[indexPath.row];
+        }
+        else {
+            cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        }
+        id cell;
+        if (cellData) {
+            id cell = [tableView dequeueReusableCellWithIdentifier:matchIdentifier];
+            INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
+            
+            if (matchBlock) {
+                matchBlock(cell,cellData,indexPath);
+            }
+           // [self configureCell:cell atIndexPath:indexPath withCellContext:cellContext];
+        }
+        else {
+            if (self.enablePaging) {
+                INV_FetchMoreCellConfigurationBlock matchBlock = self.fetchMoreConfigBlock;
+                // TODO: PRIYA : HAVE A REGISTERED NIB
+                cell = (UITableViewCell*)[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FetchMoreCell"];
+                ((UITableViewCell*)cell).textLabel.text = @"Load More...";
+                if (matchBlock) {
+                    matchBlock(indexPath);
+                }
+                
+            }
+
+        }
+        return cell;
+    }
+    return nil;
+}
+
+ ****/
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
@@ -191,20 +266,23 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 #pragma mark - helper
 -(void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath withCellContext:(INVCellContentDictionary)cellContext{
-        id cellData = nil;
-        if (self.dataDictionary) {
-            NSArray* dataArray = self.dataDictionary[@(indexPath.section)];
-            cellData = dataArray[indexPath.row];
-        }
-        else {
-            cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        }
-        INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
-        
-        if (matchBlock) {
-            matchBlock(cell,cellData,indexPath);
-        }
-
+    id cellData = nil;
+    if (self.dataDictionary) {
+        NSArray* dataArray = self.dataDictionary[@(indexPath.section)];
+        cellData = dataArray[indexPath.row];
+    }
+    else {
+        cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    }
+    INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
+    
+    if (matchBlock) {
+        matchBlock(cell,cellData,indexPath);
+    }
+    
 }
+
+
+
 
 @end

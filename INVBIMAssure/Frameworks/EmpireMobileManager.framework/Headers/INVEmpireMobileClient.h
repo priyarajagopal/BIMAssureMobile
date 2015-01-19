@@ -438,6 +438,24 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 -(void)getAllProjectsForSignedInAccountWithCompletionBlock:(CompletionHandler) handler;
 
 /**
+ Asynchornously ,get list of all projects for signed in account from specified offset and with specified page count. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
+ 
+ @param offset The starting offset from which data is to be fetched
+ 
+ @param pageSize The number of elements to be fetched
+ 
+ @param includeTotalCount Whether total count of objects should be included in response or not
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then projectManager can be used to retrieve projects
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see projectManager
+ 
+ */
+-(void)getAllProjectsForSignedInAccountWithOffset:(NSNumber*)offset pageSize:(NSNumber*)pageSize includeTotalCount:(BOOL)includeTotalCount WithCompletionBlock:(CompletionHandler) handler;
+
+/**
  Asynchornously ,get list of all files associated with a project. Users must have signed into an account in order to be able to fetch project files.
  
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then projectManager can be used to retrieve projects

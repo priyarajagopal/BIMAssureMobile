@@ -32,6 +32,8 @@
         #import "NSString+INVCustomizations.h"
         #import "INVTransitionToStoryboard.h"
         #import "INVTabBarStoryboardLoader.h"
+        #import "INVPagingManager.h"
+
 
 
     #endif
