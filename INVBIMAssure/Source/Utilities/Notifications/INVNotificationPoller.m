@@ -12,9 +12,13 @@ NSString *const INVNotificationPoller_DidRecieveNotificationNotification = @"INV
 NSString *const INVNotificationPoller_DataSourceKey = @"INVNotificationPoller_DataSourceKey";
 NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_ChangesKey";
 
-@implementation INVNotificationPollerDataSource {
-    void (^_block)(void (^)(NSArray *));
-}
+@interface INVNotificationPollerDataSource()
+
+@property (copy) void (^block)(void (^)(NSArray *));
+
+@end
+
+@implementation INVNotificationPollerDataSource
 
 -(id) initWithBlock:(void (^)(void (^)(NSArray *)))block {
     if (self = [super init]) {

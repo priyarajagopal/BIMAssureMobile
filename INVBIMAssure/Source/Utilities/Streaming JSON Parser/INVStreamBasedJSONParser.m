@@ -34,6 +34,13 @@
 
 @interface INVStreamBasedJSONParser()
 
+@property NSMutableArray *pendingData;
+@property NSThread *backgroundThread;
+
+@property NSCondition *hasDataCondition;
+@property dispatch_queue_t consumeQueue;
+@property yajl_handle yajlHandle;
+
 -(int) yajl_callback_null;
 -(int) yajl_callback_number:(const char *) str len:(size_t) length;
 -(int) yajl_callback_string:(const char *) str len:(size_t) length;
@@ -107,16 +114,7 @@ static yajl_callbacks callbacks = {
     _yajl_callback_end_array,
 };
 
-@implementation INVStreamBasedJSONParser {
-    NSMutableArray *_pendingData;
-    NSThread *_backgroundThread;
-    // NSRunLoop *_backgroundRunLoop;
-    
-    NSCondition *_hasDataCondition;
-    dispatch_queue_t _consumeQueue;
-    
-    yajl_handle _yajlHandle;
-}
+@implementation INVStreamBasedJSONParser
 
 -(id) init {
     if (self = [super init]) {

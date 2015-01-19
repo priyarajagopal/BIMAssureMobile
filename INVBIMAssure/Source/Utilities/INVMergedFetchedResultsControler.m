@@ -8,9 +8,13 @@
 
 #import "INVMergedFetchedResultsControler.h"
 
-@implementation INVMergedFetchedResultsControler {
-    NSMutableArray *_resultsControllers;
-}
+@interface INVMergedFetchedResultsControler()
+
+@property NSMutableArray *resultsControllers;
+
+@end
+
+@implementation INVMergedFetchedResultsControler
 
 -(id) init {
     if (self = [super init]) {

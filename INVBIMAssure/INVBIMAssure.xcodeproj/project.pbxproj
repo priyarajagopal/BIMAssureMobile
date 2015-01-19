@@ -438,8 +438,8 @@
 		025489451A6726AB00EE012D /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				F5426D4B1A680EA30040B2B5 /* Account.storyboard */,
 				F5426D4C1A680EA30040B2B5 /* Login.storyboard */,
+				F5426D4B1A680EA30040B2B5 /* Account.storyboard */,
 				F5426D4D1A680EA30040B2B5 /* Main.storyboard */,
 				F5426D4E1A680EA30040B2B5 /* Settings.storyboard */,
 				F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */,
