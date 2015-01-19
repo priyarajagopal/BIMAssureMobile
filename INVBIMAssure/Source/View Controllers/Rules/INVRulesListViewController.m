@@ -24,7 +24,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic,strong) NSMutableSet *cellsCurrentlyEditing;
 @property (nonatomic,strong) NSNumber* selectedRuleInstanceId;
 @property (nonatomic,strong) NSNumber* selectedRuleSetId;
-@property (nonatomic,strong)UIAlertController* deletePromptAlertController;
 @property (nonatomic,strong)INVRuleInstanceTableViewCell* selectedRowInstanceCell;
 @end
 
@@ -67,7 +66,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.dataSource = nil;
     self.dataResultsController = nil;
     self.cellsCurrentlyEditing = nil;
-    self.deletePromptAlertController = nil;
     self.selectedRowInstanceCell = nil;
 }
 
@@ -153,21 +151,18 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 -(void)showDeletePromptAlert {
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self.deletePromptAlertController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    UIAlertAction* proceedAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DELETE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self deleteSelectedRuleInstance];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction* proceedAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DELETE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        // TODO: Delete from server.
     }];
   
-    self.deletePromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:NSLocalizedString(@"DELETE_THE_SELECTED_RULE", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [self.deletePromptAlertController addAction:cancelAction];
-    [self.deletePromptAlertController addAction:proceedAction];
-    [[UIView appearanceWhenContainedIn:[UIAlertController class], nil]setTintColor:[UIColor grayColor]];
+    UIAlertController *deletePromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:NSLocalizedString(@"DELETE_THE_SELECTED_RULE", nil) preferredStyle:UIAlertControllerStyleAlert];
     
-    [self presentViewController:self.deletePromptAlertController animated:YES completion:^{
-        
-    }];
+    [deletePromptAlertController addAction:cancelAction];
+    [deletePromptAlertController addAction:proceedAction];
+    
+    [self presentViewController:deletePromptAlertController animated:YES completion:nil];
 }
 
 

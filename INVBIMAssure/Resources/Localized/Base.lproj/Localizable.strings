@@ -7,6 +7,7 @@
 */
 "SAVE"="Save";
 "CANCEL"="Cancel";
+"DELETE"="Delete";
 "SET_ACCOUNT_AS_DEFAULT"="Set Account as Default?";
 "SHOW_THIS_ALERT"="Do not show this alert again";
 "LOGIN_FAILURE"="Login Failure";
@@ -68,6 +69,10 @@
 "PHOTO_LIBRARY"="Photo Library";
 "TAKE_PHOTO"="Take Photo";
 "INVALID_EMAIL"="Invalid Email";
+
+"DELETE_THE_SELECTED_RULE"="Do you wish to delete the selected rule?";
+
+
 "CONFIRM_DELETE_PROJECT"="Confirm Delete";
 "CONFIRM_DELETE_PROJECT_MESSAGE"="Are you sure you want to delete this project? This cannot be undone!";
 "CONFIRM_DELETE_PROJECT_CONFIRM_NEGATIVE"="No";
