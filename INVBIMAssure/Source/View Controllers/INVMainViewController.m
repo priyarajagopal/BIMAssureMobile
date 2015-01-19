@@ -9,6 +9,7 @@
 #import "INVMainViewController.h"
 #import "INVMainMenuViewController.h"
 #import "INVProjectListSplitViewController.h"
+#import "INVAccountListViewController.h"
 
 @interface INVMainViewController ()
 @property (nonatomic,assign)BOOL registeredForMainMenuEvents;
@@ -129,11 +130,24 @@
 #pragma mark - KVO Observer
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     NSLog(@"%s. with keyPath %@",__func__,keyPath);
+    NSLog(@"%@", self.detailContainerViewController.class);
+    
     if ([keyPath isEqualToString:KVO_INVOnProjectsMenuSelected]) {
-        [self performSegueWithIdentifier:@"MainProjectEmbedSegue" sender:nil];
-        
+        if (![self.detailContainerViewController isKindOfClass:[INVProjectListSplitViewController class]]) {
+            [self performSegueWithIdentifier:@"MainProjectEmbedSegue" sender:nil];
+        }
     }
+    
     if ([keyPath isEqualToString:KVO_INVOnAccountMenuSelected]) {
+    
+        if ([self.detailContainerViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController *) self.detailContainerViewController;
+            
+            if ([[navigationController.viewControllers firstObject] isKindOfClass:[INVAccountListViewController class]]) {
+                return;
+            }
+        }
+        
         [self performSegueWithIdentifier:@"MainAccountEmbedSegue" sender:nil];
         
     }
