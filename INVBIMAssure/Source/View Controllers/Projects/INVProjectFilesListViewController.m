@@ -29,13 +29,14 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 @property (nonatomic,strong)NSNumber* selectedFileId;
 @property (nonatomic,strong)NSNumber* selectedFileTipId;
 @property (nonatomic,strong)INVSearchView* searchView;
+
+@property NSMutableSet *selectedTags;
+@property NSArray *allTags;
+@property NSMutableArray *searchHistory;
+
 @end
 
-@implementation INVProjectFilesListViewController {
-    NSMutableSet *_selectedTags;
-    NSArray *_allTags;
-    NSMutableArray *_searchHistory;
-}
+@implementation INVProjectFilesListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

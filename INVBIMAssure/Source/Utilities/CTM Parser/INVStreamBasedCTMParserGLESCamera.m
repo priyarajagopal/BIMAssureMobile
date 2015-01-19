@@ -14,9 +14,13 @@ int INVStreamBasedCTMParserGLESCamera_LightPositionUniformLocation[6];
 @implementation INVStreamBasedCTMParserGLESLight
 @end
 
-@implementation INVStreamBasedCTMParserGLESCamera {
-    GLuint _program;
-}
+@interface INVStreamBasedCTMParserGLESCamera()
+
+@property GLuint program;
+
+@end
+
+@implementation INVStreamBasedCTMParserGLESCamera
 
 -(id) init {
     if (self = [super init]) {

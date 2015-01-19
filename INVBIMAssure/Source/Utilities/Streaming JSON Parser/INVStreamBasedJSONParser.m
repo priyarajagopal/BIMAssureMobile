@@ -6,15 +6,14 @@
 @interface NSInputStreamBlockDelegate : NSObject<NSStreamDelegate>
 
 @property (copy) void (^handleEvent)(NSStream *, NSStreamEvent);
+@property id retainedSelf;
 
 -(void) retainSelf;
 -(void) releaseSelf;
 
 @end
 
-@implementation NSInputStreamBlockDelegate {
-    id _retainedSelf;
-}
+@implementation NSInputStreamBlockDelegate
 
 -(void) stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
     if (self.handleEvent) {

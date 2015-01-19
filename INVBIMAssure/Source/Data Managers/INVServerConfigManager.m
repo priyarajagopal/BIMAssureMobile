@@ -22,10 +22,14 @@
 #define INV_DEPLOYMENT_NAME nil
 #endif
 
-@implementation INVServerConfigManager {
-    NSURL *_passportServerURL;
-    NSURL *_empireManageServerURL;
-}
+@interface INVServerConfigManager()
+
+@property NSURL *passportServerURL;
+@property NSURL *empireManageServerURL;
+
+@end
+
+@implementation INVServerConfigManager
 
 +(id) instance {
     static INVServerConfigManager *configManager;

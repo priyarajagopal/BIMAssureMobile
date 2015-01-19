@@ -24,8 +24,22 @@
 @property (nonatomic) IBOutlet UIButton *tagsButton;
 @property (nonatomic) IBOutlet UIButton *saveButton;
 @property (nonatomic) IBOutlet UIButton *cancelButton;
-@property (nonatomic) NSOrderedSet *allTags;
-@property (nonatomic) NSArray *searchHistory;
+
+@property (nonatomic) NSMutableOrderedSet *allTags;
+@property (nonatomic) NSMutableOrderedSet *selectedTags;
+@property (nonatomic) NSMutableArray *searchHistory;
+
+@property UIAlertView *saveDialog;
+
+@property INVSearchViewTagsDataSource *tagsDataSource;
+@property UITableViewController *tagsController;
+@property UIPopoverController *tagsPopoverController;
+
+@property INVSearchViewQuickSearchDataSource *quickSearchDataSource;
+@property UITableViewController *quickSearchController;
+@property UIPopoverController *quickSearchPopoverController;
+
+@property UIColor *oldTintColor;
 
 -(IBAction) _showTagsDropdown:(id) sender;
 -(IBAction) _showQuickSearchDropdown:(id) sender;
@@ -39,21 +53,12 @@
 @end
 
 @implementation INVSearchView {
+    // Must use iVars here, as otherwise it's synthesized as the type
+    // in the header (NSOrderedSet) instead of the type
+    // in the implementation (NSMutableOrderedSet).
     NSMutableOrderedSet *_allTags;
     NSMutableOrderedSet *_selectedTags;
     NSMutableArray *_searchHistory;
-    
-    UIAlertView *_saveDialog;
-    
-    INVSearchViewTagsDataSource *_tagsDataSource;
-    UITableViewController *_tagsController;
-    UIPopoverController *_tagsPopoverController;
-    
-    INVSearchViewQuickSearchDataSource *_quickSearchDataSource;
-    UITableViewController *_quickSearchController;
-    UIPopoverController *_quickSearchPopoverController;
-    
-    UIColor *_oldTintColor;
 }
 
 #pragma mark - Property accessors
@@ -76,12 +81,26 @@
     return [_selectedTags copy];
 }
 
+-(void) setSelectedTags:(NSOrderedSet *)selectedTags {
+    [_selectedTags removeAllObjects];
+    [_selectedTags unionOrderedSet:selectedTags];
+}
+
 -(NSOrderedSet *) allTags {
     return _allTags;
 }
 
+-(void) setAllTags:(NSOrderedSet *)allTags {
+    [_allTags removeAllObjects];
+    [_allTags unionOrderedSet:allTags];
+}
+
 -(NSArray *) searchHistory {
     return _searchHistory;
+}
+
+-(void) setSearchHistory:(NSArray *)searchHistory {
+    [_searchHistory setArray:searchHistory];
 }
 
 -(NSString *) searchText {

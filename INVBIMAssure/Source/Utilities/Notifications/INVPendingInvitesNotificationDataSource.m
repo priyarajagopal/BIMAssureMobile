@@ -9,9 +9,13 @@
 #import "INVPendingInvitesNotificationDataSource.h"
 #import <EmpireMobileManager/INVUserInvite.h>
 
-@implementation INVPendingInvitesNotificationDataSource {
-    NSArray *_previousInvites;
-}
+@interface INVPendingInvitesNotificationDataSource()
+
+@property NSArray *previousInvites;
+
+@end
+
+@implementation INVPendingInvitesNotificationDataSource
 
 -(void) checkForNewData:(void (^)(NSArray *))callback {
     if (INVGlobalDataManager.sharedInstance.loggedInUser == nil) return;

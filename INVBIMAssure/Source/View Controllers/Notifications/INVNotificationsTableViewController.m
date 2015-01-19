@@ -16,14 +16,13 @@
 
 @property IBOutlet UILabel *noNotificationsLabel;
 
+@property INVDefaultAccountAlertView *alertView;
+@property INVNotification *selectedNotification;
+@property NSArray *notifications;
+
 @end
 
-@implementation INVNotificationsTableViewController {
-    INVDefaultAccountAlertView *_alertView;
-    INVNotification *_selectedNotification;
-    
-    NSArray *_notifications;
-}
+@implementation INVNotificationsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

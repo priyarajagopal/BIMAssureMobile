@@ -7,9 +7,13 @@
 //
 #import "INVMutableArrayTableViewDataSource.h"
 
-@implementation INVMutableArrayTableViewDataSource {
-    NSMutableArray *_contents;
-}
+@interface INVMutableArrayTableViewDataSource()
+
+@property NSMutableArray *contents;
+
+@end
+
+@implementation INVMutableArrayTableViewDataSource
 
 -(id) init {
     if (self = [super init]) {

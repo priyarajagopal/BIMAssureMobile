@@ -15,9 +15,13 @@
 #import "INVSearchViewQuickSearchDataSource.h"
 #import "INVSearchViewPrivate.h"
 
-@implementation INVSearchViewQuickSearchDataSource {
-    NSArray *_topTags;
-}
+@interface INVSearchViewQuickSearchDataSource()
+
+@property NSArray *topTags;
+
+@end
+
+@implementation INVSearchViewQuickSearchDataSource
 
 -(id) initWithSearchView:(INVSearchView *)searchView {
     if (self = [super init]) {

@@ -31,45 +31,46 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
 }
 
 @interface INVStreamBasedCTMParser()<INVStreamBasedJSONParserDelegate>
+
+@property INVStreamBasedJSONParser *jsonParser;
+
+@property NSMutableDictionary *sharedGeoms;
+
+@property INVStreamBasedCTMParserGLESMesh *opaqueMesh;
+@property INVStreamBasedCTMParserGLESMesh *transparentMesh;
+
+@property BOOL isProcessingModels;
+@property BOOL isProcessingModelGeometry;
+@property BOOL isProcessingSharedGeoms;
+@property BOOL isProcessingElements;
+@property BOOL isProcessingElementGeometries;
+@property BOOL isProcessingMatrix;
+@property BOOL isProcessingBBox;
+
+@property NSString *lastKey;
+
+@property NSString *modelId;
+@property NSString *modelFileId;
+
+@property NSString *elementId;
+@property NSNumber *elementType;
+
+@property NSString *geometryRefId;
+@property NSNumber *geometryType;
+@property NSNumber *geometryColor;
+
+@property NSUInteger geometryBBoxIndex;
+@property GLKBBox geometryBBox;
+
+@property NSUInteger geometryMatrixIndex;
+@property GLKMatrix4 geometryMatrix;
+
+// This holds our vertices and indices
+@property CTMcontext ctmContext;
+
 @end
 
-@implementation INVStreamBasedCTMParser {
-    INVStreamBasedJSONParser *_jsonParser;
-    
-    NSMutableDictionary *_sharedGeoms;
-    
-    INVStreamBasedCTMParserGLESMesh *_opaqueMesh;
-    INVStreamBasedCTMParserGLESMesh *_transparentMesh;
-    
-    BOOL _isProcessingModels;
-    BOOL _isProcessingModelGeometry;
-    BOOL _isProcessingSharedGeoms;
-    BOOL _isProcessingElements;
-    BOOL _isProcessingElementGeometries;
-    BOOL _isProcessingMatrix;
-    BOOL _isProcessingBBox;
-    
-    NSString *_lastKey;
-    
-    NSString *_modelId;
-    NSString *_modelFileId;
-    
-    NSString *_elementId;
-    NSNumber *_elementType;
-    
-    NSString *_geometryRefId;
-    NSNumber *_geometryType;
-    NSNumber *_geometryColor;
-    
-    NSUInteger _geometryBBoxIndex;
-    GLKBBox _geometryBBox;
-    
-    NSUInteger _geometryMatrixIndex;
-    GLKMatrix4 _geometryMatrix;
-    
-    // This holds our vertices and indices
-    CTMcontext _ctmContext;
-}
+@implementation INVStreamBasedCTMParser
 
 -(id) init {
     if (self = [super init]) {

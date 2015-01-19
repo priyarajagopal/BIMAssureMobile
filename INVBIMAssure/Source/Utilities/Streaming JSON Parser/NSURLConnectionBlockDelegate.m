@@ -1,8 +1,12 @@
 #import "NSURLConnectionBlockDelegate.h"
 
-@implementation NSURLConnectionBlockDelegate {
-    id _retainedSelf;
-}
+@interface NSURLConnectionBlockDelegate()
+
+@property id retainedSelf;
+
+@end
+
+@implementation NSURLConnectionBlockDelegate
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     if (self.didRecieveData) {

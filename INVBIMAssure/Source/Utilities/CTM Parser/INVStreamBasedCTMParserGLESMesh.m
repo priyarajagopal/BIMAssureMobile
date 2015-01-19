@@ -60,24 +60,26 @@ struct __attribute__((packed)) index_struct {
 
 @end
 
-@implementation INVStreamBasedCTMParserGLESMesh {
-    GLenum _elementType;
-    
-    GLsizei _vertexCount;
-    GLsizei _indexCount;
-    
-    GLuint _vertexArray;
-    GLuint _vertexBuffer;
-    GLuint _indexBuffer;
-    
-    struct vertex_struct *_vertexPointer;
-    struct index_struct *_indexPointer;
-    
-    BOOL _isPrepared;
-    BOOL _isMapped;
-    
-    NSMutableDictionary *_elements;
-}
+@interface INVStreamBasedCTMParserGLESMesh()
+
+@property GLsizei vertexCount;
+@property GLsizei indexCount;
+
+@property GLuint vertexArray;
+@property GLuint vertexBuffer;
+@property GLuint indexBuffer;
+
+@property struct vertex_struct *vertexPointer;
+@property struct index_struct *indexPointer;
+
+@property BOOL isPrepared;
+@property BOOL isMapped;
+
+@property NSMutableDictionary *elements;
+
+@end
+
+@implementation INVStreamBasedCTMParserGLESMesh
 
 -(id) initWithElementType:(GLenum)elementType transparent:(BOOL)transparent {
     if (self = [super init]) {

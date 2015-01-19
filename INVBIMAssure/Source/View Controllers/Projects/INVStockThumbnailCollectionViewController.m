@@ -11,11 +11,12 @@
 #import "UIImage+INVCustomizations.h"
 
 @interface INVStockThumbnailCollectionViewController ()
+
+@property NSArray *stockImages;
+
 @end
 
-@implementation INVStockThumbnailCollectionViewController {
-    NSArray *_stockImages;
-}
+@implementation INVStockThumbnailCollectionViewController
 
 -(id) init {
     UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];

@@ -40,13 +40,17 @@ NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_Chang
 
 @end
 
-@implementation INVNotificationPoller {
-    dispatch_queue_t _backgroundQueue;
-    dispatch_source_t _pollingTimer;
-    
-    NSMutableArray *_dataSources;
-    NSMutableArray *_notifications;
-}
+@interface INVNotificationPoller()
+
+@property dispatch_queue_t backgroundQueue;
+@property dispatch_source_t pollingTimer;
+
+@property NSMutableArray *dataSources;
+@property NSMutableArray *notifications;
+
+@end
+
+@implementation INVNotificationPoller
 
 +(instancetype) instance {
     static INVNotificationPoller *poller;
