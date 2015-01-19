@@ -117,7 +117,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.dataResultsController.fetchedObjects.count- indexPath.row ==  DEFAULT_FETCH_PAGE_SIZE) {
+    if (self.dataResultsController.fetchedObjects.count- indexPath.row ==  DEFAULT_FETCH_PAGE_SIZE/4) {
         NSLog(@"%s. Will fetch next batch",__func__);
         [self fetchProjectList];
     }
