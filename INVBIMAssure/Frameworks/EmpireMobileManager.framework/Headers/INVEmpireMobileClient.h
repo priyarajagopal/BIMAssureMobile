@@ -236,7 +236,7 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
 
 /**
- Asynchornously, remove user with specified userId from account. Only admins are allowed to exercise this call.
+ Asynchornously, remove user with specified userId from currently signed in account. Only admins are allowed to exercise this call.
  
  @param handler The completion handler that returns error object if there was any error.
  
@@ -245,7 +245,7 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  @see accountManager
  
  */
--(void)removeUser:(NSNumber*)userId fromAccount:(NSNumber*)accountId withCompletionBlock:(CompletionHandler) handler;
+-(void)removeUserFromSignedInAccountWithUserId:(NSNumber*)userId withCompletionBlock:(CompletionHandler) handler;
 
 
 

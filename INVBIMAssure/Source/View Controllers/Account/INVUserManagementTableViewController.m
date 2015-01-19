@@ -89,6 +89,42 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     return cell;
 }
 
+-(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == SECTIONINDEX_CURRENTUSERS) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSNumber *accountId = self.globalDataManager.loggedInAccount;
+    NSNumber *userId = [[self.dataResultsController objectAtIndexPath:indexPath] userId];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER", nil)
+                                                                             message:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER_MESSAGE", nil)
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER_NEGATIVE", nil)
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER_POSITIVE", nil)
+                                                        style:UIAlertActionStyleDestructive
+                                                      handler:^(UIAlertAction *action) {
+                                                          [self.globalDataManager.invServerClient removeUserFromSignedInAccountWithUserId:userId
+                                                                                                                      withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                                                                                          if (error) {
+                                                                                                                              NSLog(@"%@", error);
+                                                                                                                              return;
+                                                                                                                          }
+                                                              
+                                                                                                                          [self fetchListOfAccountMembers];
+                                                                                                                      }];
+                                                        }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 -(UIView*) headerViewWithAccountName {
     UIView* headerView = [[UIView alloc]initWithFrame:CGRectMake(0,0, self.tableView.bounds.size.width,DEFAULT_TABLE_HEADER_HEIGHT)];
@@ -121,6 +157,10 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectedBackgroundView:bgColorView];
     return indexPath;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - server side / data model integration
