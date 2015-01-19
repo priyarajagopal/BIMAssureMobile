@@ -459,7 +459,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.alertView.cancelButton setTitle:cancelButtonTitle forState:UIControlStateNormal];
     
     self.alertView.alpha = 0.0;
-    [self.collectionView addSubview:self.alertView];
+    [self.view addSubview:self.alertView];
     
     [self.alertView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self setDefaultAccountAlertConstraints];
@@ -470,11 +470,11 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void) setDefaultAccountAlertConstraints {
-    NSLayoutConstraint* xConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
-    NSLayoutConstraint* yConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+    NSLayoutConstraint* xConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+    NSLayoutConstraint* yConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
     NSLayoutConstraint* widthConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:436];
     NSLayoutConstraint* heightConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:210];
-    [self.collectionView addConstraints:@[xConstraint,yConstraint,widthConstraint,heightConstraint]];
+    [self.view addConstraints:@[xConstraint,yConstraint,widthConstraint,heightConstraint]];
 
 }
 
