@@ -20,7 +20,7 @@ typedef void (^INV_HeaderConfigurationBlock)(id headerView, id headerData, NSInt
 
 
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController forTableView:(UITableView*)tableView;
--(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController forTableView:(UITableView*)tableView enablePaging:(BOOL)enablePaging;
+
 
 -(id)initWithDataArray:(NSArray*)dataArray forSection:(NSInteger)section forTableView:(UITableView*)tableView;
 -(void)updateWithDataArray:(NSArray*)updatedDataArray forSection:(NSInteger)section;
@@ -28,8 +28,6 @@ typedef void (^INV_HeaderConfigurationBlock)(id headerView, id headerData, NSInt
 -(void)registerCellWithIdentifierForAllIndexPaths:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock ;
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forSection:(NSInteger)section;
 -(void)registerCellWithIdentifier:(NSString*)cellIdentifier configureBlock:(INV_CellConfigurationBlock) configBlock forIndexPath:(NSIndexPath*)indexPath;
-
--(void)registerPagingCellConfigBlock:(INV_FetchMoreCellConfigurationBlock) configBlock ;
 
 -(CGFloat)heightOfRowContentAtIndexPath:(NSIndexPath*)indexPath ;
 @end

@@ -13,8 +13,6 @@
 
 -(void)onFetchedDataAtOffset:(NSInteger)offset pageSize:(NSInteger)size withError:(INVEmpireMobileError*)error;
 
-@optional
--(void)onStartedFetchingData;
 @end
 
 @interface INVPagingManager : NSObject

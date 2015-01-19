@@ -18,8 +18,9 @@ static const INV_ERROR_CODE INV_ERROR_CODE_GENERIC = 500;
 static const INV_ERROR_CODE INV_ERROR_CODE_AUTHORIZATIONFAILURE = 401;
 static const INV_ERROR_CODE INV_ERROR_CODE_RESOURCENOTFOUND = 404;
 static const INV_ERROR_CODE INV_ERROR_CODE_INVALIDREQUESTPARAM = 400;
-//static const INV_ERROR_CODE INV_ERROR_CODE_DUPLICATEUSERINVITE = 1000;
 static const INV_ERROR_CODE INV_ERROR_CODE_INVALIDINVITATIONCODE = 1001;
+static const INV_ERROR_CODE INV_ERROR_CODE_NOMOREPAGES = 2000;
+
 
 // List of supported error messages
 typedef NSString* INV_ERROR_MESG;
@@ -30,6 +31,7 @@ static const INV_ERROR_MESG  INV_ERROR_MESG_RESOURCENOTFOUNDFAILURE = @"Requeste
 static const INV_ERROR_MESG  INV_ERROR_MESG_INVALIDREQUESTFAILURE = @"Request parameters are not valid";
 static const INV_ERROR_MESG  INV_ERROR_MESG_DUPLICATEUSERINVITE = @"User has already been invited to the account";
 static const INV_ERROR_MESG  INV_ERROR_MESG_INVALIDINVITATIONCODE = @"This is not a valid pending invite";
+static const INV_ERROR_MESG  INV_ERROR_MESG_NOMOREPAGES = @"No remaining data to be fetched for the request";
 
 
 @interface INVEmpireMobileError : MTLModel <MTLJSONSerializing>

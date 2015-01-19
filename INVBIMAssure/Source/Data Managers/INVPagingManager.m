@@ -32,5 +32,13 @@ const NSInteger DEFAULT_PAGESIZE = 20;
     self.currOffset = 0;
 }
 
+-(void)handlePagedResponse:(INVEmpireMobileError *)error {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onFetchedDataAtOffset:pageSize:withError:)]) {
+        [self.delegate onFetchedDataAtOffset:self.currOffset pageSize:self.pageSize withError:error];
+    }
+    
+    self.currOffset+= self.pageSize;
+
+}
 
 @end

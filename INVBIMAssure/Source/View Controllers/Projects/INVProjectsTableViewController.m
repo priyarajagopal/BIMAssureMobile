@@ -30,7 +30,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
 @property (nonatomic,strong)INVProjectDetailsTabViewController* projectDetailsController;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
-@property (nonatomic,strong)INVPagingManager* pagingManager;
+@property (nonatomic,strong)INVPagingManager* projectPagingManager;
+@property (nonatomic,strong)UILabel* updatedAtLabel;
 
 @end
 
@@ -39,10 +40,12 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationController class], nil]setTintColor:[UIColor darkTextColor]];
+
     self.title = NSLocalizedString(@"PROJECTS", nil);
    
     self.clearsSelectionOnViewWillAppear = NO;
-    self.pagingManager = [[INVPagingManager alloc]initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+    self.projectPagingManager = [[INVPagingManager alloc]initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
     
     UINib* nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
@@ -59,9 +62,35 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+  //  UIToolbar* toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,980, CGRectGetWidth(self.tableView.frame),44)];
+   UIToolbar* toolbar = self.navigationController.toolbar;
+    
+    
+    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0,0,CGRectGetWidth(self.tableView.frame), CGRectGetHeight(toolbar.frame)) ];
+    [label setTextColor:[UIColor blackColor]];
+    [label setTintColor:[UIColor darkGrayColor]];
+    [label setText:NSLocalizedString(@"UPDATING", nil)];
+    self.updatedAtLabel = label;
+    UIBarButtonItem* buttonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
+    [buttonItem setTintColor:[UIColor blackColor]];
+    [self.navigationController setToolbarItems:@[buttonItem]];
+  //  [self.navigationController.view addSubview:toolbar];
+   // [self.navigationController.toolbar setItems:@[buttonItem]];
+  
+  //  [self.bottomBarButtonItem setTintColor:[UIColor blackColor]];
+    
+  //  [self.bottomBarButtonItem setTitle:NSLocalizedString(@"UPDATING", nil)];
+    [self.navigationController setToolbarHidden:NO animated:YES];
+}
+
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [self.navigationController setToolbarHidden:YES animated:YES];
     self.projectManager = nil;
     self.dateFormatter = nil;
     self.projectDetailsController = nil;
@@ -72,10 +101,10 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 }
 
 
-
 #pragma mark - server side
 -(void)fetchProjectList {
-    [self.pagingManager fetchProjectsFromCurrentOffset];
+    [self showLoadProgress ];
+    [self.projectPagingManager fetchProjectsFromCurrentOffset];
 }
 
 /*
@@ -100,6 +129,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
         [self fetchProjectList];
     }
 }
+
+
  #pragma mark - Navigation
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     return YES;
@@ -148,20 +179,28 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 
 #pragma mark - helper
 -(void)showLoadProgress {
-    self.hud = [MBProgressHUD loadingViewHUD:nil];
+     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
 }
 
 
 #pragma mark - INVPagingManagerDelegate
--(void)onStartedFetchingData {
-    [self showLoadProgress ];
-}
 
 -(void)onFetchedDataAtOffset:(NSInteger)offset pageSize:(NSInteger)size withError:(INVEmpireMobileError*)error {
     [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+   // [self.updatedAtLabel setText: [NSString stringWithFormat: NSLocalizedString(@"UPDATED_AT",nil),[self.dateFormatter stringFromDate:[NSDate date]]]];
+    UIToolbar* toolbar = self.navigationController.toolbar;
     
+    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0,0,CGRectGetWidth(self.tableView.frame), CGRectGetHeight(toolbar.frame)) ];
+    [label setTextColor:[UIColor blackColor]];
+    [label setTintColor:[UIColor darkGrayColor]];
+    [label setText:[NSString stringWithFormat: NSLocalizedString(@"UPDATED_AT",nil),[self.dateFormatter stringFromDate:[NSDate date]]]];
+   // self.updatedAtLabel = label;
+    UIBarButtonItem* buttonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
+     [buttonItem setTintColor:[UIColor blackColor]];
+    [self.navigationController setToolbarItems:@[buttonItem]];
+   // [self.navigationController.view addSubview:toolbar];
     if ([self.refreshControl isRefreshing]) {
         [self.refreshControl endRefreshing];
     }
@@ -190,9 +229,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
 #pragma mark - accessor
 -(INVGenericTableViewDataSource*)dataSource {
     if (!_dataSource) {
-       // _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
-        
-        _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView enablePaging:YES];
+        _dataSource = [[INVGenericTableViewDataSource alloc]initWithFetchedResultsController:self.dataResultsController forTableView:self.tableView];
         
         INV_CellConfigurationBlock cellConfigurationBlock = ^(INVProjectTableViewCell *cell,INVProject* project,NSIndexPath* indexPath ){
             
@@ -227,9 +264,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 1;
         };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
     
-        [_dataSource registerPagingCellConfigBlock:^(NSIndexPath *indexPath) {
-            [self.pagingManager fetchProjectsFromCurrentOffset];
-        }];
         
     }
     return _dataSource;

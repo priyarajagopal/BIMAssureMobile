@@ -11,8 +11,7 @@
 @interface INVPagingManager()
 @property (nonatomic,assign) NSInteger currOffset;
 @property (nonatomic,assign) NSInteger pageSize;
-
 @property (nonatomic,strong) INVGlobalDataManager* globalDataManager;
-
+-(void)handlePagedResponse:(INVEmpireMobileError*)error;
 
 @end
