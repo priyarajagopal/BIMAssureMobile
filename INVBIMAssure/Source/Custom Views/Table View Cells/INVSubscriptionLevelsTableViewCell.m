@@ -110,13 +110,12 @@ static NSString* const INV_SUBSCRIPTION_PRICING    = @"Pricing";
 }
 
 -(void)setLayerShadowForView:(UIView*)view {
-    [view.layer setBorderColor:(__bridge CGColorRef)([UIColor lightGrayColor])];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
     [view.layer setCornerRadius:2.0f];
     [view.layer setBorderWidth:1.0f];
     [view.layer setShadowOffset:CGSizeMake(0, 0)];
     [view.layer setShadowColor:[[UIColor lightGrayColor] CGColor]];
     [view.layer setShadowOpacity:0.5];
-
 }
 
 -(void)populateWithSubscriptionDetails {

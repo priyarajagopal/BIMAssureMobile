@@ -102,15 +102,7 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 -(void) setupTableFooter {
-    
-    NSInteger numberOfRowsInActualParamsSection = [self.tableView numberOfRowsInSection:SECTION_RULEINSTANCEACTUALPARAM];
-    NSInteger heightOfTableViewCells = numberOfRowsInActualParamsSection * DEFAULT_CELL_HEIGHT;
-    
-    heightOfTableViewCells += DEFAULT_CELL_HEIGHT + DEFAULT_OVERVIEW_CELL_HEIGHT;
-    
-    
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(self.tableView.frame) + heightOfTableViewCells, CGRectGetWidth (self.tableView.frame), CGRectGetHeight(self.tableView.frame)-(heightOfTableViewCells + CGRectGetMinY(self.tableView.frame)))];
-    self.tableView.tableFooterView = view;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - Manage Table View Data Sources
