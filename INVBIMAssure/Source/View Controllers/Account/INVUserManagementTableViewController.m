@@ -98,7 +98,6 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSNumber *accountId = self.globalDataManager.loggedInAccount;
     NSNumber *userId = [[self.dataResultsController objectAtIndexPath:indexPath] userId];
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER", nil)

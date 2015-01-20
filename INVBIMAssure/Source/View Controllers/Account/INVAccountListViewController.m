@@ -532,9 +532,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - utils
--(UIStoryboard*)mainStoryboard {
-    return [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle bundleForClass:[self class]]];
-}
 
 -(void)addSignUpObservers {
     [self.signUpController addObserver:self forKeyPath:KVO_INVSignupSuccess options:NSKeyValueObservingOptionNew context:nil];

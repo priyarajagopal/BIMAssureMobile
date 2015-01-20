@@ -152,7 +152,7 @@
                                 <navigationItem title="Invite Users" id="505-IP-z9Y">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0Cg-by-y51">
                                         <connections>
-                                            <segue destination="Ujv-JG-HIH" kind="unwind" identifier="ReturnToUserManagementSegue" unwindAction="done:" id="SQI-Z5-HQw"/>
+                                            <segue destination="ukH-px-UpM" kind="unwind" unwindAction="manualDismiss:" id="vQ8-zq-jDn"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" enabled="NO" title="Send" id="rb0-3e-4z5">
@@ -192,6 +192,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wdk-JC-93j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ukH-px-UpM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-12" y="4249"/>
         </scene>

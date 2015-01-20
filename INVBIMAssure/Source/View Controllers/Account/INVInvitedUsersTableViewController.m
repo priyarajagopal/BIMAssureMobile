@@ -27,6 +27,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"INVITED_USERS", nil);
+    
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
 }
@@ -52,11 +53,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 }
 
 -(void) setupTableFooter {
-    NSInteger numberOfRows = [self.tableView numberOfRowsInSection:0];
-    NSInteger heightOfTableViewCells = numberOfRows * DEFAULT_CELL_HEIGHT;
-    
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(self.tableView.frame) + heightOfTableViewCells, CGRectGetWidth (self.tableView.frame), CGRectGetHeight(self.tableView.frame)-(heightOfTableViewCells + CGRectGetMinY(self.tableView.frame)))];
-    self.tableView.tableFooterView = view;
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 }
 
 #pragma mark - server side
@@ -77,17 +74,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             }
             else {
                 UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
+                [self presentViewController:errController animated:YES completion:nil];
             }
             
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }];
     [self setupTableFooter];
@@ -158,7 +151,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForPendingInvitesForAccount managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        NSFetchRequest *fetchRequest = [self.accountManager.fetchRequestForPendingInvitesForAccount copy];
+        fetchRequest.sortDescriptors = @[
+            [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]
+        ];
+        
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         _dataResultsController.delegate = self;
     }
     return  _dataResultsController;
