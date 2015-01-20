@@ -28,6 +28,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"INVITED_USERS", nil);
     
+    self.tableView.editing = YES;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
 }

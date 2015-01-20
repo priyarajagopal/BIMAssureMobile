@@ -31,6 +31,8 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"USER_MANAGEMENT_ACCOUNT", nil);
+    
+    self.tableView.editing = YES;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.refreshControl = nil;
