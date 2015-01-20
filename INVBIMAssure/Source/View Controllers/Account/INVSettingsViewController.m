@@ -18,7 +18,7 @@ static const NSInteger HEADER_HEIGHT = 50;
     
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"SETTINGS", nil);
-
+    self.refreshControl = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,7 +30,6 @@ static const NSInteger HEADER_HEIGHT = 50;
     [super viewWillAppear:animated];
     [self setupTableHeader];
 }
-
 
 -(void) setupTableHeader {
     UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth (self.tableView.frame), HEADER_HEIGHT)];

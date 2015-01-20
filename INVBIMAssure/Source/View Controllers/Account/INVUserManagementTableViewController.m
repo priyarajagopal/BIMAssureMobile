@@ -28,18 +28,18 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"USER_MANAGEMENT_ACCOUNT", nil);
-      self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
+    self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-
+    self.refreshControl = nil;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

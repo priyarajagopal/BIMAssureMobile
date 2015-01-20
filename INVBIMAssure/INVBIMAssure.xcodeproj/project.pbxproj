@@ -752,10 +752,10 @@
 			children = (
 				F5789CF11A642A5500D8CEE7 /* INVAccountListViewController.h */,
 				F5789CF21A642A5500D8CEE7 /* INVAccountListViewController.m */,
-				F5789CF31A642A5500D8CEE7 /* INVInvitedUsersTableViewController.h */,
-				F5789CF41A642A5500D8CEE7 /* INVInvitedUsersTableViewController.m */,
 				F5789CF51A642A5500D8CEE7 /* INVInviteUsersTableViewController.h */,
 				F5789CF61A642A5500D8CEE7 /* INVInviteUsersTableViewController.m */,
+				F5789CF31A642A5500D8CEE7 /* INVInvitedUsersTableViewController.h */,
+				F5789CF41A642A5500D8CEE7 /* INVInvitedUsersTableViewController.m */,
 				F5789CF71A642A5500D8CEE7 /* INVLoginViewController.h */,
 				F5789CF81A642A5500D8CEE7 /* INVLoginViewController.m */,
 				F5789CF91A642A5500D8CEE7 /* INVSettingsViewController.h */,
