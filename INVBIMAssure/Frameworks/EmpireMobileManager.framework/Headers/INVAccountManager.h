@@ -104,7 +104,16 @@
 
 
 
-#warning Include way to asyncronously Notify when deletion is done
+
+/**
+ Removes all persisted pending invites cached data information pertaining to the signed in user. Although the deletion is initated , a nil error response does not necessarily imply that all data was
+ removed as requested.
+ 
+ 
+ @return  nil if there was no error deleting user data else appropriate error object
+ */
+-(NSError*) removePendingInvitesForUserCachedData;
+
 /**
  Removes all persisted information pertaining to the signed in user. Although the deletion is initated , a nil error response does not necessarily imply that all data was
  removed as requested.

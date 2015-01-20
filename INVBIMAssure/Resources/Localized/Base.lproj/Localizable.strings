@@ -139,3 +139,5 @@
 "GENERIC_SIGNUP_FAILURE_MESSAGE"="There was an error while trying to create account. Please try again";
 "CREATE_USER_ACCOUNT"="Create User Account";
 "ACCOUNT_NAME"="Enter name of account";
+"UPDATING"="Updating ...";
+"UPDATED_AT"="Updated At %@";

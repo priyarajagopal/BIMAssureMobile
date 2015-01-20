@@ -15,24 +15,26 @@
 #import "INVRuleExecutionsTableViewController.h"
 #import "INVSearchView.h"
 #import "UIImage+INVCustomizations.h"
+#import "INVPagingManager+PackageMasterListing.h"
 
 @import  CoreData;
 
-const NSInteger CELL_WIDTH = 309;
-const NSInteger CELL_HEIGHT = 282;
-const NSInteger SEARCH_BAR_HEIGHT = 45;
+static const NSInteger CELL_WIDTH = 309;
+static const NSInteger CELL_HEIGHT = 282;
+static const NSInteger SEARCH_BAR_HEIGHT = 45;
+static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
-@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource, INVSearchViewDelegate>
+@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource, INVSearchViewDelegate, INVPagingManagerDelegate>
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* selectedModelId;
 @property (nonatomic,strong)NSNumber* selectedFileId;
 @property (nonatomic,strong)NSNumber* selectedFileTipId;
 @property (nonatomic,strong)INVSearchView* searchView;
-
 @property NSMutableSet *selectedTags;
 @property NSArray *allTags;
 @property NSMutableArray *searchHistory;
+@property (nonatomic,strong)INVPagingManager* packagesPagingManager;
 
 @end
 
@@ -53,6 +55,8 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
     [currLayout setItemSize:CGSizeMake(CELL_WIDTH,CELL_HEIGHT)];
     
+    self.packagesPagingManager = [[INVPagingManager alloc]initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+    
  
 }
 
@@ -64,7 +68,7 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
-    [self fetchListOfProjectFiles];
+    [self fetchPackagesFromCurrentOffset];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -121,7 +125,6 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
              UIImage* placeHolder = [UIImage imageNamed:@"ImageNotFound.jpg"];
             [cell.loaderActivity stopAnimating];
             cell.fileThumbnail.image = [UIImage resizeImage:placeHolder toSize:cell.fileThumbnail.frame.size];
-            
         }
     }];
     
@@ -133,10 +136,8 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
 }
 
 #pragma mark <UICollectionViewDelegate>
-
-
 // Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
 }
 
@@ -147,40 +148,53 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     return YES;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.dataResultsController.fetchedObjects.count- indexPath.row ==  DEFAULT_FETCH_PAGE_SIZE/4) {
+        NSLog(@"%s. Will fetch next batch",__func__);
+        [self fetchPackagesFromCurrentOffset];
+    }
+}
 
 
 #pragma mark - server side
--(void)fetchListOfProjectFiles {
+
+-(void) fetchPackagesFromCurrentOffset {
     [self showLoadProgress];
-    [self.globalDataManager.invServerClient getAllPkgMastersForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
-         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-     
-        if (!error) {
-         
-#pragma note Yes - you could have directly access files from project manager. Using FetchResultsController directly makes it simpler
-            NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
-            if (!dbError) {
-                NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
-                [self.collectionView reloadData];
-            }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTFILES_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
-            }
-            
+    [self.packagesPagingManager fetchPackageMastersFromCurrentOffsetForProject:self.projectId];
+}
+
+#pragma mark - INVPagingManagerDelegate
+
+-(void)onFetchedDataAtOffset:(NSInteger)offset pageSize:(NSInteger)size withError:(INVEmpireMobileError*)error {
+    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+    
+    if (!error) {
+        NSError* dbError;
+        [self.dataResultsController performFetch:&dbError];
+        if (!dbError) {
+            NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
+            [self.collectionView reloadData];
         }
         else {
-            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTFILES_LOAD", nil),error.code]];
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTFILES_LOAD", nil),dbError.code]];
             [self presentViewController:errController animated:YES completion:^{
                 
             }];
-
         }
-    }];
+        
+    }
+    else {
+        if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
+            
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTFILES_LOAD", nil),error.code]];
+                [self presentViewController:errController animated:YES completion:^{
+            }];
+        }
+    }
+    
 }
+    
+
 
 
 #pragma mark - accessor

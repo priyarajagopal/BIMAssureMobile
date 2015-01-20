@@ -9,5 +9,6 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVProjectsTableViewController : INVCustomTableViewController
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *bottomBarButtonItem;
 
 @end

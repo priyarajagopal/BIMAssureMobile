@@ -4,7 +4,7 @@
 //
 //  Created by Priya Rajagopal on 10/17/14.
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
-//
+//  //////////////////// DO NOT USE THIS CLASS> SERVER SIDE UNTESTED AND SUBJECT TO CHANGE >>>>>>>>>>>>
 
 @import Foundation;
 @import CoreData;

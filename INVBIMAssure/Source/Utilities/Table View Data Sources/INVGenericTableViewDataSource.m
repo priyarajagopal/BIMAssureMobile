@@ -35,6 +35,8 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 @property (nonatomic,strong)NSMutableDictionary* dataDictionary; // dictionary of section=>array of data elements
 @property (nonatomic,strong)NSMutableDictionary* cellConfigDictionary; // dictionary of section=>array of INVCellContentDictionary objects
 @property (nonatomic,readwrite,weak) UITableView* tableView;
+
+
 @end
 
 @implementation INVGenericTableViewDataSource
@@ -42,13 +44,13 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 -(id)initWithFetchedResultsController:(NSFetchedResultsController*)fetchedResultsController forTableView:(UITableView*)tableView{
     self = [super init];
     if (self) {
-         self.fetchedResultsController = fetchedResultsController;
-         dispatch_async(dispatch_get_main_queue(), ^{
+        self.fetchedResultsController = fetchedResultsController;
+        dispatch_async(dispatch_get_main_queue(), ^{
             [self.fetchedResultsController performFetch:nil];
-         });
+        });
         
-         self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
-         self.tableView = tableView;
+        self.cellConfigDictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
+        self.tableView = tableView;
     }
     return self;
 }
@@ -93,6 +95,7 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     [cellContentForSection addObject:content];
     self.cellConfigDictionary[@(indexPath.section)] = cellContentForSection;
 }
+
 
 -(CGFloat)heightOfRowContentAtIndexPath:(NSIndexPath*)indexPath{
     __block INVCellContentDictionary cellContext;
@@ -156,7 +159,6 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
     }
 }
 
-
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
@@ -191,20 +193,23 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 
 #pragma mark - helper
 -(void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath withCellContext:(INVCellContentDictionary)cellContext{
-        id cellData = nil;
-        if (self.dataDictionary) {
-            NSArray* dataArray = self.dataDictionary[@(indexPath.section)];
-            cellData = dataArray[indexPath.row];
-        }
-        else {
-            cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        }
-        INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
-        
-        if (matchBlock) {
-            matchBlock(cell,cellData,indexPath);
-        }
-
+    id cellData = nil;
+    if (self.dataDictionary) {
+        NSArray* dataArray = self.dataDictionary[@(indexPath.section)];
+        cellData = dataArray[indexPath.row];
+    }
+    else {
+        cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    }
+    INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
+    
+    if (matchBlock) {
+        matchBlock(cell,cellData,indexPath);
+    }
+    
 }
+
+
+
 
 @end

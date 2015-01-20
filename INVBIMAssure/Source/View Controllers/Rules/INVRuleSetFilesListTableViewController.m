@@ -8,17 +8,20 @@
 
 #import "INVRuleSetFilesListTableViewController.h"
 #import "INVGeneralAddRemoveTableViewCell.h"
+#import "INVPagingManager+PackageMasterListing.h"
 
 static const NSInteger SECTION_RULESETFILES = 0;
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
+static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
-@interface INVRuleSetFilesListTableViewController () <INVGeneralAddRemoveTableViewCellAcionDelegate>
+@interface INVRuleSetFilesListTableViewController () <INVGeneralAddRemoveTableViewCellAcionDelegate,INVPagingManagerDelegate>
 @property (nonatomic,strong)INVGenericTableViewDataSource* filesDataSource;
 @property (nonatomic, strong) INVProjectManager* projectManager;
 @property (nonatomic, strong) INVRulesManager* rulesManager;
 @property (nonatomic, strong) INVPackageMutableArray files;
 @property (nonatomic, assign) BOOL observersAdded;
+@property (nonatomic,strong)INVPagingManager* packagesPagingManager;
 @end
 
 @implementation INVRuleSetFilesListTableViewController
@@ -27,6 +30,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    self.packagesPagingManager = [[INVPagingManager alloc]initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
     UINib* projectCellNib = [UINib nibWithNibName:@"INVGeneralAddRemoveTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:projectCellNib forCellReuseIdentifier:@"ProjectFileCell"];
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
@@ -53,7 +57,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.tableView.dataSource = self.filesDataSource;
     
     [self addObserversForFileMoveNotification];
-    [self fetchListOfProjectFiles];
+    [self fetchPackagesFromCurrentOffset];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -78,6 +82,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 #pragma mark - server side
+/*
 -(void)fetchListOfProjectFiles {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllPkgMastersForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
@@ -95,7 +100,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         }
     }];
 }
-
+*/
 -(void)fetchProjectFilesForRuleSetId {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getAllPkgMastersForRuleSet:self.ruleSetId WithCompletionBlock:^(INVEmpireMobileError *error) {
@@ -114,6 +119,11 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             }];
         }
     }];
+}
+
+-(void) fetchPackagesFromCurrentOffset {
+    [self showLoadProgress];
+    [self.packagesPagingManager fetchPackageMastersFromCurrentOffsetForProject:self.projectId];
 }
 
 
@@ -161,6 +171,23 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
     }];
     
+    
+}
+
+#pragma mark - INVPagingManagerDelegate
+-(void)onFetchedDataAtOffset:(NSInteger)offset pageSize:(NSInteger)size withError:(INVEmpireMobileError*)error {
+    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+    
+    if (!error) {
+        [self fetchProjectFilesForRuleSetId];
+    }
+    else {
+        
+        UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),error.code]];
+        [self presentViewController:errController animated:YES completion:^{
+            
+        }];
+    }
     
 }
 
@@ -324,6 +351,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
+}
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.files.count - indexPath.row ==  DEFAULT_FETCH_PAGE_SIZE/4) {
+        NSLog(@"%s. Will fetch next batch",__func__);
+        [self fetchPackagesFromCurrentOffset];
+    }
 }
 
 
