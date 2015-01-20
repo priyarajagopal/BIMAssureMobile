@@ -455,6 +455,21 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  */
 -(void)getAllProjectsForSignedInAccountWithOffset:(NSNumber*)offset pageSize:(NSNumber*)pageSize includeTotalCount:(BOOL)includeTotalCount WithCompletionBlock:(CompletionHandler) handler;
 
+
+/**
+ Asynchornously ,get count of number of pkg master associated with a project. Users must have signed into an account in order to be able to fetch project files.
+ 
+ @param projectId The project Id
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then response handler includes an NSNumber corresponding to the pkg master count
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see projectManager
+ 
+ */
+-(void)getTotalCountOfPkgMastersForProject:(NSNumber*)projectId WithCompletionBlock:(CompletionHandlerWithData) handler;
+
 /**
  Asynchornously ,get list of all files associated with a project. Users must have signed into an account in order to be able to fetch project files.
  
