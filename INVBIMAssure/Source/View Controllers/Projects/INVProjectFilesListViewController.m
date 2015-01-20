@@ -408,25 +408,5 @@ const NSInteger SEARCH_BAR_HEIGHT = 45;
     [self.hud show:YES];
 }
 
-/**** DEPRECATED ******
--(NSNumber*)modelIdForTipOfFile:(INVPackage*)file {
-    __block INVFileVersion* tip;
-    [file.fileVersions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        // tip = [MTLManagedObjectAdapter modelOfClass:[INVFileVersion class] fromManagedObject:obj error:nil];
-        tip = obj;
-        if (tip.fileVersionId == file.tipId) {
-            *stop = YES;
-        }
-    }];
-    
-    if (tip) {
-        return tip.modelId;
-    }
-    else {
-        return nil;
-    }
-}
- ***** DEPRECATED *******/
-
 @end
 

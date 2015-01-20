@@ -115,17 +115,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     
     NSNumber* ruleSetId = ruleSet.ruleSetId;
     if ([self.selectedRuleSetIds containsObject:ruleSetId]) {
-        __block NSInteger indexOfRuleSet = NSNotFound ;
-        __block INVRuleSet* ruleSet = nil;
-        [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            ruleSet = obj;
-            if ([ruleSet.ruleSetId isEqualToNumber:ruleSetId]) {
-                indexOfRuleSet = idx;
-                *stop = YES;
-            }
-        }];
+        NSInteger ruleSetIndex = [self indexOfRuleSet:ruleSetId];
+        
         [self.selectedRuleSetIds removeObject:ruleSetId];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexOfRuleSet] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ruleSetIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     else {
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -137,14 +130,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     
     INVRuleSet* ruleSet = self.ruleSets[section];
     
-    __block INVRunRuleSetHeaderView* headerView ;
     NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVRunRuleSetHeaderView" owner:nil options:nil];
-    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[INVRunRuleSetHeaderView class]]) {
-            headerView = obj;
-            *stop = YES;
-        }
-    }];
+    INVRunRuleSetHeaderView* headerView = [objects firstObject];
+    
     headerView.actionDelegate = self;
     headerView.ruleSetNameLabel.text = ruleSet.name;
     headerView.ruleSetId = ruleSet.ruleSetId;
@@ -223,17 +211,11 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 }
 
 -(void)updateRuleSetEntryWithId:(NSNumber*)ruleSetId {
+    NSInteger ruleSetIndex = [self indexOfRuleSet:ruleSetId];
+    INVRuleSet *ruleSet = self.ruleSets[ruleSetIndex];
     
-    __block NSInteger indexOfRuleSet = NSNotFound ;
-    __block INVRuleSet* ruleSet = nil;
-    [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        ruleSet = obj;
-        if ([ruleSet.ruleSetId isEqualToNumber:ruleSetId]) {
-            indexOfRuleSet = idx;
-            *stop = YES;
-        }
-    }];
     BOOL ruleSetEnabled = YES;
+    
     if ([self.selectedRuleSetIds containsObject:ruleSetId]) {
         ruleSetEnabled = NO;
     }
@@ -260,21 +242,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     else {
         [self.selectedRuleSetIds addObject:ruleSetId];
     }
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexOfRuleSet] withRowAnimation:UITableViewRowAnimationAutomatic];
-
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ruleSetIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 -(NSInteger)indexOfRuleSet:(NSNumber*)ruleSetId {
-    __block NSInteger indexOfRuleSet = NSNotFound ;
-    __block INVRuleSet* ruleSet = nil;
-    [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        ruleSet = obj;
-        if ([ruleSet.ruleSetId isEqualToNumber:ruleSetId]) {
-            indexOfRuleSet = idx;
-            *stop = YES;
-        }
+    return [self.ruleSets indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [obj ruleSetId] == ruleSetId;
     }];
-    return indexOfRuleSet;
 }
 
 #pragma mark - accessor

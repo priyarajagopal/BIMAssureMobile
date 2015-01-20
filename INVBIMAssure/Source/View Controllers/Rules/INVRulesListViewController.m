@@ -180,14 +180,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
      
     INVRuleSet* ruleSet = self.dataResultsController.fetchedObjects[section];
     
-    __block INVRuleSetTableViewHeaderView* headerView ;
     NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVRuleSetTableViewHeaderView" owner:nil options:nil];
-    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[INVRuleSetTableViewHeaderView class]]) {
-            headerView = obj;
-            *stop = YES;
-        }
-    }];
+    INVRuleSetTableViewHeaderView *headerView = [objects firstObject];
+    
     headerView.actionDelegate = self;
     headerView.ruleSetNameLabel.text = ruleSet.name;
     headerView.ruleSetId = ruleSet.ruleSetId;
