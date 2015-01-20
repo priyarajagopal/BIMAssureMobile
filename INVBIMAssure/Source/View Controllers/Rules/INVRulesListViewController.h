@@ -9,7 +9,7 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVRulesListViewController : INVCustomTableViewController
+
 @property (nonatomic,copy)NSNumber* projectId;
 
--(IBAction)done:(UIStoryboardSegue*) segue;
 @end

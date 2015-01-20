@@ -23,13 +23,12 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "baicon_60.png",
+      "filename" : "baicon_120.png",
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "baicon_120.png",
+      "size" : "60x60",
       "scale" : "3x"
     },
     {

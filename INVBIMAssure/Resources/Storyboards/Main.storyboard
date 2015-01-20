@@ -312,7 +312,7 @@
                     <navigationItem key="navigationItem" id="U8j-Ap-qRJ">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="LnO-H5-dYM">
                             <connections>
-                                <segue destination="HDE-rL-y12" kind="unwind" unwindAction="done:" id="9gL-6b-Td3"/>
+                                <segue destination="HDE-rL-y12" kind="unwind" identifier="unwind" unwindAction="manualDismiss:" id="Jw1-8o-aBp"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="Wen-HB-yhA">
@@ -332,7 +332,6 @@
                         <outlet property="projectDescriptionTextField" destination="DPl-Pc-fhp" id="Rhi-WJ-l2k"/>
                         <outlet property="projectNameTextField" destination="mK0-hD-gwW" id="6bS-aa-G7H"/>
                         <outlet property="saveBarButtonItem" destination="Wen-HB-yhA" id="EsD-K7-zOP"/>
-                        <segue destination="HDE-rL-y12" kind="unwind" identifier="unwind" unwindAction="done:" id="1qY-Wc-IPO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Gl-hm-Byd" userLabel="First Responder" sceneMemberID="firstResponder"/>

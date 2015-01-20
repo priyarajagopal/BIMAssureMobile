@@ -248,14 +248,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     
 }
 
--(IBAction)done:(UIStoryboardSegue*) segue {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
-
-
 #pragma mark - accessor
 -(INVRulesTableViewDataSource*)dataSource {
     if (!_dataSource) {

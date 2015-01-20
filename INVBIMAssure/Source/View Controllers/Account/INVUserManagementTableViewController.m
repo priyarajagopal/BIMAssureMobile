@@ -237,12 +237,4 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
     return  _dataResultsController;
 }
 
-
-#pragma mark 
--(IBAction)done:(UIStoryboardSegue*)segue {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
 @end

@@ -277,14 +277,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     return indexOfRuleSet;
 }
 
-
--(IBAction)done:(UIStoryboardSegue*) segue {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
-
 #pragma mark - accessor
 -(NSMutableSet*)selectedRuleInstanceIds {
     if (!_selectedRuleInstanceIds) {

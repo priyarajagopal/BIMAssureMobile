@@ -68,10 +68,9 @@
     }
 }
 
--(IBAction)done:(UIStoryboardSegue*)segue {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+-(IBAction) manualDismiss:(UIStoryboardSegue*)segue {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - helpers
@@ -142,7 +141,6 @@
     }
     
     if ([keyPath isEqualToString:KVO_INVOnAccountMenuSelected]) {
-    
         if ([self.detailContainerViewController isKindOfClass:[UINavigationController class]]) {
             UINavigationController *navigationController = (UINavigationController *) self.detailContainerViewController;
             

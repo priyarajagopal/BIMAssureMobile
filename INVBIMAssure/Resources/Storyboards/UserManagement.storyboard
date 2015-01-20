@@ -84,7 +84,7 @@
                     <navigationItem key="navigationItem" title="User Management" id="FqH-bF-6fW">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bzK-nj-04o">
                             <connections>
-                                <segue destination="Ujv-JG-HIH" kind="unwind" unwindAction="done:" id="5j8-CH-EcH"/>
+                                <segue destination="Ujv-JG-HIH" kind="unwind" unwindAction="manualDismiss:" id="5j8-CH-EcH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

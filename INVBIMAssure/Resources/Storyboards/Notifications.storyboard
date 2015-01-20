@@ -27,7 +27,7 @@
                     <navigationItem key="navigationItem" title="Notifications" id="Y1H-FQ-YsE">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="c9W-2y-aoS">
                             <connections>
-                                <segue destination="F7M-s6-cJy" kind="unwind" unwindAction="done:" id="MnO-3i-7pa"/>
+                                <segue destination="F7M-s6-cJy" kind="unwind" unwindAction="manualDismiss:" id="MnO-3i-7pa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
