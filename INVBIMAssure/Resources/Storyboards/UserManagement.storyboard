@@ -149,7 +149,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
-                                <navigationItem title="Pending Invites" id="505-IP-z9Y">
+                                <navigationItem title="Invite Users" id="505-IP-z9Y">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0Cg-by-y51">
                                         <connections>
                                             <segue destination="ukH-px-UpM" kind="unwind" unwindAction="manualDismiss:" id="vQ8-zq-jDn"/>

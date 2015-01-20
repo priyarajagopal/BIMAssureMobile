@@ -21,6 +21,10 @@
     self.tokenField.dataSource = self;
     self.tokenField.delegate = self;
     self.tokenField.placeholderText = NSLocalizedString(@"ENTER_EMAILS:", nil);
+    
+    self.tokenField.inputTextFieldKeyboardType = UIKeyboardTypeEmailAddress;
+    self.tokenField.autocorrectionType = UITextAutocorrectionTypeNo;
+    
     UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
     [self.tokenField setColorScheme: cyanBlueColor];
     
