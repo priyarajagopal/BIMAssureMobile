@@ -27,7 +27,7 @@
 "ARE_YOU_SURE_INVITE_MESSAGE"="Are you sure you want to accept the invitation to %1@?";
 "USER_MANAGEMENT_ACCOUNT"="Manage Account Users";
 "CURRENT_USERS"="Current Users";
-"INVITED_USERS"="Invited Users";
+"INVITED_USERS"="Pending Invites";
 "INVITE_USER"="Invite User";
 "INVITED_BY_ON"="Invited by %1@ at %2@";
 "ACCOUNT:"= "Account: %1@";

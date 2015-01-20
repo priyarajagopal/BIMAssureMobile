@@ -39,7 +39,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     self.tableView.dataSource = self.dataSource;
+    self.tableView.delegate = self;
+    
     [self fetchListOfInvitedUsers];
 }
 
@@ -109,10 +112,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 }
 
 
+#pragma mark - UITableViewDelegate
 
-#pragma mark - NSFetchedResultsControllerDelegate
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    NSLog(@"%s with object %@ atIndexPath:%@ forChangeType:%d newIndexPath:%@",__func__,anObject,indexPath,type,newIndexPath);
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - helper
@@ -136,6 +139,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString (@"INVITED_BY_ON",nil),[self userForId:invite.updatedBy], [self.dateFormatter stringFromDate:invite.updatedAt]];
             
         };
+        
+        _dataSource.editable = YES;
+        _dataSource.deletionHandler = ^(id cell, id cellData, NSIndexPath *indexPath) {
+            // TODO: Delete
+        };
+        
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
 
     }

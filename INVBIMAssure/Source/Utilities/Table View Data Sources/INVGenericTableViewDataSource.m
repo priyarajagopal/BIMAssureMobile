@@ -130,6 +130,20 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 }
 
 #pragma mark - UITableViewDataSource
+
+-(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.editable;
+}
+
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.deletionHandler) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        id cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        self.deletionHandler(cell, cellData, indexPath);
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.dataDictionary) {
         NSArray* numRows = self.dataDictionary[@(section)];
