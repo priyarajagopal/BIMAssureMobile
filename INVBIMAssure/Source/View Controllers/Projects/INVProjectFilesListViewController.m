@@ -16,6 +16,7 @@
 #import "INVSearchView.h"
 #import "UIImage+INVCustomizations.h"
 #import "INVPagingManager+PackageMasterListing.h"
+#include <sys/utsname.h>
 
 @import  CoreData;
 
@@ -100,35 +101,34 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     cell.fileName.text = file.packageName;
     cell.delegate = self;
     cell.fileThumbnail.image = nil;
-    [cell.loaderActivity startAnimating];
+
+    struct utsname platform;
+    uname(&platform);
+
+    NSString *deviceName = @(platform.machine);
+    
+    if ([deviceName hasPrefix:@"iPad2"]) {
+        cell.fileThumbnail.image = [UIImage imageNamed:@"ImageNotFound"];
+    } else {
+        [cell.loaderActivity startAnimating];
         
-#ifdef _USE_CANNED_THUMBNAILS_
-    NSString* thumbNailFile = [file.fileName stringByReplacingOccurrencesOfString:@"epk" withString:@"png"];
-    cell.fileThumbnail.image = [UIImage imageNamed:thumbNailFile];
-    
-#else
-    
-    [self.globalDataManager.invServerClient getThumbnailImageForPkgVersion:file.tipId ForSignedInAccountWithCompletionBlock:^(id data,INVEmpireMobileError *error){
-        if (!error) {
-            
-            INVProjectFileCollectionViewCell* cell = (INVProjectFileCollectionViewCell*) [self.collectionView cellForItemAtIndexPath:indexPath];
-            if (cell) {
+        [self.globalDataManager.invServerClient getThumbnailImageForPkgVersion:file.tipId ForSignedInAccountWithCompletionBlock:^(id data,INVEmpireMobileError *error){
+            if (!error) {
                 [cell.loaderActivity stopAnimating];
-                
+                    
                 // TODO: Optimize memory usage here - this resizing spikes memory usage upwards of 300MB, which isn't good.
                 UIImage* origImage = [UIImage imageWithData:data];
                 cell.fileThumbnail.image = [UIImage resizeImage:origImage toSize:cell.fileThumbnail.frame.size];
             }
+            else {
+                UIImage* placeHolder = [UIImage imageNamed:@"ImageNotFound"];
                 
-        }
-        else {
-             UIImage* placeHolder = [UIImage imageNamed:@"ImageNotFound.jpg"];
-            [cell.loaderActivity stopAnimating];
-            cell.fileThumbnail.image = [UIImage resizeImage:placeHolder toSize:cell.fileThumbnail.frame.size];
-        }
-    }];
-    
-#endif
+                [cell.loaderActivity stopAnimating];
+                cell.fileThumbnail.image = placeHolder;
+            }
+        }];
+    }
+
     
 #warning - eventually deal with file versions
     
@@ -421,26 +421,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [self.view addSubview:self.hud];
     [self.hud show:YES];
 }
-
-/**** DEPRECATED ******
--(NSNumber*)modelIdForTipOfFile:(INVPackage*)file {
-    __block INVFileVersion* tip;
-    [file.fileVersions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        // tip = [MTLManagedObjectAdapter modelOfClass:[INVFileVersion class] fromManagedObject:obj error:nil];
-        tip = obj;
-        if (tip.fileVersionId == file.tipId) {
-            *stop = YES;
-        }
-    }];
-    
-    if (tip) {
-        return tip.modelId;
-    }
-    else {
-        return nil;
-    }
-}
- ***** DEPRECATED *******/
 
 @end
 

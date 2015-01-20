@@ -62,7 +62,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="cey-cy-IJq">
                                             <connections>
-                                                <segue destination="4Al-90-sMJ" kind="unwind" unwindAction="done:" id="mbJ-SK-Sfv"/>
+                                                <segue destination="4Al-90-sMJ" kind="unwind" unwindAction="manualDismiss:" id="mbJ-SK-Sfv"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -126,7 +126,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y5f-Mi-MMM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="4Al-90-sMJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5638" y="2641"/>
+            <point key="canvasLocation" x="5647" y="2639"/>
         </scene>
         <!--Files In RuleSet Table View Controller-->
         <scene sceneID="Vqs-Z0-nb1">
@@ -234,7 +234,7 @@
                                 <navigationItem title="Select From Rule Templates" id="X0l-p7-Xw4">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MUx-C0-IGt">
                                         <connections>
-                                            <segue destination="OOp-hR-orm" kind="unwind" unwindAction="done:" id="rlL-st-6l0"/>
+                                            <segue destination="OOp-hR-orm" kind="unwind" unwindAction="manualDismiss:" id="rlL-st-6l0"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -277,7 +277,7 @@
                                 <navigationItem title="Rule" id="5yB-O5-SyI">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="dEu-75-bB8">
                                         <connections>
-                                            <segue destination="5Ky-Lu-d5F" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="gfl-G4-eMf"/>
+                                            <segue destination="5Ky-Lu-d5F" kind="unwind" identifier="CancelSegue" unwindAction="manualDismiss:" id="gfl-G4-eMf"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>

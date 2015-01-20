@@ -28,18 +28,20 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"USER_MANAGEMENT_ACCOUNT", nil);
-      self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
+    
+    self.tableView.editing = YES;
+    self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-
+    self.refreshControl = nil;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -98,7 +100,6 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSNumber *accountId = self.globalDataManager.loggedInAccount;
     NSNumber *userId = [[self.dataResultsController objectAtIndexPath:indexPath] userId];
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER", nil)
@@ -235,14 +236,6 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForAccountMembership managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     }
     return  _dataResultsController;
-}
-
-
-#pragma mark 
--(IBAction)done:(UIStoryboardSegue*)segue {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
 }
 
 @end

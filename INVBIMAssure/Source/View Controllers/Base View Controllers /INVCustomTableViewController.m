@@ -52,6 +52,10 @@
 #warning override in inherited class
 }
 
+-(IBAction) manualDismiss:(UIStoryboardSegue*) segue {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

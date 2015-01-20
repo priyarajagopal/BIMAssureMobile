@@ -68,10 +68,9 @@
     }
 }
 
--(IBAction)done:(UIStoryboardSegue*)segue {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+-(IBAction) manualDismiss:(UIStoryboardSegue*)segue {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - helpers
@@ -117,11 +116,14 @@
     toViewController.view.frame = self.detailContainerView.bounds;
     [self addChildViewController:toViewController];
     
-    [fromViewController willMoveToParentViewController:nil];
+    [self.detailContainerView addSubview:toViewController.view];
     
-    [self transitionFromViewController:fromViewController toViewController:toViewController duration:1.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
+    toViewController.view.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        fromViewController.view.alpha = 0;
+        toViewController.view.alpha = 1;
+    } completion:^(BOOL finished) {
         [fromViewController removeFromParentViewController];
-        [toViewController didMoveToParentViewController:self];
         
         self.detailContainerViewController = toViewController;
     }];
@@ -139,7 +141,6 @@
     }
     
     if ([keyPath isEqualToString:KVO_INVOnAccountMenuSelected]) {
-    
         if ([self.detailContainerViewController isKindOfClass:[UINavigationController class]]) {
             UINavigationController *navigationController = (UINavigationController *) self.detailContainerViewController;
             

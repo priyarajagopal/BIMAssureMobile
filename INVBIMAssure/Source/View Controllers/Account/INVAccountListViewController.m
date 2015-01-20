@@ -403,13 +403,15 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark -
--(IBAction)done:(UIStoryboardSegue*)segue {
-    NSLog(@"%s",__func__);
+
+-(IBAction) manualDismiss:(id)sender {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
     [self dismissViewControllerAnimated:YES completion:^{
         [self removeSignupObservers];
         self.signUpController = nil;
     }];
 }
+
 
 #pragma mark - helpers
 -(void)showLoadProgress {
@@ -531,9 +533,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - utils
--(UIStoryboard*)mainStoryboard {
-    return [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle bundleForClass:[self class]]];
-}
 
 -(void)addSignUpObservers {
     [self.signUpController addObserver:self forKeyPath:KVO_INVSignupSuccess options:NSKeyValueObservingOptionNew context:nil];

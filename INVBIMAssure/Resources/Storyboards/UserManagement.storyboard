@@ -84,7 +84,7 @@
                     <navigationItem key="navigationItem" title="User Management" id="FqH-bF-6fW">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bzK-nj-04o">
                             <connections>
-                                <segue destination="Ujv-JG-HIH" kind="unwind" unwindAction="done:" id="5j8-CH-EcH"/>
+                                <segue destination="Ujv-JG-HIH" kind="unwind" unwindAction="manualDismiss:" id="5j8-CH-EcH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -140,7 +140,7 @@
         <scene sceneID="f9j-FW-7QS">
             <objects>
                 <tableViewController storyboardIdentifier="InviteUsersTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sjE-lQ-Lpc" customClass="INVInviteUsersTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="10" id="ALz-pc-BUK">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ALz-pc-BUK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -152,7 +152,7 @@
                                 <navigationItem title="Invite Users" id="505-IP-z9Y">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0Cg-by-y51">
                                         <connections>
-                                            <segue destination="Ujv-JG-HIH" kind="unwind" identifier="ReturnToUserManagementSegue" unwindAction="done:" id="SQI-Z5-HQw"/>
+                                            <segue destination="ukH-px-UpM" kind="unwind" unwindAction="manualDismiss:" id="vQ8-zq-jDn"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" enabled="NO" title="Send" id="rb0-3e-4z5">
@@ -163,24 +163,6 @@
                                 </navigationItem>
                             </items>
                         </navigationBar>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="InviteUserCell" rowHeight="100" id="WNf-0E-cWV" customClass="INVTokensTableViewCell">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WNf-0E-cWV" id="2W2-BU-hHy">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageTextCell" rowHeight="200" id="eXy-7R-1at" customClass="INVTextViewTableViewCell">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eXy-7R-1at" id="pnU-wP-0sM">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                            </tableViewCell>
-                        </prototypes>
                         <sections/>
                         <connections>
                             <outlet property="dataSource" destination="sjE-lQ-Lpc" id="1MB-gI-UpY"/>
@@ -192,8 +174,9 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wdk-JC-93j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ukH-px-UpM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-12" y="4249"/>
+            <point key="canvasLocation" x="-12" y="4257"/>
         </scene>
         <!--User Management Nav Controller-->
         <scene sceneID="320-52-r1v">

@@ -27,6 +27,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"INVITED_USERS", nil);
+    
+    self.tableView.editing = YES;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
 }
@@ -38,7 +40,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     self.tableView.dataSource = self.dataSource;
+    self.tableView.delegate = self;
+    
     [self fetchListOfInvitedUsers];
 }
 
@@ -52,11 +57,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 }
 
 -(void) setupTableFooter {
-    NSInteger numberOfRows = [self.tableView numberOfRowsInSection:0];
-    NSInteger heightOfTableViewCells = numberOfRows * DEFAULT_CELL_HEIGHT;
-    
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(self.tableView.frame) + heightOfTableViewCells, CGRectGetWidth (self.tableView.frame), CGRectGetHeight(self.tableView.frame)-(heightOfTableViewCells + CGRectGetMinY(self.tableView.frame)))];
-    self.tableView.tableFooterView = view;
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 }
 
 #pragma mark - server side
@@ -77,17 +78,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             }
             else {
                 UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
+                [self presentViewController:errController animated:YES completion:nil];
             }
             
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }];
     [self setupTableFooter];
@@ -116,10 +113,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 }
 
 
+#pragma mark - UITableViewDelegate
 
-#pragma mark - NSFetchedResultsControllerDelegate
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    NSLog(@"%s with object %@ atIndexPath:%@ forChangeType:%d newIndexPath:%@",__func__,anObject,indexPath,type,newIndexPath);
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - helper
@@ -143,6 +140,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString (@"INVITED_BY_ON",nil),[self userForId:invite.updatedBy], [self.dateFormatter stringFromDate:invite.updatedAt]];
             
         };
+        
+        _dataSource.editable = YES;
+        _dataSource.deletionHandler = ^(id cell, id cellData, NSIndexPath *indexPath) {
+            // TODO: Delete
+        };
+        
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
 
     }
@@ -158,7 +161,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.accountManager.fetchRequestForPendingInvitesForAccount managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        NSFetchRequest *fetchRequest = [self.accountManager.fetchRequestForPendingInvitesForAccount copy];
+        fetchRequest.sortDescriptors = @[
+            [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]
+        ];
+        
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         _dataResultsController.delegate = self;
     }
     return  _dataResultsController;

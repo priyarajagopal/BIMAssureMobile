@@ -102,15 +102,7 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 -(void) setupTableFooter {
-    
-    NSInteger numberOfRowsInActualParamsSection = [self.tableView numberOfRowsInSection:SECTION_RULEINSTANCEACTUALPARAM];
-    NSInteger heightOfTableViewCells = numberOfRowsInActualParamsSection * DEFAULT_CELL_HEIGHT;
-    
-    heightOfTableViewCells += DEFAULT_CELL_HEIGHT + DEFAULT_OVERVIEW_CELL_HEIGHT;
-    
-    
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(self.tableView.frame) + heightOfTableViewCells, CGRectGetWidth (self.tableView.frame), CGRectGetHeight(self.tableView.frame)-(heightOfTableViewCells + CGRectGetMinY(self.tableView.frame)))];
-    self.tableView.tableFooterView = view;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - Manage Table View Data Sources
@@ -280,6 +272,9 @@ static NSString* INV_ActualParamValue = @"Value";
     }
 }
 
+-(IBAction) done:(UIStoryboardSegue *)sender {
+}
+
 #pragma mark - UITableViewDelegate
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
@@ -331,30 +326,18 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 -(void)onRuleInstanceActualParamUpdated:(INVRuleInstanceActualParamTableViewCell*)sender {
-    
-      INVRuleInstanceActualParamTableViewCell* editedCell = sender;
-    __block NSInteger index = NSNotFound;
-    [self.intermediateRuleInstanceActualParams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSDictionary* KVPair = obj;
-        
-        NSString* currValue = KVPair[INV_ActualParamName];
-        if ([currValue isEqualToString:editedCell.ruleInstanceKey.text]) {
-            index = idx;
-            *stop = YES;
-        }
-    }];
+    INVRuleInstanceActualParamTableViewCell* editedCell = sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:editedCell];
     
     // 2) update the first responder
     if ([((INVRuleInstanceActualParamTableViewCell*)(self.ruleInstanceCellBeingEdited)).ruleInstanceValue isFirstResponder] ) {
-        if (self.intermediateRuleInstanceActualParams.count > index +1 ) {
-            [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:index+1 inSection:SECTION_RULEINSTANCEACTUALPARAM]];
+        if (self.intermediateRuleInstanceActualParams.count > indexPath.row +1) {
+            [self makeFirstResponderTextFieldAtCellIndexPath:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:SECTION_RULEINSTANCEACTUALPARAM]];
         }
-        if (self.intermediateRuleInstanceActualParams.count == index +1 ) {
+        if (self.intermediateRuleInstanceActualParams.count == indexPath.row + 1) {
             [self resignFirstTextInputResponder];
         }
-        
     }
-    
 }
 
 
@@ -420,9 +403,8 @@ static NSString* INV_ActualParamValue = @"Value";
 
 
 -(void)transformRuleInstanceParamsToArray:(INVRuleInstanceActualParamDictionary)actualParamDict{
-    __block NSDictionary* actualParam;
     [actualParamDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        actualParam = @{INV_ActualParamName:key,INV_ActualParamValue:obj};
+        NSDictionary *actualParam = @{ INV_ActualParamName:key, INV_ActualParamValue:obj };
         [self.intermediateRuleInstanceActualParams addObject:actualParam];
     }];
 }
@@ -430,23 +412,23 @@ static NSString* INV_ActualParamValue = @"Value";
 -(void)transformRuleDefinitionParamsToArray:(INVRuleFormalParam*)formalParam{
     NSDictionary* ruleProperties = formalParam.properties;
     
-    __block NSDictionary* actualParam;
     [ruleProperties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        actualParam = @{INV_ActualParamName:key,INV_ActualParamValue:@""};
+        NSDictionary *actualParam = @{ INV_ActualParamName: key, INV_ActualParamValue:@"" };
         [self.intermediateRuleInstanceActualParams addObject:actualParam];
     }];
 }
 
 -(INVRuleInstanceActualParamDictionary)transformRuleInstanceArrayToRuleInstanceParams:(NSArray*)actualParamsArray{
+    NSMutableDictionary* actualParam = [[NSMutableDictionary alloc]initWithCapacity:0];
     
-    __block NSMutableDictionary* actualParam = [[NSMutableDictionary alloc]initWithCapacity:0];
     [actualParamsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSDictionary* actualDict = obj;
         NSString* key = actualDict[INV_ActualParamName];
         NSString* value = actualDict[INV_ActualParamValue];
-        [actualParam setObject:value forKey:key];
         
+        [actualParam setObject:value forKey:key];
     }];
+    
     return  actualParam;
 }
 
@@ -455,12 +437,16 @@ static NSString* INV_ActualParamValue = @"Value";
     INVRuleInstanceOverviewTableViewCell* overviewCell = (INVRuleInstanceOverviewTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_OVERVIEW inSection:SECTION_RULEINSTANCEDETAILS]];
     self.intermediateRuleOverview = overviewCell.ruleDescription.text;
     
-     __block NSDictionary* actualParam;
     NSMutableArray* updatedActualParamsArray = [[NSMutableArray alloc]initWithCapacity:0];
     
     [self.intermediateRuleInstanceActualParams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleInstanceActualParamTableViewCell* actualParamCell = (INVRuleInstanceActualParamTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:SECTION_RULEINSTANCEACTUALPARAM]];
-         actualParam = @{INV_ActualParamName:actualParamCell.ruleInstanceKey.text,INV_ActualParamValue:actualParamCell.ruleInstanceValue.text};
+        
+        NSDictionary *actualParam = @{
+            INV_ActualParamName: actualParamCell.ruleInstanceKey.text,
+            INV_ActualParamValue: actualParamCell.ruleInstanceValue.text
+        };
+        
         [updatedActualParamsArray addObject:actualParam];
         
     }];

@@ -96,7 +96,7 @@
                     <navigationItem key="navigationItem" id="rmL-6H-vrf">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="oqk-Qc-kB9">
                             <connections>
-                                <segue destination="UrH-Py-4Fh" kind="unwind" unwindAction="done:" id="lmj-bJ-b0f"/>
+                                <segue destination="UrH-Py-4Fh" kind="unwind" unwindAction="manualDismiss:" id="lmj-bJ-b0f"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

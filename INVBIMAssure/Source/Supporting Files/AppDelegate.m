@@ -56,7 +56,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [self registerGlobalNotifications];
-   
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -70,21 +70,18 @@
 
 #pragma mark - view appearance
 -(void) setUpViewAppearance {
-    
     UIColor * whiteColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
     UIColor * medGreyColor = [UIColor colorWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1.0];
     UIColor * ltGreyColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
     UIColor* darkGreyColor = [UIColor colorWithRed:150.0/255 green:150.0/255 blue:150.0/255 alpha:1.0];
     UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
-
+    
     [[UIView appearance] setTintColor:whiteColor];
-
-    [self.window setTintColor:whiteColor  ];
-    [[UINavigationBar appearance] setBarTintColor:cyanBlueColor ] ;
-    [[UINavigationBar appearance] setTintColor:whiteColor] ;
-    [[UINavigationBar appearance] setTitleTextAttributes:@{
-        NSForegroundColorAttributeName: whiteColor
-    }];
+    
+    [self.window setTintColor:whiteColor];
+    [[UINavigationBar appearance] setBarTintColor:cyanBlueColor];
+    [[UINavigationBar appearance] setTintColor:whiteColor];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: whiteColor }];
     
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
     [[UIBarButtonItem appearanceWhenContainedIn:[UIToolbar class], nil] setTintColor:[UIColor redColor]];
@@ -95,7 +92,6 @@
     [[UITabBar appearance]setTintColor:cyanBlueColor];
     
     [[UIView appearanceWhenContainedIn:[UIAlertController class], nil] setTintColor:darkGreyColor];
-    
 }
 
 #pragma mark - VC management
@@ -104,10 +100,9 @@
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
     [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
-    self.globalManager.loggedInAccount = nil;
-    [self displayLoginRootViewController];
+        self.globalManager.loggedInAccount = nil;
+        [self displayLoginRootViewController];
     }];
-    
 }
 
 -(void)displayLoggedInRootViewController {
@@ -123,11 +118,11 @@
 
 -(void)displayLoginRootViewController {
     [self deregisterAccountObservers];
-
+    
     INVLoginViewController* loginVC = [[self loginStoryboard]instantiateViewControllerWithIdentifier:@"LoginVC"];
     self.window.rootViewController = loginVC;
     [self registerLoginObservers];
-
+    
 }
 
 -(void)displayProjectsListRootViewController {
@@ -163,7 +158,7 @@
     if ([[self rootController] isKindOfClass:[UINavigationController class]]) {
         UINavigationController* rootVC = (UINavigationController*) [self rootController];
         if ([rootVC.topViewController isKindOfClass:[INVAccountListViewController class]]) {
-             if (!self.registeredForAccountEvents) {
+            if (!self.registeredForAccountEvents) {
                 self.registeredForAccountEvents = YES;
                 [rootVC.topViewController addObserver:self forKeyPath:KVO_INVAccountLoginSuccess options:NSKeyValueObservingOptionNew context:nil];
             }
@@ -189,7 +184,7 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self name:INV_NotificationUserLogOutSuccess object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:INV_NotificationAccountSwitchSuccess object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:INV_NotificationAccountLogOutSuccess object:nil];
-
+    
 }
 
 -(void) prepareNotificationPolling {
@@ -226,20 +221,18 @@
 #pragma mark - KVO Handling
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     NSLog(@"%s. Keypath %@: %@: %@",__func__,keyPath,object,change);
+    
     if ([keyPath isEqualToString:KVO_INVLoginSuccess]) {
         INVLoginViewController* loginVC = (INVLoginViewController*) object;
         if (loginVC.loginSuccess) {
             [self displayLoggedInRootViewController];
         }
-    }
-    else if ([keyPath isEqualToString:KVO_INVAccountLoginSuccess]) {
+    } else if ([keyPath isEqualToString:KVO_INVAccountLoginSuccess]) {
         INVAccountListViewController* accountVC = (INVAccountListViewController*) object;
         if (accountVC.accountLoginSuccess) {
             [self displayProjectsListRootViewController];
         }
-        
     }
-    
 }
 
 #pragma mark - Notification Handlers
