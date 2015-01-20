@@ -31,7 +31,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 @property (nonatomic,strong)INVProjectDetailsTabViewController* projectDetailsController;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,strong)INVPagingManager* projectPagingManager;
-@property (nonatomic,strong)UILabel* updatedAtLabel;
+@property (nonatomic,weak)UILabel* updatedAtLabel;
 
 @end
 
@@ -63,27 +63,29 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    UIToolbar* toolbar = self.navigationController.toolbar;
+    if (self.navigationController.toolbarHidden)
+    {
+        UIToolbar* toolbar = self.navigationController.toolbar;
+        
+        UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0,0,CGRectGetWidth(self.tableView.frame), CGRectGetHeight(toolbar.frame)) ];
+        [label setTintColor:[UIColor darkGrayColor]];
+        [label setTextAlignment:NSTextAlignmentCenter];
+        [label setFont:[UIFont systemFontOfSize:13.0]];
+        
+        self.updatedAtLabel = label;
+        
+        
+        UIBarButtonItem* buttonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
+        [buttonItem setTintColor:[UIColor blackColor]];
+        [self.navigationController.visibleViewController setToolbarItems:@[buttonItem]];
+        
+        [self.navigationController setToolbarHidden:NO animated:NO];
+    }
     
-    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0,0,CGRectGetWidth(self.tableView.frame), CGRectGetHeight(toolbar.frame)) ];
-    [label setTintColor:[UIColor darkGrayColor]];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [label setText:NSLocalizedString(@"UPDATING", nil)];
-    [label setFont:[UIFont systemFontOfSize:13.0]];
-    self.updatedAtLabel = label;
-    
-    UIBarButtonItem* buttonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
-    [buttonItem setTintColor:[UIColor blackColor]];
-    [self.navigationController.visibleViewController setToolbarItems:@[buttonItem]];
-    
-    [self.navigationController setToolbarHidden:NO animated:NO];
 }
-
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [self.navigationController setToolbarHidden:YES animated:YES];
     self.projectManager = nil;
     self.dateFormatter = nil;
     self.projectDetailsController = nil;
@@ -177,14 +179,16 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
  }
      
 
-
+-(void) updateTimeStamp {
+    [self.updatedAtLabel setText: [NSString stringWithFormat: NSLocalizedString(@"UPDATED_AT",nil),[self.dateFormatter stringFromDate:[NSDate date]]]];
+    
+}
 #pragma mark - INVPagingManagerDelegate
 
 -(void)onFetchedDataAtOffset:(NSInteger)offset pageSize:(NSInteger)size withError:(INVEmpireMobileError*)error {
     [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
     
-    [self.updatedAtLabel setText: [NSString stringWithFormat: NSLocalizedString(@"UPDATED_AT",nil),[self.dateFormatter stringFromDate:[NSDate date]]]];
-  
+    [self performSelectorOnMainThread:@selector(updateTimeStamp) withObject:nil waitUntilDone:NO];
     if ([self.refreshControl isRefreshing]) {
         [self.refreshControl endRefreshing];
     }
@@ -202,10 +206,12 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
         }
     }
     else {
-        UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),error.code]];
-        [self presentViewController:errController animated:YES completion:^{
+        if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
             
-        }];
+            }];
+        }
     }
 }
 
