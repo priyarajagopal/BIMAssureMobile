@@ -347,6 +347,7 @@ static NSString * const reuseIdentifier = @"Cell";
                     NSLog(@"%s. Error: %@",__func__,error);
                 }
             }
+           
             NSLog(@"Account TOken is %@",self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
             [self notifyAccountLogin];
 
@@ -378,6 +379,8 @@ static NSString * const reuseIdentifier = @"Cell";
             [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
             [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
                 if (!error) {
+                    self.globalDataManager.loggedInAccount = self.currentAccountId;
+                    
                     if (self.saveAsDefault) {
                         // Just ignore the error and continue logging in
                         self.globalDataManager.loggedInAccount = self.currentAccountId;
@@ -408,13 +411,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark -
 
--(IBAction) manualDismiss:(id)sender {
-    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self removeSignupObservers];
-        self.signUpController = nil;
-    }];
-}
 
 
 #pragma mark - helpers
@@ -537,8 +533,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - UIEvent handlers
--(void)onLogout {
-    [self performSegueWithIdentifier:@"LogOutSegue" sender:self];
+
+-(IBAction) manualDismiss:(id)sender {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self removeSignupObservers];
+        self.signUpController = nil;
+    }];
 }
 
 #pragma mark - utils
