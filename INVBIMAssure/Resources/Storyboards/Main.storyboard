@@ -35,7 +35,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SOS-lx-LEe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3233" y="1937"/>
+            <point key="canvasLocation" x="2515" y="1632"/>
         </scene>
         <!--Project Edit View Controller-->
         <scene sceneID="MFU-ZT-21g">
@@ -351,7 +351,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="3997" y="1937"/>
+            <point key="canvasLocation" x="3293" y="1632"/>
         </scene>
         <!--Projects List View Controller-->
         <scene sceneID="SIK-rX-mGO">
@@ -398,7 +398,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="opY-T8-Llw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2357" y="1937"/>
+            <point key="canvasLocation" x="1785" y="1632"/>
         </scene>
         <!--Projects List Navigation View Controller-->
         <scene sceneID="Vx6-Ca-i5S">
@@ -422,7 +422,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lko-82-ZyG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1593" y="1937"/>
+            <point key="canvasLocation" x="1045" y="1632"/>
         </scene>
         <!--Project Details Tab View Controller-->
         <scene sceneID="MIi-PL-NpI">
@@ -451,7 +451,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="2357" y="2697"/>
+            <point key="canvasLocation" x="1785" y="2386"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Gn3-Dq-jv4">
@@ -566,7 +566,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="-443" y="1635"/>
+            <point key="canvasLocation" x="-443" y="1632"/>
         </scene>
         <!--Project List Split View Controller-->
         <scene sceneID="cTK-FM-F5X">
@@ -579,7 +579,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KLe-Xa-yIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="743" y="1937"/>
+            <point key="canvasLocation" x="303" y="1632"/>
         </scene>
         <!--General No Project Scene-->
         <scene sceneID="F49-oI-xwJ">
@@ -627,7 +627,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6xC-wQ-K9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="743" y="2702"/>
+            <point key="canvasLocation" x="303" y="2386"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="sQi-40-gIB">
@@ -747,7 +747,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4Y-wN-kxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-928.5" y="2438"/>
+            <point key="canvasLocation" x="-873.5" y="1632"/>
         </scene>
         <!--Simple User Info Table View Controller-->
         <scene sceneID="61P-66-kK4">
@@ -797,7 +797,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cmN-28-ftw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-443" y="2271"/>
+            <point key="canvasLocation" x="-791" y="2071"/>
         </scene>
     </scenes>
     <resources>
