@@ -8,7 +8,7 @@
 
 #import "INVProjectFilesListViewController.h"
 #import "INVProjectFileCollectionViewCell.h"
-#import "INVModelViewerViewController.h"
+#import "INVModelViewerContainerViewController.h"
 #import "INVProjectFileViewerController.h"
 #import "INVFileManageRuleSetsContainerViewController.h"
 #import "INVRunRulesTableViewController.h"
@@ -285,11 +285,10 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     //    INVModelViewerViewController *vc = (INVModelViewerViewController*)segue.destinationViewController;
         
         UINavigationController *navContorller = segue.destinationViewController;
-        INVModelViewerViewController *vc = [navContorller.viewControllers firstObject];
-        [navContorller setHidesBottomBarWhenPushed:YES];
+        INVModelViewerContainerViewController *modelViewerController = [navContorller.viewControllers firstObject];
         
-        vc.modelId = self.selectedModelId;
-        vc.fileVersionId = self.selectedFileTipId;
+        modelViewerController.modelId = self.selectedModelId;
+        modelViewerController.fileVersionId = self.selectedFileTipId;
     }
      if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
          INVFileManageRuleSetsContainerViewController* vc = (INVFileManageRuleSetsContainerViewController*)segue.destinationViewController;
