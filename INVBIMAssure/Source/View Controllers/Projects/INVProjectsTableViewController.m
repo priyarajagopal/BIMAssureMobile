@@ -227,15 +227,11 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
             cell.projectId = project.projectId;
             cell.name.text = project.name;
             
-            /*
-            [self.globalDataManager.invServerClient getAllPkgMastersForProject:project.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
+            [self.globalDataManager.invServerClient getTotalCountOfPkgMastersForProject:project.projectId WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
                 if (error) return;
-               
-                NSArray *files = [self.globalDataManager.invServerClient.projectManager packagesForProjectId:project.projectId];
-                cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %lu", (unsigned long)files.count];
+                
+                cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %d", [result intValue]];
             }];
-            */
-            
             
             // TODO: Load this from a cache first?
             cell.fileCount.text = @"\uf0c5 0";
