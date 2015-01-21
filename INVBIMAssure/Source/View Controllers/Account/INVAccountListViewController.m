@@ -52,9 +52,13 @@ static NSString * const reuseIdentifier = @"Cell";
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
-    UIBarButtonItem* settingsButton = self.navigationItem.leftBarButtonItem;
-    FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
-    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 30)]];
+    if (self.hideSettingsButton) {
+        self.settingsButton = nil;
+    }
+    else {
+        FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
+        [self.settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 30)]];
+    }
 
     [self setEstimatedSizeForCells];
 }
@@ -530,6 +534,11 @@ static NSString * const reuseIdentifier = @"Cell";
     
     [self.view addConstraints:@[heightConstraint,widthConstraint]];
    
+}
+
+#pragma mark - UIEvent handlers
+-(void)onLogout {
+    [self performSegueWithIdentifier:@"LogOutSegue" sender:self];
 }
 
 #pragma mark - utils
