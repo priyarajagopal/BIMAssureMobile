@@ -33,7 +33,8 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,strong)   UIAlertController* logoutPromptAlertController;
 @property (nonatomic,assign)   BOOL saveAsDefault;
 @property (nonatomic,strong)   INVGenericCollectionViewDataSource* dataSource;
-@property (nonatomic,strong)     INVSignUpTableViewController* signUpController;
+@property (nonatomic,strong)   INVSignUpTableViewController* signUpController;
+@property (nonatomic,assign)   BOOL defaultAccountSpecified;
 
 @end
 
@@ -52,9 +53,13 @@ static NSString * const reuseIdentifier = @"Cell";
     // Register cell classes
     UINib* accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
-    UIBarButtonItem* settingsButton = self.navigationItem.leftBarButtonItem;
-    FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
-    [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 30)]];
+    if (self.hideSettingsButton) {
+        self.settingsButton = nil;
+    }
+    else {
+        FAKFontAwesome *settingsIcon = [FAKFontAwesome gearIconWithSize:30];
+        [self.settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(30, 30)]];
+    }
 
     [self setEstimatedSizeForCells];
 }
@@ -343,6 +348,7 @@ static NSString * const reuseIdentifier = @"Cell";
                     NSLog(@"%s. Error: %@",__func__,error);
                 }
             }
+           
             NSLog(@"Account TOken is %@",self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
             [self notifyAccountLogin];
 
@@ -374,6 +380,8 @@ static NSString * const reuseIdentifier = @"Cell";
             [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
             [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
                 if (!error) {
+                    self.globalDataManager.loggedInAccount = self.currentAccountId;
+                    
                     if (self.saveAsDefault) {
                         // Just ignore the error and continue logging in
                         self.globalDataManager.loggedInAccount = self.currentAccountId;
@@ -404,13 +412,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark -
 
--(IBAction) manualDismiss:(id)sender {
-    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self removeSignupObservers];
-        self.signUpController = nil;
-    }];
-}
 
 
 #pragma mark - helpers
@@ -454,6 +455,10 @@ static NSString * const reuseIdentifier = @"Cell";
         self.alertView.delegate = self;
     }
     
+    // If default account has been specified and user wants to switch to a different account, do not have the default account option ON by default
+    if (self.globalDataManager.defaultAccountId) {
+        [self.alertView.defaultSwitch setOn:NO];
+    }
     self.alertView.alertMessage.text = message;
     self.alertView.setAsDefaultContainer.hidden = !showsDefaultOption;
     
@@ -530,6 +535,16 @@ static NSString * const reuseIdentifier = @"Cell";
     
     [self.view addConstraints:@[heightConstraint,widthConstraint]];
    
+}
+
+#pragma mark - UIEvent handlers
+
+-(IBAction) manualDismiss:(id)sender {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self removeSignupObservers];
+        self.signUpController = nil;
+    }];
 }
 
 #pragma mark - utils

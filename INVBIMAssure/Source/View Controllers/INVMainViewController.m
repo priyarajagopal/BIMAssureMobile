@@ -60,6 +60,13 @@
             [segue.destinationViewController didMoveToParentViewController:self];
                     }
     } else if ([segue.identifier isEqualToString:@"MainAccountEmbedSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]] &&
+            [((UINavigationController*)segue.destinationViewController).topViewController isKindOfClass:[INVAccountListViewController class]]) {
+                INVAccountListViewController* accountListVC = (INVAccountListViewController*)((UINavigationController*)segue.destinationViewController).topViewController;
+                accountListVC.hideSettingsButton = YES;
+            
+        }
+        
         [self swapFromViewController:self.detailContainerViewController toViewController:segue.destinationViewController];
     }
 }
@@ -140,6 +147,7 @@
             if ([[navigationController.viewControllers firstObject] isKindOfClass:[INVAccountListViewController class]]) {
                 return;
             }
+            
         }
         
         [self.embedAccountsTransitionObject perform:nil];
