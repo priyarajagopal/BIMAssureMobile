@@ -33,7 +33,8 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,strong)   UIAlertController* logoutPromptAlertController;
 @property (nonatomic,assign)   BOOL saveAsDefault;
 @property (nonatomic,strong)   INVGenericCollectionViewDataSource* dataSource;
-@property (nonatomic,strong)     INVSignUpTableViewController* signUpController;
+@property (nonatomic,strong)   INVSignUpTableViewController* signUpController;
+@property (nonatomic,assign)   BOOL defaultAccountSpecified;
 
 @end
 
@@ -454,6 +455,10 @@ static NSString * const reuseIdentifier = @"Cell";
         self.alertView.delegate = self;
     }
     
+    // If default account has been specified and user wants to switch to a different account, do not have the default account option ON by default
+    if (self.globalDataManager.defaultAccountId) {
+        [self.alertView.defaultSwitch setOn:NO];
+    }
     self.alertView.alertMessage.text = message;
     self.alertView.setAsDefaultContainer.hidden = !showsDefaultOption;
     
