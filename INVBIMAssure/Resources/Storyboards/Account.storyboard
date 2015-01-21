@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -31,7 +31,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="wdu-LK-lfF">
                         <barButtonItem key="leftBarButtonItem" title="" id="HdP-lS-qJt">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="6R7-7t-1KM" kind="popoverPresentation" popoverAnchorBarButtonItem="HdP-lS-qJt" id="8kB-1D-ocb">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -39,7 +38,6 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="X55-kO-DqO">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="hsa-oY-nFp" kind="presentation" identifier="SignUpUserSegue" modalPresentationStyle="formSheet" id="Cvm-2m-UcC"/>
                             </connections>
@@ -156,7 +154,7 @@
                     <navigationItem key="navigationItem" title="Sign Up" id="V5A-bX-c9M">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="uBM-PS-1Mu">
                             <connections>
-                                <segue destination="27U-hy-dJA" kind="unwind" unwindAction="manualDismiss:" id="a3Y-ke-7wZ"/>
+                                <segue destination="27U-hy-dJA" kind="unwind" unwindAction="manualDismiss:" id="cga-wy-GLB"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="Sign Up" id="4rM-3c-czG">

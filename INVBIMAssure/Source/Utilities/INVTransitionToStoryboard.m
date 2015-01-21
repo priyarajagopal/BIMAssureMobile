@@ -75,6 +75,10 @@ UIStoryboardSegue *segueWithBlock(NSString *identifier, id source, id dst, void 
 }
 
 -(void) perform:(id)sender {
+    if (![self.sourceViewController shouldPerformSegueWithIdentifier:self.identifier sender:sender]) {
+        return;
+    }
+    
     UIStoryboard *destinationStoryboard = [UIStoryboard storyboardWithName:self.targetStoryboard bundle:[NSBundle bundleForClass:[self class]]];
     UIViewController *destinationViewController = nil;
     
@@ -85,6 +89,8 @@ UIStoryboardSegue *segueWithBlock(NSString *identifier, id source, id dst, void 
     }
     
     UIStoryboardSegue *segue = [self _createSegueWithDestination:destinationViewController];
+    [self.sourceViewController prepareForSegue:segue sender:sender];
+    
     [segue perform];
 }
 

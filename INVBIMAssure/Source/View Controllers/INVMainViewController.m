@@ -24,8 +24,6 @@
     // Do any additional setup after loading the view.
     [self setDetailViewConstraints];
     [self performSegueWithIdentifier:@"MainProjectEmbedSegue" sender:nil];
-    
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,10 +59,8 @@
             [self.detailContainerView addSubview:((UIViewController*)segue.destinationViewController).view];
             [segue.destinationViewController didMoveToParentViewController:self];
                     }
-    }
-    else if ([segue.identifier isEqualToString:@"MainAccountEmbedSegue"]) {
+    } else if ([segue.identifier isEqualToString:@"MainAccountEmbedSegue"]) {
         [self swapFromViewController:self.detailContainerViewController toViewController:segue.destinationViewController];
-   
     }
 }
 
@@ -131,9 +127,6 @@
 
 #pragma mark - KVO Observer
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    NSLog(@"%s. with keyPath %@",__func__,keyPath);
-    NSLog(@"%@", self.detailContainerViewController.class);
-    
     if ([keyPath isEqualToString:KVO_INVOnProjectsMenuSelected]) {
         if (![self.detailContainerViewController isKindOfClass:[INVProjectListSplitViewController class]]) {
             [self performSegueWithIdentifier:@"MainProjectEmbedSegue" sender:nil];
@@ -149,7 +142,7 @@
             }
         }
         
-        [self performSegueWithIdentifier:@"MainAccountEmbedSegue" sender:nil];
+        [self.embedAccountsTransitionObject perform:nil];
         
     }
     if ([keyPath isEqualToString:KVO_INVOnLogoutMenuSelected]) {

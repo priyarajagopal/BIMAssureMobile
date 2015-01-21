@@ -62,6 +62,10 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 */
 
+-(IBAction) manualDismiss:(UIStoryboardSegue*) segue {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 #pragma mark <UICollectionViewDelegate>
