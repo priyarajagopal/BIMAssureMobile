@@ -45,7 +45,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwR-Is-r1b">
-                                <rect key="frame" x="44" y="247" width="32" height="17"/>
+                                <rect key="frame" x="43" y="247" width="32" height="17"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -80,6 +80,14 @@
                                     <constraint firstAttribute="height" constant="175" id="8pX-2t-W59"/>
                                 </constraints>
                             </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redtriangle" translatesAutoresizingMaskIntoConstraints="NO" id="CTs-ow-LEt">
+                                <rect key="frame" x="-2" y="-2" width="78" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="78" id="CGk-mM-Rpk"/>
+                                    <constraint firstAttribute="height" constant="56" id="Zgr-Ga-bCu"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G9W-Eg-vYS">
                                 <rect key="frame" x="0.0" y="175" width="316" height="63"/>
                                 <subviews>
@@ -89,8 +97,8 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egK-EL-DS9">
-                                        <rect key="frame" x="282" y="17" width="26" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egK-EL-DS9">
+                                        <rect key="frame" x="282" y="8" width="26" height="30"/>
                                         <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -108,7 +116,7 @@
                                     <constraint firstItem="uhk-be-sb1" firstAttribute="leading" secondItem="G9W-Eg-vYS" secondAttribute="leading" constant="8" id="3he-nN-XbP"/>
                                     <constraint firstAttribute="bottom" secondItem="uhk-be-sb1" secondAttribute="bottom" constant="8" id="3sM-1t-f2a"/>
                                     <constraint firstItem="egK-EL-DS9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="w4K-G6-Tjp" secondAttribute="trailing" constant="8" id="526-er-cAc"/>
-                                    <constraint firstAttribute="centerY" secondItem="egK-EL-DS9" secondAttribute="centerY" id="dv1-zz-w3a"/>
+                                    <constraint firstAttribute="centerY" secondItem="egK-EL-DS9" secondAttribute="centerY" constant="8.5" id="dv1-zz-w3a"/>
                                     <constraint firstItem="w4K-G6-Tjp" firstAttribute="leading" secondItem="G9W-Eg-vYS" secondAttribute="leading" constant="8" id="l26-jQ-uFv"/>
                                     <constraint firstItem="w4K-G6-Tjp" firstAttribute="top" secondItem="G9W-Eg-vYS" secondAttribute="top" constant="8" id="m9E-PV-7Lu"/>
                                     <constraint firstAttribute="trailing" secondItem="egK-EL-DS9" secondAttribute="trailing" constant="8" id="nhA-MM-8jG"/>
@@ -124,16 +132,18 @@
                             <constraint firstItem="kVf-gm-fhb" firstAttribute="top" secondItem="grZ-uj-enK" secondAttribute="bottom" id="8TB-F5-HsR"/>
                             <constraint firstItem="8wS-Lb-LRd" firstAttribute="top" secondItem="G9W-Eg-vYS" secondAttribute="bottom" id="8u9-TR-fD4"/>
                             <constraint firstAttribute="trailing" secondItem="G9W-Eg-vYS" secondAttribute="trailing" id="96a-aj-jGF"/>
-                            <constraint firstItem="ZwR-Is-r1b" firstAttribute="baseline" secondItem="K0h-oq-kzd" secondAttribute="baseline" id="9HK-xw-aR8"/>
+                            <constraint firstItem="ZwR-Is-r1b" firstAttribute="baseline" secondItem="K0h-oq-kzd" secondAttribute="baseline" constant="-1" id="9HK-xw-aR8"/>
                             <constraint firstItem="grZ-uj-enK" firstAttribute="leading" secondItem="9T3-2s-hdM" secondAttribute="leading" id="Afh-rQ-ZUR"/>
                             <constraint firstItem="G9W-Eg-vYS" firstAttribute="top" secondItem="grZ-uj-enK" secondAttribute="bottom" id="HuO-5e-S04"/>
                             <constraint firstItem="kVf-gm-fhb" firstAttribute="leading" secondItem="9T3-2s-hdM" secondAttribute="leading" id="NKh-pN-aak"/>
                             <constraint firstItem="grZ-uj-enK" firstAttribute="top" secondItem="9T3-2s-hdM" secondAttribute="top" id="UVf-oh-G9F"/>
+                            <constraint firstItem="CTs-ow-LEt" firstAttribute="leading" secondItem="grZ-uj-enK" secondAttribute="leading" constant="-2" id="Zq8-1K-TMA"/>
                             <constraint firstAttribute="trailing" secondItem="grZ-uj-enK" secondAttribute="trailing" id="b9Z-kU-N7h"/>
+                            <constraint firstItem="CTs-ow-LEt" firstAttribute="top" secondItem="grZ-uj-enK" secondAttribute="top" constant="-2" id="b9u-i9-T0W"/>
                             <constraint firstAttribute="trailing" secondItem="kVf-gm-fhb" secondAttribute="trailing" id="fde-yN-ra5"/>
                             <constraint firstAttribute="trailing" secondItem="8wS-Lb-LRd" secondAttribute="trailing" id="feG-JD-JiO"/>
                             <constraint firstAttribute="bottom" secondItem="K0h-oq-kzd" secondAttribute="bottom" constant="8" id="fyA-1x-fe0"/>
-                            <constraint firstItem="ZwR-Is-r1b" firstAttribute="leading" secondItem="PBd-97-v1U" secondAttribute="trailing" constant="8" id="hiF-wL-Bja"/>
+                            <constraint firstItem="ZwR-Is-r1b" firstAttribute="leading" secondItem="PBd-97-v1U" secondAttribute="trailing" constant="7" id="hiF-wL-Bja"/>
                             <constraint firstItem="PBd-97-v1U" firstAttribute="top" secondItem="8wS-Lb-LRd" secondAttribute="bottom" constant="8" id="v4J-OY-67l"/>
                             <constraint firstItem="PBd-97-v1U" firstAttribute="leading" secondItem="9T3-2s-hdM" secondAttribute="leading" constant="8" id="wFO-oO-Ma8"/>
                             <constraint firstItem="ZwR-Is-r1b" firstAttribute="baseline" secondItem="PBd-97-v1U" secondAttribute="baseline" id="zkz-eq-HxR"/>
@@ -154,6 +164,7 @@
             <connections>
                 <outlet property="accessoryLabel" destination="egK-EL-DS9" id="Gqk-1a-kRR"/>
                 <outlet property="descriptionLabel" destination="uhk-be-sb1" id="1Ye-2w-X62"/>
+                <outlet property="isDefaultOverlayImageView" destination="CTs-ow-LEt" id="Aci-tw-AbG"/>
                 <outlet property="nameLabel" destination="w4K-G6-Tjp" id="6Pj-Kf-dMv"/>
                 <outlet property="projectCountLabel" destination="PBd-97-v1U" id="QBT-Fz-Jjl"/>
                 <outlet property="projectStatusLabel" destination="K0h-oq-kzd" id="Mhp-q0-lMl"/>
@@ -165,5 +176,6 @@
     </objects>
     <resources>
         <image name="InvicaraLogo" width="3728" height="3548"/>
+        <image name="redtriangle" width="200" height="150"/>
     </resources>
 </document>

@@ -39,10 +39,11 @@
             self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
         }
     
-        if (_isDefault) {
+        if (self.isCurrentlySignedIn) {
             self.accessoryLabel.textColor = greenShade;
             self.accessoryLabel.text = @"\uf058";
-        } else {
+        }
+        else {
             self.accessoryLabel.textColor = [UIColor grayColor];
             self.accessoryLabel.text = @"\uf08b";
         }
@@ -58,11 +59,23 @@
     }
 }
 
--(void)setIsDefault:(BOOL)isDefault {
-    _isDefault = isDefault;
+-(void)setIsCurrentlySignedIn:(BOOL)isSignedIn {
+    _isCurrentlySignedIn = isSignedIn;
     
     [self updateUI];
 }
+
+-(void)setIsDefault:(BOOL)isDefault {
+    _isDefault = isDefault;
+    
+    if (isDefault) {
+        [self.isDefaultOverlayImageView setHidden:NO];
+    }
+    else {
+        [self.isDefaultOverlayImageView setHidden:YES];
+    }
+}
+
 
 -(void) setAccount:(INVAccount *)account {
     _account = account;

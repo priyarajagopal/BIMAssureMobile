@@ -34,7 +34,6 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,assign)   BOOL saveAsDefault;
 @property (nonatomic,strong)   INVGenericCollectionViewDataSource* dataSource;
 @property (nonatomic,strong)   INVSignUpTableViewController* signUpController;
-@property (nonatomic,assign)   BOOL defaultAccountSpecified;
 
 @end
 
@@ -121,6 +120,13 @@ static NSString * const reuseIdentifier = @"Cell";
                 
                 NSNumber* currentAcnt = self.globalDataManager.loggedInAccount;
                 if (currentAcnt && [[accountOrInvite accountId] isEqualToNumber:currentAcnt]) {
+                    cell.isCurrentlySignedIn = YES;
+                }
+                else {
+                    cell.isCurrentlySignedIn = NO;
+                }
+                
+                if (self.globalDataManager.defaultAccountId == cell.account.accountId ){
                     cell.isDefault = YES;
                 }
                 else {
@@ -377,7 +383,9 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
         if (!error) {
             self.globalDataManager.loggedInAccount = nil;
-            [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
+            if (self.saveAsDefault) {
+                [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
+            }
             [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId withCompletionBlock:^(INVEmpireMobileError *error) {
                 if (!error) {
                     self.globalDataManager.loggedInAccount = self.currentAccountId;
