@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -92,7 +92,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fml-jw-NHX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Ujv-JG-HIH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-12" y="3416"/>
+            <point key="canvasLocation" x="14" y="3416"/>
         </scene>
         <!--Invited Users Table View Controller-->
         <scene sceneID="tjg-az-qn9">
@@ -152,7 +152,7 @@
                                 <navigationItem title="Invite Users" id="505-IP-z9Y">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0Cg-by-y51">
                                         <connections>
-                                            <segue destination="ukH-px-UpM" kind="unwind" unwindAction="manualDismiss:" id="vQ8-zq-jDn"/>
+                                            <segue destination="ukH-px-UpM" kind="unwind" identifier="ReturnToUserManagementSegue" unwindAction="manualDismiss:" id="vQ8-zq-jDn"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" enabled="NO" title="Send" id="rb0-3e-4z5">
