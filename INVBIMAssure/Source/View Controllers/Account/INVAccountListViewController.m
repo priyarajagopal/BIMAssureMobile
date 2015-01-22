@@ -125,8 +125,7 @@ static NSString * const reuseIdentifier = @"Cell";
                 else {
                     cell.isCurrentlySignedIn = NO;
                 }
-                
-                if (self.globalDataManager.defaultAccountId == cell.account.accountId ){
+                 if ([self.globalDataManager.defaultAccountId isEqualToNumber: cell.account.accountId] ){
                     cell.isDefault = YES;
                 }
                 else {
