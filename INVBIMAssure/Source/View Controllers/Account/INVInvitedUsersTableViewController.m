@@ -118,6 +118,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+-(NSString *) tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NSLocalizedString(@"CANCEL", nil);
+}
+
 #pragma mark - helper
 -(NSString*)userForId:(NSNumber*)userId {
     INVMembersArray members = self.accountManager.accountMembership;
@@ -144,16 +148,28 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
         
         _dataSource.editable = YES;
         _dataSource.deletionHandler = ^(id cell, INVInvite *cellData, NSIndexPath *indexPath) {
-            [weakSelf.globalDataManager.invServerClient cancelInviteWithInvitationId:cellData.invitationId withCompletionBlock:^(INVEmpireMobileError *error) {
-                if (error) {
-                    NSLog(@"%@", error);
-                    return;
-                }
-                
-                [weakSelf fetchListOfInvitedUsers];
-            }];
+            UIAlertController *confirmDeleteController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE", nil)
+                                                                                             message:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_MESSAGE", nil)
+                                                                                      preferredStyle:UIAlertControllerStyleAlert];
             
-            // TODO: Confirm Delete
+            [confirmDeleteController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_NEGATIVE", nil)
+                                                                        style:UIAlertActionStyleCancel
+                                                                      handler:nil]];
+            
+            [confirmDeleteController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_POSITIVE", nil)\
+                                                                        style:UIAlertActionStyleDestructive
+                                                                      handler:^(UIAlertAction *action) {
+                                                                          [weakSelf.globalDataManager.invServerClient cancelInviteWithInvitationId:cellData.invitationId withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                                              if (error) {
+                                                                                  NSLog(@"%@", error);
+                                                                                  return;
+                                                                              }
+                                                                              
+                                                                              [weakSelf fetchListOfInvitedUsers];
+                                                                          }];
+                                                                      }]];
+            
+            [weakSelf presentViewController:confirmDeleteController animated:YES completion:nil];
         };
         
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];

@@ -85,6 +85,11 @@
 "CONFIRM_DELETE_ACCOUNT_MEMBER_NEGATIVE"="No";
 "CONFIRM_DELETE_ACCOUNT_MEMBER_POSITIVE"="Yes";
 
+"CONFIRM_CANCEL_INVITE"="Confirm Cancel";
+"CONFIRM_CANCEL_INVITE_MESSAGE"="Are you sure you want to cancel this invite? This cannot be undone!";
+"CONFIRM_CANCEL_INVITE_NEGATIVE"="No";
+"CONFIRM_CANCEL_INVITE_POSITIVE"="Yes";
+
 "ERROR"="Error";
 "ERROR_RULE_DEFINITION_LOAD"="There was an error while loading rule definitions [%1d]";
 "ERROR_RULE_DEFINITION_FORINSTANCE_LOAD"="There was an error while loading rule definition for rule instance [%1d]";
