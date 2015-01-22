@@ -103,7 +103,13 @@
 +(instancetype)sharedInstanceWithManagedContext:(NSManagedObjectContext*)managedContext;
 
 
-
+/**
+ Sync up local cache with the latest server results
+ 
+ 
+ @return  nil if there was no error deleting user data else appropriate error object
+ */
+-(NSError*)syncUpPendingInvitesLocalCacheWithServerData:(NSArray*)results ;
 
 /**
  Removes all persisted pending invites cached data information pertaining to the signed in user. Although the deletion is initated , a nil error response does not necessarily imply that all data was
