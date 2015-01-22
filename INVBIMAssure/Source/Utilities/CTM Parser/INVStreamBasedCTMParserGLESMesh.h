@@ -1,8 +1,8 @@
 @import Foundation;
-@import OpenCTM;
 
 #import "INVStreamBasedCTMParserGLESCamera.h"
 #import "GLKExtensions.h"
+#import "OpenCTM/openctm.h"
 
 extern int INVStreamBasedCTMParser_PositionAttributeLocation;
 extern int INVStreamBasedCTMParser_NormalAttributeLocation;

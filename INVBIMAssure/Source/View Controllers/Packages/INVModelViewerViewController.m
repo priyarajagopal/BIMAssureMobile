@@ -12,7 +12,8 @@
 #import "INVStreamBasedCTMParserGLESCamera.h"
 #import "INVStreamBasedCTMParserGLESMesh.h"
 
-@import OpenCTM;
+#import "OpenCTM/openctm.h"
+
 @import GLKit;
 
 void classDump(Class);

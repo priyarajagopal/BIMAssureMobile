@@ -10,7 +10,8 @@
 #import "INVStreamBasedJSONParser.h"
 #import "GLKExtensions.h"
 
-@import OpenCTM;
+#import "OpenCTM/openctm.h"
+
 @import GLKit;
 @import SceneKit;
 
