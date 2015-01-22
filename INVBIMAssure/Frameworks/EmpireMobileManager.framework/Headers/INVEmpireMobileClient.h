@@ -234,6 +234,20 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  */
 -(void)acceptInvite:(NSString*)invitationCode forUser:(NSString*)userEmail withCompletionBlock:(CompletionHandler) handler;
 
+/**
+ Asynchornously, cancel  a pending invite for user.  The user must have succesfully into the account via signIntoAccount:withCompletionBlock: to view invites for the account. The list of pending invitations can be retrieved using getPendingInvitationsForSignedInUserWithCompletionBlock: call.
+ 
+ @param invitationId The invitation Id to cancel
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see accountManager
+ 
+ */
+-(void)cancelInviteWithInvitationId:(NSNumber*)invitationId withCompletionBlock:(CompletionHandler) handler;
+
 
 /**
  Asynchornously, remove user with specified userId from currently signed in account. Only admins are allowed to exercise this call.

@@ -72,7 +72,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             NSError* dbError;
             [self.dataResultsController performFetch:&dbError];
             if (!dbError) {
-                NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
          
             }
@@ -141,9 +140,20 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             
         };
         
+        __weak typeof(self) weakSelf = self;
+        
         _dataSource.editable = YES;
-        _dataSource.deletionHandler = ^(id cell, id cellData, NSIndexPath *indexPath) {
-            // TODO: Delete
+        _dataSource.deletionHandler = ^(id cell, INVInvite *cellData, NSIndexPath *indexPath) {
+            [weakSelf.globalDataManager.invServerClient cancelInviteWithInvitationId:cellData.invitationId withCompletionBlock:^(INVEmpireMobileError *error) {
+                if (error) {
+                    NSLog(@"%@", error);
+                    return;
+                }
+                
+                [weakSelf fetchListOfInvitedUsers];
+            }];
+            
+            // TODO: Confirm Delete
         };
         
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
