@@ -134,6 +134,20 @@
     }
 }
 
+-(void) showProjectAlert:(NSString *) title {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:title
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          [self performSegueWithIdentifier:@"unwind" sender:self];
+                                                      }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 -(void) save:(id)sender {
     NSString *projectName = self.projectNameTextField.text;
     NSString *projectDescription = self.projectDescriptionTextField.text;
@@ -151,7 +165,7 @@
                                                    // TODO: Error handling
                                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
                                                    
-                                                   [self performSegueWithIdentifier:@"unwind" sender:self];
+                                                   [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
                                                }];
     } else {
         [self.globalDataManager.invServerClient createProjectWithName:projectName
@@ -161,7 +175,7 @@
                                                      // TODO: Error handling
                                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
                                                      
-                                                     [self performSegueWithIdentifier:@"unwind" sender:self];    
+                                                     [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED", nil)];
                                                  }];
     }
 }

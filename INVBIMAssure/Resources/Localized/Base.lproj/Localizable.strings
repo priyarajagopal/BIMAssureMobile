@@ -65,6 +65,8 @@
 "CREATE_PROJECT"="Create Project";
 "EDIT_PROJECT"="Edit %@";
 "INVALID_PROJECT_NAME"="Invalid Project Name";
+"PROJECT_CREATED"="Project Created Successfully";
+"PROJECT_UPDATED"="Project Updated Successfully";
 "STOCK_IMAGES"="Stock Images";
 "PHOTO_LIBRARY"="Photo Library";
 "TAKE_PHOTO"="Take Photo";
