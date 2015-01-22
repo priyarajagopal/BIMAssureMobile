@@ -111,10 +111,63 @@
 }
 
 -(void) reloadData {
+    NSArray *oldNodes = self.flattenedNodes;
+    
+    // This flushes the cache
     _flattenedNodes = nil;
     
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)]
-                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSArray *newNodes = self.flattenedNodes;
+    
+    [self.tableView beginUpdates];
+    
+    NSUInteger lastStableIndex = -1;
+    for (NSUInteger index = 0; index < oldNodes.count; index++) {
+        INVModelTreeNode *node = oldNodes[index];
+        NSUInteger newIndex = [newNodes indexOfObject:node];
+        
+        if (newIndex == NSNotFound) {
+            [self.tableView deleteRowsAtIndexPaths:@[
+                [NSIndexPath indexPathForRow:index inSection:0]
+            ] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            if (lastStableIndex) {
+                [self.tableView reloadRowsAtIndexPaths:@[
+                    [NSIndexPath indexPathForRow:lastStableIndex inSection:0]
+                ] withRowAnimation:UITableViewRowAnimationNone];
+                
+                lastStableIndex = -1;
+            }
+        } else if (index != newIndex) {
+            [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
+                                   toIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0]];
+        } else {
+            lastStableIndex = index;
+        }
+    }
+    
+    lastStableIndex = -1;
+    for (NSUInteger index = 0; index < newNodes.count; index++) {
+        INVModelTreeNode *node = newNodes[index];
+        NSUInteger oldIndex = [oldNodes indexOfObject:node];
+        
+        if (oldIndex == NSNotFound) {
+            [self.tableView insertRowsAtIndexPaths:@[
+                [NSIndexPath indexPathForRow:index inSection:0]
+            ] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            if (lastStableIndex) {
+                [self.tableView reloadRowsAtIndexPaths:@[
+                    [NSIndexPath indexPathForRow:lastStableIndex inSection:0]
+                ] withRowAnimation:UITableViewRowAnimationNone];
+                
+                lastStableIndex = -1;
+            }
+        } else {
+            lastStableIndex = index;
+        }
+    }
+    
+    [self.tableView endUpdates];
 }
 
 - (void)viewDidLoad {
