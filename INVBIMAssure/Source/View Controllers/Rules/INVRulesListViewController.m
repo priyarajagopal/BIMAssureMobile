@@ -197,6 +197,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     return UITableViewCellEditingStyleNone;
 }
 
+#pragma mark - UITableViewDelegate
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    INVRuleInstanceTableViewCell *cell = (INVRuleInstanceTableViewCell*) [tableView cellForRowAtIndexPath:indexPath];
+    [cell openCell];
+}
 
 #pragma mark - INVRuleSetTableViewHeaderViewAcionDelegate
 -(void)onManageFilesTapped:(INVRuleSetTableViewHeaderView*)sender {

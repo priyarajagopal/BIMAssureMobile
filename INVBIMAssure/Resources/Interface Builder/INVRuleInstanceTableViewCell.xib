@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
+            <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
         </mutableArray>
@@ -34,7 +35,7 @@
                             <action selector="onActionButtonTapped:" destination="kKo-Pw-45C" eventType="touchUpInside" id="Gct-QU-vcS"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0B-lg-bzL">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0B-lg-bzL">
                         <rect key="frame" x="261" y="0.0" width="59" height="83"/>
                         <color key="backgroundColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -50,33 +51,53 @@
                             <action selector="onActionButtonTapped:" destination="kKo-Pw-45C" eventType="touchUpInside" id="zkt-Np-Mdt"/>
                         </connections>
                     </button>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7QC-q5-nOn" userLabel="ruleContentView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7QC-q5-nOn" userLabel="ruleContentView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uef-n8-Dcl">
-                                <rect key="frame" x="8" y="19" width="304" height="20"/>
+                                <rect key="frame" x="59" y="19" width="253" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Overview" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ad-3Y-ezM">
-                                <rect key="frame" x="8" y="47" width="304" height="17"/>
+                                <rect key="frame" x="59" y="47" width="253" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8f-1U-DEP">
+                                <rect key="frame" x="9" y="19" width="42" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="eaU-5P-gdL"/>
+                                    <constraint firstAttribute="height" constant="45" id="s0U-CI-FZO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                                <color key="textColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="uef-n8-Dcl" secondAttribute="trailing" constant="8" id="9VT-Ph-Qlh"/>
                             <constraint firstItem="uef-n8-Dcl" firstAttribute="top" secondItem="7QC-q5-nOn" secondAttribute="top" constant="19" id="Kq7-eV-PKA"/>
-                            <constraint firstItem="uef-n8-Dcl" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="8" id="QY6-gc-efz"/>
+                            <constraint firstItem="6Ad-3Y-ezM" firstAttribute="leading" secondItem="F8f-1U-DEP" secondAttribute="trailing" constant="8" id="MoD-tI-vGP"/>
+                            <constraint firstItem="F8f-1U-DEP" firstAttribute="top" secondItem="7QC-q5-nOn" secondAttribute="top" constant="19" id="NDk-qA-btG"/>
+                            <constraint firstItem="uef-n8-Dcl" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="42" id="QY6-gc-efz"/>
+                            <constraint firstItem="uef-n8-Dcl" firstAttribute="leading" secondItem="F8f-1U-DEP" secondAttribute="trailing" constant="8" id="drs-jj-zMt"/>
                             <constraint firstAttribute="trailing" secondItem="6Ad-3Y-ezM" secondAttribute="trailing" constant="8" id="h6z-B2-gjY"/>
-                            <constraint firstItem="6Ad-3Y-ezM" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="8" id="jaR-U1-aMe"/>
+                            <constraint firstItem="6Ad-3Y-ezM" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="42" id="jaR-U1-aMe"/>
                             <constraint firstItem="6Ad-3Y-ezM" firstAttribute="top" secondItem="uef-n8-Dcl" secondAttribute="bottom" constant="8" id="rzc-Wa-xQ9"/>
+                            <constraint firstItem="F8f-1U-DEP" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="9" id="z13-7F-BS9"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="QY6-gc-efz"/>
+                                <exclude reference="jaR-U1-aMe"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="7QC-q5-nOn" firstAttribute="leading" secondItem="F2N-zD-R1X" secondAttribute="leadingMargin" constant="-8" id="EB9-NA-kid"/>
                     <constraint firstItem="7QC-q5-nOn" firstAttribute="top" secondItem="F2N-zD-R1X" secondAttribute="topMargin" constant="-8" id="Kro-hX-cM5"/>
