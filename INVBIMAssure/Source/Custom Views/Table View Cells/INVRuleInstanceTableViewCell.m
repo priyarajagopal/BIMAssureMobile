@@ -69,6 +69,7 @@ const static NSInteger DEFAULT_LEADING_SPACE = -8;
     }
 }
 
+
 #pragma mark - UIPanGestureRecognizer
 - (void)panThisCell:(UIPanGestureRecognizer *)recognizer {
     switch (recognizer.state) {
