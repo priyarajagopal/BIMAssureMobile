@@ -119,8 +119,12 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
                                                                                                                               NSLog(@"%@", error);
                                                                                                                               return;
                                                                                                                           }
-                                                              
-                                                                                                                          [self fetchListOfAccountMembers];
+                                                                                                                          NSError* dbError;
+                                                                                                                          [self.dataResultsController performFetch:&dbError];
+                                                                                                                          if (!dbError) {
+                                                                                                                              [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                                                                                                                          }
+                                                                                                                          //[self fetchListOfAccountMembers];
                                                                                                                       }];
                                                         }]];
     

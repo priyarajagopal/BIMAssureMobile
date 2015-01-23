@@ -164,8 +164,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                                                                                   NSLog(@"%@", error);
                                                                                   return;
                                                                               }
+                                                                              NSError* dbError;
+                                                                              [weakSelf.dataResultsController performFetch:&dbError];
+                                                                              if (!dbError) {
+                                                                                  [weakSelf.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                                                                              }
                                                                               
-                                                                              [weakSelf fetchListOfInvitedUsers];
+                                                                             // [weakSelf fetchListOfInvitedUsers];
                                                                           }];
                                                                       }]];
             
