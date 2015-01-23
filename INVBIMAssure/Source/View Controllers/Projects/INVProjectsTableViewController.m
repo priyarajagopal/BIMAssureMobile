@@ -95,6 +95,12 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     [self fetchProjectList];
 }
 
+-(void) setSelectedProject:(INVProject *)project {
+    NSIndexPath *indexPath = [self.dataResultsController indexPathForObject:project];
+    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    
+    [self performSegueWithIdentifier:@"ProjectDetailSegue" sender:nil];
+}
 
 #pragma mark - server side
 -(void)fetchProjectList {

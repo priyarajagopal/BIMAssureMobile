@@ -76,6 +76,12 @@ NSString* const KVO_INVOnNotificationsMenuSelected = @"notificationsMenuSelected
                                                  name:INVNotificationPoller_DidRecieveNotificationNotification
                                                object:nil];
     
+    [NSTimer scheduledTimerWithTimeInterval:1
+                                     target:self
+                                   selector:@selector(handlePendingInvite:)
+                                   userInfo:nil
+                                    repeats:YES];
+    
     [self handlePendingInvite:nil];
 }
 

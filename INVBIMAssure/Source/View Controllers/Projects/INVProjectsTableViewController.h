@@ -11,4 +11,6 @@
 @interface INVProjectsTableViewController : INVCustomTableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bottomBarButtonItem;
 
+-(void) setSelectedProject:(INVProject *) project;
+
 @end

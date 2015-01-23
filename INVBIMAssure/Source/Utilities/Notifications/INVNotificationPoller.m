@@ -116,7 +116,9 @@ NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_Chang
 }
 
 -(NSArray *) allNotifications {
-    return [_notifications copy];
+    return [_notifications filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return ![evaluatedObject dismissed];
+    }]];
 }
 
 -(void) beginPolling {

@@ -132,6 +132,17 @@
     }];
 }
 
+-(void) viewProject:(INVProject *)project {
+    if (![self.detailContainerViewController isKindOfClass:[INVProjectListSplitViewController class]]) {
+        [self performSegueWithIdentifier:@"MainProjectEmbedSegue" sender:nil];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.detailContainerViewController;
+        [splitVC setSelectedProject:project];
+    });
+}
+
 #pragma mark - KVO Observer
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:KVO_INVOnProjectsMenuSelected]) {

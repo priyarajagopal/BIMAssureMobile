@@ -41,11 +41,13 @@
             [notifications addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypePendingInvite andData:invite]];
         }
         
+        /*
         for (INVUserInvite *invite in goneInvites) {
             NSString *title = [NSString stringWithFormat:NSLocalizedString(@"ACCOUNT_INVITE_NOTIFICATION_ACCEPTED_TITLE", nil), [invite accountName]];
             
             [notifications addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypePendingInvite andData:nil]];
         }
+         */
         
         self->_previousInvites = invites;
         

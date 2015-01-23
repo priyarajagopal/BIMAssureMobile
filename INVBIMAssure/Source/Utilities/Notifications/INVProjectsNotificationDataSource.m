@@ -26,7 +26,12 @@
         }
         
         NSMutableArray *notifications = [NSMutableArray new];
-        NSArray *projects = [[INVGlobalDataManager sharedInstance].invServerClient.projectManager projectsInAccount];
+        
+        INVProjectManager *projectManager = [INVGlobalDataManager sharedInstance].invServerClient.projectManager;
+        NSManagedObjectContext *context = projectManager.managedObjectContext;
+        NSFetchRequest *fetchRequest = projectManager.fetchRequestForProjects;
+        
+        NSArray *projects = [context executeFetchRequest:fetchRequest error:nil];
         
         if (self.previousProjects) {
             NSMutableArray *newProjects = [projects mutableCopy];

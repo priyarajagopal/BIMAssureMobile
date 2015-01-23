@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, INVNotificationType) {
 @property NSString *title;
 @property INVNotificationType type;
 @property id data;
+@property BOOL dismissed;
 @property NSDate *creationDate;
 
 +(id) notificationWithTitle:(NSString *) title type:(INVNotificationType) type andData:(id) data;

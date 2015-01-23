@@ -38,6 +38,11 @@
     // Pass the selected object to the new view controller.    
 }
 
+-(void) setSelectedProject:(INVProject *)project {
+    UINavigationController *navController = [self.viewControllers firstObject];
+    [[[navController childViewControllers] firstObject] setSelectedProject:project];
+}
+
 
 #pragma mark - UIGestureRecognizerDelegate
 

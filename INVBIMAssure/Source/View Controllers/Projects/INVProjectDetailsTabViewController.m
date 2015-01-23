@@ -7,7 +7,7 @@
 //
 
 #import "INVProjectDetailsTabViewController.h"
-
+#import "INVProjectFilesListViewController.h"
 
 @interface INVProjectDetailsTabViewController ()
 
@@ -36,6 +36,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void) setSelectedProject:(INVProject *) project {
+    [self.viewControllers makeObjectsPerformSelector:@selector(setProjectId:) withObject:project.projectId];
+}
 
 #pragma mark - UITabbarControllerDelegate
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {

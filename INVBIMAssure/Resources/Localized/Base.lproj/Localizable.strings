@@ -90,6 +90,11 @@
 "CONFIRM_CANCEL_INVITE_NEGATIVE"="No";
 "CONFIRM_CANCEL_INVITE_POSITIVE"="Yes";
 
+"ARE_YOU_SURE_PROJECT_TITLE"="Confirm Navigation";
+"ARE_YOU_SURE_PROJECT_MESSAGE"="Are you sure you want to navigate to the project '%@'?";
+"ARE_YOU_SURE_PROJECT_NO"="No";
+"ARE_YOU_SURE_PROJECT_YES"="Yes";
+
 "ERROR"="Error";
 "ERROR_RULE_DEFINITION_LOAD"="There was an error while loading rule definitions [%1d]";
 "ERROR_RULE_DEFINITION_FORINSTANCE_LOAD"="There was an error while loading rule definition for rule instance [%1d]";

@@ -19,4 +19,7 @@
 @property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *embedAccountsTransitionObject;
 
 -(IBAction)done:(UIStoryboardSegue*)segue;
+
+-(void) viewProject:(INVProject *) project;
+
 @end

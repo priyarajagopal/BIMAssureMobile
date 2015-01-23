@@ -11,6 +11,7 @@
 #import "INVNotificationTableViewCell.h"
 
 #import "INVDefaultAccountAlertView.h"
+#import "INVMainViewController.h"
 
 static inline NSString *invNotificationTypeToString(INVNotificationType type) {
     static NSString *notificationLocalizedStringKeys[] = {
@@ -57,10 +58,14 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
 #pragma mark - Table view data source
 
 -(void) onNotificationRecieved:(NSNotification *) notification {
+    [self reloadData];
+}
+
+-(void) reloadData {
     NSArray *notifications = [[INVNotificationPoller instance] allNotifications];
     notifications = [notifications sortedArrayUsingDescriptors: @[
-        [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]
-    ]];
+                                                                  [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]
+                                                                  ]];
     
     NSMutableArray *notificationSections = [NSMutableArray arrayWithCapacity:INVNotificationTypeCount];
     
@@ -77,7 +82,6 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
     }]];
     
     self.notifications = [notificationSections copy];
-    
     [self.tableView reloadData];
 }
 
@@ -85,7 +89,7 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
     [self.refreshControl endRefreshing];
     
     [[INVNotificationPoller instance] forceUpdate];
-    [self.tableView reloadData];
+    [self reloadData];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -120,6 +124,8 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
     INVNotificationTableViewCell *cell = (INVNotificationTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
     INVNotification *notification = cell.notification;
     
+    _selectedNotification = notification;
+    
     if (notification.type == INVNotificationTypePendingInvite && notification.data) {
         // Handle account invite.
         _alertView = [[[NSBundle mainBundle] loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil] firstObject];
@@ -130,12 +136,31 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
         [_alertView.acceptButton setTitle:NSLocalizedString(@"INVITE_ACCEPT", nil) forState:UIControlStateNormal];
         [_alertView.cancelButton setTitle:NSLocalizedString(@"CANCEL", nil) forState:UIControlStateNormal];
         
-        _alertView.alertMessage.text = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), [_selectedNotification.data accountName]];
+        _alertView.alertMessage.text = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), [notification.data accountName]];
         
         [self.view.window addSubview:_alertView];
         
         [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
         [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    }
+    
+    if (notification.type == INVNotificationTypeProject && notification.data) {
+        INVProject *project = notification.data;
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_TITLE", nil)
+                                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_MESSAGE", nil), project.name]
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_NO", nil) style:UIAlertActionStyleCancel handler:nil]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_YES", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self performSegueWithIdentifier:@"unwind" sender:nil];
+            
+            INVMainViewController *mainViewController = (INVMainViewController *) [[UIApplication sharedApplication] keyWindow].rootViewController;
+            [mainViewController viewProject:project];
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
@@ -155,8 +180,11 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
     [self.globalDataManager.invServerClient acceptInvite:[[_selectedNotification data] invitationCode]
                                                  forUser:self.globalDataManager.loggedInUser
                                      withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                     [[INVNotificationPoller instance] forceUpdate];
-                                                 }];
+                                         self.selectedNotification.dismissed = YES;
+                                         self.selectedNotification = nil;
+                                         
+                                         [self reloadData];
+                                     }];
 }
 
 -(void) onCancelLogintoAccount {
