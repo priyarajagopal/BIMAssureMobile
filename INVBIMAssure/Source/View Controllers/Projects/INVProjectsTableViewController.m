@@ -98,7 +98,9 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 #pragma mark - server side
 -(void)fetchProjectList {
-    [self showLoadProgress ];
+    [self showLoadProgress];
+    
+    [self.projectPagingManager resetOffset];
     [self.projectPagingManager fetchProjectsFromCurrentOffset];
 }
 

@@ -25,25 +25,28 @@
             return;
         }
         
-        NSArray *projects = [[INVGlobalDataManager sharedInstance].invServerClient.projectManager projectsInAccount];
-        NSMutableArray *newProjects = [projects mutableCopy];
-        NSMutableArray *goneProjects = [self.previousProjects mutableCopy];
-        
-        [newProjects removeObjectsInArray:self.previousProjects];
-        [goneProjects removeObjectsInArray:projects];
-        
         NSMutableArray *notifications = [NSMutableArray new];
+        NSArray *projects = [[INVGlobalDataManager sharedInstance].invServerClient.projectManager projectsInAccount];
         
-        for (INVProject *project in newProjects) {
-            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"PROJECT_ADDED_NOTIFICATION_RECIEVED_TITLE", nil), [project name]];
+        if (self.previousProjects) {
+            NSMutableArray *newProjects = [projects mutableCopy];
+            NSMutableArray *goneProjects = [self.previousProjects mutableCopy];
             
-            [notifications addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypeProject andData:project]];
-        }
-        
-        for (INVProject *project in goneProjects) {
-            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"PROJECT_REMOVED_NOTIFICATION_ACCEPTED_TITLE", nil), [project name]];
+            [newProjects removeObjectsInArray:self.previousProjects];
+            [goneProjects removeObjectsInArray:projects];
             
-            [notifications addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypeProject andData:nil]];
+            
+            for (INVProject *project in newProjects) {
+                NSString *title = [NSString stringWithFormat:NSLocalizedString(@"PROJECT_ADDED_NOTIFICATION_RECIEVED_TITLE", nil), [project name]];
+                
+                [notifications addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypeProject andData:project]];
+            }
+            
+            for (INVProject *project in goneProjects) {
+                NSString *title = [NSString stringWithFormat:NSLocalizedString(@"PROJECT_REMOVED_NOTIFICATION_ACCEPTED_TITLE", nil), [project name]];
+                
+                [notifications addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypeProject andData:nil]];
+            }
         }
         
         self.previousProjects = projects;
