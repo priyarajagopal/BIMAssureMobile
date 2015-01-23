@@ -158,6 +158,9 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
             
             INVMainViewController *mainViewController = (INVMainViewController *) [[UIApplication sharedApplication] keyWindow].rootViewController;
             [mainViewController viewProject:project];
+            
+            [notification setDismissed:YES];
+            [self reloadData];
         }]];
         
         [self presentViewController:alertController animated:YES completion:nil];
