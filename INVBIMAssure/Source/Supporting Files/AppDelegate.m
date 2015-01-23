@@ -15,6 +15,7 @@
 
 #import "INVNotificationPoller.h"
 #import "INVPendingInvitesNotificationDataSource.h"
+#import "INVProjectsNotificationDataSource.h"
 
 @interface AppDelegate ()
 @property (nonatomic,assign)BOOL registeredForLoginEvents;
@@ -128,6 +129,7 @@
 -(void)displayProjectsListRootViewController {
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
+    
     UIViewController* projectsVC = [[self mainStoryboard]instantiateViewControllerWithIdentifier:@"MainVC"];
     self.window.rootViewController = projectsVC;
 }
@@ -189,6 +191,7 @@
 
 -(void) prepareNotificationPolling {
     [[INVNotificationPoller instance] addDataSource:[INVPendingInvitesNotificationDataSource new]];
+    [[INVNotificationPoller instance] addDataSource:[INVProjectsNotificationDataSource new]];
     [[INVNotificationPoller instance] beginPolling];
 }
 
