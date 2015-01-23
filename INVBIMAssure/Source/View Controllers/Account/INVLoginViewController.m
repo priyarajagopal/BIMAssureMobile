@@ -10,6 +10,7 @@
 @import EmpireMobileManager;
 #import "INVLoginViewController.h"
 #import "INVSignUpTableViewController.h"
+#import "INVResetPasswordTableViewController.h"
 
 #pragma mark - KVO
 NSString* const KVO_INVLoginSuccess = @"loginSuccess";
@@ -103,6 +104,13 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
         }
         
+    }
+    
+    if ([segue.identifier isEqualToString:@"ResetPasswordSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        INVResetPasswordTableViewController *resetPasswordController = (INVResetPasswordTableViewController *) [navigationController topViewController];
+        
+        resetPasswordController.email = self.emailTextEntry.text;
     }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
