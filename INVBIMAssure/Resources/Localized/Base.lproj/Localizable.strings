@@ -121,6 +121,9 @@
 "ACCOUNT_INVITE_NOTIFICATION_RECIEVED_TITLE"="Invitation to account '%@' recieved";
 "ACCOUNT_INVITE_NOTIFICATION_ACCEPTED_TITLE"="Accepted invitation to account '%@'";
 
+"PROJECT_ADDED_NOTIFICATION_RECIEVED_TITLE"="Project '%@' created";
+"PROJECT_REMOVED_NOTIFICATION_RECIEVED_TITLE"="Project '%@' deleted.";
+
 "NOTIFICATION_CREATED_AT"="At: %@";
 
 "AGO_JUST_NOW"="Just Now";

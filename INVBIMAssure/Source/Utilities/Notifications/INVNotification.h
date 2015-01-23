@@ -8,13 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, INVNotificationType) {
+    INVNotificationTypePendingInvite,
+    INVNotificationTypeProject,
+    
+    INVNotificationTypeCount
+};
+
 @interface INVNotification : NSObject
 
 @property NSString *title;
+@property INVNotificationType type;
 @property id data;
 @property NSDate *creationDate;
 
-+(id) notificationWithTitle:(NSString *) title andData:(id) data;
--(id) initWithTitle:(NSString *) title andData:(id) data;
++(id) notificationWithTitle:(NSString *) title type:(INVNotificationType) type andData:(id) data;
+-(id) initWithTitle:(NSString *) title type:(INVNotificationType) type andData:(id) data;
 
 @end

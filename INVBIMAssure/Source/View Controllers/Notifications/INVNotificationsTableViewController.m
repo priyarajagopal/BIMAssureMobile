@@ -12,12 +12,22 @@
 
 #import "INVDefaultAccountAlertView.h"
 
+static inline NSString *invNotificationTypeToString(INVNotificationType type) {
+    static NSString *notificationLocalizedStringKeys[] = {
+        @"NOTIFICATION_TYPE_PENDING_INVITE",
+        @"NOTIFICATION_TYPE_PROJECT"
+    };
+    
+    return NSLocalizedString(notificationLocalizedStringKeys[type], nil);
+}
+
 @interface INVNotificationsTableViewController ()<INVDefaultAccountAlertViewDelegate>
 
 @property IBOutlet UILabel *noNotificationsLabel;
 
 @property INVDefaultAccountAlertView *alertView;
 @property INVNotification *selectedNotification;
+
 @property NSArray *notifications;
 
 @end
@@ -47,10 +57,26 @@
 #pragma mark - Table view data source
 
 -(void) onNotificationRecieved:(NSNotification *) notification {
-    _notifications = [[INVNotificationPoller instance] allNotifications];
-    _notifications = [_notifications sortedArrayUsingDescriptors: @[
+    NSArray *notifications = [[INVNotificationPoller instance] allNotifications];
+    notifications = [notifications sortedArrayUsingDescriptors: @[
         [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]
     ]];
+    
+    NSMutableArray *notificationSections = [NSMutableArray arrayWithCapacity:INVNotificationTypeCount];
+    
+    for (int index = 0; index < INVNotificationTypeCount; index++) {
+        [notificationSections addObject:[NSMutableArray new]];
+    }
+    
+    for (INVNotification *notification in notifications) {
+        [notificationSections[notification.type] addObject:notification];
+    }
+    
+    [notificationSections removeObjectsAtIndexes:[notificationSections indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [obj count] == 0;
+    }]];
+    
+    self.notifications = [notificationSections copy];
     
     [self.tableView reloadData];
 }
@@ -63,21 +89,26 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // TODO: Different sections based on types of notifications?
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger count = _notifications.count;
+    NSInteger count = self.notifications.count;
     self.noNotificationsLabel.hidden = count > 0;
     
     return count;
 }
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.notifications[section] count];
+}
+
+-(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    INVNotificationType type = [(INVNotification *)[self.notifications[section] firstObject] type];
+    
+    return invNotificationTypeToString(type);
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     INVNotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"notificationCell" forIndexPath:indexPath];
     
-    INVNotification *notification = _notifications[indexPath.row];
+    INVNotification *notification = _notifications[indexPath.section][indexPath.row];
     cell.notification = notification;
     
     return cell;
@@ -86,10 +117,10 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // TODO: Handle for each type of notification.
-    _selectedNotification = _notifications[indexPath.row];
+    INVNotificationTableViewCell *cell = (INVNotificationTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+    INVNotification *notification = cell.notification;
     
-    if ([[_selectedNotification data] isKindOfClass:[INVUserInvite class]]) {
+    if (notification.type == INVNotificationTypePendingInvite && notification.data) {
         // Handle account invite.
         _alertView = [[[NSBundle mainBundle] loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil] firstObject];
         _alertView.delegate = self;
