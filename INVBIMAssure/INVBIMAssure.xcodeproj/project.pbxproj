@@ -40,6 +40,7 @@
 		F5024AFE1A6808FA002EEE5F /* INVNotificationPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024AFC1A6808FA002EEE5F /* INVNotificationPoller.m */; };
 		F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */; };
 		F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */; };
+		F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
 		F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */; };
 		F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */; };
@@ -228,6 +229,8 @@
 		F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVPendingInvitesNotificationDataSource.m; sourceTree = "<group>"; };
 		F52BB7331A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectsNotificationDataSource.h; sourceTree = "<group>"; };
 		F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectsNotificationDataSource.m; sourceTree = "<group>"; };
+		F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVResetPasswordTableViewController.h; sourceTree = "<group>"; };
+		F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVResetPasswordTableViewController.m; sourceTree = "<group>"; };
 		F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "../../Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
 		F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "../../Pods/build/Debug-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
 		F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "../../Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
@@ -804,6 +807,8 @@
 				F5789CFE1A642A5500D8CEE7 /* INVUserManagementTableViewController.m */,
 				0278BAD81A655CB4009E0E27 /* INVSignUpTableViewController.h */,
 				0278BAD91A655CB4009E0E27 /* INVSignUpTableViewController.m */,
+				F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */,
+				F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1272,6 +1277,7 @@
 				F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */,
 				F5789D541A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m in Sources */,
 				F5789D781A642A5500D8CEE7 /* INVRuleExecutionsTableViewController.m in Sources */,
+				F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */,
 				F5789D701A642A5500D8CEE7 /* INVProjectEditViewController.m in Sources */,
 				F5789D6D1A642A5500D8CEE7 /* INVFileManageRuleSetsContainerViewController.m in Sources */,
 				F5789D771A642A5500D8CEE7 /* INVRuleDefinitionsTableViewController.m in Sources */,

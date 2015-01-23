@@ -48,7 +48,7 @@
             }
             
             for (INVProject *project in goneProjects) {
-                NSString *title = [NSString stringWithFormat:NSLocalizedString(@"PROJECT_REMOVED_NOTIFICATION_ACCEPTED_TITLE", nil), [project name]];
+                NSString *title = [NSString stringWithFormat:NSLocalizedString(@"PROJECT_REMOVED_NOTIFICATION_RECIEVED_TITLE", nil), [project name]];
                 
                 [notifications addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypeProject andData:nil]];
             }
