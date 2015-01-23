@@ -21,4 +21,7 @@
 -(NSString *) empireManageHost;
 -(NSString *) empireManagePort;
 
+-(NSString *) passportPasswordVerificationRegex;
+-(NSString *) passportPasswordVerificationText;
+
 @end

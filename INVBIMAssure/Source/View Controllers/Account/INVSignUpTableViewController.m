@@ -12,6 +12,7 @@
 #import "INVSubscriptionLevelsTableViewCell.h"
 #import "INVTextViewTableViewCell.h"
 #import "INVSignUpTableViewConfigDataSource.h"
+#import "INVServerConfigManager.h"
 
 NSString* const KVO_INVSignupSuccess = @"signupSuccess";
 
@@ -254,11 +255,25 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
 
 #pragma mark - server side
 -(void)signupUserAndCreateDefaultAccount {
-    [self showSignupProgress ];
+    [self showSignupProgress];
     
     NSString* email = self.emailTextField.text;
     NSString* name  = self.userNameTextField.text;
     NSString* pass  = self.passwordTextField.text;
+    
+    NSError *error = nil;
+    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:[[INVServerConfigManager instance] passportPasswordVerificationRegex]
+                                                                                options:0
+                                                                                  error:&error];
+    
+    if (!error) {
+        NSArray *matches = [expression matchesInString:pass options:0 range:NSMakeRange(0, pass.length)];
+        if (matches.count == 0) {
+            [self hideSignupProgress];
+            
+            [self showPasswordInvalidAlert];
+        }
+    }
     
     _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
     NSNumber* package     = @(subscriptionLevel);
@@ -351,6 +366,16 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
     }];
 }
      
+
+-(void) showPasswordInvalidAlert {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SIGNUP_FAILURE", nil)
+                                                                             message:[NSString stringWithFormat:@"Password must be %@", [[INVServerConfigManager instance] passportPasswordVerificationText]]
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleDefault handler:nil]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 #pragma mark - INVTextViewTableViewCellDelegate
 -(void)cellSizeChanged:(CGSize)size withTextString:(NSString*)textStr {
