@@ -11,6 +11,7 @@
 @interface INVProjectsNotificationDataSource()
 
 @property NSArray *previousProjects;
+@property NSNumber *previousAccount;
 
 @end
 
@@ -18,6 +19,12 @@
 
 -(void) checkForNewData:(void (^)(NSArray *))callback {
     if (INVGlobalDataManager.sharedInstance.loggedInUser == nil) return;
+    if (INVGlobalDataManager.sharedInstance.loggedInAccount == nil) return;
+    
+    if (self.previousAccount != INVGlobalDataManager.sharedInstance.loggedInAccount) {
+        self.previousProjects = nil;
+        self.previousAccount = INVGlobalDataManager.sharedInstance.loggedInAccount;
+    }
     
     [[INVGlobalDataManager sharedInstance].invServerClient getAllProjectsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         if (error) {
@@ -39,7 +46,6 @@
             
             [newProjects removeObjectsInArray:self.previousProjects];
             [goneProjects removeObjectsInArray:projects];
-            
             
             for (INVProject *project in newProjects) {
                 NSString *title = [NSString stringWithFormat:NSLocalizedString(@"PROJECT_ADDED_NOTIFICATION_RECIEVED_TITLE", nil), [project name]];

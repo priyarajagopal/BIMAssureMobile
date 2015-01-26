@@ -688,22 +688,22 @@
 		F5789CC51A642A5500D8CEE7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				F5024AF81A6808D8002EEE5F /* Notifications */,
 				F5789CC61A642A5500D8CEE7 /* Categories */,
 				F5789CCE1A642A5500D8CEE7 /* CTM Parser */,
+				F5024AF81A6808D8002EEE5F /* Notifications */,
 				F5789CDD1A642A5500D8CEE7 /* Streaming JSON Parser */,
 				F5789CE21A642A5500D8CEE7 /* Table View Data Sources */,
-				F5789CD91A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.h */,
-				F5789CDA1A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m */,
-				F5D41A2A1A659B2000780B9A /* INVMergedFetchedResultsControler.h */,
-				F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */,
 				F5D41A2D1A65A40E00780B9A /* INVBlockUtils.h */,
-				F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */,
+				F5D41A2A1A659B2000780B9A /* INVMergedFetchedResultsControler.h */,
+				F5789CD91A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.h */,
 				024FEEEF1A69859A001CA262 /* INVTabBarStoryboardLoader.h */,
-				024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */,
 				0278BB091A66C60D009E0E27 /* INVTransitionToStoryboard.h */,
-				0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */,
 				F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */,
+				F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */,
+				F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */,
+				F5789CDA1A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m */,
+				024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */,
+				0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
