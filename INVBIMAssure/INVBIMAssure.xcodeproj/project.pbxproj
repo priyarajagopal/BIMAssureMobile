@@ -39,6 +39,7 @@
 		F5024AFD1A6808FA002EEE5F /* INVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024AFA1A6808FA002EEE5F /* INVNotification.m */; };
 		F5024AFE1A6808FA002EEE5F /* INVNotificationPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024AFC1A6808FA002EEE5F /* INVNotificationPoller.m */; };
 		F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */; };
+		F5269DDF1A768AF5006AC27A /* INVCurrentUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */; };
 		F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */; };
 		F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
@@ -227,6 +228,8 @@
 		F5024AFC1A6808FA002EEE5F /* INVNotificationPoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotificationPoller.m; sourceTree = "<group>"; };
 		F5024AFF1A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVPendingInvitesNotificationDataSource.h; sourceTree = "<group>"; };
 		F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVPendingInvitesNotificationDataSource.m; sourceTree = "<group>"; };
+		F5269DDD1A768AF5006AC27A /* INVCurrentUsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCurrentUsersTableViewController.h; sourceTree = "<group>"; };
+		F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCurrentUsersTableViewController.m; sourceTree = "<group>"; };
 		F52BB7331A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectsNotificationDataSource.h; sourceTree = "<group>"; };
 		F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectsNotificationDataSource.m; sourceTree = "<group>"; };
 		F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVResetPasswordTableViewController.h; sourceTree = "<group>"; };
@@ -809,6 +812,8 @@
 				0278BAD91A655CB4009E0E27 /* INVSignUpTableViewController.m */,
 				F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */,
 				F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */,
+				F5269DDD1A768AF5006AC27A /* INVCurrentUsersTableViewController.h */,
+				F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1258,6 +1263,7 @@
 				F5789D591A642A5500D8CEE7 /* INVGenericTableViewDataSource.m in Sources */,
 				F555FD8D1A70071000C01288 /* INVModelViewerContainerViewController.m in Sources */,
 				F5789D5F1A642A5500D8CEE7 /* INVInvitedUsersTableViewController.m in Sources */,
+				F5269DDF1A768AF5006AC27A /* INVCurrentUsersTableViewController.m in Sources */,
 				F5789D381A642A5500D8CEE7 /* INVRunRuleSetHeaderView.m in Sources */,
 				F5789D3D1A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m in Sources */,
 				F5789D6F1A642A5500D8CEE7 /* INVProjectDetailsTabViewController.m in Sources */,

@@ -135,7 +135,11 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 #pragma mark - UITableViewDataSource
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.editable;
+    if (self.editableHandler) {
+        return self.editableHandler([self.fetchedResultsController objectAtIndexPath:indexPath], indexPath);
+    }
+    
+    return NO;
 }
 
 -(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -8,6 +8,7 @@
 "SAVE"="Save";
 "CANCEL"="Cancel";
 "DELETE"="Delete";
+"REMOVE"="Remove";
 "SET_ACCOUNT_AS_DEFAULT"="Set Account as Default?";
 "SHOW_THIS_ALERT"="Do not show this alert again";
 "LOGIN_FAILURE"="Login Failure";

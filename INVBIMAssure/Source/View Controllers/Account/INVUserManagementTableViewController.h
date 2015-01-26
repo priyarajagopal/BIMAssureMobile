@@ -9,5 +9,4 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVUserManagementTableViewController : INVCustomTableViewController
--(IBAction)done:(UIStoryboardSegue*)segue;
 @end
