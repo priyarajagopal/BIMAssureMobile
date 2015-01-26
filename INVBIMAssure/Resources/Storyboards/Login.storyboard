@@ -127,7 +127,7 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucL-zi-HcH">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucL-zi-HcH">
                                                 <rect key="frame" x="405" y="358" width="118" height="29"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="118" id="6mf-WN-Rj8"/>
@@ -135,6 +135,9 @@
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <state key="normal" title="Forgot Password?">
                                                     <color key="titleColor" red="0.035294117649999998" green="0.30588235289999999" blue="0.58039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <variation key="default">
                                                     <mask key="constraints">
@@ -250,6 +253,7 @@
                         <outlet property="contentView" destination="E5y-Pw-Mqg" id="AsE-yC-hNB"/>
                         <outlet property="emailEntryView" destination="Zbc-oY-zsQ" id="7ff-NV-LBF"/>
                         <outlet property="emailTextEntry" destination="3uJ-BG-IcJ" id="jdM-Am-jX2"/>
+                        <outlet property="forgotPasswordButton" destination="ucL-zi-HcH" id="QmD-qp-vMA"/>
                         <outlet property="loginButton" destination="LDo-NC-Ujc" id="Jfc-sX-J3l"/>
                         <outlet property="passwordEntryView" destination="KGv-WT-kT3" id="0k8-90-qtd"/>
                         <outlet property="passwordTextEntry" destination="B2e-Lz-slw" id="2dV-GS-ZqX"/>
