@@ -269,7 +269,7 @@ static NSString* INV_ActualParamValue = @"Value";
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"CancelSegue"]) {
+    if ( [segue.identifier isEqualToString:@"OnCancelSegue"]) {
         [self resignFirstTextInputResponder];
     }
 }
@@ -363,8 +363,10 @@ static NSString* INV_ActualParamValue = @"Value";
 -(void)showSuccessAlertMessage:(NSString*)message {
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [self.successAlertController dismissViewControllerAnimated:YES completion:nil];
-        [self performSegueWithIdentifier:@"CancelSegue" sender:self];
-    }];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceModified:)]) {
+            [self.delegate onRuleInstanceModified:self];
+        }
+     }];
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
     [self.successAlertController addAction:action];
     [self presentViewController:self.successAlertController animated:YES completion:^{

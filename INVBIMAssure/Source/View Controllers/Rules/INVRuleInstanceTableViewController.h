@@ -8,8 +8,15 @@
 
 #import "INVCustomTableViewController.h"
 
+@class INVRuleInstanceTableViewController;
+
+@protocol INVRuleInstanceTableViewControllerDelegate <NSObject>
+-(void)onRuleInstanceModified:(INVRuleInstanceTableViewController*)sender;
+@end
+
 @interface INVRuleInstanceTableViewController : INVCustomTableViewController
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic)  id<INVRuleInstanceTableViewControllerDelegate> delegate;
 @property (nonatomic,copy) NSString* ruleName;
 @property (nonatomic,copy) NSNumber* ruleInstanceId;
 @property (nonatomic,copy) NSNumber* ruleSetId;

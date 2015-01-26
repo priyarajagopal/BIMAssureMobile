@@ -17,9 +17,9 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
-@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate>
+@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate, INVRuleInstanceTableViewControllerDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
-@property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
+@property (nonatomic, strong)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
 @property (nonatomic,strong) NSMutableSet *cellsCurrentlyEditing;
 @property (nonatomic,strong) NSNumber* selectedRuleInstanceId;
@@ -71,13 +71,22 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 #pragma mark - server side
 -(void)fetchRuleSets {
-    [self showLoadProgress];
+    if (![self.refreshControl isRefreshing]) {
+        [self showLoadProgress];
+    }
+    NSLog(@"%s",__func__);
     [self.globalDataManager.invServerClient getAllRuleSetsForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
-         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        if ([self.refreshControl isRefreshing]) {
+            [self.refreshControl endRefreshing];
+        }
+        else {
+            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        }
      
         if (!error) {
             NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
+        //   [self.dataResultsController performFetch:&dbError];
+            
             if (!dbError) {
                 [self logRulesToConsole];
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
@@ -104,7 +113,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
      
         if (!error) {
             NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
+        //     [self.dataResultsController performFetch:&dbError];
+            
             if (!dbError) {
                 [self logRulesToConsole];
                 [self removeSelectedRowFromTableView];
@@ -218,16 +228,42 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 
+#pragma mark - UIEVent handlers
+-(IBAction)manualDismiss:(UIStoryboardSegue*)segue {
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+   
+}
+
+-(void)onRefreshControlSelected:(id)event {
+    [self fetchRuleSets];
+}
+
+#pragma mark - INVRuleInstanceTableViewControllerDelegate
+-(void)onRuleInstanceModified:(INVRuleInstanceTableViewController*)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        
+     }];
+}
+
+-(void)refreshSelectedRows {
+    NSIndexPath* indexPathOfSelectedRow = [self.tableView indexPathForSelectedRow];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPathOfSelectedRow] withRowAnimation:UITableViewRowAnimationAutomatic];
+ 
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+     [self.tableView reloadData];
+}
 
 #pragma mark - Navigation
-/*
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction* ruleInstanceAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"EDIT",nil) handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        NSLog(@"Pop a modal");
-    }];
-    return @[ruleInstanceAction];
-}
- */
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -235,6 +271,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INVRuleInstanceTableViewController* ruleInstanceTVC = segue.destinationViewController;
         ruleInstanceTVC.ruleInstanceId = self.selectedRuleInstanceId;
         ruleInstanceTVC.ruleSetId = self.selectedRuleSetId;
+        ruleInstanceTVC.delegate = self;
     }
     if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
         INVRuleSetManageFilesContainerViewController* rulesetFilesTVC = segue.destinationViewController;
@@ -286,11 +323,14 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         NSPredicate* fetchPredicate = [NSPredicate predicateWithFormat:@"projectId==%@",self.projectId ];
         [fetchRequest setPredicate:fetchPredicate];
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-       
-        
+        [_dataResultsController setDelegate:self];
+        [_dataResultsController performFetch:nil];
     }
     return  _dataResultsController;
 }
+
+
+
 
 #pragma mark - helpers
 -(void)showLoadProgress {
@@ -300,6 +340,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 -(void)logRulesToConsole {
+    INVRuleSetArray ruleSetsForProject = [self.globalDataManager.invServerClient.rulesManager ruleSetsForProject:self.projectId];
+    NSLog(@"Rule sets for %@ is %@",self.projectId,ruleSetsForProject);
+
+    
     [self.dataResultsController.fetchedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleSet* ruleSet = obj;
         [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
