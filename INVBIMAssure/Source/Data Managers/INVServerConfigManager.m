@@ -164,12 +164,4 @@
     return [[_empireManageServerURL port] stringValue];
 }
 
--(NSString *) passportPasswordVerificationRegex {
-    return @"^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$";
-}
-
--(NSString *) passportPasswordVerificationText {
-    return @"At least one alpha and one numeric and at least 6 characters long";
-}
-
 @end

@@ -10,6 +10,9 @@
 
 @interface INVServerConfigManager : NSObject
 
+@property (nonatomic) NSString *passportPasswordVerificationRegex;
+@property (nonatomic) NSString *passportPasswordVerificationText
+
 +(instancetype) instance;
 
 -(void) loadConfigNamed:(NSString *) configName;
@@ -20,8 +23,5 @@
 
 -(NSString *) empireManageHost;
 -(NSString *) empireManagePort;
-
--(NSString *) passportPasswordVerificationRegex;
--(NSString *) passportPasswordVerificationText;
 
 @end
