@@ -62,7 +62,15 @@ UIStoryboardSegue *segueWithBlock(NSString *identifier, id source, id dst, void 
                 
                 dst.popoverPresentationController.passthroughViews = self.passthroughViews;
                 dst.popoverPresentationController.permittedArrowDirections = self.arrowDirection;
-                dst.popoverPresentationController.sourceView = self.arrowAnchor;
+                
+                if ([self.arrowAnchor isKindOfClass:[UIView class]]) {
+                    dst.popoverPresentationController.sourceView = [self.arrowAnchor superview];
+                    dst.popoverPresentationController.sourceRect = [self.arrowAnchor frame];
+                }
+                
+                if ([self.arrowAnchor isKindOfClass:[UIBarButtonItem class]]) {
+                    dst.popoverPresentationController.barButtonItem = self.arrowAnchor;
+                }
             });
             
         case StoryboardTransitionCustom: {

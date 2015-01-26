@@ -134,6 +134,20 @@
 "NOTIFICATION_TYPE_PENDING_INVITE"="Pending Invites";
 "NOTIFICATION_TYPE_PROJECT"="Projects";
 
+"ENTER_PASSWORD_FOR_ACCOUNT"="Enter password for %@'s account:";
+"PASSWORDS_NOT_MATCHING"="Passwords do not match.";
+
+"PASSWORD_CHANGE_FAILED_TITLE"="Failed to change password";
+"PASSWORD_CHANGE_FAILED_MESSAGE"="Please re-enter your passwords and try again.";
+
+"PASSWORD_CHANGE_SUCCEEDED_TITLE"="Succesfully changed password";
+"PASSWORD_CHANGE_SUCCEEDED_MESSAGE"="Your password has been changed. Please log out and log back in to continue.";
+
+"PASSWORD_CHANGE_CONFIRM_TITLE"="Confirm password change";
+"PASSWORD_CHANGE_CONFIRM_MESSAGE"="Are you sure you wish to change your password? This will require you to log out, and you will lose all unsaved changes. This CANNOT be undone.";
+
+"PASSWORD_CHANGE_CONFIRM_YES"="Change";
+
 "AGO_JUST_NOW"="Just Now";
 "AGO_SECONDS"="%ld Seconds Ago";
 "AGO_MINUTES"="%ld Minutes Ago";

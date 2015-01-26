@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="FontAwesome.otf">
-            <string>FontAwesome</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
-        <!--Account List View Controller-->
+        <!--Accounts-->
         <scene sceneID="mb5-FM-mtI">
             <objects>
                 <collectionViewController storyboardIdentifier="AccountListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rbk-Or-1JP" customClass="INVAccountListViewController" sceneMemberID="viewController">
@@ -29,12 +24,10 @@
                             <outlet property="delegate" destination="Rbk-Or-1JP" id="bve-Be-XvQ"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="wdu-LK-lfF">
-                        <barButtonItem key="leftBarButtonItem" id="HdP-lS-qJt">
+                    <navigationItem key="navigationItem" title="Accounts" id="wdu-LK-lfF">
+                        <barButtonItem key="leftBarButtonItem" id="HdP-lS-qJt" userLabel="Settings">
                             <connections>
-                                <segue destination="6R7-7t-1KM" kind="popoverPresentation" popoverAnchorBarButtonItem="HdP-lS-qJt" id="8kB-1D-ocb">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
+                                <action selector="perform:" destination="yri-5u-xpK" id="wBG-bu-gba"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="X55-kO-DqO">
@@ -48,57 +41,25 @@
                         <outlet property="settingsButton" destination="HdP-lS-qJt" id="YT0-Ep-mM1"/>
                     </connections>
                 </collectionViewController>
+                <customObject id="yri-5u-xpK" userLabel="User Info Popover" customClass="INVTransitionToStoryboard">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="MainLogoutSegue"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="UserInfo"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="arrowDirection">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="arrowAnchor" destination="HdP-lS-qJt" id="TNR-JX-nym"/>
+                        <outlet property="sourceViewController" destination="Rbk-Or-1JP" id="QBL-9E-57W"/>
+                    </connections>
+                </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lih-Np-KaD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2188" y="1253"/>
-        </scene>
-        <!--Simple User Info Table View Controller-->
-        <scene sceneID="aJx-T4-Thk">
-            <objects>
-                <tableViewController id="6R7-7t-1KM" customClass="INVSimpleUserInfoTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="50" sectionFooterHeight="22" id="R3L-66-3fH">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="100"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection headerTitle="User" id="YM6-Oc-kDJ">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogOutCell" rowHeight="51" id="59X-tl-fbu">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="59X-tl-fbu" id="8lX-zl-Ge4">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Log Out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dh-k4-2Bn">
-                                                    <rect key="frame" x="20" y="15" width="175" height="21"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIE-Yg-no2">
-                                                    <rect key="frame" x="223" y="15" width="19" height="21"/>
-                                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="18"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="6R7-7t-1KM" id="TMV-pe-j2q"/>
-                            <outlet property="delegate" destination="6R7-7t-1KM" id="3KU-4h-lOT"/>
-                        </connections>
-                    </tableView>
-                    <value key="contentSizeForViewInPopover" type="size" width="250" height="100"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="250" height="100"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f9a-iY-X53" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2765" y="1253"/>
         </scene>
         <!--AccountListNavigationController-->
         <scene sceneID="JE1-tY-FC3">

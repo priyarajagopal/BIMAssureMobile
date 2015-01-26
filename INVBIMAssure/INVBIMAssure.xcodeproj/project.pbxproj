@@ -40,6 +40,9 @@
 		F5024AFE1A6808FA002EEE5F /* INVNotificationPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024AFC1A6808FA002EEE5F /* INVNotificationPoller.m */; };
 		F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */; };
 		F5269DDF1A768AF5006AC27A /* INVCurrentUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */; };
+		F5269DE11A76A434006AC27A /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5269DE01A76A434006AC27A /* UserInfo.storyboard */; };
+		F5269DE41A76A83E006AC27A /* INVModalPresentationFromParentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */; };
+		F5269DE71A76AD4C006AC27A /* INVChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */; };
 		F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */; };
 		F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
@@ -230,6 +233,11 @@
 		F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVPendingInvitesNotificationDataSource.m; sourceTree = "<group>"; };
 		F5269DDD1A768AF5006AC27A /* INVCurrentUsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCurrentUsersTableViewController.h; sourceTree = "<group>"; };
 		F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCurrentUsersTableViewController.m; sourceTree = "<group>"; };
+		F5269DE01A76A434006AC27A /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
+		F5269DE21A76A83E006AC27A /* INVModalPresentationFromParentSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModalPresentationFromParentSegue.h; sourceTree = "<group>"; };
+		F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModalPresentationFromParentSegue.m; sourceTree = "<group>"; };
+		F5269DE51A76AD4C006AC27A /* INVChangePasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVChangePasswordTableViewController.h; sourceTree = "<group>"; };
+		F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVChangePasswordTableViewController.m; sourceTree = "<group>"; };
 		F52BB7331A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectsNotificationDataSource.h; sourceTree = "<group>"; };
 		F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectsNotificationDataSource.m; sourceTree = "<group>"; };
 		F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVResetPasswordTableViewController.h; sourceTree = "<group>"; };
@@ -478,6 +486,7 @@
 				F5426D4D1A680EA30040B2B5 /* Main.storyboard */,
 				F5426D4E1A680EA30040B2B5 /* Settings.storyboard */,
 				F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */,
+				F5269DE01A76A434006AC27A /* UserInfo.storyboard */,
 				F5426D551A680F3F0040B2B5 /* Notifications.storyboard */,
 				024FEEF21A6986C1001CA262 /* Files.storyboard */,
 				024FEEF41A698E0E001CA262 /* Rules.storyboard */,
@@ -673,6 +682,8 @@
 				F5789CBD1A642A5500D8CEE7 /* INVEmptySegue.m */,
 				F5789CBE1A642A5500D8CEE7 /* INVModalPresentationFromSplitViewControllerSegue.h */,
 				F5789CBF1A642A5500D8CEE7 /* INVModalPresentationFromSplitViewControllerSegue.m */,
+				F5269DE21A76A83E006AC27A /* INVModalPresentationFromParentSegue.h */,
+				F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */,
 			);
 			path = Segues;
 			sourceTree = "<group>";
@@ -697,16 +708,16 @@
 				F5789CDD1A642A5500D8CEE7 /* Streaming JSON Parser */,
 				F5789CE21A642A5500D8CEE7 /* Table View Data Sources */,
 				F5D41A2D1A65A40E00780B9A /* INVBlockUtils.h */,
-				F5D41A2A1A659B2000780B9A /* INVMergedFetchedResultsControler.h */,
-				F5789CD91A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.h */,
-				024FEEEF1A69859A001CA262 /* INVTabBarStoryboardLoader.h */,
-				0278BB091A66C60D009E0E27 /* INVTransitionToStoryboard.h */,
-				F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */,
 				F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */,
+				F5D41A2A1A659B2000780B9A /* INVMergedFetchedResultsControler.h */,
 				F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */,
+				F5789CD91A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.h */,
 				F5789CDA1A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m */,
+				024FEEEF1A69859A001CA262 /* INVTabBarStoryboardLoader.h */,
 				024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */,
+				0278BB091A66C60D009E0E27 /* INVTransitionToStoryboard.h */,
 				0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */,
+				F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -814,6 +825,8 @@
 				F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */,
 				F5269DDD1A768AF5006AC27A /* INVCurrentUsersTableViewController.h */,
 				F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */,
+				F5269DE51A76AD4C006AC27A /* INVChangePasswordTableViewController.h */,
+				F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1088,6 +1101,7 @@
 				F5789DB21A642A6200D8CEE7 /* INVProjectFileCollectionViewCell.xib in Resources */,
 				F5789DAF1A642A6200D8CEE7 /* INVAccountViewCell.xib in Resources */,
 				0278BAE41A655D03009E0E27 /* INVGenericTextEntryTableViewCell.xib in Resources */,
+				F5269DE11A76A434006AC27A /* UserInfo.storyboard in Resources */,
 				F5789DB91A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib in Resources */,
 				F5789DC21A642A6200D8CEE7 /* ServerConfig-Prod.xcconfig in Resources */,
 				F539D53E1A645497007A2BDC /* Stock Thumbnails in Resources */,
@@ -1254,8 +1268,10 @@
 				0278BAD51A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */,
 				F5789D4E1A642A5500D8CEE7 /* UIImage+INVCustomizations.m in Sources */,
 				F5024AFE1A6808FA002EEE5F /* INVNotificationPoller.m in Sources */,
+				F5269DE41A76A83E006AC27A /* INVModalPresentationFromParentSegue.m in Sources */,
 				F5789D3B1A642A5500D8CEE7 /* INVAccountViewCell.m in Sources */,
 				0278BAEA1A656E5F009E0E27 /* NSString+INVCustomizations.m in Sources */,
+				F5269DE71A76AD4C006AC27A /* INVChangePasswordTableViewController.m in Sources */,
 				F5789D7B1A642A5500D8CEE7 /* INVRuleSetManageFilesContainerViewController.m in Sources */,
 				024FEEFA1A69B55F001CA262 /* INVPagingManager.m in Sources */,
 				F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */,

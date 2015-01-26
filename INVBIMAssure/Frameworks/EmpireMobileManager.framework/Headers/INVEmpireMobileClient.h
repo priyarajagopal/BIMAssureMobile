@@ -104,6 +104,48 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 
 #pragma mark - User/Account Management
 /**
+ Asynchornously ,get password validation regex from server
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the data parameter contains the JSON response of form :
+ { "regex": "^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$", "description": "At least one alpha and one numeric and at least 6 characters long" }
+ 
+ @see accountManager
+ 
+ 
+ */
+-(void)fetchPasswordValidationCriteria:(CompletionHandlerWithData) handler;
+
+
+/**
+ Asynchornously ,update the password for user with current password
+ 
+ @param emailAddress The email address of the user whose password is to be changed
+ 
+ @param currentPassword The current password of user
+ 
+ @param newPassword The new password for user
+ 
+ 
+ 
+ */
+-(void)updatePasswordForUserWithEmail:(NSString*)emailAddress andCurrentPassword:(NSString*)currentPassword withNewPassword:(NSString*)newPassword withCompletionBlock:(CompletionHandler) handler;
+
+/**
+ Asynchornously ,update the password for currently signed in user with reset Code
+ 
+ @param emailAddress The email address of the user whose password is to be changed
+ 
+ @param resetCode  The reset code that should have been delivered to user by email when he made a resetPassword request
+ 
+ @param newPassword The new password for user
+ 
+
+ 
+ */
+-(void)updatePasswordForUserWithEmail:(NSString*)emailAddress andResetCode:(NSString*)resetCode withNewPassword:(NSString*)newPassword withCompletionBlock:(CompletionHandler) handler;
+
+
+/**
  Asynchornously ,sign into the XOS Passport service with given email address and password. The user should be registered through the Empire Web website.
  
  @param userName The email address of user

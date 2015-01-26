@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *userMgmtTransitionObject;
 @property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *notificationsTransitionObject;
 @property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *embedAccountsTransitionObject;
+@property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *userInfoTransitionObject;
 
 -(IBAction)done:(UIStoryboardSegue*)segue;
 

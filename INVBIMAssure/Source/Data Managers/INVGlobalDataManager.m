@@ -111,4 +111,15 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     return  [NSBundle bundleForClass:[self class]].bundleIdentifier;
 }
 
+-(void) performLogout {
+    [self.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+        self.loggedInAccount = nil;
+        self.loggedInUser = nil;
+        
+        [self deleteCurrentlySavedCredentialsFromKC];
+        [self deleteCurrentlySavedDefaultAccountFromKC];
+        [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationUserLogOutSuccess object:nil];
+    }];
+}
+
 @end
