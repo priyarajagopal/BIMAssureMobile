@@ -148,6 +148,9 @@
 
 "PASSWORD_CHANGE_CONFIRM_YES"="Change";
 
+"PASSWORD_RESET_SUCCESS_TITLE"="Password reset success";
+"PASSWORD_RESET_SUCCESS_MESSAGE"="An email has been sent detailing instructions on how to reset your password.";
+
 "AGO_JUST_NOW"="Just Now";
 "AGO_SECONDS"="%ld Seconds Ago";
 "AGO_MINUTES"="%ld Minutes Ago";

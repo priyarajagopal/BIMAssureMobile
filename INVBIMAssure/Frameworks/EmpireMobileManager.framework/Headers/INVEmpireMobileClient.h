@@ -115,6 +115,12 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
  */
 -(void)fetchPasswordValidationCriteria:(CompletionHandlerWithData) handler;
 
+/**
+ Asynchronously, reset the password for the user with the specified email.
+ 
+ @param emailAddress The email address of the user to reset.
+ */
+-(void) resetPasswordForUserWithEmail:(NSString *) emailAddress withCompletionBlock:(CompletionHandler) handler;
 
 /**
  Asynchornously ,update the password for user with current password

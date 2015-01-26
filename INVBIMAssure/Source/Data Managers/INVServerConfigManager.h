@@ -11,7 +11,7 @@
 @interface INVServerConfigManager : NSObject
 
 @property (nonatomic) NSString *passportPasswordVerificationRegex;
-@property (nonatomic) NSString *passportPasswordVerificationText
+@property (nonatomic) NSString *passportPasswordVerificationText;
 
 +(instancetype) instance;
 
