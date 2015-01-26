@@ -92,11 +92,20 @@ static const NSInteger SECTIONINDEX_INVITEDUSERS = 2;
 }
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == SECTIONINDEX_CURRENTUSERS) {
-        return YES;
+    if (indexPath.section != SECTIONINDEX_CURRENTUSERS) {
+        return NO;
     }
     
-    return NO;
+    NSString *email = [[self.dataResultsController objectAtIndexPath:indexPath] email];
+    if ([email isEqualToString:self.globalDataManager.loggedInUser]) {
+        return NO;
+    }
+    
+    if (![self.globalDataManager.invServerClient.accountManager.signedinUser.isAdmin boolValue]) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

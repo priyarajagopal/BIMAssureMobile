@@ -24,7 +24,7 @@ typedef NSMutableArray* INVUserMutableArray;
 @property (copy, nonatomic, readonly) NSString* accountType;
 @property (copy, nonatomic, readonly) NSNumber* accountId;
 @property (copy, nonatomic, readonly) NSString* email;
-@property (nonatomic, readonly) BOOL isAdmin;
+@property (copy, nonatomic, readonly) NSNumber *isAdmin;
 @property (copy, nonatomic, readonly) NSString* name;
 @property (copy, nonatomic, readonly) NSNumber* userId;
 @end
