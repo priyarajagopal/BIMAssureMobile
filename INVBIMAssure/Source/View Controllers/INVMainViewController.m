@@ -10,6 +10,7 @@
 #import "INVMainMenuViewController.h"
 #import "INVProjectListSplitViewController.h"
 #import "INVAccountListViewController.h"
+#import "UISplitViewController+ToggleSidebar.h"
 
 @interface INVMainViewController ()
 
@@ -62,12 +63,7 @@
     }
     
     if (splitViewController.displayMode != UISplitViewControllerDisplayModePrimaryHidden) {
-        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
-        
-        [[UIApplication sharedApplication] sendAction:barButtonItem.action
-                                                   to:barButtonItem.target
-                                                 from:barButtonItem
-                                             forEvent:nil];
+        [splitViewController toggleSidebar];
         
         self.shouldPresentProjectsSidebar = YES;
     }
@@ -80,12 +76,7 @@
           
     if (self.shouldPresentProjectsSidebar) {
         UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
-        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
-        
-        [[UIApplication sharedApplication] sendAction:barButtonItem.action
-                                                   to:barButtonItem.target
-                                                 from:barButtonItem
-                                             forEvent:nil];
+        [splitViewController toggleSidebar];
         
         self.shouldPresentProjectsSidebar = NO;
     }

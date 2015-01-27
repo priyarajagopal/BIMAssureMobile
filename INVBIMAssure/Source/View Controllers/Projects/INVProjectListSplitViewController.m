@@ -10,14 +10,12 @@
 #import "INVProjectsTableViewController.h"
 
 #import "INVMainViewController.h"
+#import "INVSplitViewControllerAggregateDelegate.h"
 
 #define ENABLE_ALL_VISIBLE 1
 
 @interface INVProjectListSplitViewController ()<UISplitViewControllerDelegate, UIGestureRecognizerDelegate>
 
-// This is actually a property on UISplitViewController.
-// This *may* violate apple's precious guidelines, so we
-// may need to obfuscate our use of private APIs here.
 
 @end
 
@@ -30,6 +28,11 @@
     self.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     self.splitViewPanGestureRecognizer.delegate = self;
     self.presentsWithGesture = NO;
+    
+    self.aggregateDelegate = [INVSplitViewControllerAggregateDelegate new];
+    self.aggregateDelegate.splitViewController = self;
+    
+    self.delegate = self.aggregateDelegate;
 }
 
 #if !ENABLE_ALL_VISIBLE

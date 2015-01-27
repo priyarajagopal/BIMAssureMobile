@@ -40,6 +40,8 @@
 		F5269DE11A76A434006AC27A /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5269DE01A76A434006AC27A /* UserInfo.storyboard */; };
 		F5269DE41A76A83E006AC27A /* INVModalPresentationFromParentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */; };
 		F5269DE71A76AD4C006AC27A /* INVChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */; };
+		F5269DEE1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */; };
+		F5269DF11A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DF01A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m */; };
 		F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */; };
 		F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
@@ -233,6 +235,10 @@
 		F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModalPresentationFromParentSegue.m; sourceTree = "<group>"; };
 		F5269DE51A76AD4C006AC27A /* INVChangePasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVChangePasswordTableViewController.h; sourceTree = "<group>"; };
 		F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVChangePasswordTableViewController.m; sourceTree = "<group>"; };
+		F5269DEC1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSplitViewControllerAggregateDelegate.h; sourceTree = "<group>"; };
+		F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSplitViewControllerAggregateDelegate.m; sourceTree = "<group>"; };
+		F5269DEF1A7836E2006AC27A /* UISplitViewController+ToggleSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISplitViewController+ToggleSidebar.h"; sourceTree = "<group>"; };
+		F5269DF01A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISplitViewController+ToggleSidebar.m"; sourceTree = "<group>"; };
 		F52BB7331A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectsNotificationDataSource.h; sourceTree = "<group>"; };
 		F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectsNotificationDataSource.m; sourceTree = "<group>"; };
 		F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVResetPasswordTableViewController.h; sourceTree = "<group>"; };
@@ -710,6 +716,8 @@
 				0278BB091A66C60D009E0E27 /* INVTransitionToStoryboard.h */,
 				0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */,
 				F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */,
+				F5269DEC1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.h */,
+				F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -726,6 +734,8 @@
 				F5789CCD1A642A5500D8CEE7 /* UIResponder+IBHelpers.h */,
 				0278BAE81A656E5F009E0E27 /* NSString+INVCustomizations.h */,
 				0278BAE91A656E5F009E0E27 /* NSString+INVCustomizations.m */,
+				F5269DEF1A7836E2006AC27A /* UISplitViewController+ToggleSidebar.h */,
+				F5269DF01A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1207,6 +1217,7 @@
 				F5789D6E1A642A5500D8CEE7 /* INVModelViewerViewController.m in Sources */,
 				0278BB021A66BCFF009E0E27 /* INVGlobalDataManager.m in Sources */,
 				0278BADA1A655CB4009E0E27 /* INVSignUpTableViewController.m in Sources */,
+				F5269DEE1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m in Sources */,
 				F5789D4F1A642A5500D8CEE7 /* fp16.c in Sources */,
 				F5D41A2F1A65A40E00780B9A /* INVBlockUtils.m in Sources */,
 				F5789D451A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.m in Sources */,
@@ -1235,6 +1246,7 @@
 				F5789D641A642A5500D8CEE7 /* INVUserManagementTableViewController.m in Sources */,
 				F5789D351A642A5500D8CEE7 /* INVDefaultAccountAlertView.m in Sources */,
 				F5789D7D1A642A5500D8CEE7 /* INVRunRulesTableViewController.m in Sources */,
+				F5269DF11A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m in Sources */,
 				F555FD901A702BBA00C01288 /* INVModelTreeTableViewController.m in Sources */,
 				F5789D6C1A642A5500D8CEE7 /* INVExecutionIssuesTableViewController.m in Sources */,
 				F5024AFD1A6808FA002EEE5F /* INVNotification.m in Sources */,

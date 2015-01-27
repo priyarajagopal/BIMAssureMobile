@@ -13,6 +13,7 @@
 #import "INVRuleSetTableViewHeaderView.h"
 #import "INVRuleSetManageFilesContainerViewController.h"
 #import "INVRuleDefinitionsTableViewController.h"
+#import "INVProjectListSplitViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
@@ -53,8 +54,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
-
+    
+    INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
+    [splitVC.aggregateDelegate addDelegate:self];
+    [self configureDisplayModeButton];
+    
     self.tableView.dataSource = self.dataSource;
     [self fetchRuleSets];
 }
@@ -314,7 +318,26 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 
+#pragma mark - UISplitViewControllerDelegate
 
+-(void) configureDisplayModeButton {
+    INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
+    
+    if (splitVC.displayMode == UISplitViewControllerDisplayModeAllVisible) {
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = splitVC.displayModeButtonItem;
+    } else {
+        self.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem;
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
+
+-(void) splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self configureDisplayModeButton];
+    });
+}
 
 #pragma mark - helpers
 -(void)showLoadProgress {

@@ -7,6 +7,7 @@
 //
 
 #import "INVModalPresentationFromSplitViewControllerSegue.h"
+#import "UISplitViewController+ToggleSidebar.h"
 
 @implementation INVModalPresentationFromSplitViewControllerSegue
 
@@ -18,16 +19,7 @@
     [source presentViewController:self.destinationViewController animated:YES completion:nil];
     
     if (splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
-        // Hide the side-bar
-        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
-        
-        // Fake the button being pressed, so we can hide the sidebar.
-        // If we do not hide it here, then the sidebar will overlay our modal view controller,
-        // which is a bad thing.
-        [[UIApplication sharedApplication] sendAction:barButtonItem.action
-                                                   to:barButtonItem.target
-                                                 from:barButtonItem
-                                             forEvent:nil];
+        [splitViewController toggleSidebar];
     }
 }
 

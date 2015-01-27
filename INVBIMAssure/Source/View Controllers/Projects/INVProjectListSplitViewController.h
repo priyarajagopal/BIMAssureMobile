@@ -7,10 +7,12 @@
 //
 
 #import "INVCustomSplitViewController.h"
+#import "INVSplitViewControllerAggregateDelegate.h"
 
 @interface INVProjectListSplitViewController : INVCustomSplitViewController
 
 @property (nonatomic,copy)NSNumber* accountId;
+@property (nonatomic) INVSplitViewControllerAggregateDelegate *aggregateDelegate;
 
 -(void) setSelectedProject:(INVProject *) project;
 
