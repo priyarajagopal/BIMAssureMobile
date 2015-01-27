@@ -237,16 +237,15 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSUInteger length = textField.text.length - range.length + string.length;
+
+    NSUInteger emailLength = (textField == self.emailTextEntry) ? length : self.emailTextEntry.text.length;
+    NSUInteger passwordLength = (textField == self.passwordTextEntry) ? length : self.passwordTextEntry.text.length;
     
-    UITextField* otherTextField = textField == self.emailTextEntry ? self.passwordTextEntry:self.emailTextEntry;
-    if (length > 0 && otherTextField.text.length ) {
-        self.loginButton.enabled = YES;
-    } else {
-        self.loginButton.enabled = NO;
-    }
+    self.forgotPasswordButton.enabled = (emailLength > 0);
+    self.loginButton.enabled = (emailLength > 0 && passwordLength > 0);
+    
     return YES;
 }
-
 
 #pragma mark - Keyboard Notifications
 

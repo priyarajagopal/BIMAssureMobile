@@ -52,6 +52,16 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
             
             [sharedInstance.invServerClient configureWithEmpireManageServer:[configManager empireManageHost]
                                                                     andPort:[configManager empireManagePort]];
+            
+            [sharedInstance.invServerClient fetchPasswordValidationCriteria:^(id result, INVEmpireMobileError *error) {
+                if (error) {
+                    NSLog(@"%s %@", __func__, error);
+                    return;
+                }
+                
+                configManager.passportPasswordVerificationRegex = result[@"regex"];
+                configManager.passportPasswordVerificationText = result[@"description"];
+            }];
         }
     });
     
@@ -109,6 +119,17 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 
 -(NSString*)serviceIdentifierForKCStorage {
     return  [NSBundle bundleForClass:[self class]].bundleIdentifier;
+}
+
+-(void) performLogout {
+    [self.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
+        self.loggedInAccount = nil;
+        self.loggedInUser = nil;
+        
+        [self deleteCurrentlySavedCredentialsFromKC];
+        [self deleteCurrentlySavedDefaultAccountFromKC];
+        [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationUserLogOutSuccess object:nil];
+    }];
 }
 
 @end

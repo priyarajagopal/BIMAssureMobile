@@ -340,7 +340,7 @@
                                 <navigationItem title="Rule" id="ajd-xJ-ixN">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="ngU-Et-fNt">
                                         <connections>
-                                            <segue destination="gWq-qG-6wP" kind="unwind" identifier="CancelSegue" unwindAction="done:" id="MVZ-y3-AAe"/>
+                                            <segue destination="BhX-XE-e4j" kind="unwind" identifier="CancelSegue" unwindAction="manualDismiss:" id="cbc-qK-xbU"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -364,7 +364,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgh-l2-OgT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="gWq-qG-6wP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6455" y="4509"/>
         </scene>

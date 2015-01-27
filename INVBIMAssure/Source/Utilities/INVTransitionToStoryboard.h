@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, StoryboardTransition) {
 
 // Transition type 3 - popover
 @property IBInspectable NSInteger arrowDirection;
-@property IBOutlet UIView *arrowAnchor;
+@property IBOutlet id arrowAnchor;
 @property IBOutletCollection(UIView) NSArray *passthroughViews;
 
 // Transition type 4 - custom

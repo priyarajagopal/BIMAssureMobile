@@ -13,7 +13,6 @@
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
-            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -183,20 +182,20 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7KY-JK-y7K" id="ccF-jR-omy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Members in account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSQ-kE-FFM">
-                                                    <rect key="frame" x="82" y="16" width="132" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Members in account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSQ-kE-FFM">
+                                                    <rect key="frame" x="83" y="16" width="132" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4C-qJ-WrH">
-                                                    <rect key="frame" x="288" y="101" width="25" height="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4C-qJ-WrH">
+                                                    <rect key="frame" x="290" y="102" width="21" height="21"/>
                                                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="21"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Z3B-IQ-iEv">
-                                                    <rect key="frame" x="320" y="41" width="264" height="142"/>
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Z3B-IQ-iEv">
+                                                    <rect key="frame" x="319" y="41" width="265" height="142"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                     <prototypes>
@@ -226,8 +225,8 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZNg-cQ-IJA">
-                                                    <rect key="frame" x="16" y="41" width="264" height="142"/>
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZNg-cQ-IJA">
+                                                    <rect key="frame" x="16" y="41" width="266" height="142"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                     <prototypes>
@@ -464,10 +463,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-vM-vRE" userLabel="detail container view">
-                                <rect key="frame" x="81" y="0.0" width="523" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omg-k9-r5h" userLabel="main menu container view">
                                 <rect key="frame" x="-4" y="0.0" width="85" height="600"/>
                                 <color key="backgroundColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -477,6 +472,10 @@
                                 <connections>
                                     <segue destination="vbl-dm-Oc3" kind="embed" identifier="MainMenuEmbedSegue" id="rJ9-Y0-0hA"/>
                                 </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qd-vM-vRE" userLabel="detail container view">
+                                <rect key="frame" x="81" y="0.0" width="523" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -496,15 +495,13 @@
                         <outlet property="infoTransitionObject" destination="TKd-DS-GaL" id="V2r-zL-IfL"/>
                         <outlet property="mainMenuContainerView" destination="Omg-k9-r5h" id="EmK-Cb-Hgz"/>
                         <outlet property="notificationsTransitionObject" destination="0XT-Bh-fdB" id="PaV-kl-JXx"/>
+                        <outlet property="userInfoTransitionObject" destination="jwa-nj-Yfq" id="e6K-kr-RRf"/>
                         <outlet property="userMgmtTransitionObject" destination="yB1-ZU-Pt6" id="aQE-79-mKh"/>
                         <segue destination="XJ9-1q-cac" kind="custom" identifier="MainProjectEmbedSegue" customClass="INVEmptySegue" id="mWl-4x-jI9"/>
-                        <segue destination="bD6-xA-v6V" kind="popoverPresentation" identifier="MainLogoutSegue" popoverAnchorView="5qd-vM-vRE" id="faS-Mb-tIG">
-                            <popoverArrowDirection key="popoverArrowDirection"/>
-                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHI-XY-xZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="TKd-DS-GaL" customClass="INVTransitionToStoryboard">
+                <customObject id="TKd-DS-GaL" userLabel="Settings Modal" customClass="INVTransitionToStoryboard">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="GlobalInfoSegue"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Settings"/>
@@ -520,7 +517,7 @@
                         <outlet property="sourceViewController" destination="4sZ-zx-oNt" id="B5e-wk-wwd"/>
                     </connections>
                 </customObject>
-                <customObject id="yB1-ZU-Pt6" customClass="INVTransitionToStoryboard">
+                <customObject id="yB1-ZU-Pt6" userLabel="User Management Modal" customClass="INVTransitionToStoryboard">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="MainManageUsersSegue"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="UserManagement"/>
@@ -536,7 +533,7 @@
                         <outlet property="sourceViewController" destination="4sZ-zx-oNt" id="kjz-1R-58K"/>
                     </connections>
                 </customObject>
-                <customObject id="0XT-Bh-fdB" customClass="INVTransitionToStoryboard">
+                <customObject id="0XT-Bh-fdB" userLabel="Notifications Modal" customClass="INVTransitionToStoryboard">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
                             <integer key="value" value="2"/>
@@ -550,7 +547,7 @@
                         <outlet property="sourceViewController" destination="4sZ-zx-oNt" id="D61-hG-Syw"/>
                     </connections>
                 </customObject>
-                <customObject id="efh-SA-IHh" customClass="INVTransitionToStoryboard">
+                <customObject id="efh-SA-IHh" userLabel="Main Account Embed" customClass="INVTransitionToStoryboard">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="customSegueClass" value="INVEmptySegue"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Account"/>
@@ -562,6 +559,21 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="4sZ-zx-oNt" id="jgQ-zh-I8a"/>
+                    </connections>
+                </customObject>
+                <customObject id="jwa-nj-Yfq" userLabel="User Info Popover" customClass="INVTransitionToStoryboard">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="MainLogoutSegue"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="UserInfo"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="arrowDirection">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="4sZ-zx-oNt" id="jTC-Zg-CLh"/>
                     </connections>
                 </customObject>
             </objects>
@@ -740,6 +752,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="85" height="600"/>
                     <connections>
+                        <outlet property="logoutButton" destination="ln2-Sg-eb5" id="2IB-va-8ev"/>
                         <outlet property="notificationsBadgeLabel" destination="amC-D2-9Kz" id="W9o-gh-2Di"/>
                         <outlet property="notificationsButton" destination="Gyf-vS-guK" id="RTE-D8-Zaq"/>
                     </connections>
@@ -747,56 +760,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4Y-wN-kxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-873.5" y="1632"/>
-        </scene>
-        <!--Simple User Info Table View Controller-->
-        <scene sceneID="61P-66-kK4">
-            <objects>
-                <tableViewController id="bD6-xA-v6V" customClass="INVSimpleUserInfoTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="50" sectionFooterHeight="22" id="ipe-Pz-V87">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="100"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection headerTitle="User" id="lQo-bM-lf9">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogOutCell" rowHeight="51" id="mkQ-9v-7G5">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mkQ-9v-7G5" id="TSX-T6-ffO">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Log Out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQC-8r-oBJ">
-                                                    <rect key="frame" x="20" y="15" width="175" height="21"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emE-pP-37Z">
-                                                    <rect key="frame" x="223" y="15" width="19" height="21"/>
-                                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="18"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="bD6-xA-v6V" id="1YC-gn-DWv"/>
-                            <outlet property="delegate" destination="bD6-xA-v6V" id="p9V-Bk-aUZ"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <value key="contentSizeForViewInPopover" type="size" width="250" height="100"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="250" height="100"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cmN-28-ftw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-791" y="2071"/>
         </scene>
     </scenes>
     <resources>

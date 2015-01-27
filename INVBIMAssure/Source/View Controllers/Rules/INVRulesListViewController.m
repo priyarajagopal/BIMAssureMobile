@@ -84,19 +84,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         }
      
         if (!error) {
-            NSError* dbError;
-        //   [self.dataResultsController performFetch:&dbError];
-            
-            if (!dbError) {
-                [self logRulesToConsole];
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-            }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
-            }
+            [self logRulesToConsole];
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),error.code]];
@@ -112,23 +101,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
-            NSError* dbError;
-        //     [self.dataResultsController performFetch:&dbError];
-            
-            if (!dbError) {
-                [self logRulesToConsole];
-                [self removeSelectedRowFromTableView];
+            [self logRulesToConsole];
+            [self removeSelectedRowFromTableView];
                 
 #warning - There are false negatives  on server side. This API is not fully functional;
-
-               }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_DELETE", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
-            }
-
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_DELETE", nil),error.code]];
@@ -165,6 +141,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     
     UIAlertAction* proceedAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DELETE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         // TODO: Delete from server.
+        [self deleteSelectedRuleInstance];
     }];
   
     UIAlertController *deletePromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:NSLocalizedString(@"DELETE_THE_SELECTED_RULE", nil) preferredStyle:UIAlertControllerStyleAlert];
@@ -178,8 +155,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 -(void)removeSelectedRowFromTableView {
-    NSIndexPath *indexPathOfCellToDelete = [self.tableView indexPathForCell:self.selectedRowInstanceCell];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    /*
+    NSIndexPath *indexPathOfCellToDelete = [self.tableView indexPathForSelectedRow];
     [self.tableView deleteRowsAtIndexPaths:@[indexPathOfCellToDelete] withRowAnimation:UITableViewRowAnimationAutomatic];
+     */
     
 }
 
@@ -230,10 +210,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 #pragma mark - UIEVent handlers
 -(IBAction)manualDismiss:(UIStoryboardSegue*)segue {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-   
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)onRefreshControlSelected:(id)event {
@@ -248,7 +225,20 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
      }];
 }
 
+-(void)onRuleInstanceCreated:(INVRuleInstanceTableViewController*)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self performSelectorOnMainThread:@selector(refreshTablePostRuleInstanceCreation) withObject:nil waitUntilDone:NO];
+        
+    }];
+}
+
+-(void)refreshTablePostRuleInstanceCreation {
+    [self fetchRuleSets];
+}
+
 -(void)refreshSelectedRows {
+   
+    NSLog(@"%s. numObjects %@",__func__,self.dataResultsController.fetchedObjects);
     NSIndexPath* indexPathOfSelectedRow = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadRowsAtIndexPaths:@[indexPathOfSelectedRow] withRowAnimation:UITableViewRowAnimationAutomatic];
  
@@ -260,7 +250,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-     [self.tableView reloadData];
+    NSLog(@"%s",__func__);
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark - Navigation
@@ -281,6 +272,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
         INVRuleDefinitionsTableViewController* ruleDefnTVC = segue.destinationViewController;
         ruleDefnTVC.ruleSetId = self.selectedRuleSetId;
+        ruleDefnTVC.createRuleInstanceDelegate = self;
     }
     
 }
@@ -324,7 +316,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         [fetchRequest setPredicate:fetchPredicate];
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         [_dataResultsController setDelegate:self];
-        [_dataResultsController performFetch:nil];
+        NSError* dbError = nil;
+        [_dataResultsController performFetch:&dbError];
+        if (dbError) {
+            NSLog(@"%s. perform fetch failed with %@",__func__,dbError);
+        }
     }
     return  _dataResultsController;
 }

@@ -38,13 +38,28 @@
 
 -(IBAction) resetPassword:(id)sender {
     // Show a progress hud
+    [self.emailTextField resignFirstResponder];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self.globalDataManager.invServerClient resetPasswordForUserWithEmail:self.emailTextField.text withCompletionBlock:^(INVEmpireMobileError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
-        [self performSegueWithIdentifier:@"unwind" sender:nil];
-    });
+        if (error) {
+            NSLog(@"%s %@", __func__, error);
+        }
+    
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PASSWORD_RESET_SUCCESS_TITLE", nil)
+                                                                                 message:NSLocalizedString(@"PASSWORD_RESET_SUCCESS_MESSAGE", nil)
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                                [self performSegueWithIdentifier:@"unwind" sender:nil];
+                                                            }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }];
 }
 
 @end

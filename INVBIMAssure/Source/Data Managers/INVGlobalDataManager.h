@@ -44,4 +44,6 @@ extern const NSString* INV_CredentialKeyPassword ;
 -(NSError*)saveDefaultAccountInKCForLoggedInUser:(NSNumber*)accountId;
 -(NSError*)deleteCurrentlySavedDefaultAccountFromKC;
 
+-(void) performLogout;
+
 @end

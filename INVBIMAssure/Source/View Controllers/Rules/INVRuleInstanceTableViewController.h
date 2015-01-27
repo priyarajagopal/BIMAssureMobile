@@ -11,7 +11,9 @@
 @class INVRuleInstanceTableViewController;
 
 @protocol INVRuleInstanceTableViewControllerDelegate <NSObject>
+@optional
 -(void)onRuleInstanceModified:(INVRuleInstanceTableViewController*)sender;
+-(void)onRuleInstanceCreated:(INVRuleInstanceTableViewController*)sender;
 @end
 
 @interface INVRuleInstanceTableViewController : INVCustomTableViewController

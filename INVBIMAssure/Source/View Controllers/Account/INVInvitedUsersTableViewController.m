@@ -64,7 +64,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 -(void)fetchListOfInvitedUsers {
     [self showLoadProgress];
     [self.globalDataManager.invServerClient getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         [self.refreshControl endRefreshing];
         if (!error) { 
@@ -146,7 +146,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
         
         __weak typeof(self) weakSelf = self;
         
-        _dataSource.editable = YES;
+        _dataSource.editableHandler = ^(id _, id __) { return YES; };
         _dataSource.deletionHandler = ^(id cell, INVInvite *cellData, NSIndexPath *indexPath) {
             UIAlertController *confirmDeleteController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE", nil)
                                                                                              message:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_MESSAGE", nil)

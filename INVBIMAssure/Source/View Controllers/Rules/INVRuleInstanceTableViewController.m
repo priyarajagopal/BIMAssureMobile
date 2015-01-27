@@ -237,7 +237,7 @@ static NSString* INV_ActualParamValue = @"Value";
             }
         }
         else {
-            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil)];
+            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil) isCreated:YES];
         }
     }];
      
@@ -257,7 +257,7 @@ static NSString* INV_ActualParamValue = @"Value";
             }
         }
         else {
-            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_UPDATED_SUCCESS", nil)];
+            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_UPDATED_SUCCESS", nil) isCreated:NO];
         }
     }];
 
@@ -269,7 +269,7 @@ static NSString* INV_ActualParamValue = @"Value";
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ( [segue.identifier isEqualToString:@"OnCancelSegue"]) {
+    if ( [segue.identifier isEqualToString:@"CancelSegue"]) {
         [self resignFirstTextInputResponder];
     }
 }
@@ -360,11 +360,18 @@ static NSString* INV_ActualParamValue = @"Value";
     [self.hud show:YES];
 }
 
--(void)showSuccessAlertMessage:(NSString*)message {
+-(void)showSuccessAlertMessage:(NSString*)message isCreated:(BOOL)created{
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [self.successAlertController dismissViewControllerAnimated:YES completion:nil];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceModified:)]) {
-            [self.delegate onRuleInstanceModified:self];
+        if (created) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceCreated:)]) {
+                [self.delegate onRuleInstanceCreated:self];
+            }
+        }
+        else {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceModified:)]) {
+                [self.delegate onRuleInstanceModified:self];
+            }
         }
      }];
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];

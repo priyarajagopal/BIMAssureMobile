@@ -19,6 +19,8 @@ extern NSString* const KVO_INVOnNotificationsMenuSelected;
 
 @interface INVMainMenuViewController : INVCustomViewController
 
+@property (weak) IBOutlet UIButton *logoutButton;
+
 - (IBAction)onLogoutViewSelected:(id)sender;
 - (IBAction)onAccountsViewSelected:(id)sender;
 - (IBAction)onUserProfileViewSelected:(id)sender;

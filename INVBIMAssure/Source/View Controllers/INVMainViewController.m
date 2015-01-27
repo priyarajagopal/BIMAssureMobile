@@ -40,12 +40,16 @@
 
 #pragma mark - Navigation
 
+-(IBAction) done:(UIStoryboardSegue *) segue {
+}
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"MainMenuEmbedSegue"]) {
         self.mainMenuVC = segue.destinationViewController;
+        
         [self registerMainMenuObservers];
     }
     else if ([segue.identifier isEqualToString:@"MainProjectEmbedSegue"]) {
@@ -97,6 +101,10 @@
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected options:NSKeyValueObservingOptionNew context:nil];
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnNotificationsMenuSelected options:NSKeyValueObservingOptionNew context:nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.userInfoTransitionObject.arrowAnchor = self.mainMenuVC.logoutButton;
+    });
 }
 
 -(void)deregisterMainMenuObservers {
@@ -165,13 +173,13 @@
         
     }
     if ([keyPath isEqualToString:KVO_INVOnLogoutMenuSelected]) {
-        [self performSegueWithIdentifier:@"MainLogoutSegue" sender:nil];
-        
+        [self.userInfoTransitionObject perform:nil];
     }
+    
     if ([keyPath isEqualToString:KVO_INVOnManageUsersMenuSelected]) {
         [self.userMgmtTransitionObject perform:nil];
-        
     }
+    
     if ([keyPath isEqualToString:KVO_INVOnInfoMenuSelected]) {
         [self.infoTransitionObject perform:nil];
     }
