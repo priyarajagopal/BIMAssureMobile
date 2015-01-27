@@ -11,7 +11,7 @@
 #import "INVProjectListSplitViewController.h"
 #import "INVAccountListViewController.h"
 
-@interface INVMainViewController ()<UIPopoverPresentationControllerDelegate>
+@interface INVMainViewController ()
 
 @property (nonatomic) BOOL shouldPresentProjectsSidebar;
 @property (nonatomic,assign)BOOL registeredForMainMenuEvents;
@@ -45,37 +45,69 @@
 -(IBAction) done:(UIStoryboardSegue *) segue {
 }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([self.detailContainerViewController isKindOfClass:[UISplitViewController class]]) {
-        UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
-        
-        if (splitViewController.displayMode != UISplitViewControllerDisplayModePrimaryHidden) {
-            UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
-            
-            [[UIApplication sharedApplication] sendAction:barButtonItem.action
-                                                       to:barButtonItem.target
-                                                     from:barButtonItem
-                                                 forEvent:nil];
-            
-            self.shouldPresentProjectsSidebar = YES;
-        }
-        
-        if ([segue.identifier isEqualToString:@"MainLogoutSegue"]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[segue.destinationViewController popoverPresentationController] setDelegate:self];
-            });
-        }
+-(IBAction) manualDismiss:(UIStoryboardSegue*)segue {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) hideSidebarForPresentingModalView {
+    if (![self.detailContainerViewController isKindOfClass:[UISplitViewController class]]) {
+        return;
     }
     
+    UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
+    
+    if (splitViewController.displayMode != UISplitViewControllerDisplayModePrimaryHidden) {
+        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
+        
+        [[UIApplication sharedApplication] sendAction:barButtonItem.action
+                                                   to:barButtonItem.target
+                                                 from:barButtonItem
+                                             forEvent:nil];
+        
+        self.shouldPresentProjectsSidebar = YES;
+    }
+}
+
+-(void) showSidebarAfterPresentingModalView {
+    if (![self.detailContainerViewController isKindOfClass:[UISplitViewController class]]) {
+        return;
+    }
+          
+    if (self.shouldPresentProjectsSidebar) {
+        UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
+        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
+        
+        [[UIApplication sharedApplication] sendAction:barButtonItem.action
+                                                   to:barButtonItem.target
+                                                 from:barButtonItem
+                                             forEvent:nil];
+        
+        self.shouldPresentProjectsSidebar = NO;
+    }
+}
+
+-(void) presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+    
+    [self hideSidebarForPresentingModalView];
+}
+
+-(void) dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    [super dismissViewControllerAnimated:flag completion:completion];
+    
+    [self showSidebarAfterPresentingModalView];
+}
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"MainMenuEmbedSegue"]) {
         self.mainMenuVC = segue.destinationViewController;
         
         [self registerMainMenuObservers];
-    }
-    else if ([segue.identifier isEqualToString:@"MainProjectEmbedSegue"]) {
+    } else if ([segue.identifier isEqualToString:@"MainProjectEmbedSegue"]) {
         if (self.childViewControllers.count > 1) {
             [self swapFromViewController:[self.childViewControllers objectAtIndex:1] toViewController:segue.destinationViewController];
         }
@@ -98,19 +130,14 @@
     }
 }
 
--(IBAction) manualDismiss:(UIStoryboardSegue*)segue {
-    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - helpers
 -(void) setDetailViewConstraints {
   //  NSLayoutConstraint* xConstraint = [NSLayoutConstraint constraintWithItem:self.detailContainerView attribute:NSLayoutAttributeLeftMargin relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:85];
   //  NSLayoutConstraint* yConstraint = [NSLayoutConstraint constraintWithItem:self.detailContainerView attribute:NSLayoutAttributeTopMargin relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0];
 
   //  [self.detailContainerViewController.view addConstraints:@[xConstraint,yConstraint]];
-    
 }
+
 -(void)registerMainMenuObservers {
     if (self.registeredForMainMenuEvents) {
         return;
@@ -143,30 +170,6 @@
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnNotificationsMenuSelected];
-}
-
--(UIStoryboardSegue *) segueForUnwindingToViewController:(UIViewController *)toViewController
-                                      fromViewController:(UIViewController *)fromViewController
-                                              identifier:(NSString *)identifier {
-    UIStoryboardSegue *storyboardSegue = [super segueForUnwindingToViewController:toViewController fromViewController:fromViewController identifier:identifier];
-    
-    [self popoverPresentationControllerDidDismissPopover:nil];
-    
-    return storyboardSegue;
-}
-
--(void) popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
-    if ([self.detailContainerViewController isKindOfClass:[UISplitViewController class]] && self.shouldPresentProjectsSidebar) {
-        UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
-        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
-        
-        [[UIApplication sharedApplication] sendAction:barButtonItem.action
-                                                   to:barButtonItem.target
-                                                 from:barButtonItem
-                                             forEvent:nil];
-        
-        self.shouldPresentProjectsSidebar = NO;
-    }
 }
 
 - (void)swapFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
