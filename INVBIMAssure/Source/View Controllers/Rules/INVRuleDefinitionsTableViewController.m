@@ -11,7 +11,7 @@
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
-@interface INVRuleDefinitionsTableViewController ()
+@interface INVRuleDefinitionsTableViewController ()<NSFetchedResultsControllerDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
@@ -62,26 +62,26 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     
 }
 
+-(void)onRefreshControlSelected:(id)event {
+    [self fetchListOfRuleDefinitions];
+}
+
+
 #pragma mark - server side
 -(void)fetchListOfRuleDefinitions {
-    [self showLoadProgress];
+    if (![self.refreshControl isRefreshing]) {
+        [self showLoadProgress];
+    }
     [self.globalDataManager.invServerClient getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-     
+        if ([self.refreshControl isRefreshing]) {
+            [self.refreshControl endRefreshing];
+        }
+        else {
+            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        }
+
         if (!error) {
-            NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
-          
-            if (!dbError) {
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-             }
-            else {
-                
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULE_DEFINITION_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
-            }
+           [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             
         }
         else {
@@ -102,6 +102,16 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.selectedRuleId = rule.ruleId;
     self.selectedRuleName = ruleDefnCell.ruleName.text;
     [self performSegueWithIdentifier:@"CreateRuleInstanceSegue" sender:nil];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    NSLog(@"%s",__func__);
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 
@@ -153,6 +163,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.rulesManager.fetchRequestForRules managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:@"ruleId" cacheName:nil];
+        [_dataResultsController setDelegate:self];
+        NSError* dbError = nil;
+        [_dataResultsController performFetch:&dbError];
+        if (dbError) {
+            NSLog(@"%s. perform fetch failed with %@",__func__,dbError);
+            _dataResultsController = nil;
+        }
     }
     return  _dataResultsController;
 }

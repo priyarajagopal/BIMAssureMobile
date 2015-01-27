@@ -84,7 +84,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         }
      
         if (!error) {
-            [self logRulesToConsole];
+     //       [self logRulesToConsole];
             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
         else {
@@ -101,10 +101,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
      
         if (!error) {
-            [self logRulesToConsole];
+       //     [self logRulesToConsole];
             [self removeSelectedRowFromTableView];
                 
-#warning - There are false negatives  on server side. This API is not fully functional;
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_DELETE", nil),error.code]];
@@ -320,6 +319,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         [_dataResultsController performFetch:&dbError];
         if (dbError) {
             NSLog(@"%s. perform fetch failed with %@",__func__,dbError);
+            _dataResultsController = nil;
         }
     }
     return  _dataResultsController;
