@@ -94,9 +94,12 @@
 }
 
 -(void) dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    [super dismissViewControllerAnimated:flag completion:completion];
+    [super dismissViewControllerAnimated:flag completion:^{
+        [self showSidebarAfterPresentingModalView];
+        
+        if (completion) completion();
+    }];
     
-    [self showSidebarAfterPresentingModalView];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
