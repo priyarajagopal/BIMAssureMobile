@@ -284,7 +284,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             INVRuleSet* ruleSet = [MTLManagedObjectAdapter modelOfClass:[INVRuleSet class] fromManagedObject:ruleSetManagedObject error:nil];
             NSArray* ruleInstances = ruleSet.ruleInstances;
             NSInteger cellRow = indexPath.row;
-            if (ruleInstances && ruleInstances.count >= cellRow) {
+            if (ruleInstances && ruleInstances.count > cellRow) {
                 INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.name.text = ruleInstance.ruleName;

@@ -19,7 +19,7 @@
 /**
  Can be used to obtain information on rule instance executions
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForRuleInstanceExecutions;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForRuleInstanceExecutions;
 
 
 /**

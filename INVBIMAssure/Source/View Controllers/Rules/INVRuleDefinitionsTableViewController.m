@@ -114,6 +114,16 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    NSLog(@"%s anObject:%@ forChangeType %ld",__func__,anObject,type);
+    
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    NSLog(@"%s",__func__);
+    
+}
 
 #pragma mark - Navigation
 
@@ -162,7 +172,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(NSFetchedResultsController*) dataResultsController {
     if (!_dataResultsController) {
-        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:self.rulesManager.fetchRequestForRules managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:@"ruleId" cacheName:nil];
+        NSFetchRequest* fetchRequest = self.rulesManager.fetchRequestForRules;
+        _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:@"ruleId" cacheName:nil];
         [_dataResultsController setDelegate:self];
         NSError* dbError = nil;
         [_dataResultsController performFetch:&dbError];

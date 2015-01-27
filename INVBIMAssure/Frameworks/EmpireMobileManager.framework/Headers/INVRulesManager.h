@@ -25,22 +25,22 @@
 /**
  Can be used to obtain information on rule sets
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForRuleSets;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForRuleSets;
 
 /**
  Can be used to obtain information on rules
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForRules;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForRules;
 
 /**
  Can be used to obtain information on ruleset to files mapping
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForRuleSetToFilesMap;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForRuleSetToFilesMap;
 
 /**
  Can be used to obtain information on file to rulesets mapping
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForFileToRuleSetsMap;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForFileToRuleSetsMap;
 
 
 /**

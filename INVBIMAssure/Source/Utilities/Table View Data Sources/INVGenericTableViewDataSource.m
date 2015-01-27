@@ -31,7 +31,7 @@ const static NSString* INV_HeaderContextIdentifier = @"Identifier";
 @interface INVGenericTableViewDataSource ()
 
 @property (nonatomic,strong)NSMutableArray* headerConfigContextArray; // array of INVHeaderContentDictionary objects
-@property (nonatomic,readwrite)NSFetchedResultsController* fetchedResultsController; // Alternative to using explicit data arrays
+@property (nonatomic,readwrite, strong)NSFetchedResultsController* fetchedResultsController; // Alternative to using explicit data arrays
 @property (nonatomic,strong)NSMutableDictionary* dataDictionary; // dictionary of section=>array of data elements
 @property (nonatomic,strong)NSMutableDictionary* cellConfigDictionary; // dictionary of section=>array of INVCellContentDictionary objects
 @property (nonatomic,readwrite,weak) UITableView* tableView;
