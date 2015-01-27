@@ -69,17 +69,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
         [self.refreshControl endRefreshing];
         if (!error) { 
 #pragma note Yes - you could have directly accessed accounts from account manager. Using FetchResultsController directly makes it simpler
-            NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
-            if (!dbError) {
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-         
-            }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:nil];
-            }
-            
+          [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),error.code]];
@@ -164,11 +155,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                                                                                   NSLog(@"%@", error);
                                                                                   return;
                                                                               }
-                                                                              NSError* dbError;
-                                                                              [weakSelf.dataResultsController performFetch:&dbError];
+                                                                              //NSError* dbError;
+                                                                              //[weakSelf.dataResultsController performFetch:&dbError];
+                                                                              /*
                                                                               if (!dbError) {
                                                                                   [weakSelf.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                                                                               }
+                                                                               */
                                                                               
                                                                              // [weakSelf fetchListOfInvitedUsers];
                                                                           }];
@@ -199,6 +192,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
         
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.accountManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         _dataResultsController.delegate = self;
+        NSError* dbError;
+        [_dataResultsController performFetch:&dbError];
+        
+        if (dbError) {
+            _dataResultsController = nil;
+        }
+        
     }
     return  _dataResultsController;
 }
@@ -210,6 +210,27 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
         _dateFormatter.dateStyle = NSDateFormatterShortStyle;
     }
     return _dateFormatter;
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    NSLog(@"%s",__func__);
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    NSLog(@"%s anObject:%@ forChangeType %ld",__func__,anObject,type);
+    
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    NSLog(@"%s",__func__);
+    
 }
 
 #pragma mark - UIRefreshControl

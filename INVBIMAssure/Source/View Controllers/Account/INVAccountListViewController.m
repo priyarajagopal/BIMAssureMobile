@@ -334,13 +334,8 @@ static NSString * const reuseIdentifier = @"Cell";
     id successBlock = [INVBlockUtils blockForExecutingBlock:^{
         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
         
-        NSError *dbError;
-        
         [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        
-        if (dbError) {
-            failureBlock(dbError.code);
-        }
+      
     } afterNumberOfCalls:2];
     
     id completionBlock = ^(INVEmpireMobileError *error) {
@@ -452,8 +447,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)notifySwitchFromAccount:(NSNumber*)prevLoggedInAccount {
-#warning check why crash
-  //  NSDictionary* userInfo = @{@"currentAccount":prevLoggedInAccount,@"newAccount":self.currentAccountId};
     [[NSNotificationCenter defaultCenter]postNotificationName:INV_NotificationAccountSwitchSuccess object:self userInfo:nil];
     
 }
