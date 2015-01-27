@@ -43,6 +43,7 @@
 		F5269DE11A76A434006AC27A /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5269DE01A76A434006AC27A /* UserInfo.storyboard */; };
 		F5269DE41A76A83E006AC27A /* INVModalPresentationFromParentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */; };
 		F5269DE71A76AD4C006AC27A /* INVChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */; };
+		F5269DEB1A77D274006AC27A /* INVSplitViewPassThroughWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DEA1A77D274006AC27A /* INVSplitViewPassThroughWindow.m */; };
 		F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */; };
 		F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
@@ -238,6 +239,8 @@
 		F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModalPresentationFromParentSegue.m; sourceTree = "<group>"; };
 		F5269DE51A76AD4C006AC27A /* INVChangePasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVChangePasswordTableViewController.h; sourceTree = "<group>"; };
 		F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVChangePasswordTableViewController.m; sourceTree = "<group>"; };
+		F5269DE91A77D274006AC27A /* INVSplitViewPassThroughWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSplitViewPassThroughWindow.h; sourceTree = "<group>"; };
+		F5269DEA1A77D274006AC27A /* INVSplitViewPassThroughWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSplitViewPassThroughWindow.m; sourceTree = "<group>"; };
 		F52BB7331A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectsNotificationDataSource.h; sourceTree = "<group>"; };
 		F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectsNotificationDataSource.m; sourceTree = "<group>"; };
 		F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVResetPasswordTableViewController.h; sourceTree = "<group>"; };
@@ -618,6 +621,8 @@
 				F5789C971A642A5500D8CEE7 /* INVRuleSetTableViewHeaderView.m */,
 				F5789C981A642A5500D8CEE7 /* INVRunRuleSetHeaderView.h */,
 				F5789C991A642A5500D8CEE7 /* INVRunRuleSetHeaderView.m */,
+				F5269DE91A77D274006AC27A /* INVSplitViewPassThroughWindow.h */,
+				F5269DEA1A77D274006AC27A /* INVSplitViewPassThroughWindow.m */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -1284,6 +1289,7 @@
 				F5789D3D1A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m in Sources */,
 				F5789D6F1A642A5500D8CEE7 /* INVProjectDetailsTabViewController.m in Sources */,
 				F5789D5D1A642A5500D8CEE7 /* INVSearchViewTagsDataSource.m in Sources */,
+				F5269DEB1A77D274006AC27A /* INVSplitViewPassThroughWindow.m in Sources */,
 				F5789D741A642A5500D8CEE7 /* INVProjectsTableViewController.m in Sources */,
 				F5789D521A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
 				F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */,

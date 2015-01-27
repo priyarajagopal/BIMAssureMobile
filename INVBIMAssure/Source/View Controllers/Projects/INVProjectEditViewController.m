@@ -12,6 +12,8 @@
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
+#define SHOW_PROJECT_MEMBERS 0
+
 @interface INVProjectEditViewControllerMembersTableViewDelegate : NSObject<UITableViewDelegate>
 
 @property IBOutlet UITableView *membersInAccountTableView;
@@ -95,6 +97,16 @@
     
     [self updateUI];
 }
+
+#pragma mark - UITableViewDataSource
+
+#if !SHOW_PROJECT_MEMBERS
+
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+#endif
 
 -(void) updateUI {
     if (self.currentProject) {
