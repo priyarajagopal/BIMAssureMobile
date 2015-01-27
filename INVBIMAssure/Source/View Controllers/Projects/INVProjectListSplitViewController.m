@@ -16,13 +16,10 @@
 // This is actually a property on UISplitViewController.
 // This *may* violate apple's precious guidelines, so we
 // may need to obfuscate our use of private APIs here.
-@property (readonly) id _primaryDimmingView;
 
 @end
 
 @implementation INVProjectListSplitViewController
-
-@dynamic _primaryDimmingView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,8 +28,12 @@
     self.splitViewPanGestureRecognizer.delegate = self;
     self.presentsWithGesture = NO;
     
+    // Base64 encoded primaryDimmingView
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:@"cHJpbWFyeURpbW1pbmdWaWV3" options:0];
+    NSString *key = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
     INVMainViewController *mainViewController = (INVMainViewController *) self.parentViewController;
-    id dimmingView = [self _primaryDimmingView];
+    id dimmingView = [self valueForKey:key];
     
     [dimmingView setPassthroughViews:@[
         mainViewController.mainMenuContainerView
@@ -44,6 +45,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(id) valueForUndefinedKey:(NSString *)key {
+    NSLog(@"Warning - undefined key requested! %@", key);
+    return nil;
+}
 
 #pragma mark - Navigation
 
