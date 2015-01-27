@@ -12,6 +12,8 @@
 #import "INVAccountListViewController.h"
 
 @interface INVMainViewController ()
+
+@property (nonatomic) BOOL shouldPresentProjectsSidebar;
 @property (nonatomic,assign)BOOL registeredForMainMenuEvents;
 @property (nonatomic,strong)INVMainMenuViewController* mainMenuVC;
 @property (nonatomic,strong)UIViewController* detailContainerViewController;
@@ -55,6 +57,8 @@
                                                        to:barButtonItem.target
                                                      from:barButtonItem
                                                  forEvent:nil];
+            
+            self.shouldPresentProjectsSidebar = YES;
         }
     }
     
@@ -133,6 +137,26 @@
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnLogoutMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnManageUsersMenuSelected];
     [self.mainMenuVC removeObserver:self forKeyPath:KVO_INVOnNotificationsMenuSelected];
+}
+
+-(UIStoryboardSegue *) segueForUnwindingToViewController:(UIViewController *)toViewController
+                                      fromViewController:(UIViewController *)fromViewController
+                                              identifier:(NSString *)identifier {
+    UIStoryboardSegue *storyboardSegue = [super segueForUnwindingToViewController:toViewController fromViewController:fromViewController identifier:identifier];
+    
+    if ([self.detailContainerViewController isKindOfClass:[UISplitViewController class]] && self.shouldPresentProjectsSidebar) {
+        UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
+        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
+            
+        [[UIApplication sharedApplication] sendAction:barButtonItem.action
+                                                   to:barButtonItem.target
+                                                 from:barButtonItem
+                                             forEvent:nil];
+        
+        self.shouldPresentProjectsSidebar = NO;
+    }
+    
+    return storyboardSegue;
 }
 
 - (void)swapFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
