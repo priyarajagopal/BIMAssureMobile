@@ -9,7 +9,6 @@
 #import "INVMainMenuViewController.h"
 
 #import "INVNotificationPoller.h"
-#import "INVSplitViewPassThroughWindow.h"
 
 #pragma mark - KVO
 NSString* const KVO_INVOnAccountMenuSelected = @"accountsMenuSelected";
