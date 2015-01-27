@@ -67,23 +67,23 @@
 /**
  Can be used to obtain information on all pending invitations for account
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForPendingInvitesForAccount;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForPendingInvitesForAccount;
 
 /**
  Can be used to obtain information on all pending invitations for users
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForPendingInvitesForSignedInUser;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForPendingInvitesForSignedInUser;
 
 
 /**
  Can be used to obtain information on members (and associated accounts).
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForAccountMembership;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForAccountMembership;
 
 /**
  Can be used to obtain information on invitations
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForAccountsOfSignedInUser;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForAccountsOfSignedInUser;
 
 
 

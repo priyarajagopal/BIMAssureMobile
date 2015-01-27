@@ -24,13 +24,13 @@
 /**
  Can be used to obtain information on projects associated with an account
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForProjects;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForProjects;
 
 
 /**
  Can be used to directly fetch information on project files
  */
-@property (nonatomic,readonly) NSFetchRequest* fetchRequestForPackages;
+@property (nonatomic,readonly,copy) NSFetchRequest* fetchRequestForPackages;
 
 
 /**
