@@ -11,6 +11,8 @@
 
 #import "INVMainViewController.h"
 
+#define ENABLE_ALL_VISIBLE 1
+
 @interface INVProjectListSplitViewController ()<UISplitViewControllerDelegate, UIGestureRecognizerDelegate>
 
 // This is actually a property on UISplitViewController.
@@ -24,10 +26,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     self.splitViewPanGestureRecognizer.delegate = self;
     self.presentsWithGesture = NO;
+    self.delegate = self;
 }
+
+#if !ENABLE_ALL_VISIBLE
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -44,17 +50,14 @@
     ]];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 -(id) valueForUndefinedKey:(NSString *)key {
     NSLog(@"Warning - undefined key requested! %@", key);
     return nil;
 }
 
-#pragma mark - Navigation
+#endif
+
+#pragma mark - UISplitViewControllerDelegate
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

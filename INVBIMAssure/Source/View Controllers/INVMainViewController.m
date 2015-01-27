@@ -57,6 +57,10 @@
     
     UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
     
+    if (splitViewController.preferredDisplayMode == UISplitViewControllerDisplayModeAllVisible) {
+        return;
+    }
+    
     if (splitViewController.displayMode != UISplitViewControllerDisplayModePrimaryHidden) {
         UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
         
