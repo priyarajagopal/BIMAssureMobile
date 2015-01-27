@@ -11,7 +11,7 @@
 #import "INVProjectListSplitViewController.h"
 #import "INVAccountListViewController.h"
 
-@interface INVMainViewController ()
+@interface INVMainViewController ()<UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic) BOOL shouldPresentProjectsSidebar;
 @property (nonatomic,assign)BOOL registeredForMainMenuEvents;
@@ -59,6 +59,12 @@
                                                  forEvent:nil];
             
             self.shouldPresentProjectsSidebar = YES;
+        }
+        
+        if ([segue.identifier isEqualToString:@"MainLogoutSegue"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[segue.destinationViewController popoverPresentationController] setDelegate:self];
+            });
         }
     }
     
@@ -144,10 +150,16 @@
                                               identifier:(NSString *)identifier {
     UIStoryboardSegue *storyboardSegue = [super segueForUnwindingToViewController:toViewController fromViewController:fromViewController identifier:identifier];
     
+    [self popoverPresentationControllerDidDismissPopover:nil];
+    
+    return storyboardSegue;
+}
+
+-(void) popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
     if ([self.detailContainerViewController isKindOfClass:[UISplitViewController class]] && self.shouldPresentProjectsSidebar) {
         UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
         UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
-            
+        
         [[UIApplication sharedApplication] sendAction:barButtonItem.action
                                                    to:barButtonItem.target
                                                  from:barButtonItem
@@ -155,8 +167,6 @@
         
         self.shouldPresentProjectsSidebar = NO;
     }
-    
-    return storyboardSegue;
 }
 
 - (void)swapFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
