@@ -17,6 +17,8 @@
 @implementation INVResetPasswordTableViewController
 
 -(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     [self.emailTextField becomeFirstResponder];
 }
 
