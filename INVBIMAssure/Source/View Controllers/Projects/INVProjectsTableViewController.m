@@ -147,8 +147,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
      if ([segue.identifier isEqual:@"ProjectDetailSegue"]) {
          INVProject* project = [self.dataResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
          
-         INVProjectListSplitViewController* projectsSplitViewController = (INVProjectListSplitViewController*)self.splitViewController;
-         projectsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
          
          INVProjectDetailsTabViewController* projectDetailsController = (INVProjectDetailsTabViewController*)segue.destinationViewController;
 

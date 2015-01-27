@@ -51,8 +51,8 @@
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Files" image="folder" id="vEP-4T-shL"/>
                     <navigationItem key="navigationItem" id="HNu-ab-q9Q">
-                        <barButtonItem key="rightBarButtonItem" id="16I-N0-PJ4">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tVn-Tz-dXe">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" id="16I-N0-PJ4">
+                            <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tVn-Tz-dXe">
                                 <rect key="frame" x="534" y="7" width="50" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>

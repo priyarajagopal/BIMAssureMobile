@@ -50,6 +50,9 @@ NSString* const KVO_INVOnNotificationsMenuSelected = @"notificationsMenuSelected
     self.notificationsBadgeLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.notificationsBadgeLabel.layer.borderWidth = 2;
     self.notificationsBadgeLabel.layer.masksToBounds = YES;
+    
+    // INVSplitViewPassThroughWindow *passthroughWindow = (INVSplitViewPassThroughWindow *) [[UIApplication sharedApplication] keyWindow];
+    // passthroughWindow.passthroughViews = @[ self.view ];
 }
 
 -(void) awakeFromNib {

@@ -12,6 +12,8 @@
 #import "INVAccountListViewController.h"
 
 @interface INVMainViewController ()
+
+@property (nonatomic) BOOL shouldPresentProjectsSidebar;
 @property (nonatomic,assign)BOOL registeredForMainMenuEvents;
 @property (nonatomic,strong)INVMainMenuViewController* mainMenuVC;
 @property (nonatomic,strong)UIViewController* detailContainerViewController;
@@ -43,6 +45,67 @@
 -(IBAction) done:(UIStoryboardSegue *) segue {
 }
 
+-(IBAction) manualDismiss:(UIStoryboardSegue*)segue {
+    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) hideSidebarForPresentingModalView {
+    if (![self.detailContainerViewController isKindOfClass:[UISplitViewController class]]) {
+        return;
+    }
+    
+    UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
+    
+    if (splitViewController.preferredDisplayMode == UISplitViewControllerDisplayModeAllVisible) {
+        return;
+    }
+    
+    if (splitViewController.displayMode != UISplitViewControllerDisplayModePrimaryHidden) {
+        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
+        
+        [[UIApplication sharedApplication] sendAction:barButtonItem.action
+                                                   to:barButtonItem.target
+                                                 from:barButtonItem
+                                             forEvent:nil];
+        
+        self.shouldPresentProjectsSidebar = YES;
+    }
+}
+
+-(void) showSidebarAfterPresentingModalView {
+    if (![self.detailContainerViewController isKindOfClass:[UISplitViewController class]]) {
+        return;
+    }
+          
+    if (self.shouldPresentProjectsSidebar) {
+        UISplitViewController *splitViewController = (UISplitViewController *) self.detailContainerViewController;
+        UIBarButtonItem *barButtonItem = splitViewController.displayModeButtonItem;
+        
+        [[UIApplication sharedApplication] sendAction:barButtonItem.action
+                                                   to:barButtonItem.target
+                                                 from:barButtonItem
+                                             forEvent:nil];
+        
+        self.shouldPresentProjectsSidebar = NO;
+    }
+}
+
+-(void) presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+    
+    [self hideSidebarForPresentingModalView];
+}
+
+-(void) dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    [super dismissViewControllerAnimated:flag completion:^{
+        [self showSidebarAfterPresentingModalView];
+        
+        if (completion) completion();
+    }];
+    
+}
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
@@ -51,8 +114,7 @@
         self.mainMenuVC = segue.destinationViewController;
         
         [self registerMainMenuObservers];
-    }
-    else if ([segue.identifier isEqualToString:@"MainProjectEmbedSegue"]) {
+    } else if ([segue.identifier isEqualToString:@"MainProjectEmbedSegue"]) {
         if (self.childViewControllers.count > 1) {
             [self swapFromViewController:[self.childViewControllers objectAtIndex:1] toViewController:segue.destinationViewController];
         }
@@ -75,19 +137,14 @@
     }
 }
 
--(IBAction) manualDismiss:(UIStoryboardSegue*)segue {
-    // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - helpers
 -(void) setDetailViewConstraints {
   //  NSLayoutConstraint* xConstraint = [NSLayoutConstraint constraintWithItem:self.detailContainerView attribute:NSLayoutAttributeLeftMargin relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:85];
   //  NSLayoutConstraint* yConstraint = [NSLayoutConstraint constraintWithItem:self.detailContainerView attribute:NSLayoutAttributeTopMargin relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0];
 
   //  [self.detailContainerViewController.view addConstraints:@[xConstraint,yConstraint]];
-    
 }
+
 -(void)registerMainMenuObservers {
     if (self.registeredForMainMenuEvents) {
         return;

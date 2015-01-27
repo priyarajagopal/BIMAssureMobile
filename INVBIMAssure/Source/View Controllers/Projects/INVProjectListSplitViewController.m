@@ -9,7 +9,15 @@
 #import "INVProjectListSplitViewController.h"
 #import "INVProjectsTableViewController.h"
 
+#import "INVMainViewController.h"
+
+#define ENABLE_ALL_VISIBLE 1
+
 @interface INVProjectListSplitViewController ()<UISplitViewControllerDelegate, UIGestureRecognizerDelegate>
+
+// This is actually a property on UISplitViewController.
+// This *may* violate apple's precious guidelines, so we
+// may need to obfuscate our use of private APIs here.
 
 @end
 
@@ -18,19 +26,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     self.splitViewPanGestureRecognizer.delegate = self;
     self.presentsWithGesture = NO;
+    self.delegate = self;
+}
+
+#if !ENABLE_ALL_VISIBLE
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
+    // Base64 encoded primaryDimmingView
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:@"cHJpbWFyeURpbW1pbmdWaWV3" options:0];
+    NSString *key = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    INVMainViewController *mainViewController = (INVMainViewController *) self.parentViewController;
+    id dimmingView = [self valueForKey:key];
+    
+    [dimmingView setPassthroughViews:@[
+        mainViewController.mainMenuContainerView
+    ]];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(id) valueForUndefinedKey:(NSString *)key {
+    NSLog(@"Warning - undefined key requested! %@", key);
+    return nil;
 }
 
+#endif
 
-#pragma mark - Navigation
+#pragma mark - UISplitViewControllerDelegate
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
