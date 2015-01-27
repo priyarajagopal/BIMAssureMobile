@@ -11,6 +11,7 @@
 #import "INVRunRulesTableViewController.h"
 #import "INVRunRuleSetHeaderView.h"
 #import "INVBlockUtils.h"
+#import "INVRuleInstanceTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 60;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
@@ -57,6 +58,33 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.rulesManager = nil;
 }
 
+#pragma mark - Navigation
+
+-(void) onRefreshControlSelected:(UIRefreshControl *) sender {
+    [self.refreshControl endRefreshing];
+    
+    [self fetchRuleSetIdsForFile];
+}
+
+-(IBAction) manualDismiss:(UIStoryboardSegue *)sender {
+    // NOTE: We don't actually need a manual dismiss in this place.
+    [self fetchRuleSetIdsForFile];
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ModifyRuleInstanceSegue"]) {
+        UITableViewCell *tableViewCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tableViewCell];
+        
+        INVRuleSet *ruleSet = self.ruleSets[indexPath.section];
+        INVRuleInstance *ruleInstance = ruleSet.ruleInstances[indexPath.row];
+        
+        INVRuleInstanceTableViewController *ruleInstanceViewController = (INVRuleInstanceTableViewController *) segue.destinationViewController;
+        ruleInstanceViewController.ruleSetId = ruleSet.ruleSetId;
+        ruleInstanceViewController.ruleInstanceId = ruleInstance.ruleInstanceId;
+    }
+}
+
 
 #pragma mark - UITableViewDataSource
 #warning See if we can move the data source out into a separate object
@@ -89,17 +117,11 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     cell.detailTextLabel.text = ruleInstance.overview;
     
     if ([ruleInstance.emptyParamCount integerValue] > 0) {
-        cell.accessoryView =nil;
-        [cell.contentView setBackgroundColor:[UIColor redColor]];
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[self errorImage]];
+    } else if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
+        cell.accessoryView = [[UIImageView alloc]initWithImage:[self selectedImage]];
     } else {
-        [cell.contentView setBackgroundColor:[UIColor whiteColor]];
-    
-        if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
-            cell.accessoryView = [[UIImageView alloc]initWithImage:[self selectedImage]];
-        }
-        else {
-            cell.accessoryView = [[UIImageView alloc]initWithImage:[self deselectedImage]];
-        }
+        cell.accessoryView = [[UIImageView alloc]initWithImage:[self deselectedImage]];
     }
     
     return cell;
@@ -108,7 +130,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
     return DEFAULT_HEADER_HEIGHT;
 }
 
@@ -117,6 +138,21 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     INVRuleInstance* ruleInstance = ruleSet.ruleInstances[indexPath.row];
     
     if ([ruleInstance.emptyParamCount integerValue] > 0) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"UNCONFIGURED_RULE_INSTANCE_TITLE", nil)
+                                                                                 message:NSLocalizedString(@"UNCONFIGURED_RULE_INSTANCE_MESSAGE", nil)
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"UNCONFIGURED_RULE_INSTANCE_NAVIGATE", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              [self.ruleConfigurationTransitionObject perform:cell];
+                                                          }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
         return;
     }
     
@@ -172,8 +208,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
             [self updateRuleSetsFromServer ];
             if (!self.ruleSets.count) {
                 UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_EMPTY", nil),error.code]];
-                [self presentViewController:errController animated:YES completion:^{ }];
-                
+                [self presentViewController:errController animated:YES completion:nil];
             }
             else {
                 [self.runRulesButton setEnabled:YES];
@@ -182,8 +217,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{ }];
-
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }];
 }
@@ -286,6 +320,13 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
 }
 
+-(UIImage *) errorImage {
+    FAKFontAwesome *errorIcon = [FAKFontAwesome warningIconWithSize:30];
+    [errorIcon setAttributes:@{ NSForegroundColorAttributeName: [UIColor redColor] }];
+    
+    return [errorIcon imageWithSize:CGSizeMake(30, 30)];
+}
+
 -(UIImage*)selectedImage{
     FAKFontAwesome *selectedIcon = [FAKFontAwesome checkCircleIconWithSize:30];
     [selectedIcon setAttributes:@{NSForegroundColorAttributeName:[UIColor darkGrayColor]}];
@@ -307,10 +348,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
     [self.successAlertController addAction:action];
-    [self presentViewController:self.successAlertController animated:YES completion:^{
-        
-    }];
-    
+    [self presentViewController:self.successAlertController animated:YES completion:nil];
 }
 
 -(INVRulesManager*)rulesManager {

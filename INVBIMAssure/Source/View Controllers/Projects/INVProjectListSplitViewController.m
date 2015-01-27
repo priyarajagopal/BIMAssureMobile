@@ -30,7 +30,6 @@
     self.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     self.splitViewPanGestureRecognizer.delegate = self;
     self.presentsWithGesture = NO;
-    self.delegate = self;
 }
 
 #if !ENABLE_ALL_VISIBLE

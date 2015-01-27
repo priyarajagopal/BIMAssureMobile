@@ -17,7 +17,7 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
-@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate, INVRuleInstanceTableViewControllerDelegate, NSFetchedResultsControllerDelegate>
+@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic, strong)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
@@ -210,6 +210,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 #pragma mark - UIEVent handlers
 -(IBAction)manualDismiss:(UIStoryboardSegue*)segue {
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self fetchRuleSets];
 }
 
 -(void)onRefreshControlSelected:(id)event {
@@ -217,19 +219,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 #pragma mark - INVRuleInstanceTableViewControllerDelegate
--(void)onRuleInstanceModified:(INVRuleInstanceTableViewController*)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        
-     }];
-}
-
--(void)onRuleInstanceCreated:(INVRuleInstanceTableViewController*)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self performSelectorOnMainThread:@selector(refreshTablePostRuleInstanceCreation) withObject:nil waitUntilDone:NO];
-        
-    }];
-}
 
 -(void)refreshTablePostRuleInstanceCreation {
     [self fetchRuleSets];
@@ -261,7 +250,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INVRuleInstanceTableViewController* ruleInstanceTVC = segue.destinationViewController;
         ruleInstanceTVC.ruleInstanceId = self.selectedRuleInstanceId;
         ruleInstanceTVC.ruleSetId = self.selectedRuleSetId;
-        ruleInstanceTVC.delegate = self;
     }
     if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
         INVRuleSetManageFilesContainerViewController* rulesetFilesTVC = segue.destinationViewController;
@@ -271,7 +259,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
         INVRuleDefinitionsTableViewController* ruleDefnTVC = segue.destinationViewController;
         ruleDefnTVC.ruleSetId = self.selectedRuleSetId;
-        ruleDefnTVC.createRuleInstanceDelegate = self;
     }
     
 }
@@ -293,13 +280,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                 cell.ruleSetId = ruleInstance.ruleSetId;
                 cell.actionDelegate = self;
                 
-                if ([ruleInstance.emptyParamCount integerValue] > 0) {
-                    cell.ruleInstanceBackground.backgroundColor = [UIColor redColor];
-                } else {
-                    cell.ruleInstanceBackground.backgroundColor = [UIColor whiteColor];
-                }
+                cell.ruleWarning.hidden = ([ruleInstance.emptyParamCount integerValue] == 0);
             }
-            
         };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleInstanceCell" configureBlock:cellConfigurationBlock];
     }

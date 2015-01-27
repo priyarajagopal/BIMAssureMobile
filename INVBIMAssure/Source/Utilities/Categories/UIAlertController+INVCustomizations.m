@@ -10,16 +10,17 @@
 
 @implementation UIAlertController (INVCustomizations)
 - (instancetype)initWithErrorMessage:(NSString*)errorMesg{
-    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:YES completion:^{
-        }];
-    }];
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil)
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
     
-    self= [UIAlertController alertControllerWithTitle:nil message:errorMesg preferredStyle:UIAlertControllerStyleAlert];
+    self = [UIAlertController alertControllerWithTitle:nil message:errorMesg preferredStyle:UIAlertControllerStyleAlert];
+    
     if (self) {
         [[UIView appearanceWhenContainedIn:[self class], nil] setTintColor:[UIColor darkGrayColor]];
         [self addAction:action];
     }
+    
     return self;
 }
 
