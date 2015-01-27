@@ -27,6 +27,10 @@
     self.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     self.splitViewPanGestureRecognizer.delegate = self;
     self.presentsWithGesture = NO;
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     // Base64 encoded primaryDimmingView
     NSData *data = [[NSData alloc] initWithBase64EncodedString:@"cHJpbWFyeURpbW1pbmdWaWV3" options:0];
