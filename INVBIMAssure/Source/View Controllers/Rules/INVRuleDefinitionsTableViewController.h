@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "INVCustomTableViewController.h"
+#import "INVRuleInstanceTableViewController.h"
 
 @interface INVRuleDefinitionsTableViewController : INVCustomTableViewController
 @property (nonatomic,copy) NSNumber* ruleSetId;
+@property (nonatomic, weak) id<INVRuleInstanceTableViewControllerDelegate> createRuleInstanceDelegate;
 @end
