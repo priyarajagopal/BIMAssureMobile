@@ -106,7 +106,7 @@
 
 -(NSFetchedResultsController *) dataResultsController {
     if (!_dataResultsController) {
-        NSFetchRequest *fetchRequest = [[self.globalDataManager.invServerClient.accountManager fetchRequestForAccountMembership] copy];
+        NSFetchRequest *fetchRequest = [self.globalDataManager.invServerClient.accountManager fetchRequestForAccountMembership];
         
         _dataResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                      managedObjectContext:self.globalDataManager.invServerClient.accountManager.managedObjectContext

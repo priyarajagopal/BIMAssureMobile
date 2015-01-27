@@ -22,7 +22,7 @@ const NSInteger INV_CELLSIZE = 100;
 NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 
 
-@interface INVAccountListViewController () <INVDefaultAccountAlertViewDelegate,UICollectionViewDataSource>
+@interface INVAccountListViewController () <INVDefaultAccountAlertViewDelegate,UICollectionViewDataSource,NSFetchedResultsControllerDelegate>
 @property (nonatomic,assign)   BOOL accountLoginSuccess;
 @property (nonatomic,strong)   INVDefaultAccountAlertView* alertView ;
 @property (nonatomic,strong)   INVAccountManager* accountManager;
@@ -270,17 +270,34 @@ static NSString * const reuseIdentifier = @"Cell";
     if (!_dataResultsController) {
         INVMergedFetchedResultsControler *mergedFetchResultsController = [[INVMergedFetchedResultsControler alloc] init];
         
-        [mergedFetchResultsController addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:self.accountManager.fetchRequestForAccountsOfSignedInUser
+        NSFetchRequest* fetchRequestForAccounts = self.accountManager.fetchRequestForAccountsOfSignedInUser;
+        NSSortDescriptor* orderByDate = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
+        [fetchRequestForAccounts setSortDescriptors:@[orderByDate]];
+        
+        [mergedFetchResultsController addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequestForAccounts
                                                                                                       managedObjectContext:self.accountManager.managedObjectContext
                                                                                                         sectionNameKeyPath:nil
                                                                                                                  cacheName:nil]];
         
-        [mergedFetchResultsController addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:self.accountManager.fetchRequestForPendingInvitesForSignedInUser
+        NSFetchRequest* fetchRequestForInvites = self.accountManager.fetchRequestForPendingInvitesForSignedInUser;
+        [fetchRequestForInvites setSortDescriptors:@[orderByDate]];
+        
+        
+        [mergedFetchResultsController addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequestForInvites
                                                                                                       managedObjectContext:self.accountManager.managedObjectContext
                                                                                                         sectionNameKeyPath:nil
                                                                                                                  cacheName:nil]];
+        
         
         _dataResultsController = mergedFetchResultsController;
+        _dataResultsController.delegate = self;
+        NSError *dbError;
+        
+        [_dataResultsController performFetch:&dbError];
+
+        if (dbError) {
+            _dataResultsController = nil;
+        }
     }
     
     return  _dataResultsController;
@@ -319,7 +336,6 @@ static NSString * const reuseIdentifier = @"Cell";
         
         NSError *dbError;
         
-        [self.dataResultsController performFetch:&dbError];
         [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         
         if (dbError) {
@@ -557,6 +573,28 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    NSLog(@"%s",__func__);
+    [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    NSLog(@"%s anObject:%@ forChangeType %ld",__func__,anObject,type);
+    
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    NSLog(@"%s",__func__);
+    
+}
+
+
 #pragma mark - utils
 
 -(void)addSignUpObservers {
@@ -575,10 +613,6 @@ static NSString * const reuseIdentifier = @"Cell";
         [self dismissViewControllerAnimated:YES completion:^{
             [self removeSignupObservers];
             self.signUpController = nil;
-            NSError *dbError;
-            
-            [self.dataResultsController performFetch:&dbError];
-            [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             
          }];
     }
