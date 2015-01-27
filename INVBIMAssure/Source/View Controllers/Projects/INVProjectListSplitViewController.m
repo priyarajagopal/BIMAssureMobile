@@ -9,11 +9,20 @@
 #import "INVProjectListSplitViewController.h"
 #import "INVProjectsTableViewController.h"
 
+#import "INVMainViewController.h"
+
 @interface INVProjectListSplitViewController ()<UISplitViewControllerDelegate, UIGestureRecognizerDelegate>
+
+// This is actually a property on UISplitViewController.
+// This *may* violate apple's precious guidelines, so we
+// may need to obfuscate our use of private APIs here.
+@property (readonly) id _primaryDimmingView;
 
 @end
 
 @implementation INVProjectListSplitViewController
+
+@dynamic _primaryDimmingView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,6 +31,12 @@
     self.splitViewPanGestureRecognizer.delegate = self;
     self.presentsWithGesture = NO;
     
+    INVMainViewController *mainViewController = (INVMainViewController *) self.parentViewController;
+    id dimmingView = [self _primaryDimmingView];
+    
+    [dimmingView setPassthroughViews:@[
+        mainViewController.mainMenuContainerView
+    ]];
 }
 
 - (void)didReceiveMemoryWarning {

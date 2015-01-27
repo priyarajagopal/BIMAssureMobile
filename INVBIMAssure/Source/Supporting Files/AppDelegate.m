@@ -16,7 +16,6 @@
 #import "INVNotificationPoller.h"
 #import "INVPendingInvitesNotificationDataSource.h"
 #import "INVProjectsNotificationDataSource.h"
-#import "INVSplitViewPassThroughWindow.h"
 
 @interface AppDelegate ()
 @property (nonatomic,assign)BOOL registeredForLoginEvents;
@@ -198,14 +197,6 @@
 
 -(UIViewController*)rootController {
     return self.window.rootViewController;
-}
-
--(UIWindow *) window {
-    if (!_window) {
-        _window = [[INVSplitViewPassThroughWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    }
-    
-    return _window;
 }
 
 -(UIStoryboard*)accountStoryboard {
