@@ -292,6 +292,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                 cell.ruleInstanceId = ruleInstance.ruleInstanceId;
                 cell.ruleSetId = ruleInstance.ruleSetId;
                 cell.actionDelegate = self;
+                
+                if ([ruleInstance.emptyParamCount integerValue] > 0) {
+                    cell.ruleInstanceBackground.backgroundColor = [UIColor redColor];
+                } else {
+                    cell.ruleInstanceBackground.backgroundColor = [UIColor whiteColor];
+                }
             }
             
         };

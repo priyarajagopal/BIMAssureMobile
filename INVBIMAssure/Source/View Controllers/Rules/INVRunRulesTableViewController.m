@@ -76,6 +76,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     
     NSArray* ruleInstances = ruleSet.ruleInstances;
     INVRuleInstance* ruleInstance  = [ruleInstances objectAtIndex:indexPath.row];
+    
     NSNumber* ruleInstanceId = ruleInstance.ruleInstanceId;
     cell = [tableView dequeueReusableCellWithIdentifier:@"RuleSetCell"];
     if (!cell) {
@@ -83,13 +84,22 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.contentView setTintColor:[UIColor darkGrayColor]];
     }
+    
     cell.textLabel.text = ruleInstance.ruleName;
     cell.detailTextLabel.text = ruleInstance.overview;
-    if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
-        cell.accessoryView = [[UIImageView alloc]initWithImage:[self selectedImage]];
-    }
-    else {
-        cell.accessoryView = [[UIImageView alloc]initWithImage:[self deselectedImage]];
+    
+    if ([ruleInstance.emptyParamCount integerValue] > 0) {
+        cell.accessoryView =nil;
+        [cell.contentView setBackgroundColor:[UIColor redColor]];
+    } else {
+        [cell.contentView setBackgroundColor:[UIColor whiteColor]];
+    
+        if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
+            cell.accessoryView = [[UIImageView alloc]initWithImage:[self selectedImage]];
+        }
+        else {
+            cell.accessoryView = [[UIImageView alloc]initWithImage:[self deselectedImage]];
+        }
     }
     
     return cell;
@@ -105,10 +115,16 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     INVRuleSet* ruleSet = self.ruleSets[indexPath.section];
     INVRuleInstance* ruleInstance = ruleSet.ruleInstances[indexPath.row];
+    
+    if ([ruleInstance.emptyParamCount integerValue] > 0) {
+        return;
+    }
+    
     NSNumber* ruleInstanceId = ruleInstance.ruleInstanceId;
+    
     if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
         [self.selectedRuleInstanceIds removeObject:ruleInstanceId];
-     }
+    }
     else {
         [self.selectedRuleInstanceIds addObject:ruleInstanceId];
     }
@@ -217,31 +233,26 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     BOOL ruleSetEnabled = YES;
     
     if ([self.selectedRuleSetIds containsObject:ruleSetId]) {
+        [self.selectedRuleSetIds removeObject:ruleSetId];
         ruleSetEnabled = NO;
+    } else {
+        [self.selectedRuleSetIds addObject:ruleSetId];
     }
     
     [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleInstance* ruleInstance = obj;
         NSNumber* ruleInstanceId = ruleInstance.ruleInstanceId;
-        if (ruleSetEnabled) {
-            if (![self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
-                [self.selectedRuleInstanceIds addObject:ruleInstanceId];
-            }
-        }
-        else {
-            if ([self.selectedRuleInstanceIds containsObject:ruleInstanceId]) {
-                [self.selectedRuleInstanceIds removeObject:ruleInstanceId];
-            }
+        
+        if ([ruleInstance.emptyParamCount integerValue] > 0)  {
+            return;
         }
         
+        if (ruleSetEnabled) {
+            [self.selectedRuleInstanceIds addObject:ruleInstanceId];
+        } else {
+            [self.selectedRuleInstanceIds removeObject:ruleInstanceId];
+        }
     }];
-    
-    if ([self.selectedRuleSetIds containsObject:ruleSetId]) {
-        [self.selectedRuleSetIds removeObject:ruleSetId];
-    }
-    else {
-        [self.selectedRuleSetIds addObject:ruleSetId];
-    }
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ruleSetIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
