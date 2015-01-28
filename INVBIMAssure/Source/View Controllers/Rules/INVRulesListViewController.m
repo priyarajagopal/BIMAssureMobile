@@ -18,7 +18,7 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
-@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate, NSFetchedResultsControllerDelegate>
+@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate, NSFetchedResultsControllerDelegate, UISplitViewControllerDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic, strong)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
@@ -111,13 +111,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_DELETE", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
-
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }];
-    
 }
 
 
@@ -127,6 +123,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
     self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
     self.selectedRowInstanceCell = ruleInstanceCell;
+    
     [self performSegueWithIdentifier:@"RuleInstanceViewSegue" sender:self];
 }
 
@@ -135,8 +132,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
     self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
     self.selectedRowInstanceCell = ruleInstanceCell;
-     [self showDeletePromptAlert];
     
+    [self showDeletePromptAlert];
 }
 
 -(void)showDeletePromptAlert {
@@ -168,9 +165,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 #pragma mark - UITableViewDelegate
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
 #warning  use resuable tableheaderfotter view
-     
     INVRuleSet* ruleSet = self.dataResultsController.fetchedObjects[section];
     
     NSArray* objects = [[NSBundle bundleForClass:[self class]]loadNibNamed:@"INVRuleSetTableViewHeaderView" owner:nil options:nil];
@@ -179,6 +174,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     headerView.actionDelegate = self;
     headerView.ruleSetNameLabel.text = ruleSet.name;
     headerView.ruleSetId = ruleSet.ruleSetId;
+    
     return headerView;
 }
 

@@ -93,6 +93,9 @@
     [[UITabBar appearance]setTintColor:cyanBlueColor];
     
     [[UIView appearanceWhenContainedIn:[UIAlertController class], nil] setTintColor:darkGreyColor];
+    
+    [[UITableView appearanceWhenContainedIn:[UITableViewController class], nil] setTintColor:darkGreyColor];
+    [[UICollectionView appearanceWhenContainedIn:[UICollectionViewController class], nil] setTintColor:darkGreyColor];
 }
 
 #pragma mark - VC management
@@ -122,6 +125,7 @@
     
     INVLoginViewController* loginVC = [[self loginStoryboard]instantiateViewControllerWithIdentifier:@"LoginVC"];
     self.window.rootViewController = loginVC;
+    
     [self registerLoginObservers];
     
 }

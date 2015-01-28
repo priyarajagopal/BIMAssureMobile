@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -355,22 +355,13 @@
         <scene sceneID="SIK-rX-mGO">
             <objects>
                 <tableViewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="Bec-aY-4oM" userLabel="Projects List View Controller" customClass="INVProjectsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="50" sectionFooterHeight="10" id="qis-yu-Dcm">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="50" sectionFooterHeight="10" id="qis-yu-Dcm" customClass="INVCustomTableView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectCell" rowHeight="100" id="NKJ-eT-wA9" customClass="INVProjectTableViewCell">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NKJ-eT-wA9" id="Uf4-hv-NV5">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="it1-1y-edE" kind="showDetail" identifier="ProjectDetailSegue" id="kk5-De-usy"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Projects"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="delegate" destination="Bec-aY-4oM" id="gW9-WV-8lo"/>
                         </connections>
@@ -392,6 +383,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bottomBarButtonItem" destination="Crs-CA-hAb" id="FyC-oN-abf"/>
+                        <segue destination="it1-1y-edE" kind="showDetail" identifier="ProjectDetailSegue" id="mfX-my-Srf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="opY-T8-Llw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -584,8 +576,8 @@
             <objects>
                 <splitViewController storyboardIdentifier="ProjectListSplitVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XJ9-1q-cac" userLabel="Project List Split View Controller" customClass="INVProjectListSplitViewController" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="b8j-6n-obT" kind="relationship" relationship="masterViewController" id="sUh-fp-vq6"/>
                         <segue destination="l84-KT-GLu" kind="relationship" relationship="detailViewController" id="Vvo-NV-YrK"/>
+                        <segue destination="b8j-6n-obT" kind="relationship" relationship="masterViewController" id="Acp-cy-ztl"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KLe-Xa-yIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
