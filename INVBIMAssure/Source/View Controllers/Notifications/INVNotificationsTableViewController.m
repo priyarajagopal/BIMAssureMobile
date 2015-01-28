@@ -126,44 +126,51 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
     
     _selectedNotification = notification;
     
-    if (notification.type == INVNotificationTypePendingInvite && notification.data) {
-        // Handle account invite.
-        _alertView = [[[NSBundle mainBundle] loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil] firstObject];
-        _alertView.delegate = self;
-        _alertView.translatesAutoresizingMaskIntoConstraints = NO;
-        _alertView.setAsDefaultContainer.hidden = YES;
+    if (notification.type == INVNotificationTypePendingInvite) {
+        if (notification.data) {
+            // Handle account invite.
+            _alertView = [[[NSBundle mainBundle] loadNibNamed:@"INVDefaultAccountAlertView" owner:nil options:nil] firstObject];
+            _alertView.delegate = self;
+            _alertView.translatesAutoresizingMaskIntoConstraints = NO;
+            _alertView.setAsDefaultContainer.hidden = YES;
         
-        [_alertView.acceptButton setTitle:NSLocalizedString(@"INVITE_ACCEPT", nil) forState:UIControlStateNormal];
-        [_alertView.cancelButton setTitle:NSLocalizedString(@"CANCEL", nil) forState:UIControlStateNormal];
+            [_alertView.acceptButton setTitle:NSLocalizedString(@"INVITE_ACCEPT", nil) forState:UIControlStateNormal];
+            [_alertView.cancelButton setTitle:NSLocalizedString(@"CANCEL", nil) forState:UIControlStateNormal];
         
-        _alertView.alertMessage.text = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), [notification.data accountName]];
+            _alertView.alertMessage.text = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), [notification.data accountName]];
         
-        [self.view.window addSubview:_alertView];
+            [self.view.window addSubview:_alertView];
         
-        [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+            [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+            [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        } else {
+            notification.dismissed = YES;
+            [self reloadData];
+        }
     }
     
-    if (notification.type == INVNotificationTypeProject && notification.data) {
-        INVProject *project = notification.data;
+    if (notification.type == INVNotificationTypeProject) {
+        if (notification.data) {
+            INVProject *project = notification.data;
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_TITLE", nil)
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_TITLE", nil)
                                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_MESSAGE", nil), project.name]
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_NO", nil) style:UIAlertActionStyleCancel handler:nil]];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_NO", nil) style:UIAlertActionStyleCancel handler:nil]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_YES", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self performSegueWithIdentifier:@"unwind" sender:nil];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_YES", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [self performSegueWithIdentifier:@"unwind" sender:nil];
             
-            INVMainViewController *mainViewController = (INVMainViewController *) [[UIApplication sharedApplication] keyWindow].rootViewController;
-            [mainViewController viewProject:project];
-            
-            [notification setDismissed:YES];
-            [self reloadData];
-        }]];
+                INVMainViewController *mainViewController = (INVMainViewController *) [[UIApplication sharedApplication] keyWindow].rootViewController;
+                [mainViewController viewProject:project];
+            }]];
         
-        [self presentViewController:alertController animated:YES completion:nil];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        
+        notification.dismissed = YES;
+        [self reloadData];
     }
 }
 
