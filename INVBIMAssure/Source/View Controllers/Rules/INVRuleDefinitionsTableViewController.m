@@ -116,7 +116,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
+
     
 }
 

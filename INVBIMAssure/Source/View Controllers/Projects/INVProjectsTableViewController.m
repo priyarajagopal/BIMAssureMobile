@@ -35,7 +35,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 @property (nonatomic,strong)INVGenericTableViewDataSource* dataSource;
 @property (nonatomic,strong)INVPagingManager* projectPagingManager;
 @property (nonatomic,weak)UILabel* updatedAtLabel;
-
+@property (nonatomic,assign)BOOL isNSFetchedResultsChangeTypeUpdated;
 @end
 
 @implementation INVProjectsTableViewController
@@ -327,11 +327,19 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    
+    // Note on special case:
+    // The project notifications periodically fetches the projects list in the background. This results in the local cache getting updated with GET results - anytime the core data cache is touched, the
+    // NSFetchedResultsController delegate is notified. The GET may not may not result in a change so we do not want to keep reloading the data.
+    // if the user has manually triggered a refresh or the view is loaded, the table view is reloaded.
+    if (!self.isNSFetchedResultsChangeTypeUpdated) {
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }
     
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+     self.isNSFetchedResultsChangeTypeUpdated = (type == NSFetchedResultsChangeUpdate);
     
 }
 
