@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
+            <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -36,7 +37,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0B-lg-bzL">
-                        <rect key="frame" x="261" y="0.0" width="59" height="83"/>
+                        <rect key="frame" x="261" y="0.0" width="59" height="82"/>
                         <color key="backgroundColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="59" id="x0b-jK-6O4"/>
@@ -52,16 +53,16 @@
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7QC-q5-nOn" userLabel="ruleContentView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uef-n8-Dcl">
-                                <rect key="frame" x="59" y="19" width="253" height="20"/>
+                                <rect key="frame" x="59" y="19" width="215" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Overview" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ad-3Y-ezM">
-                                <rect key="frame" x="59" y="47" width="253" height="17"/>
+                                <rect key="frame" x="59" y="47" width="215" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -75,17 +76,25 @@
                                 <color key="textColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tr6-cT-Xbw" userLabel="Warning Icon">
+                                <rect key="frame" x="282" y="27" width="30" height="30"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="30"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="uef-n8-Dcl" secondAttribute="trailing" constant="8" id="9VT-Ph-Qlh"/>
+                            <constraint firstAttribute="centerY" secondItem="tr6-cT-Xbw" secondAttribute="centerY" id="4zy-Gw-yLg"/>
                             <constraint firstItem="uef-n8-Dcl" firstAttribute="top" secondItem="7QC-q5-nOn" secondAttribute="top" constant="19" id="Kq7-eV-PKA"/>
                             <constraint firstItem="6Ad-3Y-ezM" firstAttribute="leading" secondItem="F8f-1U-DEP" secondAttribute="trailing" constant="8" id="MoD-tI-vGP"/>
                             <constraint firstItem="F8f-1U-DEP" firstAttribute="top" secondItem="7QC-q5-nOn" secondAttribute="top" constant="19" id="NDk-qA-btG"/>
                             <constraint firstItem="uef-n8-Dcl" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="42" id="QY6-gc-efz"/>
+                            <constraint firstAttribute="trailing" secondItem="tr6-cT-Xbw" secondAttribute="trailing" constant="8" id="Sfl-vH-dRL"/>
                             <constraint firstItem="uef-n8-Dcl" firstAttribute="leading" secondItem="F8f-1U-DEP" secondAttribute="trailing" constant="8" id="drs-jj-zMt"/>
-                            <constraint firstAttribute="trailing" secondItem="6Ad-3Y-ezM" secondAttribute="trailing" constant="8" id="h6z-B2-gjY"/>
+                            <constraint firstItem="tr6-cT-Xbw" firstAttribute="leading" secondItem="6Ad-3Y-ezM" secondAttribute="trailing" constant="8" id="hRd-yn-4m6"/>
                             <constraint firstItem="6Ad-3Y-ezM" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="42" id="jaR-U1-aMe"/>
+                            <constraint firstItem="tr6-cT-Xbw" firstAttribute="leading" secondItem="uef-n8-Dcl" secondAttribute="trailing" constant="8" id="ocA-XF-8V8"/>
                             <constraint firstItem="6Ad-3Y-ezM" firstAttribute="top" secondItem="uef-n8-Dcl" secondAttribute="bottom" constant="8" id="rzc-Wa-xQ9"/>
                             <constraint firstItem="F8f-1U-DEP" firstAttribute="leading" secondItem="7QC-q5-nOn" secondAttribute="leading" constant="9" id="z13-7F-BS9"/>
                         </constraints>
@@ -119,8 +128,9 @@
                 <outlet property="name" destination="uef-n8-Dcl" id="nnW-2Z-bDE"/>
                 <outlet property="overview" destination="6Ad-3Y-ezM" id="lQh-E5-xxb"/>
                 <outlet property="ruleContentView" destination="F2N-zD-R1X" id="zwH-bR-Yc6"/>
+                <outlet property="ruleWarning" destination="tr6-cT-Xbw" id="gJC-Mi-PlQ"/>
             </connections>
-            <point key="canvasLocation" x="508" y="531"/>
+            <point key="canvasLocation" x="508" y="526"/>
         </tableViewCell>
     </objects>
 </document>

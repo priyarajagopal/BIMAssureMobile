@@ -13,11 +13,12 @@
 #import "INVRuleSetTableViewHeaderView.h"
 #import "INVRuleSetManageFilesContainerViewController.h"
 #import "INVRuleDefinitionsTableViewController.h"
+#import "INVProjectListSplitViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
-@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate, INVRuleInstanceTableViewControllerDelegate, NSFetchedResultsControllerDelegate>
+@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,INVRuleSetTableViewHeaderViewAcionDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic, strong)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVRulesTableViewDataSource* dataSource;
@@ -53,8 +54,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
-
+    
+    INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
+    [splitVC.aggregateDelegate addDelegate:self];
+    [self configureDisplayModeButton];
+    
     self.tableView.dataSource = self.dataSource;
     [self fetchRuleSets];
 }
@@ -210,6 +214,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 #pragma mark - UIEVent handlers
 -(IBAction)manualDismiss:(UIStoryboardSegue*)segue {
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self fetchRuleSets];
 }
 
 -(void)onRefreshControlSelected:(id)event {
@@ -217,19 +223,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 #pragma mark - INVRuleInstanceTableViewControllerDelegate
--(void)onRuleInstanceModified:(INVRuleInstanceTableViewController*)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        
-     }];
-}
-
--(void)onRuleInstanceCreated:(INVRuleInstanceTableViewController*)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self performSelectorOnMainThread:@selector(refreshTablePostRuleInstanceCreation) withObject:nil waitUntilDone:NO];
-        
-    }];
-}
 
 -(void)refreshTablePostRuleInstanceCreation {
     [self fetchRuleSets];
@@ -274,7 +267,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INVRuleInstanceTableViewController* ruleInstanceTVC = segue.destinationViewController;
         ruleInstanceTVC.ruleInstanceId = self.selectedRuleInstanceId;
         ruleInstanceTVC.ruleSetId = self.selectedRuleSetId;
-        ruleInstanceTVC.delegate = self;
     }
     if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
         INVRuleSetManageFilesContainerViewController* rulesetFilesTVC = segue.destinationViewController;
@@ -284,7 +276,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
         INVRuleDefinitionsTableViewController* ruleDefnTVC = segue.destinationViewController;
         ruleDefnTVC.ruleSetId = self.selectedRuleSetId;
-        ruleDefnTVC.createRuleInstanceDelegate = self;
     }
     
 }
@@ -305,8 +296,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                 cell.ruleInstanceId = ruleInstance.ruleInstanceId;
                 cell.ruleSetId = ruleInstance.ruleSetId;
                 cell.actionDelegate = self;
+                
+                cell.ruleWarning.hidden = ([ruleInstance.emptyParamCount integerValue] == 0);
             }
-            
         };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleInstanceCell" configureBlock:cellConfigurationBlock];
     }
@@ -339,7 +331,26 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 
+#pragma mark - UISplitViewControllerDelegate
 
+-(void) configureDisplayModeButton {
+    INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
+    
+    if (splitVC.displayMode == UISplitViewControllerDisplayModeAllVisible) {
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = splitVC.displayModeButtonItem;
+    } else {
+        self.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem;
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
+
+-(void) splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self configureDisplayModeButton];
+    });
+}
 
 #pragma mark - helpers
 -(void)showLoadProgress {

@@ -278,7 +278,12 @@
                                 <navigationItem title="Rule" id="5yB-O5-SyI">
                                     <barButtonItem key="leftBarButtonItem" title="Cancel" id="dEu-75-bB8">
                                         <connections>
-                                            <segue destination="BhX-XE-e4j" kind="unwind" identifier="CancelSegue" unwindAction="manualDismiss:" id="A1b-CF-jnF"/>
+                                            <segue destination="BhX-XE-e4j" kind="unwind" identifier="unwind" unwindAction="manualDismiss:" id="A1b-CF-jnF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem key="rightBarButtonItem" title="Save" id="wqK-ha-n4d">
+                                        <connections>
+                                            <action selector="onSaveRuleInstanceTapped:" destination="1ma-4v-SeD" id="aEi-Fr-50h"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -299,6 +304,7 @@
                     </tableView>
                     <connections>
                         <outlet property="navigationBar" destination="Gjl-oh-30q" id="J2R-EA-oWp"/>
+                        <outlet property="saveBarButton" destination="wqK-ha-n4d" id="THk-Qj-xGh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tke-Ms-i6G" userLabel="First Responder" sceneMemberID="firstResponder"/>

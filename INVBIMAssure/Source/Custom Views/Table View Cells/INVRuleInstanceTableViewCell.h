@@ -29,6 +29,8 @@
 @property (copy, nonatomic) NSNumber* ruleSetId;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *overview;
+@property (weak, nonatomic) IBOutlet UILabel *ruleWarning;
+
 @property (weak, nonatomic) id<INVRuleInstanceTableViewCellActionDelegate> actionDelegate;
 @property (weak, nonatomic) id<INVRuleInstanceTableViewCellStateDelegate> stateDelegate;
 

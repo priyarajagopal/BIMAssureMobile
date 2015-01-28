@@ -38,8 +38,8 @@ static NSString* INV_ActualParamValue = @"Value";
 
 @property (nonatomic,strong)UIAlertController* successAlertController;
 
-@property (nonatomic, strong)UIBarButtonItem* saveBarButton;
-@property (nonatomic, weak)UITableViewCell* ruleInstanceCellBeingEdited;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem* saveBarButton;
+@property (nonatomic, weak) UITableViewCell* ruleInstanceCellBeingEdited;
 
 @end
 
@@ -74,7 +74,6 @@ static NSString* INV_ActualParamValue = @"Value";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationBar.topItem setRightBarButtonItem:self.saveBarButton];
     [self.saveBarButton setEnabled:NO];
 
     [self setupTableViewDataSource];
@@ -361,25 +360,15 @@ static NSString* INV_ActualParamValue = @"Value";
 }
 
 -(void)showSuccessAlertMessage:(NSString*)message isCreated:(BOOL)created{
-    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self.successAlertController dismissViewControllerAnimated:YES completion:nil];
-        if (created) {
-            if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceCreated:)]) {
-                [self.delegate onRuleInstanceCreated:self];
-            }
-        }
-        else {
-            if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceModified:)]) {
-                [self.delegate onRuleInstanceModified:self];
-            }
-        }
-     }];
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction *action) {
+                                                       [self performSegueWithIdentifier:@"unwind" sender:nil];
+                                                   }];
+    
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
     [self.successAlertController addAction:action];
-    [self presentViewController:self.successAlertController animated:YES completion:^{
-        
-    }];
-
+    [self presentViewController:self.successAlertController animated:YES completion:nil];
 }
 
 -(void)makeFirstResponderTextFieldAtCellIndexPath:(NSIndexPath*)indexPath {
@@ -471,14 +460,6 @@ static NSString* INV_ActualParamValue = @"Value";
         _intermediateRuleInstanceActualParams = [[NSMutableArray alloc]initWithCapacity:0];
     }
     return _intermediateRuleInstanceActualParams;
-}
-
--(UIBarButtonItem*)saveBarButton {
-    if (!_saveBarButton) {
-        
-       _saveBarButton = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"SAVE",nil) style:UIBarButtonItemStyleDone target:self action:@selector(onSaveRuleInstanceTapped:)];
-    }
-    return _saveBarButton;
 }
 
 -(INVGenericTableViewDataSource*)dataSource {

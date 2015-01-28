@@ -75,6 +75,9 @@
 
 "DELETE_THE_SELECTED_RULE"="Do you wish to delete the selected rule?";
 
+"UNCONFIGURED_RULE_INSTANCE_TITLE"="Rule Instance unconfigured";
+"UNCONFIGURED_RULE_INSTANCE_MESSAGE"="This rule instance has one or more fields empty. Before you can run this rule, you must first fix it. If you would like to fix it now, please tap 'fix'.";
+"UNCONFIGURED_RULE_INSTANCE_NAVIGATE"="Fix";
 
 "CONFIRM_DELETE_PROJECT"="Confirm Delete";
 "CONFIRM_DELETE_PROJECT_MESSAGE"="Are you sure you want to delete this project? This cannot be undone!";

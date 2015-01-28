@@ -16,6 +16,9 @@
 #import "INVSearchView.h"
 #import "UIImage+INVCustomizations.h"
 #import "INVPagingManager+PackageMasterListing.h"
+#import "INVProjectListSplitViewController.h"
+#import "UISplitViewController+ToggleSidebar.h"
+
 #include <sys/utsname.h>
 
 @import  CoreData;
@@ -25,7 +28,9 @@ static const NSInteger CELL_HEIGHT = 282;
 static const NSInteger SEARCH_BAR_HEIGHT = 45;
 static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
-@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource, INVSearchViewDelegate, INVPagingManagerDelegate>
+@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource, INVSearchViewDelegate, INVPagingManagerDelegate, UISplitViewControllerDelegate>
+
+@property BOOL shouldShowSidebarOnReappear;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)NSNumber* selectedModelId;
@@ -57,8 +62,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [currLayout setItemSize:CGSizeMake(CELL_WIDTH,CELL_HEIGHT)];
     
     self.packagesPagingManager = [[INVPagingManager alloc]initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
-    
- 
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,7 +71,19 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationItem setLeftBarButtonItem: [self.splitViewController displayModeButtonItem]];
+    
+    INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
+    [splitVC.aggregateDelegate addDelegate:self];
+    [self configureDisplayModeButton];
+    
+    if (self.shouldShowSidebarOnReappear) {
+        if (splitVC.displayMode != UISplitViewControllerDisplayModeAllVisible) {
+            [splitVC toggleSidebar];
+        }
+        
+        self.shouldShowSidebarOnReappear = NO;
+    }
+    
     [self fetchPackagesFromCurrentOffset];
 }
 
@@ -78,6 +93,19 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     self.projectManager = nil;
     self.searchView = nil;
 }
+
+-(void) configureDisplayModeButton {
+    INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
+    
+    if (splitVC.displayMode == UISplitViewControllerDisplayModeAllVisible) {
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = splitVC.displayModeButtonItem;
+    } else {
+        self.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem;
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -128,10 +156,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
             }
         }];
     }
-
     
 #warning - eventually deal with file versions
-    
     return cell;
 }
 
@@ -289,6 +315,12 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         
         modelViewerController.modelId = self.selectedModelId;
         modelViewerController.fileVersionId = self.selectedFileTipId;
+        
+        if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible) {
+            [self.splitViewController toggleSidebar];
+            
+            self.shouldShowSidebarOnReappear = YES;
+        }
     }
      if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
          INVFileManageRuleSetsContainerViewController* vc = (INVFileManageRuleSetsContainerViewController*)segue.destinationViewController;
@@ -413,6 +445,13 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     // TODO: Save search
 }
 
+#pragma mark - UISplitViewControllerDelegate
+
+-(void) splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self configureDisplayModeButton];
+    });
+}
 
 #pragma mark - helpers
 -(void) showLoadProgress {

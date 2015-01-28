@@ -12,5 +12,5 @@
 
 @interface INVRuleDefinitionsTableViewController : INVCustomTableViewController
 @property (nonatomic,copy) NSNumber* ruleSetId;
-@property (nonatomic, weak) id<INVRuleInstanceTableViewControllerDelegate> createRuleInstanceDelegate;
+
 @end

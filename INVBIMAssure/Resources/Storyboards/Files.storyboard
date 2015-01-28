@@ -585,10 +585,27 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
+                        <outlet property="ruleConfigurationTransitionObject" destination="cus-uF-qbP" id="rXr-gm-8Ck"/>
                         <outlet property="runRulesButton" destination="woV-vS-CyH" id="qNE-D7-4x8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMO-OO-EVb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="cus-uF-qbP" userLabel="Modify Rule Instance Modal" customClass="INVTransitionToStoryboard">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="CreateRuleInstanceTVC"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="ModifyRuleInstanceSegue"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="modalPresentationStyle">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="lYF-B1-91r" id="nXS-XW-Q72"/>
+                    </connections>
+                </customObject>
                 <exit id="DR1-lY-qqf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3862" y="4205"/>
