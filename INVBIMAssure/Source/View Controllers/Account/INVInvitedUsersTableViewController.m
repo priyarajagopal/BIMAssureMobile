@@ -155,16 +155,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                                                                                   NSLog(@"%@", error);
                                                                                   return;
                                                                               }
-                                                                              //NSError* dbError;
-                                                                              //[weakSelf.dataResultsController performFetch:&dbError];
-                                                                              /*
-                                                                              if (!dbError) {
-                                                                                  [weakSelf.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                                                                              }
-                                                                               */
-                                                                              
-                                                                             // [weakSelf fetchListOfInvitedUsers];
-                                                                          }];
+                                                                            }];
                                                                       }]];
             
             [weakSelf presentViewController:confirmDeleteController animated:YES completion:nil];
@@ -214,24 +205,36 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 #pragma mark - NSFetchedResultsControllerDelegate
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    
+    [self.tableView beginUpdates];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     NSLog(@"%s",__func__);
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    [self.tableView endUpdates];
+  //  [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     NSLog(@"%s anObject:%@ forChangeType %ld",__func__,anObject,type);
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            default:
+            NSLog (@"%s. Received Unsupported change object type %ld",__func__,type);
+            break;
+    }
     
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    NSLog(@"%s",__func__);
-    
-}
 
 #pragma mark - UIRefreshControl
 -(void)onRefreshControlSelected:(id)event {
