@@ -12,6 +12,7 @@
 #import "INVRunRuleSetHeaderView.h"
 #import "INVBlockUtils.h"
 #import "INVRuleInstanceTableViewController.h"
+#import "INVBlockUtils.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 60;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
@@ -206,14 +207,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
      
         if (!error) {
             [self updateRuleSetsFromServer ];
-            if (!self.ruleSets.count) {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_EMPTY", nil),error.code]];
-                [self presentViewController:errController animated:YES completion:nil];
-            }
-            else {
-                [self.runRulesButton setEnabled:YES];
-            }
-            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),error.code]];
@@ -362,13 +355,49 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
-
 }
+
+// Most of this stuff will go away
 -(void)updateRuleSetsFromServer {
     NSSet *rulesetIdsInFile = [self.rulesManager ruleSetIdsForPkgMaster:self.fileMasterId];
+    NSInteger numRSIds = rulesetIdsInFile.count;
+    id errorBlock = ^(void) {
+        UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_EMPTY", nil)]];
+        [self presentViewController:errController animated:YES completion:nil];
+        
+    };
     
-    INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:rulesetIdsInFile]mutableCopy];
-    self.ruleSets = ruleSetsAssociatedWithFile;
+    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
+        
+        INVRuleSetMutableArray ruleSetsAssociatedWithFile = [[self.rulesManager ruleSetsForIds:rulesetIdsInFile]mutableCopy];
+        self.ruleSets = ruleSetsAssociatedWithFile;
+        // Display error
+        if (!self.ruleSets.count) {
+            [errorBlock invoke];
+        }
+        else {
+            [self.runRulesButton setEnabled:YES];
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }
+        
+    } afterNumberOfCalls:numRSIds];
+    
+    [rulesetIdsInFile enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        NSNumber* ruleSetId = obj;
+        
+        [self.globalDataManager.invServerClient getRuleSetForRuleSetId:ruleSetId WithCompletionBlock:^(INVEmpireMobileError *error) {
+            if (!error) {
+                [successBlock invoke];
+                
+            }
+            else {
+                [errorBlock invoke];
+            }
+            
+        }];
+    }];
+    
+    
 }
 -(void)logRulesToConsole {
     [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

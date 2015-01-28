@@ -230,8 +230,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(void)refreshSelectedRows {
    
-    NSLog(@"%s. numObjects %@",__func__,self.dataResultsController.fetchedObjects);
-    NSIndexPath* indexPathOfSelectedRow = [self.tableView indexPathForSelectedRow];
+     NSIndexPath* indexPathOfSelectedRow = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadRowsAtIndexPaths:@[indexPathOfSelectedRow] withRowAnimation:UITableViewRowAnimationAutomatic];
  
 }
@@ -242,7 +241,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"%s",__func__);
    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 

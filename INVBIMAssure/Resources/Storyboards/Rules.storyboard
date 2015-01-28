@@ -349,6 +349,11 @@
                                             <segue destination="BhX-XE-e4j" kind="unwind" identifier="CancelSegue" unwindAction="manualDismiss:" id="cbc-qK-xbU"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem key="rightBarButtonItem" title="Save" id="9PK-b7-cuE">
+                                        <connections>
+                                            <action selector="onSaveRuleInstanceTapped:" destination="ako-p8-m6l" id="0oy-iJ-Y3z"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </navigationItem>
                             </items>
                         </navigationBar>
@@ -367,6 +372,7 @@
                     </tableView>
                     <connections>
                         <outlet property="navigationBar" destination="gBv-rY-nWp" id="GSE-m5-0gp"/>
+                        <outlet property="saveBarButton" destination="9PK-b7-cuE" id="lSM-cx-ddz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgh-l2-OgT" userLabel="First Responder" sceneMemberID="firstResponder"/>

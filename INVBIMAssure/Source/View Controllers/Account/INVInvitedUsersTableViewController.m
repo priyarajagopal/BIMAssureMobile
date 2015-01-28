@@ -214,7 +214,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"%s",__func__);
     [self.tableView endUpdates];
 }
 

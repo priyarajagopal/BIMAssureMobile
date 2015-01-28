@@ -558,7 +558,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"%s",__func__);
     [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
