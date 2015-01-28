@@ -15,7 +15,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 100;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
-@interface INVRuleExecutionsTableViewController ()
+@interface INVRuleExecutionsTableViewController () <NSFetchedResultsControllerDelegate>
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)INVRulesManager* rulesManager;
 @property (nonatomic,strong)INVRuleExecutionManager* rulesExecManager;
@@ -40,8 +40,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.estimatedSectionHeaderHeight = DEFAULT_HEADER_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.refreshControl = nil;
-    
+     
 }
 
 - (void)didReceiveMemoryWarning {
@@ -186,38 +185,68 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 #pragma mark - server side
 
 -(void)fetchExecutionsForFilesFromServer {
-    [self showLoadProgress];
+    if (![self.refreshControl isRefreshing]) {
+        [self showLoadProgress];
+    }
 
     [self.globalDataManager.invServerClient fetchRuleExecutionsForPackageVersionId:self.fileVersionId withCompletionBlock:^(INVEmpireMobileError *error) {
-          [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        if ([self.refreshControl isRefreshing]) {
+            [self.refreshControl endRefreshing];
+        }
+        else {
+            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        }
         
-          if (!error) {
-            NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
-            id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[0];
-              
-            if (!dbError) {
-                NSLog(@"%s. %lu of size %lu with num sections %@ ",__func__,(unsigned long)objectInSection.numberOfObjects, (unsigned long)self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-             }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
-
-            }
-          }
-          else {
-              UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),error.code]];
-              [self presentViewController:errController animated:YES completion:^{
-                  
-              }];
-
-          }
-  
+        
+        if (!error) {
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            
+        }
+        else {
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
+            
+        }
         
     }];
+    
+}
+
+
+#pragma mark - UIEvent handler
+-(void) onRefreshControlSelected:(id) sender {
+    [self.refreshControl beginRefreshing];
+    [self fetchExecutionsForFilesFromServer];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        default:
+      //      NSLog (@"%s. Received Unsupported change object type %ld",__func__,type);
+            break;
+    }
     
 }
 
@@ -262,6 +291,14 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         [fetchRequest setPredicate:fetchPredicate];
   
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.rulesManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+         _dataResultsController.delegate = self;
+        NSError* dbError;
+        [_dataResultsController performFetch:&dbError];
+        
+        if (dbError) {
+            _dataResultsController = nil;
+        }
+
         
     }
     return  _dataResultsController;
