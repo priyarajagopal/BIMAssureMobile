@@ -790,9 +790,9 @@
 		F5789CEF1A642A5500D8CEE7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F5789CFF1A642A5500D8CEE7 /* Base View Controllers  */,
 				F5426D571A6816B40040B2B5 /* Notifications */,
 				F5789CF01A642A5500D8CEE7 /* Account */,
-				F5789CFF1A642A5500D8CEE7 /* Base View Controllers  */,
 				F5789D0E1A642A5500D8CEE7 /* Packages */,
 				F5789D151A642A5500D8CEE7 /* Projects */,
 				F5789D241A642A5500D8CEE7 /* Rules */,

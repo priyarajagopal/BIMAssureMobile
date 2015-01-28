@@ -28,7 +28,12 @@ static const NSInteger CELL_HEIGHT = 282;
 static const NSInteger SEARCH_BAR_HEIGHT = 45;
 static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
-@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource, INVSearchViewDelegate, INVPagingManagerDelegate, UISplitViewControllerDelegate>
+@interface INVProjectFilesListViewController ()<INVProjectFileCollectionViewCellDelegate,
+                                                INVSearchViewDataSource,
+                                                INVSearchViewDelegate,
+                                                INVPagingManagerDelegate,
+                                                UISplitViewControllerDelegate,
+                                                NSFetchedResultsControllerDelegate>
 
 @property BOOL shouldShowSidebarOnReappear;
 @property (nonatomic,strong)INVProjectManager* projectManager;
@@ -195,19 +200,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
     
     if (!error) {
-        NSError* dbError;
-        [self.dataResultsController performFetch:&dbError];
-        if (!dbError) {
-            NSLog(@"%s. %@",__func__,self.dataResultsController.fetchedObjects);
-            [self.collectionView reloadData];
-        }
-        else {
-            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTFILES_LOAD", nil),dbError.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
-        }
-        
+        [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
     }
     else {
         if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
@@ -231,6 +225,14 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         [fetchRequest setPredicate:matchPredicate];
 
          _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        _dataResultsController.delegate = self;
+        NSError* dbError;
+        [_dataResultsController performFetch:&dbError];
+        
+        if (dbError) {
+            _dataResultsController = nil;
+        }
+
         
     }
     return  _dataResultsController;
@@ -451,6 +453,16 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self configureDisplayModeButton];
     });
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+   
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
 }
 
 #pragma mark - helpers
