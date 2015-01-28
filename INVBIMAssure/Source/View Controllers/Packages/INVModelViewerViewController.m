@@ -188,7 +188,7 @@ void classDump(Class);
         self->_vertexCount += [mesh vertexCount];
         self->_triangleCount += [mesh triangleCount];
         
-        NSLog(@"Currently: %10lu verts, %10lu tris.", (unsigned long)self->_vertexCount, (unsigned long)self->_triangleCount);
+        INVLogDebug(@"Currently: %10lu verts, %10lu tris.", (unsigned long)self->_vertexCount, (unsigned long)self->_triangleCount);
         
         if ([self->_meshes count] == 0) {
             [self _resetCamera];
@@ -315,7 +315,7 @@ void classDump(Class);
             
             if (elementId) {
                 [mesh setColorOfElementWithId:elementId withColor:GLKVector4Make(1, 0, 1, 1)];
-                NSLog(@"%@", elementId);
+                INVLogDebug(@"%@", elementId);
             }
         }
          */

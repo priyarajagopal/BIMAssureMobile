@@ -197,28 +197,19 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
             id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[0];
               
             if (!dbError) {
-                NSLog(@"%s. %lu of size %lu with num sections %@ ",__func__,(unsigned long)objectInSection.numberOfObjects, (unsigned long)self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
+                INVLogDebug(@"%lu of size %lu with num sections %@ ", (unsigned long)objectInSection.numberOfObjects, (unsigned long)self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
              }
             else {
                 UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
-
+                [self presentViewController:errController animated:YES completion:nil];
             }
           }
           else {
               UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),error.code]];
-              [self presentViewController:errController animated:YES completion:^{
-                  
-              }];
-
+              [self presentViewController:errController animated:YES completion:nil];
           }
-  
-        
     }];
-    
 }
 
 #pragma mark - accessor

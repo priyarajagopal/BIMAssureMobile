@@ -216,7 +216,8 @@ static yajl_callbacks callbacks = {
         [blockDelegate retainSelf];
         
         blockDelegate.didFailWithError = ^(NSURLConnection *connection, NSError *error) {
-            NSLog(@"NSURLConnection error: %@", error);
+            INVLogError(@"NSURLConnection error: %@", error);
+            
             [weakBlockDelegate releaseSelf];
             
             dispatch_semaphore_signal(consumeSemaphore);
@@ -261,7 +262,7 @@ static yajl_callbacks callbacks = {
         if (event == NSStreamEventErrorOccurred) {
             [stream close];
             
-            NSLog(@"Stream error occurred!");
+            INVLogError(@"Stream error occurred!");
             [weakBlockDelegate releaseSelf];
             
             return;
@@ -272,7 +273,7 @@ static yajl_callbacks callbacks = {
             NSMutableData *buffer = [NSMutableData dataWithLength:length];
             
             if (![inputStream read:[buffer mutableBytes] maxLength:[buffer length]]) {
-                NSLog(@"InputStream read:maxLength: error.");
+                INVLogError(@"NSInputStream read error");
                 return;
             }
                 

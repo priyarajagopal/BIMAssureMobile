@@ -283,7 +283,7 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
     [self.globalDataManager.invServerClient signUpUserWithName:name andEmail:email andPassword:pass withAccountName:accountName accountDescription:acntDesc subscriptionType:package withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideSignupProgress];
         if (!error) {
-            NSLog(@"Succesfully signedup user %@ and created account %@",name,accountName);
+            INVLogDebug(@"Succesfully signedup user %@ and created account %@",name,accountName);
             self.signupSuccess = YES;
         }
         else {
@@ -303,7 +303,8 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
     [self.globalDataManager.invServerClient signUpUserWithName:name email:email password:pass withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideSignupProgress];
         if (!error) {
-            NSLog(@"Succesfully signedup user %@ ",name);
+            INVLogDebug(@"Succesfully signedup user %@ ",name);
+            
             self.globalDataManager.invitationCodeToAutoAccept = self.invitationCodeTextField.text;
             self.signupSuccess = YES;
         }
@@ -327,7 +328,8 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
     [self.globalDataManager.invServerClient  createAccountForSignedInUserWithAccountName:accountName accountDescription:acntDesc subscriptionType:package forUserEmail:email withCompletionBlock:^(INVEmpireMobileError *error) {
         [self hideSignupProgress];
         if (!error) {
-            NSLog(@"Succesfully created account  %@ ",accountName);
+            INVLogDebug(@"Succesfully created account  %@",accountName);
+            
             self.signupSuccess = YES;
         }
         else {

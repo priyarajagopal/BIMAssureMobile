@@ -78,7 +78,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     if (![self.refreshControl isRefreshing]) {
         [self showLoadProgress];
     }
-    NSLog(@"%s",__func__);
+    
+    INVLogDebug();
     [self.globalDataManager.invServerClient getAllRuleSetsForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError *error) {
         if ([self.refreshControl isRefreshing]) {
             [self.refreshControl endRefreshing];
@@ -229,8 +230,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 -(void)refreshSelectedRows {
-   
-    NSLog(@"%s. numObjects %@",__func__,self.dataResultsController.fetchedObjects);
+    INVLogDebug(@"numObjects %@", self.dataResultsController.fetchedObjects);
+    
     NSIndexPath* indexPathOfSelectedRow = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadRowsAtIndexPaths:@[indexPathOfSelectedRow] withRowAnimation:UITableViewRowAnimationAutomatic];
  
@@ -242,8 +243,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"%s",__func__);
-   [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    INVLogDebug();
+    
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 
@@ -323,7 +325,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         NSError* dbError = nil;
         [_dataResultsController performFetch:&dbError];
         if (dbError) {
-            NSLog(@"%s. perform fetch failed with %@",__func__,dbError);
+            INVLogError(@"Perform fetch failed with %@", dbError);
             _dataResultsController = nil;
         }
     }
@@ -361,13 +363,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 -(void)logRulesToConsole {
     INVRuleSetArray ruleSetsForProject = [self.globalDataManager.invServerClient.rulesManager ruleSetsForProject:self.projectId];
-    NSLog(@"Rule sets for %@ is %@",self.projectId,ruleSetsForProject);
+    INVLogDebug(@"Rule sets for %@ is %@",self.projectId,ruleSetsForProject);
 
-    
     [self.dataResultsController.fetchedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleSet* ruleSet = obj;
         [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSLog(@"Rule Instance for ruleset $%@ is %@\n",ruleSet.ruleSetId, obj);
+            INVLogDebug(@"Rule Instance for ruleset $%@ is %@\n",ruleSet.ruleSetId, obj);
         }];
     }];
 }

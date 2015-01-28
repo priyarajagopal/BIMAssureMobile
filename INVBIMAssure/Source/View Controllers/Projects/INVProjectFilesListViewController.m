@@ -181,7 +181,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.dataResultsController.fetchedObjects.count- indexPath.row ==  DEFAULT_FETCH_PAGE_SIZE/4) {
-        NSLog(@"%s. Will fetch next batch",__func__);
+        INVLogDebug(@"Will fetch next batch");
+        
         [self fetchPackagesFromCurrentOffset];
     }
 }

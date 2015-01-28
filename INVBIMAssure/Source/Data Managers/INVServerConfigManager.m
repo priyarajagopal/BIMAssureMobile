@@ -60,8 +60,8 @@
         
         dispatch_semaphore_signal(completionSemaphore);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Config HTTP error: %@", error);
-        NSLog(@"Config error: %@", [[NSString alloc] initWithData:error.userInfo[@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding]);
+        INVLogError(@"Config HTTP error: %@", error);
+        INVLogError(@"Config error: %@", [[NSString alloc] initWithData:error.userInfo[@"com.alamofire.serialization.response.error.data"] encoding:NSUTF8StringEncoding]);
         
         dispatch_semaphore_signal(completionSemaphore);
     }] start];
@@ -141,7 +141,7 @@
         return;
     }
     
-    NSLog(@"Warning! Failed to load from config in application bundle! Trouble ahead.");
+    INVLogCritical(@"Failed to load from config in application bundle! Trouble ahead.");
 }
 
 -(void) loadDefaultConfig {

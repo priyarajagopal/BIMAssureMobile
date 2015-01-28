@@ -128,10 +128,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     
     [self.globalDataManager.invServerClient addToPkgMaster:self.fileId ruleSets:[updatedRuleSetIds allObjects] withCompletionBlock:^(INVEmpireMobileError *error) {
         if (error ) {
-            NSLog(@"Failed to add rule set %@ for pkg master %@ with error %@",updatedRuleSetIds,self.fileId,error);
+            INVLogError(@"Failed to add rule set %@ for pkg master %@ with error %@", updatedRuleSetIds,self.fileId,error);
         }
         else {
-            NSLog(@"Succesfully added rule set %@ for pkg master %@ ",updatedRuleSetIds,self.fileId);
+            INVLogDebug(@"Succesfully added rule set %@ for pkg master %@ ", updatedRuleSetIds,self.fileId);
         }
     }];
 
@@ -149,13 +149,13 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     
     [currentRuleSetsForPkgMaster enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         NSNumber* idToRemove = obj;
-        NSLog(@"Will remove rule set Id %@",idToRemove);
+        INVLogDebug(@"Will remove rule set Id %@",idToRemove);
         [self.globalDataManager.invServerClient removeFromPkgMaster:self.fileId ruleSet:idToRemove withCompletionBlock:^(INVEmpireMobileError *error) {
             if (error ) {
-                NSLog(@"Failed to remove rule set %@ for pkg master %@ with error %@",idToRemove,self.fileId,error);
+                INVLogError(@"Failed to remove rule set %@ for pkg master %@ with error %@",idToRemove,self.fileId,error);
             }
             else {
-                NSLog(@"Succesfully removed rule set %@ for pkg master %@ ",idToRemove,self.fileId);
+                INVLogDebug(@"Succesfully removed rule set %@ for pkg master %@ ",idToRemove,self.fileId);
             }
         }];
     }];

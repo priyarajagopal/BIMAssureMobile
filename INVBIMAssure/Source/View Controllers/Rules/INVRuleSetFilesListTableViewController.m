@@ -138,11 +138,11 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [updatedPkgMasterIds minusSet:currentPkgMastersForRuleSet];
     
     [self.globalDataManager.invServerClient addToRuleSet:self.ruleSetId pkgMasters:[updatedPkgMasterIds allObjects] withCompletionBlock:^(INVEmpireMobileError *error) {
-        if (error ) {
-            NSLog(@"Failed to add pkg masters  %@ for rule set %@ with error %@",updatedPkgMasterIds,self.ruleSetId,error);
+        if (error) {
+            INVLogError(@"Failed to add pkg masters %@ for rule set %@ with error %@",updatedPkgMasterIds,self.ruleSetId,error);
         }
         else {
-            NSLog(@"Succesfully added pkg master %@ for rule set %@ ",updatedPkgMasterIds,self.ruleSetId);
+            INVLogDebug(@"Succesfully added pkg master %@ for rule set %@", updatedPkgMasterIds, self.ruleSetId);
         }
     }];
     
@@ -162,10 +162,10 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         NSNumber* pkgMasterToRemove = obj;
         [self.globalDataManager.invServerClient removeFromRuleSet:self.ruleSetId pkgMaster:pkgMasterToRemove  withCompletionBlock:^(INVEmpireMobileError *error) {
             if (error ) {
-                NSLog(@"Failed to remove pkg masters  %@ for rule set %@ with error %@",pkgMasterToRemove,self.ruleSetId, error);
+                INVLogError(@"Failed to remove pkg masters  %@ for rule set %@ with error %@",pkgMasterToRemove,self.ruleSetId, error);
             }
             else {
-                NSLog(@"Succesfully removed pkg master %@ for rule set %@ ",updatedPkgMasterIds,self.ruleSetId);
+                INVLogDebug(@"Succesfully removed pkg master %@ for rule set %@", updatedPkgMasterIds,self.ruleSetId);
             }
         }];
 
@@ -356,7 +356,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.files.count - indexPath.row ==  DEFAULT_FETCH_PAGE_SIZE/4) {
-        NSLog(@"%s. Will fetch next batch",__func__);
+        INVLogDebug(@"Will fetch next batch");
+        
         [self fetchPackagesFromCurrentOffset];
     }
 }

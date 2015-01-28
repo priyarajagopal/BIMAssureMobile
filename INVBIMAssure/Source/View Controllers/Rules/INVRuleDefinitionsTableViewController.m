@@ -110,7 +110,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"%s",__func__);
+    INVLogDebug(@"");
+    
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
@@ -121,8 +122,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    NSLog(@"%s",__func__);
-    
+    INVLogDebug(@"");
 }
 
 #pragma mark - Navigation
@@ -177,7 +177,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         NSError* dbError = nil;
         [_dataResultsController performFetch:&dbError];
         if (dbError) {
-            NSLog(@"%s. perform fetch failed with %@",__func__,dbError);
+            INVLogError(@"Perform fetch failed with %@", dbError);
+            
             _dataResultsController = nil;
         }
     }

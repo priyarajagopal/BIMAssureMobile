@@ -152,7 +152,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
             CTMuint vertCount = ctmGetInteger(context, CTM_VERTEX_COUNT);
             CTMuint triCount = ctmGetInteger(context, CTM_TRIANGLE_COUNT);
             
-            NSLog(@"Failed to parse geometry with verts: %u, tris: %u", vertCount, triCount);
+            INVLogInfo(@"Failed to parse geometry with verts: %u, tris: %u", vertCount, triCount);
             break;
         }
         
@@ -253,7 +253,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData) {
 #pragma mark - INVStreamBasedJSONParserDelegate
 
 -(BOOL) jsonParser:(INVStreamBasedJSONParser *)parser shouldRecoverFromError:(NSError *)error {
-    NSLog(@"JSON parser error: %@", error);
+    INVLogError(@"JSON parser error: %@", error);
     
     return NO;
 }

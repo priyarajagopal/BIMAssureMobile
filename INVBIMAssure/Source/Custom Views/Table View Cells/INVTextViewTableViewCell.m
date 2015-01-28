@@ -34,12 +34,12 @@ static NSInteger BASELINE_HEIGHT = 200;
 #pragma mark - UITextViewDelegate
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

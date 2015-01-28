@@ -84,7 +84,7 @@
 }
 
 -(void) passwordChangedError:(INVEmpireMobileError *) error {
-    NSLog(@"%s %@", __func__, error);
+    INVLogError(@"%@", error);
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PASSWORD_CHANGE_FAILED_TITLE", nil)
                                                                              message:NSLocalizedString(@"PASSWORD_CHANGE_FAILED_MESSAGE", nil)

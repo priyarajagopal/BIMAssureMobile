@@ -157,7 +157,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                                                                       handler:^(UIAlertAction *action) {
                                                                           [weakSelf.globalDataManager.invServerClient cancelInviteWithInvitationId:cellData.invitationId withCompletionBlock:^(INVEmpireMobileError *error) {
                                                                               if (error) {
-                                                                                  NSLog(@"%@", error);
+                                                                                  INVLogError(@"%@", error);
                                                                                   return;
                                                                               }
                                                                             }];
@@ -214,7 +214,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
+    
     [self.tableView endUpdates];
 }
 
@@ -232,7 +233,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                              withRowAnimation:UITableViewRowAnimationFade];
             break;
             default:
-            NSLog (@"%s. Received Unsupported change object type %ld",__func__,type);
+            INVLogWarning(@"Received Unsupported change object type %u", type);
             break;
     }
     

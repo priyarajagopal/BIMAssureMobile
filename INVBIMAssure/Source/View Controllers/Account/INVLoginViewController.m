@@ -117,7 +117,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 }
 
 -(IBAction)done:(UIStoryboardSegue*)segue {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
+    
     [self removeSignupObservers];
     self.signupController = nil;
 }
@@ -156,12 +157,11 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
             self.globalDataManager.loggedInUser = self.emailTextEntry.text;
             self.userToken = self.globalDataManager.invServerClient.accountManager.tokenOfSignedInUser;
             
-            NSLog(@"%s. Result of signing in is %@. TOken is %@",__func__,error, self.userToken);
-            self.loginSuccess = YES;
-        }
-        else {
-            [self showLoginFailureAlert];
+            INVLogDebug(@"Token is %@", self.userToken);
             
+            self.loginSuccess = YES;
+        } else {
+            [self showLoginFailureAlert];
         }
     }];
 }
@@ -172,7 +172,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     NSError* error = [self.globalDataManager saveCredentialsInKCForLoggedInUser:self.emailTextEntry.text withPassword:self.passwordTextEntry.text ];
     if (error) {
         // silently ignoring error
-        NSLog(@"%s. Failed with %@",__func__,error);
+        INVLogError(@"%@", error);
     }
 }
 
@@ -276,7 +276,8 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 #pragma mark - KBO
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
+    
     if ([keyPath isEqualToString:KVO_INVSignupSuccess]) {
      
         NSString* signedupEmail = self.signupController.signupEmail;

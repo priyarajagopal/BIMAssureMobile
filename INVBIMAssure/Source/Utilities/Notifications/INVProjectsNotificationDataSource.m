@@ -28,7 +28,7 @@
     
     [[INVGlobalDataManager sharedInstance].invServerClient getAllProjectsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         if (error) {
-            NSLog(@"%@: Error while getting pending invitations: %@", [self class], error);
+            INVLogError(@"%@", error);
             return;
         }
         
