@@ -62,13 +62,18 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 #pragma mark - server side
 -(void)fetchListOfInvitedUsers {
-    [self showLoadProgress];
+    if (![self.refreshControl isRefreshing]) {
+        [self showLoadProgress];
+    }
     [self.globalDataManager.invServerClient getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-     
-        [self.refreshControl endRefreshing];
+        if ([self.refreshControl isRefreshing]) {
+            [self.refreshControl endRefreshing];
+        }
+        else {
+            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        }
+
         if (!error) { 
-#pragma note Yes - you could have directly accessed accounts from account manager. Using FetchResultsController directly makes it simpler
           [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 
         }
@@ -211,11 +216,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     NSLog(@"%s",__func__);
     [self.tableView endUpdates];
-  //  [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    NSLog(@"%s anObject:%@ forChangeType %ld",__func__,anObject,type);
+    
     switch(type) {
             
         case NSFetchedResultsChangeInsert:

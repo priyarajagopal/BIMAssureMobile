@@ -577,7 +577,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    NSLog(@"%s anObject:%@ forChangeType %ld",__func__,anObject,type);
+    
     
 }
 
