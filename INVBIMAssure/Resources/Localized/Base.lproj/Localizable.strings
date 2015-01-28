@@ -114,6 +114,7 @@
 "ERROR_RUN_RULES"="There was an error while scheduling rule execution(s)[%1d]";
 "ERROR_PROJECTFILES_LOAD"="There was an error while loading the project package(s)[%1d]";
 "ERROR_PROJECTS_LOAD"="There was an error while loading the project(s)[%1d]";
+"ERROR_PROJECTS_DELETE"="There was an error while deleting the project(s)[%1d]";
 "ERROR_RULEINSTANCE_DELETE"="There was an error while deleting rule instance [%1dd]";
 "ERROR_MAILNOTCONFIGURED"="It appears that you have not configured your device with an email account. Please set up your email account in \"Settings\" and try again";
 "ERROR_LISTOFINVITEDUSERS_LOAD"="There was an error while fetching list of users invited to the account [%1d]";

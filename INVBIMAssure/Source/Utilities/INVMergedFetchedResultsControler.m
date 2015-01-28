@@ -85,4 +85,12 @@
     return nil;
 }
 
+-(void)setDelegate:(id<NSFetchedResultsControllerDelegate>)delegate {
+    
+    for (NSFetchedResultsController *resultsController in _resultsControllers) {
+        resultsController.delegate = delegate;
+    }
+    
+}
+
 @end

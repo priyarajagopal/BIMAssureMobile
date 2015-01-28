@@ -8,7 +8,9 @@
 
 #import "INVCurrentUsersTableViewController.h"
 
-@interface INVCurrentUsersTableViewController ()
+
+
+@interface INVCurrentUsersTableViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *dataResultsController;
 @property (nonatomic,strong) INVGenericTableViewDataSource* dataSource;
@@ -25,7 +27,6 @@
     // Do any additional setup after loading the view.
     self.tableView.editing = YES;
     self.tableView.dataSource = [self dataSource];
-    
     [self fetchListOfAccountMembers];
 }
 
@@ -40,22 +41,20 @@
 
 #pragma mark - server side
 -(void)fetchListOfAccountMembers {
-    [self showLoadProgress];
+    if (![self.refreshControl isRefreshing]) {
+        [self showLoadProgress];
+    }
     [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        if ([self.refreshControl isRefreshing]) {
+            [self.refreshControl endRefreshing];
+        }
+        else {
+            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+        }
         
-        [self.refreshControl endRefreshing];
+
         if (!error) {
-#pragma note Yes - you could have directly accessed accounts from project manager. Using FetchResultsController directly makes it simpler
-            NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
-            if (!dbError) {
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-            }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_FETCH_ACCOUNTMEMBERS", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:^{ }];
-            }
+           [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             
         }
         else {
@@ -88,17 +87,13 @@
                                                         style:UIAlertActionStyleDestructive
                                                       handler:^(UIAlertAction *action) {
                                                           [self.globalDataManager.invServerClient removeUserFromSignedInAccountWithUserId:userId
-                                                                                                                      withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                                                                                          if (error) {
-                                                                                                                              NSLog(@"%@", error);
-                                                                                                                              return;
-                                                                                                                          }
-                                                                                                                          NSError* dbError;
-                                                                                                                          [self.dataResultsController performFetch:&dbError];
-                                                                                                                          if (!dbError) {
-                                                                                                                              [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                                                                                                                          }
-                                                                                                                      }];
+                                                                                                    withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                                                                                if (error) {
+                                                                                                                    NSLog(@"%@", error);
+                                                                                                                    return;
+                                                                                                                }
+                                                                                                                    
+                                                                    }];
                                                       }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -106,12 +101,20 @@
 
 -(NSFetchedResultsController *) dataResultsController {
     if (!_dataResultsController) {
-        NSFetchRequest *fetchRequest = [[self.globalDataManager.invServerClient.accountManager fetchRequestForAccountMembership] copy];
+        NSFetchRequest *fetchRequest = [self.globalDataManager.invServerClient.accountManager fetchRequestForAccountMembership];
         
         _dataResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                      managedObjectContext:self.globalDataManager.invServerClient.accountManager.managedObjectContext
                                                                        sectionNameKeyPath:nil
                                                                                 cacheName:nil];
+        _dataResultsController.delegate = self;
+        NSError* dbError;
+        [_dataResultsController performFetch:&dbError];
+        
+        if (dbError) {
+            _dataResultsController = nil;
+        }
+
     }
     
     return _dataResultsController;
@@ -138,6 +141,37 @@
     }
     
     return _dataSource;
+}
+
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    NSLog(@"%s",__func__);
+    [self.tableView endUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        default:
+            NSLog (@"%s. Received Unsupported change object type %ld",__func__,type);
+            break;
+    }
+    
 }
 
 #pragma mark - helpers

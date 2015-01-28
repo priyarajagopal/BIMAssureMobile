@@ -24,7 +24,10 @@ static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
 static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 
-@interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate, INVProjectEditViewControllerDelegate,INVPagingManagerDelegate>
+@interface INVProjectsTableViewController ()<INVProjectTableViewCellDelegate,
+                                            INVProjectEditViewControllerDelegate,
+                                            INVPagingManagerDelegate,
+                                            NSFetchedResultsControllerDelegate>
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)INVProjectManager* projectManager;
 @property (nonatomic,strong)NSDateFormatter* dateFormatter;
@@ -104,21 +107,13 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 #pragma mark - server side
 -(void)fetchProjectList {
-    [self showLoadProgress];
+    if (![self.refreshControl isRefreshing]) {
+        [self showLoadProgress];
+    }
     
     [self.projectPagingManager resetOffset];
     [self.projectPagingManager fetchProjectsFromCurrentOffset];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 #pragma mark - UITableViewDelegate
@@ -199,17 +194,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
         [self.refreshControl endRefreshing];
     }
     if (!error) {
-        NSError* dbError;
-        [self.dataResultsController performFetch:&dbError];
-        if (!dbError) {
-            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        }
-        else {
-            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),dbError.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
-        }
+         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+       
     }
     else {
         if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
@@ -279,6 +265,13 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
         ];
         
         _dataResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.projectManager.managedObjectContext sectionNameKeyPath:@"projectId" cacheName:nil];
+        _dataResultsController.delegate = self;
+        NSError* dbError;
+        [_dataResultsController performFetch:&dbError];
+        
+        if (dbError) {
+            _dataResultsController = nil;
+        }
     }
     return  _dataResultsController;
 }
@@ -303,7 +296,15 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_PROJECT_CONFIRM_POSITIVE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self.globalDataManager.invServerClient deleteProjectWithId:projectId ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-            [self fetchProjectList];
+            if (error) {
+                // The local cache should have updated on a delete and should be reflected in update to fetchresultscontroller
+                if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
+                    UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_DELETE", nil),error.code]];
+                    [self presentViewController:errController animated:YES completion:^{
+                        
+                    }];
+                }
+            }
         }];
     }]];
     
@@ -315,7 +316,27 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 }
 
 -(void) onProjectEditSaved:(INVProjectEditViewController *)controller {
+    // Since are not supporting updates via didChangeObject.... callback
     [self fetchProjectList];
 }
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+ 
+}
+
 
 @end
