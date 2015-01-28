@@ -110,9 +110,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    INVLogDebug(@"");
-    
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+      [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
@@ -122,7 +120,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    INVLogDebug(@"");
+    
 }
 
 #pragma mark - Navigation

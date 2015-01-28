@@ -197,24 +197,19 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
             [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
         }
         
-          if (!error) {
-            NSError* dbError;
-            [self.dataResultsController performFetch:&dbError];
-            id<NSFetchedResultsSectionInfo> objectInSection = self.dataResultsController.sections[0];
-              
-            if (!dbError) {
-                INVLogDebug(@"%lu of size %lu with num sections %@ ", (unsigned long)objectInSection.numberOfObjects, (unsigned long)self.dataResultsController.fetchedObjects.count, self.dataResultsController.sections);
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-             }
-            else {
-                UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),dbError.code]];
-                [self presentViewController:errController animated:YES completion:nil];
-            }
-          }
-          else {
-              UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),error.code]];
-              [self presentViewController:errController animated:YES completion:nil];
-          }
+        
+        if (!error) {
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            
+        }
+        else {
+            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),error.code]];
+            [self presentViewController:errController animated:YES completion:^{
+                
+            }];
+            
+        }
+        
     }];
 }
 
@@ -235,9 +230,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
@@ -248,10 +241,8 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
                                   withRowAnimation:UITableViewRowAnimationFade];
             break;
         default:
-      //      NSLog (@"%s. Received Unsupported change object type %ld",__func__,type);
             break;
     }
-    
 }
 
 #pragma mark - accessor
