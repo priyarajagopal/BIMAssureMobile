@@ -161,6 +161,12 @@
 }
 
 -(void) save:(id)sender {
+    // Force the first responder to resign
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder)
+                                               to:nil
+                                             from:self
+                                         forEvent:nil];
+    
     NSString *projectName = self.projectNameTextField.text;
     NSString *projectDescription = self.projectDescriptionTextField.text;
     
