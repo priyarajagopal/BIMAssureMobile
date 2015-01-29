@@ -266,6 +266,7 @@
 		F5426D5C1A6853BA0040B2B5 /* INVNotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotificationTableViewCell.m; sourceTree = "<group>"; };
 		F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVNotificationTableViewCell.xib; sourceTree = "<group>"; };
 		F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSTimeIntervalToString.h; sourceTree = "<group>"; };
+		F548A58A1A7AD24600DF116C /* INVErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVErrorHandling.h; sourceTree = "<group>"; };
 		F555FD8B1A70071000C01288 /* INVModelViewerContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerContainerViewController.h; sourceTree = "<group>"; };
 		F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerContainerViewController.m; sourceTree = "<group>"; };
 		F555FD8E1A702BBA00C01288 /* INVModelTreeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeTableViewController.h; sourceTree = "<group>"; };
@@ -725,6 +726,7 @@
 				F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */,
 				F5313A3E1A7956BC00E476D3 /* INVLogger.h */,
 				F5313A3F1A7956BC00E476D3 /* INVLogger.m */,
+				F548A58A1A7AD24600DF116C /* INVErrorHandling.h */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

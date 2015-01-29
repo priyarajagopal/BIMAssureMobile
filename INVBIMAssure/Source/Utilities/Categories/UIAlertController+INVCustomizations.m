@@ -9,8 +9,15 @@
 #import "UIAlertController+INVCustomizations.h"
 
 @implementation UIAlertController (INVCustomizations)
-- (instancetype)initWithErrorMessage:(NSString *)errorMesg
+- (instancetype)initWithErrorMessage:(NSString *)errorMesg, ...
 {
+    va_list args;
+    va_start(args, errorMesg);
+
+    errorMesg = [[NSString alloc] initWithFormat:errorMesg arguments:args];
+
+    va_end(args);
+
     UIAlertAction *action =
         [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
 

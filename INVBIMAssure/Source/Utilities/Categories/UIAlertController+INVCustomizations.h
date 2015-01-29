@@ -7,5 +7,5 @@
 //
 
 @interface UIAlertController (INVCustomizations)
-- (instancetype)initWithErrorMessage:(NSString *)errorMesg;
+- (instancetype)initWithErrorMessage:(NSString *)errorMesg, ... NS_FORMAT_FUNCTION(1, 2);
 @end
