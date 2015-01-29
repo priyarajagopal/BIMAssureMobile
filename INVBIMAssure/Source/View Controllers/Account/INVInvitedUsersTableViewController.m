@@ -65,6 +65,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     if (![self.refreshControl isRefreshing]) {
         [self showLoadProgress];
     }
+    
+    [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *_){ }];
+    
     [self.globalDataManager.invServerClient getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         if ([self.refreshControl isRefreshing]) {
             [self.refreshControl endRefreshing];
@@ -75,7 +78,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
         if (!error) { 
           [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),error.code]];
