@@ -31,6 +31,7 @@ extern const NSString* INV_CredentialKeyPassword ;
 @property (nonatomic,readonly) INVEmpireMobileClient* invServerClient;
 @property (nonatomic,readonly) NSDictionary* credentials;
 @property (nonatomic,readonly) NSNumber* defaultAccountId;
+@property (nonatomic,readonly) BOOL rememberMeOptionSelected;
 @property (nonatomic,copy)     NSString* loggedInUser;
 @property (nonatomic,strong)   NSNumber* loggedInAccount;
 @property (nonatomic,copy)     NSString* invitationCodeToAutoAccept;
