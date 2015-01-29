@@ -102,9 +102,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:NSLocalizedString(@"ERROR_MAILNOTCONFIGURED", nil)];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }
 }

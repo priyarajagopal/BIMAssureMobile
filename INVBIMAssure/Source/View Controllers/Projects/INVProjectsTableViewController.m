@@ -201,9 +201,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     else {
         if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{
-            
-            }];
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }
 }
@@ -301,9 +299,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
                 // The local cache should have updated on a delete and should be reflected in update to fetchresultscontroller
                 if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
                     UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_DELETE", nil),error.code]];
-                    [self presentViewController:errController animated:YES completion:^{
-                        
-                    }];
+                    [self presentViewController:errController animated:YES completion:nil];
                 }
             }
         }];

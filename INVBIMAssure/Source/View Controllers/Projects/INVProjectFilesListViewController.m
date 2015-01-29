@@ -206,10 +206,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     }
     else {
         if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
-            
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTFILES_LOAD", nil),error.code]];
-                [self presentViewController:errController animated:YES completion:^{
-            }];
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }
     

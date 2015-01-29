@@ -363,9 +363,7 @@ NSString* const KVO_INVSignupSuccess = @"signupSuccess";
     }];
     self.signupFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SIGNUP_FAILURE", nil) message:NSLocalizedString(@"GENERIC_SIGNUP_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
     [self.signupFailureAlertController addAction:action];
-    [self presentViewController:self.signupFailureAlertController animated:YES completion:^{
-        
-    }];
+    [self presentViewController:self.signupFailureAlertController animated:YES completion:nil];
 }
      
 
