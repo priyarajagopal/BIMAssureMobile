@@ -81,9 +81,7 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
             else {
                 
                 UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_BUILDING_ELEMENT_LOAD", nil),error.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
+                [self presentViewController:errController animated:YES completion:nil];
             }
             
             if (idx == self.buildingElementsWithIssues.count-1) {

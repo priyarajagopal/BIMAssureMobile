@@ -88,9 +88,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_LOAD", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }];
 }
@@ -108,9 +106,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         }
         else {
             UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_LOAD", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:^{
-                
-            }];
+            [self presentViewController:errController animated:YES completion:nil];
         }
     }];
 }

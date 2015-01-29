@@ -36,8 +36,6 @@ static NSString* INV_ActualParamValue = @"Value";
 // rule definition unused at this time. Eventually use
 @property (nonatomic,strong)INVRule* ruleDefinition;
 
-@property (nonatomic,strong)UIAlertController* successAlertController;
-
 @property (nonatomic, weak) IBOutlet UIBarButtonItem* saveBarButton;
 @property (nonatomic, weak) UITableViewCell* ruleInstanceCellBeingEdited;
 
@@ -93,7 +91,6 @@ static NSString* INV_ActualParamValue = @"Value";
     self.rulesManager = nil;
     self.intermediateRuleInstanceActualParams = nil;
     self.ruleDefinition = nil;
-    self.successAlertController = nil;
     self.saveBarButton = nil;
     self.tableView.dataSource = nil;
     self.dataSource = nil;
@@ -208,9 +205,7 @@ static NSString* INV_ActualParamValue = @"Value";
             else {
                 if (error) {
                     UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULE_DEFINITION_FORINSTANCE_LOAD", nil),error.code]];
-                    [self presentViewController:errController animated:YES completion:^{
-                        
-                    }];
+                    [self presentViewController:errController animated:YES completion:nil];
                 }
             }
             
@@ -230,9 +225,7 @@ static NSString* INV_ActualParamValue = @"Value";
         if (error) {
             if (error) {
                 UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_CREATE", nil),error.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
+                [self presentViewController:errController animated:YES completion:nil];
             }
         }
         else {
@@ -250,9 +243,7 @@ static NSString* INV_ActualParamValue = @"Value";
         if (error) {
             if (error) {
                 UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_UPDATE", nil),error.code]];
-                [self presentViewController:errController animated:YES completion:^{
-                    
-                }];
+                [self presentViewController:errController animated:YES completion:nil];
             }
         }
         else {
@@ -364,8 +355,6 @@ static NSString* INV_ActualParamValue = @"Value";
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                      style:UIAlertActionStyleCancel
                                                    handler:^(UIAlertAction *action) {
-                                                       
-        [self.successAlertController dismissViewControllerAnimated:YES completion:nil];
         if (created) {
                 if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceCreated:)]) {
                     [self.delegate onRuleInstanceCreated:self];
@@ -378,9 +367,10 @@ static NSString* INV_ActualParamValue = @"Value";
         }
     }];
     
-    self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-    [self.successAlertController addAction:action];
-    [self presentViewController:self.successAlertController animated:YES completion:nil];
+    UIAlertController *successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    [successAlertController addAction:action];
+    
+    [self presentViewController:successAlertController animated:YES completion:nil];
 }
 
 -(void)makeFirstResponderTextFieldAtCellIndexPath:(NSIndexPath*)indexPath {

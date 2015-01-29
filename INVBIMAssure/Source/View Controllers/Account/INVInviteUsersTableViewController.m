@@ -207,9 +207,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
 
     [inviteFailureAlertController addAction:action];
-    [self presentViewController:inviteFailureAlertController animated:YES completion:^{
-        
-    }];
+    [self presentViewController:inviteFailureAlertController animated:YES completion:nil];
 }
 
 

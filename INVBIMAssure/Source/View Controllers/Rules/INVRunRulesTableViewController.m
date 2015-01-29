@@ -22,7 +22,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 @property (nonatomic, strong) INVRuleSetMutableArray  ruleSets;
 @property (nonatomic, strong) NSMutableSet*  selectedRuleInstanceIds;
 @property (nonatomic, strong) NSMutableSet*  selectedRuleSetIds;
-@property (nonatomic, strong) UIAlertController* successAlertController;
 @end
 
 @implementation INVRunRulesTableViewController
@@ -339,9 +338,10 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 #pragma mark - helpers
 -(void)showSuccessAlertMessage:(NSString*)message {
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
-    self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-    [self.successAlertController addAction:action];
-    [self presentViewController:self.successAlertController animated:YES completion:nil];
+    UIAlertController *successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    [successAlertController addAction:action];
+    [self presentViewController:successAlertController animated:YES completion:nil];
 }
 
 -(INVRulesManager*)rulesManager {

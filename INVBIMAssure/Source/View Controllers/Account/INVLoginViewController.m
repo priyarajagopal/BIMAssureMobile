@@ -18,7 +18,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 @interface INVLoginViewController ()<UIScrollViewDelegate, UITextFieldDelegate>
 @property (nonatomic,assign) BOOL loginSuccess;
 @property (nonatomic,copy)NSString* userToken;
-@property (nonatomic,strong)UIAlertController* loginFailureAlertController;
 @property (nonatomic,assign)BOOL saveCredentials;
 @property (nonatomic,strong)INVSignUpTableViewController* signupController;
 
@@ -53,7 +52,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     [super viewWillDisappear:animated];
     
     self.userToken = nil;
-    self.loginFailureAlertController = nil;
     [self removeSignupObservers];
     self.signupController = nil;
 }
@@ -127,7 +125,7 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 - (IBAction)onLoginClicked:(id)sender {
     if (!self.emailTextEntry.text || !self.passwordTextEntry.text || ![self isValidEmailEntry]) {
         UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_INVALID_LOGIN_PARAMS", nil),INV_ERROR_CODE_INVALIDREQUESTPARAM]];
-        [self presentViewController:errController animated:YES completion:^{ }];
+        [self presentViewController:errController animated:YES completion:nil];
         return;
     }
     [self loginToServerWithUser:self.emailTextEntry.text andPassword:self.passwordTextEntry.text];
@@ -189,16 +187,14 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
 
 -(void)showLoginFailureAlert {
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self.loginFailureAlertController dismissViewControllerAnimated:YES completion:nil];
         self.passwordTextEntry.text = nil;
         [self hideLoginProgress];
-        
     }];
-    self.loginFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOGIN_FAILURE", nil) message:NSLocalizedString(@"GENERIC_LOGIN_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [self.loginFailureAlertController addAction:action];
-    [self presentViewController:self.loginFailureAlertController animated:YES completion:^{
-        
-    }];
+    
+    UIAlertController *loginFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOGIN_FAILURE", nil) message:NSLocalizedString(@"GENERIC_LOGIN_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [loginFailureAlertController addAction:action];
+    
+    [self presentViewController:loginFailureAlertController animated:YES completion:nil];
 }
 
 -(BOOL) isValidEmailEntry {

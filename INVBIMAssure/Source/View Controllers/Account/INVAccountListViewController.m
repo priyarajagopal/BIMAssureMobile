@@ -29,8 +29,6 @@ NSString* const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic,readwrite)NSFetchedResultsController* dataResultsController;
 @property (nonatomic,strong)   NSNumber* currentAccountId;
 @property (nonatomic, strong)  NSString *currentInviteCode;
-@property (nonatomic,strong)   UIAlertController* loginFailureAlertController;
-@property (nonatomic,strong)   UIAlertController* logoutPromptAlertController;
 @property (nonatomic,assign)   BOOL saveAsDefault;
 @property (nonatomic,strong)   INVGenericCollectionViewDataSource* dataSource;
 @property (nonatomic,strong)   INVSignUpTableViewController* signUpController;
@@ -97,8 +95,6 @@ static NSString * const reuseIdentifier = @"Cell";
     self.alertView = nil;
     self.accountManager = nil;
     self.dataResultsController = nil;
-    self.loginFailureAlertController = nil;
-    self.logoutPromptAlertController = nil;
     self.collectionView.dataSource = nil;
     self.dataSource = nil;
     [self removeSignupObservers];
@@ -504,32 +500,26 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 -(void)showLoginFailureAlert {
-    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self.loginFailureAlertController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    self.loginFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOGIN_FAILURE", nil) message:NSLocalizedString(@"GENERIC_ACCOUNT_LOGIN_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [self.loginFailureAlertController addAction:action];
-    [self presentViewController:self.loginFailureAlertController animated:YES completion:^{
-        
-    }];
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+    UIAlertController *loginFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOGIN_FAILURE", nil) message:NSLocalizedString(@"GENERIC_ACCOUNT_LOGIN_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+    
+    [loginFailureAlertController addAction:action];
+    [self presentViewController:loginFailureAlertController animated:YES completion:nil];
 }
 
 -(void)showLogoutPromptAlertForAccount:(INVAccount*)account {
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self.logoutPromptAlertController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    UIAlertAction* proceedAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"LOG_OUT", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction* proceedAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"LOG_OUT", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self logoutAccount];
     }];
-    NSString* promtMesg = [NSString stringWithFormat:NSLocalizedString(@"GENERIC_ACCOUNT_LOGOUT_MESSAGE", nil) ,account.name ];
-    self.logoutPromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:promtMesg preferredStyle:UIAlertControllerStyleAlert];
-    [self.logoutPromptAlertController addAction:cancelAction];
-    [self.logoutPromptAlertController addAction:proceedAction];
-    [[UIView appearanceWhenContainedIn:[UIAlertController class], nil]setTintColor:[UIColor grayColor]];
     
-    [self presentViewController:self.logoutPromptAlertController animated:YES completion:^{
-        
-    }];
+    NSString* promtMesg = [NSString stringWithFormat:NSLocalizedString(@"GENERIC_ACCOUNT_LOGOUT_MESSAGE", nil) ,account.name ];
+    UIAlertController *logoutPromptAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE", nil) message:promtMesg preferredStyle:UIAlertControllerStyleAlert];
+    
+    [logoutPromptAlertController addAction:cancelAction];
+    [logoutPromptAlertController addAction:proceedAction];
+    
+    [self presentViewController:logoutPromptAlertController animated:YES completion:nil];
 }
 
 -(void)showBlurEffect {
