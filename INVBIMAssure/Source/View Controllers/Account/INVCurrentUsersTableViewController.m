@@ -55,28 +55,9 @@
         INV_SUCCESS:
             [self.tableView reloadData];
 
-        INV_ERROR:
-            ;
+        INV_ERROR : {
             UIAlertController *errController = [[UIAlertController alloc]
                 initWithErrorMessage:NSLocalizedString(@"ERROR_FETCH_ACCOUNTMEMBERS", nil), error.code];
-            [self presentViewController:errController animated:YES completion:nil];
-    }];
-
-    [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        if ([self.refreshControl isRefreshing]) {
-            [self.refreshControl endRefreshing];
-        }
-        else {
-            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-        }
-
-        if (!error) {
-            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        }
-        else {
-            UIAlertController *errController = [[UIAlertController alloc]
-                initWithErrorMessage:[NSString
-                                         stringWithFormat:NSLocalizedString(@"ERROR_FETCH_ACCOUNTMEMBERS", nil), error.code]];
             [self presentViewController:errController animated:YES completion:nil];
         }
     }];
@@ -105,20 +86,18 @@
                                                         style:UIAlertActionStyleCancel
                                                       handler:nil]];
 
-    [alertController
-        addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER_POSITIVE", nil)
-                                           style:UIAlertActionStyleDestructive
-                                         handler:^(UIAlertAction *action) {
-                                             [self.globalDataManager.invServerClient
-                                                 removeUserFromSignedInAccountWithUserId:userId
-                                                                     withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                                         if (error) {
-                                                                             INVLogError(@"%@", error);
-                                                                             return;
-                                                                         }
-
-                                                                     }];
-                                         }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER_POSITIVE", nil)
+                                                        style:UIAlertActionStyleDestructive
+                                                      handler:^(UIAlertAction *action) {
+                                                          [self.globalDataManager.invServerClient
+                                                              removeUserFromSignedInAccountWithUserId:userId
+                                                                                  withCompletionBlock:INV_COMPLETION_HANDLER {
+                                                                                      INV_ALWAYS:
+                                                                                      INV_SUCCESS:
+                                                                                      INV_ERROR:
+                                                                                          INVLogError(@"%@", error);
+                                                                                  }];
+                                                      }]];
 
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -200,7 +179,6 @@
                                   withRowAnimation:UITableViewRowAnimationFade];
             break;
         default:
-            INVLogWarning(@"Received Unsupported change object type %u", type);
             break;
     }
 }

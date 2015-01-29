@@ -263,7 +263,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                                   withRowAnimation:UITableViewRowAnimationFade];
             break;
         default:
-            INVLogWarning(@"Received Unsupported change object type %u", type);
             break;
     }
 }
