@@ -12,12 +12,12 @@
 
 static const NSInteger DEFAULT_MESSAGE_CELL_HEIGHT = 200;
 static const NSInteger DEFAULT_INVITEDUSERS_CELL_HEIGHT = 100;
+
 static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
 static const NSInteger DEFAULT_NUM_SECTIONS = 2;
 static const NSInteger SECTIONINDEX_INVITEUSERLIST = 0;
 static const NSInteger SECTIONINDEX_MESSAGE = 1;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
-
 
 @interface INVInviteUsersTableViewController () <INVTextViewTableViewCellDelegate,INVTokensTableViewCellDelegate>
 @property (nonatomic,strong)INVAccountManager* accountManager;
@@ -41,6 +41,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     
     UINib* inviteNib = [UINib nibWithNibName:@"INVTokensTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:inviteNib forCellReuseIdentifier:@"InviteUserCell"];
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     self.clearsSelectionOnViewWillAppear = YES;
 }
@@ -96,7 +98,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return DEFAULT_HEADER_HEIGHT;
 }
 
@@ -104,10 +106,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-    if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
-        UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
-        tableViewHeaderFooterView.textLabel.text = [tableViewHeaderFooterView.textLabel.text lowercaseStringWithLocale:[NSLocale currentLocale]];
-    }
+    UITableViewHeaderFooterView *headerFooterView = (UITableViewHeaderFooterView *) view;
+    headerFooterView.textLabel.text = [self tableView:tableView titleForHeaderInSection:section];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,11 +152,11 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     }
     else {
         [self.sendButton setEnabled:NO];
+#pragma mark - UIEvent Handlers
+
     }
     
-}
-#pragma mark - UIEvent Handlers
-- (IBAction)onSendClicked:(id)sender {
+}- (IBAction)onSendClicked:(id)sender {
     self.hud = [MBProgressHUD generalViewHUD:NSLocalizedString(@"INVITING", nil)];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
@@ -204,9 +204,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 }
 -(void)showInviteFailureAlert {
     UIAlertController* inviteFailureAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"INVITE_FAILURE", nil) message:NSLocalizedString(@"GENERIC_INVITE_FAILURE_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [inviteFailureAlertController dismissViewControllerAnimated:YES completion:nil];
-    }];
+    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
 
     [inviteFailureAlertController addAction:action];
     [self presentViewController:inviteFailureAlertController animated:YES completion:^{
