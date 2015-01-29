@@ -326,6 +326,7 @@ static NSString* INV_ActualParamValue = @"Value";
     self.ruleInstanceCellBeingEdited = sender;
 }
 
+
 -(void)onRuleInstanceActualParamUpdated:(INVRuleInstanceActualParamTableViewCell*)sender {
     INVRuleInstanceActualParamTableViewCell* editedCell = sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:editedCell];
@@ -363,8 +364,19 @@ static NSString* INV_ActualParamValue = @"Value";
     UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                      style:UIAlertActionStyleCancel
                                                    handler:^(UIAlertAction *action) {
-                                                       [self performSegueWithIdentifier:@"unwind" sender:nil];
-                                                   }];
+                                                       
+        [self.successAlertController dismissViewControllerAnimated:YES completion:nil];
+        if (created) {
+                if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceCreated:)]) {
+                    [self.delegate onRuleInstanceCreated:self];
+                }
+        }
+        else {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceModified:)]) {
+                    [self.delegate onRuleInstanceModified:self];
+            }
+        }
+    }];
     
     self.successAlertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
     [self.successAlertController addAction:action];

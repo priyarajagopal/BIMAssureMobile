@@ -134,6 +134,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         ruleInstanceTVC.ruleId = self.selectedRuleId;
         ruleInstanceTVC.ruleSetId = self.ruleSetId;
         ruleInstanceTVC.ruleName = self.selectedRuleName;
+        ruleInstanceTVC.delegate = self.createRuleInstanceDelegate;
     }
 }
 
