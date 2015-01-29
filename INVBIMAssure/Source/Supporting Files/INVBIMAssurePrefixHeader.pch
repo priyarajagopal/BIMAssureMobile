@@ -35,6 +35,7 @@
         #import "INVPagingManager.h"
 
         #import "INVLogger.h"
+        #import "INVErrorHandling.h"
 
     #endif
 #endif

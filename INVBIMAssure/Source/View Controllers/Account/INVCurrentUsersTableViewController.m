@@ -46,6 +46,22 @@
     if (![self.refreshControl isRefreshing]) {
         [self showLoadProgress];
     }
+
+    [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
+        INV_ALWAYS:
+            [self.refreshControl endRefreshing];
+            [self.hud hide:YES];
+
+        INV_SUCCESS:
+            [self.tableView reloadData];
+
+        INV_ERROR:
+            ;
+            UIAlertController *errController = [[UIAlertController alloc]
+                initWithErrorMessage:NSLocalizedString(@"ERROR_FETCH_ACCOUNTMEMBERS", nil), error.code];
+            [self presentViewController:errController animated:YES completion:nil];
+    }];
+
     [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         if ([self.refreshControl isRefreshing]) {
             [self.refreshControl endRefreshing];
