@@ -150,9 +150,8 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    INVLogDebug();
-    
-    [self.tableView endUpdates];
+
+     [self.tableView endUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {

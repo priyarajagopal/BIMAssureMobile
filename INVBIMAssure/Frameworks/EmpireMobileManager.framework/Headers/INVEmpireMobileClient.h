@@ -582,6 +582,20 @@ typedef void(^CompletionHandlerWithData)(id result, INVEmpireMobileError* error)
 -(void)getAllRuleSetsForProject:(NSNumber*)projectId WithCompletionBlock:(CompletionHandler) handler;
 
 /**
+ Asynchornously ,get ruleset associated with a rule set Id. Users must have signed into an account in order to be able to fetch rule sets.
+ 
+ @param ruleSetId The id of the rulesetId
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then rulesManager can be used to retrieve rulesets
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see rulesManager
+ 
+ */
+-(void)getRuleSetForRuleSetId:(NSNumber*)ruleSetId WithCompletionBlock:(CompletionHandler) handler;
+
+/**
  Asynchornously ,delete a project for signed in account. Users should have signed in via the signIntoAccount:withCompletionBlock: method.
  
  @param handler The completion handler that returns error object if there was any error.
