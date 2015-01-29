@@ -199,10 +199,16 @@ static NSString * const reuseIdentifier = @"Cell";
             
             message = [NSString stringWithFormat:NSLocalizedString(message, nil), account.name];
             
+            BOOL shouldAllowSaveDefaultAccountOption = YES;
+            if (!self.globalDataManager.rememberMeOptionSelected )
+            {
+                shouldAllowSaveDefaultAccountOption = NO;
+            }
+            
             [self showSaveAsDefaultAlertWithMessage:message
                                andAcceptButtonTitle:NSLocalizedString(@"LOG_INTO_ACCOUNT", nil)
                                andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)
-                                  showDefaultOption:YES];
+                                  showDefaultOption:shouldAllowSaveDefaultAccountOption];
         }
     }
     
@@ -457,9 +463,10 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     // If default account has been specified and user wants to switch to a different account, do not have the default account option ON by default
-    if (self.globalDataManager.defaultAccountId) {
+    if (self.globalDataManager.defaultAccountId || !showsDefaultOption) {
         [self.alertView.defaultSwitch setOn:NO];
     }
+   
     self.alertView.alertMessage.text = message;
     self.alertView.setAsDefaultContainer.hidden = !showsDefaultOption;
     

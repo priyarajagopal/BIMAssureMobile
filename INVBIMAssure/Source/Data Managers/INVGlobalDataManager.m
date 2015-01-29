@@ -30,6 +30,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 @property (nonatomic,readwrite)INVEmpireMobileClient* invServerClient;
 @property (nonatomic,readwrite)NSDictionary* credentials;
 @property (nonatomic,readwrite)NSNumber* defaultAccountId;
+@property (nonatomic,readwrite)BOOL rememberMeOptionSelected;
 @end
 
 @implementation INVGlobalDataManager
@@ -44,6 +45,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
         
         if (sharedInstance) {
             INVServerConfigManager *configManager = [INVServerConfigManager instance];
+            sharedInstance.rememberMeOptionSelected = NO;
             [configManager loadDefaultConfig];
             
             
@@ -76,6 +78,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
         // silently ignoring error
         INVLogError(@"%@", error);
     }
+    self.rememberMeOptionSelected = YES;
     return error;
 }
 
@@ -125,6 +128,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     [self.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
         self.loggedInAccount = nil;
         self.loggedInUser = nil;
+        self.rememberMeOptionSelected = NO;
         
         [self deleteCurrentlySavedCredentialsFromKC];
         [self deleteCurrentlySavedDefaultAccountFromKC];
