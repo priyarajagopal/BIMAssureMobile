@@ -119,7 +119,8 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 
 #pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
+    
     #pragma Handle JS events
     [self loadModel];
 
@@ -133,7 +134,7 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
  @param error The error that occurred.
  */
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
-    NSLog(@"%s",__func__);
+    INVLogDebug();
 #warning - show error alert
 }
 
@@ -158,7 +159,7 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
                                                    encoding:NSUTF8StringEncoding
                                                       error:NULL];
     [self.webView evaluateJavaScript:jsString completionHandler:^(id val, NSError *error) {
-        NSLog(@"Evaluation of JS :%@",error);
+        INVLogError(@"Evaluation of JS :%@",error);
         
     }];
 }
@@ -167,7 +168,8 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 
 #pragma mark - KVO
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    NSLog(@"%s with keyPath %@",__func__,keyPath);
+    INVLogDebug(@"Key path is: %@", keyPath);
+    
     if ([keyPath isEqualToString:@"loading"]) {
         if (!self.webView.isLoading) {
             
@@ -177,14 +179,13 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
 
 #pragma mark - WKScriptMessageHandler protocol
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSLog(@"%s with message %@",__func__,message.body);
+    INVLogInfo(@"%@", message.body);
 }
 
 #pragma mark - helpers
 -(void)executeJS:(NSString*)jsToExecute {
     [self.webView evaluateJavaScript:jsToExecute completionHandler:^(id val, NSError *error) {
-        NSLog(@"Evaluation of JS :%@",error);
-#warning display error
+        INVLogError(@"Evaluation of JS: %@",error);
     }];
 }
 
@@ -192,9 +193,9 @@ static NSString *const INV_JS_TOGGLE_SIDEBAR = @"toggleSidebar()";
     [self.webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
     
 }
+
 -(void)removeWebviewObservers {
     [self.webView removeObserver:self forKeyPath:@"loading"];
-    
 }
 
 #pragma mark - UIEvent handlers

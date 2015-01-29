@@ -89,7 +89,7 @@
                                                           [self.globalDataManager.invServerClient removeUserFromSignedInAccountWithUserId:userId
                                                                                                     withCompletionBlock:^(INVEmpireMobileError *error) {
                                                                                                                 if (error) {
-                                                                                                                    NSLog(@"%@", error);
+                                                                                                                    INVLogError(@"%@", error);
                                                                                                                     return;
                                                                                                                 }
                                                                                                                     
@@ -150,13 +150,12 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+
      [self.tableView endUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
@@ -167,7 +166,7 @@
                                   withRowAnimation:UITableViewRowAnimationFade];
             break;
         default:
-            NSLog (@"%s. Received Unsupported change object type %ld",__func__,type);
+            INVLogWarning(@"Received Unsupported change object type %u", type);
             break;
     }
     

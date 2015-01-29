@@ -55,7 +55,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
             
             [sharedInstance.invServerClient fetchPasswordValidationCriteria:^(id result, INVEmpireMobileError *error) {
                 if (error) {
-                    NSLog(@"%s %@", __func__, error);
+                    INVLogError(@"%@", error);
                     return;
                 }
                 
@@ -74,7 +74,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     [FDKeychain saveItem:_credentials forKey:INV_CredentialsKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
     if (error) {
         // silently ignoring error
-        NSLog(@"%s. Failed with %@",__func__,error);
+        INVLogError(@"%@", error);
     }
     return error;
 }
@@ -91,7 +91,7 @@ static NSString* const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     [FDKeychain saveItem:_defaultAccountId forKey:INV_DefaultAccountKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
     if (error) {
         // silently ignoring error
-        NSLog(@"%s. Failed with %@",__func__,error);
+        INVLogError(@"%@", error);
     }
     return error;
 }

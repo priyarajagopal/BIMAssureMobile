@@ -165,7 +165,7 @@ static NSString* INV_ActualParamValue = @"Value";
     
     if (!self.ruleSetId || !self.ruleInstanceId) {
 #warning Show an error alert or a default page
-        NSLog(@"%s. Cannot fetch rule instance details for RuleSet %@ and RuleInstanceId %@",__func__,self.ruleSetId,self.ruleInstanceId);
+        INVLogError(@"Cannot fetch rule instance details for RuleSet %@ and RuleInstanceId %@", self.ruleSetId,self.ruleInstanceId);
     }
     else {
 #warning If unlikely case that matchingRuleInstance was not fetched from the server due to any reason when this view was loaded , fetch it
@@ -182,15 +182,15 @@ static NSString* INV_ActualParamValue = @"Value";
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
         [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
      }
+    
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     [self performSelectorOnMainThread:@selector(setupTableFooter) withObject:nil waitUntilDone:NO];
-
 }
 
 
 -(void)fetchRuleDefinitionForRuleId:(NSNumber*)ruleId {
     if (!ruleId) {
-        NSLog(@"%s. Cannot fetch rule  definition for ruleId %@",__func__,ruleId);
+        INVLogDebug(@"Cannot fetch rule  definition for ruleId %@", ruleId);
     }
     else {
         [self showLoadProgress ];

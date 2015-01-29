@@ -347,13 +347,12 @@ static NSString * const reuseIdentifier = @"Cell";
                 // Just ignore the error and continue logging in
                 NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
                 if (error) {
-                    NSLog(@"%s. Error: %@",__func__,error);
+                    INVLogError(@"%@", error);
                 }
             }
            
-            NSLog(@"Account TOken is %@",self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
+            INVLogDebug(@"Account token is: %@", self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
             [self notifyAccountLogin];
-
         }
         else {
             [self showLoginFailureAlert];
@@ -391,7 +390,7 @@ static NSString * const reuseIdentifier = @"Cell";
                         self.globalDataManager.loggedInAccount = self.currentAccountId;
                         NSError* error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
                         if (error) {
-                            NSLog(@"%s. Error: %@",__func__,error);
+                            INVLogError(@"%@", error);
                         }
                     }
                     NSNumber* prevLoggedInAccount =  self.globalDataManager.loggedInAccount ;
@@ -568,8 +567,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    NSLog(@"%s",__func__);
-    
+    INVLogDebug();
 }
 
 
@@ -585,7 +583,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark - KVO
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
+    
     if ([keyPath isEqualToString:KVO_INVSignupSuccess]) {
 
         [self dismissViewControllerAnimated:YES completion:^{

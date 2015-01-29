@@ -403,7 +403,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [self.ruleSets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVRuleSet* ruleSet = obj;
         [ruleSet.ruleInstances enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSLog(@"Rule Instance for ruleset $%@ is %@\n",ruleSet.ruleSetId, obj);
+            INVLogDebug(@"Rule Instance for ruleset $%@ is %@\n",ruleSet.ruleSetId, obj);
         }];
     }];
 }

@@ -223,7 +223,7 @@
 
 #pragma mark - KVO Handling
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    NSLog(@"%s. Keypath %@: %@: %@",__func__,keyPath,object,change);
+    INVLogDebug(@"Keypath '%@' of object '%@' changed with info: %@", keyPath, object, change);
     
     if ([keyPath isEqualToString:KVO_INVLoginSuccess]) {
         INVLoginViewController* loginVC = (INVLoginViewController*) object;
@@ -240,22 +240,25 @@
 
 #pragma mark - Notification Handlers
 -(void)onUserLogOut:(NSNotification*)notification {
-    NSLog(@"%s",__func__);
+    INVLogDebug(@"User logged out");
+    
     [self displayLoginRootViewController];
 }
 
 -(void)onAccountLogOut:(NSNotification*)notification {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
+    
     [self displayLoggedInRootViewController];
 }
 
 -(void)onAccountSwitch:(NSNotification*)notification {
-    NSLog(@"%s with notification %@",__func__,notification.userInfo);
+    INVLogDebug(@"Notification: %@", notification);
+    
     [self displayProjectsListRootViewController];
 }
 
 #pragma mark - Global Config
 -(void)setupNetworkCache {
-    
 }
+
 @end

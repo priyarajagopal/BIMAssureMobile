@@ -41,7 +41,8 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    NSLog(@"%s",__func__);
+    INVLogDebug();
+    
     [super viewWillDisappear:animated];
     self.hud = nil;
 }

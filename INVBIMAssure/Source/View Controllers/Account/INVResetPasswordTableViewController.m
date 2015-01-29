@@ -47,7 +47,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         if (error) {
-            NSLog(@"%s %@", __func__, error);
+            INVLogError(@"%@", error);
         }
     
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PASSWORD_RESET_SUCCESS_TITLE", nil)

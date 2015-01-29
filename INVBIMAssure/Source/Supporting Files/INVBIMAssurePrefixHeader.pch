@@ -34,7 +34,7 @@
         #import "INVTabBarStoryboardLoader.h"
         #import "INVPagingManager.h"
 
-
+        #import "INVLogger.h"
 
     #endif
 #endif

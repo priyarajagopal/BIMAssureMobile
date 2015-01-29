@@ -53,7 +53,8 @@
 }
 
 -(id) valueForUndefinedKey:(NSString *)key {
-    NSLog(@"Warning - undefined key requested! %@", key);
+    INVLogWarning(@"Warning - undefined key '%@' requested!", key);
+    
     return nil;
 }
 

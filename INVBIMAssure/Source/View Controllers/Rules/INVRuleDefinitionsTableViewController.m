@@ -176,7 +176,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         NSError* dbError = nil;
         [_dataResultsController performFetch:&dbError];
         if (dbError) {
-            NSLog(@"%s. perform fetch failed with %@",__func__,dbError);
+            INVLogError(@"Perform fetch failed with %@", dbError);
+            
             _dataResultsController = nil;
         }
     }

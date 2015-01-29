@@ -46,6 +46,7 @@
 		F5269DF11A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DF01A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m */; };
 		F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */; };
 		F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */; };
+		F5313A401A7956BC00E476D3 /* INVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F5313A3F1A7956BC00E476D3 /* INVLogger.m */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
 		F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */; };
 		F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */; };
@@ -246,6 +247,8 @@
 		F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectsNotificationDataSource.m; sourceTree = "<group>"; };
 		F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVResetPasswordTableViewController.h; sourceTree = "<group>"; };
 		F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVResetPasswordTableViewController.m; sourceTree = "<group>"; };
+		F5313A3E1A7956BC00E476D3 /* INVLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVLogger.h; sourceTree = "<group>"; };
+		F5313A3F1A7956BC00E476D3 /* INVLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVLogger.m; sourceTree = "<group>"; };
 		F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "../../Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
 		F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "../../Pods/build/Debug-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
 		F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "../../Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
@@ -723,6 +726,8 @@
 				F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */,
 				F5269DEC1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.h */,
 				F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */,
+				F5313A3E1A7956BC00E476D3 /* INVLogger.h */,
+				F5313A3F1A7956BC00E476D3 /* INVLogger.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1216,6 +1221,7 @@
 				F5789D4A1A642A5500D8CEE7 /* AppDelegate.m in Sources */,
 				F5789D761A642A5500D8CEE7 /* INVFileRuleSetListTableViewController.m in Sources */,
 				F5789D721A642A5500D8CEE7 /* INVProjectFileViewerController.m in Sources */,
+				F5313A401A7956BC00E476D3 /* INVLogger.m in Sources */,
 				F5789D611A642A5500D8CEE7 /* INVLoginViewController.m in Sources */,
 				F5789D731A642A5500D8CEE7 /* INVProjectListSplitViewController.m in Sources */,
 				F5789D5A1A642A5500D8CEE7 /* INVMutableArrayTableViewDataSource.m in Sources */,
