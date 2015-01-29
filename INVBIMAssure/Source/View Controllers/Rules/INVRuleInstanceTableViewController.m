@@ -91,7 +91,6 @@ static NSString* INV_ActualParamValue = @"Value";
     self.rulesManager = nil;
     self.intermediateRuleInstanceActualParams = nil;
     self.ruleDefinition = nil;
-    self.successAlertController = nil;
     self.saveBarButton = nil;
     self.tableView.dataSource = nil;
     self.dataSource = nil;

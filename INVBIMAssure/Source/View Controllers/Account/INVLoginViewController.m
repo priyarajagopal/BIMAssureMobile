@@ -52,7 +52,6 @@ NSString* const KVO_INVLoginSuccess = @"loginSuccess";
     [super viewWillDisappear:animated];
     
     self.userToken = nil;
-    self.loginFailureAlertController = nil;
     [self removeSignupObservers];
     self.signupController = nil;
 }
