@@ -11,13 +11,14 @@
 
 @implementation INVModalPresentationFromSplitViewControllerSegue
 
--(void) perform {
+- (void)perform
+{
     // Get the root view controller of the key window
     UIViewController *source = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     UISplitViewController *splitViewController = [self.sourceViewController splitViewController];
-    
+
     [source presentViewController:self.destinationViewController animated:YES completion:nil];
-    
+
     if (splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
         [splitViewController toggleSidebar];
     }

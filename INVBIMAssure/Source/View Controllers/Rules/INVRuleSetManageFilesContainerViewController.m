@@ -10,25 +10,28 @@
 #import "INVRuleSetFilesListTableViewController.h"
 
 @interface INVRuleSetManageFilesContainerViewController ()
-@property (nonatomic,strong)INVRuleSetFilesListTableViewController* includedFilesTVC;
-@property (nonatomic,strong)INVRuleSetFilesListTableViewController* excludedFilesTVC;
+@property (nonatomic, strong) INVRuleSetFilesListTableViewController *includedFilesTVC;
+@property (nonatomic, strong) INVRuleSetFilesListTableViewController *excludedFilesTVC;
 @end
 
 #pragma mark - implementation
 @implementation INVRuleSetManageFilesContainerViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"MANAGE_FILES", nil);
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     self.includedFilesTVC = nil;
     self.excludedFilesTVC = nil;
@@ -37,12 +40,13 @@
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"IncludedFilesSegue"]) {
         self.includedFilesTVC = segue.destinationViewController;
-        self.includedFilesTVC .projectId = self.projectId;
-        self.includedFilesTVC .ruleSetId = self.ruleSetId;
-        self.includedFilesTVC .showFilesForRuleSetId = YES;
+        self.includedFilesTVC.projectId = self.projectId;
+        self.includedFilesTVC.ruleSetId = self.ruleSetId;
+        self.includedFilesTVC.showFilesForRuleSetId = YES;
     }
     else if ([segue.identifier isEqualToString:@"ExcludedFilesSegue"]) {
         self.excludedFilesTVC = segue.destinationViewController;
@@ -53,7 +57,8 @@
 }
 
 #pragma mark - UIEvent handlers
-- (IBAction)onResetTapped:(UIBarButtonItem *)sender {
+- (IBAction)onResetTapped:(UIBarButtonItem *)sender
+{
     [self.includedFilesTVC resetFileEntries];
     [self.excludedFilesTVC resetFileEntries];
 }

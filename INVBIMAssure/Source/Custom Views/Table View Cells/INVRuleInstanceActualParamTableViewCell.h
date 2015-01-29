@@ -10,9 +10,9 @@
 
 @class INVRuleInstanceActualParamTableViewCell;
 
-@protocol INVRuleInstanceActualParamTableViewCellDelegate <NSObject>
--(void)onRuleInstanceActualParamUpdated:(INVRuleInstanceActualParamTableViewCell*)sender;
--(void)onBeginEditingRuleInstanceActualParamField:(INVRuleInstanceActualParamTableViewCell*)sender;
+@protocol INVRuleInstanceActualParamTableViewCellDelegate<NSObject>
+- (void)onRuleInstanceActualParamUpdated:(INVRuleInstanceActualParamTableViewCell *)sender;
+- (void)onBeginEditingRuleInstanceActualParamField:(INVRuleInstanceActualParamTableViewCell *)sender;
 @end
 
 @interface INVRuleInstanceActualParamTableViewCell : UITableViewCell

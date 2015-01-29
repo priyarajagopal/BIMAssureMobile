@@ -10,10 +10,14 @@
 #import "INVPagingManager+Private.h"
 
 @implementation INVPagingManager (PackageMasterListing)
--(void)fetchPackageMastersFromCurrentOffsetForProject:(NSNumber*)projectId {
-
-    [self.globalDataManager.invServerClient getAllPkgMastersForProject:projectId WithOffset:@(self.currOffset) pageSize:@(self.pageSize) includeTotalCount:NO WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self handlePagedResponse:error];
-    }];
+- (void)fetchPackageMastersFromCurrentOffsetForProject:(NSNumber *)projectId
+{
+    [self.globalDataManager.invServerClient getAllPkgMastersForProject:projectId
+                                                            WithOffset:@(self.currOffset)
+                                                              pageSize:@(self.pageSize)
+                                                     includeTotalCount:NO
+                                                   WithCompletionBlock:^(INVEmpireMobileError *error) {
+                                                       [self handlePagedResponse:error];
+                                                   }];
 }
 @end

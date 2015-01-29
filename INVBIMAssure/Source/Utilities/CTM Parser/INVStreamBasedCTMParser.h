@@ -11,12 +11,14 @@
 #import "INVStreamBasedCTMParserGLESMesh.h"
 
 @class INVStreamBasedCTMParser;
-@protocol INVStreamBasedCTMParserDelegate <NSObject>
+@protocol INVStreamBasedCTMParserDelegate<NSObject>
 @optional
 
--(void) streamBasedCTMParserDidStartLoad:(INVStreamBasedCTMParser *) parser;
--(void) streamBasedCTMParser:(INVStreamBasedCTMParser *) parser didCompleteMesh:(INVStreamBasedCTMParserGLESMesh *) mesh shouldStop:(BOOL *) stop;
--(void) streamBasedCTMParserDidFinishLoad:(INVStreamBasedCTMParser *) parser;
+- (void)streamBasedCTMParserDidStartLoad:(INVStreamBasedCTMParser *)parser;
+- (void)streamBasedCTMParser:(INVStreamBasedCTMParser *)parser
+             didCompleteMesh:(INVStreamBasedCTMParserGLESMesh *)mesh
+                  shouldStop:(BOOL *)stop;
+- (void)streamBasedCTMParserDidFinishLoad:(INVStreamBasedCTMParser *)parser;
 
 @end
 
@@ -24,6 +26,6 @@
 
 @property (weak) id<INVStreamBasedCTMParserDelegate> delegate;
 
--(void) process:(id) source;
+- (void)process:(id)source;
 
 @end

@@ -11,7 +11,7 @@
 typedef NS_ENUM(NSUInteger, INVNotificationType) {
     INVNotificationTypePendingInvite,
     INVNotificationTypeProject,
-    
+
     INVNotificationTypeCount
 };
 
@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, INVNotificationType) {
 @property BOOL dismissed;
 @property NSDate *creationDate;
 
-+(id) notificationWithTitle:(NSString *) title type:(INVNotificationType) type andData:(id) data;
--(id) initWithTitle:(NSString *) title type:(INVNotificationType) type andData:(id) data;
++ (id)notificationWithTitle:(NSString *)title type:(INVNotificationType)type andData:(id)data;
+- (id)initWithTitle:(NSString *)title type:(INVNotificationType)type andData:(id)data;
 
 @end

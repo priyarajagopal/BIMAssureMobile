@@ -10,5 +10,4 @@
 
 @interface INVSimpleUserInfoTableViewController : INVCustomTableViewController
 
-
 @end

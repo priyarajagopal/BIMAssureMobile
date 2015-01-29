@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UISplitViewController(ToggleSidebar)
+@interface UISplitViewController (ToggleSidebar)
 
--(void) toggleSidebar;
+- (void)toggleSidebar;
 
 @end

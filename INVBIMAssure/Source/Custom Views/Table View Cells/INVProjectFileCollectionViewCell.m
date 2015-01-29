@@ -10,37 +10,39 @@
 
 @implementation INVProjectFileCollectionViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
-    UIColor* whiteColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0];
-    [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil]setTintColor:whiteColor];
+    UIColor *whiteColor = [UIColor colorWithRed:255.0 / 255 green:255.0 / 255 blue:255.0 / 255 alpha:1.0];
+    [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setTintColor:whiteColor];
 }
 
-
 #pragma mark - UIEvent handlers
-- (IBAction)onViewProjectSelected:(UIBarButtonItem* )sender {
+- (IBAction)onViewProjectSelected:(UIBarButtonItem *)sender
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(onViewProjectFile:)]) {
         [self.delegate onViewProjectFile:self];
     }
-
 }
 
-- (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender {
+- (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(onManageRuleSetsForProjectFile:)]) {
         [self.delegate onManageRuleSetsForProjectFile:self];
     }
 }
 
-- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender {
+- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(onRunRulesForProjectFile:)]) {
         [self.delegate onRunRulesForProjectFile:self];
     }
 }
 
-- (IBAction)onShowExecutionsSelected:(UIBarButtonItem *)sender {
+- (IBAction)onShowExecutionsSelected:(UIBarButtonItem *)sender
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(onShowExecutionsForProjectFile:)]) {
         [self.delegate onShowExecutionsForProjectFile:self];
     }
-
 }
 @end

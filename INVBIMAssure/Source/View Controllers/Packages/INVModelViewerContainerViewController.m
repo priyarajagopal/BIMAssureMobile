@@ -15,38 +15,44 @@
 
 @implementation INVModelViewerContainerViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([[segue destinationViewController] isKindOfClass:[INVModelViewerViewController class]]) {
         self.modelViewController = segue.destinationViewController;
     }
 }
 
--(void) setModelViewController:(INVModelViewerViewController *)modelViewController {
+- (void)setModelViewController:(INVModelViewerViewController *)modelViewController
+{
     _modelViewController = modelViewController;
-    
+
     _modelViewController.modelId = self.modelId;
     _modelViewController.fileVersionId = self.fileVersionId;
 }
 
--(void) setModelId:(NSNumber *)modelId {
+- (void)setModelId:(NSNumber *)modelId
+{
     _modelId = modelId;
-    
+
     _modelViewController.modelId = modelId;
 }
 
--(void) setFileVersionId:(NSNumber *)fileVersionId {
+- (void)setFileVersionId:(NSNumber *)fileVersionId
+{
     _fileVersionId = fileVersionId;
-    
+
     _modelViewController.fileVersionId = fileVersionId;
 }
 

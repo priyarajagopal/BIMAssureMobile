@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-  INV_SUBSCRIPTION_LEVEL_PROFESSIONAL = 0,
-  INV_SUBSCRIPTION_LEVEL_TEAM = 1,
-  INV_SUBSCRIPTION_LEVEL_ENTERPRISE = 3,
-}_INV_SUBSCRIPTION_LEVEL;
+    INV_SUBSCRIPTION_LEVEL_PROFESSIONAL = 0,
+    INV_SUBSCRIPTION_LEVEL_TEAM = 1,
+    INV_SUBSCRIPTION_LEVEL_ENTERPRISE = 3,
+} _INV_SUBSCRIPTION_LEVEL;
 
 @interface INVSubscriptionLevelsTableViewCell : UITableViewCell
 
-@property (nonatomic,assign)_INV_SUBSCRIPTION_LEVEL selectedSubscriptionType;
+@property (nonatomic, assign) _INV_SUBSCRIPTION_LEVEL selectedSubscriptionType;
 @property (weak, nonatomic) IBOutlet UIView *profView;
 @property (weak, nonatomic) IBOutlet UIView *teamView;
 @property (weak, nonatomic) IBOutlet UIView *enterpriseView;

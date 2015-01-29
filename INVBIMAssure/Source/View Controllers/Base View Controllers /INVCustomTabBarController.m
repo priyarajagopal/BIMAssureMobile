@@ -8,24 +8,27 @@
 
 #import "INVCustomTabBarController.h"
 
-@interface INVCustomTabBarController ()<UITabBarControllerDelegate>
-@property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
+@interface INVCustomTabBarController () <UITabBarControllerDelegate>
+@property (nonatomic, readwrite) INVGlobalDataManager *globalDataManager;
 @end
 
 @implementation INVCustomTabBarController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     self.hud = nil;
 }

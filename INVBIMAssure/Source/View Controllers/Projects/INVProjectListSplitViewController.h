@@ -11,9 +11,9 @@
 
 @interface INVProjectListSplitViewController : INVCustomSplitViewController
 
-@property (nonatomic,copy)NSNumber* accountId;
+@property (nonatomic, copy) NSNumber *accountId;
 @property (nonatomic) INVSplitViewControllerAggregateDelegate *aggregateDelegate;
 
--(void) setSelectedProject:(INVProject *) project;
+- (void)setSelectedProject:(INVProject *)project;
 
 @end

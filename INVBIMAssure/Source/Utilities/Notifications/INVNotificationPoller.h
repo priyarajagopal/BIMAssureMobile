@@ -16,24 +16,24 @@ extern NSString *const INVNotificationPoller_ChangesKey;
 
 @interface INVNotificationPollerDataSource : NSObject
 
--(instancetype) initWithBlock:(void (^)(void (^)(NSArray *callback))) block;
-+(instancetype) sourceWithBlock:(void (^)(void (^)(NSArray *callback))) block;
+- (instancetype)initWithBlock:(void (^)(void (^)(NSArray *callback)))block;
++ (instancetype)sourceWithBlock:(void (^)(void (^)(NSArray *callback)))block;
 
--(void) checkForNewData:(void (^)(NSArray *)) callback;
+- (void)checkForNewData:(void (^)(NSArray *))callback;
 
 @end
 
 @interface INVNotificationPoller : NSObject
 
-+(instancetype) instance;
--(NSArray *) allNotifications;
++ (instancetype)instance;
+- (NSArray *)allNotifications;
 
--(void) beginPolling;
--(void) endPolling;
+- (void)beginPolling;
+- (void)endPolling;
 
--(void) forceUpdate;
+- (void)forceUpdate;
 
--(void) addDataSource:(INVNotificationPollerDataSource *) dataSource;
--(void) removeDataSource:(INVNotificationPollerDataSource *) dataSource;
+- (void)addDataSource:(INVNotificationPollerDataSource *)dataSource;
+- (void)removeDataSource:(INVNotificationPollerDataSource *)dataSource;
 
 @end

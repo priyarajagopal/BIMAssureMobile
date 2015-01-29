@@ -8,5 +8,5 @@
 
 #import "INVGenericTableViewDataSource.h"
 
-@interface INVRulesTableViewDataSource : INVGenericTableViewDataSource <UITableViewDataSource>
+@interface INVRulesTableViewDataSource : INVGenericTableViewDataSource<UITableViewDataSource>
 @end

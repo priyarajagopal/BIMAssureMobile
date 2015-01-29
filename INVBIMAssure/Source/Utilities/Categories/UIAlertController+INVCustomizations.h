@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-
 @interface UIAlertController (INVCustomizations)
-- (instancetype)initWithErrorMessage:(NSString*)errorMesg;
+- (instancetype)initWithErrorMessage:(NSString *)errorMesg;
 @end

@@ -11,10 +11,13 @@
 
 @implementation INVPagingManager (ProjectListing)
 
--(void)fetchProjectsFromCurrentOffset {
-       
-    [self.globalDataManager.invServerClient getAllProjectsForSignedInAccountWithOffset:@(self.currOffset) pageSize:@(self.pageSize) includeTotalCount:NO WithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self handlePagedResponse:error];
-    }];
+- (void)fetchProjectsFromCurrentOffset
+{
+    [self.globalDataManager.invServerClient getAllProjectsForSignedInAccountWithOffset:@(self.currOffset)
+                                                                              pageSize:@(self.pageSize)
+                                                                     includeTotalCount:NO
+                                                                   WithCompletionBlock:^(INVEmpireMobileError *error) {
+                                                                       [self handlePagedResponse:error];
+                                                                   }];
 }
 @end

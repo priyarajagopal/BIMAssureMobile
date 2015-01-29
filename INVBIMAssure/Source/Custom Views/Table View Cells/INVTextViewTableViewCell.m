@@ -9,8 +9,8 @@
 #import "INVTextViewTableViewCell.h"
 
 static NSInteger BASELINE_HEIGHT = 200;
-@interface INVTextViewTableViewCell()<UITextViewDelegate>
-@property (nonatomic,assign) NSInteger currentHeight;
+@interface INVTextViewTableViewCell () <UITextViewDelegate>
+@property (nonatomic, assign) NSInteger currentHeight;
 @end
 
 @implementation INVTextViewTableViewCell
@@ -19,7 +19,7 @@ static NSInteger BASELINE_HEIGHT = 200;
 {
     // Initialization code
     self.textView.delegate = self;
-    self.currentHeight  = BASELINE_HEIGHT;
+    self.currentHeight = BASELINE_HEIGHT;
     self.textView.tintColor = [UIColor darkTextColor];
 }
 
@@ -29,10 +29,8 @@ static NSInteger BASELINE_HEIGHT = 200;
     // Configure the view for the selected state
 }
 
-
-
 #pragma mark - UITextViewDelegate
--(void)textViewDidBeginEditing:(UITextView *)textView
+- (void)textViewDidBeginEditing:(UITextView *)textView
 {
     INVLogDebug();
 }
@@ -47,16 +45,15 @@ static NSInteger BASELINE_HEIGHT = 200;
     return TRUE;
 }
 
-
 - (void)textViewDidChange:(UITextView *)textView;
 {
-    CGFloat height = BASELINE_HEIGHT >= textView.contentSize.height? BASELINE_HEIGHT: textView.contentSize.height + 10 ; // 10 buffer
-    
+    CGFloat height =
+        BASELINE_HEIGHT >= textView.contentSize.height ? BASELINE_HEIGHT : textView.contentSize.height + 10; // 10 buffer
+
     if ((height != self.currentHeight) && [self.cellDelegate respondsToSelector:@selector(cellSizeChanged:withTextString:)]) {
         [self.cellDelegate cellSizeChanged:CGSizeMake(self.bounds.size.width, height) withTextString:textView.text];
     }
     self.currentHeight = height;
-    
 }
 
 @end

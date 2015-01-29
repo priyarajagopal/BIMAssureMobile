@@ -8,43 +8,42 @@
 
 #import "INVCustomSplitViewController.h"
 
-
-@interface INVCustomSplitViewController ()<UISplitViewControllerDelegate>
-@property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
-@property (nonatomic, readwrite)UIPanGestureRecognizer* splitViewPanGestureRecognizer;
+@interface INVCustomSplitViewController () <UISplitViewControllerDelegate>
+@property (nonatomic, readwrite) INVGlobalDataManager *globalDataManager;
+@property (nonatomic, readwrite) UIPanGestureRecognizer *splitViewPanGestureRecognizer;
 
 @end
 
 @implementation INVCustomSplitViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
-  
-    
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - accessor
--(UIPanGestureRecognizer*)splitViewPanGestureRecognizer {
+- (UIPanGestureRecognizer *)splitViewPanGestureRecognizer
+{
     if (!_splitViewPanGestureRecognizer) {
-        for (UIGestureRecognizer* recognizer in [self.view gestureRecognizers]) {
+        for (UIGestureRecognizer *recognizer in [self.view gestureRecognizers]) {
             if ([recognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
                 _splitViewPanGestureRecognizer = (UIPanGestureRecognizer *) recognizer;
             }
         }
-        
     }
     return _splitViewPanGestureRecognizer;
-  
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     self.hud = nil;
 }

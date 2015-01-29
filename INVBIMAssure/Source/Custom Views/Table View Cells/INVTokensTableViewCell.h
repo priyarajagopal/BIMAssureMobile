@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <VENTokenField/VENTokenField.h>
-@protocol INVTokensTableViewCellDelegate <NSObject>
+@protocol INVTokensTableViewCellDelegate<NSObject>
 
 @optional
--(void)cellSizeChanged:(CGSize)size withTextString:(NSString*)textStr;
--(void)tokensChanged:(NSArray*)tokens;
+- (void)cellSizeChanged:(CGSize)size withTextString:(NSString *)textStr;
+- (void)tokensChanged:(NSArray *)tokens;
 @end
 
 @interface INVTokensTableViewCell : UITableViewCell

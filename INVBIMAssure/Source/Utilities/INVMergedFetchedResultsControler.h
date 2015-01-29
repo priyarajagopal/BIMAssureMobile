@@ -10,9 +10,9 @@
 
 @interface INVMergedFetchedResultsControler : NSFetchedResultsController
 
--(void) addFetchedResultsController:(NSFetchedResultsController *) resultsController;
--(void) removeFetchedResultsController:(NSFetchedResultsController *) resultsController;
+- (void)addFetchedResultsController:(NSFetchedResultsController *)resultsController;
+- (void)removeFetchedResultsController:(NSFetchedResultsController *)resultsController;
 
--(NSArray *) allFetchedResultsControllers;
+- (NSArray *)allFetchedResultsControllers;
 
 @end

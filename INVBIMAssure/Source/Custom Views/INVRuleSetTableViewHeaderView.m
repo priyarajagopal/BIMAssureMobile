@@ -10,7 +10,8 @@
 
 @implementation INVRuleSetTableViewHeaderView
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
 }
 
 /*
@@ -21,13 +22,15 @@
 }
 */
 
-- (IBAction)onAddRuleInstanceForRuleSet:(UIButton *)sender {
+- (IBAction)onAddRuleInstanceForRuleSet:(UIButton *)sender
+{
     if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onAddRuleInstanceTapped:)]) {
         [self.actionDelegate onAddRuleInstanceTapped:self];
     }
 }
 
--(IBAction)onManageFilesForRuleset:(UIButton*)sender {
+- (IBAction)onManageFilesForRuleset:(UIButton *)sender
+{
     if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onManageFilesTapped:)]) {
         [self.actionDelegate onManageFilesTapped:self];
     }

@@ -10,35 +10,38 @@
 #import "INVFileRuleSetListTableViewController.h"
 
 @interface INVFileManageRuleSetsContainerViewController ()
-@property (nonatomic,strong)INVFileRuleSetListTableViewController* includedRuleSetsTVC;
-@property (nonatomic,strong)INVFileRuleSetListTableViewController* excludedRuleSetsTVC;
+@property (nonatomic, strong) INVFileRuleSetListTableViewController *includedRuleSetsTVC;
+@property (nonatomic, strong) INVFileRuleSetListTableViewController *excludedRuleSetsTVC;
 @end
 
 #pragma mark - implementation
 @implementation INVFileManageRuleSetsContainerViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"MANAGE_RULESETS", nil);
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     self.includedRuleSetsTVC = nil;
     self.excludedRuleSetsTVC = nil;
 }
 
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"IncludedRuleSetsSegue"]) {
         self.includedRuleSetsTVC = segue.destinationViewController;
         self.includedRuleSetsTVC.projectId = self.projectId;
@@ -54,7 +57,8 @@
 }
 
 #pragma mark - UIEvent handlers
-- (IBAction)onResetTapped:(UIBarButtonItem *)sender {
+- (IBAction)onResetTapped:(UIBarButtonItem *)sender
+{
     [self.includedRuleSetsTVC resetRuleSetEntries];
     [self.excludedRuleSetsTVC resetRuleSetEntries];
 }

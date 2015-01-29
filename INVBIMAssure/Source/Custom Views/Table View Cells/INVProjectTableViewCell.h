@@ -10,11 +10,11 @@
 
 @class INVProjectTableViewCell;
 
-@protocol INVProjectTableViewCellDelegate <NSObject>
+@protocol INVProjectTableViewCellDelegate<NSObject>
 
 @optional
--(void) onProjectDeleted:(INVProjectTableViewCell *) sender;
--(void) onProjectEdited:(INVProjectTableViewCell *) sender;
+- (void)onProjectDeleted:(INVProjectTableViewCell *)sender;
+- (void)onProjectEdited:(INVProjectTableViewCell *)sender;
 
 @end
 

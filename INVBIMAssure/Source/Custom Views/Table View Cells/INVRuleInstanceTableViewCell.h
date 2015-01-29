@@ -10,23 +10,22 @@
 
 @class INVRuleInstanceTableViewCell;
 
-
-@protocol INVRuleInstanceTableViewCellActionDelegate <NSObject>
+@protocol INVRuleInstanceTableViewCellActionDelegate<NSObject>
 @optional
--(void)onViewRuleTappedFor:(INVRuleInstanceTableViewCell*)sender;
--(void)onDeleteRuleTappedFor:(INVRuleInstanceTableViewCell*)sender;
+- (void)onViewRuleTappedFor:(INVRuleInstanceTableViewCell *)sender;
+- (void)onDeleteRuleTappedFor:(INVRuleInstanceTableViewCell *)sender;
 
 @end
 
-@protocol INVRuleInstanceTableViewCellStateDelegate <NSObject>
+@protocol INVRuleInstanceTableViewCellStateDelegate<NSObject>
 - (void)cellDidOpen:(INVRuleInstanceTableViewCell *)cell;
 - (void)cellDidClose:(INVRuleInstanceTableViewCell *)cell;
 
 @end
 
 @interface INVRuleInstanceTableViewCell : UITableViewCell
-@property (copy, nonatomic) NSNumber* ruleInstanceId;
-@property (copy, nonatomic) NSNumber* ruleSetId;
+@property (copy, nonatomic) NSNumber *ruleInstanceId;
+@property (copy, nonatomic) NSNumber *ruleSetId;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *overview;
 @property (weak, nonatomic) IBOutlet UILabel *ruleWarning;

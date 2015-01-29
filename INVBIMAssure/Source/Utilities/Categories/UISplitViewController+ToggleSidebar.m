@@ -8,15 +8,13 @@
 
 #import "UISplitViewController+ToggleSidebar.h"
 
-@implementation UISplitViewController(ToggleSidebar)
+@implementation UISplitViewController (ToggleSidebar)
 
--(void) toggleSidebar {
+- (void)toggleSidebar
+{
     UIBarButtonItem *barButtonItem = self.displayModeButtonItem;
-    
-    [[UIApplication sharedApplication] sendAction:barButtonItem.action
-                                               to:barButtonItem.target
-                                             from:barButtonItem
-                                         forEvent:nil];
+
+    [[UIApplication sharedApplication] sendAction:barButtonItem.action to:barButtonItem.target from:barButtonItem forEvent:nil];
 }
 
 @end

@@ -13,7 +13,8 @@ const NSInteger DEFAULT_PAGESIZE = 20;
 
 @implementation INVPagingManager
 
--(instancetype) initWithPageSize:(NSInteger)pageSize delegate:(id<INVPagingManagerDelegate>)delegate {
+- (instancetype)initWithPageSize:(NSInteger)pageSize delegate:(id<INVPagingManagerDelegate>)delegate
+{
     self = [super init];
     if (self) {
         self.currOffset = 0;
@@ -24,21 +25,23 @@ const NSInteger DEFAULT_PAGESIZE = 20;
     return self;
 }
 
--(id)init {
+- (id)init
+{
     return [self initWithPageSize:DEFAULT_PAGESIZE delegate:nil];
 }
 
--(void)resetOffset {
+- (void)resetOffset
+{
     self.currOffset = 0;
 }
 
--(void)handlePagedResponse:(INVEmpireMobileError *)error {
+- (void)handlePagedResponse:(INVEmpireMobileError *)error
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(onFetchedDataAtOffset:pageSize:withError:)]) {
         [self.delegate onFetchedDataAtOffset:self.currOffset pageSize:self.pageSize withError:error];
     }
-    
-    self.currOffset+= self.pageSize;
 
+    self.currOffset += self.pageSize;
 }
 
 @end

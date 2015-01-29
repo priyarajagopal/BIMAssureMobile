@@ -8,37 +8,38 @@
 
 #import "INVTokensTableViewCell.h"
 
-@interface INVTokensTableViewCell() <VENTokenFieldDelegate, VENTokenFieldDataSource>
+@interface INVTokensTableViewCell () <VENTokenFieldDelegate, VENTokenFieldDataSource>
 @property (readwrite, nonatomic) NSMutableArray *tokens;
 
 @end
 
 @implementation INVTokensTableViewCell
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
     [super awakeFromNib];
     self.tokenField.maxHeight = CGFLOAT_MAX;
     self.tokenField.dataSource = self;
     self.tokenField.delegate = self;
     self.tokenField.placeholderText = NSLocalizedString(@"ENTER_EMAILS:", nil);
-    
+
     self.tokenField.inputTextFieldKeyboardType = UIKeyboardTypeEmailAddress;
     self.tokenField.autocorrectionType = UITextAutocorrectionTypeNo;
-    
-    UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
-    [self.tokenField setColorScheme: cyanBlueColor];
-    
-    self.tokens = [[NSMutableArray alloc]initWithCapacity:0];
+
+    UIColor *cyanBlueColor = [UIColor colorWithRed:38.0 / 255 green:138.0 / 255 blue:171.0 / 255 alpha:1.0];
+    [self.tokenField setColorScheme:cyanBlueColor];
+
+    self.tokens = [[NSMutableArray alloc] initWithCapacity:0];
     [self.tokenField becomeFirstResponder];
-
-
 }
 
--(void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
@@ -48,13 +49,11 @@
     [self.tokenField collapse];
 }
 
--(void)resignResponder
+- (void)resignResponder
 {
     [self.tokenField endEditing:YES];
     [self.tokenField resignFirstResponder];
 }
-
-
 
 #pragma mark - VENTokenFieldDelegate
 
@@ -66,10 +65,10 @@
         if (self.cellDelegate && [self.cellDelegate respondsToSelector:@selector(tokensChanged:)]) {
             [self.cellDelegate tokensChanged:self.tokens];
         }
-        
+
         [tokenField reloadData];
-    } else {
-        
+    }
+    else {
     }
 }
 
@@ -81,7 +80,6 @@
     }
     [tokenField reloadData];
 }
-
 
 #pragma mark - VENTokenFieldDataSource
 
@@ -97,12 +95,12 @@
 
 - (NSString *)tokenFieldCollapsedText:(VENTokenField *)tokenField
 {
-    return  [NSString stringWithFormat:@"%ld",(unsigned long)self.tokens.count ];
+    return [NSString stringWithFormat:@"%ld", (unsigned long) self.tokens.count];
 }
 
-
 #pragma mark - helpers
--(BOOL) heightOfTokenFieldChangedForTokenField:(VENTokenField*)tokenField {
+- (BOOL)heightOfTokenFieldChangedForTokenField:(VENTokenField *)tokenField
+{
     return YES;
 }
 @end

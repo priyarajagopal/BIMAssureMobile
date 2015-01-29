@@ -13,16 +13,14 @@
 #import "INVDefaultAccountAlertView.h"
 #import "INVMainViewController.h"
 
-static inline NSString *invNotificationTypeToString(INVNotificationType type) {
-    static NSString *notificationLocalizedStringKeys[] = {
-        @"NOTIFICATION_TYPE_PENDING_INVITE",
-        @"NOTIFICATION_TYPE_PROJECT"
-    };
-    
+static inline NSString *invNotificationTypeToString(INVNotificationType type)
+{
+    static NSString *notificationLocalizedStringKeys[] = { @"NOTIFICATION_TYPE_PENDING_INVITE", @"NOTIFICATION_TYPE_PROJECT" };
+
     return NSLocalizedString(notificationLocalizedStringKeys[type], nil);
 }
 
-@interface INVNotificationsTableViewController ()<INVDefaultAccountAlertViewDelegate>
+@interface INVNotificationsTableViewController () <INVDefaultAccountAlertViewDelegate>
 
 @property IBOutlet UILabel *noNotificationsLabel;
 
@@ -35,97 +33,107 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
 
 @implementation INVNotificationsTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    
-    [self.tableView registerNib:[UINib nibWithNibName:@"INVNotificationTableViewCell"
-                                               bundle:[NSBundle mainBundle]]
+
+    [self.tableView registerNib:[UINib nibWithNibName:@"INVNotificationTableViewCell" bundle:[NSBundle mainBundle]]
          forCellReuseIdentifier:@"notificationCell"];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onNotificationRecieved:)
                                                  name:INVNotificationPoller_DidRecieveNotificationNotification
                                                object:nil];
-    
+
     [self onNotificationRecieved:nil];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
--(void) onNotificationRecieved:(NSNotification *) notification {
+- (void)onNotificationRecieved:(NSNotification *)notification
+{
     [self reloadData];
 }
 
--(void) reloadData {
+- (void)reloadData
+{
     NSArray *notifications = [[INVNotificationPoller instance] allNotifications];
-    notifications = [notifications sortedArrayUsingDescriptors: @[
-                                                                  [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]
-                                                                  ]];
-    
+    notifications =
+        [notifications sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]];
+
     NSMutableArray *notificationSections = [NSMutableArray arrayWithCapacity:INVNotificationTypeCount];
-    
+
     for (int index = 0; index < INVNotificationTypeCount; index++) {
         [notificationSections addObject:[NSMutableArray new]];
     }
-    
+
     for (INVNotification *notification in notifications) {
         [notificationSections[notification.type] addObject:notification];
     }
-    
-    [notificationSections removeObjectsAtIndexes:[notificationSections indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [obj count] == 0;
-    }]];
-    
+
+    [notificationSections
+        removeObjectsAtIndexes:[notificationSections indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return [obj count] == 0;
+        }]];
+
     self.notifications = [notificationSections copy];
     [self.tableView reloadData];
 }
 
--(void)onRefreshControlSelected:(id)event {
+- (void)onRefreshControlSelected:(id)event
+{
     [self.refreshControl endRefreshing];
-    
+
     [[INVNotificationPoller instance] forceUpdate];
     [self reloadData];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     NSInteger count = self.notifications.count;
     self.noNotificationsLabel.hidden = count > 0;
-    
+
     return count;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [self.notifications[section] count];
 }
 
--(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    INVNotificationType type = [(INVNotification *)[self.notifications[section] firstObject] type];
-    
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    INVNotificationType type = [(INVNotification *) [self.notifications[section] firstObject] type];
+
     return invNotificationTypeToString(type);
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    INVNotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"notificationCell" forIndexPath:indexPath];
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    INVNotificationTableViewCell *cell =
+        [tableView dequeueReusableCellWithIdentifier:@"notificationCell" forIndexPath:indexPath];
+
     INVNotification *notification = _notifications[indexPath.section][indexPath.row];
     cell.notification = notification;
-    
+
     return cell;
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     INVNotificationTableViewCell *cell = (INVNotificationTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
     INVNotification *notification = cell.notification;
-    
+
     _selectedNotification = notification;
-    
+
     if (notification.type == INVNotificationTypePendingInvite) {
         if (notification.data) {
             // Handle account invite.
@@ -133,42 +141,65 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
             _alertView.delegate = self;
             _alertView.translatesAutoresizingMaskIntoConstraints = NO;
             _alertView.setAsDefaultContainer.hidden = YES;
-        
+
             [_alertView.acceptButton setTitle:NSLocalizedString(@"INVITE_ACCEPT", nil) forState:UIControlStateNormal];
             [_alertView.cancelButton setTitle:NSLocalizedString(@"CANCEL", nil) forState:UIControlStateNormal];
-        
-            _alertView.alertMessage.text = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), [notification.data accountName]];
-        
+
+            _alertView.alertMessage.text = [NSString
+                stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), [notification.data accountName]];
+
             [self.view.window addSubview:_alertView];
-        
-            [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-            [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        } else {
+
+            [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.view
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                        multiplier:1
+                                                                          constant:0]];
+            [self.view.window addConstraint:[NSLayoutConstraint constraintWithItem:_alertView
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.view
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                        multiplier:1
+                                                                          constant:0]];
+        }
+        else {
             notification.dismissed = YES;
             [self reloadData];
         }
     }
-    
+
     if (notification.type == INVNotificationTypeProject) {
         if (notification.data) {
             INVProject *project = notification.data;
-        
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_TITLE", nil)
-                                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_MESSAGE", nil), project.name]
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_NO", nil) style:UIAlertActionStyleCancel handler:nil]];
-        
-            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_YES", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [self performSegueWithIdentifier:@"unwind" sender:nil];
-            
-                INVMainViewController *mainViewController = (INVMainViewController *) [[UIApplication sharedApplication] keyWindow].rootViewController;
-                [mainViewController viewProject:project];
-            }]];
-        
+
+            UIAlertController *alertController = [UIAlertController
+                alertControllerWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_TITLE", nil)
+                                 message:[NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_MESSAGE", nil),
+                                                   project.name]
+                          preferredStyle:UIAlertControllerStyleAlert];
+
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_NO", nil)
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:nil]];
+
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ARE_YOU_SURE_PROJECT_YES", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction *action) {
+                                                                  [self performSegueWithIdentifier:@"unwind" sender:nil];
+
+                                                                  INVMainViewController *mainViewController =
+                                                                      (INVMainViewController *)
+                                                                          [[UIApplication sharedApplication] keyWindow]
+                                                                              .rootViewController;
+                                                                  [mainViewController viewProject:project];
+                                                              }]];
+
             [self presentViewController:alertController animated:YES completion:nil];
         }
-        
+
         notification.dismissed = YES;
         [self reloadData];
     }
@@ -184,20 +215,22 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type) {
 }
 */
 
--(void) onLogintoAccountWithDefault:(BOOL)isDefault {
+- (void)onLogintoAccountWithDefault:(BOOL)isDefault
+{
     [_alertView removeFromSuperview];
-    
+
     [self.globalDataManager.invServerClient acceptInvite:[[_selectedNotification data] invitationCode]
                                                  forUser:self.globalDataManager.loggedInUser
                                      withCompletionBlock:^(INVEmpireMobileError *error) {
                                          self.selectedNotification.dismissed = YES;
                                          self.selectedNotification = nil;
-                                         
+
                                          [self reloadData];
                                      }];
 }
 
--(void) onCancelLogintoAccount {
+- (void)onCancelLogintoAccount
+{
     [_alertView removeFromSuperview];
 }
 

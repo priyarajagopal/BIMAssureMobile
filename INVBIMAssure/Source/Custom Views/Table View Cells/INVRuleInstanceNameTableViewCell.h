@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @class INVRuleInstanceNameTableViewCell;
-@protocol INVRuleInstanceNameTableViewCellDelegate <NSObject>
--(void)onRuleInstanceNameUpdated:(INVRuleInstanceNameTableViewCell*)sender;
--(void)onBeginEditingRuleInstanceNameField:(INVRuleInstanceNameTableViewCell*)sender;
+@protocol INVRuleInstanceNameTableViewCellDelegate<NSObject>
+- (void)onRuleInstanceNameUpdated:(INVRuleInstanceNameTableViewCell *)sender;
+- (void)onBeginEditingRuleInstanceNameField:(INVRuleInstanceNameTableViewCell *)sender;
 @end
 
 @interface INVRuleInstanceNameTableViewCell : UITableViewCell

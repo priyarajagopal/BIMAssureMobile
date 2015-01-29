@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface INVCustomTabBarController : UITabBarController
-@property (nonatomic,readonly)INVGlobalDataManager* globalDataManager;
-@property (nonatomic,strong)MBProgressHUD* hud;
+@property (nonatomic, readonly) INVGlobalDataManager *globalDataManager;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end

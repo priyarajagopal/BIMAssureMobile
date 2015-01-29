@@ -10,7 +10,8 @@
 
 @implementation INVRunRuleSetHeaderView
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
 }
 /*
@@ -21,7 +22,8 @@
  }
  */
 
-- (IBAction)onRunRuleSetToggled:(UIButton *)sender {
+- (IBAction)onRunRuleSetToggled:(UIButton *)sender
+{
     if (self.actionDelegate && [self.actionDelegate respondsToSelector:@selector(onRuleSetToggled:)]) {
         [self.actionDelegate onRuleSetToggled:self];
     }

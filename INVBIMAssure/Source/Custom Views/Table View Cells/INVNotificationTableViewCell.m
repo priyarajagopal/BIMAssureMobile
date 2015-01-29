@@ -11,23 +11,26 @@
 
 @implementation INVNotificationTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
     [super awakeFromNib];
-    
+
     [self updateUI];
 }
 
--(void) updateUI {
+- (void)updateUI
+{
     NSTimeInterval timeSinceCreation = -[_notification.creationDate timeIntervalSinceNow];
-    
+
     self.titleLabel.text = _notification.title;
     self.createdAtLabel.text = NSTimeIntervalToStringAsAgo(timeSinceCreation);
 }
 
--(void) setNotification:(INVNotification *)notification {
+- (void)setNotification:(INVNotification *)notification
+{
     _notification = notification;
-    
+
     [self updateUI];
 }
 

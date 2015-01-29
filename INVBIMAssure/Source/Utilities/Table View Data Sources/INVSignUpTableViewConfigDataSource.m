@@ -10,40 +10,39 @@
 
 // Configuration of table
 const NSInteger CELL_HEIGHT_DEFAULT = 50;
-const NSInteger CELL_HEIGHT_SUBSCRIPTION     = 207;
-const NSInteger CELL_HEIGHT_ACCOUNTDESC      = 100;
+const NSInteger CELL_HEIGHT_SUBSCRIPTION = 207;
+const NSInteger CELL_HEIGHT_ACCOUNTDESC = 100;
 
-const NSInteger NUM_SECTIONS_USERSIGNUP   = 3;
+const NSInteger NUM_SECTIONS_USERSIGNUP = 3;
 const NSInteger NUM_SECTIONS_NOUSERSIGNUP = 1;
 
 const NSInteger NUM_ROWS_USERDETAILS = 3;
 const NSInteger NUM_ROWS_TOGGLESWITCH = 1;
-const NSInteger NUM_ROWS_ACCOUNT_INVITATIONCODE     = 1;
-const NSInteger NUM_ROWS_ACCOUNT_NOINVITATIONCODE    = 3;
+const NSInteger NUM_ROWS_ACCOUNT_INVITATIONCODE = 1;
+const NSInteger NUM_ROWS_ACCOUNT_NOINVITATIONCODE = 3;
 
-const NSInteger SECTIONINDEX_USERDETAILS  = 0; // user details
-const NSInteger SECTIONINDEX_TOGGLESWITCH = 1; // toggle
-const NSInteger SECTIONINDEX_ACCOUNT_NOUSERSIGNUP     = 0; // subscription info or invitation code as appropriate
-const NSInteger SECTIONINDEX_ACCOUNT_USERSIGNUP       = 2; // subscription info or invitation code as appropriate
+const NSInteger SECTIONINDEX_USERDETAILS = 0;          // user details
+const NSInteger SECTIONINDEX_TOGGLESWITCH = 1;         // toggle
+const NSInteger SECTIONINDEX_ACCOUNT_NOUSERSIGNUP = 0; // subscription info or invitation code as appropriate
+const NSInteger SECTIONINDEX_ACCOUNT_USERSIGNUP = 2;   // subscription info or invitation code as appropriate
 
-const NSInteger CELLINDEX_USERNAME         = 0;
-const NSInteger CELLINDEX_EMAIL            = 1;
-const NSInteger CELLINDEX_PASSWORD         = 2;
+const NSInteger CELLINDEX_USERNAME = 0;
+const NSInteger CELLINDEX_EMAIL = 1;
+const NSInteger CELLINDEX_PASSWORD = 2;
 
-const NSInteger CELLINDEX_TOGGLE               = 0;
-const NSInteger CELLINDEX_ACCOUNTNAME          = 0;
-const NSInteger CELLINDEX_ACCOUNTDESCRIPTION   = 1;
-const NSInteger CELLINDEX_SUBSCRIPTIONTYPE     = 2;
-const NSInteger CELLINDEX_INVITATIONCODE       = 0;
+const NSInteger CELLINDEX_TOGGLE = 0;
+const NSInteger CELLINDEX_ACCOUNTNAME = 0;
+const NSInteger CELLINDEX_ACCOUNTDESCRIPTION = 1;
+const NSInteger CELLINDEX_SUBSCRIPTIONTYPE = 2;
+const NSInteger CELLINDEX_INVITATIONCODE = 0;
 
-
-
-@interface INVSignUpTableViewConfigDataSource()
-@property (nonatomic,assign) BOOL shouldSignUpUser;
+@interface INVSignUpTableViewConfigDataSource ()
+@property (nonatomic, assign) BOOL shouldSignUpUser;
 @end
 
 @implementation INVSignUpTableViewConfigDataSource
--(instancetype) initWithSignUpSetting:(BOOL)shouldSignUpUser {
+- (instancetype)initWithSignUpSetting:(BOOL)shouldSignUpUser
+{
     self = [super init];
     if (self) {
         self.shouldSignUpUser = shouldSignUpUser;
@@ -51,17 +50,19 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
     return self;
 }
 
--(instancetype)init {
+- (instancetype)init
+{
     return [self initWithSignUpSetting:NO];
 }
 
-
 #pragma public methods
--(NSInteger) estimatedRowHeight {
+- (NSInteger)estimatedRowHeight
+{
     return CELL_HEIGHT_DEFAULT;
 }
 
--(NSInteger) numSections {
+- (NSInteger)numSections
+{
     if (self.shouldSignUpUser) {
         return NUM_SECTIONS_USERSIGNUP;
     }
@@ -70,7 +71,8 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
     }
 }
 
--(NSInteger) indexOfSection:(_INVSignUpTableSectionType) type  {
+- (NSInteger)indexOfSection:(_INVSignUpTableSectionType)type
+{
     switch (type) {
         case _INVSignUpTableSectionType_UserDetails:
             if (self.shouldSignUpUser) {
@@ -100,7 +102,8 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
     }
 }
 
--(_INVSignUpTableSectionType) typeOfSectionAtIndex: (NSInteger) index {
+- (_INVSignUpTableSectionType)typeOfSectionAtIndex:(NSInteger)index
+{
     if (self.shouldSignUpUser) {
         switch (index) {
             case SECTIONINDEX_USERDETAILS:
@@ -114,9 +117,9 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
     return _INVSignUpTableSectionType_Account;
 }
 
--(_INVSignUpTableRowType) typeOfRowForSection:(_INVSignUpTableSectionType)section AtIndex:(NSInteger) row {
-    
-    switch(section) {
+- (_INVSignUpTableRowType)typeOfRowForSection:(_INVSignUpTableSectionType)section AtIndex:(NSInteger)row
+{
+    switch (section) {
         case _INVSignUpTableSectionType_UserDetails:
             if (row == CELLINDEX_USERNAME) {
                 return _INVSignUpTableRowType_UserName;
@@ -141,15 +144,18 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
             if (row == CELLINDEX_SUBSCRIPTIONTYPE) {
                 return _INVSignUpTableRowType_Subscription;
             }
-            
+
             break;
     }
-    return  _INVSignUpTableRowType_Email;
+    return _INVSignUpTableRowType_Email;
 }
 
--(NSInteger) heightOfRowAtIndex:(NSInteger)rowIndex forSectionType: ( _INVSignUpTableSectionType) sectionType withInvitationCodeSet:(BOOL) setInvitationCode {
+- (NSInteger)heightOfRowAtIndex:(NSInteger)rowIndex
+                 forSectionType:(_INVSignUpTableSectionType)sectionType
+          withInvitationCodeSet:(BOOL)setInvitationCode
+{
     if (!setInvitationCode && sectionType == _INVSignUpTableSectionType_Account) {
-        if (rowIndex== CELLINDEX_SUBSCRIPTIONTYPE) {
+        if (rowIndex == CELLINDEX_SUBSCRIPTIONTYPE) {
             return CELL_HEIGHT_SUBSCRIPTION;
         }
         else if (rowIndex == CELLINDEX_ACCOUNTDESCRIPTION) {
@@ -157,11 +163,10 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
         }
     }
     return CELL_HEIGHT_DEFAULT;
-    
 }
 
-
--(NSInteger) numRowsForSectionType:(_INVSignUpTableSectionType) sectionType  withInvitationCodeSet:(BOOL) setInvitationCode {
+- (NSInteger)numRowsForSectionType:(_INVSignUpTableSectionType)sectionType withInvitationCodeSet:(BOOL)setInvitationCode
+{
     switch (sectionType) {
         case _INVSignUpTableSectionType_UserDetails:
             return NUM_ROWS_USERDETAILS;
@@ -174,15 +179,11 @@ const NSInteger CELLINDEX_INVITATIONCODE       = 0;
             else {
                 return NUM_ROWS_ACCOUNT_NOINVITATIONCODE;
             }
-            
+
         default:
             return 0;
             break;
     }
-    
 }
-
-
-
 
 @end

@@ -11,11 +11,11 @@
 @import UIKit;
 
 typedef NS_ENUM(NSInteger, StoryboardTransition) {
-    StoryboardTransitionShow       = 0,
+    StoryboardTransitionShow = 0,
     StoryboardTransitionShowDetail = 1,
-    StoryboardTransitionModal      = 2,
-    StoryboardTransitionPopover    = 3,
-    StoryboardTransitionCustom     = 4
+    StoryboardTransitionModal = 2,
+    StoryboardTransitionPopover = 3,
+    StoryboardTransitionCustom = 4
 };
 
 @interface INVTransitionToStoryboard : NSObject
@@ -41,7 +41,6 @@ typedef NS_ENUM(NSInteger, StoryboardTransition) {
 // Transition type 4 - custom
 @property IBInspectable NSString *customSegueClass;
 
--(IBAction) perform:(id)sender;
-
+- (IBAction)perform:(id)sender;
 
 @end

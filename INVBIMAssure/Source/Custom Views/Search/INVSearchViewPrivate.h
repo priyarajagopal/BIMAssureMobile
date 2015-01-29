@@ -8,7 +8,7 @@
 
 #import "INVSearchView.h"
 
-@interface INVSearchView(Private)
+@interface INVSearchView (Private)
 
 @property (nonatomic, readonly) id inputField;
 @property (nonatomic, readonly) UISearchBar *searchBar;
@@ -18,12 +18,12 @@
 @property (nonatomic, readonly) NSOrderedSet *allTags;
 @property (nonatomic, readonly) NSArray *searchHistory;
 
--(void) _showTagsDropdown:(id) sender;
--(void) _showQuickSearchDropdown:(id) sender;
--(void) _showSaveDialog:(id)sender;
+- (void)_showTagsDropdown:(id)sender;
+- (void)_showQuickSearchDropdown:(id)sender;
+- (void)_showSaveDialog:(id)sender;
 
--(void) _onTagToggled:(NSString *) tag;
--(void) _onTagAdded:(NSString *) tag;
--(void) _onTagRemoved:(NSString *) tag;
+- (void)_onTagToggled:(NSString *)tag;
+- (void)_onTagAdded:(NSString *)tag;
+- (void)_onTagRemoved:(NSString *)tag;
 
 @end

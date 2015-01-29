@@ -8,17 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol INVDefaultAccountAlertViewDelegate <NSObject>
+@protocol INVDefaultAccountAlertViewDelegate<NSObject>
 
--(void)onLogintoAccountWithDefault:(BOOL)isDefault;
--(void)onCancelLogintoAccount;
+- (void)onLogintoAccountWithDefault:(BOOL)isDefault;
+- (void)onCancelLogintoAccount;
 
 @end
 
 @interface INVDefaultAccountAlertView : UIView
 
 @property (weak, nonatomic) IBOutlet UISwitch *defaultSwitch;
-@property (nonatomic,weak)id<INVDefaultAccountAlertViewDelegate> delegate;
+@property (nonatomic, weak) id<INVDefaultAccountAlertViewDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *alertMessage;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;

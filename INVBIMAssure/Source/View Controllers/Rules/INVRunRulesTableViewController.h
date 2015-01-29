@@ -9,14 +9,14 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVRunRulesTableViewController : INVCustomTableViewController
-@property (nonatomic,copy)NSNumber* projectId;
-@property (nonatomic,copy)NSNumber* fileVersionId;
-@property (nonatomic,copy)NSNumber* fileMasterId;
+@property (nonatomic, copy) NSNumber *projectId;
+@property (nonatomic, copy) NSNumber *fileVersionId;
+@property (nonatomic, copy) NSNumber *fileMasterId;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *runRulesButton;
 @property (weak, nonatomic) IBOutlet INVTransitionToStoryboard *ruleConfigurationTransitionObject;
 
-@property (nonatomic,copy)NSNumber* modelId;
+@property (nonatomic, copy) NSNumber *modelId;
 - (IBAction)onRunRulesSelected:(UIButton *)sender;
 
 @end

@@ -8,45 +8,48 @@
 
 #import "INVCustomCollectionViewController.h"
 
-
-@interface INVCustomCollectionViewController ()<UICollectionViewDelegate>
-@property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
+@interface INVCustomCollectionViewController () <UICollectionViewDelegate>
+@property (nonatomic, readwrite) INVGlobalDataManager *globalDataManager;
 
 @end
 
 @implementation INVCustomCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString *const reuseIdentifier = @"Cell";
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    
+
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
     [self customizeLayout];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invalidateLayout) name:UIContentSizeCategoryDidChangeNotification object:nil];
-    
-  
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(invalidateLayout)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
--(void)customizeLayout {
-    UICollectionViewFlowLayout* currLayout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
+- (void)customizeLayout
+{
+    UICollectionViewFlowLayout *currLayout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
     currLayout.minimumLineSpacing = 10;
     currLayout.minimumInteritemSpacing = 10;
     self.collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     self.hud = nil;
 }
- 
+
 /*
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     return YES;
@@ -62,22 +65,23 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 */
 
--(IBAction) manualDismiss:(UIStoryboardSegue*) segue {
+- (IBAction)manualDismiss:(UIStoryboardSegue *)segue
+{
     // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 #pragma mark <UICollectionViewDelegate>
 // Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
 }
 
 #pragma mark - helpers
--(void)invalidateLayout {
+- (void)invalidateLayout
+{
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
-
 
 @end

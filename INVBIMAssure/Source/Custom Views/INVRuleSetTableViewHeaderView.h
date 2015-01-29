@@ -10,18 +10,18 @@
 
 @class INVRuleSetTableViewHeaderView;
 
-@protocol INVRuleSetTableViewHeaderViewAcionDelegate <NSObject>
--(void)onManageFilesTapped:(INVRuleSetTableViewHeaderView*)sender;
--(void)onAddRuleInstanceTapped:(INVRuleSetTableViewHeaderView*)sender;
+@protocol INVRuleSetTableViewHeaderViewAcionDelegate<NSObject>
+- (void)onManageFilesTapped:(INVRuleSetTableViewHeaderView *)sender;
+- (void)onAddRuleInstanceTapped:(INVRuleSetTableViewHeaderView *)sender;
 @end
 
 @interface INVRuleSetTableViewHeaderView : UIView
-@property (weak,nonatomic)id<INVRuleSetTableViewHeaderViewAcionDelegate> actionDelegate;
+@property (weak, nonatomic) id<INVRuleSetTableViewHeaderViewAcionDelegate> actionDelegate;
 @property (weak, nonatomic) IBOutlet UILabel *ruleSetNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *manageFilesButton;
-@property (copy, nonatomic) NSNumber* ruleSetId;
+@property (copy, nonatomic) NSNumber *ruleSetId;
 @property (weak, nonatomic) IBOutlet UIButton *addRuleButton;
 
 - (IBAction)onAddRuleInstanceForRuleSet:(UIButton *)sender;
--(IBAction)onManageFilesForRuleset:(UIButton*)sender;
+- (IBAction)onManageFilesForRuleset:(UIButton *)sender;
 @end

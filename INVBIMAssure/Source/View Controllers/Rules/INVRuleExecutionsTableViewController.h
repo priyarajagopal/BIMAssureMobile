@@ -10,8 +10,8 @@
 
 @interface INVRuleExecutionsTableViewController : INVCustomTableViewController
 
-@property (nonatomic,copy)NSNumber* projectId;
-@property (nonatomic,copy)NSNumber* fileVersionId;
-@property (nonatomic,copy)NSNumber* fileMasterId;
-@property (nonatomic,copy)NSNumber* modelId;
+@property (nonatomic, copy) NSNumber *projectId;
+@property (nonatomic, copy) NSNumber *fileVersionId;
+@property (nonatomic, copy) NSNumber *fileMasterId;
+@property (nonatomic, copy) NSNumber *modelId;
 @end

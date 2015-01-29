@@ -16,52 +16,61 @@
 
 @implementation INVResetPasswordTableViewController
 
--(void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
-    
+
     [self.emailTextField becomeFirstResponder];
 }
 
--(void) awakeFromNib {
+- (void)awakeFromNib
+{
     self.refreshControl = nil;
-    
+
     [self updateUI];
 }
 
--(void) setEmail:(NSString *)email {
+- (void)setEmail:(NSString *)email
+{
     _email = email;
-    
+
     [self updateUI];
 }
 
--(void) updateUI {
+- (void)updateUI
+{
     self.emailTextField.text = self.email;
 }
 
--(IBAction) resetPassword:(id)sender {
+- (IBAction)resetPassword:(id)sender
+{
     // Show a progress hud
     [self.emailTextField resignFirstResponder];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    [self.globalDataManager.invServerClient resetPasswordForUserWithEmail:self.emailTextField.text withCompletionBlock:^(INVEmpireMobileError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
-        if (error) {
-            INVLogError(@"%@", error);
-        }
-    
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PASSWORD_RESET_SUCCESS_TITLE", nil)
-                                                                                 message:NSLocalizedString(@"PASSWORD_RESET_SUCCESS_MESSAGE", nil)
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                                [self performSegueWithIdentifier:@"unwind" sender:nil];
-                                                            }]];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    }];
+
+    [self.globalDataManager.invServerClient
+        resetPasswordForUserWithEmail:self.emailTextField.text
+                  withCompletionBlock:^(INVEmpireMobileError *error) {
+                      [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+                      if (error) {
+                          INVLogError(@"%@", error);
+                      }
+
+                      UIAlertController *alertController =
+                          [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PASSWORD_RESET_SUCCESS_TITLE", nil)
+                                                              message:NSLocalizedString(@"PASSWORD_RESET_SUCCESS_MESSAGE", nil)
+                                                       preferredStyle:UIAlertControllerStyleAlert];
+
+                      [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                          style:UIAlertActionStyleDefault
+                                                                        handler:^(UIAlertAction *action) {
+                                                                            [self performSegueWithIdentifier:@"unwind"
+                                                                                                      sender:nil];
+                                                                        }]];
+
+                      [self presentViewController:alertController animated:YES completion:nil];
+                  }];
 }
 
 @end

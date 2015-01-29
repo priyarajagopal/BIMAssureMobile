@@ -11,7 +11,7 @@
 
 @interface INVSearchViewTagsDataSource : NSObject<UITableViewDataSource, UITableViewDelegate>
 
--(id) initWithSearchView:(INVSearchView *) searchView;
+- (id)initWithSearchView:(INVSearchView *)searchView;
 
 @property INVSearchView *searchView;
 

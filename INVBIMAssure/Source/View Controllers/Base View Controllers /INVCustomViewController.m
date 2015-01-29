@@ -8,31 +8,34 @@
 
 #import "INVCustomViewController.h"
 
-
 @interface INVCustomViewController ()
-@property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
+@property (nonatomic, readwrite) INVGlobalDataManager *globalDataManager;
 
 @end
 
 @implementation INVCustomViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.globalDataManager = [INVGlobalDataManager sharedInstance];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self registerKeyboardNotifications];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     [self deregisterKeyboardNotifications];
     self.hud = nil;
@@ -47,29 +50,32 @@
 }
 */
 
--(void) registerKeyboardNotifications {
+- (void)registerKeyboardNotifications
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
 }
 
--(void) deregisterKeyboardNotifications {
+- (void)deregisterKeyboardNotifications
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
- 
 }
 
--(void)keyboardWillShow:(NSNotification*)notification {
+- (void)keyboardWillShow:(NSNotification *)notification
+{
 #warning override in derived class
 }
 
--(void)keyboardWillBeHidden:(NSNotification*)notification {
+- (void)keyboardWillBeHidden:(NSNotification *)notification
+{
 #warning override in derived class
 }
 

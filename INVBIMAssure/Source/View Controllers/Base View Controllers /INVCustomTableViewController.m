@@ -9,51 +9,57 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVCustomTableViewController () <UITableViewDelegate>
-@property (nonatomic,readwrite)INVGlobalDataManager* globalDataManager;
-@property (nonatomic,strong)UIRefreshControl* refreshControl;
+@property (nonatomic, readwrite) INVGlobalDataManager *globalDataManager;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
 @implementation INVCustomTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
+
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-     self.globalDataManager = [INVGlobalDataManager sharedInstance];
-    
-    self.refreshControl = [[UIRefreshControl alloc]init];
-    UIColor* cyanBlueColor = [UIColor colorWithRed:38.0/255 green:138.0/255 blue:171.0/255 alpha:1.0];
+    self.globalDataManager = [INVGlobalDataManager sharedInstance];
+
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    UIColor *cyanBlueColor = [UIColor colorWithRed:38.0 / 255 green:138.0 / 255 blue:171.0 / 255 alpha:1.0];
     self.refreshControl.tintColor = cyanBlueColor;
-    [self.refreshControl addTarget:self action:@selector(onRefreshControlSelected:) forControlEvents:UIControlEventValueChanged];
-    
-    UIColor * ltGrayColor = [UIColor colorWithRed:230.0/255 green:230.0/255 blue:230.0/255 alpha:1.0];
+    [self.refreshControl addTarget:self
+                            action:@selector(onRefreshControlSelected:)
+                  forControlEvents:UIControlEventValueChanged];
+
+    UIColor *ltGrayColor = [UIColor colorWithRed:230.0 / 255 green:230.0 / 255 blue:230.0 / 255 alpha:1.0];
     [self.tableView setBackgroundColor:ltGrayColor];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     INVLogDebug();
-    
+
     [super viewWillDisappear:animated];
     self.hud = nil;
 }
 
-
 #pragma mark - UIRefreshControl event handler
--(void)onRefreshControlSelected:(id)event {
+- (void)onRefreshControlSelected:(id)event
+{
 #warning override in inherited class
 }
 
--(IBAction) manualDismiss:(UIStoryboardSegue*) segue {
+- (IBAction)manualDismiss:(UIStoryboardSegue *)segue
+{
     // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -61,9 +67,9 @@
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+
     // Configure the cell...
-    
+
     return cell;
 }
 */
@@ -78,19 +84,21 @@
 
 /*
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
 */
 
 /*
 // Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath
+*)toIndexPath {
 }
 */
 

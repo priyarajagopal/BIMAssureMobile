@@ -12,5 +12,4 @@
 
 @property NSData *requiredCertificateData;
 
-
 @end

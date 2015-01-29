@@ -11,6 +11,6 @@
 @interface INVRuleSetManageFilesContainerViewController : INVCustomViewController
 - (IBAction)onResetTapped:(UIBarButtonItem *)sender;
 
-@property (nonatomic,copy) NSNumber* projectId;
-@property (nonatomic,copy) NSNumber* ruleSetId;
+@property (nonatomic, copy) NSNumber *projectId;
+@property (nonatomic, copy) NSNumber *ruleSetId;
 @end

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol INVTextViewTableViewCellDelegate <NSObject>
+@protocol INVTextViewTableViewCellDelegate<NSObject>
 
 @optional
--(void)cellSizeChanged:(CGSize)size withTextString:(NSString*)textStr;
+- (void)cellSizeChanged:(CGSize)size withTextString:(NSString *)textStr;
 @end
 
 @interface INVTextViewTableViewCell : UITableViewCell

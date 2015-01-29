@@ -10,39 +10,47 @@
 
 @implementation INVSearchViewQuickSearchBackgroundView
 
-+(BOOL) wantsDefaultContentAppearance {
++ (BOOL)wantsDefaultContentAppearance
+{
     return NO;
 }
 
-+(UIEdgeInsets) contentViewInsets {
++ (UIEdgeInsets)contentViewInsets
+{
     return UIEdgeInsetsZero;
 }
 
-+(CGFloat) arrowBase {
++ (CGFloat)arrowBase
+{
     return 0;
 }
 
-+(CGFloat) arrowHeight {
++ (CGFloat)arrowHeight
+{
     return 0;
 }
 
--(UIPopoverArrowDirection) arrowDirection {
+- (UIPopoverArrowDirection)arrowDirection
+{
     return 0;
 }
 
--(CGFloat) arrowOffset {
+- (CGFloat)arrowOffset
+{
     return 0;
 }
 
--(void) setArrowOffset:(CGFloat)arrowOffset {
+- (void)setArrowOffset:(CGFloat)arrowOffset
+{
 }
 
--(void) setArrowDirection:(UIPopoverArrowDirection)arrowDirection {
+- (void)setArrowDirection:(UIPopoverArrowDirection)arrowDirection
+{
 }
 
--(void) layoutSubviews {
+- (void)layoutSubviews
+{
     self.layer.shadowOffset = CGSizeZero;
 }
 
 @end
-

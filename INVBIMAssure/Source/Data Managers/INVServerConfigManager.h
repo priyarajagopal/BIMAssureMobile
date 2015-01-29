@@ -13,15 +13,15 @@
 @property (nonatomic) NSString *passportPasswordVerificationRegex;
 @property (nonatomic) NSString *passportPasswordVerificationText;
 
-+(instancetype) instance;
++ (instancetype)instance;
 
--(void) loadConfigNamed:(NSString *) configName;
--(void) loadDefaultConfig;
+- (void)loadConfigNamed:(NSString *)configName;
+- (void)loadDefaultConfig;
 
--(NSString *) passportServerHost;
--(NSString *) passportServerPort;
+- (NSString *)passportServerHost;
+- (NSString *)passportServerPort;
 
--(NSString *) empireManageHost;
--(NSString *) empireManagePort;
+- (NSString *)empireManageHost;
+- (NSString *)empireManagePort;
 
 @end

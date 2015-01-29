@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (INVCustomizations)
-- (BOOL) isValidEmail;
+- (BOOL)isValidEmail;
 @end

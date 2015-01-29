@@ -10,9 +10,9 @@
 
 @interface MBProgressHUD (INVBAHUD)
 
-+(MBProgressHUD*)loginUserHUD:(NSString*)extra;
-+(MBProgressHUD*)loginAccountHUD:(NSString*)extra;
-+(MBProgressHUD*)loadingViewHUD:(NSString*)extra;
-+(MBProgressHUD*)generalViewHUD:(NSString*)extra;
-+(MBProgressHUD*)signupHUD:(NSString*)extra ;
++ (MBProgressHUD *)loginUserHUD:(NSString *)extra;
++ (MBProgressHUD *)loginAccountHUD:(NSString *)extra;
++ (MBProgressHUD *)loadingViewHUD:(NSString *)extra;
++ (MBProgressHUD *)generalViewHUD:(NSString *)extra;
++ (MBProgressHUD *)signupHUD:(NSString *)extra;
 @end

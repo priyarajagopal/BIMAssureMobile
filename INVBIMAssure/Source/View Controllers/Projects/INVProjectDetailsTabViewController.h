@@ -11,6 +11,6 @@
 @interface INVProjectDetailsTabViewController : INVCustomTabBarController
 @property (weak, nonatomic) IBOutlet INVTabBarStoryboardLoader *storyboardTransitionObject;
 
--(void) setSelectedProject:(INVProject *) project;
+- (void)setSelectedProject:(INVProject *)project;
 
 @end

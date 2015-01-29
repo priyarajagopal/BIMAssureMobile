@@ -14,25 +14,29 @@
 
 @implementation INVRuleInstanceActualParamTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
 
 #pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceActualParamUpdated:)]) {
         [self.delegate onRuleInstanceActualParamUpdated:self];
     }
     return YES;
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(onBeginEditingRuleInstanceActualParamField:)]) {
         [self.delegate onBeginEditingRuleInstanceActualParamField:self];
     }

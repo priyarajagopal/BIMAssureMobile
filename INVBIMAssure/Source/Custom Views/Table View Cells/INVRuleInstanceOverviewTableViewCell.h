@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class INVRuleInstanceOverviewTableViewCell;
-@protocol INVRuleInstanceOverviewTableViewCellDelegate <NSObject>
--(void)onRuleInstanceOverviewUpdated:(INVRuleInstanceOverviewTableViewCell*)sender;
--(void)onBeginEditingRuleInstanceOverviewField:(INVRuleInstanceOverviewTableViewCell*)sender;
+@protocol INVRuleInstanceOverviewTableViewCellDelegate<NSObject>
+- (void)onRuleInstanceOverviewUpdated:(INVRuleInstanceOverviewTableViewCell *)sender;
+- (void)onBeginEditingRuleInstanceOverviewField:(INVRuleInstanceOverviewTableViewCell *)sender;
 @end
-
 
 @interface INVRuleInstanceOverviewTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextView *ruleDescription;

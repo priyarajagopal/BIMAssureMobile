@@ -9,5 +9,5 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVExecutionIssuesTableViewController : INVCustomTableViewController
-@property (nonatomic,copy)NSArray* buildingElementsWithIssues;
+@property (nonatomic, copy) NSArray *buildingElementsWithIssues;
 @end

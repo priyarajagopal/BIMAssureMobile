@@ -9,13 +9,13 @@
 #import "NSString+INVCustomizations.h"
 
 @implementation NSString (INVCustomizations)
-- (BOOL) isValidEmail {
+- (BOOL)isValidEmail
+{
     NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
-    
-    
+
     NSString *emailText = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     __block BOOL isEmail = NO;
-    
+
     [dataDetector enumerateMatchesInString:emailText
                                    options:0
                                      range:NSMakeRange(0, emailText.length)
@@ -26,7 +26,7 @@
                                         isEmail = YES;
                                     }
                                 }];
-    
+
     return isEmail;
 }
 @end

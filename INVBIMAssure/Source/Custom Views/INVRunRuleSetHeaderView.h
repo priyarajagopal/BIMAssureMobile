@@ -10,16 +10,15 @@
 
 @class INVRunRuleSetHeaderView;
 
-@protocol INVRunRuleSetHeaderViewActionDelegate <NSObject>
--(void)onRuleSetToggled:(INVRunRuleSetHeaderView*)sender;
+@protocol INVRunRuleSetHeaderViewActionDelegate<NSObject>
+- (void)onRuleSetToggled:(INVRunRuleSetHeaderView *)sender;
 @end
 
-
 @interface INVRunRuleSetHeaderView : UIView
-@property (weak,nonatomic)id<INVRunRuleSetHeaderViewActionDelegate> actionDelegate;
+@property (weak, nonatomic) id<INVRunRuleSetHeaderViewActionDelegate> actionDelegate;
 @property (weak, nonatomic) IBOutlet UILabel *ruleSetNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *runRuleSetToggleButton;
-@property (copy, nonatomic) NSNumber* ruleSetId;
+@property (copy, nonatomic) NSNumber *ruleSetId;
 
 - (IBAction)onRunRuleSetToggled:(UIButton *)sender;
 

@@ -10,6 +10,6 @@
 
 @interface INVRulesListViewController : INVCustomTableViewController
 
-@property (nonatomic,copy)NSNumber* projectId;
+@property (nonatomic, copy) NSNumber *projectId;
 
 @end

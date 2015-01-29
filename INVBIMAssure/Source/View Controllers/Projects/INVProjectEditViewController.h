@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class INVProjectEditViewController;
-@protocol INVProjectEditViewControllerDelegate <NSObject>
+@protocol INVProjectEditViewControllerDelegate<NSObject>
 
 @optional
--(void) onProjectEditCancelled:(INVProjectEditViewController *) controller;
--(void) onProjectEditSaved:(INVProjectEditViewController *) controller;
+- (void)onProjectEditCancelled:(INVProjectEditViewController *)controller;
+- (void)onProjectEditSaved:(INVProjectEditViewController *)controller;
 
 @end
 

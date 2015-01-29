@@ -10,6 +10,6 @@
 
 @interface INVBlockUtils : NSObject
 
-+(id) blockForExecutingBlock:(id) theBlock afterNumberOfCalls:(NSUInteger) targetCalls;
++ (id)blockForExecutingBlock:(id)theBlock afterNumberOfCalls:(NSUInteger)targetCalls;
 
 @end

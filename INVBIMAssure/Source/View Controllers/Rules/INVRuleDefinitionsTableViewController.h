@@ -11,6 +11,6 @@
 #import "INVRuleInstanceTableViewController.h"
 
 @interface INVRuleDefinitionsTableViewController : INVCustomTableViewController
-@property (nonatomic,copy) NSNumber* ruleSetId;
-@property (nonatomic,weak) id<INVRuleInstanceTableViewControllerDelegate> createRuleInstanceDelegate;
+@property (nonatomic, copy) NSNumber *ruleSetId;
+@property (nonatomic, weak) id<INVRuleInstanceTableViewControllerDelegate> createRuleInstanceDelegate;
 @end

@@ -9,9 +9,9 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVFileRuleSetListTableViewController : INVCustomTableViewController
-@property (nonatomic,assign) BOOL showRuleSetsForFileId;
-@property (nonatomic,copy) NSNumber* projectId;
-@property (nonatomic,copy) NSNumber* fileId;
+@property (nonatomic, assign) BOOL showRuleSetsForFileId;
+@property (nonatomic, copy) NSNumber *projectId;
+@property (nonatomic, copy) NSNumber *fileId;
 
--(void)resetRuleSetEntries;
+- (void)resetRuleSetEntries;
 @end

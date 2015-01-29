@@ -9,18 +9,18 @@
 #import "UIAlertController+INVCustomizations.h"
 
 @implementation UIAlertController (INVCustomizations)
-- (instancetype)initWithErrorMessage:(NSString*)errorMesg{
-    UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil)
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:nil];
-    
+- (instancetype)initWithErrorMessage:(NSString *)errorMesg
+{
+    UIAlertAction *action =
+        [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+
     self = [UIAlertController alertControllerWithTitle:nil message:errorMesg preferredStyle:UIAlertControllerStyleAlert];
-    
+
     if (self) {
         [[UIView appearanceWhenContainedIn:[self class], nil] setTintColor:[UIColor darkGrayColor]];
         [self addAction:action];
     }
-    
+
     return self;
 }
 

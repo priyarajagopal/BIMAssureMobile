@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class INVStockThumbnailCollectionViewController;
-@protocol INVStockThumbnailCollectionViewControllerDelegate <NSObject>
+@protocol INVStockThumbnailCollectionViewControllerDelegate<NSObject>
 
 @optional
--(void) stockThumbnailCollectionViewController:(INVStockThumbnailCollectionViewController *) controller didSelectStockThumbnail:(UIImage *) image;
+- (void)stockThumbnailCollectionViewController:(INVStockThumbnailCollectionViewController *)controller
+                       didSelectStockThumbnail:(UIImage *)image;
 
 @end
 

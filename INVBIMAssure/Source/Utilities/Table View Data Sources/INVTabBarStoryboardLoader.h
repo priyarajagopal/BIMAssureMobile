@@ -15,14 +15,8 @@ IB_DESIGNABLE
 
 @property IBOutlet UITabBarController *tabBarController;
 
-@property IBInspectable NSString *storyboard1, *storyboard2,
-                                 *storyboard3, *storyboard4,
-                                 *storyboard5;
+@property IBInspectable NSString *storyboard1, *storyboard2, *storyboard3, *storyboard4, *storyboard5;
 
-@property IBInspectable NSString *identifier1, *identifier2,
-                                 *identifier3, *identifier4,
-                                 *identifier5;
-
-
+@property IBInspectable NSString *identifier1, *identifier2, *identifier3, *identifier4, *identifier5;
 
 @end

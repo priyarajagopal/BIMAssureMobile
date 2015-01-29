@@ -9,5 +9,5 @@
 #import "INVPagingManager.h"
 
 @interface INVPagingManager (ProjectListing)
--(void)fetchProjectsFromCurrentOffset;
+- (void)fetchProjectsFromCurrentOffset;
 @end

@@ -10,11 +10,11 @@
 #import "INVLoginScrollView.h"
 
 #pragma mark - KVO
-extern NSString* const KVO_INVLoginSuccess;
+extern NSString *const KVO_INVLoginSuccess;
 
 @interface INVLoginViewController : INVCustomViewController
 @property (strong, nonatomic) IBOutlet INVLoginScrollView *contentScrollView;
-@property (nonatomic,readonly) BOOL loginSuccess;
+@property (nonatomic, readonly) BOOL loginSuccess;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @property (weak, nonatomic) IBOutlet UIView *emailEntryView;

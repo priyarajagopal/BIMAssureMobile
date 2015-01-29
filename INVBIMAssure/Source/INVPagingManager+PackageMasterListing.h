@@ -9,5 +9,5 @@
 #import "INVPagingManager.h"
 
 @interface INVPagingManager (PackageMasterListing)
--(void)fetchPackageMastersFromCurrentOffsetForProject:(NSNumber*)projectId;
+- (void)fetchPackageMastersFromCurrentOffsetForProject:(NSNumber *)projectId;
 @end

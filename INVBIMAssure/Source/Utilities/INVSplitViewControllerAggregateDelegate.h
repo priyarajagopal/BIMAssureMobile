@@ -12,7 +12,7 @@
 
 @property (nonatomic, weak) UISplitViewController *splitViewController;
 
--(void) addDelegate:(id<UISplitViewControllerDelegate>) delegate;
--(void) removeDelegate:(id<UISplitViewControllerDelegate>) delegate;
+- (void)addDelegate:(id<UISplitViewControllerDelegate>)delegate;
+- (void)removeDelegate:(id<UISplitViewControllerDelegate>)delegate;
 
 @end

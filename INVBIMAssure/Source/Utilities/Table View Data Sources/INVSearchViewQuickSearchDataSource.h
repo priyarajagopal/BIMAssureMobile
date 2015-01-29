@@ -11,10 +11,10 @@
 
 @interface INVSearchViewQuickSearchDataSource : NSObject<UITableViewDataSource, UITableViewDelegate>
 
--(id) initWithSearchView:(INVSearchView *) searchView;
+- (id)initWithSearchView:(INVSearchView *)searchView;
 
 @property INVSearchView *searchView;
 
--(void) reloadData;
+- (void)reloadData;
 
 @end

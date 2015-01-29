@@ -17,32 +17,36 @@
 
 @implementation INVUserManagementTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    
+
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"USER_MANAGEMENT_ACCOUNT", nil);
     self.refreshControl = nil;
 }
 
--(void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
-    
+
     self.accountNameLabel.text = [self accountNameForAccountId:self.globalDataManager.loggedInAccount];
 }
 
 #pragma mark - UITableViewDataSource
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(NSString*)accountNameForAccountId:(NSNumber*)accountId {
+- (NSString *)accountNameForAccountId:(NSNumber *)accountId
+{
     INVAccountArray accounts = [self.globalDataManager.invServerClient.accountManager accountsOfSignedInUser];
-    NSPredicate* pred = [NSPredicate predicateWithFormat:@"accountId==%@",accountId];
-    NSArray* matches = [accounts filteredArrayUsingPredicate:pred];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"accountId==%@", accountId];
+    NSArray *matches = [accounts filteredArrayUsingPredicate:pred];
     if (matches && matches.count) {
-        INVAccount* match = matches[0];
+        INVAccount *match = matches[0];
         return match.name;
     }
     return nil;

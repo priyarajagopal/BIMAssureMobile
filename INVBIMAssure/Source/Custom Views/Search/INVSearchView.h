@@ -14,21 +14,21 @@
  * INVSearchViewDataSource
  * The data source protocol for an INVSearchView
  */
-@protocol INVSearchViewDataSource <NSObject>
+@protocol INVSearchViewDataSource<NSObject>
 @optional
 
 /** The number of tags contained in this search view */
--(NSUInteger) numberOfTagsInSearchView:(INVSearchView *) searchView;
+- (NSUInteger)numberOfTagsInSearchView:(INVSearchView *)searchView;
 
 /** Gets a tag at a specified index */
--(NSString *) searchView:(INVSearchView *) searchView tagAtIndex:(NSUInteger) index;
+- (NSString *)searchView:(INVSearchView *)searchView tagAtIndex:(NSUInteger)index;
 
 /** Gets the state of the specified tag */
--(BOOL) searchView:(INVSearchView *) searchView isTagSelected:(NSString *) tag;
+- (BOOL)searchView:(INVSearchView *)searchView isTagSelected:(NSString *)tag;
 
 /** Gets the size of the search history */
--(NSUInteger) searchHistorySizeInSearchView:(INVSearchView *) searchView;
--(NSString *) searchView:(INVSearchView *) searchView searchHistoryAtIndex:(NSUInteger) index;
+- (NSUInteger)searchHistorySizeInSearchView:(INVSearchView *)searchView;
+- (NSString *)searchView:(INVSearchView *)searchView searchHistoryAtIndex:(NSUInteger)index;
 
 @end
 
@@ -36,23 +36,23 @@
  * INVSearchViewDelegate
  * The delegate protocol for an INVSearchView
  */
-@protocol INVSearchViewDelegate <NSObject>
+@protocol INVSearchViewDelegate<NSObject>
 @optional
 
 /** Called when the search view's text changes */
--(void) searchView:(INVSearchView *) searchView onSearchTextChanged:(NSString *) searchText;
+- (void)searchView:(INVSearchView *)searchView onSearchTextChanged:(NSString *)searchText;
 
 /** Called when the enter button is hit on the user's keyboard */
--(void) searchView:(INVSearchView *) searchView onSearchPerformed:(NSString *) searchText;
+- (void)searchView:(INVSearchView *)searchView onSearchPerformed:(NSString *)searchText;
 
 /** Called when a tag is selected by the user */
--(void) searchView:(INVSearchView *) searchView onTagAdded:(NSString *) tag;
+- (void)searchView:(INVSearchView *)searchView onTagAdded:(NSString *)tag;
 
 /** Called when a tag is removed by the user */
--(void) searchView:(INVSearchView *) searchView onTagDeleted:(NSString *) tag;
+- (void)searchView:(INVSearchView *)searchView onTagDeleted:(NSString *)tag;
 
 /** Called when a tag set is saved by the user */
--(void) searchView:(INVSearchView *) searchView onTagsSaved:(NSOrderedSet *) tags withName:(NSString *) name;
+- (void)searchView:(INVSearchView *)searchView onTagsSaved:(NSOrderedSet *)tags withName:(NSString *)name;
 
 @end
 
@@ -75,12 +75,12 @@
 @property (nonatomic) IBOutlet id<INVSearchViewDelegate> delegate;
 
 /** Reloads the data of the reciever. Call this whenver the data source changes and not in a delegate callback. */
--(void) reloadData;
+- (void)reloadData;
 
 /** Programatically selects a tag */
--(void) selectTag:(NSString *) tag;
+- (void)selectTag:(NSString *)tag;
 
 /** Programatically removes a tag */
--(void) removeTag:(NSString *) tag;
+- (void)removeTag:(NSString *)tag;
 
 @end

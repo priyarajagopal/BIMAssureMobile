@@ -26,5 +26,6 @@ typedef NS_ENUM(NSInteger, INVLogLevel) {
 
 #define INVLog(level, format, args...) _INVLog(level, __func__, __FILE__, __LINE__, @"" format, ##args)
 
-extern void _INVLog(INVLogLevel level, const char *func, const char *file, int line, NSString *format, ...) NS_FORMAT_FUNCTION(5, 6);
+extern void _INVLog(INVLogLevel level, const char *func, const char *file, int line, NSString *format, ...)
+    NS_FORMAT_FUNCTION(5, 6);
 extern void _INVSetLogLevel(INVLogLevel minLevel);

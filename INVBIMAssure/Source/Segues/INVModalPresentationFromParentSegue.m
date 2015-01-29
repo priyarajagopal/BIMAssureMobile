@@ -10,15 +10,17 @@
 
 @implementation INVModalPresentationFromParentSegue
 
--(void) perform {
+- (void)perform
+{
     UIViewController *source = self.sourceViewController;
     UIViewController *dest = self.destinationViewController;
-    
+
     source = source.presentingViewController;
-    
-    [source dismissViewControllerAnimated:YES completion:^{
-        [source presentViewController:dest animated:YES completion:nil];
-    }];
+
+    [source dismissViewControllerAnimated:YES
+                               completion:^{
+                                   [source presentViewController:dest animated:YES completion:nil];
+                               }];
 }
 
 @end

@@ -15,18 +15,18 @@
 
 @implementation INVProjectDetailsTabViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-      
-    // Do any additional setup after loading the view.
 
+    // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - Navigation
 /*
@@ -37,13 +37,14 @@
 }
 */
 
--(void) setSelectedProject:(INVProject *) project {
+- (void)setSelectedProject:(INVProject *)project
+{
     [self.viewControllers makeObjectsPerformSelector:@selector(setProjectId:) withObject:project.projectId];
 }
 
 #pragma mark - UITabbarControllerDelegate
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
 }
 
 @end

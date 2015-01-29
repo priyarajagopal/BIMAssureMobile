@@ -12,7 +12,7 @@
 
 @interface INVModelViewerViewController : GLKViewController
 
-@property (nonatomic,strong)NSNumber* fileVersionId;
-@property (nonatomic,strong)NSNumber* modelId;
+@property (nonatomic, strong) NSNumber *fileVersionId;
+@property (nonatomic, strong) NSNumber *modelId;
 
 @end
