@@ -179,4 +179,12 @@
     return [[_empireManageServerURL port] stringValue];
 }
 
+-(NSString *) passportPasswordVerificationRegex {
+    return _passportPasswordVerificationRegex ?: @"";
+}
+
+-(NSString *) passportPasswordVerificationText {
+    return _passportPasswordVerificationText ?: @"";
+}
+
 @end
