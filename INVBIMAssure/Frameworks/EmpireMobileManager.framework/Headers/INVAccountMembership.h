@@ -13,17 +13,17 @@
 /**
  Array of INVAccountMembership objects
  */
-typedef NSArray *INVMembersArray;
+typedef NSArray* INVMembersArray;
 
 /**
  Mutable array of INVAccountMembership objects
  */
-typedef NSMutableArray *INVMembersMutableArray;
+typedef NSMutableArray* INVMembersMutableArray;
 
-@interface INVAccountMembership : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
-@property (copy, nonatomic, readonly) NSNumber *accountId;
-@property (copy, nonatomic, readonly) NSString *email;
-@property (copy, nonatomic, readonly) NSString *name;
-@property (copy, nonatomic, readonly) NSNumber *userId;
+@interface INVAccountMembership : MTLModel <MTLJSONSerializing,MTLManagedObjectSerializing>
+@property (copy, nonatomic, readonly) NSNumber* accountId;
+@property (copy, nonatomic, readonly) NSString* email;
+@property (copy, nonatomic, readonly) NSString* name;
+@property (copy, nonatomic, readonly) NSNumber* userId;
 @property (copy, nonatomic, readonly) INVAccountArray memberships;
 @end

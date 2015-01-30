@@ -12,21 +12,21 @@
 /**
  Array of INVPackage objects
  */
-typedef NSArray *INVPackageArray;
+typedef NSArray* INVPackageArray;
 /**
  Mutable array of INVPackage objects
  */
-typedef NSMutableArray *INVPackageMutableArray;
+typedef NSMutableArray* INVPackageMutableArray;
 
-@interface INVPackage : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
-@property (copy, nonatomic, readonly) NSNumber *version;
-@property (copy, nonatomic, readonly) NSNumber *tipId;
-@property (copy, nonatomic, readonly) NSNumber *packageId;
-@property (copy, nonatomic, readonly) NSDate *createdAt;
-@property (copy, nonatomic, readonly) NSNumber *createdBy;
-@property (copy, nonatomic, readonly) NSDate *updatedAt;
-@property (copy, nonatomic, readonly) NSNumber *updatedBy;
-@property (copy, nonatomic, readonly) NSNumber *projectId;
-@property (copy, nonatomic, readonly) NSString *packageName;
+@interface INVPackage : MTLModel  <MTLJSONSerializing,MTLManagedObjectSerializing>
+@property (copy, nonatomic, readonly) NSNumber* version;
+@property (copy, nonatomic, readonly) NSNumber* tipId;
+@property (copy, nonatomic, readonly) NSNumber* packageId;
+@property (copy, nonatomic, readonly) NSDate* createdAt;
+@property (copy, nonatomic, readonly) NSNumber* createdBy;
+@property (copy, nonatomic, readonly) NSDate* updatedAt;
+@property (copy, nonatomic, readonly) NSNumber* updatedBy;
+@property (copy, nonatomic, readonly) NSNumber* projectId;
+@property (copy, nonatomic, readonly) NSString* packageName;
 
 @end

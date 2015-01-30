@@ -11,18 +11,18 @@
 /**
  Array of INVProject objects
  */
-typedef NSArray *INVProjectArray;
+typedef NSArray* INVProjectArray;
 /**
  Mutable array of INVProject objects
  */
-typedef NSMutableArray *INVProjectMutableArray;
+typedef NSMutableArray* INVProjectMutableArray;
 
-@interface INVProject : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
-@property (copy, nonatomic, readonly) NSDate *createdAt;
-@property (copy, nonatomic, readonly) NSNumber *createdBy;
-@property (copy, nonatomic, readonly) NSDate *updatedAt;
-@property (copy, nonatomic, readonly) NSNumber *updatedBy;
-@property (copy, nonatomic, readonly) NSNumber *projectId;
-@property (copy, nonatomic, readonly) NSNumber *accountId;
-@property (copy, nonatomic, readonly) NSString *name;
+@interface INVProject : MTLModel  <MTLJSONSerializing,MTLManagedObjectSerializing>
+@property (copy, nonatomic, readonly) NSDate* createdAt;
+@property (copy, nonatomic, readonly) NSNumber* createdBy;
+@property (copy, nonatomic, readonly) NSDate* updatedAt;
+@property (copy, nonatomic, readonly) NSNumber* updatedBy;
+@property (copy, nonatomic, readonly) NSNumber* projectId;
+@property (copy, nonatomic, readonly) NSNumber* accountId;
+@property (copy, nonatomic, readonly) NSString* name;
 @end

@@ -8,10 +8,10 @@
 
 #import <Mantle/Mantle.h>
 
-@interface INVRuleFormalParam : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
+@interface INVRuleFormalParam : MTLModel <MTLJSONSerializing,MTLManagedObjectSerializing>
 
-@property (copy, nonatomic, readonly) NSString *title;
-@property (copy, nonatomic, readonly) NSString *type;
-@property (copy, nonatomic, readonly) NSDictionary *properties;
+@property (copy, nonatomic, readonly) NSString* title;
+@property (copy, nonatomic, readonly) NSString* type;
+@property (copy, nonatomic, readonly) NSDictionary* properties;
 
 @end
