@@ -227,9 +227,8 @@ static NSString *INV_ActualParamValue = @"Value";
                            if (error) {
                                UIAlertController *errController = [[UIAlertController alloc]
                                    initWithErrorMessage:
-                                       [NSString
-                                           stringWithFormat:NSLocalizedString(@"ERROR_RULE_DEFINITION_FORINSTANCE_LOAD", nil),
-                                           error.code]];
+                                       NSLocalizedString(@"ERROR_RULE_DEFINITION_FORINSTANCE_LOAD", nil),
+                                           error.code.integerValue];
                                [self presentViewController:errController animated:YES completion:nil];
                            }
                        }
@@ -257,9 +256,8 @@ static NSString *INV_ActualParamValue = @"Value";
                     if (error) {
                         if (error) {
                             UIAlertController *errController = [[UIAlertController alloc]
-                                initWithErrorMessage:[NSString
-                                                         stringWithFormat:NSLocalizedString(@"ERROR_RULEINSTANCE_CREATE", nil),
-                                                         error.code]];
+                                initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_CREATE", nil),
+                                                         error.code.integerValue];
                             [self presentViewController:errController animated:YES completion:nil];
                         }
                     }
@@ -288,9 +286,8 @@ static NSString *INV_ActualParamValue = @"Value";
                             if (error) {
                                 if (error) {
                                     UIAlertController *errController = [[UIAlertController alloc]
-                                        initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(
-                                                                                            @"ERROR_RULEINSTANCE_UPDATE", nil),
-                                                                       error.code]];
+                                        initWithErrorMessage:NSLocalizedString( @"ERROR_RULEINSTANCE_UPDATE", nil),
+                                                                       error.code.integerValue];
                                     [self presentViewController:errController animated:YES completion:nil];
                                 }
                             }

@@ -88,8 +88,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             }
             else {
                 UIAlertController *errController = [[UIAlertController alloc]
-                    initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),
-                                                   error.code]];
+                    initWithErrorMessage:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil),
+                                                   error.code.integerValue];
                 [self presentViewController:errController animated:YES completion:nil];
             }
         }];

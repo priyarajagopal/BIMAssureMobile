@@ -301,7 +301,7 @@ static NSString *const reuseIdentifier = @"Cell";
     }
     return _accountManager;
 }
-
+/*
 - (void)presentError:(NSString *)format, ...
 {
     va_list list;
@@ -314,6 +314,7 @@ static NSString *const reuseIdentifier = @"Cell";
     UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:errorMessage];
     [self presentViewController:errController animated:YES completion:nil];
 }
+ */
 
 #pragma mark - server side
 - (void)fetchListOfAccounts
@@ -322,7 +323,8 @@ static NSString *const reuseIdentifier = @"Cell";
 
     void (^failureBlock)(NSInteger) = ^(NSInteger errorCode) {
         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-        [self presentError:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), errorCode];
+        UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), errorCode];
+        [self presentViewController:errController animated:YES completion:nil];
     };
 
     id successBlock = [INVBlockUtils blockForExecutingBlock:^{

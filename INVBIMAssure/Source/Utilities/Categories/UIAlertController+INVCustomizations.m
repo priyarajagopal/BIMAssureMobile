@@ -9,12 +9,12 @@
 #import "UIAlertController+INVCustomizations.h"
 
 @implementation UIAlertController (INVCustomizations)
-- (instancetype)initWithErrorMessage:(NSString *)errorMesg, ...
+- (instancetype)initWithErrorMessage:(NSString *)errorMesgFormat, ...
 {
     va_list args;
-    va_start(args, errorMesg);
+    va_start(args, errorMesgFormat);
 
-    errorMesg = [[NSString alloc] initWithFormat:errorMesg arguments:args];
+    NSString* errorMesg = [[NSString alloc] initWithFormat:errorMesgFormat arguments:args];
 
     va_end(args);
 
