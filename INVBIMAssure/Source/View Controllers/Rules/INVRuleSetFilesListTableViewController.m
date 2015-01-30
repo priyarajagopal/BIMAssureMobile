@@ -121,9 +121,8 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
                    }
                    else {
                        UIAlertController *errController = [[UIAlertController alloc]
-                           initWithErrorMessage:[NSString
-                                                    stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),
-                                                    error.code]];
+                           initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),
+                                                    error.code.integerValue];
                        [self presentViewController:errController animated:YES completion:nil];
                    }
                }];
@@ -202,8 +201,7 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
     }
     else {
         UIAlertController *errController = [[UIAlertController alloc]
-            initWithErrorMessage:[NSString
-                                     stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil), error.code]];
+            initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil), error.code.integerValue];
         [self presentViewController:errController animated:YES completion:nil];
     }
 }

@@ -130,8 +130,8 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
 {
     if (!self.emailTextEntry.text || !self.passwordTextEntry.text || ![self isValidEmailEntry]) {
         UIAlertController *errController = [[UIAlertController alloc]
-            initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_INVALID_LOGIN_PARAMS", nil),
-                                           INV_ERROR_CODE_INVALIDREQUESTPARAM]];
+            initWithErrorMessage:NSLocalizedString(@"ERROR_INVALID_LOGIN_PARAMS", nil),
+                                           INV_ERROR_CODE_INVALIDREQUESTPARAM];
         [self presentViewController:errController animated:YES completion:nil];
         return;
     }

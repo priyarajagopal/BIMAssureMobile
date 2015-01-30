@@ -207,7 +207,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     else {
         if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
             UIAlertController *errController = [[UIAlertController alloc]
-                initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error.code]];
+                initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error.code.integerValue];
             [self presentViewController:errController animated:YES completion:nil];
         }
     }
@@ -331,9 +331,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
                                               if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
                                                   UIAlertController *errController = [[UIAlertController alloc]
                                                       initWithErrorMessage:
-                                                          [NSString
-                                                              stringWithFormat:NSLocalizedString(@"ERROR_PROJECTS_DELETE", nil),
-                                                              error.code]];
+                                                          NSLocalizedString(@"ERROR_PROJECTS_DELETE", nil),
+                                                              error.code.integerValue];
                                                   [self presentViewController:errController animated:YES completion:nil];
                                               }
                                           }

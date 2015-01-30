@@ -226,8 +226,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
                          }
                          else {
                              UIAlertController *errController = [[UIAlertController alloc]
-                                 initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),
-                                                                error.code]];
+                                 initWithErrorMessage:NSLocalizedString(@"ERROR_RULESET_LOAD", nil),
+                                                                error.code.integerValue];
                              [self presentViewController:errController animated:YES completion:nil];
                          }
                      }];
@@ -243,8 +243,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
         if (ruleExecutionError) {
             UIAlertController *errController = [[UIAlertController alloc]
-                initWithErrorMessage:[NSString
-                                         stringWithFormat:NSLocalizedString(@"ERROR_RUN_RULES", nil), ruleExecutionError.code]];
+                initWithErrorMessage:NSLocalizedString(@"ERROR_RUN_RULES", nil), ruleExecutionError.code.integerValue];
             [self presentViewController:errController animated:YES completion:nil];
         }
         else {
@@ -397,7 +396,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     NSInteger numRSIds = rulesetIdsInFile.count;
     id errorBlock = ^(void) {
         UIAlertController *errController = [[UIAlertController alloc]
-            initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"ERROR_RULESET_EMPTY", nil)]];
+            initWithErrorMessage:NSLocalizedString(@"ERROR_RULESET_EMPTY", nil)];
         [self presentViewController:errController animated:YES completion:nil];
 
     };

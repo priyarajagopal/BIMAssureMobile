@@ -228,9 +228,8 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
                                }
                                else {
                                    UIAlertController *errController = [[UIAlertController alloc]
-                                       initWithErrorMessage:[NSString stringWithFormat:NSLocalizedString(
-                                                                                           @"ERROR_EXECUTION_LOAD", nil),
-                                                                      error.code]];
+                                       initWithErrorMessage:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),
+                                       error.code.integerValue];
                                    [self presentViewController:errController animated:YES completion:nil];
                                }
 

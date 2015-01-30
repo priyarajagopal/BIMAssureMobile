@@ -696,7 +696,7 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amC-D2-9Kz" userLabel="Notifications Badge Label">
                                 <rect key="frame" x="40" y="205" width="25" height="25"/>
-                                <color key="backgroundColor" red="0.98594826459884644" green="0.0" blue="0.026950567960739136" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="3d5-A9-tuW"/>
                                     <constraint firstAttribute="width" constant="25" id="ia5-ue-f1V"/>
@@ -728,7 +728,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.5607843137254902" green="0.039215686274509803" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="JER-3B-GmM" firstAttribute="top" secondItem="eYV-xQ-9UI" secondAttribute="bottom" constant="31" id="01w-lD-HDe"/>
                             <constraint firstAttribute="centerX" secondItem="Gyf-vS-guK" secondAttribute="centerX" id="2PM-Nv-HNZ"/>
