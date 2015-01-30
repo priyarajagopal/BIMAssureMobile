@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 IB_DESIGNABLE
-@interface INVCustomTableView : UITableView
+@interface UITableView(INVCustomTableView)
 
 @property IBInspectable NSString *noContentText;
 @property IBInspectable int fontSize;
