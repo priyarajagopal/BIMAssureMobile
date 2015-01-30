@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "INVEmpireMobileClient.h"
 
-
 //! Project version number for EmpireMobileManager.
 FOUNDATION_EXPORT double EmpireMobileManagerVersionNumber;
 
 //! Project version string for EmpireMobileManager.
 FOUNDATION_EXPORT const unsigned char EmpireMobileManagerVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <EmpireMobileManager/PublicHeader.h>
-
+// In this header, you should import all the public headers of your framework using statements like #import
+// <EmpireMobileManager/PublicHeader.h>

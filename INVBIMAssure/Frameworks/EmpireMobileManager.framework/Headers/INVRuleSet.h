@@ -11,21 +11,20 @@
 /**
  Array of INVRuleSet objects
  */
-typedef NSArray* INVRuleSetArray;
+typedef NSArray *INVRuleSetArray;
 /**
  Mutable array of INVRuleSet objects
  */
-typedef NSMutableArray* INVRuleSetMutableArray;
+typedef NSMutableArray *INVRuleSetMutableArray;
 
-@interface INVRuleSet : MTLModel <MTLJSONSerializing,MTLManagedObjectSerializing>
+@interface INVRuleSet : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
 
-@property (copy, nonatomic, readonly) NSString* name;
-@property (copy, nonatomic, readonly) NSString* overview;
-@property (copy, nonatomic, readonly) NSNumber* totalParamCount;
-@property (copy, nonatomic, readonly) NSNumber* emptyParamCount;
-@property (copy, nonatomic, readonly) NSNumber* ruleSetId;
-@property (copy, nonatomic, readonly) NSNumber* projectId;
-@property (copy, nonatomic, readwrite) NSArray* ruleInstances;
-
+@property (copy, nonatomic, readonly) NSString *name;
+@property (copy, nonatomic, readonly) NSString *overview;
+@property (copy, nonatomic, readonly) NSNumber *totalParamCount;
+@property (copy, nonatomic, readonly) NSNumber *emptyParamCount;
+@property (copy, nonatomic, readonly) NSNumber *ruleSetId;
+@property (copy, nonatomic, readonly) NSNumber *projectId;
+@property (copy, nonatomic, readwrite) NSArray *ruleInstances;
 
 @end

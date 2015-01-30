@@ -8,22 +8,21 @@
 
 #import <Mantle/Mantle.h>
 
-
 /**
  Array of INVFileVersion objects
  */
-typedef NSArray* INVFileVersionArray;
+typedef NSArray *INVFileVersionArray;
 /**
  Mutable array of INVFileVersion objects
  */
-typedef NSMutableArray* INVFileVersionMutableArray;
+typedef NSMutableArray *INVFileVersionMutableArray;
 
-@interface INVFileVersion : MTLModel<MTLJSONSerializing,MTLManagedObjectSerializing>
-@property (copy, nonatomic, readonly) NSNumber* fileVersionId;
-@property (copy, nonatomic, readonly) NSNumber* version;
-@property (copy, nonatomic, readonly) NSNumber* fileMasterId;
-@property (copy, nonatomic, readonly) NSNumber* modelId;
-@property (copy, nonatomic, readonly) NSString* dataState;
-@property (copy, nonatomic, readonly) NSNumber* projectId;
+@interface INVFileVersion : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
+@property (copy, nonatomic, readonly) NSNumber *fileVersionId;
+@property (copy, nonatomic, readonly) NSNumber *version;
+@property (copy, nonatomic, readonly) NSNumber *fileMasterId;
+@property (copy, nonatomic, readonly) NSNumber *modelId;
+@property (copy, nonatomic, readonly) NSString *dataState;
+@property (copy, nonatomic, readonly) NSNumber *projectId;
 
 @end

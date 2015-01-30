@@ -8,7 +8,7 @@
 
 #import <Mantle/Mantle.h>
 
-@interface INVRuleInstanceExecutions : MTLModel<MTLJSONSerializing,MTLManagedObjectSerializing>
-@property (copy, nonatomic, readonly)NSArray* executions;
+@interface INVRuleInstanceExecutions : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
+@property (copy, nonatomic, readonly) NSArray *executions;
 
 @end
