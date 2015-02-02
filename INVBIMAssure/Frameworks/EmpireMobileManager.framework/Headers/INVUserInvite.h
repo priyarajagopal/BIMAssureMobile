@@ -11,14 +11,14 @@
 /**
  Array of INVUserInvite objects
  */
-typedef NSArray* INVUserInviteArray;
+typedef NSArray *INVUserInviteArray;
 
 /**
  Mutable array of INVUserInvite objects
  */
-typedef NSMutableArray* INVUserInviteMutableArray;
+typedef NSMutableArray *INVUserInviteMutableArray;
 
 @interface INVUserInvite : INVInvite
-@property (copy, nonatomic, readonly) NSString* accountName;
-@property (copy, nonatomic, readonly) NSString* inviterEmail;
+@property (copy, nonatomic, readonly) NSString *accountName;
+@property (copy, nonatomic, readonly) NSString *inviterEmail;
 @end

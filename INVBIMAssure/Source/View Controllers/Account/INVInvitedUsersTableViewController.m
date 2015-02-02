@@ -206,7 +206,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 - (NSFetchedResultsController *)dataResultsController
 {
     if (!_dataResultsController) {
-        NSFetchRequest *fetchRequest = [self.accountManager.fetchRequestForPendingInvitesForAccount copy];
+        NSFetchRequest *fetchRequest = self.accountManager.fetchRequestForPendingInvitesForAccount;
         fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO] ];
 
         _dataResultsController =

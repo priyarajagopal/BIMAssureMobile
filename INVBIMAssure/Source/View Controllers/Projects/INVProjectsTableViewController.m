@@ -197,19 +197,37 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
+    void(^failureBlock)(NSInteger errorCode) = ^(NSInteger errorCode) {
+        if (errorCode != INV_ERROR_CODE_NOMOREPAGES) {
+            UIAlertController *errController = [[UIAlertController alloc]
+                                                initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error];
+            [self presentViewController:errController animated:YES completion:nil];
+            ;
+        }
+    };
     [self performSelectorOnMainThread:@selector(updateTimeStamp) withObject:nil waitUntilDone:NO];
     if ([self.refreshControl isRefreshing]) {
         [self.refreshControl endRefreshing];
     }
+    // Note: need to explicitly do a fetch because our notification poller keeps polling for the same information from server
+    //  updating the persistent store. This implies that there is a chance that when the projects view
+    // requests the data,there are no changes to the persistent store- so any faulted objects go out of sync
+    // with whats in the persistent store. The stalenessInterval property does not help since the persistent store
+    // is not updated in this case. This is a race condition between when the poller fetches the data thereby upating the store
+    // versus when the projects viewer requests this. Regardless, forcing a fetch by the FRC will ensure that
+    // the in-memory version syncs up with the data store
+    
     if (!error) {
+        NSError* dbError;
+        [self.dataResultsController performFetch:&dbError];
+        if (dbError) {
+            failureBlock(dbError.code);
+        }
+
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
     else {
-        if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
-            UIAlertController *errController = [[UIAlertController alloc]
-                initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error.code.integerValue];
-            [self presentViewController:errController animated:YES completion:nil];
-        }
+        failureBlock(error.code.integerValue);
     }
 }
 

@@ -9,7 +9,6 @@
 #import <Mantle/Mantle.h>
 #import "INVUser.h"
 
-@interface INVSignedInUser : INVUser <MTLJSONSerializing, MTLManagedObjectSerializing>
-
+@interface INVSignedInUser : INVUser<MTLJSONSerializing, MTLManagedObjectSerializing>
 
 @end

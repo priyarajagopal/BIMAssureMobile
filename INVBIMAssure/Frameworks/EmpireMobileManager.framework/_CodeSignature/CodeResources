@@ -6,91 +6,91 @@
 	<dict>
 		<key>EmpireMobileManager.h</key>
 		<data>
-		YgDpZa+hYW5sCh2N7vRqLedGfis=
+		npO3gQ0AvRX9cxoDHvZ6+YhFUV8=
 		</data>
 		<key>Headers/EmpireMobileManager.h</key>
 		<data>
-		YgDpZa+hYW5sCh2N7vRqLedGfis=
+		npO3gQ0AvRX9cxoDHvZ6+YhFUV8=
 		</data>
 		<key>Headers/INVAccount.h</key>
 		<data>
-		YFfSIRpw9wQVUbSia3ax3mllFa8=
+		FULDVbM/yRFq0Y+SylhLbuPcbxc=
 		</data>
 		<key>Headers/INVAccountManager.h</key>
 		<data>
-		1vzIYgTZmbh61FacTF9CHaXXShE=
+		f2JcB1MVW4m/0faiO41SG5hUW+g=
 		</data>
 		<key>Headers/INVAccountMembership.h</key>
 		<data>
-		O0oQ55ld2KUm1f8kYaCepBaXpdQ=
+		LyaChRfDkr98I4JrSO4quKAnxMw=
 		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
-		hnG7X4nYMZ0o+fv3fEyULG6JG2U=
+		0rKmOgScNbbit5trjqyH07UB+yw=
 		</data>
 		<key>Headers/INVBuildingManager.h</key>
 		<data>
-		Ft8V7W/CTW2UuPHZNTo7+9uP7qU=
+		NftuRxivYo2w6ZPj6HRxJ3loCOE=
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		fWUqPJar1fNFQLyxNf2KWt7v1vI=
+		9kl86YRGxY1b3rh9sz1jG8rqfDE=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
-		vZu1XUaNdbiR31WoIxZLm9Ilrdo=
+		Ty9fp1ePzDQu/u01H4+GAkQmRKw=
 		</data>
 		<key>Headers/INVFileVersion.h</key>
 		<data>
-		iSHmXMQ5AX2BeC7uOPBjc6J2ezE=
+		UVsi7T02d9fPsHWip/PUkfYNeXY=
 		</data>
 		<key>Headers/INVInvite.h</key>
 		<data>
-		SjLmLExCELvBif0OTmh4thKZXHs=
+		nAjoqJ/+7u3V7JCM8aiaUeJjEok=
 		</data>
 		<key>Headers/INVPackage.h</key>
 		<data>
-		+qqFlw2F5d8OOYoyUMlaOr+AzAo=
+		6yPzO/fCEQeo4hxhp6uOe3mWWYc=
 		</data>
 		<key>Headers/INVProject.h</key>
 		<data>
-		wWgDiiOcKIGtlehvJr2qnB76808=
+		d26+tQE2mlPHOA/uTgyC7LvILjs=
 		</data>
 		<key>Headers/INVProjectManager.h</key>
 		<data>
-		Y/7cDuOeNotrhMZoU3pBNzaNu7M=
+		e3ljrSCsS45W+3jhJIMTr6GbXpA=
 		</data>
 		<key>Headers/INVRule.h</key>
 		<data>
-		h4XhAasImpy0jXsuzRW4htPafEQ=
+		63EJQIpZpBajUsRcb6InC+BXEPE=
 		</data>
 		<key>Headers/INVRuleExecutionManager.h</key>
 		<data>
-		NkuRXMXUWJWzf7HKd3RG0N6ZY9k=
+		g11TZvvTS+fN1E1sx/5J/Tcv0rQ=
 		</data>
 		<key>Headers/INVRuleFormalParam.h</key>
 		<data>
-		9VxMOFJ4O3oaCtiqgFDXwXF7/NY=
+		QKQZP7cLrT/TkOLC9HYrXodyUT4=
 		</data>
 		<key>Headers/INVRuleInstance.h</key>
 		<data>
-		T59yjaOjcpuNbFjkHS4f/70c63g=
+		+z+hVnJZ1QL1NYJIcV416ytHU7A=
 		</data>
 		<key>Headers/INVRuleInstanceExecution.h</key>
 		<data>
-		UQZtAjNZcKcKjMfpF3/Q0fS5B1g=
+		A4lZ+ykhRaweJRVHmK8/3n0BEQg=
 		</data>
 		<key>Headers/INVRuleInstanceExecutions.h</key>
 		<data>
-		31RkmKL/3raOd09BQ9QYjjM9iYk=
+		4he1sX9Ujl7jzF6+BBBnHiV0EYc=
 		</data>
 		<key>Headers/INVRuleSet.h</key>
 		<data>
-		emBH4NYMx9CtmldaAfuTFsW179c=
+		7Rj/REw2CSrXtftdJht8/OUSWpQ=
 		</data>
 		<key>Headers/INVRulesManager.h</key>
 		<data>
-		OvusSVqb4lqcE8LU0Vy7KWrkgbs=
+		BsctVE0867uGpJBc3NAKUzf8WpQ=
 		</data>
 		<key>Headers/INVSignedInAccount.h</key>
 		<data>
@@ -98,15 +98,15 @@
 		</data>
 		<key>Headers/INVSignedInUser.h</key>
 		<data>
-		4A/QMv5eg1oPol9jZZo9HPPH4FA=
+		cvSD/A6/qNdbVpChWdHPme2lvBw=
 		</data>
 		<key>Headers/INVUser.h</key>
 		<data>
-		//riOxG3WGRdni8Kw+QqjodXvyg=
+		+PZ+Ts5rP9BYRhW6t2I5RvwMsGQ=
 		</data>
 		<key>Headers/INVUserInvite.h</key>
 		<data>
-		jP2AUux/wpoPazAsTE+FJsE/x1w=
+		BRvf3vBfr8W0eQm/Ai5WXZBd5fg=
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
@@ -118,7 +118,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		mZm+6HfI7zHedw1fVqeG982d958=
+		+pzpYe1LwihjC7drtm3XC82Tamw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -129,91 +129,91 @@
 	<dict>
 		<key>EmpireMobileManager.h</key>
 		<data>
-		YgDpZa+hYW5sCh2N7vRqLedGfis=
+		npO3gQ0AvRX9cxoDHvZ6+YhFUV8=
 		</data>
 		<key>Headers/EmpireMobileManager.h</key>
 		<data>
-		YgDpZa+hYW5sCh2N7vRqLedGfis=
+		npO3gQ0AvRX9cxoDHvZ6+YhFUV8=
 		</data>
 		<key>Headers/INVAccount.h</key>
 		<data>
-		YFfSIRpw9wQVUbSia3ax3mllFa8=
+		FULDVbM/yRFq0Y+SylhLbuPcbxc=
 		</data>
 		<key>Headers/INVAccountManager.h</key>
 		<data>
-		1vzIYgTZmbh61FacTF9CHaXXShE=
+		f2JcB1MVW4m/0faiO41SG5hUW+g=
 		</data>
 		<key>Headers/INVAccountMembership.h</key>
 		<data>
-		O0oQ55ld2KUm1f8kYaCepBaXpdQ=
+		LyaChRfDkr98I4JrSO4quKAnxMw=
 		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
-		hnG7X4nYMZ0o+fv3fEyULG6JG2U=
+		0rKmOgScNbbit5trjqyH07UB+yw=
 		</data>
 		<key>Headers/INVBuildingManager.h</key>
 		<data>
-		Ft8V7W/CTW2UuPHZNTo7+9uP7qU=
+		NftuRxivYo2w6ZPj6HRxJ3loCOE=
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		fWUqPJar1fNFQLyxNf2KWt7v1vI=
+		9kl86YRGxY1b3rh9sz1jG8rqfDE=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
-		vZu1XUaNdbiR31WoIxZLm9Ilrdo=
+		Ty9fp1ePzDQu/u01H4+GAkQmRKw=
 		</data>
 		<key>Headers/INVFileVersion.h</key>
 		<data>
-		iSHmXMQ5AX2BeC7uOPBjc6J2ezE=
+		UVsi7T02d9fPsHWip/PUkfYNeXY=
 		</data>
 		<key>Headers/INVInvite.h</key>
 		<data>
-		SjLmLExCELvBif0OTmh4thKZXHs=
+		nAjoqJ/+7u3V7JCM8aiaUeJjEok=
 		</data>
 		<key>Headers/INVPackage.h</key>
 		<data>
-		+qqFlw2F5d8OOYoyUMlaOr+AzAo=
+		6yPzO/fCEQeo4hxhp6uOe3mWWYc=
 		</data>
 		<key>Headers/INVProject.h</key>
 		<data>
-		wWgDiiOcKIGtlehvJr2qnB76808=
+		d26+tQE2mlPHOA/uTgyC7LvILjs=
 		</data>
 		<key>Headers/INVProjectManager.h</key>
 		<data>
-		Y/7cDuOeNotrhMZoU3pBNzaNu7M=
+		e3ljrSCsS45W+3jhJIMTr6GbXpA=
 		</data>
 		<key>Headers/INVRule.h</key>
 		<data>
-		h4XhAasImpy0jXsuzRW4htPafEQ=
+		63EJQIpZpBajUsRcb6InC+BXEPE=
 		</data>
 		<key>Headers/INVRuleExecutionManager.h</key>
 		<data>
-		NkuRXMXUWJWzf7HKd3RG0N6ZY9k=
+		g11TZvvTS+fN1E1sx/5J/Tcv0rQ=
 		</data>
 		<key>Headers/INVRuleFormalParam.h</key>
 		<data>
-		9VxMOFJ4O3oaCtiqgFDXwXF7/NY=
+		QKQZP7cLrT/TkOLC9HYrXodyUT4=
 		</data>
 		<key>Headers/INVRuleInstance.h</key>
 		<data>
-		T59yjaOjcpuNbFjkHS4f/70c63g=
+		+z+hVnJZ1QL1NYJIcV416ytHU7A=
 		</data>
 		<key>Headers/INVRuleInstanceExecution.h</key>
 		<data>
-		UQZtAjNZcKcKjMfpF3/Q0fS5B1g=
+		A4lZ+ykhRaweJRVHmK8/3n0BEQg=
 		</data>
 		<key>Headers/INVRuleInstanceExecutions.h</key>
 		<data>
-		31RkmKL/3raOd09BQ9QYjjM9iYk=
+		4he1sX9Ujl7jzF6+BBBnHiV0EYc=
 		</data>
 		<key>Headers/INVRuleSet.h</key>
 		<data>
-		emBH4NYMx9CtmldaAfuTFsW179c=
+		7Rj/REw2CSrXtftdJht8/OUSWpQ=
 		</data>
 		<key>Headers/INVRulesManager.h</key>
 		<data>
-		OvusSVqb4lqcE8LU0Vy7KWrkgbs=
+		BsctVE0867uGpJBc3NAKUzf8WpQ=
 		</data>
 		<key>Headers/INVSignedInAccount.h</key>
 		<data>
@@ -221,15 +221,15 @@
 		</data>
 		<key>Headers/INVSignedInUser.h</key>
 		<data>
-		4A/QMv5eg1oPol9jZZo9HPPH4FA=
+		cvSD/A6/qNdbVpChWdHPme2lvBw=
 		</data>
 		<key>Headers/INVUser.h</key>
 		<data>
-		//riOxG3WGRdni8Kw+QqjodXvyg=
+		+PZ+Ts5rP9BYRhW6t2I5RvwMsGQ=
 		</data>
 		<key>Headers/INVUserInvite.h</key>
 		<data>
-		jP2AUux/wpoPazAsTE+FJsE/x1w=
+		BRvf3vBfr8W0eQm/Ai5WXZBd5fg=
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
