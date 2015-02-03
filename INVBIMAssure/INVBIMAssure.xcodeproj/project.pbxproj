@@ -169,6 +169,7 @@
 		F5789DE91A642ED300D8CEE7 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789DE81A642ED300D8CEE7 /* libYajl.a */; };
 		F5D41A2C1A659B2000780B9A /* INVMergedFetchedResultsControler.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */; };
 		F5D41A2F1A65A40E00780B9A /* INVBlockUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */; };
+		F5DC65B61A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65B51A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -459,6 +460,8 @@
 		F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVMergedFetchedResultsControler.m; sourceTree = "<group>"; };
 		F5D41A2D1A65A40E00780B9A /* INVBlockUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBlockUtils.h; sourceTree = "<group>"; };
 		F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBlockUtils.m; sourceTree = "<group>"; };
+		F5DC65B41A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVNotificationsConfigurationTableViewController.h; sourceTree = "<group>"; };
+		F5DC65B51A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotificationsConfigurationTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -602,6 +605,8 @@
 			children = (
 				F5426D581A6816D40040B2B5 /* INVNotificationsTableViewController.h */,
 				F5426D591A6816D40040B2B5 /* INVNotificationsTableViewController.m */,
+				F5DC65B41A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.h */,
+				F5DC65B51A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -1314,6 +1319,7 @@
 				F5789D3D1A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m in Sources */,
 				F5789D6F1A642A5500D8CEE7 /* INVProjectDetailsTabViewController.m in Sources */,
 				F5789D5D1A642A5500D8CEE7 /* INVSearchViewTagsDataSource.m in Sources */,
+				F5DC65B61A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m in Sources */,
 				F5269E261A793641006AC27A /* INVCustomTableView.m in Sources */,
 				F5789D741A642A5500D8CEE7 /* INVProjectsTableViewController.m in Sources */,
 				F5789D521A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESMesh.m in Sources */,

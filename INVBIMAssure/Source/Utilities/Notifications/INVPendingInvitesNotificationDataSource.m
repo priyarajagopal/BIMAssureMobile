@@ -12,10 +12,26 @@
 @interface INVPendingInvitesNotificationDataSource ()
 
 @property NSArray *previousInvites;
+@property (nonatomic) NSMutableArray *previousNotifications;
 
 @end
 
 @implementation INVPendingInvitesNotificationDataSource
+
+- (NSMutableArray *)previousNotifications
+{
+    if (_previousNotifications == nil) {
+        _previousNotifications = [NSMutableArray new];
+    }
+
+    [_previousNotifications
+        removeObjectsAtIndexes:[_previousNotifications indexesOfObjectsPassingTest:^BOOL(INVNotification *notification,
+                                                                                       NSUInteger idx, BOOL *stop) {
+            return notification.dismissed;
+        }]];
+
+    return _previousNotifications;
+}
 
 - (void)checkForNewData:(void (^)(NSArray *))callback
 {
@@ -46,17 +62,23 @@
                 addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypePendingInvite andData:invite]];
         }
 
-        /*
-        for (INVUserInvite *invite in goneInvites) {
-            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"ACCOUNT_INVITE_NOTIFICATION_ACCEPTED_TITLE", nil),
-        [invite accountName]];
-
-            [notifications addObject:[INVNotification notificationWithTitle:title type:INVNotificationTypePendingInvite
-        andData:nil]];
+        if (goneInvites.count) {
+            INVLogDebug();
         }
-         */
+
+        NSArray *notificationsToDismiss = [self.previousNotifications
+            objectsAtIndexes:[self.previousNotifications indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                return [goneInvites containsObject:[obj data]];
+            }]];
 
         self->_previousInvites = invites;
+        [self.previousNotifications addObjectsFromArray:notifications];
+
+        [notificationsToDismiss enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [obj setDismissed:YES];
+        }];
+
+        [notifications addObjectsFromArray:notificationsToDismiss];
 
         callback(notifications);
     }];

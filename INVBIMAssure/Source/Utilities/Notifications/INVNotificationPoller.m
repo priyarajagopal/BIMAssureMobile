@@ -12,6 +12,7 @@ NSString *const INVNotificationPoller_DidRecieveNotificationNotification =
     @"INVNotificationPoller_DidRecieveNotificationNotification";
 NSString *const INVNotificationPoller_DataSourceKey = @"INVNotificationPoller_DataSourceKey";
 NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_ChangesKey";
+NSString *const INVNotificationPoller_NotificationsEnabledKey = @"INVNotificationPoller_NotificationsEnabled";
 
 @interface INVNotificationPollerDataSource ()
 
@@ -90,14 +91,28 @@ NSString *const INVNotificationPoller_ChangesKey = @"INVNotificationPoller_Chang
         _dataSources = [NSMutableArray new];
         _notifications = [NSMutableArray new];
 
+        _notificationsEnabled =
+            [[NSUserDefaults standardUserDefaults] boolForKey:INVNotificationPoller_NotificationsEnabledKey];
+
         [self restartTimer];
     }
 
     return self;
 }
 
+- (void)setNotificationsEnabled:(BOOL)notificationsEnabled
+{
+    _notificationsEnabled = notificationsEnabled;
+
+    [[NSUserDefaults standardUserDefaults] setBool:notificationsEnabled forKey:INVNotificationPoller_NotificationsEnabledKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)pollForNotifications
 {
+    if (!self.notificationsEnabled)
+        return;
+
     for (INVNotificationPollerDataSource *dataSource in _dataSources) {
         [dataSource checkForNewData:^(NSArray *changes) {
             NSMutableArray *newObjects = [changes mutableCopy];

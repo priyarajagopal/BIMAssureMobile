@@ -35,6 +35,9 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 {
     [super viewDidLoad];
 
+    self.navigationItem.rightBarButtonItem.image = [[FAKFontAwesome gearIconWithSize:30] imageWithSize:CGSizeMake(30, 30)];
+    self.navigationItem.rightBarButtonItem.title = nil;
+
     [self.tableView registerNib:[UINib nibWithNibName:@"INVNotificationTableViewCell" bundle:[NSBundle mainBundle]]
          forCellReuseIdentifier:@"notificationCell"];
 
