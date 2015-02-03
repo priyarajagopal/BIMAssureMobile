@@ -24,6 +24,32 @@
 #define INV_DEPLOYMENT_NAME nil
 #endif
 
+/**** Sample JSON startup file
+ {
+	"defaultdeploy": "development",
+	"deploys": [
+	{
+ "name": "development",
+ "servers": [
+ {"server": "xospassport", "url": "http://54.149.63.51:8080"},
+ {"server": "empiremanage", "url": "http://54.149.7.76:8080"},
+ {"server": "empireweb", "url": "http://54.69.37.246"}
+ ]
+	},
+	{
+ "name": "developmentOld",
+ "servers": [
+ {"server": "xospassport", "url": "http://54.68.220.238:8080"},
+ {"server": "empiremanage", "url": "http://54.68.220.238:8080"},
+ {"server": "empireweb", "url": "http://localhost"}
+ ]
+	}
+	]
+ }
+ 
+ 
+ ************/
+
 @interface INVServerConfigManager ()
 
 @property NSURL *passportServerURL;
@@ -109,24 +135,16 @@
 
     _passportServerURL = nil;
     _empireManageServerURL = nil;
-#define _TESTSERVERS_
     for (NSDictionary *server in selectedDeploy[@"servers"]) {
         NSString *serverName = server[@"server"];
 
         if ([serverName isEqual:@"xospassport"]) {
-#ifdef _TESTSERVERS_
-             _passportServerURL = [NSURL URLWithString: @"http://54.68.220.238:8080"];
-#else
             _passportServerURL = [NSURL URLWithString:server[@"url"]];
-#endif
         }
 
         if ([serverName isEqualToString:@"empiremanage"]) {
-#ifdef _TESTSERVERS_
             _empireManageServerURL = [NSURL URLWithString:server[@"url"]];
-#else
-            _empireManageServerURL = [NSURL URLWithString: @"http://54.68.220.238:8080"];
-#endif
+
         }
     }
 
