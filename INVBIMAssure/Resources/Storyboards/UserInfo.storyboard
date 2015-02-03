@@ -292,7 +292,7 @@
         <!--Navigation Controller-->
         <scene sceneID="9Un-EU-0yG">
             <objects>
-                <navigationController id="YOu-ir-aaP" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="formSheet" id="YOu-ir-aaP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iUo-GZ-Xnz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -309,14 +309,14 @@
         <scene sceneID="jEa-di-Nqb">
             <objects>
                 <tableViewController id="Aef-cX-Ecl" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="BoE-Zm-k43">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="BoE-Zm-k43">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection headerTitle="Basic Information" id="A99-qB-DcP">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dGl-tP-BQQ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="dGl-tP-BQQ">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGl-tP-BQQ" id="e5N-Du-gxo">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -330,14 +330,12 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOl-FD-MAA">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOl-FD-MAA">
                                                     <rect key="frame" x="185" y="8" width="407" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                     <connections>
-                                                        <action selector="becomeFirstResponder" destination="fBt-os-tp6" eventType="editingDidEndOnExit" id="xfY-yL-r9T"/>
-                                                        <action selector="checkPasswordsEmpty:" destination="pxF-rX-jjL" eventType="editingChanged" id="WtO-Qb-Bup"/>
-                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingDidEndOnExit" id="z4K-gg-R4I"/>
+                                                        <action selector="becomeFirstResponder" destination="FLa-PA-Lwp" eventType="editingDidEndOnExit" id="G1p-34-cOy"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -353,7 +351,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bED-KY-QhV">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="bED-KY-QhV">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bED-KY-QhV" id="FTO-8T-KgD">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -367,14 +365,12 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FLa-PA-Lwp">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FLa-PA-Lwp">
                                                     <rect key="frame" x="185" y="8" width="407" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                     <connections>
-                                                        <action selector="becomeFirstResponder" destination="fBt-os-tp6" eventType="editingDidEndOnExit" id="oEf-IY-Ean"/>
-                                                        <action selector="checkPasswordsEmpty:" destination="pxF-rX-jjL" eventType="editingChanged" id="2X8-UU-l9L"/>
-                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingDidEndOnExit" id="7tW-v8-8II"/>
+                                                        <action selector="becomeFirstResponder" destination="4GX-fU-vKE" eventType="editingDidEndOnExit" id="nfs-ML-7iw"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -390,7 +386,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="MPD-lD-oUB">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="MPD-lD-oUB">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MPD-lD-oUB" id="ZhQ-Km-YLK">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -404,14 +400,12 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4GX-fU-vKE">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4GX-fU-vKE">
                                                     <rect key="frame" x="185" y="8" width="407" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                     <connections>
-                                                        <action selector="becomeFirstResponder" destination="fBt-os-tp6" eventType="editingDidEndOnExit" id="zbX-Qc-M4o"/>
-                                                        <action selector="checkPasswordsEmpty:" destination="pxF-rX-jjL" eventType="editingChanged" id="oyC-R2-39A"/>
-                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingDidEndOnExit" id="EZ8-vj-dve"/>
+                                                        <action selector="becomeFirstResponder" destination="DiZ-e3-tY6" eventType="editingDidEndOnExit" id="6wg-mj-H8q"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -429,9 +423,9 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Billing Information" id="fhw-PY-T7v">
+                            <tableViewSection id="fhw-PY-T7v">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="QGe-cZ-NOR">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="QGe-cZ-NOR">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QGe-cZ-NOR" id="8qU-7U-ct4">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -445,14 +439,12 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DiZ-e3-tY6">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DiZ-e3-tY6">
                                                     <rect key="frame" x="185" y="8" width="407" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                     <connections>
-                                                        <action selector="becomeFirstResponder" destination="fBt-os-tp6" eventType="editingDidEndOnExit" id="tuT-Ye-BQQ"/>
-                                                        <action selector="checkPasswordsEmpty:" destination="pxF-rX-jjL" eventType="editingChanged" id="QvL-Tj-HgR"/>
-                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingDidEndOnExit" id="SAu-u9-dlE"/>
+                                                        <action selector="becomeFirstResponder" destination="gQg-YX-s8a" eventType="editingDidEndOnExit" id="Uaf-nW-bjJ"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -468,7 +460,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0Lq-SY-DHK">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="0Lq-SY-DHK">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Lq-SY-DHK" id="jP2-3M-hjU">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -482,14 +474,12 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQg-YX-s8a">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQg-YX-s8a">
                                                     <rect key="frame" x="185" y="8" width="407" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="next" secureTextEntry="YES"/>
                                                     <connections>
-                                                        <action selector="becomeFirstResponder" destination="fBt-os-tp6" eventType="editingDidEndOnExit" id="NWF-Y9-iGm"/>
-                                                        <action selector="checkPasswordsEmpty:" destination="pxF-rX-jjL" eventType="editingChanged" id="jcp-vR-tNr"/>
-                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingDidEndOnExit" id="Ebj-sh-4TJ"/>
+                                                        <action selector="becomeFirstResponder" destination="1Bg-yk-cFO" eventType="editingDidEndOnExit" id="75P-2p-3Py"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -505,7 +495,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qBq-4t-MB7">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="qBq-4t-MB7">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qBq-4t-MB7" id="T22-or-Hsc">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -519,14 +509,12 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Bg-yk-cFO">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Name" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Bg-yk-cFO">
                                                     <rect key="frame" x="185" y="8" width="407" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                                     <connections>
-                                                        <action selector="becomeFirstResponder" destination="fBt-os-tp6" eventType="editingDidEndOnExit" id="gMi-Yi-Jye"/>
-                                                        <action selector="checkPasswordsEmpty:" destination="pxF-rX-jjL" eventType="editingChanged" id="1jH-Ee-VBJ"/>
-                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingDidEndOnExit" id="Rg3-Tc-THq"/>
+                                                        <action selector="resignFirstResponder" destination="1yN-k2-NNa" eventType="editingDidEndOnExit" id="IJA-W8-rDS"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -551,10 +539,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Profile" id="nVw-kn-uyC">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="54B-nX-XYH"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="54B-nX-XYH">
+                            <connections>
+                                <segue destination="ecC-9L-ggY" kind="unwind" identifier="unwind" unwindAction="manualDismiss:" id="gbW-la-QMH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="7NC-uy-nZq"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yN-k2-NNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ecC-9L-ggY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2702" y="270"/>
         </scene>
