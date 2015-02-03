@@ -109,16 +109,24 @@
 
     _passportServerURL = nil;
     _empireManageServerURL = nil;
-
+#define _TESTSERVERS_
     for (NSDictionary *server in selectedDeploy[@"servers"]) {
         NSString *serverName = server[@"server"];
 
         if ([serverName isEqual:@"xospassport"]) {
+#ifdef _TESTSERVERS_
+             _passportServerURL = [NSURL URLWithString: @"http://54.68.220.238:8080"];
+#else
             _passportServerURL = [NSURL URLWithString:server[@"url"]];
+#endif
         }
 
         if ([serverName isEqualToString:@"empiremanage"]) {
+#ifdef _TESTSERVERS_
             _empireManageServerURL = [NSURL URLWithString:server[@"url"]];
+#else
+            _empireManageServerURL = [NSURL URLWithString: @"http://54.68.220.238:8080"];
+#endif
         }
     }
 

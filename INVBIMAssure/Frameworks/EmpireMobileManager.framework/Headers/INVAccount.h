@@ -24,9 +24,14 @@ typedef NSMutableArray *INVAccountMutableArray;
 @property (copy, nonatomic, readonly) NSDate *updatedAt;
 @property (copy, nonatomic, readonly) NSNumber *updatedBy;
 @property (copy, nonatomic, readonly) NSNumber *accountId;
+@property (copy, nonatomic, readonly) NSString *companyName;
+@property (copy, nonatomic, readonly) NSString *companyAddress;
+@property (copy, nonatomic, readonly) NSString *contactName;
+@property (copy, nonatomic, readonly) NSString *contactPhone;
 @property (copy, nonatomic, readonly) NSString *name;
 @property (copy, nonatomic, readonly) NSString *overview;
-@property (copy, nonatomic, readonly) NSString *typeVal;
+@property (copy, nonatomic, readonly) NSString *type;
 @property (nonatomic, readonly) NSNumber *disabled;
+@property (nonatomic, readonly) NSNumber *numberEmployees;
 
 @end

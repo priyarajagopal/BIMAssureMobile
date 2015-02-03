@@ -19,10 +19,19 @@ typedef NSArray *INVUserArray;
 typedef NSMutableArray *INVUserMutableArray;
 
 @interface INVUser : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
-@property (copy, nonatomic, readonly) NSString *accountType;
-@property (copy, nonatomic, readonly) NSNumber *accountId;
 @property (copy, nonatomic, readonly) NSString *email;
-@property (copy, nonatomic, readonly) NSNumber *isAdmin;
-@property (copy, nonatomic, readonly) NSString *name;
+@property (copy, nonatomic, readonly) NSString *firstName;
+@property (copy, nonatomic, readonly) NSString *lastName;
+@property (copy, nonatomic, readonly) NSString *address;
+@property (copy, nonatomic, readonly) NSString *phoneNumber;
+@property (copy, nonatomic, readonly) NSString *companyName;
+@property (copy, nonatomic, readonly) NSString *title;
 @property (copy, nonatomic, readonly) NSNumber *userId;
+@property (copy, nonatomic, readonly) NSNumber *accountId;
+@property (copy, nonatomic, readonly) NSNumber *allowNotifications;
+@property (copy, nonatomic, readonly) NSDate *createdAt;
+@property (copy, nonatomic, readonly) NSNumber *createdBy;
+@property (copy, nonatomic, readonly) NSDate *updatedAt;
+@property (copy, nonatomic, readonly) NSNumber *updatedBy;
+
 @end

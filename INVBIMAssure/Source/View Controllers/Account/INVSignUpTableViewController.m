@@ -297,23 +297,35 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
     NSString *accountName = self.acntNameTextField.text;
     NSString *acntDesc = self.acntDescTextView.text;
 
-    [self.globalDataManager.invServerClient signUpUserWithName:name
-                                                      andEmail:email
-                                                   andPassword:pass
-                                               withAccountName:accountName
-                                            accountDescription:acntDesc
-                                              subscriptionType:package
-                                           withCompletionBlock:^(INVEmpireMobileError *error) {
-                                               [self hideSignupProgress];
-                                               if (!error) {
-                                                   INVLogDebug(@"Succesfully signedup user %@ and created account %@", name,
-                                                       accountName);
-                                                   self.signupSuccess = YES;
-                                               }
-                                               else {
-                                                   [self showSignupFailureAlert];
-                                               }
-                                           }];
+#warning TODO: UPdate the view to accept the remaining fields from user and pass it along to server
+    [self.globalDataManager.invServerClient signUpUserWithFirstName:name
+                                                           lastName:name
+                                                        userAddress:nil
+                                                    userPhoneNumber:nil
+                                                    userCompanyName:nil
+                                                              title:nil
+                                                              email:email
+                                                           password:pass
+                                                 allowNotifications:YES
+                                                        accountName:accountName
+                                                 accountDescription:acntDesc
+                                                   subscriptionType:package
+                                                        companyName:@"Invicara"
+                                                     companyAddress:nil
+                                                        contactName:nil
+                                                       contactPhone:nil
+                                                    numberEmployees:nil
+                                                withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                    [self hideSignupProgress];
+                                                    if (!error) {
+                                                        INVLogDebug(@"Succesfully signedup user %@ and created account %@",
+                                                            name, accountName);
+                                                        self.signupSuccess = YES;
+                                                    }
+                                                    else {
+                                                        [self showSignupFailureAlert];
+                                                    }
+                                                }];
 }
 
 - (void)signUpUser
@@ -323,22 +335,29 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
     NSString *email = self.emailTextField.text;
     NSString *name = self.userNameTextField.text;
     NSString *pass = self.passwordTextField.text;
-    [self.globalDataManager.invServerClient signUpUserWithName:name
-                                                         email:email
-                                                      password:pass
-                                           withCompletionBlock:^(INVEmpireMobileError *error) {
-                                               [self hideSignupProgress];
-                                               if (!error) {
-                                                   INVLogDebug(@"Succesfully signedup user %@ ", name);
+#warning TODO: UPdate the view to accept the remaining fields from user and pass it along to server
+    [self.globalDataManager.invServerClient signUpUserWithFirstName:name
+                                                           lastName:name
+                                                        userAddress:nil
+                                                    userPhoneNumber:nil
+                                                    userCompanyName:nil
+                                                              title:nil
+                                                              email:email
+                                                           password:pass
+                                                 allowNotifications:NO
+                                                withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                    [self hideSignupProgress];
+                                                    if (!error) {
+                                                        INVLogDebug(@"Succesfully signedup user %@ ", name);
 
-                                                   self.globalDataManager.invitationCodeToAutoAccept =
-                                                       self.invitationCodeTextField.text;
-                                                   self.signupSuccess = YES;
-                                               }
-                                               else {
-                                                   [self showSignupFailureAlert];
-                                               }
-                                           }];
+                                                        self.globalDataManager.invitationCodeToAutoAccept =
+                                                            self.invitationCodeTextField.text;
+                                                        self.signupSuccess = YES;
+                                                    }
+                                                    else {
+                                                        [self showSignupFailureAlert];
+                                                    }
+                                                }];
 }
 
 - (void)createAccountOnly
@@ -351,9 +370,15 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
     NSString *accountName = self.acntNameTextField.text;
     NSString *acntDesc = self.acntDescTextView.text;
 
+#warning TODO: UPdate the view to accept the remaining fields from user and pass it along to server
     [self.globalDataManager.invServerClient createAccountForSignedInUserWithAccountName:accountName
                                                                      accountDescription:acntDesc
                                                                        subscriptionType:package
+                                                                            companyName:@"Invicara"
+                                                                         companyAddress:nil
+                                                                            contactName:nil
+                                                                           contactPhone:nil
+                                                                        numberEmployees:nil
                                                                            forUserEmail:email
                                                                     withCompletionBlock:^(INVEmpireMobileError *error) {
                                                                         [self hideSignupProgress];

@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/INVAccount.h</key>
 		<data>
-		FULDVbM/yRFq0Y+SylhLbuPcbxc=
+		y8SK6d90HtOdibsaS7HmSEUUB0w=
 		</data>
 		<key>Headers/INVAccountManager.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		9kl86YRGxY1b3rh9sz1jG8rqfDE=
+		TG9SwP+ZTsf1q3ypEPETtN9UXKc=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -102,7 +102,7 @@
 		</data>
 		<key>Headers/INVUser.h</key>
 		<data>
-		+PZ+Ts5rP9BYRhW6t2I5RvwMsGQ=
+		rCZKXAWfVgjf4stgcb8wkOQf8lU=
 		</data>
 		<key>Headers/INVUserInvite.h</key>
 		<data>
@@ -110,11 +110,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		cqKGIH7M9rxfNe0Rg4FR8O7rx74=
+		1C+vvO8EvUb2WiTGz2o5M2zUbdg=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		JVkQbbMzL4Vi/ZIOubVnDv+DNCk=
+		JqaakEyTXM9fd+86QMyMHuJ88Dg=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -137,7 +137,7 @@
 		</data>
 		<key>Headers/INVAccount.h</key>
 		<data>
-		FULDVbM/yRFq0Y+SylhLbuPcbxc=
+		y8SK6d90HtOdibsaS7HmSEUUB0w=
 		</data>
 		<key>Headers/INVAccountManager.h</key>
 		<data>
@@ -157,7 +157,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		9kl86YRGxY1b3rh9sz1jG8rqfDE=
+		TG9SwP+ZTsf1q3ypEPETtN9UXKc=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -225,7 +225,7 @@
 		</data>
 		<key>Headers/INVUser.h</key>
 		<data>
-		+PZ+Ts5rP9BYRhW6t2I5RvwMsGQ=
+		rCZKXAWfVgjf4stgcb8wkOQf8lU=
 		</data>
 		<key>Headers/INVUserInvite.h</key>
 		<data>
@@ -233,11 +233,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		cqKGIH7M9rxfNe0Rg4FR8O7rx74=
+		1C+vvO8EvUb2WiTGz2o5M2zUbdg=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		JVkQbbMzL4Vi/ZIOubVnDv+DNCk=
+		JqaakEyTXM9fd+86QMyMHuJ88Dg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>

@@ -327,17 +327,40 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 /**
  Asynchornously , sign up for a user account with the XOS Passport service
 
- @param userName The full name of user
-
- @param email The email address of user
-
- @param password The password of user
+ @param firstName FirstName of user to be added
+ 
+ @param lastName lastName of user to be added
+ 
+ @param userAddress optional address of user to be added
+ 
+ @param userPhoneNumber optional phone number of user to be added
+ 
+ @param userCompanyName optional company name of user to be added
+ 
+ @param title optional title of user to be added
+ 
+ @param userEmail email address of user
+ 
+ @paaram password User password
+ 
+ @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
+ 
 
  @param accountName Name of account to be created
-
+ 
  @param accountDescription An optional description of account
-
+ 
  @param type Subscription type Will always be mapped to 1 for now
+ 
+ @param companyName company name
+ 
+ @param companyAddress Optional company address
+ 
+ @param contactName  optional name of contact person for company
+ 
+ @param contactPhone  optional Phone # of contact person for company
+ 
+ @param numEmployees  optional number of employees
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
  accountManager can be used to retrieve the details of account
@@ -346,22 +369,46 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 
  */
-- (void)signUpUserWithName:(NSString *)userName
-                  andEmail:(NSString *)email
-               andPassword:(NSString *)password
-           withAccountName:(NSString *)accountName
-        accountDescription:(NSString *)accountDescription
-          subscriptionType:(NSNumber *)type
-       withCompletionBlock:(CompletionHandler)handler;
 
+- (void)signUpUserWithFirstName:(NSString *)firstName
+                       lastName:(NSString*)lastName
+                        userAddress:(NSString*)userAddress
+                    userPhoneNumber:(NSString*)userPhoneNumber
+                    userCompanyName:(NSString*)userCompanyName
+                          title:(NSString*)title
+                          email:(NSString *)userEmail
+                       password:(NSString *)password
+             allowNotifications:(BOOL)allowNotifications
+                    accountName:(NSString *)accountName
+             accountDescription:(NSString *)accountDescription
+               subscriptionType:(NSNumber *)type
+                    companyName:(NSString *)companyName
+                 companyAddress:(NSString *)companyAddress
+                    contactName:(NSString *)contactName
+                   contactPhone:(NSString *)contactPhone
+                numberEmployees:(NSNumber*)numEmployees
+            withCompletionBlock:(CompletionHandler)handler;
 /**
  Asynchornously , sign up a user with the XOS Passport service
 
- @param name Name of user to be added
-
+ @param firstName FirstName of user to be added
+ 
+ @param lastName lastName of user to be added
+ 
+ @param userAddress optional address of user to be added
+ 
+ @param userPhoneNumber optional phone number of user to be added
+ 
+ @param userCompanyName optional company name of user to be added
+ 
+ @param title optional title of user to be added
+ 
  @param userEmail email address of user
-
- @param password user password
+ 
+@paaram password User password
+ 
+ @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
+ 
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
  accountManager can be used to retrieve the details of account
@@ -370,20 +417,37 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 
  */
-- (void)signUpUserWithName:(NSString *)name
-                     email:(NSString *)userEmail
-                  password:(NSString *)password
+- (void)signUpUserWithFirstName:(NSString *)firstName
+                       lastName:(NSString*)lastName
+                        userAddress:(NSString*)userAddress
+                    userPhoneNumber:(NSString*)userPhoneNumber
+                    userCompanyName:(NSString*)userCompanyname
+                          title:(NSString*)title
+                          email:(NSString *)userEmail
+                       password:(NSString *)password
+             allowNotifications:(BOOL)allowNotifications
        withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously , create an account for currently signed in user with the XOS Passport service
 
  @param accountName Name of account to be created
-
+ 
  @param accountDescription An optional description of account
 
  @param type Subscription type Will always be mapped to 1 for now
+ 
+ @param companyName company name
 
+ @param companyAddress Optional company address
+
+ @param contactName  optional name of contact person for company
+ 
+ @param contactPhone  optional Phone # of contact person for company
+ 
+ @param numEmployees  optional number of employees
+ 
+ 
  @param userEmail The email address of signed in user. ***** THE SERVER API SHOULD BE UPDATED TO NOT REQUIRE THIS FIELD ******
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
@@ -396,11 +460,16 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 - (void)createAccountForSignedInUserWithAccountName:(NSString *)accountName
                                  accountDescription:(NSString *)accountDescription
                                    subscriptionType:(NSNumber *)type
+                                 companyName:(NSString *)companyName
+                                   companyAddress:(NSString *)companyAddress
+                                        contactName:(NSString *)contactName
+                                     contactPhone:(NSString *)contactPhone
+                                    numberEmployees:(NSNumber*)numEmployees
                                        forUserEmail:(NSString *)userEmail
                                 withCompletionBlock:(CompletionHandler)handler;
 
 /**
- Asynchornously , update details of signed in account with the XOS Passport service
+ DEPRECATED Asynchornously , update details of signed in account with the XOS Passport service
 
  @param accountName updated name of account
 
