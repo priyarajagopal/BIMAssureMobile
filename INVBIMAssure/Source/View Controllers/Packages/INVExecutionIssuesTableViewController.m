@@ -73,31 +73,32 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
 
         [self.globalDataManager.invServerClient
             fetchBuildingElementDetailsForId:elementId
-                         withCompletionBlock:^(INVEmpireMobileError *error) {
-                             [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+                         withCompletionBlock:INV_COMPLETION_HANDLER {
+                             INV_ALWAYS:
+                                 [self.hud hide:YES];
 
-                             if (!error) {
+                             INV_SUCCESS : {
                                  INVBuildingElement *buildingElement = [self.buildingManager buildingElementForID:elementId];
                                  if (buildingElement) {
                                      [self.buildingElementDetails addObject:buildingElement];
                                  }
+
+                                 if (idx == self.buildingElementsWithIssues.count - 1) {
+                                     [self updateTableViewDataSource];
+                                     [self.tableView performSelectorOnMainThread:@selector(reloadData)
+                                                                      withObject:nil
+                                                                   waitUntilDone:NO];
+                                 }
                              }
-                             else {
+
+                             INV_ERROR:
+                                 INVLogError(@"%@", error);
+
                                  UIAlertController *errController = [[UIAlertController alloc]
                                      initWithErrorMessage:NSLocalizedString(@"ERROR_BUILDING_ELEMENT_LOAD", nil),
                                      error.code.integerValue];
                                  [self presentViewController:errController animated:YES completion:nil];
-                             }
-
-                             if (idx == self.buildingElementsWithIssues.count - 1) {
-                                 [self updateTableViewDataSource];
-                                 [self.tableView performSelectorOnMainThread:@selector(reloadData)
-                                                                  withObject:nil
-                                                               waitUntilDone:NO];
-                             }
-
                          }];
-
     }];
 }
 

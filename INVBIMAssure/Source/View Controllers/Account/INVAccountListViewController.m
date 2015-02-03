@@ -301,75 +301,48 @@ static NSString *const reuseIdentifier = @"Cell";
     }
     return _accountManager;
 }
-/*
-- (void)presentError:(NSString *)format, ...
-{
-    va_list list;
-    va_start(list, format);
-
-    NSString *errorMessage = [[NSString alloc] initWithFormat:format arguments:list];
-
-    va_end(list);
-
-    UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:errorMessage];
-    [self presentViewController:errController animated:YES completion:nil];
-}
- */
 
 #pragma mark - server side
 - (void)fetchListOfAccounts
 {
     [self showLoadProgress];
 
-    void (^failureBlock)(NSInteger) = ^(NSInteger errorCode) {
-        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-        UIAlertController *errController =
-            [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), errorCode];
-        [self presentViewController:errController animated:YES completion:nil];
-    };
+    [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:INV_COMPLETION_HANDLER {
+        INV_ALWAYS:
+        INV_SUCCESS:
+            [self.globalDataManager.invServerClient getPendingInvitationsForSignedInUserWithCompletionBlock:({
+                INV_COMPLETION_HANDLER
+                {
+                INV_ALWAYS:
+                    [self.hud hide:YES];
 
-    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
-        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+                INV_SUCCESS:
+                    // Note: need to explicitly do a fetch because our notification poller keeps polling for the same
+                    // information from  server updating the persistent store. This implies that there is a chance that when the
+                    // accounts view requests the data,there are no changes to the persistent store- so any faulted objects go
+                    // out of sync with whats in the persistent store. The stalenessInterval property does not help since the
+                    // persistent store is not updated in this case. This is a race condition between when the poller fetches
+                    // the data thereby upating the store  versus when the accounts viewer requests this. Regardless, forcing a
+                    // fetch by the FRC will ensure that the in-memory version syncs up with the data store
+                    [self.dataResultsController performFetch:NULL];
+                    [self.collectionView reloadData];
 
-        INVMergedFetchedResultsControler *mf = (INVMergedFetchedResultsControler *) self.dataResultsController;
-        INVLogInfo(@"\n\n%@ :\n Objects:%@", ((NSFetchedResultsController *) mf.allFetchedResultsControllers[0]).fetchRequest,
-            ((NSFetchedResultsController *) mf.allFetchedResultsControllers[0]).fetchedObjects);
-        INVLogInfo(@"\n\n%@ :\n Objects: %@", ((NSFetchedResultsController *) mf.allFetchedResultsControllers[1]).fetchRequest,
-            ((NSFetchedResultsController *) mf.allFetchedResultsControllers[1]).fetchedObjects);
+                INV_ERROR:
+                    INVLogError(@"%@", error);
 
-        INVLogInfo(
-            @"\n\naccountInvitesForUser:%@ :", [self.globalDataManager.invServerClient.accountManager accountInvitesForUser]);
+                    UIAlertController *errController = [[UIAlertController alloc]
+                        initWithErrorMessage:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), error.code];
+                    [self presentViewController:errController animated:YES completion:nil];
+                };
+            })];
 
-        // Note: need to explicitly do a fetch because our notification poller keeps polling for the same information from
-        // server
-        //  updating the persistent store. This implies that there is a chance that when the accounts view
-        // requests the data,there are no changes to the persistent store- so any faulted objects go out of sync
-        // with whats in the persistent store. The stalenessInterval property does not help since the persistent store
-        // is not updated in this case. This is a race condition between when the poller fetches the data thereby upating the
-        // store
-        // versus when the accounts viewer requests this. Regardless, forcing a fetch by the FRC will ensure that
-        // the in-memory version syncs up with the data store
+        INV_ERROR:
+            INVLogError(@"%@", error);
 
-        NSError *dbError;
-        [self.dataResultsController performFetch:&dbError];
-        if (dbError) {
-            failureBlock(dbError.code);
-        }
-
-        [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-
-    } afterNumberOfCalls:2];
-
-    id completionBlock = ^(INVEmpireMobileError *error) {
-        [successBlock invoke];
-
-        if (error) {
-            failureBlock(error.code.integerValue);
-        }
-    };
-
-    [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:completionBlock];
-    [self.globalDataManager.invServerClient getPendingInvitationsForSignedInUserWithCompletionBlock:completionBlock];
+            UIAlertController *errController =
+                [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), error.code];
+            [self presentViewController:errController animated:YES completion:nil];
+    }];
 }
 
 - (void)loginAccount
@@ -377,9 +350,11 @@ static NSString *const reuseIdentifier = @"Cell";
     [self showLoginProgress];
     [self.globalDataManager.invServerClient
             signIntoAccount:self.currentAccountId
-        withCompletionBlock:^(INVEmpireMobileError *error) {
-            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-            if (!error) {
+        withCompletionBlock:INV_COMPLETION_HANDLER {
+            INV_ALWAYS:
+                [self.hud hide:YES];
+
+            INV_SUCCESS:
                 self.globalDataManager.loggedInAccount = self.currentAccountId;
 
                 if (self.saveAsDefault) {
@@ -390,42 +365,49 @@ static NSString *const reuseIdentifier = @"Cell";
                     }
                 }
 
-                INVLogDebug(
-                    @"Account token is: %@", self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
                 [self notifyAccountLogin];
-            }
-            else {
+
+            INV_ERROR:
+                INVLogError(@"%@", error);
                 [self showLoginFailureAlert];
-            }
         }];
 }
 
 - (void)logoutAccount
 {
-    [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+    [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
+        INV_ALWAYS:
+            [self.hud hide:YES];
 
-        if (!error) {
+        INV_SUCCESS:
             self.currentAccountId = nil;
             self.globalDataManager.loggedInAccount = nil;
             [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
             [self notifyAccountLogout];
-        }
+
+        INV_ERROR:
+            INVLogError(@"%@", error);
     }];
 }
 
 - (void)switchToSelectedAccount
 {
-    [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-        if (!error) {
+    [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
+        INV_ALWAYS:
+            [self.hud hide:YES];
+
+        INV_SUCCESS:
             self.globalDataManager.loggedInAccount = nil;
             if (self.saveAsDefault) {
                 [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
             }
+
             [self.globalDataManager.invServerClient signIntoAccount:self.currentAccountId
-                                                withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                    if (!error) {
+                                                withCompletionBlock:({
+                                                    INV_COMPLETION_HANDLER
+                                                    {
+                                                    INV_ALWAYS:
+                                                    INV_SUCCESS:
                                                         self.globalDataManager.loggedInAccount = self.currentAccountId;
 
                                                         if (self.saveAsDefault) {
@@ -437,15 +419,17 @@ static NSString *const reuseIdentifier = @"Cell";
                                                                 INVLogError(@"%@", error);
                                                             }
                                                         }
-                                                        NSNumber *prevLoggedInAccount = self.globalDataManager.loggedInAccount;
-                                                        [self notifySwitchFromAccount:prevLoggedInAccount];
-                                                    }
-                                                    else {
+
+                                                        [self notifySwitchFromAccount:self.globalDataManager.loggedInAccount];
+
+                                                    INV_ERROR:
+                                                        INVLogError(@"%@", error);
                                                         [self showLoginFailureAlert];
-                                                    }
-                                                }];
-            ;
-        }
+                                                    };
+                                                })];
+
+        INV_ERROR:
+            INVLogError(@"%@", error);
     }];
 }
 
@@ -508,7 +492,8 @@ static NSString *const reuseIdentifier = @"Cell";
         self.alertView.delegate = self;
     }
 
-    // If default account has been specified and user wants to switch to a different account, do not have the default account
+    // If default account has been specified and user wants to switch to a different account, do not have the default
+    // account
     // option ON by default
     if (self.globalDataManager.defaultAccountId || !showsDefaultOption) {
         [self.alertView.defaultSwitch setOn:NO];
