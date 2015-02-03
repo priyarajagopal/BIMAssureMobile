@@ -22,8 +22,6 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 
 @interface INVNotificationsTableViewController () <INVDefaultAccountAlertViewDelegate>
 
-@property IBOutlet UILabel *noNotificationsLabel;
-
 @property INVDefaultAccountAlertView *alertView;
 @property INVNotification *selectedNotification;
 
