@@ -106,6 +106,18 @@
 {
     if (!_dataResultsController) {
         NSFetchRequest *fetchRequest = [self.globalDataManager.invServerClient.accountManager fetchRequestForAccountMembership];
+        fetchRequest.sortDescriptors = [[NSArray
+            arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"email"
+                                                          ascending:YES
+                                                         comparator:^NSComparisonResult(id obj1, id obj2) {
+                                                             if ([obj1 isEqualToString:self.globalDataManager.loggedInUser])
+                                                                 return NSOrderedAscending;
+
+                                                             if ([obj2 isEqualToString:self.globalDataManager.loggedInUser])
+                                                                 return NSOrderedDescending;
+
+                                                             return NSOrderedSame;
+                                                         }]] arrayByAddingObjectsFromArray:fetchRequest.sortDescriptors];
 
         _dataResultsController = [[NSFetchedResultsController alloc]
             initWithFetchRequest:fetchRequest
@@ -143,6 +155,15 @@
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"UserCell"
                                                  configureBlock:^(UITableViewCell *cell, INVAccountMembership *member,
                                                                     NSIndexPath *indexPath) {
+                                                     if (weakSelf.dataSource.editableHandler(member, indexPath)) {
+                                                         cell.indentationLevel = 0;
+                                                         cell.indentationWidth = 0;
+                                                     }
+                                                     else {
+                                                         cell.indentationLevel = 1;
+                                                         cell.indentationWidth = 38;
+                                                     }
+
                                                      cell.textLabel.text = member.name;
                                                      cell.detailTextLabel.text = member.email;
                                                  }];
