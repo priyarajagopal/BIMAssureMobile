@@ -7,23 +7,44 @@
 //
 
 #import "INVCustomCollectionView.h"
+#import "INVRuntimeUtils.h"
 
-@implementation INVCustomCollectionView
+@import ObjectiveC.runtime;
 
-+(instancetype) allocWithZone:(struct _NSZone *)zone {
-    INVCustomCollectionView *result = [super allocWithZone:zone];
-    result.fontSize = 30;
-    
-    return result;
+static void *noContentKey = &noContentKey;
+static void *fontSizeKey = &fontSizeKey;
+
+static void (*oldDrawRectImp)(id self, SEL _cmd, CGRect rect);
+static void (*oldReloadDataImp)(id self, SEL _cmd);
+
+@implementation UICollectionView(INVCustomCollectionView)
+
+-(NSString *) noContentText {
+    return objc_getAssociatedObject(self, noContentKey);
 }
 
--(void) reloadData {
-    [super reloadData];
+-(void) setNoContentText:(NSString *)noContentText {
+    objc_setAssociatedObject(self, noContentKey, noContentText, OBJC_ASSOCIATION_COPY);
+}
+
+-(int) fontSize {
+    id fontSize = objc_getAssociatedObject(self, fontSizeKey);
+    if (fontSize == nil) return 30;
+    
+    return [fontSize intValue];
+}
+
+-(void) setFontSize:(int)fontSize {
+    objc_setAssociatedObject(self, fontSizeKey, @(fontSize), OBJC_ASSOCIATION_RETAIN);
+}
+
+-(void) _reloadData {
+    oldReloadDataImp(self, _cmd);
     
     [self setNeedsDisplay];
 }
 
--(BOOL) hasContent {
+-(BOOL) _hasContent {
     for (NSInteger index = 0; index < [self numberOfSections]; index++) {
         if ([self numberOfItemsInSection:index]) {
             return YES;
@@ -47,10 +68,10 @@
     return NO;
 }
 
--(void) drawRect:(CGRect)rect {
-    [super drawRect:rect];
+-(void) _drawRect:(CGRect)rect {
+    oldDrawRectImp(self, _cmd, rect);
     
-    if (self.noContentText && ![self hasContent]) {
+    if (self.noContentText && ![self _hasContent]) {
         NSDictionary *textAttributes = @{
                                          NSForegroundColorAttributeName: [self tintColor],
                                          NSFontAttributeName: [UIFont systemFontOfSize:self.fontSize]
@@ -65,4 +86,13 @@
         [self.noContentText drawAtPoint:center withAttributes:textAttributes];
     }
 }
+
 @end
+
+__attribute__((constructor))
+static void UICollectionView_INVCustomCollectionView_Init() {
+    Class kls = [UICollectionView class];
+    
+    oldDrawRectImp = (void *) safeSwapMethods(kls, @selector(drawRect:), @selector(_drawRect:));
+    oldReloadDataImp = (void *) safeSwapMethods(kls, @selector(reloadData), @selector(_reloadData));
+}

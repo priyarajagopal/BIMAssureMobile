@@ -22,7 +22,7 @@
         <scene sceneID="o0b-hZ-vw3">
             <objects>
                 <collectionViewController storyboardIdentifier="ProjectFilesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cf4-Q2-yxF" customClass="INVProjectFilesListViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="YWp-JA-kwd" customClass="INVCustomCollectionView">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="YWp-JA-kwd">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

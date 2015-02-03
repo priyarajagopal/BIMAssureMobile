@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 IB_DESIGNABLE
-@interface INVCustomCollectionView : UICollectionView
+@interface UICollectionView(INVCustomCollectionView)
 
 @property IBInspectable NSString *noContentText;
 @property IBInspectable int fontSize;

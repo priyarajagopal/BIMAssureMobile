@@ -7,6 +7,7 @@
 //
 
 #import "INVCustomTableView.h"
+#import "INVRuntimeUtils.h"
 
 @import ObjectiveC.runtime;
 
@@ -17,7 +18,6 @@ static void (*oldDrawRectImp)(id self, SEL _cmd, CGRect rect);
 static void (*oldReloadDataImp)(id self, SEL _cmd);
 
 @implementation UITableView(INVCustomTableView)
-
 
 -(NSString *) noContentText {
     return objc_getAssociatedObject(self, noContentKey);
@@ -96,26 +96,6 @@ static void (*oldReloadDataImp)(id self, SEL _cmd);
 }
 
 @end
-
-static inline IMP safeSwapMethods(restrict Class kls, restrict SEL oldName, restrict SEL newName) {
-    Class superKls = class_getSuperclass(kls);
-    
-    Method oldMethod = class_getInstanceMethod(kls, oldName);
-    Method superclassMethod = class_getInstanceMethod(superKls, oldName);
-    
-    Method newMethod = class_getInstanceMethod(kls, newName);
-    
-    IMP oldImp = method_getImplementation(oldMethod);
-    IMP newImp = method_getImplementation(newMethod);
-    
-    if (oldMethod == superclassMethod) {
-        class_addMethod(kls, oldName, newImp, method_getTypeEncoding(oldMethod));
-    } else {
-        method_exchangeImplementations(oldMethod, newMethod);
-    }
-    
-    return oldImp;
-}
 
 __attribute__((constructor))
 static void UITableView_INVCustomTableView_Init() {

@@ -8,7 +8,7 @@
         <scene sceneID="mb5-FM-mtI">
             <objects>
                 <collectionViewController storyboardIdentifier="AccountListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rbk-Or-1JP" customClass="INVAccountListViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="uy7-Od-DQf" customClass="INVCustomCollectionView">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="uy7-Od-DQf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
