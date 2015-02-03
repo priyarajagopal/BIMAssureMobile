@@ -197,10 +197,10 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
-    void(^failureBlock)(NSInteger errorCode) = ^(NSInteger errorCode) {
+    void (^failureBlock)(NSInteger errorCode) = ^(NSInteger errorCode) {
         if (errorCode != INV_ERROR_CODE_NOMOREPAGES) {
-            UIAlertController *errController = [[UIAlertController alloc]
-                                                initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error];
+            UIAlertController *errController =
+                [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error];
             [self presentViewController:errController animated:YES completion:nil];
             ;
         }
@@ -216,9 +216,9 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     // is not updated in this case. This is a race condition between when the poller fetches the data thereby upating the store
     // versus when the projects viewer requests this. Regardless, forcing a fetch by the FRC will ensure that
     // the in-memory version syncs up with the data store
-    
+
     if (!error) {
-        NSError* dbError;
+        NSError *dbError;
         [self.dataResultsController performFetch:&dbError];
         if (dbError) {
             failureBlock(dbError.code);
@@ -348,9 +348,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
                                               // update to fetchresultscontroller
                                               if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
                                                   UIAlertController *errController = [[UIAlertController alloc]
-                                                      initWithErrorMessage:
-                                                          NSLocalizedString(@"ERROR_PROJECTS_DELETE", nil),
-                                                              error.code.integerValue];
+                                                      initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_DELETE", nil),
+                                                      error.code.integerValue];
                                                   [self presentViewController:errController animated:YES completion:nil];
                                               }
                                           }

@@ -14,7 +14,7 @@
     va_list args;
     va_start(args, errorMesgFormat);
 
-    NSString* errorMesg = [[NSString alloc] initWithFormat:errorMesgFormat arguments:args];
+    NSString *errorMesg = [[NSString alloc] initWithFormat:errorMesgFormat arguments:args];
 
     va_end(args);
 

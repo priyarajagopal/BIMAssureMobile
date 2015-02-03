@@ -94,10 +94,7 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger count = self.notifications.count;
-    self.noNotificationsLabel.hidden = count > 0;
-
-    return count;
+    return self.notifications.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

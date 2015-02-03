@@ -42,9 +42,9 @@ NSString *const KVO_INVOnNotificationsMenuSelected = @"notificationsMenuSelected
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-  //  UIColor *redColor = [UIColor colorWithRed:143.0 / 255 green:10.0 / 255 blue:43.0 / 255 alpha:1.0];
+    //  UIColor *redColor = [UIColor colorWithRed:143.0 / 255 green:10.0 / 255 blue:43.0 / 255 alpha:1.0];
     UIColor *grayColor = [UIColor colorWithRed:85.0 / 255 green:85.0 / 255 blue:85.0 / 255 alpha:1.0];
-    
+
     [self.view setBackgroundColor:grayColor];
 
     [self attachToPoller];

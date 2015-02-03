@@ -122,7 +122,7 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
                    else {
                        UIAlertController *errController = [[UIAlertController alloc]
                            initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),
-                                                    error.code.integerValue];
+                           error.code.integerValue];
                        [self presentViewController:errController animated:YES completion:nil];
                    }
                }];

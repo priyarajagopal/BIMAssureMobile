@@ -263,24 +263,22 @@ static NSString *const reuseIdentifier = @"Cell";
         NSSortDescriptor *orderByDate = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
         [fetchRequestForAccounts setSortDescriptors:@[ orderByDate ]];
 
-        NSManagedObjectContext* managedObjectContext = self.accountManager.managedObjectContext;
+        NSManagedObjectContext *managedObjectContext = self.accountManager.managedObjectContext;
         managedObjectContext.stalenessInterval = 0;
         [mergedFetchResultsController
-            addFetchedResultsController:[[NSFetchedResultsController alloc]
-                                            initWithFetchRequest:fetchRequestForAccounts
-                                            managedObjectContext:managedObjectContext
-                                              sectionNameKeyPath:nil
-                                                       cacheName:nil]];
+            addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequestForAccounts
+                                                                            managedObjectContext:managedObjectContext
+                                                                              sectionNameKeyPath:nil
+                                                                                       cacheName:nil]];
 
         NSFetchRequest *fetchRequestForInvites = self.accountManager.fetchRequestForPendingInvitesForSignedInUser;
         [fetchRequestForInvites setSortDescriptors:@[ orderByDate ]];
 
         [mergedFetchResultsController
-            addFetchedResultsController:[[NSFetchedResultsController alloc]
-                                            initWithFetchRequest:fetchRequestForInvites
-                                            managedObjectContext:managedObjectContext
-                                              sectionNameKeyPath:nil
-                                                       cacheName:nil]];
+            addFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequestForInvites
+                                                                            managedObjectContext:managedObjectContext
+                                                                              sectionNameKeyPath:nil
+                                                                                       cacheName:nil]];
 
         _dataResultsController = mergedFetchResultsController;
         _dataResultsController.delegate = self;
@@ -325,36 +323,39 @@ static NSString *const reuseIdentifier = @"Cell";
 
     void (^failureBlock)(NSInteger) = ^(NSInteger errorCode) {
         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-        UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), errorCode];
+        UIAlertController *errController =
+            [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), errorCode];
         [self presentViewController:errController animated:YES completion:nil];
     };
 
     id successBlock = [INVBlockUtils blockForExecutingBlock:^{
         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-        
-        INVMergedFetchedResultsControler* mf = (INVMergedFetchedResultsControler*) self.dataResultsController;
-        INVLogInfo(@"\n\n%@ :\n Objects:%@",((NSFetchedResultsController*)mf.allFetchedResultsControllers[0]).fetchRequest,((NSFetchedResultsController*)mf.allFetchedResultsControllers[0]).fetchedObjects);
-        INVLogInfo(@"\n\n%@ :\n Objects: %@",((NSFetchedResultsController*)mf.allFetchedResultsControllers[1]).fetchRequest,((NSFetchedResultsController*)mf.allFetchedResultsControllers[1]).fetchedObjects);
 
-        
-        INVLogInfo(@"\n\naccountInvitesForUser:%@ :",[self.globalDataManager.invServerClient.accountManager accountInvitesForUser]);
-         
-        // Note: need to explicitly do a fetch because our notification poller keeps polling for the same information from server
+        INVMergedFetchedResultsControler *mf = (INVMergedFetchedResultsControler *) self.dataResultsController;
+        INVLogInfo(@"\n\n%@ :\n Objects:%@", ((NSFetchedResultsController *) mf.allFetchedResultsControllers[0]).fetchRequest,
+            ((NSFetchedResultsController *) mf.allFetchedResultsControllers[0]).fetchedObjects);
+        INVLogInfo(@"\n\n%@ :\n Objects: %@", ((NSFetchedResultsController *) mf.allFetchedResultsControllers[1]).fetchRequest,
+            ((NSFetchedResultsController *) mf.allFetchedResultsControllers[1]).fetchedObjects);
+
+        INVLogInfo(
+            @"\n\naccountInvitesForUser:%@ :", [self.globalDataManager.invServerClient.accountManager accountInvitesForUser]);
+
+        // Note: need to explicitly do a fetch because our notification poller keeps polling for the same information from
+        // server
         //  updating the persistent store. This implies that there is a chance that when the accounts view
         // requests the data,there are no changes to the persistent store- so any faulted objects go out of sync
         // with whats in the persistent store. The stalenessInterval property does not help since the persistent store
-        // is not updated in this case. This is a race condition between when the poller fetches the data thereby upating the store
+        // is not updated in this case. This is a race condition between when the poller fetches the data thereby upating the
+        // store
         // versus when the accounts viewer requests this. Regardless, forcing a fetch by the FRC will ensure that
         // the in-memory version syncs up with the data store
-        
-        
-        NSError* dbError;
+
+        NSError *dbError;
         [self.dataResultsController performFetch:&dbError];
         if (dbError) {
             failureBlock(dbError.code);
-
         }
-        
+
         [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 
     } afterNumberOfCalls:2];
