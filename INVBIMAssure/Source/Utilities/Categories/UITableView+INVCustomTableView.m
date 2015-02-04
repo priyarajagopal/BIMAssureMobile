@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Invicara Inc. All rights reserved.
 //
 
-#import "INVCustomTableView.h"
+#import "UITableView+INVCustomTableView.h"
 #import "INVRuntimeUtils.h"
 
 @import ObjectiveC.runtime;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Invicara Inc. All rights reserved.
 //
 
-#import "INVCustomCollectionView.h"
+#import "UICollectionView+INVCustomCollectionView.h"
 #import "INVRuntimeUtils.h"
 
 @import ObjectiveC.runtime;
