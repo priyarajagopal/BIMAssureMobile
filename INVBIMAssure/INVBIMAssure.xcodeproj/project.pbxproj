@@ -60,6 +60,7 @@
 		F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5426D591A6816D40040B2B5 /* INVNotificationsTableViewController.m */; };
 		F5426D5D1A6853BA0040B2B5 /* INVNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5426D5C1A6853BA0040B2B5 /* INVNotificationTableViewCell.m */; };
 		F5426D5F1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */; };
+		F54CB1461A82B32300E8C584 /* INVUserProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54CB1451A82B32300E8C584 /* INVUserProfileTableViewController.m */; };
 		F555FD8D1A70071000C01288 /* INVModelViewerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */; };
 		F555FD901A702BBA00C01288 /* INVModelTreeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8F1A702BBA00C01288 /* INVModelTreeTableViewController.m */; };
 		F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C841A6429F200D8CEE7 /* Crashlytics.framework */; };
@@ -269,6 +270,8 @@
 		F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVNotificationTableViewCell.xib; sourceTree = "<group>"; };
 		F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSTimeIntervalToString.h; sourceTree = "<group>"; };
 		F548A58A1A7AD24600DF116C /* INVErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVErrorHandling.h; sourceTree = "<group>"; };
+		F54CB1441A82B32300E8C584 /* INVUserProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVUserProfileTableViewController.h; sourceTree = "<group>"; };
+		F54CB1451A82B32300E8C584 /* INVUserProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVUserProfileTableViewController.m; sourceTree = "<group>"; };
 		F555FD8B1A70071000C01288 /* INVModelViewerContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerContainerViewController.h; sourceTree = "<group>"; };
 		F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerContainerViewController.m; sourceTree = "<group>"; };
 		F555FD8E1A702BBA00C01288 /* INVModelTreeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeTableViewController.h; sourceTree = "<group>"; };
@@ -853,6 +856,8 @@
 				F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */,
 				F5269DE51A76AD4C006AC27A /* INVChangePasswordTableViewController.h */,
 				F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */,
+				F54CB1441A82B32300E8C584 /* INVUserProfileTableViewController.h */,
+				F54CB1451A82B32300E8C584 /* INVUserProfileTableViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1288,6 +1293,7 @@
 				F5D41A2C1A659B2000780B9A /* INVMergedFetchedResultsControler.m in Sources */,
 				F5789D791A642A5500D8CEE7 /* INVRuleInstanceTableViewController.m in Sources */,
 				F5789D481A642A5500D8CEE7 /* INVEmptySegue.m in Sources */,
+				F54CB1461A82B32300E8C584 /* INVUserProfileTableViewController.m in Sources */,
 				F5789D461A642A5500D8CEE7 /* INVTextViewTableViewCell.m in Sources */,
 				F5789D4B1A642A5500D8CEE7 /* main.m in Sources */,
 				F5789D661A642A5500D8CEE7 /* INVCustomSplitViewController.m in Sources */,

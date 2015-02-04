@@ -308,7 +308,7 @@
         <!--Profile-->
         <scene sceneID="jEa-di-Nqb">
             <objects>
-                <tableViewController id="Aef-cX-Ecl" sceneMemberID="viewController">
+                <tableViewController id="Aef-cX-Ecl" customClass="INVUserProfileTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="BoE-Zm-k43">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -546,6 +546,14 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="7NC-uy-nZq"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addressTextField" destination="DiZ-e3-tY6" id="K1d-Kv-G16"/>
+                        <outlet property="companyTextField" destination="1Bg-yk-cFO" id="afQ-Rp-jb2"/>
+                        <outlet property="emailTextField" destination="UOl-FD-MAA" id="oDQ-og-Wda"/>
+                        <outlet property="firstNameTextField" destination="FLa-PA-Lwp" id="Eyg-s9-m37"/>
+                        <outlet property="lastNameTextField" destination="4GX-fU-vKE" id="Z9f-ie-ATU"/>
+                        <outlet property="phoneNumberTextField" destination="gQg-YX-s8a" id="i8a-fE-3Ij"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yN-k2-NNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ecC-9L-ggY" userLabel="Exit" sceneMemberID="exit"/>
