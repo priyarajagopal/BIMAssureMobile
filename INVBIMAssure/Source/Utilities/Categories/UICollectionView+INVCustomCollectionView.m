@@ -10,14 +10,36 @@
 #import "INVRuntimeUtils.h"
 
 @import ObjectiveC.runtime;
+@import QuartzCore;
 
 static void *noContentKey = &noContentKey;
 static void *fontSizeKey = &fontSizeKey;
+static void *textLayerKey = &textLayerKey;
 
-static void (*oldDrawRectImp)(id self, SEL _cmd, CGRect rect);
 static void (*oldReloadDataImp)(id self, SEL _cmd);
+static void (*oldLayoutSubviewsImp)(id self, SEL _cmd);
 
 @implementation UICollectionView (INVCustomCollectionView)
+
+- (CATextLayer *)_inv_textLayer
+{
+    CATextLayer *results = objc_getAssociatedObject(self, textLayerKey);
+    if (results == nil) {
+        results = [CATextLayer new];
+        results.anchorPoint = CGPointMake(0.5, 0.5);
+
+        return (self._inv_textLayer = results);
+    }
+
+    return results;
+}
+
+- (void)set_inv_textLayer:(CATextLayer *)textLayer
+{
+    objc_setAssociatedObject(self, textLayerKey, textLayer, OBJC_ASSOCIATION_RETAIN);
+
+    [self _inv_updateLayer];
+}
 
 - (NSString *)noContentText
 {
@@ -27,6 +49,8 @@ static void (*oldReloadDataImp)(id self, SEL _cmd);
 - (void)setNoContentText:(NSString *)noContentText
 {
     objc_setAssociatedObject(self, noContentKey, noContentText, OBJC_ASSOCIATION_COPY);
+
+    [self _inv_updateLayer];
 }
 
 - (int)fontSize
@@ -41,23 +65,31 @@ static void (*oldReloadDataImp)(id self, SEL _cmd);
 - (void)setFontSize:(int)fontSize
 {
     objc_setAssociatedObject(self, fontSizeKey, @(fontSize), OBJC_ASSOCIATION_RETAIN);
+
+    [self _inv_updateLayer];
 }
 
-- (void)_reloadData
+- (void)_inv_reloadData
 {
     oldReloadDataImp(self, _cmd);
 
-    [self setNeedsDisplay];
+    [self _inv_updateLayer];
 }
 
-- (BOOL)_hasContent
+- (void)_inv_layoutSubviews
+{
+    oldLayoutSubviewsImp(self, _cmd);
+
+    [self _inv_updateLayer];
+}
+
+- (BOOL)_inv_hasContent
 {
     for (NSInteger index = 0; index < [self numberOfSections]; index++) {
         if ([self numberOfItemsInSection:index]) {
             return YES;
         }
 
-#if !TARGET_INTERFACE_BUILDER
         if ([self.dataSource respondsToSelector:@selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:)]) {
             if ([self.dataSource collectionView:self
                     viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -71,29 +103,29 @@ static void (*oldReloadDataImp)(id self, SEL _cmd);
                 return YES;
             }
         }
-#endif
     }
 
     return NO;
 }
 
-- (void)_drawRect:(CGRect)rect
+- (void)_inv_updateLayer
 {
-    oldDrawRectImp(self, _cmd, rect);
+    if (self.noContentText && ![self _inv_hasContent]) {
+        NSAttributedString *attributedString =
+            [[NSAttributedString alloc] initWithString:self.noContentText
+                                            attributes:@{
+                                                NSForegroundColorAttributeName : [self tintColor],
+                                                NSFontAttributeName : [UIFont systemFontOfSize:self.fontSize]
+                                            }];
 
-    if (self.noContentText && ![self _hasContent]) {
-        NSDictionary *textAttributes = @{
-            NSForegroundColorAttributeName : [self tintColor],
-            NSFontAttributeName : [UIFont systemFontOfSize:self.fontSize]
-        };
+        self._inv_textLayer.string = attributedString;
+        self._inv_textLayer.bounds = (CGRect){CGPointZero, [attributedString size]};
+        self._inv_textLayer.position = CGPointMake(CGRectGetMidX(self.layer.bounds), CGRectGetMidY(self.layer.bounds));
 
-        CGSize size = [self.noContentText sizeWithAttributes:textAttributes];
-        CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-
-        center.x -= (size.width / 2);
-        center.y -= (size.height / 2);
-
-        [self.noContentText drawAtPoint:center withAttributes:textAttributes];
+        [self.layer addSublayer:self._inv_textLayer];
+    }
+    else {
+        [self._inv_textLayer removeFromSuperlayer];
     }
 }
 
@@ -103,6 +135,6 @@ __attribute__((constructor)) static void UICollectionView_INVCustomCollectionVie
 {
     Class kls = [UICollectionView class];
 
-    oldDrawRectImp = (void *) safeSwapMethods(kls, @selector(drawRect:), @selector(_drawRect:));
-    oldReloadDataImp = (void *) safeSwapMethods(kls, @selector(reloadData), @selector(_reloadData));
+    oldReloadDataImp = (void *) safeSwapMethods(kls, @selector(reloadData), @selector(_inv_reloadData));
+    oldLayoutSubviewsImp = (void *) safeSwapMethods(kls, @selector(layoutSubviews), @selector(_inv_layoutSubviews));
 }
