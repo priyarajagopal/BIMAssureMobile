@@ -10,8 +10,9 @@
 
 #pragma mark - KVO
 
-const NSInteger INDEX_ROW_CHANGE_PASSWORD = 0;
-const NSInteger INDEX_ROW_LOGOUT = 1;
+const NSInteger INDEX_ROW_PROFILE = 0;
+const NSInteger INDEX_ROW_CHANGE_PASSWORD = 1;
+const NSInteger INDEX_ROW_LOGOUT = 2;
 
 @interface INVSimpleUserInfoTableViewController ()
 @property (nonatomic, assign) BOOL accountLogOutSuccess;
