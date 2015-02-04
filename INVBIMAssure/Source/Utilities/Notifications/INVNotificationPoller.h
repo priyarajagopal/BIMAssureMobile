@@ -25,6 +25,8 @@ extern NSString *const INVNotificationPoller_ChangesKey;
 
 @interface INVNotificationPoller : NSObject
 
+@property (nonatomic) BOOL notificationsEnabled;
+
 + (instancetype)instance;
 - (NSArray *)allNotifications;
 

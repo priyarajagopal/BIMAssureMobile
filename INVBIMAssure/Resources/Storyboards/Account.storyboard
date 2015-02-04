@@ -19,6 +19,9 @@
                             <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Accounts"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="Rbk-Or-1JP" id="uky-Zq-oCT"/>
                             <outlet property="delegate" destination="Rbk-Or-1JP" id="bve-Be-XvQ"/>

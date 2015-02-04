@@ -32,18 +32,10 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProjectFileCell" id="C8o-Ch-RG4" customClass="INVProjectFileCollectionViewCell">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="309" height="282"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <size key="customSize" width="309" height="282"/>
-                            </collectionViewCell>
-                        </cells>
+                        <cells/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Files"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="cf4-Q2-yxF" id="KWE-7j-8JN"/>
                             <outlet property="delegate" destination="cf4-Q2-yxF" id="oBz-1f-jAh"/>
@@ -442,32 +434,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleSetCell" textLabel="rMH-zj-EP6" detailTextLabel="hGj-fZ-Pwg" style="IBUITableViewCellStyleSubtitle" id="1MA-w2-Kdv" customClass="INVGeneralAddRemoveTableViewCell">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1MA-w2-Kdv" id="UnQ-MO-87L">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rMH-zj-EP6">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hGj-fZ-Pwg">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <sections/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Rule Sets"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="rFD-jO-7Mm" id="cXm-hj-LyB"/>
                             <outlet property="delegate" destination="rFD-jO-7Mm" id="7wT-JS-uiL"/>
@@ -490,32 +460,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleSetCell" textLabel="QW8-hu-BnY" detailTextLabel="4Dp-YT-Hjh" style="IBUITableViewCellStyleSubtitle" id="LVQ-MT-KvN" customClass="INVGeneralAddRemoveTableViewCell">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LVQ-MT-KvN" id="rq4-Fd-DZ3">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QW8-hu-BnY">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Dp-YT-Hjh">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <sections/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Rule Sets"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="iaN-E1-Vck" id="FeF-CZ-uLv"/>
                             <outlet property="delegate" destination="iaN-E1-Vck" id="SFm-vk-Vl5"/>
@@ -556,28 +504,9 @@
                                 </navigationItem>
                             </items>
                         </navigationBar>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuleInstanceCell" textLabel="fOi-e5-CQg" detailTextLabel="EkN-fa-5eU" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="laB-C6-z67" customClass="INVRuleDefinitionTableViewCell">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="laB-C6-z67" id="UyE-6b-ac5">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fOi-e5-CQg">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EkN-fa-5eU">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Rules"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="lYF-B1-91r" id="61g-EM-iZf"/>
                             <outlet property="delegate" destination="lYF-B1-91r" id="h8F-Ih-x2T"/>
@@ -631,6 +560,10 @@
                                 </navigationItem>
                             </items>
                         </navigationBar>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="dCY-jN-pMF">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuildingElementTVC" textLabel="6ff-ke-t6e" detailTextLabel="LzT-qE-GsQ" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="18b-qW-v9C">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -653,6 +586,9 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Execution Issues"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="ypO-k2-skE" id="xSM-SR-Zeq"/>
                             <outlet property="delegate" destination="ypO-k2-skE" id="UND-4A-Hjm"/>
@@ -673,6 +609,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Rule Executions"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="u6z-td-IlQ" id="3hB-og-7di"/>
                             <outlet property="delegate" destination="u6z-td-IlQ" id="QwL-kl-PYn"/>

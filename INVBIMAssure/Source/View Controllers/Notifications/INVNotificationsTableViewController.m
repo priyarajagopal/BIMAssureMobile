@@ -22,8 +22,6 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 
 @interface INVNotificationsTableViewController () <INVDefaultAccountAlertViewDelegate>
 
-@property IBOutlet UILabel *noNotificationsLabel;
-
 @property INVDefaultAccountAlertView *alertView;
 @property INVNotification *selectedNotification;
 
@@ -36,6 +34,9 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.navigationItem.rightBarButtonItem.image = [[FAKFontAwesome gearIconWithSize:30] imageWithSize:CGSizeMake(30, 30)];
+    self.navigationItem.rightBarButtonItem.title = nil;
 
     [self.tableView registerNib:[UINib nibWithNibName:@"INVNotificationTableViewCell" bundle:[NSBundle mainBundle]]
          forCellReuseIdentifier:@"notificationCell"];
@@ -96,10 +97,7 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger count = self.notifications.count;
-    self.noNotificationsLabel.hidden = count > 0;
-
-    return count;
+    return self.notifications.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

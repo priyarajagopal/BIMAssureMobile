@@ -119,8 +119,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                 }
                 else {
                     UIAlertController *errController = [[UIAlertController alloc]
-                        initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_DELETE", nil),
-                                                       error.code.integerValue];
+                        initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_DELETE", nil), error.code.integerValue];
                     [self presentViewController:errController animated:YES completion:nil];
                 }
             }];
@@ -133,6 +132,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
     self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
     self.selectedRowInstanceCell = ruleInstanceCell;
+
     [self performSegueWithIdentifier:@"RuleInstanceViewSegue" sender:self];
 }
 
@@ -142,6 +142,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
     self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
     self.selectedRowInstanceCell = ruleInstanceCell;
+
     [self showDeletePromptAlert];
 }
 
@@ -191,6 +192,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     headerView.actionDelegate = self;
     headerView.ruleSetNameLabel.text = ruleSet.name;
     headerView.ruleSetId = ruleSet.ruleSetId;
+
     return headerView;
 }
 

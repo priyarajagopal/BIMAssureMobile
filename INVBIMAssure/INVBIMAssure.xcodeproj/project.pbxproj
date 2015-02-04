@@ -43,6 +43,7 @@
 		F5269DE71A76AD4C006AC27A /* INVChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */; };
 		F5269DEE1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */; };
 		F5269DF11A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DF01A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m */; };
+		F5269E261A793641006AC27A /* INVCustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269E251A793641006AC27A /* INVCustomTableView.m */; };
 		F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */; };
 		F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */; };
 		F5313A401A7956BC00E476D3 /* INVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F5313A3F1A7956BC00E476D3 /* INVLogger.m */; };
@@ -63,6 +64,7 @@
 		F5426D5F1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */; };
 		F555FD8D1A70071000C01288 /* INVModelViewerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */; };
 		F555FD901A702BBA00C01288 /* INVModelTreeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8F1A702BBA00C01288 /* INVModelTreeTableViewController.m */; };
+		F561C0B81A79435C00BC133A /* INVCustomCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F561C0B71A79435C00BC133A /* INVCustomCollectionView.m */; };
 		F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C841A6429F200D8CEE7 /* Crashlytics.framework */; };
 		F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C861A6429F200D8CEE7 /* Fabric.framework */; };
 		F5789D351A642A5500D8CEE7 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C931A642A5500D8CEE7 /* INVDefaultAccountAlertView.m */; };
@@ -166,6 +168,7 @@
 		F5789DE91A642ED300D8CEE7 /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789DE81A642ED300D8CEE7 /* libYajl.a */; };
 		F5D41A2C1A659B2000780B9A /* INVMergedFetchedResultsControler.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */; };
 		F5D41A2F1A65A40E00780B9A /* INVBlockUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */; };
+		F5DC65B61A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65B51A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -242,6 +245,8 @@
 		F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSplitViewControllerAggregateDelegate.m; sourceTree = "<group>"; };
 		F5269DEF1A7836E2006AC27A /* UISplitViewController+ToggleSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISplitViewController+ToggleSidebar.h"; sourceTree = "<group>"; };
 		F5269DF01A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISplitViewController+ToggleSidebar.m"; sourceTree = "<group>"; };
+		F5269E241A793641006AC27A /* INVCustomTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomTableView.h; sourceTree = "<group>"; };
+		F5269E251A793641006AC27A /* INVCustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomTableView.m; sourceTree = "<group>"; };
 		F52BB7331A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectsNotificationDataSource.h; sourceTree = "<group>"; };
 		F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectsNotificationDataSource.m; sourceTree = "<group>"; };
 		F52BB73A1A72E75B002E0BC5 /* INVResetPasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVResetPasswordTableViewController.h; sourceTree = "<group>"; };
@@ -272,6 +277,9 @@
 		F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerContainerViewController.m; sourceTree = "<group>"; };
 		F555FD8E1A702BBA00C01288 /* INVModelTreeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeTableViewController.h; sourceTree = "<group>"; };
 		F555FD8F1A702BBA00C01288 /* INVModelTreeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeTableViewController.m; sourceTree = "<group>"; };
+		F561C0B61A79435C00BC133A /* INVCustomCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomCollectionView.h; sourceTree = "<group>"; };
+		F561C0B71A79435C00BC133A /* INVCustomCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomCollectionView.m; sourceTree = "<group>"; };
+		F567EF841A8118B800DCD933 /* INVRuntimeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INVRuntimeUtils.h; sourceTree = "<group>"; };
 		F5789C841A6429F200D8CEE7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F5789C861A6429F200D8CEE7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F5789C921A642A5500D8CEE7 /* INVDefaultAccountAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVDefaultAccountAlertView.h; sourceTree = "<group>"; };
@@ -451,6 +459,8 @@
 		F5D41A2B1A659B2000780B9A /* INVMergedFetchedResultsControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVMergedFetchedResultsControler.m; sourceTree = "<group>"; };
 		F5D41A2D1A65A40E00780B9A /* INVBlockUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBlockUtils.h; sourceTree = "<group>"; };
 		F5D41A2E1A65A40E00780B9A /* INVBlockUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBlockUtils.m; sourceTree = "<group>"; };
+		F5DC65B41A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVNotificationsConfigurationTableViewController.h; sourceTree = "<group>"; };
+		F5DC65B51A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotificationsConfigurationTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -593,6 +603,8 @@
 			children = (
 				F5426D581A6816D40040B2B5 /* INVNotificationsTableViewController.h */,
 				F5426D591A6816D40040B2B5 /* INVNotificationsTableViewController.m */,
+				F5DC65B41A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.h */,
+				F5DC65B51A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -623,6 +635,10 @@
 				F5789C971A642A5500D8CEE7 /* INVRuleSetTableViewHeaderView.m */,
 				F5789C981A642A5500D8CEE7 /* INVRunRuleSetHeaderView.h */,
 				F5789C991A642A5500D8CEE7 /* INVRunRuleSetHeaderView.m */,
+				F5269E241A793641006AC27A /* INVCustomTableView.h */,
+				F5269E251A793641006AC27A /* INVCustomTableView.m */,
+				F561C0B61A79435C00BC133A /* INVCustomCollectionView.h */,
+				F561C0B71A79435C00BC133A /* INVCustomCollectionView.m */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -723,6 +739,7 @@
 				0278BB091A66C60D009E0E27 /* INVTransitionToStoryboard.h */,
 				0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */,
 				F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */,
+				F567EF841A8118B800DCD933 /* INVRuntimeUtils.h */,
 				F5269DEC1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.h */,
 				F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */,
 				F5313A3E1A7956BC00E476D3 /* INVLogger.h */,
@@ -1227,6 +1244,7 @@
 				F5789D5A1A642A5500D8CEE7 /* INVMutableArrayTableViewDataSource.m in Sources */,
 				F5789D6E1A642A5500D8CEE7 /* INVModelViewerViewController.m in Sources */,
 				0278BB021A66BCFF009E0E27 /* INVGlobalDataManager.m in Sources */,
+				F561C0B81A79435C00BC133A /* INVCustomCollectionView.m in Sources */,
 				0278BADA1A655CB4009E0E27 /* INVSignUpTableViewController.m in Sources */,
 				F5269DEE1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m in Sources */,
 				F5789D4F1A642A5500D8CEE7 /* fp16.c in Sources */,
@@ -1299,6 +1317,8 @@
 				F5789D3D1A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m in Sources */,
 				F5789D6F1A642A5500D8CEE7 /* INVProjectDetailsTabViewController.m in Sources */,
 				F5789D5D1A642A5500D8CEE7 /* INVSearchViewTagsDataSource.m in Sources */,
+				F5DC65B61A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m in Sources */,
+				F5269E261A793641006AC27A /* INVCustomTableView.m in Sources */,
 				F5789D741A642A5500D8CEE7 /* INVProjectsTableViewController.m in Sources */,
 				F5789D521A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
 				F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */,

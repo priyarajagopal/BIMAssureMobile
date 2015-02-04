@@ -88,17 +88,20 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [self showLoadProgress];
     [self.globalDataManager.invServerClient
         getAllRuleSetsForProject:self.projectId
-             WithCompletionBlock:^(INVEmpireMobileError *error) {
-                 [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+             WithCompletionBlock:INV_COMPLETION_HANDLER {
+                 INV_ALWAYS:
+                     [self.hud hide:YES];
 
-                 if (!error) {
+                 INV_SUCCESS:
                      [self fetchRuleSetIdsForFile];
-                 }
-                 else {
+
+                 INV_ERROR:
+                     INVLogError(@"%@", error);
+
                      UIAlertController *errController = [[UIAlertController alloc]
-                         initWithErrorMessage:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_LOAD", nil), error.code.integerValue];
+                         initWithErrorMessage:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_LOAD", nil),
+                         error.code.integerValue];
                      [self presentViewController:errController animated:YES completion:nil];
-                 }
              }];
 }
 
@@ -107,20 +110,23 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
     [self showLoadProgress];
     [self.globalDataManager.invServerClient
         getAllRuleSetMembersForPkgMaster:self.fileId
-                     WithCompletionBlock:^(INVEmpireMobileError *error) {
-                         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+                     WithCompletionBlock:INV_COMPLETION_HANDLER {
+                         INV_ALWAYS:
+                             [self.hud hide:YES];
 
-                         if (!error) {
+                         INV_SUCCESS:
                              [self updateRuleSetsFromServer];
+
                              [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
-                             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                         }
-                         else {
+                             [self.tableView reloadData];
+
+                         INV_ERROR:
+                             INVLogError(@"%@", error);
+
                              UIAlertController *errController = [[UIAlertController alloc]
-                                 initWithErrorMessage:NSLocalizedString( @"ERROR_RULESET_MEMBERSHIP_LOAD", nil),
-                                                                error.code.integerValue];
+                                 initWithErrorMessage:NSLocalizedString(@"ERROR_RULESET_MEMBERSHIP_LOAD", nil),
+                                 error.code.integerValue];
                              [self presentViewController:errController animated:YES completion:nil];
-                         }
                      }];
 }
 
@@ -138,15 +144,15 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
     [self.globalDataManager.invServerClient addToPkgMaster:self.fileId
                                                   ruleSets:[updatedRuleSetIds allObjects]
-                                       withCompletionBlock:^(INVEmpireMobileError *error) {
-                                           if (error) {
-                                               INVLogError(@"Failed to add rule set %@ for pkg master %@ with error %@",
-                                                   updatedRuleSetIds, self.fileId, error);
-                                           }
-                                           else {
+                                       withCompletionBlock:INV_COMPLETION_HANDLER {
+                                           INV_ALWAYS:
+                                           INV_SUCCESS:
                                                INVLogDebug(@"Succesfully added rule set %@ for pkg master %@ ",
                                                    updatedRuleSetIds, self.fileId);
-                                           }
+
+                                           INV_ERROR:
+                                               INVLogError(@"Failed to add rule set %@ for pkg master %@ with error %@",
+                                                   updatedRuleSetIds, self.fileId, error);
                                        }];
 }
 
@@ -167,16 +173,16 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
         INVLogDebug(@"Will remove rule set Id %@", idToRemove);
         [self.globalDataManager.invServerClient removeFromPkgMaster:self.fileId
                                                             ruleSet:idToRemove
-                                                withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                    if (error) {
+                                                withCompletionBlock:INV_COMPLETION_HANDLER {
+                                                    INV_ALWAYS:
+                                                    INV_SUCCESS:
+                                                        INVLogDebug(@"Succesfully removed rule set %@ for pkg master %@ ",
+                                                            idToRemove, self.fileId);
+
+                                                    INV_ERROR:
                                                         INVLogError(
                                                             @"Failed to remove rule set %@ for pkg master %@ with error %@",
                                                             idToRemove, self.fileId, error);
-                                                    }
-                                                    else {
-                                                        INVLogDebug(@"Succesfully removed rule set %@ for pkg master %@ ",
-                                                            idToRemove, self.fileId);
-                                                    }
                                                 }];
     }];
 }
@@ -337,8 +343,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
                              }
                              [self.ruleSetsDataSource updateWithDataArray:self.ruleSets forSection:SECTION_RULESETLIST];
                              [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-
                          }];
+
     self.observersAdded = YES;
 }
 

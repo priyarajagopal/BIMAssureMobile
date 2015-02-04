@@ -89,8 +89,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
             }
             else {
                 UIAlertController *errController = [[UIAlertController alloc]
-                    initWithErrorMessage:NSLocalizedString(@"ERROR_RULE_DEFINITION_LOAD", nil),
-                                                   error.code.integerValue];
+                    initWithErrorMessage:NSLocalizedString(@"ERROR_RULE_DEFINITION_LOAD", nil), error.code.integerValue];
                 [self presentViewController:errController animated:YES completion:nil];
             }
         }];

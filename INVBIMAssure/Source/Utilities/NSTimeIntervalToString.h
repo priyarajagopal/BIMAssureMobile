@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Invicara Inc. All rights reserved.
 //
 
-NSString *NSTimeIntervalToStringAsAgo(NSTimeInterval timeInterval)
+static inline NSString *NSTimeIntervalToStringAsAgo(NSTimeInterval timeInterval)
 {
     if (timeInterval <= 0) {
         return NSLocalizedString(@"AGO_JUST_NOW", nil);
