@@ -10,6 +10,7 @@
 
 @interface INVResetPasswordTableViewController ()
 
+@property IBOutlet UIBarButtonItem *resetBarButtonItem;
 @property IBOutlet UITextField *emailTextField;
 
 @end
@@ -40,6 +41,11 @@
 - (void)updateUI
 {
     self.emailTextField.text = self.email;
+}
+
+- (IBAction)emailTextChanged:(id)sender
+{
+    self.resetBarButtonItem.enabled = (self.emailTextField.text.length > 0);
 }
 
 - (IBAction)resetPassword:(id)sender

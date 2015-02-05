@@ -13,6 +13,8 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
+@import AddressBookUI;
+
 #import "INVNotificationPoller.h"
 #import "INVPendingInvitesNotificationDataSource.h"
 #import "INVProjectsNotificationDataSource.h"
@@ -90,8 +92,8 @@
     UIColor *cyanBlueColor = [UIColor colorWithRed:38.0 / 255 green:138.0 / 255 blue:171.0 / 255 alpha:1.0];
 
     [[UIView appearance] setTintColor:whiteColor];
-
     [self.window setTintColor:whiteColor];
+
     [[UINavigationBar appearance] setBarTintColor:cyanBlueColor];
     [[UINavigationBar appearance] setTintColor:whiteColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : whiteColor}];
@@ -108,6 +110,17 @@
 
     [[UITableView appearanceWhenContainedIn:[UITableViewController class], nil] setTintColor:darkGreyColor];
     [[UICollectionView appearanceWhenContainedIn:[UICollectionViewController class], nil] setTintColor:darkGreyColor];
+
+    // ABPeoplePicker overrides
+    [[UIView appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil] setTintColor:darkGreyColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil] setBarTintColor:cyanBlueColor];
+    [[UINavigationBar appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil] setTintColor:whiteColor];
+    [[UINavigationBar appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil]
+        setTitleTextAttributes:@{NSForegroundColorAttributeName : whiteColor}];
+
+    // This is for the back indicator
+    [[UIImageView appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil] setTintColor:whiteColor];
 }
 
 #pragma mark - VC management

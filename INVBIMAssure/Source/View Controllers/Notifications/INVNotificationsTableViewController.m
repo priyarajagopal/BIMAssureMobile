@@ -219,11 +219,21 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 
     [self.globalDataManager.invServerClient acceptInvite:[[_selectedNotification data] invitationCode]
                                                  forUser:self.globalDataManager.loggedInUser
-                                     withCompletionBlock:^(INVEmpireMobileError *error) {
-                                         self.selectedNotification.dismissed = YES;
-                                         self.selectedNotification = nil;
+                                     withCompletionBlock:INV_COMPLETION_HANDLER {
+                                         INV_ALWAYS:
+                                             [self reloadData];
 
-                                         [self reloadData];
+                                         INV_SUCCESS:
+                                             self.selectedNotification.dismissed = YES;
+                                             self.selectedNotification = nil;
+
+                                         INV_ERROR:
+                                             INVLogError(@"%@", error);
+
+                                             UIAlertController *errorController = [[UIAlertController alloc]
+                                                 initWithErrorMessage:NSLocalizedString(@"INVITE_ACCEPT_FAILURE", nil)];
+
+                                             [self presentViewController:errorController animated:YES completion:nil];
                                      }];
 }
 

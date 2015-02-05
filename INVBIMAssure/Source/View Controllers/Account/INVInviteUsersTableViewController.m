@@ -9,6 +9,9 @@
 #import "INVInviteUsersTableViewController.h"
 #import "INVTextViewTableViewCell.h"
 #import "INVTokensTableViewCell.h"
+#import "UIView+INVCustomizations.h"
+
+@import AddressBookUI;
 
 static const NSInteger DEFAULT_MESSAGE_CELL_HEIGHT = 200;
 static const NSInteger DEFAULT_INVITEDUSERS_CELL_HEIGHT = 100;
@@ -19,11 +22,11 @@ static const NSInteger SECTIONINDEX_INVITEUSERLIST = 0;
 static const NSInteger SECTIONINDEX_MESSAGE = 1;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 
-@interface INVInviteUsersTableViewController () <INVTextViewTableViewCellDelegate, INVTokensTableViewCellDelegate>
+@interface INVInviteUsersTableViewController () <INVTextViewTableViewCellDelegate, INVTokensTableViewCellDelegate,
+    ABPeoplePickerNavigationControllerDelegate>
 @property (nonatomic, strong) INVAccountManager *accountManager;
 @property (nonatomic, assign) NSInteger messageRowHeight;
 @property (nonatomic, weak) INVTokensTableViewCell *inviteUsersCell;
-@property (nonatomic, copy) NSArray *tokens;
 @end
 
 @implementation INVInviteUsersTableViewController
@@ -44,6 +47,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     [self.tableView registerNib:inviteNib forCellReuseIdentifier:@"InviteUserCell"];
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.editing = YES;
 
     self.clearsSelectionOnViewWillAppear = YES;
 }
@@ -57,7 +61,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tokens = nil;
+
     self.accountManager = nil;
 }
 
@@ -80,6 +84,40 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return DEFAULT_NUM_ROWS_SECTION;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == SECTIONINDEX_INVITEUSERLIST) {
+        return UITableViewCellEditingStyleInsert;
+    }
+
+    return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleInsert && indexPath.section == SECTIONINDEX_INVITEUSERLIST) {
+        ABPeoplePickerNavigationController *peoplePickerController = [[ABPeoplePickerNavigationController alloc] init];
+        peoplePickerController.displayedProperties = @[ @(kABPersonEmailProperty) ];
+
+        peoplePickerController.modalPresentationStyle = UIModalPresentationPopover;
+        peoplePickerController.peoplePickerDelegate = self;
+
+        [self presentViewController:peoplePickerController animated:YES completion:nil];
+
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        UIImageView *accessoryImage = [cell findSubviewOfClass:[UIImageView class]
+                                                     predicate:[NSPredicate predicateWithFormat:@"image != NULL && alpha > 0"]];
+
+        peoplePickerController.popoverPresentationController.sourceView = cell;
+        peoplePickerController.popoverPresentationController.sourceRect =
+            [accessoryImage convertRect:accessoryImage.bounds toView:cell];
+
+        peoplePickerController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -151,21 +189,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 #pragma mark - INVTokensTableViewCellDelegate
 - (void)tokensChanged:(NSArray *)inputTokens
 {
-    self.tokens = inputTokens;
-    if (self.tokens.count) {
-        [self.sendButton setEnabled:YES];
-    }
-    else {
-        [self.sendButton setEnabled:NO];
-#pragma mark - UIEvent Handlers
-    }
+    [self.sendButton setEnabled:inputTokens.count > 0];
 }
 - (IBAction)onSendClicked:(id)sender
 {
     self.hud = [MBProgressHUD generalViewHUD:NSLocalizedString(@"INVITING", nil)];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
-    [self inviteUsers:[self cleanupTokens:self.tokens] withMessage:@""];
+    [self inviteUsers:[self cleanupTokens:self.inviteUsersCell.tokens] withMessage:@""];
 }
 
 #pragma mark - server side
@@ -194,6 +225,30 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
         _accountManager = self.globalDataManager.invServerClient.accountManager;
     }
     return _accountManager;
+}
+
+#pragma mark - ABPeoplePickerNavigationControllerDelegate
+
+- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+                         didSelectPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier
+{
+    ABMutableMultiValueRef emails = ABRecordCopyValue(person, property);
+    CFStringRef selectedEmail = ABMultiValueCopyValueAtIndex(emails, ABMultiValueGetIndexForIdentifier(emails, identifier));
+    NSString *asNSString = (__bridge_transfer NSString *) selectedEmail;
+
+    CFRelease(emails);
+
+    if ([asNSString isValidEmail]) {
+        [self.inviteUsersCell.tokens addObject:asNSString];
+        [self.inviteUsersCell reloadData];
+
+        [self tokensChanged:self.inviteUsersCell.tokens];
+    }
+    else {
+        // TODO: Explain invalid email
+    }
 }
 
 #pragma mark - helpers
