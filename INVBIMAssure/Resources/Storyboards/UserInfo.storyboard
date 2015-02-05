@@ -147,8 +147,9 @@
                                                         <constraint firstAttribute="width" constant="150" id="xFs-2k-lhd"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -178,8 +179,9 @@
                                                         <constraint firstAttribute="width" constant="150" id="65P-Qp-XZI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y0x-G9-wSB">
                                                     <rect key="frame" x="185" y="8" width="407" height="27"/>
@@ -215,8 +217,9 @@
                                                         <constraint firstAttribute="width" constant="150" id="lWp-Xv-sc1"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="-2"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fBt-os-tp6">
                                                     <rect key="frame" x="185" y="8" width="407" height="27"/>
@@ -263,7 +266,7 @@
                     <connections>
                         <outlet property="changeBarButtonItem" destination="C8T-Rk-coa" id="xUT-p0-dho"/>
                         <outlet property="confirmPasswordTextField" destination="fBt-os-tp6" id="mop-rh-8fK"/>
-                        <outlet property="currentPasswordTextField" destination="yfL-Y1-834" id="Kmi-mc-Vmw"/>
+                        <outlet property="currentPasswordTextField" destination="yfL-Y1-834" id="Xt4-Zf-Itg"/>
                         <outlet property="newPasswordTextField" destination="Y0x-G9-wSB" id="Q3x-72-OwV"/>
                         <outlet property="passwordErrorMessageTextField" destination="hiI-m6-obz" id="mqZ-ji-E0B"/>
                     </connections>
