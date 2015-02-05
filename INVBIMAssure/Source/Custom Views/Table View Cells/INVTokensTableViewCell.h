@@ -16,7 +16,11 @@
 @end
 
 @interface INVTokensTableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet VENTokenField *tokenField;
 @property (weak, nonatomic) id<INVTokensTableViewCellDelegate> cellDelegate;
+@property (readonly, nonatomic) NSMutableArray *tokens;
+
+- (void)reloadData;
 
 @end

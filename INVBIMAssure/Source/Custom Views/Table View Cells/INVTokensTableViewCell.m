@@ -38,6 +38,11 @@
     [super layoutSubviews];
 }
 
+- (void)reloadData
+{
+    [self.tokenField reloadData];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
