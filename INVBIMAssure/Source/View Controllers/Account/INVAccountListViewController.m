@@ -231,30 +231,28 @@ static NSString *const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - INVDefaultAccountAlertViewDelegate
-- (void)onLogintoAccountWithDefault:(BOOL)isDefault
+- (void)onAcceptButtonSelectedWithDefault:(BOOL)isDefault
 {
     [self dismissSaveAsDefaultAlert];
     self.saveAsDefault = isDefault;
 
-    if (self.currentInviteCode) {
+    NSString* buttonTitle = self.alertView.acceptButton.titleLabel.text;
+    
+    if ([buttonTitle isEqualToString:NSLocalizedString(@"INVITE_ACCEPT", nil)]) {
         [self acceptInvitationWithSelectedInvitationCode];
         return;
     }
 
     NSNumber *prevLoggedInAccount = self.globalDataManager.loggedInAccount;
     if (prevLoggedInAccount && (prevLoggedInAccount != self.currentAccountId)) {
-        [self showLoginProgress];
         [self switchToSelectedAccount];
     }
     else {
-        [self showLoginProgress];
         [self loginAccount];
     }
-
-    self.currentInviteCode = nil;
 }
 
-- (void)onCancelLogintoAccount
+- (void)onCancelButtonSelected
 {
     [self dismissSaveAsDefaultAlert];
 }
@@ -384,8 +382,6 @@ static NSString *const reuseIdentifier = @"Cell";
 {
     [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
         INV_ALWAYS:
-            [self.hud hide:YES];
-
         INV_SUCCESS:
             self.currentAccountId = nil;
             self.globalDataManager.loggedInAccount = nil;
@@ -399,6 +395,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)switchToSelectedAccount
 {
+    [self showLoginProgress];
     [self.globalDataManager.invServerClient logOffSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
         INV_ALWAYS:
             [self.hud hide:YES];
@@ -414,6 +411,8 @@ static NSString *const reuseIdentifier = @"Cell";
                                                     INV_COMPLETION_HANDLER
                                                     {
                                                     INV_ALWAYS:
+                                                        [self.hud hide:YES];
+
                                                     INV_SUCCESS:
                                                         self.globalDataManager.loggedInAccount = self.currentAccountId;
 
@@ -445,8 +444,15 @@ static NSString *const reuseIdentifier = @"Cell";
     NSString *userEmail = self.globalDataManager.loggedInUser;
     [self.globalDataManager.invServerClient acceptInvite:self.currentInviteCode
                                                  forUser:userEmail
-                                     withCompletionBlock:^(INVEmpireMobileError *error) {
-                                         [self fetchListOfAccounts];
+                                     withCompletionBlock:INV_COMPLETION_HANDLER {
+                                         INV_ALWAYS:
+                                         INV_SUCCESS:
+                                             [self fetchListOfAccounts];
+
+                                         INV_ERROR:
+                                             INVLogError(@"%@", error);
+                                             [self showAcceptFailureAlert];
+
                                      }];
     self.currentInviteCode = nil;
 }
@@ -460,11 +466,10 @@ static NSString *const reuseIdentifier = @"Cell";
     self.hud = [MBProgressHUD loadingViewHUD:nil];
 }
 
-- (void)setEstimatedSizeForCells
-{
-}
+- (void)setEstimatedSizeForCells{}
 
-- (void)notifyAccountLogin
+        -
+        (void)notifyAccountLogin
 {
     self.accountLoginSuccess = YES;
 }
@@ -586,6 +591,19 @@ static NSString *const reuseIdentifier = @"Cell";
     [self presentViewController:loginFailureAlertController animated:YES completion:nil];
 }
 
+- (void)showAcceptFailureAlert
+{
+    UIAlertAction *action =
+        [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+    UIAlertController *loginFailureAlertController =
+        [UIAlertController alertControllerWithTitle:NSLocalizedString(@"INVITE_ACCEPT_FAILURE", nil)
+                                            message:NSLocalizedString(@"GENERIC_ACCEPT_INVITE_FAILURE_MESSAGE", nil)
+                                     preferredStyle:UIAlertControllerStyleAlert];
+
+    [loginFailureAlertController addAction:action];
+    [self presentViewController:loginFailureAlertController animated:YES completion:nil];
+}
+
 - (void)showLogoutPromptAlertForAccount:(INVAccount *)account
 {
     UIAlertAction *cancelAction =
@@ -635,11 +653,10 @@ static NSString *const reuseIdentifier = @"Cell";
 
 #pragma mark - UIEvent handlers
 
-- (IBAction)done:(id)sener
-{
-}
+- (IBAction)done:(id)sener{}
 
-- (IBAction)manualDismiss:(id)sender
+                 - (IBAction)
+    manualDismiss:(id)sender
 {
     // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
     [self dismissViewControllerAnimated:YES
@@ -650,16 +667,17 @@ static NSString *const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-}
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller{}
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+                                    - (void)
+         controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     // Note on special case:
-    // The  notifications handler periodically fetches the pending invites list in the background. This results in the local
+    // The  notifications handler periodically fetches the pending invites list in the background. This results in the
+    // local
     // cache getting updated with GET results - anytime the core data cache is touched, the
-    // NSFetchedResultsController delegate is notified. The GET may not may not result in a change so we do not want to keep
+    // NSFetchedResultsController delegate is notified. The GET may not may not result in a change so we do not want to
+    // keep
     // reloading the data.
     // if the user has manually triggered a refresh or the view is loaded, the table view is reloaded.
     if (!self.isNSFetchedResultsChangeTypeUpdated) {

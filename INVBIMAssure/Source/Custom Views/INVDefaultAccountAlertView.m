@@ -24,17 +24,17 @@
 {
 }
 
-- (IBAction)onLogintoAccount:(id)sender
+- (IBAction)onAccept:(id)sender
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(onLogintoAccountWithDefault:)]) {
-        [self.delegate onLogintoAccountWithDefault:self.defaultSwitch.isOn];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onAcceptButtonSelectedWithDefault:)]) {
+        [self.delegate onAcceptButtonSelectedWithDefault:self.defaultSwitch.isOn];
     }
 }
 
-- (IBAction)onCancelLogin:(id)sender
+- (IBAction)onCancel:(id)sender
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(onCancelLogintoAccount)]) {
-        [self.delegate onCancelLogintoAccount];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onCancelButtonSelected)]) {
+        [self.delegate onCancelButtonSelected];
     }
 }
 

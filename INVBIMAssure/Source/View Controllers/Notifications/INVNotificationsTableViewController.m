@@ -213,7 +213,7 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 }
 */
 
-- (void)onLogintoAccountWithDefault:(BOOL)isDefault
+- (void)onAcceptButtonSelectedWithDefault:(BOOL)isDefault
 {
     [_alertView removeFromSuperview];
 
@@ -227,7 +227,7 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
                                      }];
 }
 
-- (void)onCancelLogintoAccount
+- (void)onCancelButtonSelected
 {
     [_alertView removeFromSuperview];
 }

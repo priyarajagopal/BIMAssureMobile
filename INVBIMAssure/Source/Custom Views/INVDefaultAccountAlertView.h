@@ -10,23 +10,23 @@
 
 @protocol INVDefaultAccountAlertViewDelegate<NSObject>
 
-- (void)onLogintoAccountWithDefault:(BOOL)isDefault;
-- (void)onCancelLogintoAccount;
+- (void)onAcceptButtonSelectedWithDefault:(BOOL)isDefault;
+- (void)onCancelButtonSelected;
+
 
 @end
 
 @interface INVDefaultAccountAlertView : UIView
-
-@property (weak, nonatomic) IBOutlet UISwitch *defaultSwitch;
 @property (nonatomic, weak) id<INVDefaultAccountAlertViewDelegate> delegate;
 
+@property (weak, nonatomic) IBOutlet UISwitch *defaultSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *alertMessage;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIView *setAsDefaultContainer;
 
 - (IBAction)setAsDefaultAccountSwitchToggled:(id)sender;
-- (IBAction)onLogintoAccount:(id)sender;
-- (IBAction)onCancelLogin:(id)sender;
+- (IBAction)onAccept:(id)sender;
+- (IBAction)onCancel:(id)sender;
 
 @end

@@ -12,7 +12,9 @@
 "SET_ACCOUNT_AS_DEFAULT"="Set Account as Default?";
 "SHOW_THIS_ALERT"="Do not show this alert again";
 "LOGIN_FAILURE"="Login Failure";
+"INVITE_ACCEPT_FAILURE"="Invite Accept Error";
 "GENERIC_LOGIN_FAILURE_MESSAGE"="There was an error while trying to log in. Please check the email and/or password and try again";
+"GENERIC_ACCEPT_INVITE_FAILURE_MESSAGE"="There was an error while trying to accept the invite. It is possible that the invitation is not longer valid. Please refresh and try again";
 "LOGGING_IN"="Logging In";
 "GENERIC_ACCOUNT_LOGIN_FAILURE_MESSAGE"="There was an error while trying to log into the account";
 "PROJECTS"="Projects";
