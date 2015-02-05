@@ -128,7 +128,7 @@ static void (*oldLayoutSubviewsImp)(id self, SEL _cmd);
         self._inv_textLayer.bounds = (CGRect){CGPointZero, [attributedString size]};
         self._inv_textLayer.position = CGPointMake(CGRectGetMidX(self.layer.bounds), CGRectGetMidY(self.layer.bounds));
 
-        [self.layer addSublayer:self._inv_textLayer];
+        [self.layer insertSublayer:self._inv_textLayer atIndex:0];
     }
     else {
         [self._inv_textLayer removeFromSuperlayer];

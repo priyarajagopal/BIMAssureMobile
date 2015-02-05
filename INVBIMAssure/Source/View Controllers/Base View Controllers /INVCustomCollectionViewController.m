@@ -38,10 +38,13 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)customizeLayout
 {
-    UICollectionViewFlowLayout *currLayout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
-    currLayout.minimumLineSpacing = 10;
-    currLayout.minimumInteritemSpacing = 10;
-    self.collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    if ([self.collectionView.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
+        UICollectionViewFlowLayout *currLayout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
+        currLayout.minimumLineSpacing = 10;
+        currLayout.minimumInteritemSpacing = 10;
+
+        self.collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated

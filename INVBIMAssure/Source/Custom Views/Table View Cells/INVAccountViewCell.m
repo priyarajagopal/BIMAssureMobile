@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *projectCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *projectStatusLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *isDefaultOverlayImageView;
 
 @end
 
@@ -27,7 +28,6 @@
 {
     if (self.account) {
         UIColor *greenShade = [UIColor colorWithRed:79.0 / 255 green:154.0 / 255 blue:65.0 / 255 alpha:1.0];
-        ;
 
         self.nameLabel.text = self.account.name;
         self.descriptionLabel.text = self.account.overview;
