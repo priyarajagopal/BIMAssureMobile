@@ -33,6 +33,7 @@ NSString *const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic, strong) INVGenericCollectionViewDataSource *dataSource;
 @property (nonatomic, strong) INVSignUpTableViewController *signUpController;
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -61,6 +62,11 @@ static NSString *const reuseIdentifier = @"Cell";
     }
 
     [self setEstimatedSizeForCells];
+
+    self.refreshControl = [UIRefreshControl new];
+
+    [self.refreshControl addTarget:self action:@selector(fetchListOfAccounts) forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:self.refreshControl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -314,6 +320,7 @@ static NSString *const reuseIdentifier = @"Cell";
                 INV_COMPLETION_HANDLER
                 {
                 INV_ALWAYS:
+                    [self.refreshControl endRefreshing];
                     [self.hud hide:YES];
 
                 INV_SUCCESS:

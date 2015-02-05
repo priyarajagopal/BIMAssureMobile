@@ -287,8 +287,9 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
         NSArray *matches = [expression matchesInString:pass options:0 range:NSMakeRange(0, pass.length)];
         if (matches.count == 0) {
             [self hideSignupProgress];
-
             [self showPasswordInvalidAlert];
+
+            return;
         }
     }
 

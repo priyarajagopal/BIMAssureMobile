@@ -7,6 +7,7 @@
 //
 
 #import "INVChangePasswordTableViewController.h"
+#import "INVServerConfigManager.h"
 
 #define SECTION_CURRENT_PASSWORD 0
 #define SECTION_NEW_PASSWORD 1
@@ -121,6 +122,21 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)showPasswordInvalidAlert
+{
+    UIAlertController *alertController = [UIAlertController
+        alertControllerWithTitle:NSLocalizedString(@"PASSWORD_CHANGE_FAILED_TITLE", nil)
+                         message:[NSString stringWithFormat:@"Password must be %@",
+                                           [[INVServerConfigManager instance] passportPasswordVerificationText]]
+                  preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)onChangePassword:(id)sender
 {
     // Resign the first responder
@@ -130,6 +146,23 @@
         self.passwordErrorMessageTextField.text = NSLocalizedString(@"PASSWORDS_NOT_MATCHING", nil);
         self.passwordErrorMessageTextField.hidden = NO;
         return;
+    }
+
+    NSString *pass = self.newPasswordTextField.text;
+
+    NSError *error = nil;
+    NSRegularExpression *expression =
+        [NSRegularExpression regularExpressionWithPattern:[[INVServerConfigManager instance] passportPasswordVerificationRegex]
+                                                  options:0
+                                                    error:&error];
+
+    if (!error) {
+        NSArray *matches = [expression matchesInString:pass options:0 range:NSMakeRange(0, pass.length)];
+        if (matches.count == 0) {
+            [self showPasswordInvalidAlert];
+
+            return;
+        }
     }
 
     UIAlertController *alertController =
