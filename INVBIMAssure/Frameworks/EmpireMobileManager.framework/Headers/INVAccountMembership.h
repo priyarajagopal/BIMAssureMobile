@@ -11,6 +11,21 @@
 #import "INVAccount.h"
 
 /**
+ Array of _INV_MEMBERSHIP_TYPE values
+ */
+typedef NSArray *INVRolesArray;
+
+/**
+ Mutable Array of _INV_MEMBERSHIP_TYPE values
+ */
+typedef NSMutableArray *INVRolesMutableArray;
+
+typedef enum {
+    _INV_REGULAR = 0,
+    _INV_ADMIN = 1
+
+} _INV_MEMBERSHIP_TYPE;
+/**
  Array of INVAccountMembership objects
  */
 typedef NSArray *INVMembersArray;
@@ -26,4 +41,5 @@ typedef NSMutableArray *INVMembersMutableArray;
 @property (copy, nonatomic, readonly) NSString *name;
 @property (copy, nonatomic, readonly) NSNumber *userId;
 @property (copy, nonatomic, readonly) INVAccountArray memberships;
+@property (copy, nonatomic, readonly) INVRolesArray roles; // Right now only one value, possibly two (one for xos and one for EM)
 @end

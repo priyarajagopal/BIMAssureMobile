@@ -242,12 +242,16 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param emails List of one or more email addresses of users to invite
 
+ @param role The role to be associated with the invited members of type _INV_MEMBERSHIP_TYPE
+
  @param handler The completion handler that returns error object if there was any error.
 
  @see -signIntoAccount:withCompletionBlock:
 
 */
-- (void)inviteUsersToSignedInAccount:(NSArray *)emails withCompletionBlock:(CompletionHandler)handler;
+- (void)inviteUsersToSignedInAccount:(NSArray *)emails
+                            withRole:(_INV_MEMBERSHIP_TYPE)role
+                 withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously, fetch list of invites for user for signed in account.  The user must have succesfully into the account via
@@ -328,38 +332,38 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  Asynchornously , sign up for a user account with the XOS Passport service
 
  @param firstName FirstName of user to be added
- 
+
  @param lastName lastName of user to be added
- 
+
  @param userAddress optional address of user to be added
- 
+
  @param userPhoneNumber optional phone number of user to be added
- 
+
  @param userCompanyName optional company name of user to be added
- 
+
  @param title optional title of user to be added
- 
+
  @param userEmail email address of user
- 
+
  @paaram password User password
- 
+
  @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
- 
+
 
  @param accountName Name of account to be created
- 
+
  @param accountDescription An optional description of account
- 
+
  @param type Subscription type Will always be mapped to 1 for now
- 
+
  @param companyName company name
- 
+
  @param companyAddress Optional company address
- 
+
  @param contactName  optional name of contact person for company
- 
+
  @param contactPhone  optional Phone # of contact person for company
- 
+
  @param numEmployees  optional number of employees
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
@@ -371,11 +375,11 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  */
 
 - (void)signUpUserWithFirstName:(NSString *)firstName
-                       lastName:(NSString*)lastName
-                        userAddress:(NSString*)userAddress
-                    userPhoneNumber:(NSString*)userPhoneNumber
-                    userCompanyName:(NSString*)userCompanyName
-                          title:(NSString*)title
+                       lastName:(NSString *)lastName
+                    userAddress:(NSString *)userAddress
+                userPhoneNumber:(NSString *)userPhoneNumber
+                userCompanyName:(NSString *)userCompanyName
+                          title:(NSString *)title
                           email:(NSString *)userEmail
                        password:(NSString *)password
              allowNotifications:(BOOL)allowNotifications
@@ -386,29 +390,29 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                  companyAddress:(NSString *)companyAddress
                     contactName:(NSString *)contactName
                    contactPhone:(NSString *)contactPhone
-                numberEmployees:(NSNumber*)numEmployees
+                numberEmployees:(NSNumber *)numEmployees
             withCompletionBlock:(CompletionHandler)handler;
 /**
  Asynchornously , sign up a user with the XOS Passport service
 
  @param firstName FirstName of user to be added
- 
+
  @param lastName lastName of user to be added
- 
+
  @param userAddress optional address of user to be added
- 
+
  @param userPhoneNumber optional phone number of user to be added
- 
+
  @param userCompanyName optional company name of user to be added
- 
+
  @param title optional title of user to be added
- 
+
  @param userEmail email address of user
- 
+
 @paaram password User password
- 
+
  @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
- 
+
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
  accountManager can be used to retrieve the details of account
@@ -418,36 +422,36 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  */
 - (void)signUpUserWithFirstName:(NSString *)firstName
-                       lastName:(NSString*)lastName
-                        userAddress:(NSString*)userAddress
-                    userPhoneNumber:(NSString*)userPhoneNumber
-                    userCompanyName:(NSString*)userCompanyname
-                          title:(NSString*)title
+                       lastName:(NSString *)lastName
+                    userAddress:(NSString *)userAddress
+                userPhoneNumber:(NSString *)userPhoneNumber
+                userCompanyName:(NSString *)userCompanyname
+                          title:(NSString *)title
                           email:(NSString *)userEmail
                        password:(NSString *)password
              allowNotifications:(BOOL)allowNotifications
-       withCompletionBlock:(CompletionHandler)handler;
+            withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously , create an account for currently signed in user with the XOS Passport service
 
  @param accountName Name of account to be created
- 
+
  @param accountDescription An optional description of account
 
  @param type Subscription type Will always be mapped to 1 for now
- 
+
  @param companyName company name
 
  @param companyAddress Optional company address
 
  @param contactName  optional name of contact person for company
- 
+
  @param contactPhone  optional Phone # of contact person for company
- 
+
  @param numEmployees  optional number of employees
- 
- 
+
+
  @param userEmail The email address of signed in user. ***** THE SERVER API SHOULD BE UPDATED TO NOT REQUIRE THIS FIELD ******
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
@@ -460,11 +464,11 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 - (void)createAccountForSignedInUserWithAccountName:(NSString *)accountName
                                  accountDescription:(NSString *)accountDescription
                                    subscriptionType:(NSNumber *)type
-                                 companyName:(NSString *)companyName
-                                   companyAddress:(NSString *)companyAddress
+                                        companyName:(NSString *)companyName
+                                     companyAddress:(NSString *)companyAddress
                                         contactName:(NSString *)contactName
-                                     contactPhone:(NSString *)contactPhone
-                                    numberEmployees:(NSNumber*)numEmployees
+                                       contactPhone:(NSString *)contactPhone
+                                    numberEmployees:(NSNumber *)numEmployees
                                        forUserEmail:(NSString *)userEmail
                                 withCompletionBlock:(CompletionHandler)handler;
 
