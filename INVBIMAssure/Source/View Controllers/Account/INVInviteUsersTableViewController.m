@@ -10,16 +10,21 @@
 #import "INVTextViewTableViewCell.h"
 #import "INVTokensTableViewCell.h"
 #import "UIView+INVCustomizations.h"
+#import "INVRoleSelectionTableViewCell.h"
 
 @import AddressBookUI;
 
 static const NSInteger DEFAULT_MESSAGE_CELL_HEIGHT = 200;
 static const NSInteger DEFAULT_INVITEDUSERS_CELL_HEIGHT = 100;
+static const NSInteger DEFAULT_ROLE_CELL_HEIGHT = 50;
 
 static const NSInteger DEFAULT_NUM_ROWS_SECTION = 1;
-static const NSInteger DEFAULT_NUM_SECTIONS = 2;
+static const NSInteger DEFAULT_NUM_SECTIONS = 3;
+
 static const NSInteger SECTIONINDEX_INVITEUSERLIST = 0;
-static const NSInteger SECTIONINDEX_MESSAGE = 1;
+static const NSInteger SECTIONINDEX_ROLE = 1;
+static const NSInteger SECTIONINDEX_MESSAGE = 2;
+
 static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 
 @interface INVInviteUsersTableViewController () <INVTextViewTableViewCellDelegate, INVTokensTableViewCellDelegate,
@@ -43,11 +48,13 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     UINib *nib = [UINib nibWithNibName:@"INVTextViewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MessageTextCell"];
 
+    UINib *roleNib = [UINib nibWithNibName:@"INVRoleSelectionTableViewCell" bundle:nil];
+    [self.tableView registerNib:roleNib forCellReuseIdentifier:@"RoleSelectionCell"];
+
     UINib *inviteNib = [UINib nibWithNibName:@"INVTokensTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:inviteNib forCellReuseIdentifier:@"InviteUserCell"];
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.editing = YES;
 
     self.clearsSelectionOnViewWillAppear = YES;
 }
@@ -63,6 +70,16 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     [super viewWillDisappear:animated];
 
     self.accountManager = nil;
+
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:SECTIONINDEX_ROLE]];
+    [cell removeObserver:self forKeyPath:@"role"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"role"] && [object isKindOfClass:[INVRoleSelectionTableViewCell class]]) {
+        //  Role changed
+    }
 }
 
 /*
@@ -86,38 +103,20 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     return DEFAULT_NUM_ROWS_SECTION;
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+- (IBAction)displayPeoplePickerController:(id)sender
 {
-    if (indexPath.section == SECTIONINDEX_INVITEUSERLIST) {
-        return UITableViewCellEditingStyleInsert;
-    }
+    ABPeoplePickerNavigationController *peoplePickerController = [[ABPeoplePickerNavigationController alloc] init];
+    peoplePickerController.displayedProperties = @[ @(kABPersonEmailProperty) ];
 
-    return UITableViewCellEditingStyleNone;
-}
+    peoplePickerController.modalPresentationStyle = UIModalPresentationPopover;
+    peoplePickerController.peoplePickerDelegate = self;
 
-- (void)tableView:(UITableView *)tableView
-    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-     forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleInsert && indexPath.section == SECTIONINDEX_INVITEUSERLIST) {
-        ABPeoplePickerNavigationController *peoplePickerController = [[ABPeoplePickerNavigationController alloc] init];
-        peoplePickerController.displayedProperties = @[ @(kABPersonEmailProperty) ];
+    [self presentViewController:peoplePickerController animated:YES completion:nil];
 
-        peoplePickerController.modalPresentationStyle = UIModalPresentationPopover;
-        peoplePickerController.peoplePickerDelegate = self;
+    peoplePickerController.popoverPresentationController.sourceView = sender;
+    peoplePickerController.popoverPresentationController.sourceRect = [sender bounds];
 
-        [self presentViewController:peoplePickerController animated:YES completion:nil];
-
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        UIImageView *accessoryImage = [cell findSubviewOfClass:[UIImageView class]
-                                                     predicate:[NSPredicate predicateWithFormat:@"image != NULL && alpha > 0"]];
-
-        peoplePickerController.popoverPresentationController.sourceView = cell;
-        peoplePickerController.popoverPresentationController.sourceRect =
-            [accessoryImage convertRect:accessoryImage.bounds toView:cell];
-
-        peoplePickerController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
-    }
+    peoplePickerController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -131,6 +130,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
         self.inviteUsersCell = cell;
         return cell;
     }
+
+    if (indexPath.section == SECTIONINDEX_ROLE) {
+        INVRoleSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoleSelectionCell"];
+        [cell addObserver:self forKeyPath:@"role" options:NSKeyValueObservingOptionNew context:NULL];
+
+        return cell;
+    }
+
     if (indexPath.section == SECTIONINDEX_MESSAGE) {
         INVTextViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageTextCell"];
         cell.cellDelegate = self;
@@ -155,15 +162,17 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger height = 0;
     if (indexPath.section == SECTIONINDEX_MESSAGE) {
         return self.messageRowHeight;
+    }
+    else if (indexPath.section == SECTIONINDEX_ROLE) {
+        return DEFAULT_ROLE_CELL_HEIGHT;
     }
     else if (indexPath.section == SECTIONINDEX_INVITEUSERLIST) {
         return DEFAULT_INVITEDUSERS_CELL_HEIGHT;
     }
 
-    return height;
+    return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

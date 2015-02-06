@@ -121,6 +121,9 @@
 
     // This is for the back indicator
     [[UIImageView appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil] setTintColor:whiteColor];
+
+    // This is for the accessory checkmark
+    [[UIImageView appearanceWhenContainedIn:[UITableView class], nil] setTintColor:darkGreyColor];
 }
 
 #pragma mark - VC management
