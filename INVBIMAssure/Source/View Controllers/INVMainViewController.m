@@ -208,21 +208,35 @@
 
 - (void)swapFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
 {
+    if (fromViewController == nil) {
+        fromViewController = [UIViewController new];
+        fromViewController.view.frame = self.detailContainerView.bounds;
+
+        [self addChildViewController:fromViewController];
+        [self.detailContainerView addSubview:fromViewController.view];
+    }
+
     toViewController.view.frame = self.detailContainerView.bounds;
     [self addChildViewController:toViewController];
 
-    [self.detailContainerView addSubview:toViewController.view];
+    self.detailContainerViewController = toViewController;
 
     toViewController.view.alpha = 0;
-    [UIView animateWithDuration:0.5
+    [self transitionFromViewController:fromViewController
+        toViewController:toViewController
+        duration:0
+        options:UIViewAnimationOptionTransitionNone
         animations:^{
-            fromViewController.view.alpha = 0;
-            toViewController.view.alpha = 1;
+            [self.detailContainerView addSubview:toViewController.view];
         }
         completion:^(BOOL finished) {
             [fromViewController removeFromParentViewController];
 
-            self.detailContainerViewController = toViewController;
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 toViewController.view.alpha = 1;
+                             }
+                             completion:nil];
         }];
 }
 
