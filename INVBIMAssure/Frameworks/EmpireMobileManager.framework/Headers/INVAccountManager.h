@@ -40,7 +40,7 @@
 @property (nonatomic, readonly, copy) INVAccountArray accountsOfSignedInUser;
 
 /**
- List of account users
+ accouunt membership array
  */
 @property (nonatomic, readonly, copy) INVMembersArray accountMembership;
 
@@ -49,10 +49,12 @@
  */
 @property (nonatomic, readonly, copy) INVUserInviteArray accountInvitesForUser;
 
+
 /**
  List of pending invites for account
  */
 @property (nonatomic, readonly, copy) INVInviteArray accountInvites;
+
 
 /**
  The managed object context - Use this in conjunction with the various NSFetchRequests to handle fetching and processing of data
@@ -78,6 +80,8 @@
  Can be used to obtain information on invitations
  */
 @property (nonatomic, readonly, copy) NSFetchRequest *fetchRequestForAccountsOfSignedInUser;
+
+
 
 /**
  Creates a singleton instance of INVAccountManager.

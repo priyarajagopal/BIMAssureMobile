@@ -144,29 +144,43 @@
 
         __weak typeof(self) weakSelf = self;
 
-        _dataSource.editableHandler = ^BOOL(INVAccountMembership *member, NSIndexPath *_) {
-            return ![member.email isEqual:weakSelf.globalDataManager.loggedInUser];
+        _dataSource.editableHandler = ^BOOL(INVUser *user, NSIndexPath *_) {
+            return [user.email isEqual:weakSelf.globalDataManager.loggedInUser];
         };
 
         _dataSource.deletionHandler = ^(UITableViewCell *cell, INVAccountMembership *member, NSIndexPath *indexPath) {
             [weakSelf confirmDeletion:indexPath];
         };
 
-        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"UserCell"
-                                                 configureBlock:^(UITableViewCell *cell, INVAccountMembership *member,
-                                                                    NSIndexPath *indexPath) {
-                                                     if (weakSelf.dataSource.editableHandler(member, indexPath)) {
-                                                         cell.indentationLevel = 0;
-                                                         cell.indentationWidth = 0;
-                                                     }
-                                                     else {
-                                                         cell.indentationLevel = 1;
-                                                         cell.indentationWidth = 38;
-                                                     }
+        [_dataSource
+            registerCellWithIdentifierForAllIndexPaths:
+                @"UserCell" configureBlock:^(UITableViewCell *cell, INVAccountMembership *member, NSIndexPath *indexPath) {
 
-                                                     cell.textLabel.text = member.name;
-                                                     cell.detailTextLabel.text = member.email;
-                                                 }];
+                [self.globalDataManager.invServerClient
+                    getUserProfileInSignedInAccountWithId:member.userId
+                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                          if (error) {
+                                              cell.textLabel.text = NSLocalizedString(@"ERROR_LOAD_USER_PROFILE", nil);
+                                              cell.indentationLevel = 0;
+                                              cell.indentationWidth = 0;
+                                          }
+                                          else {
+                                              INVUser *user = result;
+                                              cell.textLabel.text =
+                                                  [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+                                              cell.detailTextLabel.text = user.email;
+                                              if (weakSelf.dataSource.editableHandler(user, indexPath)) {
+                                                  cell.indentationLevel = 0;
+                                                  cell.indentationWidth = 0;
+                                              }
+                                              else {
+                                                  cell.indentationLevel = 1;
+                                                  cell.indentationWidth = 38;
+                                              }
+                                          }
+                                      }];
+
+            }];
     }
 
     return _dataSource;

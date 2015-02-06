@@ -26,4 +26,5 @@ typedef NSMutableArray *INVInviteMutableArray;
 @property (copy, nonatomic, readonly) NSString *email;
 @property (copy, nonatomic, readonly) NSString *invitationCode;
 @property (copy, nonatomic, readonly) NSNumber *invitationId;
+@property (copy, nonatomic, readonly) NSArray *roles;
 @end

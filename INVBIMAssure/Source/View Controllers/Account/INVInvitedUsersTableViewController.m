@@ -70,9 +70,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     if (![self.refreshControl isRefreshing]) {
         [self showLoadProgress];
     }
-
-    [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *_){
-    }];
+    /*
+        [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *_){
+        }];
+     */
 
     [self.globalDataManager.invServerClient
         getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
@@ -147,14 +148,32 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     if (!_dataSource) {
         _dataSource = [[INVGenericTableViewDataSource alloc] initWithFetchedResultsController:self.dataResultsController
                                                                                  forTableView:self.tableView];
-        INV_CellConfigurationBlock cellConfigurationBlock =
-            ^(UITableViewCell *cell, INVInvite *invite, NSIndexPath *indexPath) {
-                cell.textLabel.text = invite.email;
-                cell.detailTextLabel.text =
-                    [NSString stringWithFormat:NSLocalizedString(@"INVITED_BY_ON", nil), [self userForId:invite.updatedBy],
-                              [self.dateFormatter stringFromDate:invite.updatedAt]];
+        INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell, INVInvite *invite,
+                                                                NSIndexPath *indexPath) {
+            cell.textLabel.text = invite.email;
 
-            };
+            [self.globalDataManager.invServerClient
+                getUserProfileInSignedInAccountWithId:invite.updatedBy
+                                  withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                      if (error) {
+                                          INVUser *user = (INVUser *) result;
+                                          cell.detailTextLabel.text =
+                                              [NSString stringWithFormat:NSLocalizedString(@"INVITED_ON", nil),
+                                                        [self.dateFormatter stringFromDate:invite.updatedAt]];
+                                      }
+                                      else {
+                                          INVUser *user = result;
+                                          cell.detailTextLabel.text =
+                                              [NSString stringWithFormat:NSLocalizedString(@"INVITED_BY_ON", nil),
+                                                        user.firstName, [self.dateFormatter stringFromDate:invite.updatedAt]];
+                                      }
+                                  }];
+
+            cell.detailTextLabel.text =
+                [NSString stringWithFormat:NSLocalizedString(@"INVITED_BY_ON", nil), [self userForId:invite.updatedBy],
+                          [self.dateFormatter stringFromDate:invite.updatedAt]];
+
+        };
 
         __weak typeof(self) weakSelf = self;
 

@@ -195,8 +195,8 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param accountId The account Id
 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- accountManager can be used to retrieve the account token
+ @param handler The completion handler that returns error object if there was any error, accountManager can be used to retrieve
+ the signed in user profile info
 
  @see accountManager
 
@@ -208,8 +208,9 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 /**
  Asynchornously ,get profile of signed in user
 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- accountManager can be used to retrieve the signed in user profile info
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then  the
+ INVSignedInUser object is returned
+
 
  @see -signInWithUserName:andPassword:withCompletionBlock:
 
@@ -217,7 +218,24 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 
  */
-- (void)getSignedInUserProfileWithCompletionBlock:(CompletionHandler)handler;
+- (void)getSignedInUserProfileWithCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously ,get profile of specified user
+
+ @param userId The ID of user
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then  the
+ INVUser object is returned
+
+
+ @see -signInWithUserName:andPassword:withCompletionBlock:
+
+ @see accountManager
+
+
+ */
+- (void)getUserProfileInSignedInAccountWithId:(NSNumber *)userId withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously ,get list of members belonging to currentrly signed in account. If the request is made on behalf of admin user,

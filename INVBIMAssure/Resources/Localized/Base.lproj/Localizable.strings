@@ -33,6 +33,7 @@
 "INVITED_USERS"="Pending Invites";
 "INVITE_USER"="Invite User";
 "INVITED_BY_ON"="Invited by %1@ at %2@";
+"INVITED_ON"="Invited on %1@ ";
 "ACCOUNT:"= "Account: %1@";
 "INVITE_ACCEPT" = "Accept Invite?";
 "ENTER_OPTIONAL_MESSAGE"="Enter Optional Message :";
@@ -182,3 +183,4 @@
 "ACCOUNT_NAME"="Enter name of account";
 "UPDATING"="Updating ...";
 "UPDATED_AT"="Updated At %@";
+"ERROR_LOAD_USER_PROFILE"="User Info Unavailable";
