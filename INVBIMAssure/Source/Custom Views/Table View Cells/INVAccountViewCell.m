@@ -72,10 +72,10 @@
     _isDefault = isDefault;
 
     if (isDefault) {
-        [self.isDefaultOverlayImageView setHidden:NO];
+        [self.isDefaultOverlayImageView setAlpha:1];
     }
     else {
-        [self.isDefaultOverlayImageView setHidden:YES];
+        [self.isDefaultOverlayImageView setAlpha:0];
     }
 }
 

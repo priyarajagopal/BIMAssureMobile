@@ -37,6 +37,7 @@ NSString *const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (readonly, nonatomic, strong) RBCollectionViewInfoFolderLayout *collectionViewLayout;
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end
 
@@ -61,9 +62,9 @@ static NSString *const reuseIdentifier = @"Cell";
             forSupplementaryViewOfKind:RBCollectionViewInfoFolderDimpleKind
                    withReuseIdentifier:@"dimple"];
 
-    [self.collectionView registerClass:[INVAccountDetailFolderCollectionReusableView class]
-            forSupplementaryViewOfKind:RBCollectionViewInfoFolderFolderKind
-                   withReuseIdentifier:@"folder"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"INVAccountDetailFolderCollectionReusableView" bundle:nil]
+          forSupplementaryViewOfKind:RBCollectionViewInfoFolderFolderKind
+                 withReuseIdentifier:@"folder"];
 
     [self.collectionView registerClass:[UICollectionReusableView class]
             forSupplementaryViewOfKind:RBCollectionViewInfoFolderHeaderKind
@@ -188,10 +189,14 @@ static NSString *const reuseIdentifier = @"Cell";
     }
 
     if (kind == RBCollectionViewInfoFolderFolderKind) {
-        UICollectionReusableView *folder = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                                                                   withReuseIdentifier:@"folder"
-                                                                                          forIndexPath:indexPath];
-        folder.backgroundColor = [UIColor whiteColor];
+        INVAccountDetailFolderCollectionReusableView *folder =
+            [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                    withReuseIdentifier:@"folder"
+                                                           forIndexPath:indexPath];
+
+        if (indexPath.section == 0) {
+            folder.account = [self.dataResultsController objectAtIndexPath:self.selectedIndexPath];
+        }
 
         return folder;
     }
@@ -263,17 +268,9 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.selectedIndexPath = indexPath;
+
     [self.collectionViewLayout toggleFolderViewForIndexPath:indexPath];
-
-    if (indexPath.section == 0) {
-        [self loginLogoutAccount:[self.dataResultsController objectAtIndexPath:indexPath]];
-    }
-
-    if (indexPath.section == 1) {
-        INVUserInvite *invite = [self.dataResultsController objectAtIndexPath:indexPath];
-
-        [self presentPendingInvitePrompt:invite];
-    }
 }
 
 #pragma mark - Navigation
@@ -536,8 +533,11 @@ static NSString *const reuseIdentifier = @"Cell";
 - (void)setEstimatedSizeForCells
 {
     self.collectionViewLayout.cellSize = CGSizeMake(320, 101);
+    self.collectionViewLayout.interItemSpacingX = 10;
     self.collectionViewLayout.interItemSpacingY = 10;
     self.collectionViewLayout.stickyHeaders = YES;
+
+    // self.collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
 - (void)notifyAccountLogin
@@ -724,6 +724,18 @@ static NSString *const reuseIdentifier = @"Cell";
 
 #pragma mark - UIEvent handlers
 
+- (IBAction)signIn:(id)sender
+{
+    id accountOrInvite = [self.dataResultsController objectAtIndexPath:self.selectedIndexPath];
+
+    if (self.selectedIndexPath.section == 0) {
+        [self loginLogoutAccount:accountOrInvite];
+    }
+    else {
+        [self presentPendingInvitePrompt:accountOrInvite];
+    }
+}
+
 - (IBAction)done:(id)sener
 {
     /* Do nothing */
@@ -782,7 +794,7 @@ static NSString *const reuseIdentifier = @"Cell";
                     layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
     sizeForHeaderInSection:(NSInteger)section
 {
-    return CGSizeMake(self.view.bounds.size.width, 50);
+    return CGSizeZero;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView
@@ -796,7 +808,7 @@ static NSString *const reuseIdentifier = @"Cell";
                     layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
     sizeForFooterInSection:(NSInteger)section
 {
-    return CGSizeMake(self.view.bounds.size.width, 25);
+    return CGSizeZero;
 }
 
 #pragma mark - utils

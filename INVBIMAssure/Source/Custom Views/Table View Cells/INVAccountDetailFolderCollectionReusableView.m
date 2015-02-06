@@ -10,152 +10,98 @@
 
 @interface INVAccountDetailFolderCollectionReusableView ()
 
-@property (strong, nonatomic) UILabel *title;
-@property (strong, nonatomic) UILabel *desc;
-@property (strong, nonatomic) UILabel *upc;
-@property (strong, nonatomic) UIButton *button;
+@property IBOutlet UILabel *accountNameLabel;
+@property IBOutlet UILabel *accountOverviewLabel;
+@property IBOutlet UILabel *accountTypeLabel;
+
+@property IBOutlet UILabel *createdByAtLabel;
+
+@property IBOutlet UILabel *companyNameLabel;
+@property IBOutlet UILabel *companyAddressLabel;
+
+@property IBOutlet UILabel *contactNameLabel;
+@property IBOutlet UILabel *contactPhoneLabel;
+
+@property IBOutlet UIButton *signInOutButton;
 
 @end
 
 @implementation INVAccountDetailFolderCollectionReusableView
 
-- (id)initWithFrame:(CGRect)frame
+- (void)awakeFromNib
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        self.clipsToBounds = YES;
+    [self updateUI];
+}
 
-        self.title = [[UILabel alloc] init];
-        self.title.translatesAutoresizingMaskIntoConstraints = NO;
-        self.title.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-        self.title.textColor = [UIColor colorWithRed:0x33 / 250.0 green:0x33 / 250.0 blue:0x33 / 250.0 alpha:1.0];
-        self.title.text = @"Foo";
+- (void)updateUI
+{
+    self.accountNameLabel.text = self.account.name;
+    if (self.accountNameLabel.text.length == 0)
+        self.accountNameLabel.text = @"Account name unavailable";
 
-        self.desc = [[UILabel alloc] init];
-        self.desc.numberOfLines = 0;
-        self.desc.translatesAutoresizingMaskIntoConstraints = NO;
-        self.desc.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-        self.desc.textColor = [UIColor colorWithRed:0x33 / 250.0 green:0x33 / 250.0 blue:0x33 / 250.0 alpha:1.0];
-        self.desc.text = @"Bar";
+    self.accountOverviewLabel.text = self.account.overview;
+    if (self.accountOverviewLabel.text.length == 0)
+        self.accountOverviewLabel.text = @"Account description unavailable";
 
-        self.upc = [[UILabel alloc] init];
-        self.upc.translatesAutoresizingMaskIntoConstraints = NO;
-        self.upc.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
-        self.upc.textColor = [UIColor colorWithRed:0x33 / 250.0 green:0x33 / 250.0 blue:0x33 / 250.0 alpha:1.0];
+    self.accountTypeLabel.text = self.account.type;
+    if (self.accountTypeLabel.text.length == 0)
+        self.accountTypeLabel.text = @"Account type unavailable";
 
-        self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.button.frame = CGRectMake(0, 0, 100, 44);
-        self.button.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.button setTitle:@"Which Item?" forState:UIControlStateNormal];
+    self.createdByAtLabel.text =
+        [NSString stringWithFormat:@"Created by %@ at %@", self.account.createdBy, self.account.createdAt];
 
-        [self addSubview:self.button];
-        [self addSubview:self.title];
-        [self addSubview:self.desc];
-        [self addSubview:self.upc];
+    self.companyNameLabel.text = self.account.companyName;
+    self.companyAddressLabel.text = self.account.companyAddress;
+    self.contactNameLabel.text = self.account.companyName;
+    self.companyAddressLabel.text = self.account.companyAddress;
 
-        NSMutableArray *constraintsArray = [NSMutableArray array];
+    if ([INVGlobalDataManager.sharedInstance.defaultAccountId isEqual:self.account.accountId]) {
+        NSMutableAttributedString *attributedLogoutString = [[NSMutableAttributedString alloc] init];
 
-        // title
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.title
-                                                                 attribute:NSLayoutAttributeTop
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self
-                                                                 attribute:NSLayoutAttributeTop
-                                                                multiplier:1.0
-                                                                  constant:20.0f]];
+        [attributedLogoutString
+            appendAttributedString:[[NSAttributedString alloc] initWithString:@"Sign Out "
+                                                                   attributes:@{
+                                                                       NSForegroundColorAttributeName : [UIColor darkTextColor],
+                                                                       NSFontAttributeName : [UIFont systemFontOfSize:15]
+                                                                   }]];
 
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.title
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self
-                                                                 attribute:NSLayoutAttributeLeft
-                                                                multiplier:1.0
-                                                                  constant:10.0f]];
+        [attributedLogoutString
+            appendAttributedString:[[NSAttributedString alloc]
+                                       initWithString:@""
+                                           attributes:@{
+                                               NSForegroundColorAttributeName : [UIColor darkTextColor],
+                                               NSFontAttributeName : [UIFont fontWithName:@"FontAwesome" size:15]
+                                           }]];
 
-        //		[constraintsArray addObject: [NSLayoutConstraint constraintWithItem:self.title
-        // attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight
-        // multiplier:1.0 constant:-10.0f]];
-
-        // button
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.button
-                                                                 attribute:NSLayoutAttributeTop
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self
-                                                                 attribute:NSLayoutAttributeTop
-                                                                multiplier:1.0
-                                                                  constant:14.0f]];
-
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.button
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.title
-                                                                 attribute:NSLayoutAttributeRight
-                                                                multiplier:1.0
-                                                                  constant:10.0f]];
-
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.button
-                                                                 attribute:NSLayoutAttributeTrailing
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self
-                                                                 attribute:NSLayoutAttributeRight
-                                                                multiplier:1.0
-                                                                  constant:-10.0f]];
-
-        // description
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.desc
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.title
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                multiplier:1.0
-                                                                  constant:0.0f]];
-
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.desc
-                                                                 attribute:NSLayoutAttributeTrailing
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.title
-                                                                 attribute:NSLayoutAttributeTrailing
-                                                                multiplier:1.0
-                                                                  constant:0.0f]];
-
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.desc
-                                                                 attribute:NSLayoutAttributeTop
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.title
-                                                                 attribute:NSLayoutAttributeBottom
-                                                                multiplier:1.0
-                                                                  constant:5.0f]];
-
-        // upc
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.upc
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.desc
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                multiplier:1.0
-                                                                  constant:0.0f]];
-
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.upc
-                                                                 attribute:NSLayoutAttributeTrailing
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.desc
-                                                                 attribute:NSLayoutAttributeTrailing
-                                                                multiplier:1.0
-                                                                  constant:0.0f]];
-
-        [constraintsArray addObject:[NSLayoutConstraint constraintWithItem:self.upc
-                                                                 attribute:NSLayoutAttributeTop
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.desc
-                                                                 attribute:NSLayoutAttributeBottom
-                                                                multiplier:1.0
-                                                                  constant:5.0f]];
-
-        [self addConstraints:constraintsArray];
+        [self.signInOutButton setAttributedTitle:attributedLogoutString forState:UIControlStateNormal];
     }
-    return self;
+    else {
+        NSMutableAttributedString *attributedLoginString = [[NSMutableAttributedString alloc] init];
+
+        [attributedLoginString
+            appendAttributedString:[[NSAttributedString alloc] initWithString:@"Sign In "
+                                                                   attributes:@{
+                                                                       NSForegroundColorAttributeName : [UIColor darkTextColor],
+                                                                       NSFontAttributeName : [UIFont systemFontOfSize:15]
+                                                                   }]];
+
+        [attributedLoginString
+            appendAttributedString:[[NSAttributedString alloc]
+                                       initWithString:@""
+                                           attributes:@{
+                                               NSForegroundColorAttributeName : [UIColor darkTextColor],
+                                               NSFontAttributeName : [UIFont fontWithName:@"FontAwesome" size:15]
+                                           }]];
+
+        [self.signInOutButton setAttributedTitle:attributedLoginString forState:UIControlStateNormal];
+    }
+}
+
+- (void)setAccount:(INVAccount *)account
+{
+    _account = account;
+
+    [self updateUI];
 }
 
 @end

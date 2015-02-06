@@ -10,4 +10,6 @@
 
 @interface INVAccountDetailFolderCollectionReusableView : UICollectionReusableView
 
+@property (nonatomic) INVAccount *account;
+
 @end
