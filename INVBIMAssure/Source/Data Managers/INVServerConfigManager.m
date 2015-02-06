@@ -26,28 +26,28 @@
 
 /**** Sample JSON startup file
  {
-	"defaultdeploy": "development",
-	"deploys": [
-	{
+        "defaultdeploy": "development",
+        "deploys": [
+        {
  "name": "development",
  "servers": [
  {"server": "xospassport", "url": "http://54.149.63.51:8080"},
  {"server": "empiremanage", "url": "http://54.149.7.76:8080"},
  {"server": "empireweb", "url": "http://54.69.37.246"}
  ]
-	},
-	{
+        },
+        {
  "name": "developmentOld",
  "servers": [
  {"server": "xospassport", "url": "http://54.68.220.238:8080"},
  {"server": "empiremanage", "url": "http://54.68.220.238:8080"},
  {"server": "empireweb", "url": "http://localhost"}
  ]
-	}
-	]
+        }
+        ]
  }
- 
- 
+
+
  ************/
 
 @interface INVServerConfigManager ()
@@ -109,6 +109,8 @@
 
     NSDictionary *jsonConfig = [NSJSONSerialization JSONObjectWithData:configData options:0 error:NULL];
 
+    INVLogDebug(@"JSON config from %@ recieved: %@", [url URL], jsonConfig);
+
     NSString *deployName = @STRINGIFY(INV_DEPLOYMENT_NAME);
     NSString *defaultDeployName = jsonConfig[@"defaultdeploy"];
 
@@ -144,7 +146,6 @@
 
         if ([serverName isEqualToString:@"empiremanage"]) {
             _empireManageServerURL = [NSURL URLWithString:server[@"url"]];
-
         }
     }
 

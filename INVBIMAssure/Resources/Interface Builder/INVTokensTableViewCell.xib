@@ -4,6 +4,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="FontAwesome.otf">
+            <string>FontAwesome</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -15,22 +20,35 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVV-nW-tah" customClass="VENTokenField">
-                        <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="494" height="44"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BY1-fR-ayc">
+                        <rect key="frame" x="502" y="3" width="30" height="38"/>
+                        <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                        <state key="normal" title="">
+                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="displayPeoplePickerController:" destination="-2" eventType="touchUpInside" id="ve6-i9-98W"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="rVV-nW-tah" secondAttribute="trailing" constant="-8" id="DI3-Kt-Mpx"/>
+                    <constraint firstItem="BY1-fR-ayc" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="7GL-Mg-9nb"/>
                     <constraint firstItem="rVV-nW-tah" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="KLg-KJ-Pot"/>
+                    <constraint firstItem="BY1-fR-ayc" firstAttribute="leading" secondItem="rVV-nW-tah" secondAttribute="trailing" constant="8" id="Sgk-Rj-cq1"/>
                     <constraint firstItem="rVV-nW-tah" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="W9D-eI-CQa"/>
+                    <constraint firstAttribute="centerY" secondItem="BY1-fR-ayc" secondAttribute="centerY" id="Xrv-ch-tOV"/>
                     <constraint firstAttribute="bottomMargin" secondItem="rVV-nW-tah" secondAttribute="bottom" constant="-8" id="drW-Xf-ekb"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="tokenField" destination="rVV-nW-tah" id="gEh-jh-0a4"/>
             </connections>
-            <point key="canvasLocation" x="530" y="317.5"/>
+            <point key="canvasLocation" x="538" y="307.5"/>
         </tableViewCell>
     </objects>
 </document>

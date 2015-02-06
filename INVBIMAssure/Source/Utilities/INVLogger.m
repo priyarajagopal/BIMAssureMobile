@@ -92,10 +92,6 @@ void _INVLog(INVLogLevel level, const char *func, const char *file, int line, NS
 
     va_end(arguments);
 
-    // Rmeove control characters to keep each log entry on its own line.
-    formatStr = [formatStr stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
-    formatStr = [formatStr stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"];
-
     static dispatch_queue_t logging_queue;
     static NSDateFormatter *dateFormat;
     static FILE *stderrPtr;
@@ -140,7 +136,7 @@ void _INVLog(INVLogLevel level, const char *func, const char *file, int line, NS
             [outputString appendFormat:@": %@", formatStr];
         }
 
-        [outputString appendString:@"\n"];
+        [outputString appendString:@"\n\n"];
 
         NSData *data = [outputString dataUsingEncoding:NSUTF8StringEncoding];
         fwrite([data bytes], 1, [data length], stderrPtr);
