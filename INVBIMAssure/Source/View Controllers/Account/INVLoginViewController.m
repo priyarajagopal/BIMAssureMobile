@@ -41,6 +41,8 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
     if (loggedInPass && loggedInUser) {
         self.emailTextEntry.text = loggedInUser;
         self.passwordTextEntry.text = loggedInPass;
+
+        [self textField:self.emailTextEntry shouldChangeCharactersInRange:NSMakeRange(0, 0) replacementString:@""];
         [self loginToServerWithUser:loggedInUser andPassword:loggedInPass];
     }
     else {
