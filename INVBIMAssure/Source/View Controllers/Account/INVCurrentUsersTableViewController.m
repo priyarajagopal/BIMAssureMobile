@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *dataResultsController;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
-
+@property (nonatomic, strong) INVSignedInUser* signedInUser;
 - (void)showLoadProgress;
 
 @end
@@ -26,6 +26,7 @@
     // Do any additional setup after loading the view.
     self.tableView.editing = YES;
     self.tableView.dataSource = [self dataSource];
+    [self fetchSignedInUserProfile];
     [self fetchListOfAccountMembers];
 }
 
@@ -63,6 +64,20 @@
     }];
 }
 
+-(void)fetchSignedInUserProfile {
+    [self.globalDataManager.invServerClient
+     getSignedInUserProfileWithCompletionBlock:^(id result, INVEmpireMobileError *error) {
+         if (!error) {
+              self.signedInUser = (INVSignedInUser *) result;
+         }
+         else {
+             self.signedInUser = nil;
+         }
+     }];
+    
+}
+
+#pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -144,8 +159,12 @@
 
         __weak typeof(self) weakSelf = self;
 
-        _dataSource.editableHandler = ^BOOL(INVUser *user, NSIndexPath *_) {
-            return [user.email isEqual:weakSelf.globalDataManager.loggedInUser];
+        _dataSource.editableHandler = ^BOOL(INVAccountMembership *member, NSIndexPath *_) {
+            if (weakSelf.signedInUser) {
+                return ![member.userId isEqualToNumber:weakSelf.signedInUser.userId];
+            }
+            
+            return NO;
         };
 
         _dataSource.deletionHandler = ^(UITableViewCell *cell, INVAccountMembership *member, NSIndexPath *indexPath) {
