@@ -37,7 +37,6 @@ NSString *const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (readonly, nonatomic, strong) RBCollectionViewInfoFolderLayout *collectionViewLayout;
-@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end
 
@@ -195,7 +194,7 @@ static NSString *const reuseIdentifier = @"Cell";
                                                            forIndexPath:indexPath];
 
         if (indexPath.section == 0) {
-            folder.account = [self.dataResultsController objectAtIndexPath:self.selectedIndexPath];
+            folder.account = [self.dataResultsController objectAtIndexPath:indexPath];
         }
 
         return folder;
@@ -268,8 +267,6 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedIndexPath = indexPath;
-
     [self.collectionViewLayout toggleFolderViewForIndexPath:indexPath];
 }
 
@@ -285,7 +282,6 @@ static NSString *const reuseIdentifier = @"Cell";
             UINavigationController *navController = segue.destinationViewController;
             self.signUpController = (INVSignUpTableViewController *) navController.topViewController;
             [self addSignUpObservers];
-            self.signUpController.shouldSignUpUser = NO;
         }
     }
 }
@@ -532,7 +528,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)setEstimatedSizeForCells
 {
-    self.collectionViewLayout.cellSize = CGSizeMake(320, 101);
+    self.collectionViewLayout.cellSize = CGSizeMake(320, 300);
     self.collectionViewLayout.interItemSpacingX = 10;
     self.collectionViewLayout.interItemSpacingY = 10;
     self.collectionViewLayout.stickyHeaders = YES;
@@ -726,9 +722,21 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (IBAction)signIn:(id)sender
 {
-    id accountOrInvite = [self.dataResultsController objectAtIndexPath:self.selectedIndexPath];
+    UICollectionViewCell *cell = nil;
 
-    if (self.selectedIndexPath.section == 0) {
+    while ([sender superview] != nil) {
+        if ([[sender superview] isKindOfClass:[UICollectionViewCell class]]) {
+            cell = (UICollectionViewCell *) [sender superview];
+            break;
+        }
+
+        sender = [sender superview];
+    }
+
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    id accountOrInvite = [self.dataResultsController objectAtIndexPath:indexPath];
+
+    if (indexPath.section == 0) {
         [self loginLogoutAccount:accountOrInvite];
     }
     else {
@@ -801,7 +809,17 @@ static NSString *const reuseIdentifier = @"Cell";
                         layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
     heightForFolderAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150;
+    static INVAccountDetailFolderCollectionReusableView *sizingView = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        UINib *sizingViewNib =
+            [UINib nibWithNibName:NSStringFromClass([INVAccountDetailFolderCollectionReusableView class]) bundle:nil];
+        sizingView = [[sizingViewNib instantiateWithOwner:nil options:nil] firstObject];
+    });
+
+    sizingView.account = [self.dataResultsController objectAtIndexPath:indexPath];
+
+    return [sizingView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView

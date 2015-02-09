@@ -7,22 +7,21 @@
 //
 
 #import "INVAccountDetailFolderCollectionReusableView.h"
+#import "UIFont+INVCustomizations.h"
 
 @interface INVAccountDetailFolderCollectionReusableView ()
 
-@property IBOutlet UILabel *accountNameLabel;
 @property IBOutlet UILabel *accountOverviewLabel;
-@property IBOutlet UILabel *accountTypeLabel;
 
 @property IBOutlet UILabel *createdByAtLabel;
 
 @property IBOutlet UILabel *companyNameLabel;
 @property IBOutlet UILabel *companyAddressLabel;
 
+@property IBOutlet UILabel *numberEmployeesLabel;
+
 @property IBOutlet UILabel *contactNameLabel;
 @property IBOutlet UILabel *contactPhoneLabel;
-
-@property IBOutlet UIButton *signInOutButton;
 
 @end
 
@@ -35,65 +34,53 @@
 
 - (void)updateUI
 {
-    self.accountNameLabel.text = self.account.name;
-    if (self.accountNameLabel.text.length == 0)
-        self.accountNameLabel.text = @"Account name unavailable";
-
     self.accountOverviewLabel.text = self.account.overview;
-    if (self.accountOverviewLabel.text.length == 0)
-        self.accountOverviewLabel.text = @"Account description unavailable";
+    if (self.accountOverviewLabel.text.length == 0) {
+        self.accountOverviewLabel.attributedText =
+            [[NSAttributedString alloc] initWithString:NSLocalizedString(@"ACCOUNT_DESCRIPTION_UNAVAILABLE", nil)
+                                            attributes:@{NSFontAttributeName : [self.accountOverviewLabel.font italicFont]}];
+    }
 
-    self.accountTypeLabel.text = self.account.type;
-    if (self.accountTypeLabel.text.length == 0)
-        self.accountTypeLabel.text = @"Account type unavailable";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 
     self.createdByAtLabel.text =
-        [NSString stringWithFormat:@"Created by %@ at %@", self.account.createdBy, self.account.createdAt];
+        [NSString stringWithFormat:@"Created on %@", [dateFormatter stringFromDate:self.account.createdAt]];
 
     self.companyNameLabel.text = self.account.companyName;
-    self.companyAddressLabel.text = self.account.companyAddress;
-    self.contactNameLabel.text = self.account.companyName;
-    self.companyAddressLabel.text = self.account.companyAddress;
-
-    if ([INVGlobalDataManager.sharedInstance.defaultAccountId isEqual:self.account.accountId]) {
-        NSMutableAttributedString *attributedLogoutString = [[NSMutableAttributedString alloc] init];
-
-        [attributedLogoutString
-            appendAttributedString:[[NSAttributedString alloc] initWithString:@"Sign Out "
-                                                                   attributes:@{
-                                                                       NSForegroundColorAttributeName : [UIColor darkTextColor],
-                                                                       NSFontAttributeName : [UIFont systemFontOfSize:15]
-                                                                   }]];
-
-        [attributedLogoutString
-            appendAttributedString:[[NSAttributedString alloc]
-                                       initWithString:@""
-                                           attributes:@{
-                                               NSForegroundColorAttributeName : [UIColor darkTextColor],
-                                               NSFontAttributeName : [UIFont fontWithName:@"FontAwesome" size:15]
-                                           }]];
-
-        [self.signInOutButton setAttributedTitle:attributedLogoutString forState:UIControlStateNormal];
+    if (self.companyNameLabel.text.length == 0) {
+        self.companyNameLabel.attributedText =
+            [[NSAttributedString alloc] initWithString:NSLocalizedString(@"COMPANY_NAME_UNAVAILABLE", nil)
+                                            attributes:@{NSFontAttributeName : [self.companyNameLabel.font italicFont]}];
     }
-    else {
-        NSMutableAttributedString *attributedLoginString = [[NSMutableAttributedString alloc] init];
 
-        [attributedLoginString
-            appendAttributedString:[[NSAttributedString alloc] initWithString:@"Sign In "
-                                                                   attributes:@{
-                                                                       NSForegroundColorAttributeName : [UIColor darkTextColor],
-                                                                       NSFontAttributeName : [UIFont systemFontOfSize:15]
-                                                                   }]];
+    self.companyAddressLabel.text = self.account.companyAddress;
+    if (self.companyAddressLabel.text.length == 0) {
+        self.companyAddressLabel.attributedText =
+            [[NSAttributedString alloc] initWithString:NSLocalizedString(@"COMPANY_ADDRESS_UNAVAILABLE", nil)
+                                            attributes:@{NSFontAttributeName : [self.companyAddressLabel.font italicFont]}];
+    }
 
-        [attributedLoginString
-            appendAttributedString:[[NSAttributedString alloc]
-                                       initWithString:@""
-                                           attributes:@{
-                                               NSForegroundColorAttributeName : [UIColor darkTextColor],
-                                               NSFontAttributeName : [UIFont fontWithName:@"FontAwesome" size:15]
-                                           }]];
+    self.numberEmployeesLabel.text = [self.account.numberEmployees description];
+    if (self.numberEmployeesLabel.text.length == 0) {
+        self.numberEmployeesLabel.attributedText =
+            [[NSAttributedString alloc] initWithString:NSLocalizedString(@"NUMBER_EMPLOYEES_UNAVAILABLE", nil)
+                                            attributes:@{NSFontAttributeName : [self.numberEmployeesLabel.font italicFont]}];
+    }
 
-        [self.signInOutButton setAttributedTitle:attributedLoginString forState:UIControlStateNormal];
+    self.contactNameLabel.text = self.account.companyName;
+    if (self.contactNameLabel.text.length == 0) {
+        self.contactNameLabel.attributedText =
+            [[NSAttributedString alloc] initWithString:NSLocalizedString(@"CONTACT_NAME_UNAVAILABLE", nil)
+                                            attributes:@{NSFontAttributeName : [self.contactNameLabel.font italicFont]}];
+    }
+
+    self.contactPhoneLabel.text = self.account.contactPhone;
+    if (self.contactPhoneLabel.text.length == 0) {
+        self.contactPhoneLabel.attributedText =
+            [[NSAttributedString alloc] initWithString:NSLocalizedString(@"CONTACT_PHONE_UNAVAILABLE", nil)
+                                            attributes:@{NSFontAttributeName : [self.contactPhoneLabel.font italicFont]}];
     }
 }
 

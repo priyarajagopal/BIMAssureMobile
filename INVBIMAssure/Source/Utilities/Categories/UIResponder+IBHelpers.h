@@ -8,11 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UIResponder (IBHelpers)
+@interface UIResponder (alreadyImplemented)
 
 // This is a 'cheat' to allow us to hook up these selectors to actions
 // in our storyboard without having to write additional code.
 - (IBAction)becomeFirstResponder;
 - (IBAction)resignFirstResponder;
+
+@end
+
+@interface UIResponder (IBHelpers)
+
+- (IBAction)scrollToVisibleInParentScrollview;
 
 @end

@@ -49,13 +49,16 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
 {
-    [super viewWillDisappear:animated];
+    [super dismissViewControllerAnimated:flag
+                              completion:^{
+                                  [self removeSignupObservers];
+                                  self.signupController = nil;
 
-    self.userToken = nil;
-    [self removeSignupObservers];
-    self.signupController = nil;
+                                  if (completion)
+                                      completion();
+                              }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,7 +104,7 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
         if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *) segue.destinationViewController;
             self.signupController = (INVSignUpTableViewController *) navController.topViewController;
-            self.signupController.shouldSignUpUser = YES;
+
             [self addSignUpObservers];
         }
     }
@@ -302,11 +305,8 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
         NSString *signedupEmail = self.signupController.signupEmail;
         NSString *signedupPassword = self.signupController.signupPassword;
 
-        [self dismissViewControllerAnimated:YES
-                                 completion:^{
-                                     [self removeSignupObservers];
-                                     self.signupController = nil;
-                                 }];
+        [self dismissViewControllerAnimated:YES completion:nil];
+
         if (self.signupController.signupSuccess) {
             [self loginToServerWithUser:signedupEmail andPassword:signedupPassword];
         }
