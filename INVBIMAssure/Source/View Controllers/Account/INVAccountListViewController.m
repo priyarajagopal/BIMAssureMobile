@@ -182,7 +182,7 @@ static NSString *const reuseIdentifier = @"Cell";
         RBCollectionViewInfoFolderDimple *dimple = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                                                            withReuseIdentifier:@"dimple"
                                                                                                   forIndexPath:indexPath];
-        dimple.color = [UIColor whiteColor];
+        dimple.color = [UIColor colorWithRed:194.0 / 255 green:224.0 / 255 blue:240.0 / 255 alpha:1.0];
 
         return dimple;
     }
@@ -192,6 +192,8 @@ static NSString *const reuseIdentifier = @"Cell";
             [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                     withReuseIdentifier:@"folder"
                                                            forIndexPath:indexPath];
+
+        folder.backgroundColor = [UIColor colorWithRed:194.0 / 255 green:224.0 / 255 blue:240.0 / 255 alpha:1.0];
 
         if (indexPath.section == 0) {
             folder.account = [self.dataResultsController objectAtIndexPath:indexPath];

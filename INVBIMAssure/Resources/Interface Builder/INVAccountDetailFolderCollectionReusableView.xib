@@ -20,7 +20,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Gz3-ym-1h7" secondAttribute="trailing" priority="999" constant="4" id="OKS-sk-6l1"/>
                         <constraint firstItem="Gz3-ym-1h7" firstAttribute="top" secondItem="KfZ-Gk-SA0" secondAttribute="top" priority="999" constant="4" id="bbJ-K2-rwi"/>
