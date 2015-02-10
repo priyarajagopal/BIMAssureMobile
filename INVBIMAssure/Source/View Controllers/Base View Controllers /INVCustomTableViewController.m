@@ -46,8 +46,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    INVLogDebug();
-
     [super viewWillDisappear:animated];
     self.hud = nil;
 }

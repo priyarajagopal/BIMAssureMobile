@@ -512,6 +512,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02E5852F1A89119900D9CD18 /* EmpireMobileManager.framework in Frameworks */,
 				1827E538D895002A1BC239B6 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1470,6 +1471,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/Source/Supporting Files/INVBIMAssurePrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1631,6 +1633,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/Source/Supporting Files/INVBIMAssurePrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1792,6 +1795,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/Source/Supporting Files/INVBIMAssurePrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
