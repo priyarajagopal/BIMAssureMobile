@@ -237,7 +237,7 @@ static NSString *const reuseIdentifier = @"Cell";
     }
 
     if (indexPath.section == 1) {
-        cell.invite = accountOrInvite;
+        // cell.invite = accountOrInvite;
     }
 
     return cell;
@@ -819,7 +819,15 @@ static NSString *const reuseIdentifier = @"Cell";
         sizingView = [[sizingViewNib instantiateWithOwner:nil options:nil] firstObject];
     });
 
-    sizingView.account = [self.dataResultsController objectAtIndexPath:indexPath];
+    id object = [self.dataResultsController objectAtIndexPath:indexPath];
+
+    if (indexPath.section == 0) {
+        sizingView.account = object;
+    }
+    else {
+        // TODO: Support pending invites
+        return 0;
+    }
 
     return [sizingView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
 }

@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *accessoryLabel;
+@property (weak, nonatomic) IBOutlet UIButton *signInButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *roleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *projectCountLabel;
@@ -41,12 +41,12 @@
         }
 
         if (self.isCurrentlySignedIn) {
-            self.accessoryLabel.textColor = greenShade;
-            self.accessoryLabel.text = @"\uf058";
+            [self.signInButton setTitleColor:greenShade forState:UIControlStateNormal];
+            [self.signInButton setTitle:@"\uf058" forState:UIControlStateNormal];
         }
         else {
-            self.accessoryLabel.textColor = [UIColor grayColor];
-            self.accessoryLabel.text = @"\uf08b";
+            [self.signInButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [self.signInButton setTitle:@"\uf08b" forState:UIControlStateNormal];
         }
     }
 
@@ -55,8 +55,6 @@
         self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
         self.projectStatusLabel.text = NSLocalizedString(@"ACCOUNT_STATUS_INVITE", nil);
         self.projectStatusLabel.textColor = [UIColor orangeColor];
-
-        self.accessoryLabel.text = @"";
     }
 }
 

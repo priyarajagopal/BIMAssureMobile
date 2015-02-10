@@ -235,6 +235,7 @@
                 <outlet property="projectCountLabel" destination="PBd-97-v1U" id="QBT-Fz-Jjl"/>
                 <outlet property="projectStatusLabel" destination="K0h-oq-kzd" id="Mhp-q0-lMl"/>
                 <outlet property="roleLabel" destination="dnp-RP-P5a" id="BIN-Qg-kJx"/>
+                <outlet property="signInButton" destination="T9h-UK-8FU" id="umI-2P-jbA"/>
                 <outlet property="userCountLabel" destination="ZwR-Is-r1b" id="PRe-qX-gYE"/>
             </connections>
             <point key="canvasLocation" x="456" y="330"/>
