@@ -18,6 +18,8 @@
 @property IBOutlet UITextField *phoneNumberTextField;
 @property IBOutlet UITextField *companyTextField;
 
+@property IBOutlet UIBarButtonItem *saveButtonItem;
+
 @end
 
 @implementation INVUserProfileTableViewController
@@ -25,28 +27,59 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.refreshControl = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    if (self.userId) {
+        self.emailTextField.enabled = NO;
+        self.firstNameTextField.enabled = NO;
+        self.lastNameTextField.enabled = NO;
+        self.addressTextField.enabled = NO;
+        self.phoneNumberTextField.enabled = NO;
+        self.companyTextField.enabled = NO;
+
+        // Hide the save button
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+
     [self fetchUserProfileDetails];
 }
 
 - (void)fetchUserProfileDetails
 {
-    [self.globalDataManager.invServerClient
-        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *signedInUser, INVEmpireMobileError *error) {
-            self.firstNameTextField.text = signedInUser.firstName;
-            self.lastNameTextField.text = signedInUser.lastName;
+    const void (^fetchProfile)(NSNumber *) = ^(NSNumber *userId) {
+        [self.globalDataManager.invServerClient
+            getUserProfileInSignedInAccountWithId:userId
+                              withCompletionBlock:^(INVUser *userProfile, INVEmpireMobileError *error) {
+                                  if (error) {
+                                      INVLogError(@"%@", error);
+                                      return;
+                                  }
 
-            [self.globalDataManager.invServerClient
-                getUserProfileInSignedInAccountWithId:signedInUser.userId
-                                  withCompletionBlock:^(INVUser *userProfile, INVEmpireMobileError *error) {
-                                      if (error) {
-                                          INVLogError(@"%@", error);
-                                          return;
-                                      }
-                                      self.emailTextField.text = userProfile.email;
-                                      self.addressTextField.text = userProfile.address;
-                                      self.phoneNumberTextField.text = userProfile.phoneNumber;
-                                      self.companyTextField.text = userProfile.companyName;
-                                  }];
-        }];
+                                  self.firstNameTextField.text = userProfile.firstName;
+                                  self.lastNameTextField.text = userProfile.lastName;
+
+                                  self.emailTextField.text = userProfile.email;
+                                  self.addressTextField.text = userProfile.address;
+                                  self.phoneNumberTextField.text = userProfile.phoneNumber;
+                                  self.companyTextField.text = userProfile.companyName;
+                              }];
+    };
+
+    if (self.userId) {
+        fetchProfile(self.userId);
+    }
+    else {
+        [self.globalDataManager.invServerClient
+            getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *signedInUser, INVEmpireMobileError *error) {
+                fetchProfile(signedInUser.userId);
+            }];
+    }
 }
+
 @end

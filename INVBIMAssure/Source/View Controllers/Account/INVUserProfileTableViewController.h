@@ -10,4 +10,6 @@
 
 @interface INVUserProfileTableViewController : INVCustomTableViewController
 
+@property (nonatomic, readwrite) NSNumber *userId;
+
 @end
