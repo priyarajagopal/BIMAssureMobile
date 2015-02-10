@@ -31,22 +31,21 @@
 - (void)fetchUserProfileDetails
 {
     [self.globalDataManager.invServerClient
-        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *result, INVEmpireMobileError *error) {
-            self.emailTextField.text = result.email;
-            self.firstNameTextField.text = result.firstName;
-            self.lastNameTextField.text = result.lastName;
+        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *signedInUser, INVEmpireMobileError *error) {
+            self.firstNameTextField.text = signedInUser.firstName;
+            self.lastNameTextField.text = signedInUser.lastName;
 
             [self.globalDataManager.invServerClient
-                getUserProfileInSignedInAccountWithId:result.userId
-                                  withCompletionBlock:^(INVUser *result, INVEmpireMobileError *error) {
+                getUserProfileInSignedInAccountWithId:signedInUser.userId
+                                  withCompletionBlock:^(INVUser *userProfile, INVEmpireMobileError *error) {
                                       if (error) {
                                           INVLogError(@"%@", error);
                                           return;
                                       }
-
-                                      self.addressTextField.text = result.address;
-                                      self.phoneNumberTextField.text = result.phoneNumber;
-                                      self.companyTextField.text = result.companyName;
+                                      self.emailTextField.text = userProfile.email;
+                                      self.addressTextField.text = userProfile.address;
+                                      self.phoneNumberTextField.text = userProfile.phoneNumber;
+                                      self.companyTextField.text = userProfile.companyName;
                                   }];
         }];
 }
