@@ -424,7 +424,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gg5-bu-BNp">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="xez-oD-4ur" eventType="editingDidEndOnExit" id="4Hu-Mm-gjw"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="QIp-US-8As" eventType="editingDidBegin" id="nNn-8y-pOa"/>
@@ -470,7 +470,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xez-oD-4ur">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="6Nx-2D-s0t" eventType="editingDidEndOnExit" id="5e6-1p-T4p"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="QIp-US-8As" eventType="editingDidBegin" id="j0F-41-28u"/>
@@ -704,7 +704,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Name (optional)" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LDT-Yx-Yy9">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="oCL-UB-qgX" eventType="editingDidEndOnExit" id="93f-Is-FEW"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="QIp-US-8As" eventType="editingDidBegin" id="kCu-W3-NFm"/>
@@ -750,7 +750,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Title (optional)" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oCL-UB-qgX">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="IoQ-jz-H2m" eventType="editingDidEndOnExit" id="8ay-b7-xS6"/>
                                                         <action selector="becomeFirstResponder" destination="wvN-lc-wf9" eventType="editingDidEndOnExit" id="9si-Tl-Jko"/>
@@ -910,7 +910,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="ggc-zM-3Ho"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -924,7 +925,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Account Description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFi-U3-i3t">
                                                     <rect key="frame" x="48" y="8" width="144" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -965,7 +966,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nug-OK-W0Q">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="xJd-7X-q4D" eventType="editingDidEndOnExit" id="Ivo-7c-7nb"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="QIp-US-8As" eventType="editingDidBegin" id="0jn-Xf-MM5"/>
@@ -1011,7 +1012,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Address" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xJd-7X-q4D">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="SpF-yZ-jjQ" eventType="editingDidEndOnExit" id="WNU-0S-zuB"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="QIp-US-8As" eventType="editingDidBegin" id="2xn-rP-AQD"/>
@@ -1057,7 +1058,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contact Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SpF-yZ-jjQ">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="3Gb-Co-Yw1" eventType="editingDidEndOnExit" id="jUe-iA-ZNS"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="QIp-US-8As" eventType="editingDidBegin" id="Via-zO-aT9"/>

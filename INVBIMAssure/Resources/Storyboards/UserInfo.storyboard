@@ -374,7 +374,7 @@
                                                     <rect key="frame" x="160" y="8" width="432" height="27"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="4GX-fU-vKE" eventType="editingDidEndOnExit" id="nfs-ML-7iw"/>
                                                     </connections>
@@ -411,7 +411,7 @@
                                                     <rect key="frame" x="160" y="8" width="432" height="27"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="DiZ-e3-tY6" eventType="editingDidEndOnExit" id="6wg-mj-H8q"/>
                                                     </connections>
@@ -452,7 +452,7 @@
                                                     <rect key="frame" x="160" y="8" width="432" height="27"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="gQg-YX-s8a" eventType="editingDidEndOnExit" id="Uaf-nW-bjJ"/>
                                                     </connections>
@@ -526,7 +526,7 @@
                                                     <rect key="frame" x="160" y="8" width="432" height="27"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="resignFirstResponder" destination="1yN-k2-NNa" eventType="editingDidEndOnExit" id="IJA-W8-rDS"/>
                                                     </connections>
