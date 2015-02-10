@@ -124,6 +124,10 @@
 
     // This is for the accessory checkmark
     [[UIImageView appearanceWhenContainedIn:[UITableView class], nil] setTintColor:darkGreyColor];
+
+    // Universal shadow offset
+    [[UILabel appearance] setShadowOffset:CGSizeZero];
+    [[UITextField appearance] setTextColor:darkGreyColor];
 }
 
 #pragma mark - VC management
