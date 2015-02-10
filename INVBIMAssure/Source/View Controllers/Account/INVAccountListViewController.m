@@ -17,12 +17,15 @@ const NSInteger INV_CELLSIZE = 100;
 #import "INVMergedFetchedResultsControler.h"
 #import "INVBlockUtils.h"
 #import "INVSignUpTableViewController.h"
+#import "INVAccountDetailFolderCollectionReusableView.h"
+
+#import <RBCollectionViewInfoFolderLayout/RBCollectionViewInfoFolderLayout.h>
 
 #pragma mark - KVO
 NSString *const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 
 @interface INVAccountListViewController () <INVDefaultAccountAlertViewDelegate, UICollectionViewDataSource,
-    NSFetchedResultsControllerDelegate>
+    NSFetchedResultsControllerDelegate, RBCollectionViewInfoFolderLayoutDelegate>
 @property (nonatomic, assign) BOOL accountLoginSuccess;
 @property (nonatomic, strong) INVDefaultAccountAlertView *alertView;
 @property (nonatomic, strong) INVAccountManager *accountManager;
@@ -30,10 +33,10 @@ NSString *const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic, strong) NSNumber *currentAccountId;
 @property (nonatomic, strong) NSString *currentInviteCode;
 @property (nonatomic, assign) BOOL saveAsDefault;
-@property (nonatomic, strong) INVGenericCollectionViewDataSource *dataSource;
 @property (nonatomic, strong) INVSignUpTableViewController *signUpController;
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (readonly, nonatomic, strong) RBCollectionViewInfoFolderLayout *collectionViewLayout;
 
 @end
 
@@ -53,6 +56,23 @@ static NSString *const reuseIdentifier = @"Cell";
     // Register cell classes
     UINib *accountCellNib = [UINib nibWithNibName:@"INVAccountViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.collectionView registerNib:accountCellNib forCellWithReuseIdentifier:@"AccountCell"];
+
+    [self.collectionView registerClass:[RBCollectionViewInfoFolderDimple class]
+            forSupplementaryViewOfKind:RBCollectionViewInfoFolderDimpleKind
+                   withReuseIdentifier:@"dimple"];
+
+    [self.collectionView registerNib:[UINib nibWithNibName:@"INVAccountDetailFolderCollectionReusableView" bundle:nil]
+          forSupplementaryViewOfKind:RBCollectionViewInfoFolderFolderKind
+                 withReuseIdentifier:@"folder"];
+
+    [self.collectionView registerClass:[UICollectionReusableView class]
+            forSupplementaryViewOfKind:RBCollectionViewInfoFolderHeaderKind
+                   withReuseIdentifier:@"reusable"];
+
+    [self.collectionView registerClass:[UICollectionReusableView class]
+            forSupplementaryViewOfKind:RBCollectionViewInfoFolderFooterKind
+                   withReuseIdentifier:@"reusable"];
+
     if (self.hideSettingsButton) {
         self.settingsButton = nil;
     }
@@ -66,7 +86,7 @@ static NSString *const reuseIdentifier = @"Cell";
     self.refreshControl = [UIRefreshControl new];
 
     [self.refreshControl addTarget:self action:@selector(fetchListOfAccounts) forControlEvents:UIControlEventValueChanged];
-    [self.collectionView addSubview:self.refreshControl];
+    // [self.collectionView addSubview:self.refreshControl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,7 +98,6 @@ static NSString *const reuseIdentifier = @"Cell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.collectionView.dataSource = self.dataSource;
 
     [self fetchListOfAccounts];
 
@@ -104,8 +123,7 @@ static NSString *const reuseIdentifier = @"Cell";
     self.alertView = nil;
     self.accountManager = nil;
     self.dataResultsController = nil;
-    self.collectionView.dataSource = nil;
-    self.dataSource = nil;
+
     [self removeSignupObservers];
     self.signUpController = nil;
 }
@@ -116,61 +134,123 @@ static NSString *const reuseIdentifier = @"Cell";
     [self setEstimatedSizeForCells];
 }
 
-- (INVGenericCollectionViewDataSource *)dataSource
+- (void)loginLogoutAccount:(INVAccount *)account
 {
-    if (!_dataSource) {
-        _dataSource = [[INVGenericCollectionViewDataSource alloc] initWithFetchedResultsController:self.dataResultsController];
-        INV_CollectionCellConfigurationBlock cellConfigurationBlock =
-            ^(INVAccountViewCell *cell, id accountOrInvite, NSIndexPath *indexPath) {
-                if (indexPath.section == 0) {
-                    cell.account = accountOrInvite;
-
-                    NSNumber *currentAcnt = self.globalDataManager.loggedInAccount;
-                    if (currentAcnt && [[accountOrInvite accountId] isEqualToNumber:currentAcnt]) {
-                        cell.isCurrentlySignedIn = YES;
-                    }
-                    else {
-                        cell.isCurrentlySignedIn = NO;
-                    }
-                    if ([self.globalDataManager.defaultAccountId isEqualToNumber:cell.account.accountId]) {
-                        cell.isDefault = YES;
-                    }
-                    else {
-                        cell.isDefault = NO;
-                    }
-                }
-
-                if (indexPath.section == 1) {
-                    cell.invite = accountOrInvite;
-                }
-            };
-
-        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"AccountCell" configureBlock:cellConfigurationBlock];
+    if ([self.globalDataManager.loggedInAccount isEqualToNumber:account.accountId]) {
+        [self showLogoutPromptAlertForAccount:account];
     }
-    return _dataSource;
+
+    else {
+        self.currentAccountId = account.accountId;
+        // [self showBlurEffect];
+
+        NSString *message = (self.globalDataManager.loggedInAccount == nil) ? @"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE"
+                                                                            : @"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE";
+
+        message = [NSString stringWithFormat:NSLocalizedString(message, nil), account.name];
+
+        BOOL shouldAllowSaveDefaultAccountOption = YES;
+        if (!self.globalDataManager.rememberMeOptionSelected) {
+            shouldAllowSaveDefaultAccountOption = NO;
+        }
+
+        [self showSaveAsDefaultAlertWithMessage:message
+                           andAcceptButtonTitle:NSLocalizedString(@"LOG_INTO_ACCOUNT", nil)
+                           andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)
+                              showDefaultOption:shouldAllowSaveDefaultAccountOption];
+    }
 }
 
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)presentPendingInvitePrompt:(INVUserInvite *)invite
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"SignUpUserSegue"]) {
-        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
-            UINavigationController *navController = segue.destinationViewController;
-            self.signUpController = (INVSignUpTableViewController *) navController.topViewController;
-            [self addSignUpObservers];
-            self.signUpController.shouldSignUpUser = NO;
+    self.currentInviteCode = invite.invitationCode;
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), invite.accountName];
+
+    [self showSaveAsDefaultAlertWithMessage:message
+                       andAcceptButtonTitle:NSLocalizedString(@"INVITE_ACCEPT", nil)
+                       andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)
+                          showDefaultOption:NO];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
+           viewForSupplementaryElementOfKind:(NSString *)kind
+                                 atIndexPath:(NSIndexPath *)indexPath
+{
+    if (kind == RBCollectionViewInfoFolderDimpleKind) {
+        RBCollectionViewInfoFolderDimple *dimple = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                                                           withReuseIdentifier:@"dimple"
+                                                                                                  forIndexPath:indexPath];
+        dimple.color = [UIColor colorWithRed:194.0 / 255 green:224.0 / 255 blue:240.0 / 255 alpha:1.0];
+
+        return dimple;
+    }
+
+    if (kind == RBCollectionViewInfoFolderFolderKind) {
+        INVAccountDetailFolderCollectionReusableView *folder =
+            [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                    withReuseIdentifier:@"folder"
+                                                           forIndexPath:indexPath];
+
+        folder.backgroundColor = [UIColor colorWithRed:194.0 / 255 green:224.0 / 255 blue:240.0 / 255 alpha:1.0];
+
+        if (indexPath.section == 0) {
+            folder.account = [self.dataResultsController objectAtIndexPath:indexPath];
+        }
+
+        return folder;
+    }
+
+    if (kind == RBCollectionViewInfoFolderFooterKind || kind == RBCollectionViewInfoFolderHeaderKind) {
+        UICollectionReusableView *reusable = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                                                     withReuseIdentifier:@"reusable"
+                                                                                            forIndexPath:indexPath];
+
+        return reusable;
+    }
+
+    return nil;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    INVAccountViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AccountCell" forIndexPath:indexPath];
+    id accountOrInvite = [self.dataResultsController objectAtIndexPath:indexPath];
+
+    if (indexPath.section == 0) {
+        cell.account = accountOrInvite;
+
+        NSNumber *currentAcnt = self.globalDataManager.loggedInAccount;
+        if (currentAcnt && [[accountOrInvite accountId] isEqualToNumber:currentAcnt]) {
+            cell.isCurrentlySignedIn = YES;
+        }
+        else {
+            cell.isCurrentlySignedIn = NO;
+        }
+        if ([self.globalDataManager.defaultAccountId isEqualToNumber:cell.account.accountId]) {
+            cell.isDefault = YES;
+        }
+        else {
+            cell.isDefault = NO;
         }
     }
+
+    if (indexPath.section == 1) {
+        cell.invite = accountOrInvite;
+    }
+
+    return cell;
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [self.collectionView reloadData];
+    return self.dataResultsController.sections.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.dataResultsController.sections[section] numberOfObjects];
 }
 
 #pragma mark UICollectionViewDelegate
@@ -189,45 +269,28 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        INVAccount *account = [self.dataResultsController objectAtIndexPath:indexPath];
-        if ([self.globalDataManager.loggedInAccount isEqualToNumber:account.accountId]) {
-            [self showLogoutPromptAlertForAccount:account];
-        }
+    [self.collectionViewLayout toggleFolderViewForIndexPath:indexPath];
+}
 
-        else {
-            self.currentAccountId = account.accountId;
-            // [self showBlurEffect];
+#pragma mark - Navigation
 
-            NSString *message = (self.globalDataManager.loggedInAccount == nil) ? @"ARE_YOU_SURE_ACCOUNTLOGIN_MESSAGE"
-                                                                                : @"ARE_YOU_SURE_ACCOUNTSWITCH_MESSAGE";
-
-            message = [NSString stringWithFormat:NSLocalizedString(message, nil), account.name];
-
-            BOOL shouldAllowSaveDefaultAccountOption = YES;
-            if (!self.globalDataManager.rememberMeOptionSelected) {
-                shouldAllowSaveDefaultAccountOption = NO;
-            }
-
-            [self showSaveAsDefaultAlertWithMessage:message
-                               andAcceptButtonTitle:NSLocalizedString(@"LOG_INTO_ACCOUNT", nil)
-                               andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)
-                                  showDefaultOption:shouldAllowSaveDefaultAccountOption];
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"SignUpUserSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navController = segue.destinationViewController;
+            self.signUpController = (INVSignUpTableViewController *) navController.topViewController;
+            [self addSignUpObservers];
         }
     }
+}
 
-    if (indexPath.section == 1) {
-        INVUserInvite *invite = [self.dataResultsController objectAtIndexPath:indexPath];
-
-        self.currentInviteCode = invite.invitationCode;
-        NSString *message =
-            [NSString stringWithFormat:NSLocalizedString(@"ARE_YOU_SURE_INVITE_MESSAGE", nil), invite.accountName];
-
-        [self showSaveAsDefaultAlertWithMessage:message
-                           andAcceptButtonTitle:NSLocalizedString(@"INVITE_ACCEPT", nil)
-                           andCancelButtonTitle:NSLocalizedString(@"CANCEL", nil)
-                              showDefaultOption:NO];
-    }
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - INVDefaultAccountAlertViewDelegate
@@ -236,8 +299,8 @@ static NSString *const reuseIdentifier = @"Cell";
     [self dismissSaveAsDefaultAlert];
     self.saveAsDefault = isDefault;
 
-    NSString* buttonTitle = self.alertView.acceptButton.titleLabel.text;
-    
+    NSString *buttonTitle = self.alertView.acceptButton.titleLabel.text;
+
     if ([buttonTitle isEqualToString:NSLocalizedString(@"INVITE_ACCEPT", nil)]) {
         [self acceptInvitationWithSelectedInvitationCode];
         return;
@@ -462,14 +525,20 @@ static NSString *const reuseIdentifier = @"Cell";
 #pragma mark - helpers
 - (void)showLoadProgress
 {
-    self.collectionView.dataSource = self.dataSource;
     self.hud = [MBProgressHUD loadingViewHUD:nil];
 }
 
-- (void)setEstimatedSizeForCells{}
+- (void)setEstimatedSizeForCells
+{
+    self.collectionViewLayout.cellSize = CGSizeMake(320, 300);
+    self.collectionViewLayout.interItemSpacingX = 10;
+    self.collectionViewLayout.interItemSpacingY = 10;
+    self.collectionViewLayout.stickyHeaders = YES;
 
-        -
-        (void)notifyAccountLogin
+    // self.collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+}
+
+- (void)notifyAccountLogin
 {
     self.accountLoginSuccess = YES;
 }
@@ -653,10 +722,36 @@ static NSString *const reuseIdentifier = @"Cell";
 
 #pragma mark - UIEvent handlers
 
-- (IBAction)done:(id)sener{}
+- (IBAction)signIn:(id)sender
+{
+    UICollectionViewCell *cell = nil;
 
-                 - (IBAction)
-    manualDismiss:(id)sender
+    while ([sender superview] != nil) {
+        if ([[sender superview] isKindOfClass:[UICollectionViewCell class]]) {
+            cell = (UICollectionViewCell *) [sender superview];
+            break;
+        }
+
+        sender = [sender superview];
+    }
+
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    id accountOrInvite = [self.dataResultsController objectAtIndexPath:indexPath];
+
+    if (indexPath.section == 0) {
+        [self loginLogoutAccount:accountOrInvite];
+    }
+    else {
+        [self presentPendingInvitePrompt:accountOrInvite];
+    }
+}
+
+- (IBAction)done:(id)sener
+{
+    /* Do nothing */
+}
+
+- (IBAction)manualDismiss:(id)sender
 {
     // Known bug: http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8
     [self dismissViewControllerAnimated:YES
@@ -667,10 +762,12 @@ static NSString *const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller{}
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    /* Do nothing */
+}
 
-                                    - (void)
-         controllerDidChangeContent:(NSFetchedResultsController *)controller
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     // Note on special case:
     // The  notifications handler periodically fetches the pending invites list in the background. This results in the
@@ -681,7 +778,7 @@ static NSString *const reuseIdentifier = @"Cell";
     // reloading the data.
     // if the user has manually triggered a refresh or the view is loaded, the table view is reloaded.
     if (!self.isNSFetchedResultsChangeTypeUpdated) {
-        [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        // [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -701,6 +798,39 @@ static NSString *const reuseIdentifier = @"Cell";
 {
 }
 
+#pragma mark - RBCollectionViewInfoFolderLayoutDelegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                    layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
+    sizeForHeaderInSection:(NSInteger)section
+{
+    return CGSizeZero;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView
+                        layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
+    heightForFolderAtIndexPath:(NSIndexPath *)indexPath
+{
+    static INVAccountDetailFolderCollectionReusableView *sizingView = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        UINib *sizingViewNib =
+            [UINib nibWithNibName:NSStringFromClass([INVAccountDetailFolderCollectionReusableView class]) bundle:nil];
+        sizingView = [[sizingViewNib instantiateWithOwner:nil options:nil] firstObject];
+    });
+
+    sizingView.account = [self.dataResultsController objectAtIndexPath:indexPath];
+
+    return [sizingView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                    layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
+    sizeForFooterInSection:(NSInteger)section
+{
+    return CGSizeZero;
+}
+
 #pragma mark - utils
 
 - (void)addSignUpObservers
@@ -716,14 +846,11 @@ static NSString *const reuseIdentifier = @"Cell";
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    INVLogDebug();
-
     if ([keyPath isEqualToString:KVO_INVSignupSuccess]) {
         [self dismissViewControllerAnimated:YES
                                  completion:^{
                                      [self removeSignupObservers];
                                      self.signUpController = nil;
-
                                  }];
     }
 }

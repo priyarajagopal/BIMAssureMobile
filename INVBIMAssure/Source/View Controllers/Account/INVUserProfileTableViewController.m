@@ -22,7 +22,22 @@
 
 @implementation INVUserProfileTableViewController
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self fetchUserProfileDetails];
+}
+
 - (void)fetchUserProfileDetails
 {
+    INVSignedInUser *user = self.globalDataManager.invServerClient.accountManager.signedinUser;
+
+    self.emailTextField.text = user.email;
+    self.firstNameTextField.text = user.firstName;
+    self.lastNameTextField.text = user.lastName;
+
+    self.addressTextField.text = user.address;
+    self.phoneNumberTextField.text = user.phoneNumber;
+    self.companyTextField.text = user.companyName;
 }
 @end

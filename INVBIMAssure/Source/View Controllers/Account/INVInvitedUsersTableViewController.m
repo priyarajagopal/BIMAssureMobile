@@ -9,6 +9,8 @@
 #import "INVInvitedUsersTableViewController.h"
 #import <VENTokenField/VENTokenField.h>
 
+@import MessageUI;
+
 static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 @interface INVInvitedUsersTableViewController () <NSFetchedResultsControllerDelegate>
