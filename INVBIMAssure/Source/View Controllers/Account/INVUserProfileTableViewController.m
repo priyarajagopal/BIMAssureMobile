@@ -30,14 +30,24 @@
 
 - (void)fetchUserProfileDetails
 {
-    INVSignedInUser *user = self.globalDataManager.invServerClient.accountManager.signedinUser;
+    [self.globalDataManager.invServerClient
+        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *result, INVEmpireMobileError *error) {
+            self.emailTextField.text = result.email;
+            self.firstNameTextField.text = result.firstName;
+            self.lastNameTextField.text = result.lastName;
 
-    self.emailTextField.text = user.email;
-    self.firstNameTextField.text = user.firstName;
-    self.lastNameTextField.text = user.lastName;
+            [self.globalDataManager.invServerClient
+                getUserProfileInSignedInAccountWithId:result.userId
+                                  withCompletionBlock:^(INVUser *result, INVEmpireMobileError *error) {
+                                      if (error) {
+                                          INVLogError(@"%@", error);
+                                          return;
+                                      }
 
-    self.addressTextField.text = user.address;
-    self.phoneNumberTextField.text = user.phoneNumber;
-    self.companyTextField.text = user.companyName;
+                                      self.addressTextField.text = result.address;
+                                      self.phoneNumberTextField.text = result.phoneNumber;
+                                      self.companyTextField.text = result.companyName;
+                                  }];
+        }];
 }
 @end

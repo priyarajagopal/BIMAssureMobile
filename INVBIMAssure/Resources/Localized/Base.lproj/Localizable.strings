@@ -191,5 +191,7 @@
 "CONTACT_NAME_UNAVAILABLE"="Contact name unavailable";
 "CONTACT_PHONE_UNAVAILABLE"="Contact phone unavailable";
 
+"ERROR_LOAD_USER_PROFILE"="User Info Unavailable";
+
 "INV_MEMBERSHIP_TYPE_USER"="User";
 "INV_MEMBERSHIP_TYPE_ADMIN"="Admin";

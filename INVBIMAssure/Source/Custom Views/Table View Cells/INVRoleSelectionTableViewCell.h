@@ -10,6 +10,6 @@
 
 @interface INVRoleSelectionTableViewCell : UITableViewCell
 
-@property (nonatomic) _INV_MEMBERSHIP_TYPE role;
+@property (nonatomic) INV_MEMBERSHIP_TYPE role;
 
 @end

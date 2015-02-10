@@ -8,7 +8,7 @@
 
 #import "INVRoleSelectionTableViewCell.h"
 
-static inline NSString *membershipTypeToString(_INV_MEMBERSHIP_TYPE type)
+static inline NSString *membershipTypeToString(INV_MEMBERSHIP_TYPE type)
 {
     static NSString *localizedKeys[] = { @"INV_MEMBERSHIP_TYPE_USER", @"INV_MEMBERSHIP_TYPE_ADMIN" };
 
@@ -36,7 +36,7 @@ static inline NSString *membershipTypeToString(_INV_MEMBERSHIP_TYPE type)
     [self.currentRoleButton setTitle:membershipTypeToString(_role) forState:UIControlStateNormal];
 }
 
-- (void)setRole:(_INV_MEMBERSHIP_TYPE)role
+- (void)setRole:(INV_MEMBERSHIP_TYPE)role
 {
     _role = role;
 
@@ -77,7 +77,7 @@ static inline NSString *membershipTypeToString(_INV_MEMBERSHIP_TYPE type)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"INVRoleCell"];
     }
 
-    cell.textLabel.text = membershipTypeToString((_INV_MEMBERSHIP_TYPE) indexPath.row);
+    cell.textLabel.text = membershipTypeToString((INV_MEMBERSHIP_TYPE) indexPath.row);
 
     if (indexPath.row == self.role) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -95,7 +95,7 @@ static inline NSString *membershipTypeToString(_INV_MEMBERSHIP_TYPE type)
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    self.role = (_INV_MEMBERSHIP_TYPE) indexPath.row;
+    self.role = (INV_MEMBERSHIP_TYPE) indexPath.row;
 
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

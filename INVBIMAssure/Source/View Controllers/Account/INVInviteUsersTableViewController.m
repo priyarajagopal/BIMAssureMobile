@@ -214,7 +214,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 #warning Update view to get role from user
     [self.globalDataManager.invServerClient
         inviteUsersToSignedInAccount:users
-                            withRole:_INV_ADMIN
+                            withRole:INV_MEMBERSHIP_TYPE_ADMIN
                  withCompletionBlock:^(INVEmpireMobileError *error) {
                      [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 
