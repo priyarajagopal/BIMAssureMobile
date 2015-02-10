@@ -10,4 +10,6 @@
 
 @interface INVCreateAccountViewController : INVCustomTableViewController
 
+@property (assign, nonatomic) BOOL signupSuccess;
+
 @end

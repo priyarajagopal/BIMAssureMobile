@@ -86,7 +86,7 @@ static NSString *const reuseIdentifier = @"Cell";
     self.refreshControl = [UIRefreshControl new];
 
     [self.refreshControl addTarget:self action:@selector(fetchListOfAccounts) forControlEvents:UIControlEventValueChanged];
-    // [self.collectionView addSubview:self.refreshControl];
+    [self.collectionView addSubview:self.refreshControl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -852,6 +852,8 @@ static NSString *const reuseIdentifier = @"Cell";
                                      [self removeSignupObservers];
                                      self.signUpController = nil;
                                  }];
+
+        [self fetchListOfAccounts];
     }
 }
 @end

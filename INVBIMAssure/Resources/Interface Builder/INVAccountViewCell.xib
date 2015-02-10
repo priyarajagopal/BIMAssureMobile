@@ -75,48 +75,13 @@
                                             <constraint firstAttribute="height" constant="1" id="3WQ-gG-abg"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckL-Ke-o7s" userLabel="Bottom Container">
-                                        <rect key="frame" x="0.0" y="249" width="306" height="37"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBd-97-v1U">
-                                                <rect key="frame" x="8" y="8" width="28" height="21"/>
-                                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0h-oq-kzd">
-                                                <rect key="frame" x="249" y="8" width="49" height="21"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwR-Is-r1b">
-                                                <rect key="frame" x="44" y="8" width="32" height="21"/>
-                                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="PBd-97-v1U" firstAttribute="leading" secondItem="ckL-Ke-o7s" secondAttribute="leading" constant="8" id="0Wf-oL-F3w"/>
-                                            <constraint firstItem="ZwR-Is-r1b" firstAttribute="leading" secondItem="PBd-97-v1U" secondAttribute="trailing" constant="8" id="3KL-4D-z4m"/>
-                                            <constraint firstItem="ZwR-Is-r1b" firstAttribute="top" secondItem="ckL-Ke-o7s" secondAttribute="top" constant="8" id="ReT-Uh-3pH"/>
-                                            <constraint firstAttribute="bottom" secondItem="PBd-97-v1U" secondAttribute="bottom" constant="8" id="d0S-jt-aZD"/>
-                                            <constraint firstAttribute="bottom" secondItem="ZwR-Is-r1b" secondAttribute="bottom" constant="8" id="q7m-iF-jrJ"/>
-                                            <constraint firstItem="K0h-oq-kzd" firstAttribute="top" secondItem="ckL-Ke-o7s" secondAttribute="top" constant="8" id="q8e-bd-8eU"/>
-                                            <constraint firstItem="PBd-97-v1U" firstAttribute="top" secondItem="ckL-Ke-o7s" secondAttribute="top" constant="8" id="sou-6y-Azi"/>
-                                            <constraint firstAttribute="trailing" secondItem="K0h-oq-kzd" secondAttribute="trailing" constant="8" id="wXc-hV-adi"/>
-                                            <constraint firstAttribute="bottom" secondItem="K0h-oq-kzd" secondAttribute="bottom" constant="8" id="xYo-48-5ay"/>
-                                        </constraints>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9W-Eg-vYS" userLabel="Middle Container">
                                         <rect key="frame" x="0.0" y="176" width="306" height="72"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pUe-sB-hZn">
                                                 <rect key="frame" x="250" y="8" width="48" height="22"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Admin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-RP-P5a">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Admin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnp-RP-P5a">
                                                         <rect key="frame" x="2" y="2" width="44" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -135,7 +100,7 @@
                                                 <rect key="frame" x="268" y="32" width="30" height="38"/>
                                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
                                                 <state key="normal" title="">
-                                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -180,6 +145,41 @@
                                             <constraint firstAttribute="trailing" secondItem="T9h-UK-8FU" secondAttribute="trailing" constant="8" id="m60-Wc-zwT"/>
                                             <constraint firstItem="pUe-sB-hZn" firstAttribute="top" secondItem="G9W-Eg-vYS" secondAttribute="top" constant="8" id="pZ3-2Y-ppS"/>
                                             <constraint firstAttribute="bottom" secondItem="T9h-UK-8FU" secondAttribute="bottom" constant="2" id="zVP-Ze-IpW"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckL-Ke-o7s" userLabel="Bottom Container">
+                                        <rect key="frame" x="0.0" y="249" width="306" height="37"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBd-97-v1U">
+                                                <rect key="frame" x="8" y="8" width="28" height="21"/>
+                                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0h-oq-kzd">
+                                                <rect key="frame" x="249" y="8" width="49" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwR-Is-r1b">
+                                                <rect key="frame" x="44" y="8" width="32" height="21"/>
+                                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="PBd-97-v1U" firstAttribute="leading" secondItem="ckL-Ke-o7s" secondAttribute="leading" constant="8" id="0Wf-oL-F3w"/>
+                                            <constraint firstItem="ZwR-Is-r1b" firstAttribute="leading" secondItem="PBd-97-v1U" secondAttribute="trailing" constant="8" id="3KL-4D-z4m"/>
+                                            <constraint firstItem="ZwR-Is-r1b" firstAttribute="top" secondItem="ckL-Ke-o7s" secondAttribute="top" constant="8" id="ReT-Uh-3pH"/>
+                                            <constraint firstAttribute="bottom" secondItem="PBd-97-v1U" secondAttribute="bottom" constant="8" id="d0S-jt-aZD"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZwR-Is-r1b" secondAttribute="bottom" constant="8" id="q7m-iF-jrJ"/>
+                                            <constraint firstItem="K0h-oq-kzd" firstAttribute="top" secondItem="ckL-Ke-o7s" secondAttribute="top" constant="8" id="q8e-bd-8eU"/>
+                                            <constraint firstItem="PBd-97-v1U" firstAttribute="top" secondItem="ckL-Ke-o7s" secondAttribute="top" constant="8" id="sou-6y-Azi"/>
+                                            <constraint firstAttribute="trailing" secondItem="K0h-oq-kzd" secondAttribute="trailing" constant="8" id="wXc-hV-adi"/>
+                                            <constraint firstAttribute="bottom" secondItem="K0h-oq-kzd" secondAttribute="bottom" constant="8" id="xYo-48-5ay"/>
                                         </constraints>
                                     </view>
                                 </subviews>

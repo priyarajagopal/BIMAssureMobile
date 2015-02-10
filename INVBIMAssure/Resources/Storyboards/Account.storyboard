@@ -114,6 +114,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cx2-vI-jf0">
                                                     <rect key="frame" x="535" y="6" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="onInvitationSwitchToggled:" destination="1T0-xZ-bHJ" eventType="valueChanged" id="nhZ-dl-aOZ"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -143,8 +146,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="8Ep-yI-KvO"/>
                                                             <exclude reference="3o2-1b-1FQ"/>
+                                                            <exclude reference="8Ep-yI-KvO"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
@@ -192,8 +195,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="8fI-Cg-Lfc"/>
                                                             <exclude reference="0pR-z2-kzn"/>
+                                                            <exclude reference="8fI-Cg-Lfc"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
@@ -204,6 +207,7 @@
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="yqx-zN-JHU" eventType="editingDidEndOnExit" id="RhE-wg-smc"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="Syp-js-frk"/>
+                                                        <action selector="textFieldTextChanged:" destination="1T0-xZ-bHJ" eventType="editingChanged" id="wVs-s2-auf"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -237,6 +241,9 @@
                                                             <exclude reference="xWF-m8-k2S"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="1T0-xZ-bHJ" id="D5Y-US-kth"/>
+                                                    </connections>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Account Description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOn-oD-nBx">
                                                     <rect key="frame" x="48" y="8" width="144" height="18"/>
@@ -274,8 +281,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="u9p-Mi-kgp"/>
                                                             <exclude reference="Ml6-HU-JYp"/>
+                                                            <exclude reference="u9p-Mi-kgp"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
@@ -286,6 +293,7 @@
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="IDy-Bt-Yrb" eventType="editingDidEndOnExit" id="R6B-i7-Oft"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="gGB-aQ-0Kb"/>
+                                                        <action selector="textFieldTextChanged:" destination="1T0-xZ-bHJ" eventType="editingChanged" id="Z4L-k0-bKt"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -319,8 +327,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="ulj-qn-eh8"/>
                                                             <exclude reference="jr1-Ml-86z"/>
+                                                            <exclude reference="ulj-qn-eh8"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
@@ -331,6 +339,7 @@
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="8rb-Ra-pdI" eventType="editingDidEndOnExit" id="0pz-Sl-wVm"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="RKt-71-SyY"/>
+                                                        <action selector="textFieldTextChanged:" destination="1T0-xZ-bHJ" eventType="editingChanged" id="9Ce-Mh-UtK"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -364,8 +373,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="y5L-GS-b7l"/>
                                                             <exclude reference="8xE-xv-Ify"/>
+                                                            <exclude reference="y5L-GS-b7l"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
@@ -376,6 +385,7 @@
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="feS-wB-SbV" eventType="editingDidEndOnExit" id="FrG-RI-qVr"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="Xps-pJ-tCi"/>
+                                                        <action selector="textFieldTextChanged:" destination="1T0-xZ-bHJ" eventType="editingChanged" id="Udg-eQ-QYH"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -409,8 +419,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="TRh-4J-onh"/>
                                                             <exclude reference="NSS-5p-pyq"/>
+                                                            <exclude reference="TRh-4J-onh"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
@@ -421,6 +431,7 @@
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="5W4-Rh-qcl" eventType="editingDidEndOnExit" id="gs5-Dk-EU7"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="Cn1-mG-72P"/>
+                                                        <action selector="textFieldTextChanged:" destination="1T0-xZ-bHJ" eventType="editingChanged" id="U9c-fh-ccg"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -454,8 +465,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="Q0m-bu-Z9f"/>
                                                             <exclude reference="7BN-FZ-0Jl"/>
+                                                            <exclude reference="Q0m-bu-Z9f"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
@@ -466,6 +477,7 @@
                                                     <connections>
                                                         <action selector="resignFirstResponder" destination="vhR-RB-ds0" eventType="editingDidEndOnExit" id="QQN-Pc-7fu"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="7uf-da-5TH"/>
+                                                        <action selector="textFieldTextChanged:" destination="1T0-xZ-bHJ" eventType="editingChanged" id="ofe-c6-w43"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -494,7 +506,11 @@
                                 <segue destination="27U-hy-dJA" kind="unwind" unwindAction="manualDismiss:" id="cga-wy-GLB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Create" id="4rM-3c-czG"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Create" id="4rM-3c-czG">
+                            <connections>
+                                <action selector="createAccount:" destination="1T0-xZ-bHJ" id="gy9-UG-AvP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
@@ -505,6 +521,7 @@
                         <outlet property="accountDescriptionTextView" destination="yqx-zN-JHU" id="gBi-j4-S4X"/>
                         <outlet property="accountNameTextField" destination="6l7-de-Cq2" id="PmO-I9-884"/>
                         <outlet property="accountNumberOfEmployeesTextField" destination="5W4-Rh-qcl" id="piS-qv-Skg"/>
+                        <outlet property="createBarButtonItem" destination="4rM-3c-czG" id="XLt-it-VhX"/>
                         <outlet property="invitationCodeSwitch" destination="cx2-vI-jf0" id="pL3-MW-b1A"/>
                         <outlet property="invitationCodeTextField" destination="6ju-iV-zcn" id="XHY-G3-A4x"/>
                     </connections>
@@ -517,7 +534,6 @@
         <!--Navigation Controller-->
         <scene sceneID="kWa-oW-ecq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KEm-y1-dwP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hsa-oY-nFp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pik-H0-o2M">
@@ -529,6 +545,7 @@
                         <segue destination="1T0-xZ-bHJ" kind="relationship" relationship="rootViewController" id="8SU-OF-Zvq"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KEm-y1-dwP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2188" y="2001"/>
         </scene>
