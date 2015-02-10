@@ -171,7 +171,7 @@
         <scene sceneID="U2x-QH-dib">
             <objects>
                 <tableViewController id="1tg-NU-DZ3" customClass="INVCurrentUsersTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="C2A-l3-gY5">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="C2A-l3-gY5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -179,28 +179,6 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserCell" textLabel="cGU-8X-3Kt" detailTextLabel="bHV-Ge-xm1" style="IBUITableViewCellStyleSubtitle" id="oQR-dP-M7x">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oQR-dP-M7x" id="QcE-VI-UON">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cGU-8X-3Kt">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bHV-Ge-xm1">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Users"/>
                         </userDefinedRuntimeAttributes>
@@ -210,8 +188,27 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Current Users" id="q3i-Ay-2hA"/>
+                    <connections>
+                        <outlet property="userProfileTransition" destination="G0j-N1-JOC" id="WIf-er-6vS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B5A-PZ-uPe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="G0j-N1-JOC" customClass="INVTransitionToStoryboard">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="UserInfo"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="UserProfileNVC"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="userProfileTransition"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="arrowDirection">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="1tg-NU-DZ3" id="DPq-MR-gP1"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="697" y="4176"/>
         </scene>

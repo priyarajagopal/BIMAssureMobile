@@ -13,7 +13,7 @@
 - (id)findSubviewOfClass:(Class)kls predicate:(NSPredicate *)predicate
 {
     if (kls == nil || [self isKindOfClass:kls]) {
-        if ([predicate evaluateWithObject:self]) {
+        if (predicate == nil || [predicate evaluateWithObject:self]) {
             return self;
         }
     }

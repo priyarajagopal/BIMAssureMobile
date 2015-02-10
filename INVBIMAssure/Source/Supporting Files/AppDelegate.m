@@ -13,6 +13,8 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
+#import "UIView+INVCustomizations.h"
+
 @import AddressBookUI;
 
 #import "INVNotificationPoller.h"
@@ -92,6 +94,10 @@
     UIColor *cyanBlueColor = [UIColor colorWithRed:38.0 / 255 green:138.0 / 255 blue:171.0 / 255 alpha:1.0];
 
     [[UIView appearance] setTintColor:whiteColor];
+
+    [[UIView appearanceWhenContainedIn:[UITableView class], nil] setTintColor:[UIColor darkGrayColor]];
+    [[UIView appearanceWhenContainedIn:[UINavigationBar class], [UITableView class], nil] setTintColor:whiteColor];
+
     [self.window setTintColor:whiteColor];
 
     [[UINavigationBar appearance] setBarTintColor:cyanBlueColor];

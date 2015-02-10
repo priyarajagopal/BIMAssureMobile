@@ -7,12 +7,22 @@
 //
 
 #import "INVCurrentUsersTableViewController.h"
+#import "UIView+INVCustomizations.h"
+#import "INVUserProfileTableViewController.h"
+#import "INVCurrentUsersProfileTableViewCell.h"
+#import "INVBlockUtils.h"
 
-@interface INVCurrentUsersTableViewController () <NSFetchedResultsControllerDelegate>
+@interface INVCurrentUsersTableViewController ()
+
+@property IBOutlet INVTransitionToStoryboard *userProfileTransition;
 
 @property (nonatomic, strong) NSFetchedResultsController *dataResultsController;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
-@property (nonatomic, strong) INVSignedInUser* signedInUser;
+@property (nonatomic, strong) INVSignedInUser *signedInUser;
+
+@property (nonatomic, strong) NSMutableDictionary *expanded;
+@property (nonatomic, strong) NSMutableDictionary *cachedUsers;
+
 - (void)showLoadProgress;
 
 @end
@@ -26,7 +36,16 @@
     // Do any additional setup after loading the view.
     self.tableView.editing = YES;
     self.tableView.dataSource = [self dataSource];
-    [self fetchSignedInUserProfile];
+
+    self.expanded = [NSMutableDictionary new];
+    self.cachedUsers = [NSMutableDictionary new];
+
+    UINib *userCellNib = [UINib nibWithNibName:@"INVCurrentUsersProfileTableViewCell" bundle:nil];
+    [self.tableView registerNib:userCellNib forCellReuseIdentifier:@"UserCell"];
+
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 44;
+
     [self fetchListOfAccountMembers];
 }
 
@@ -53,8 +72,24 @@
             [self.refreshControl endRefreshing];
             [self.hud hide:YES];
 
-        INV_SUCCESS:
-            [self.tableView reloadData];
+        INV_SUCCESS : {
+            [self.dataResultsController performFetch:NULL];
+
+            NSArray *objects = [self.dataResultsController.sections.firstObject objects];
+            id successBlock = [INVBlockUtils blockForExecutingBlock:^{
+                [self.tableView reloadData];
+            } afterNumberOfCalls:objects.count];
+
+            [objects enumerateObjectsUsingBlock:^(INVAccountMembership *membership, NSUInteger idx, BOOL *stop) {
+                [self.globalDataManager.invServerClient
+                    getUserProfileInSignedInAccountWithId:membership.userId
+                                      withCompletionBlock:^(INVUser *user, INVEmpireMobileError *error) {
+                                          self.cachedUsers[user.userId] = user;
+
+                                          [successBlock invoke];
+                                      }];
+            }];
+        }
 
         INV_ERROR : {
             UIAlertController *errController = [[UIAlertController alloc]
@@ -64,25 +99,21 @@
     }];
 }
 
--(void)fetchSignedInUserProfile {
-    [self.globalDataManager.invServerClient
-     getSignedInUserProfileWithCompletionBlock:^(id result, INVEmpireMobileError *error) {
-         if (!error) {
-              self.signedInUser = (INVSignedInUser *) result;
-         }
-         else {
-             self.signedInUser = nil;
-         }
-     }];
-    
-}
-
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
 
+    [tableView beginUpdates];
+
+    INVCurrentUsersProfileTableViewCell *profileCell =
+        (INVCurrentUsersProfileTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+    self.expanded[indexPath] = @(![self.expanded[indexPath] boolValue]);
+
+    profileCell.expanded = [self.expanded[indexPath] boolValue];
+
+    [tableView endUpdates];
+}
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NSLocalizedString(@"REMOVE", nil);
@@ -139,7 +170,7 @@
             managedObjectContext:self.globalDataManager.invServerClient.accountManager.managedObjectContext
               sectionNameKeyPath:nil
                        cacheName:nil];
-        _dataResultsController.delegate = self;
+
         NSError *dbError;
         [_dataResultsController performFetch:&dbError];
 
@@ -163,7 +194,7 @@
             if (weakSelf.signedInUser) {
                 return ![member.userId isEqualToNumber:weakSelf.signedInUser.userId];
             }
-            
+
             return NO;
         };
 
@@ -172,71 +203,37 @@
         };
 
         [_dataSource
-            registerCellWithIdentifierForAllIndexPaths:
-                @"UserCell" configureBlock:^(UITableViewCell *cell, INVAccountMembership *member, NSIndexPath *indexPath) {
+            registerCellWithIdentifierForAllIndexPaths:@"UserCell"
+                                        configureBlock:^(INVCurrentUsersProfileTableViewCell *cell,
+                                                           INVAccountMembership *cellData, NSIndexPath *indexPath) {
+                                            cell.user = self.cachedUsers[cellData.userId];
+                                            cell.expanded = [self.expanded[indexPath] boolValue];
 
-                [self.globalDataManager.invServerClient
-                    getUserProfileInSignedInAccountWithId:member.userId
-                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                          if (error) {
-                                              cell.textLabel.text = NSLocalizedString(@"ERROR_LOAD_USER_PROFILE", nil);
-                                              cell.indentationLevel = 0;
-                                              cell.indentationWidth = 0;
-                                          }
-                                          else {
-                                              INVUser *user = result;
-                                              cell.textLabel.text =
-                                                  [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
-                                              cell.detailTextLabel.text = user.email;
-                                              if (weakSelf.dataSource.editableHandler(user, indexPath)) {
-                                                  cell.indentationLevel = 0;
-                                                  cell.indentationWidth = 0;
-                                              }
-                                              else {
-                                                  cell.indentationLevel = 1;
-                                                  cell.indentationWidth = 38;
-                                              }
-                                          }
-                                      }];
-
-            }];
+                                            if (cell.user == nil) {
+                                                [self.globalDataManager.invServerClient
+                                                    getUserProfileInSignedInAccountWithId:cellData.userId
+                                                                      withCompletionBlock:^(id result,
+                                                                                              INVEmpireMobileError *error) {
+                                                                          cell.user = result;
+                                                                      }];
+                                            }
+                                        }];
     }
 
     return _dataSource;
 }
 
-#pragma mark - NSFetchedResultsControllerDelegate
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [self.tableView beginUpdates];
-}
+    if ([segue.identifier isEqualToString:@"userProfileTransition"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller
-    didChangeObject:(id)anObject
-        atIndexPath:(NSIndexPath *)indexPath
-      forChangeType:(NSFetchedResultsChangeType)type
-       newIndexPath:(NSIndexPath *)newIndexPath
-{
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        default:
-            break;
+        INVUserProfileTableViewController *userProfileController =
+            (INVUserProfileTableViewController *) navigationController.topViewController;
+        userProfileController.userId = [[self.dataResultsController objectAtIndexPath:indexPath] userId];
     }
 }
-
 #pragma mark - helpers
 - (void)showLoadProgress
 {
