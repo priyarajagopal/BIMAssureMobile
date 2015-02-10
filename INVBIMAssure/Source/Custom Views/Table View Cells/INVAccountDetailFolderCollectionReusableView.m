@@ -69,7 +69,7 @@
                                             attributes:@{NSFontAttributeName : [self.numberEmployeesLabel.font italicFont]}];
     }
 
-    self.contactNameLabel.text = self.account.companyName;
+    self.contactNameLabel.text = self.account.contactName;
     if (self.contactNameLabel.text.length == 0) {
         self.contactNameLabel.attributedText =
             [[NSAttributedString alloc] initWithString:NSLocalizedString(@"CONTACT_NAME_UNAVAILABLE", nil)
