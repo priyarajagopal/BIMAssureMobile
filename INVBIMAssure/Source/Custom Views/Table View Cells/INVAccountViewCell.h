@@ -15,6 +15,5 @@
 @property (strong, nonatomic) INVUserInvite *invite;
 @property (assign, nonatomic) BOOL isCurrentlySignedIn;
 @property (assign, nonatomic) BOOL isDefault;
-@property (weak, nonatomic) IBOutlet UIImageView *isDefaultOverlayImageView;
 
 @end

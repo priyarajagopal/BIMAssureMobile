@@ -183,6 +183,15 @@
 "ACCOUNT_NAME"="Enter name of account";
 "UPDATING"="Updating ...";
 "UPDATED_AT"="Updated At %@";
+
+"ACCOUNT_DESCRIPTION_UNAVAILABLE"="Account description unavailable";
+"COMPANY_NAME_UNAVAILABLE"="Company name unavailable";
+"COMPANY_ADDRESS_UNAVAILABLE"="Company address unavailable";
+"NUMBER_EMPLOYEES_UNAVAILABLE"="Number of employees unavailable";
+"CONTACT_NAME_UNAVAILABLE"="Contact name unavailable";
+"CONTACT_PHONE_UNAVAILABLE"="Contact phone unavailable";
+
 "ERROR_LOAD_USER_PROFILE"="User Info Unavailable";
+
 "INV_MEMBERSHIP_TYPE_USER"="User";
 "INV_MEMBERSHIP_TYPE_ADMIN"="Admin";

@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/INVAccountMembership.h</key>
 		<data>
-		DVF6elz+LkscdcwAx1IrSvJOE90=
+		HDgug8z/ftvw3vuUSPQqiD6g5oM=
 		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		5z8ZttDJ2txLkLpib40QLciONow=
+		wIbsTlolsE5em8dQzHRaj0U52wQ=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -120,9 +120,21 @@
 		<data>
 		+pzpYe1LwihjC7drtm3XC82Tamw=
 		</data>
+		<key>InvicaraLogo.png</key>
+		<data>
+		9mJPfmZU51jwDQsyCXmm2gIXokE=
+		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		keYNwzwqEB4C9Rp+J+hissqlh1A=
+		</data>
+		<key>priyarajagopal.png</key>
+		<data>
+		qv08XVowFikoRhCG3YVIpr0WGA4=
+		</data>
+		<key>project_thumbnail.jpg</key>
+		<data>
+		6F28dlLkORbqjCJ4h7sVEuKEvEU=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -145,7 +157,7 @@
 		</data>
 		<key>Headers/INVAccountMembership.h</key>
 		<data>
-		DVF6elz+LkscdcwAx1IrSvJOE90=
+		HDgug8z/ftvw3vuUSPQqiD6g5oM=
 		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
@@ -157,7 +169,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		5z8ZttDJ2txLkLpib40QLciONow=
+		wIbsTlolsE5em8dQzHRaj0U52wQ=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -239,9 +251,21 @@
 		<data>
 		QkpgEI73ATE2aVL6QW+15H+mqbw=
 		</data>
+		<key>InvicaraLogo.png</key>
+		<data>
+		9mJPfmZU51jwDQsyCXmm2gIXokE=
+		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		keYNwzwqEB4C9Rp+J+hissqlh1A=
+		</data>
+		<key>priyarajagopal.png</key>
+		<data>
+		qv08XVowFikoRhCG3YVIpr0WGA4=
+		</data>
+		<key>project_thumbnail.jpg</key>
+		<data>
+		6F28dlLkORbqjCJ4h7sVEuKEvEU=
 		</data>
 	</dict>
 	<key>rules</key>

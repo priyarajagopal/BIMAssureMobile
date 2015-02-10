@@ -21,10 +21,29 @@ typedef NSArray *INVRolesArray;
 typedef NSMutableArray *INVRolesMutableArray;
 
 typedef enum {
-    _INV_REGULAR = 0,
-    _INV_ADMIN = 1
+    INV_MEMBERSHIP_TYPE_REGULAR = 0,
+    INV_MEMBERSHIP_TYPE_ADMIN = 1
 
-} _INV_MEMBERSHIP_TYPE;
+} INV_MEMBERSHIP_TYPE;
+
+/** 
+ Array of possible membership types
+ */
+
+typedef NSString* INV_DISPLAY_STRING;
+static const INV_DISPLAY_STRING INV_ADMIN_DISPLAYSTRING = @"Admin";
+static const INV_DISPLAY_STRING INV_MEMBER_DISPLAYSTRING = @"Member";
+
+/**
+ Dictionary of <INV_MEMBERSHIP_TYPE,INV_DISPLAY_STRING> pairs
+ */
+typedef NSDictionary* INVMembershipTypeDictionary;
+
+/**
+ array of INVMembershipTypeDictionary objects
+ */
+typedef NSArray* INVMembershipTypes;
+
 /**
  Array of INVAccountMembership objects
  */

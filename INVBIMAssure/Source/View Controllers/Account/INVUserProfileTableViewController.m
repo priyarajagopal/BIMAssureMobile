@@ -22,7 +22,31 @@
 
 @implementation INVUserProfileTableViewController
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self fetchUserProfileDetails];
+}
+
 - (void)fetchUserProfileDetails
 {
+    [self.globalDataManager.invServerClient
+        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *signedInUser, INVEmpireMobileError *error) {
+            self.firstNameTextField.text = signedInUser.firstName;
+            self.lastNameTextField.text = signedInUser.lastName;
+
+            [self.globalDataManager.invServerClient
+                getUserProfileInSignedInAccountWithId:signedInUser.userId
+                                  withCompletionBlock:^(INVUser *userProfile, INVEmpireMobileError *error) {
+                                      if (error) {
+                                          INVLogError(@"%@", error);
+                                          return;
+                                      }
+                                      self.emailTextField.text = userProfile.email;
+                                      self.addressTextField.text = userProfile.address;
+                                      self.phoneNumberTextField.text = userProfile.phoneNumber;
+                                      self.companyTextField.text = userProfile.companyName;
+                                  }];
+        }];
 }
 @end

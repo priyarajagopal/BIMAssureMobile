@@ -268,7 +268,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 */
 - (void)inviteUsersToSignedInAccount:(NSArray *)emails
-                            withRole:(_INV_MEMBERSHIP_TYPE)role
+                            withRole:(INV_MEMBERSHIP_TYPE)role
                  withCompletionBlock:(CompletionHandler)handler;
 
 /**
@@ -740,7 +740,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param pkgVersionId Package Version Id
 
- @param handler The completion handler that returns error object if there was any error.
+ @param handler The completion handler that returns error object if there was any error or JPeg representation of image
 
  @see -signIntoAccount:withCompletionBlock:
 
@@ -750,11 +750,11 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
     ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
- Asynchornously ,add thumbnail image for account
+ Asynchornously ,add thumbnail image for account (NOT YET AVAILABLE ON SERVER SIDE)
 
  @param accountId Id of account for which image should be added
 
- @param thumbnail The thumbnail image data (image in png format)
+ @param thumbnail The file URL of thumbnail image in png format
 
  @param handler The completion handler that returns error object if there was any error.
 
@@ -763,14 +763,14 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  */
 - (void)addThumbnailImageForAccount:(NSNumber *)accountId
-                          thumbnail:(NSData *)thumbnail
+                          thumbnail:(NSURL *)thumbnail
               withCompletionHandler:(CompletionHandler)handler;
 
 /**
  Asynchornously ,add thumbnail image for signed in account. Users should have signed in with
  signIntoAccount:withCompletionBlock:
 
- @param thumbnail The thumbnail image data (image in png format)
+ @param thumbnail The file URL of thumbnail image 
 
  @param handler The completion handler that returns error object if there was any error.
 
@@ -778,14 +778,15 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 
  */
-- (void)addThumbnailImageForSignedInAccountWithThumbnail:(NSData *)thumbnail withCompletionHandler:(CompletionHandler)handler;
+- (void)addThumbnailImageForSignedInAccountWithThumbnail:(NSURL *)thumbnail withCompletionHandler:(CompletionHandler)handler;
 
 /**
  Asynchornously,fet thumbnail image for account
 
  @param accountId Id of account for which image should be fetched
 
- @param handler The completion handler that returns error object if there was any error. IF not an error, NSData object
+ @param handler The completion handler that returns error object if there was any error. IF not an error, PNG representation of
+ image data in NSData format
  corresponding to the image is returned
 
 
@@ -799,7 +800,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param projectId Id of project for which image should be added
 
- @param thumbnail The thumbnail image data (image in png format)
+ @param thumbnail The file URL of thumbnail image
 
  @param handler The completion handler that returns error object if there was any error.
 
@@ -807,7 +808,9 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 
  */
-- (void)addThumbnailImageForProject:(NSNumber *)projectId withCompletionHandler:(CompletionHandler)handler;
+- (void)addThumbnailImageForProject:(NSNumber *)projectId
+                          thumbnail:(NSURL *)thumbnail
+              withCompletionHandler:(CompletionHandler)handler;
 
 /**
  Asynchornously ,get thumbnail image for project
@@ -815,7 +818,8 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  @param projectId Id of project for which image should be fetched
 
 
- @param handler The completion handler that returns error object if there was any error. IF not an error, NSData object
+ @param handler The completion handler that returns error object if there was any error. IF not an error, PNG representation of
+ image data in NSData format
  corresponding to the image is returned
 
  @see -signIntoAccount:withCompletionBlock:
@@ -825,8 +829,10 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 /**
  Asynchornously,add thumbnail image for signed in user. User should have been signed in with -signInUser:withCompletionBlock:
+ 
+ ***NOTE*** Due to a server side issue , the user shouolkd be signed into an account in order to upload the image. This should be fixed in next version
 
- @param thumbnail The thumbnail image data (image in png format)
+ @param thumbnail The file URL of thumbnail image
 
  @param handler The completion handler that returns error object if there was any error.
 
@@ -834,14 +840,15 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 
  */
-- (void)addThumbnailImageForSignedInUserWithThumbnail:(NSData **)thumbnail withCompletionHandler:(CompletionHandler)handler;
+- (void)addThumbnailImageForSignedInUserWithThumbnail:(NSURL *)thumbnail withCompletionHandler:(CompletionHandler)handler;
 
 /**
  Asynchornously ,get thumbnail image for specified user . User should have signed in with -signInUser:withCompletionBlock:
 
  @param userId Id of user
 
- @param handler The completion handler that returns error object if there was any error. IF not an error, NSData object
+ @param handler The completion handler that returns error object if there was any error. IF not an error, PNG representation of
+ image data in NSData format
  corresponding to the image is returned
 
  @see -signIntoUser:withCompletionBlock:
@@ -1161,5 +1168,14 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  */
 + (NSURLRequest *)requestToFetchSystemConfiguration;
+
+/**
+ Convenience method that retuns the possible account membership roles 
+ 
+ @see INVMembership
+ 
+ */
+
++(INVMembershipTypes)membershipRoles;
 
 @end
