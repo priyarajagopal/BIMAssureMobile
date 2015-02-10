@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#pragma mark - KVO
+extern NSString *const KVO_INVRoleUpdated;
 @interface INVRoleSelectionTableViewCell : UITableViewCell
 
 @property (nonatomic) INV_MEMBERSHIP_TYPE role;

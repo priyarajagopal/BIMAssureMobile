@@ -19,6 +19,7 @@ typedef NSMutableArray *INVProjectMutableArray;
 
 @interface INVProject : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
 @property (copy, nonatomic, readonly) NSDate *createdAt;
+@property (copy, nonatomic, readonly) NSString* overview;
 @property (copy, nonatomic, readonly) NSNumber *createdBy;
 @property (copy, nonatomic, readonly) NSDate *updatedAt;
 @property (copy, nonatomic, readonly) NSNumber *updatedBy;
