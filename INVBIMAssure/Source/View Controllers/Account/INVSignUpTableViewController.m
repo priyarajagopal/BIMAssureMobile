@@ -205,8 +205,8 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
     // _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
     NSNumber *package = @(0);
 
-    [self.globalDataManager.invServerClient signUpUserWithFirstName:self.lastNameTextField.text
-                                                           lastName:self.firstNameTextField.text
+    [self.globalDataManager.invServerClient signUpUserWithFirstName:self.firstNameTextField.text
+                                                           lastName:self.lastNameTextField.text
                                                         userAddress:self.userAddressTextField.text
                                                     userPhoneNumber:self.userPhoneTextField.text
                                                     userCompanyName:self.userCompanyNameTextField.text
