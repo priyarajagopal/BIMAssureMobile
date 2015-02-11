@@ -91,6 +91,10 @@ NSString *const INVNotificationPoller_NotificationsEnabledKey = @"INVNotificatio
         _dataSources = [NSMutableArray new];
         _notifications = [NSMutableArray new];
 
+        if (![[NSUserDefaults standardUserDefaults] objectForKey:INVNotificationPoller_NotificationsEnabledKey]) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:INVNotificationPoller_NotificationsEnabledKey];
+        }
+
         _notificationsEnabled =
             [[NSUserDefaults standardUserDefaults] boolForKey:INVNotificationPoller_NotificationsEnabledKey];
 
