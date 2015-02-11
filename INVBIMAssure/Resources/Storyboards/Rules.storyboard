@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -222,7 +222,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Rule" id="5yB-O5-SyI">
-                                    <barButtonItem key="leftBarButtonItem" title="Cancel" id="dEu-75-bB8">
+                                    <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dEu-75-bB8">
                                         <connections>
                                             <segue destination="BhX-XE-e4j" kind="unwind" identifier="CancelSegue" unwindAction="manualDismiss:" id="A1b-CF-jnF"/>
                                         </connections>
@@ -324,6 +324,6 @@
         <image name="rules" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fhf-Nu-vDd"/>
+        <segue reference="ueY-sV-X8n"/>
     </inferredMetricsTieBreakers>
 </document>

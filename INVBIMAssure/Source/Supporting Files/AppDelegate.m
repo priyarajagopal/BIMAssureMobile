@@ -95,9 +95,6 @@
 
     [[UIView appearance] setTintColor:whiteColor];
 
-    [[UIView appearanceWhenContainedIn:[UITableView class], nil] setTintColor:[UIColor darkGrayColor]];
-    [[UIView appearanceWhenContainedIn:[UINavigationBar class], [UITableView class], nil] setTintColor:whiteColor];
-
     [self.window setTintColor:whiteColor];
 
     [[UINavigationBar appearance] setBarTintColor:cyanBlueColor];
