@@ -32,6 +32,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 @property (nonatomic, strong) INVAccountManager *accountManager;
 @property (nonatomic, assign) NSInteger messageRowHeight;
 @property (nonatomic, weak) INVTokensTableViewCell *inviteUsersCell;
+@property (nonatomic, assign) INV_MEMBERSHIP_TYPE role;
 @end
 
 @implementation INVInviteUsersTableViewController
@@ -57,6 +58,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     self.clearsSelectionOnViewWillAppear = YES;
+    self.role = INV_MEMBERSHIP_TYPE_REGULAR;
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,12 +77,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     [cell removeObserver:self forKeyPath:@"role"];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"role"] && [object isKindOfClass:[INVRoleSelectionTableViewCell class]]) {
-        //  Role changed
-    }
-}
 
 /*
 #pragma mark - Navigation
@@ -133,7 +129,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 
     if (indexPath.section == SECTIONINDEX_ROLE) {
         INVRoleSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoleSelectionCell"];
-        [cell addObserver:self forKeyPath:@"role" options:NSKeyValueObservingOptionNew context:NULL];
+        [cell addObserver:self forKeyPath:KVO_INVRoleUpdated options:NSKeyValueObservingOptionNew context:NULL];
 
         return cell;
     }
@@ -208,13 +204,13 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     [self inviteUsers:[self cleanupTokens:self.inviteUsersCell.tokens] withMessage:@""];
 }
 
+
 #pragma mark - server side
 - (void)inviteUsers:(NSArray *)users withMessage:(NSString *)message
 {
-#warning Update view to get role from user
     [self.globalDataManager.invServerClient
         inviteUsersToSignedInAccount:users
-                            withRole:INV_MEMBERSHIP_TYPE_ADMIN
+                            withRole:self.role
                  withCompletionBlock:^(INVEmpireMobileError *error) {
                      [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 
@@ -234,6 +230,17 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
         _accountManager = self.globalDataManager.invServerClient.accountManager;
     }
     return _accountManager;
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:KVO_INVRoleUpdated] && [object isKindOfClass:[INVRoleSelectionTableViewCell class]]) {
+        //  Role changed
+        INVRoleSelectionTableViewCell* cell = (INVRoleSelectionTableViewCell*)object;
+        self.role = cell.role;
+    }
 }
 
 #pragma mark - ABPeoplePickerNavigationControllerDelegate
@@ -257,6 +264,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     }
     else {
         // TODO: Explain invalid email
+#warning  Show alert that email is invalid
     }
 }
 

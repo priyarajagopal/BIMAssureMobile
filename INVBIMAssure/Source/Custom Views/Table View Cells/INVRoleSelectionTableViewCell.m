@@ -7,17 +7,13 @@
 //
 
 #import "INVRoleSelectionTableViewCell.h"
-
-static inline NSString *membershipTypeToString(INV_MEMBERSHIP_TYPE type)
-{
-    static NSString *localizedKeys[] = { @"INV_MEMBERSHIP_TYPE_USER", @"INV_MEMBERSHIP_TYPE_ADMIN" };
-
-    return NSLocalizedString(localizedKeys[type], nil);
-}
+#pragma mark - KVO
+NSString *const KVO_INVRoleUpdated = @"role";
 
 @interface INVRoleSelectionTableViewCell () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak) IBOutlet UIButton *currentRoleButton;
+@property (strong) INVMembershipTypes membership;
 
 - (IBAction)onRolesListSelected:(id)sender;
 
@@ -28,12 +24,23 @@ static inline NSString *membershipTypeToString(INV_MEMBERSHIP_TYPE type)
 - (void)awakeFromNib
 {
     // Initialization code
+    self.membership = [INVEmpireMobileClient membershipRoles];
+    self.role = INV_MEMBERSHIP_TYPE_REGULAR;
     [self updateUI];
 }
 
 - (void)updateUI
 {
-    [self.currentRoleButton setTitle:membershipTypeToString(_role) forState:UIControlStateNormal];
+    __block INVMembershipTypeDictionary memberType;
+    [self.membership indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        memberType = obj;
+        INV_MEMBERSHIP_TYPE type = (INV_MEMBERSHIP_TYPE)[memberType.allKeys[0] integerValue];
+        return type == self.role;
+    }];
+    NSString *localStr = NSLocalizedString(memberType.allValues[0], nil);
+    [self.currentRoleButton setTitle:localStr forState:UIControlStateNormal];
+
+    //  [self.currentRoleButton setTitle:membershipTypeToString(_role) forState:UIControlStateNormal];
 }
 
 - (void)setRole:(INV_MEMBERSHIP_TYPE)role
@@ -67,7 +74,7 @@ static inline NSString *membershipTypeToString(INV_MEMBERSHIP_TYPE type)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.membership.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,9 +84,14 @@ static inline NSString *membershipTypeToString(INV_MEMBERSHIP_TYPE type)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"INVRoleCell"];
     }
 
-    cell.textLabel.text = membershipTypeToString((INV_MEMBERSHIP_TYPE) indexPath.row);
+    INVMembershipTypeDictionary memberType = self.membership[indexPath.row];
+    NSString *localStr = NSLocalizedString(memberType.allValues[0], nil);
 
-    if (indexPath.row == self.role) {
+    cell.textLabel.text = localStr;
+    //  cell.textLabel.text = membershipTypeToString((INV_MEMBERSHIP_TYPE) indexPath.row);
+    INV_MEMBERSHIP_TYPE type = (INV_MEMBERSHIP_TYPE)[memberType.allKeys[0] integerValue];
+
+    if (type == self.role) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     else {
@@ -95,7 +107,11 @@ static inline NSString *membershipTypeToString(INV_MEMBERSHIP_TYPE type)
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    self.role = (INV_MEMBERSHIP_TYPE) indexPath.row;
+    INVMembershipTypeDictionary memberType = self.membership[indexPath.row];
+
+    self.role = (INV_MEMBERSHIP_TYPE)[memberType.allKeys[0] integerValue];
+
+    // self.role = (INV_MEMBERSHIP_TYPE) indexPath.row;
 
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

@@ -238,6 +238,52 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 - (void)getUserProfileInSignedInAccountWithId:(NSNumber *)userId withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
+ Asynchornously ,update profile of specified user.User should have signed in with
+ -signInWithUserName:andPassword:withCompletionBlock: . The values provided will override
+ the existing values so it is important to provide values even for those parameters that are not changed
+
+ NOTE : This API is not fully functional on server side. Should be available shortly
+
+ @param userId The ID of user whose profile is to be updated
+
+ @param firstName FirstName of user to be added
+
+ @param lastName lastName of user to be added
+
+ @param userAddress optional address of user to be added
+
+ @param userPhoneNumber optional phone number of user to be added
+
+ @param userCompanyName optional company name of user to be added
+
+ @param title optional title of user to be added
+
+ @param userEmail email address of user
+
+
+ @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then  the
+ INVUser object is returned
+
+ @see -signInWithUserName:andPassword:withCompletionBlock:
+
+ @see accountManager
+
+
+ */
+- (void)updateUserProfileInSignedInAccountWithId:(NSNumber *)userId
+                                   withFirstName:(NSString *)firstName
+                                        lastName:(NSString *)lastName
+                                     userAddress:(NSString *)userAddress
+                                 userPhoneNumber:(NSString *)userPhoneNumber
+                                 userCompanyName:(NSString *)userCompanyname
+                                           title:(NSString *)title
+                                           email:(NSString *)userEmail
+                              allowNotifications:(BOOL)allowNotifications
+                             withCompletionBlock:(CompletionHandler)handler;
+
+/**
  Asynchornously ,get list of members belonging to currentrly signed in account. If the request is made on behalf of admin user,
  then the list of accounts that a user is a member of is
  also returned. The user must have succesfully used in via signIntoAccount:withCompletionBlock
@@ -488,6 +534,23 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                                        contactPhone:(NSString *)contactPhone
                                     numberEmployees:(NSNumber *)numEmployees
                                        forUserEmail:(NSString *)userEmail
+                                withCompletionBlock:(CompletionHandler)handler;
+
+/**
+ Asynchornously , disable an account for currently signed in user. Once disabled, the account
+ can only be reenabled by out-of-band means(not via an API). Accounts that are disabled are not deleted.
+ 
+ @param accountId Id of account to be disabled
+ 
+ @param handler The completion handler that returns error object if there was any error.
+ 
+ @see accountManager
+ 
+ @see -signInWithUserName:andPassword:withCompletionBlock:
+
+ 
+ */
+- (void)disableAccountForSignedInUserWithAccountId:(NSNumber*)accountId
                                 withCompletionBlock:(CompletionHandler)handler;
 
 /**
@@ -770,7 +833,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  Asynchornously ,add thumbnail image for signed in account. Users should have signed in with
  signIntoAccount:withCompletionBlock:
 
- @param thumbnail The file URL of thumbnail image 
+ @param thumbnail The file URL of thumbnail image
 
  @param handler The completion handler that returns error object if there was any error.
 
@@ -829,8 +892,9 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 /**
  Asynchornously,add thumbnail image for signed in user. User should have been signed in with -signInUser:withCompletionBlock:
- 
- ***NOTE*** Due to a server side issue , the user shouolkd be signed into an account in order to upload the image. This should be fixed in next version
+
+ ***NOTE*** Due to a server side issue , the user shouolkd be signed into an account in order to upload the image. This should
+ be fixed in next version
 
  @param thumbnail The file URL of thumbnail image
 
@@ -1170,12 +1234,12 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 + (NSURLRequest *)requestToFetchSystemConfiguration;
 
 /**
- Convenience method that retuns the possible account membership roles 
- 
+ Convenience method that retuns the possible account membership roles
+
  @see INVMembership
- 
+
  */
 
-+(INVMembershipTypes)membershipRoles;
++ (INVMembershipTypes)membershipRoles;
 
 @end
