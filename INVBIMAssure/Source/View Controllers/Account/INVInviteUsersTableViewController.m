@@ -77,7 +77,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     [cell removeObserver:self forKeyPath:@"role"];
 }
 
-
 /*
 #pragma mark - Navigation
 
@@ -101,6 +100,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 
 - (IBAction)displayPeoplePickerController:(id)sender
 {
+    // Hide the keyboard.
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:self forEvent:nil];
+
     ABPeoplePickerNavigationController *peoplePickerController = [[ABPeoplePickerNavigationController alloc] init];
     peoplePickerController.displayedProperties = @[ @(kABPersonEmailProperty) ];
 
@@ -204,7 +206,6 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     [self inviteUsers:[self cleanupTokens:self.inviteUsersCell.tokens] withMessage:@""];
 }
 
-
 #pragma mark - server side
 - (void)inviteUsers:(NSArray *)users withMessage:(NSString *)message
 {
@@ -238,7 +239,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 {
     if ([keyPath isEqualToString:KVO_INVRoleUpdated] && [object isKindOfClass:[INVRoleSelectionTableViewCell class]]) {
         //  Role changed
-        INVRoleSelectionTableViewCell* cell = (INVRoleSelectionTableViewCell*)object;
+        INVRoleSelectionTableViewCell *cell = (INVRoleSelectionTableViewCell *) object;
         self.role = cell.role;
     }
 }
@@ -263,8 +264,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
         [self tokensChanged:self.inviteUsersCell.tokens];
     }
     else {
-        // TODO: Explain invalid email
-#warning  Show alert that email is invalid
+// TODO: Explain invalid email
+#warning Show alert that email is invalid
     }
 }
 
