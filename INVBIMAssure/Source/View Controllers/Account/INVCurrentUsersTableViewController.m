@@ -191,11 +191,7 @@
         __weak typeof(self) weakSelf = self;
 
         _dataSource.editableHandler = ^BOOL(INVAccountMembership *member, NSIndexPath *_) {
-            if (weakSelf.signedInUser) {
-                return ![member.userId isEqualToNumber:weakSelf.signedInUser.userId];
-            }
-
-            return NO;
+            return ![[weakSelf.cachedUsers[member.userId] email] isEqualToString:weakSelf.globalDataManager.loggedInUser];
         };
 
         _dataSource.deletionHandler = ^(UITableViewCell *cell, INVAccountMembership *member, NSIndexPath *indexPath) {
@@ -206,14 +202,25 @@
             registerCellWithIdentifierForAllIndexPaths:@"UserCell"
                                         configureBlock:^(INVCurrentUsersProfileTableViewCell *cell,
                                                            INVAccountMembership *cellData, NSIndexPath *indexPath) {
+
                                             cell.user = self.cachedUsers[cellData.userId];
                                             cell.expanded = [self.expanded[indexPath] boolValue];
+
+                                            if (weakSelf.dataSource.editableHandler(cellData, indexPath)) {
+                                                cell.indentationLevel = 0;
+                                                cell.indentationWidth = 0;
+                                            }
+                                            else {
+                                                cell.indentationLevel = 1;
+                                                cell.indentationWidth = 38;
+                                            }
 
                                             if (cell.user == nil) {
                                                 [self.globalDataManager.invServerClient
                                                     getUserProfileInSignedInAccountWithId:cellData.userId
                                                                       withCompletionBlock:^(id result,
                                                                                               INVEmpireMobileError *error) {
+                                                                          weakSelf.cachedUsers[cellData.userId] = result;
                                                                           cell.user = result;
                                                                       }];
                                             }

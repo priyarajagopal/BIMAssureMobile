@@ -34,7 +34,7 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTq-Pf-q9w" userLabel="Exanded Details">
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYE-96-cdO">
-                                <rect key="frame" x="0.0" y="8" width="341" height="17"/>
+                                <rect key="frame" x="0.0" y="8" width="349" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="17" id="xtp-uQ-rSY"/>
                                 </constraints>
@@ -79,7 +79,7 @@
                     <constraint firstItem="ig1-uu-YGO" firstAttribute="leading" secondItem="Oas-TV-RCP" secondAttribute="leading" id="9Z4-gm-Xsw"/>
                     <constraint firstItem="ig1-uu-YGO" firstAttribute="top" secondItem="w7f-Ew-fdb" secondAttribute="topMargin" id="PCU-bD-8Dk"/>
                     <constraint firstItem="Oas-TV-RCP" firstAttribute="top" secondItem="ig1-uu-YGO" secondAttribute="bottom" constant="2" id="St9-l0-Mlf"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="dTq-Pf-q9w" secondAttribute="trailing" id="Wdr-Lb-FrB"/>
+                    <constraint firstAttribute="trailing" secondItem="dTq-Pf-q9w" secondAttribute="trailing" id="Wdr-Lb-FrB"/>
                     <constraint firstItem="dTq-Pf-q9w" firstAttribute="leading" secondItem="w7f-Ew-fdb" secondAttribute="leadingMargin" constant="7" id="aeW-s7-eqo"/>
                     <constraint firstItem="dTq-Pf-q9w" firstAttribute="bottom" secondItem="w7f-Ew-fdb" secondAttribute="bottomMargin" id="avL-m2-Ldu"/>
                     <constraint firstItem="koe-8P-6kc" firstAttribute="leading" secondItem="ig1-uu-YGO" secondAttribute="trailing" constant="8" id="d08-l9-ulK"/>

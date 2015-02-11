@@ -28,6 +28,16 @@
     [self updateUI];
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    UIEdgeInsets margins = self.contentView.layoutMargins;
+    margins.left = 8 + (self.indentationLevel * self.indentationWidth);
+
+    self.contentView.layoutMargins = margins;
+}
+
 - (void)updateUI
 {
     self.firstNameLabel.text = self.user.firstName;
