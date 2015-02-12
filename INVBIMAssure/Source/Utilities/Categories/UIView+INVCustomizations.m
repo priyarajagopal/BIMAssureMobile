@@ -10,6 +10,17 @@
 
 @implementation UIView (INVCustomizations)
 
+- (id)findSuperviewOfClass:(Class)kls predicate:(NSPredicate *)predicate
+{
+    if (kls == nil || [self isKindOfClass:kls]) {
+        if (predicate == nil || [predicate evaluateWithObject:self]) {
+            return self;
+        }
+    }
+
+    return [self.superview findSuperviewOfClass:kls predicate:predicate];
+}
+
 - (id)findSubviewOfClass:(Class)kls predicate:(NSPredicate *)predicate
 {
     if (kls == nil || [self isKindOfClass:kls]) {

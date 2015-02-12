@@ -220,77 +220,14 @@
 
 - (void)selectThumbnail:(id)sender
 {
-    UIAlertController *alertController =
-        [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-
-    [alertController
-        addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"STOCK_IMAGES", nil)
-                                           style:UIAlertActionStyleDefault
-                                         handler:^(UIAlertAction *action) {
-                                             INVStockThumbnailCollectionViewController *stockThumbnailController =
-                                                 [[INVStockThumbnailCollectionViewController alloc] init];
-                                             stockThumbnailController.delegate = self;
-
-                                             stockThumbnailController.modalPresentationStyle = UIModalPresentationPopover;
-                                             stockThumbnailController.preferredContentSize = CGSizeMake(320, 320);
-
-                                             stockThumbnailController.popoverPresentationController.permittedArrowDirections =
-                                                 UIPopoverArrowDirectionUp;
-                                             stockThumbnailController.popoverPresentationController.sourceView = self.view;
-                                             stockThumbnailController.popoverPresentationController.sourceRect =
-                                                 [self.currentThumbnailButton convertRect:self.currentThumbnailButton.bounds
-                                                                                   toView:self.view];
-                                             ;
-
-                                             [self presentViewController:stockThumbnailController animated:YES completion:nil];
-                                         }]];
-
-    [alertController
-        addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"PHOTO_LIBRARY", nil)
-                                           style:UIAlertActionStyleDefault
-                                         handler:^(UIAlertAction *action) {
-                                             UIImagePickerController *imagePickerController =
-                                                 [[UIImagePickerController alloc] init];
-                                             imagePickerController.delegate = self;
-                                             imagePickerController.allowsEditing = NO;
-                                             imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-
-                                             imagePickerController.modalPresentationStyle = UIModalPresentationPopover;
-                                             imagePickerController.popoverPresentationController.permittedArrowDirections =
-                                                 UIPopoverArrowDirectionUp;
-                                             imagePickerController.popoverPresentationController.sourceView = self.view;
-                                             imagePickerController.popoverPresentationController.sourceRect =
-                                                 [self.currentThumbnailButton convertRect:self.currentThumbnailButton.bounds
-                                                                                   toView:self.view];
-                                             ;
-
-                                             [self presentViewController:imagePickerController animated:YES completion:nil];
-                                         }]];
-
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [alertController
-            addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"TAKE_PHOTO", nil)
-                                               style:UIAlertActionStyleDefault
-                                             handler:^(UIAlertAction *action) {
-                                                 UIImagePickerController *imagePickerController =
-                                                     [[UIImagePickerController alloc] init];
-                                                 imagePickerController.delegate = self;
-                                                 imagePickerController.allowsEditing = NO;
-                                                 imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                                                 imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
-
-                                                 [self presentViewController:imagePickerController animated:YES completion:nil];
-                                             }]];
-    }
-
-    [alertController
-        addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil]];
+    UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
+        [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
+    }];
 
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
     alertController.popoverPresentationController.sourceView = self.view;
     alertController.popoverPresentationController.sourceRect =
         [self.currentThumbnailButton convertRect:self.currentThumbnailButton.bounds toView:self.view];
-    ;
 
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -298,14 +235,12 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self.currentThumbnailButton setImage:info[UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)stockThumbnailCollectionViewController:(INVStockThumbnailCollectionViewController *)controller
                        didSelectStockThumbnail:(UIImage *)image
 {
     [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -29,13 +29,24 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Zc-j2-KrZ" userLabel="Top Container">
                                         <rect key="frame" x="0.0" y="0.0" width="306" height="175"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InvicaraLogo" translatesAutoresizingMaskIntoConstraints="NO" id="grZ-uj-enK">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCy-SP-pJe">
                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="175"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="175" id="8pX-2t-W59"/>
+                                                    <constraint firstAttribute="height" constant="175" id="igZ-UG-Mhu"/>
                                                 </constraints>
-                                            </imageView>
+                                                <state key="normal" image="InvicaraLogo">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="selectThumbnail:" destination="-2" eventType="touchUpInside" id="cLi-f8-agE"/>
+                                                </connections>
+                                            </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redtriangle" translatesAutoresizingMaskIntoConstraints="NO" id="CTs-ow-LEt">
                                                 <rect key="frame" x="0.0" y="0.0" width="78" height="56"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -47,12 +58,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="grZ-uj-enK" firstAttribute="top" secondItem="7Zc-j2-KrZ" secondAttribute="top" id="HUm-lI-Vtq"/>
+                                            <constraint firstItem="wCy-SP-pJe" firstAttribute="top" secondItem="7Zc-j2-KrZ" secondAttribute="top" id="3vO-z6-FUC"/>
                                             <constraint firstItem="CTs-ow-LEt" firstAttribute="leading" secondItem="7Zc-j2-KrZ" secondAttribute="leading" id="JBb-qx-caI"/>
                                             <constraint firstItem="CTs-ow-LEt" firstAttribute="top" secondItem="7Zc-j2-KrZ" secondAttribute="top" id="TpJ-js-cn3"/>
-                                            <constraint firstAttribute="trailing" secondItem="grZ-uj-enK" secondAttribute="trailing" id="dt0-X7-rPF"/>
-                                            <constraint firstItem="grZ-uj-enK" firstAttribute="leading" secondItem="7Zc-j2-KrZ" secondAttribute="leading" id="rTz-Hw-n76"/>
-                                            <constraint firstAttribute="bottom" secondItem="grZ-uj-enK" secondAttribute="bottom" id="uR8-ba-YUh"/>
+                                            <constraint firstAttribute="trailing" secondItem="wCy-SP-pJe" secondAttribute="trailing" id="Z4v-ik-Cys"/>
+                                            <constraint firstItem="wCy-SP-pJe" firstAttribute="leading" secondItem="7Zc-j2-KrZ" secondAttribute="leading" id="sNM-gu-T4e"/>
+                                            <constraint firstAttribute="bottom" secondItem="wCy-SP-pJe" secondAttribute="bottom" id="unb-YS-unH"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVf-gm-fhb" userLabel="Top Separator">
@@ -221,6 +232,7 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Jr4-Ml-nmB" secondAttribute="trailing" constant="5" id="VcK-XQ-cAZ"/>
                 <constraint firstItem="Jr4-Ml-nmB" firstAttribute="top" secondItem="XGc-3q-BXX" secondAttribute="top" constant="5" id="gZm-5L-XH9"/>
@@ -231,6 +243,7 @@
             <connections>
                 <outlet property="descriptionLabel" destination="uhk-be-sb1" id="1Ye-2w-X62"/>
                 <outlet property="isDefaultOverlayImageView" destination="CTs-ow-LEt" id="Aci-tw-AbG"/>
+                <outlet property="logoButton" destination="wCy-SP-pJe" id="YqT-Fw-MoO"/>
                 <outlet property="nameLabel" destination="w4K-G6-Tjp" id="6Pj-Kf-dMv"/>
                 <outlet property="projectCountLabel" destination="PBd-97-v1U" id="QBT-Fz-Jjl"/>
                 <outlet property="projectStatusLabel" destination="K0h-oq-kzd" id="Mhp-q0-lMl"/>

@@ -10,6 +10,7 @@
 
 @interface UIView (INVCustomizations)
 
+- (id)findSuperviewOfClass:(Class)kls predicate:(NSPredicate *)predicate;
 - (id)findSubviewOfClass:(Class)kls predicate:(NSPredicate *)predicate;
 
 @end

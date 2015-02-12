@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *projectCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *projectStatusLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *logoButton;
 @property (weak, nonatomic) IBOutlet UIImageView *isDefaultOverlayImageView;
 
 @end

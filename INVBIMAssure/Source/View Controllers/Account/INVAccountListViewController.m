@@ -18,6 +18,7 @@ const NSInteger INV_CELLSIZE = 100;
 #import "INVBlockUtils.h"
 #import "INVSignUpTableViewController.h"
 #import "INVAccountDetailFolderCollectionReusableView.h"
+#import "UIView+INVCustomizations.h"
 
 #import <RBCollectionViewInfoFolderLayout/RBCollectionViewInfoFolderLayout.h>
 
@@ -725,18 +726,28 @@ static NSString *const reuseIdentifier = @"Cell";
 
 #pragma mark - UIEvent handlers
 
+- (IBAction)selectThumbnail:(id)sender
+{
+    INVAccountViewCell *cell = [sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil];
+
+    UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image){
+        // TODO: Update the thumbnail.
+    }];
+
+    alertController.modalPresentationStyle = UIModalPresentationPopover;
+
+    [self presentViewController:alertController animated:YES completion:nil];
+
+    alertController.popoverPresentationController.sourceView = sender;
+    alertController.popoverPresentationController.sourceRect =
+        CGRectMake(CGRectGetMidX([sender bounds]), CGRectGetMidY([sender bounds]), 0, 0);
+    alertController.popoverPresentationController.permittedArrowDirections =
+        UIPopoverArrowDirectionDown | UIPopoverArrowDirectionUp;
+}
+
 - (IBAction)signIn:(id)sender
 {
-    UICollectionViewCell *cell = nil;
-
-    while ([sender superview] != nil) {
-        if ([[sender superview] isKindOfClass:[UICollectionViewCell class]]) {
-            cell = (UICollectionViewCell *) [sender superview];
-            break;
-        }
-
-        sender = [sender superview];
-    }
+    UICollectionViewCell *cell = [sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil];
 
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     id accountOrInvite = [self.dataResultsController objectAtIndexPath:indexPath];

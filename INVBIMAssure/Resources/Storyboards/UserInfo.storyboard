@@ -190,7 +190,7 @@
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="fBt-os-tp6" eventType="editingDidEndOnExit" id="Gj9-gL-YzW"/>
                                                         <action selector="checkPasswordsEmpty:" destination="pxF-rX-jjL" eventType="editingChanged" id="ZIi-Tm-fD4"/>
-                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingDidEndOnExit" id="AxV-Hi-zBZ"/>
+                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingChanged" id="Khc-Kk-85U"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -227,7 +227,7 @@
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                                     <connections>
                                                         <action selector="checkPasswordsEmpty:" destination="pxF-rX-jjL" eventType="editingChanged" id="IC6-YE-9kZ"/>
-                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingDidEndOnExit" id="PZU-HC-SOQ"/>
+                                                        <action selector="checkPasswordsMatch:" destination="pxF-rX-jjL" eventType="editingChanged" id="xI8-LE-N44"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>

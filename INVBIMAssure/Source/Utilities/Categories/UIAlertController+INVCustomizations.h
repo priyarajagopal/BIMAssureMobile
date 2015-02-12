@@ -8,4 +8,6 @@
 
 @interface UIAlertController (INVCustomizations)
 - (instancetype)initWithErrorMessage:(NSString *)errorMesg, ... NS_FORMAT_FUNCTION(1, 2);
+- (instancetype)initForImageSelectionWithHandler:(void (^)(UIImage *))handler;
+
 @end
