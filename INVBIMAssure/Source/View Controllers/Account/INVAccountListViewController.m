@@ -198,6 +198,9 @@ static NSString *const reuseIdentifier = @"Cell";
         if (indexPath.section == 0) {
             folder.account = [self.dataResultsController objectAtIndexPath:indexPath];
         }
+        else {
+            folder.invite = [self.dataResultsController objectAtIndexPath:indexPath];
+        }
 
         return folder;
     }
@@ -237,7 +240,7 @@ static NSString *const reuseIdentifier = @"Cell";
     }
 
     if (indexPath.section == 1) {
-        // cell.invite = accountOrInvite;
+        cell.invite = accountOrInvite;
     }
 
     return cell;
@@ -825,8 +828,7 @@ static NSString *const reuseIdentifier = @"Cell";
         sizingView.account = object;
     }
     else {
-        // TODO: Support pending invites
-        return 0;
+        sizingView.invite = object;
     }
 
     return [sizingView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;

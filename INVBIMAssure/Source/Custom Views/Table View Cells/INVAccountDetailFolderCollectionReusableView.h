@@ -11,5 +11,6 @@
 @interface INVAccountDetailFolderCollectionReusableView : UICollectionReusableView
 
 @property (nonatomic) INVAccount *account;
+@property (nonatomic) INVUserInvite *invite;
 
 @end
