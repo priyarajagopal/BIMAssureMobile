@@ -539,28 +539,39 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 /**
  Asynchornously , disable an account for currently signed in user. Once disabled, the account
  can only be reenabled by out-of-band means(not via an API). Accounts that are disabled are not deleted.
- 
+
  @param accountId Id of account to be disabled
- 
+
  @param handler The completion handler that returns error object if there was any error.
- 
+
  @see accountManager
- 
+
  @see -signInWithUserName:andPassword:withCompletionBlock:
 
- 
+
  */
-- (void)disableAccountForSignedInUserWithAccountId:(NSNumber*)accountId
-                                withCompletionBlock:(CompletionHandler)handler;
+- (void)disableAccountForSignedInUserWithAccountId:(NSNumber *)accountId withCompletionBlock:(CompletionHandler)handler;
 
 /**
- DEPRECATED Asynchornously , update details of signed in account with the XOS Passport service
+Asynchornously , update details of signed in account with the XOS Passport service. If values are not changed, then the existing
+values must be provided. Providing null will override
+ the existing values
 
- @param accountName updated name of account
+ NOTE: This API has a bug on server side and is not functional. Use updateSignedInAccountDetailsWithAccountId: ...
 
- @param accountDescription Updated optional description of account
+ @param accountDescription An optional description of account
 
  @param type Subscription type Will always be mapped to 1 for now
+
+ @param companyName company name
+
+ @param companyAddress Optional company address
+
+ @param contactName  optional name of contact person for company
+
+ @param contactPhone  optional Phone # of contact person for company
+
+ @param numEmployees  optional number of employees
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
  accountManager can be used to retrieve the details of account
@@ -571,8 +582,58 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  */
 - (void)updateSignedInAccountDetailsWithName:(NSString *)accountName
                           accountDescription:(NSString *)accountDescription
-                                        type:(NSNumber *)type
+                            subscriptionType:(NSNumber *)type
+                                 companyName:(NSString *)companyName
+                              companyAddress:(NSString *)companyAddress
+                                 contactName:(NSString *)contactName
+                                contactPhone:(NSString *)contactPhone
+                             numberEmployees:(NSNumber *)numEmployees
+                                forUserEmail:(NSString *)userEmail
                          withCompletionBlock:(CompletionHandler)handler;
+
+/*
+Asynchornously , update details of the specified account with the XOS Passport service. If values are not changed, then the
+existing
+values must be provided. Providing null will override
+the existing values
+
+ NOTE: Currently only the signed in account can be edited! This is a bug on server side that is tracked
+
+ @param accountId The Id of the account
+
+ @param accountName updated name of account
+
+ @param accountDescription An optional description of account
+
+ @param type Subscription type Will always be mapped to 1 for now
+
+ @param companyName company name
+
+ @param companyAddress Optional company address
+
+ @param contactName  optional name of contact person for company
+
+ @param contactPhone  optional Phone # of contact person for company
+
+ @param numEmployees  optional number of employees
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+accountManager can be used to retrieve the details of account
+
+@see accountManager
+
+
+*/
+- (void)updateAccountDetailsWithAccountId:(NSNumber *)accountId
+                                     name:(NSString *)accountName
+                       accountDescription:(NSString *)accountDescription
+                         subscriptionType:(NSNumber *)type
+                              companyName:(NSString *)companyName
+                           companyAddress:(NSString *)companyAddress
+                              contactName:(NSString *)contactName
+                             contactPhone:(NSString *)contactPhone
+                          numberEmployees:(NSNumber *)numEmployees
+                      withCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark - project management
 
@@ -632,6 +693,8 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  and process the data
  as they choose to. If there is an error, a nil value is returned
 
+ DEPRECATED - Use requestToFetchGeomInfoForPkgVersion: and
+
  @param pkgVersion the Id of the model whose JSON data is to fetched
 
  @see -signIntoAccount:withCompletionBlock:
@@ -640,6 +703,40 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  */
 - (NSURLRequest *)requestToFetchModelViewForId:(NSNumber *)pkgVersion;
+
+/**
+ Convenience method that retuns a NSURLRequest to fetch the germetry data corresponding to the pkg version. This returns a list
+ of geometry files. Use requestToFetchModelViewForPkgVersion:forFile:
+ to fetch the geometry info for each of the file listed in requestToFetchGeomInfoForPkgVersion:
+
+ This provides the flexibility for clients to fetch
+ and process the data
+ as they choose to. If there is an error, a nil value is returned
+
+ @param pkgVersion the Id of the model whose JSON data is to fetched
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see accountManager
+
+ */
+- (NSURLRequest *)requestToFetchGeomInfoForPkgVersion:(NSNumber *)pkgVersion;
+
+/**
+ Convenience method that retuns a NSURLRequest to fetch the JSON model data. This provides the flexibility for clients to fetch
+ and process the data
+ as they choose to. If there is an error, a nil value is returned
+
+ @param pkgVersion the Id of the model whose JSON data is to fetched
+
+ @param file The file is the .json file that is retrieved from requestToFetchGeomInfoForPkgVersion:
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see accountManager
+
+ */
+- (NSURLRequest *)requestToFetchModelViewForPkgVersion:(NSNumber *)pkgVersion forFile:(NSString *)file;
 
 /**
  Convenience method that retuns a NSURLRequest to fetch the JSON model data. This provides the flexibility for clients to fetch

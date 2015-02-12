@@ -98,7 +98,6 @@ void classDump(Class);
     [self prepareGL];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-
         [self loadModel];
     });
 
@@ -110,8 +109,22 @@ void classDump(Class);
     _ctmParser = [[INVStreamBasedCTMParser alloc] init];
     _ctmParser.delegate = self;
 
-    [_ctmParser
-        process:[[INVGlobalDataManager sharedInstance].invServerClient requestToFetchModelViewForId:self.fileVersionId]];
+    NSURLRequest *request =
+        [[INVGlobalDataManager sharedInstance].invServerClient requestToFetchGeomInfoForPkgVersion:self.fileVersionId];
+
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue currentQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               NSDictionary *parsedResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+
+                               for (NSString *geomURL in parsedResults[@"outputFiles"]) {
+                                   NSURLRequest *geomRequest = [[INVGlobalDataManager sharedInstance].invServerClient
+                                       requestToFetchModelViewForPkgVersion:self.fileVersionId
+                                                                    forFile:geomURL];
+
+                                   [self->_ctmParser process:geomRequest];
+                               }
+                           }];
 }
 
 - (void)update

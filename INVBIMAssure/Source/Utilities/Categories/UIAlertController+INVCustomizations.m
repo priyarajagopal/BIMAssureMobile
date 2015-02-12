@@ -23,8 +23,9 @@ static inline void _copyPopoverPresentationAttributes(
     to.permittedArrowDirections = from.permittedArrowDirections;
 }
 
-@interface _INVUIAlertControllerImageHandler : NSObject<UINavigationControllerDelegate, UIImagePickerControllerDelegate,
-                                                   INVStockThumbnailCollectionViewControllerDelegate>
+@interface _INVUIAlertControllerImageHandler
+    : NSObject<UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate, UIImagePickerControllerDelegate,
+          INVStockThumbnailCollectionViewControllerDelegate>
 
 @property (nonatomic, strong) id retainedSelf;
 @property (nonatomic, copy) void (^handlerBlock)(UIImage *);
@@ -135,6 +136,8 @@ static inline void _copyPopoverPresentationAttributes(
                                                             presentingViewController:presentingViewController];
 
         _copyPopoverPresentationAttributes(holdingPopoverController, self.popoverPresentationController);
+
+        holdingPopoverController.delegate = imageHandlerDelegate;
     });
 
     return self;
@@ -154,6 +157,19 @@ static inline void _copyPopoverPresentationAttributes(
                                                         completion:^{
                                                             self.retainedSelf = nil;
                                                         }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker.presentingViewController dismissViewControllerAnimated:YES
+                                                        completion:^{
+                                                            self.retainedSelf = nil;
+                                                        }];
+}
+
+- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
+    self.retainedSelf = nil;
 }
 
 - (void)stockThumbnailCollectionViewController:(INVStockThumbnailCollectionViewController *)controller

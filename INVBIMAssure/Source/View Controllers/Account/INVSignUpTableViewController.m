@@ -239,7 +239,6 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
 {
     [self showSignupProgress];
 
-#warning TODO: UPdate the view to accept the remaining fields from user and pass it along to server
     [self.globalDataManager.invServerClient signUpUserWithFirstName:self.firstNameTextField.text
                                                            lastName:self.lastNameTextField.text
                                                         userAddress:self.userAddressTextField.text
