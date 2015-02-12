@@ -12,6 +12,8 @@
 #import "INVCurrentUsersProfileTableViewCell.h"
 #import "INVBlockUtils.h"
 
+#define SECTION_CURRENT_USER @(-1)
+
 @interface INVCurrentUsersTableViewController ()
 
 @property IBOutlet INVTransitionToStoryboard *userProfileTransition;
@@ -22,6 +24,9 @@
 
 @property (nonatomic, strong) NSMutableDictionary *expanded;
 @property (nonatomic, strong) NSMutableDictionary *cachedUsers;
+
+@property (nonatomic, strong) NSMutableDictionary *sections;
+@property (readonly, nonatomic) NSArray *sortedSections;
 
 - (void)showLoadProgress;
 
@@ -35,10 +40,10 @@
 
     // Do any additional setup after loading the view.
     self.tableView.editing = YES;
-    self.tableView.dataSource = [self dataSource];
 
     self.expanded = [NSMutableDictionary new];
     self.cachedUsers = [NSMutableDictionary new];
+    self.sections = [NSMutableDictionary new];
 
     UINib *userCellNib = [UINib nibWithNibName:@"INVCurrentUsersProfileTableViewCell" bundle:nil];
     [self.tableView registerNib:userCellNib forCellReuseIdentifier:@"UserCell"];
@@ -60,6 +65,22 @@
     [self fetchListOfAccountMembers];
 }
 
+- (NSArray *)sortedSections
+{
+    return [[[self.sections allKeys]
+        filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+            return [self.sections[evaluatedObject] count] > 0;
+        }]] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        if ([obj1 isEqual:SECTION_CURRENT_USER])
+            return NSOrderedAscending;
+
+        if ([obj2 isEqual:SECTION_CURRENT_USER])
+            return NSOrderedDescending;
+
+        return -[obj1 compare:obj2];
+    }];
+}
+
 #pragma mark - server side
 - (void)fetchListOfAccountMembers
 {
@@ -74,6 +95,7 @@
 
         INV_SUCCESS : {
             [self.dataResultsController performFetch:NULL];
+            [self.sections removeAllObjects];
 
             NSArray *objects = [self.dataResultsController.sections.firstObject objects];
             id successBlock = [INVBlockUtils blockForExecutingBlock:^{
@@ -81,10 +103,22 @@
             } afterNumberOfCalls:objects.count];
 
             [objects enumerateObjectsUsingBlock:^(INVAccountMembership *membership, NSUInteger idx, BOOL *stop) {
+                for (NSNumber *role in membership.roles) {
+                    if (self.sections[role] == nil) {
+                        self.sections[role] = [NSMutableArray new];
+                    }
+
+                    [self.sections[role] addObject:membership];
+                }
+
                 [self.globalDataManager.invServerClient
                     getUserProfileInSignedInAccountWithId:membership.userId
                                       withCompletionBlock:^(INVUser *user, INVEmpireMobileError *error) {
                                           self.cachedUsers[user.userId] = user;
+
+                                          if ([user.email isEqual:self.globalDataManager.loggedInUser]) {
+                                              self.sections[SECTION_CURRENT_USER] = @[ membership ];
+                                          }
 
                                           [successBlock invoke];
                                       }];
@@ -99,11 +133,72 @@
     }];
 }
 
+#pragma mark - UITableViewDataSource
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSNumber *membershipTypeForSection = self.sortedSections[section];
+    NSString *title = INVEmpireMobileClient.membershipRoles[membershipTypeForSection];
+
+    if ([membershipTypeForSection isEqual:SECTION_CURRENT_USER]) {
+        title = @"INV_MEMBERSHIP_TYPE_CURRENT_USER";
+    }
+
+    return NSLocalizedString(title, nil);
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.sortedSections.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.sections[self.sortedSections[section]] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    INVCurrentUsersProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell"];
+    INVAccountMembership *member = [self.sections[self.sortedSections[indexPath.section]] objectAtIndex:indexPath.row];
+
+    cell.user = self.cachedUsers[member.userId];
+    cell.expanded = [self.expanded[indexPath] boolValue];
+
+    if (cell.user == nil) {
+        [self.globalDataManager.invServerClient
+            getUserProfileInSignedInAccountWithId:member.userId
+                              withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                  self.cachedUsers[member.userId] = result;
+                                  cell.user = result;
+
+                                  [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
+                                                        withRowAnimation:UITableViewRowAnimationNone];
+                              }];
+    }
+
+    return cell;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    INVAccountMembership *member = [self.sections[self.sortedSections[indexPath.section]] objectAtIndex:indexPath.row];
+
+    if (self.cachedUsers[member.userId]) {
+        if ([[self.cachedUsers[member.userId] email] isEqual:self.globalDataManager.loggedInUser]) {
+            return UITableViewCellEditingStyleNone;
+        }
+
+        return UITableViewCellEditingStyleDelete;
+    }
+
+    return UITableViewCellEditingStyleNone;
+}
+
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
     [tableView beginUpdates];
 
     INVCurrentUsersProfileTableViewCell *profileCell =
@@ -114,6 +209,7 @@
 
     [tableView endUpdates];
 }
+
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NSLocalizedString(@"REMOVE", nil);
@@ -152,18 +248,6 @@
 {
     if (!_dataResultsController) {
         NSFetchRequest *fetchRequest = [self.globalDataManager.invServerClient.accountManager fetchRequestForAccountMembership];
-        fetchRequest.sortDescriptors = [[NSArray
-            arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"email"
-                                                          ascending:YES
-                                                         comparator:^NSComparisonResult(id obj1, id obj2) {
-                                                             if ([obj1 isEqualToString:self.globalDataManager.loggedInUser])
-                                                                 return NSOrderedAscending;
-
-                                                             if ([obj2 isEqualToString:self.globalDataManager.loggedInUser])
-                                                                 return NSOrderedDescending;
-
-                                                             return NSOrderedSame;
-                                                         }]] arrayByAddingObjectsFromArray:fetchRequest.sortDescriptors];
 
         _dataResultsController = [[NSFetchedResultsController alloc]
             initWithFetchRequest:fetchRequest
@@ -189,10 +273,6 @@
                                                                                  forTableView:self.tableView];
 
         __weak typeof(self) weakSelf = self;
-
-        _dataSource.editableHandler = ^BOOL(INVAccountMembership *member, NSIndexPath *_) {
-            return ![[weakSelf.cachedUsers[member.userId] email] isEqualToString:weakSelf.globalDataManager.loggedInUser];
-        };
 
         _dataSource.deletionHandler = ^(UITableViewCell *cell, INVAccountMembership *member, NSIndexPath *indexPath) {
             [weakSelf confirmDeletion:indexPath];

@@ -40,11 +40,6 @@ static const INV_DISPLAY_STRING INV_MEMBER_DISPLAYSTRING = @"Member";
 typedef NSDictionary* INVMembershipTypeDictionary;
 
 /**
- array of INVMembershipTypeDictionary objects
- */
-typedef NSArray* INVMembershipTypes;
-
-/**
  Array of INVAccountMembership objects
  */
 typedef NSArray *INVMembersArray;

@@ -7,6 +7,7 @@
 //
 
 #import "UIResponder+IBHelpers.h"
+#import "UIView+INVCustomizations.h"
 
 @implementation UIResponder (IBHelpers)
 
@@ -15,20 +16,12 @@
     if (![self isKindOfClass:[UIView class]])
         return;
 
-    UIView *view = (UIView *) self;
-    UIScrollView *scrollView = nil;
-    for (UIView *parent = view; parent != nil; parent = parent.superview) {
-        if ([parent isKindOfClass:[UIScrollView class]]) {
-            scrollView = (UIScrollView *) parent;
-            break;
-        }
-    }
-
+    UIScrollView *scrollView = [(UIView *) self findSuperviewOfClass:[UIScrollView class] predicate:nil];
     if (scrollView == nil) {
         return;
     }
 
-    CGRect rect = [view convertRect:view.bounds toView:scrollView];
+    CGRect rect = [(UIView *) self convertRect:[(UIView *) self bounds] toView:scrollView];
     [scrollView scrollRectToVisible:rect animated:YES];
 }
 

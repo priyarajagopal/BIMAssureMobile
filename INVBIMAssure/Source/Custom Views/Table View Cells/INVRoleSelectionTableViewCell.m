@@ -13,7 +13,7 @@ NSString *const KVO_INVRoleUpdated = @"role";
 @interface INVRoleSelectionTableViewCell () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak) IBOutlet UIButton *currentRoleButton;
-@property (strong) INVMembershipTypes membership;
+@property (strong) INVMembershipTypeDictionary membership;
 
 - (IBAction)onRolesListSelected:(id)sender;
 
@@ -26,21 +26,14 @@ NSString *const KVO_INVRoleUpdated = @"role";
     // Initialization code
     self.membership = [INVEmpireMobileClient membershipRoles];
     self.role = INV_MEMBERSHIP_TYPE_REGULAR;
+
     [self updateUI];
 }
 
 - (void)updateUI
 {
-    __block INVMembershipTypeDictionary memberType;
-    [self.membership indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        memberType = obj;
-        INV_MEMBERSHIP_TYPE type = (INV_MEMBERSHIP_TYPE)[memberType.allKeys[0] integerValue];
-        return type == self.role;
-    }];
-    NSString *localStr = NSLocalizedString(memberType.allValues[0], nil);
+    NSString *localStr = NSLocalizedString(self.membership[@(self.role)], nil);
     [self.currentRoleButton setTitle:localStr forState:UIControlStateNormal];
-
-    //  [self.currentRoleButton setTitle:membershipTypeToString(_role) forState:UIControlStateNormal];
 }
 
 - (void)setRole:(INV_MEMBERSHIP_TYPE)role
@@ -84,12 +77,10 @@ NSString *const KVO_INVRoleUpdated = @"role";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"INVRoleCell"];
     }
 
-    INVMembershipTypeDictionary memberType = self.membership[indexPath.row];
-    NSString *localStr = NSLocalizedString(memberType.allValues[0], nil);
+    NSString *localStr = NSLocalizedString(self.membership[self.membership.allKeys[indexPath.row]], nil);
 
     cell.textLabel.text = localStr;
-    //  cell.textLabel.text = membershipTypeToString((INV_MEMBERSHIP_TYPE) indexPath.row);
-    INV_MEMBERSHIP_TYPE type = (INV_MEMBERSHIP_TYPE)[memberType.allKeys[0] integerValue];
+    INV_MEMBERSHIP_TYPE type = indexPath.row;
 
     if (type == self.role) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -107,11 +98,7 @@ NSString *const KVO_INVRoleUpdated = @"role";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    INVMembershipTypeDictionary memberType = self.membership[indexPath.row];
-
-    self.role = (INV_MEMBERSHIP_TYPE)[memberType.allKeys[0] integerValue];
-
-    // self.role = (INV_MEMBERSHIP_TYPE) indexPath.row;
+    self.role = [self.membership.allKeys[indexPath.row] intValue];
 
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

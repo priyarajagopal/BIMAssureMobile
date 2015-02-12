@@ -1337,6 +1337,6 @@ accountManager can be used to retrieve the details of account
 
  */
 
-+ (INVMembershipTypes)membershipRoles;
++ (INVMembershipTypeDictionary)membershipRoles;
 
 @end
