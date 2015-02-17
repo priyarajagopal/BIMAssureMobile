@@ -131,6 +131,7 @@
     // Universal shadow offset
     [[UILabel appearance] setShadowOffset:CGSizeZero];
     [[UITextField appearance] setTextColor:darkGreyColor];
+    [[UITextView appearance] setTintColor:darkGreyColor];
 }
 
 #pragma mark - VC management

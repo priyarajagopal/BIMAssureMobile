@@ -7,9 +7,11 @@
 //
 
 #import "INVAccountViewCell.h"
+#import "INVAccountListViewController.h"
 
 @interface INVAccountViewCell ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *accountThumbnailImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
@@ -25,6 +27,18 @@
 @end
 
 @implementation INVAccountViewCell
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+
+    UILongPressGestureRecognizer *longPressRecognizer =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_handleLongTap:)];
+
+    [self.accountThumbnailImageView addGestureRecognizer:longPressRecognizer];
+
+    [self updateUI];
+}
 
 - (void)updateUI
 {
@@ -95,9 +109,11 @@
     [self updateUI];
 }
 
-- (void)awakeFromNib
+- (void)_handleLongTap:(UIGestureRecognizer *)recognizer
 {
-    [self updateUI];
+    if (recognizer.state == UIGestureRecognizerStateRecognized) {
+        [[UIApplication sharedApplication] sendAction:@selector(selectThumbnail:) to:nil from:self forEvent:nil];
+    }
 }
 
 @end

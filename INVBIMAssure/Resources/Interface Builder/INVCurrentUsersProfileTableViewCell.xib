@@ -33,28 +33,37 @@
                     </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTq-Pf-q9w" userLabel="Exanded Details">
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYE-96-cdO">
-                                <rect key="frame" x="0.0" y="8" width="349" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="17" id="xtp-uQ-rSY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBU-RG-IPL">
-                                <rect key="frame" x="0.0" y="33" width="97" height="17"/>
+                                <rect key="frame" x="0.0" y="0.0" width="349" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="17" id="PeI-Mf-Hr5"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="17" id="HlR-MB-8c0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title at Company" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxK-SJ-Std">
-                                <rect key="frame" x="0.0" y="50" width="110" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxK-SJ-Std">
+                                <rect key="frame" x="0.0" y="-51" width="349" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" priority="500" constant="17" id="Ave-eT-ZWC"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="17" id="leq-ka-rbT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Bt-Dh-boW">
+                                <rect key="frame" x="0.0" y="-34" width="349" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="17" id="SZT-RG-QCO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPY-wj-iaQ">
+                                <rect key="frame" x="0.0" y="-17" width="349" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="17" id="K80-ss-pOr"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -63,15 +72,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WBU-RG-IPL" firstAttribute="top" secondItem="bYE-96-cdO" secondAttribute="bottom" priority="500" constant="8" id="FZT-Re-fPm"/>
-                            <constraint firstAttribute="trailing" secondItem="bYE-96-cdO" secondAttribute="trailing" id="GvT-1D-1fu"/>
+                            <constraint firstItem="dPY-wj-iaQ" firstAttribute="top" secondItem="4Bt-Dh-boW" secondAttribute="bottom" priority="500" id="22W-UY-QOc"/>
+                            <constraint firstItem="4Bt-Dh-boW" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="4fI-co-YoC"/>
+                            <constraint firstAttribute="trailing" secondItem="OxK-SJ-Std" secondAttribute="trailing" id="8x7-aZ-fYg"/>
+                            <constraint firstItem="WBU-RG-IPL" firstAttribute="top" secondItem="dTq-Pf-q9w" secondAttribute="top" priority="500" id="Jm4-qd-MhX"/>
+                            <constraint firstItem="OxK-SJ-Std" firstAttribute="top" secondItem="WBU-RG-IPL" secondAttribute="bottom" priority="250" id="N0P-Es-Nol"/>
                             <constraint firstAttribute="height" id="Nn2-vp-FJQ"/>
-                            <constraint firstItem="WBU-RG-IPL" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="VEl-Be-Ed3"/>
-                            <constraint firstAttribute="bottom" secondItem="OxK-SJ-Std" secondAttribute="bottom" priority="250" id="Y3U-tm-p9b"/>
-                            <constraint firstItem="OxK-SJ-Std" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="aAZ-sq-GzG"/>
-                            <constraint firstItem="OxK-SJ-Std" firstAttribute="top" secondItem="WBU-RG-IPL" secondAttribute="bottom" id="bSb-kO-JWU"/>
-                            <constraint firstItem="bYE-96-cdO" firstAttribute="top" secondItem="dTq-Pf-q9w" secondAttribute="top" constant="8" id="hZP-8q-Vvm"/>
-                            <constraint firstItem="bYE-96-cdO" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="icn-3H-l4O"/>
+                            <constraint firstAttribute="trailing" secondItem="WBU-RG-IPL" secondAttribute="trailing" id="OZS-20-HxK"/>
+                            <constraint firstAttribute="trailing" secondItem="dPY-wj-iaQ" secondAttribute="trailing" id="PEv-PE-M8s"/>
+                            <constraint firstItem="4Bt-Dh-boW" firstAttribute="top" secondItem="OxK-SJ-Std" secondAttribute="bottom" priority="500" id="QTv-ao-Idm"/>
+                            <constraint firstItem="WBU-RG-IPL" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="QU3-1w-tm6"/>
+                            <constraint firstAttribute="bottom" secondItem="dPY-wj-iaQ" secondAttribute="bottom" priority="500" id="UXd-rO-hyF"/>
+                            <constraint firstItem="OxK-SJ-Std" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="ncE-Yk-DF0"/>
+                            <constraint firstAttribute="trailing" secondItem="4Bt-Dh-boW" secondAttribute="trailing" id="rNl-HT-Skr"/>
+                            <constraint firstItem="dPY-wj-iaQ" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="uMe-eU-jz4"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -90,14 +104,15 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="addressLabel" destination="bYE-96-cdO" id="sZD-58-CHQ"/>
+                <outlet property="addressLabel" destination="dPY-wj-iaQ" id="mD5-Y9-B1s"/>
                 <outlet property="collapseContentViewConstraint" destination="Nn2-vp-FJQ" id="x1j-u6-Psv"/>
+                <outlet property="companyLabel" destination="4Bt-Dh-boW" id="pPH-xj-3EZ"/>
                 <outlet property="emailLabel" destination="Oas-TV-RCP" id="Fgt-IE-DhS"/>
                 <outlet property="expandedContentView" destination="dTq-Pf-q9w" id="faK-o2-0G1"/>
                 <outlet property="firstNameLabel" destination="ig1-uu-YGO" id="L48-uZ-InK"/>
                 <outlet property="lastNameLabel" destination="koe-8P-6kc" id="EPM-7Z-oOy"/>
                 <outlet property="phoneLabel" destination="WBU-RG-IPL" id="SSY-PU-d1U"/>
-                <outlet property="titleCompanyLabel" destination="OxK-SJ-Std" id="jGF-1L-T75"/>
+                <outlet property="titleLabel" destination="OxK-SJ-Std" id="geV-fN-qIv"/>
             </connections>
             <point key="canvasLocation" x="246.5" y="546"/>
         </tableViewCell>

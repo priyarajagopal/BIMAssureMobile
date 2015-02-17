@@ -8,12 +8,15 @@
 
 #import "INVCurrentUsersProfileTableViewCell.h"
 
+#import "UIFont+INVCustomizations.h"
+#import "UILabel+INVCustomizations.h"
+
 @interface INVCurrentUsersProfileTableViewCell ()
 
 @property IBOutlet UILabel *firstNameLabel, *lastNameLabel;
 @property IBOutlet UILabel *emailLabel;
 @property IBOutlet UILabel *addressLabel, *phoneLabel;
-@property IBOutlet UILabel *titleCompanyLabel;
+@property IBOutlet UILabel *titleLabel, *companyLabel;
 
 @property IBOutlet UIView *expandedContentView;
 @property IBOutlet NSLayoutConstraint *collapseContentViewConstraint;
@@ -40,13 +43,28 @@
 
 - (void)updateUI
 {
-    self.firstNameLabel.text = self.user.firstName;
-    self.lastNameLabel.text = self.user.lastName;
-    self.emailLabel.text = self.user.email;
-    self.addressLabel.text = self.user.address;
-    self.phoneLabel.text = self.user.phoneNumber;
+    NSDictionary *titleFontDicionary = @{NSFontAttributeName : [self.firstNameLabel.font italicFont]};
+    NSDictionary *subtitleFontDicitonary = @{NSFontAttributeName : [self.emailLabel.font italicFont]};
 
-    self.titleCompanyLabel.text = [NSString stringWithFormat:@"%@ at %@", self.user.title, self.user.companyName];
+    [self.firstNameLabel setText:self.user.firstName withDefault:@"USER_NAME_UNAVAILABLE" andAttributes:titleFontDicionary];
+    [self.lastNameLabel setText:self.user.lastName withDefault:nil];
+
+    [self.emailLabel setText:self.user.email withDefault:@"USER_EMAIL_UNAVAILABLE" andAttributes:subtitleFontDicitonary];
+    [self.addressLabel setText:self.user.address withDefault:@"USER_ADDRESS_UNAVAILABLE" andAttributes:subtitleFontDicitonary];
+    [self.phoneLabel setText:self.user.phoneNumber withDefault:@"USER_PHONE_UNAVAILABLE" andAttributes:subtitleFontDicitonary];
+
+    [self.titleLabel setText:self.user.title withDefault:@"USER_TITLE_UNAVAILABLE" andAttributes:subtitleFontDicitonary];
+    [self.companyLabel setText:self.user.companyName
+                   withDefault:@"USER_COMPANY_UNAVAILABLE"
+                 andAttributes:subtitleFontDicitonary];
+
+    [self setNeedsLayout];
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)updateConstraints
+{
+    [super updateConstraints];
 
     if (self.expanded) {
         self.expandedContentView.hidden = NO;
@@ -58,9 +76,6 @@
 
         [self.expandedContentView addConstraint:self.collapseContentViewConstraint];
     }
-
-    [self setNeedsLayout];
-    [self setNeedsUpdateConstraints];
 }
 
 - (void)setUser:(INVUser *)user

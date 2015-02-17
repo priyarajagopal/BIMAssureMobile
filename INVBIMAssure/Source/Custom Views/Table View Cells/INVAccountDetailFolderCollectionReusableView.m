@@ -9,6 +9,8 @@
 #import "INVAccountDetailFolderCollectionReusableView.h"
 #import "UIFont+INVCustomizations.h"
 
+#import "UILabel+INVCustomizations.h"
+
 @interface INVAccountDetailFolderCollectionReusableView ()
 
 @property IBOutlet UILabel *accountOverviewLabel;
@@ -41,92 +43,57 @@
     [self updateUI];
 }
 
-- (void)_setText:(NSString *)text forLabel:(UILabel *)label withDefault:(NSString *)defaultString
-{
-    label.text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-    if (label.text.length == 0) {
-        label.attributedText = [[NSAttributedString alloc] initWithString:defaultString
-                                                               attributes:@{NSFontAttributeName : label.font.italicFont}];
-    }
-}
-
-- (void)_setOverviewText:(NSString *)overviewText
-{
-    [self _setText:overviewText
-           forLabel:self.accountOverviewLabel
-        withDefault:NSLocalizedString(@"ACCOUNT_DESCRIPTION_UNAVAILABLE", nil)];
-}
-
-- (void)_setCreatedByAtText:(NSString *)createdByAtText
-{
-    [self _setText:createdByAtText
-           forLabel:self.createdByAtLabel
-        withDefault:NSLocalizedString(@"CREATED_AT_BY_UNAVAILABLE", nil)];
-}
-
-- (void)_setCompanyNameText:(NSString *)companyNameText
-{
-    [self _setText:companyNameText
-           forLabel:self.companyNameLabel
-        withDefault:NSLocalizedString(@"COMPANY_NAME_UNAVAILABLE", nil)];
-}
-
-- (void)_setCompanyAddressText:(NSString *)companyAddressText
-{
-    [self _setText:companyAddressText
-           forLabel:self.companyAddressLabel
-        withDefault:NSLocalizedString(@"COMPANY_ADDRESS_UNAVAILABLE", nil)];
-}
-
-- (void)_setNumberOfEmployeesText:(NSString *)numberOfEmployeesText
-{
-    [self _setText:numberOfEmployeesText
-           forLabel:self.numberEmployeesLabel
-        withDefault:NSLocalizedString(@"NUMBER_EMPLOYEES_UNAVAILABLE", nil)];
-}
-
-- (void)_setContactNameText:(NSString *)contactNameText
-{
-    [self _setText:contactNameText
-           forLabel:self.contactNameLabel
-        withDefault:NSLocalizedString(@"CONTACT_NAME_UNAVAILABLE", nil)];
-}
-
-- (void)_setContactPhoneText:(NSString *)contactPhoneText
-{
-    [self _setText:contactPhoneText
-           forLabel:self.contactPhoneLabel
-        withDefault:NSLocalizedString(@"CONTACT_PHONE_UNAVAILABLE", nil)];
-}
-
 - (void)updateUI
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 
-    if (self.account) {
-        [self _setOverviewText:self.account.overview];
-        [self _setCreatedByAtText:[NSString stringWithFormat:@"Created on %@",
-                                            [dateFormatter stringFromDate:self.account.createdAt]]];
+    NSDictionary *italicFontAttributes = @{NSFontAttributeName : self.accountOverviewLabel.font.italicFont};
 
-        [self _setCompanyNameText:self.account.companyName];
-        [self _setCompanyAddressText:self.account.companyAddress];
-        [self _setNumberOfEmployeesText:[self.account.numberEmployees stringValue]];
-        [self _setContactNameText:self.account.contactName];
-        [self _setContactPhoneText:self.account.contactPhone];
+    if (self.account) {
+        [self.accountOverviewLabel setText:self.account.overview
+                               withDefault:@"ACCOUNT_DESCRIPTION_UNAVAILABLE"
+                             andAttributes:italicFontAttributes];
+
+        [self.createdByAtLabel
+                setText:[NSString stringWithFormat:@"Created on %@", [dateFormatter stringFromDate:self.account.createdAt]]
+            withDefault:nil];
+
+        [self.companyNameLabel setText:self.account.companyName
+                           withDefault:@"COMPANY_NAME_UNAVAILABLE"
+                         andAttributes:italicFontAttributes];
+
+        [self.companyAddressLabel setText:self.account.companyAddress
+                              withDefault:@"COMPANY_ADDRESS_UNAVAILABLE"
+                            andAttributes:italicFontAttributes];
+
+        [self.numberEmployeesLabel setText:self.account.numberEmployees.stringValue
+                               withDefault:@"NUMBER_EMPLOYEES_UNAVAILABLE"
+                             andAttributes:italicFontAttributes];
+
+        [self.contactNameLabel setText:self.account.contactName
+                           withDefault:@"CONTACT_NAME_UNAVAILABLE"
+                         andAttributes:italicFontAttributes];
+
+        [self.contactPhoneLabel setText:self.account.contactPhone
+                            withDefault:@"CONTACT_PHONE_UNAVAILABLE"
+                          andAttributes:italicFontAttributes];
     }
     else if (self.invite) {
-        [self _setOverviewText:nil];
-        [self _setCreatedByAtText:[NSString
-                                      stringWithFormat:@"Sent on %@", [dateFormatter stringFromDate:self.invite.createdAt]]];
+        [self.accountOverviewLabel setText:nil
+                               withDefault:@"ACCOUNT_DESCRIPTION_UNAVAILABLE"
+                             andAttributes:italicFontAttributes];
 
-        [self _setCompanyNameText:nil];
-        [self _setCompanyAddressText:nil];
-        [self _setNumberOfEmployeesText:nil];
-        [self _setContactNameText:nil];
-        [self _setContactPhoneText:nil];
+        [self.createdByAtLabel
+                setText:[NSString stringWithFormat:@"Created on %@", [dateFormatter stringFromDate:self.invite.createdAt]]
+            withDefault:nil];
+
+        [self.companyNameLabel setText:nil withDefault:@"COMPANY_NAME_UNAVAILABLE" andAttributes:italicFontAttributes];
+        [self.companyAddressLabel setText:nil withDefault:@"COMPANY_ADDRESS_UNAVAILABLE" andAttributes:italicFontAttributes];
+        [self.numberEmployeesLabel setText:nil withDefault:@"NUMBER_EMPLOYEES_UNAVAILABLE" andAttributes:italicFontAttributes];
+        [self.contactNameLabel setText:nil withDefault:@"CONTACT_NAME_UNAVAILABLE" andAttributes:italicFontAttributes];
+        [self.contactPhoneLabel setText:nil withDefault:@"CONTACT_PHONE_UNAVAILABLE" andAttributes:italicFontAttributes];
     }
 }
 

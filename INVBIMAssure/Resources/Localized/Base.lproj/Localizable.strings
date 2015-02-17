@@ -191,6 +191,13 @@
 "CONTACT_NAME_UNAVAILABLE"="Contact name unavailable";
 "CONTACT_PHONE_UNAVAILABLE"="Contact phone unavailable";
 
+"USER_NAME_UNAVAILABLE"="User name unavailable";
+"USER_EMAIL_UNAVAILABLE"="User email unavailable";
+"USER_ADDRESS_UNAVAILABLE"="User address unavailable";
+"USER_PHONE_UNAVAILABLE"="User phone unavailable";
+"USER_TITLE_UNAVAILABLE"="User title unavailable";
+"USER_COMPANY_UNAVAILABLE"="User company unavailable";
+
 "ERROR_LOAD_USER_PROFILE"="User Info Unavailable";
 
 "INV_MEMBERSHIP_TYPE_CURRENT_USER"="Current User";

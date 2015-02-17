@@ -52,32 +52,45 @@
 
 - (void)fetchUserProfileDetails
 {
-    const void (^fetchProfile)(NSNumber *) = ^(NSNumber *userId) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    const void (^updateUI)(INVUser *) = ^(INVUser *userProfile) {
+        self.firstNameTextField.text = [userProfile firstName];
+        self.lastNameTextField.text = [userProfile lastName];
+        self.emailTextField.text = [userProfile email];
+
+        if ([userProfile respondsToSelector:@selector(address)]) {
+            self.addressTextField.text = [userProfile address];
+            self.phoneNumberTextField.text = [userProfile phoneNumber];
+            self.companyTextField.text = [userProfile companyName];
+        }
+    };
+
+    if (self.userId) {
         [self.globalDataManager.invServerClient
-            getUserProfileInSignedInAccountWithId:userId
+            getUserProfileInSignedInAccountWithId:self.userId
                               withCompletionBlock:^(INVUser *userProfile, INVEmpireMobileError *error) {
+                                  [MBProgressHUD hideHUDForView:self.view animated:YES];
+
                                   if (error) {
                                       INVLogError(@"%@", error);
                                       return;
                                   }
 
-                                  self.firstNameTextField.text = userProfile.firstName;
-                                  self.lastNameTextField.text = userProfile.lastName;
-
-                                  self.emailTextField.text = userProfile.email;
-                                  self.addressTextField.text = userProfile.address;
-                                  self.phoneNumberTextField.text = userProfile.phoneNumber;
-                                  self.companyTextField.text = userProfile.companyName;
+                                  updateUI(userProfile);
                               }];
-    };
-
-    if (self.userId) {
-        fetchProfile(self.userId);
     }
     else {
         [self.globalDataManager.invServerClient
             getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *signedInUser, INVEmpireMobileError *error) {
-                fetchProfile(signedInUser.userId);
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+                if (error) {
+                    INVLogError(@"%@", error);
+                    return;
+                }
+
+                updateUI((INVUser *) signedInUser);
             }];
     }
 }

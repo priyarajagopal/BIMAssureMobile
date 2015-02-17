@@ -9,17 +9,33 @@
 #import "UITableView+INVCustomTableView.h"
 #import "INVRuntimeUtils.h"
 
+#define INITIAL_LOAD_NOT_STARTED 0
+#define INITIAL_LOAD_STARTED 1
+#define INITIAL_LOAD_FINISHED 2
+
 @import ObjectiveC.runtime;
 @import QuartzCore;
 
+static void *initialLoadKey = &initialLoadKey;
 static void *noContentKey = &noContentKey;
 static void *fontSizeKey = &fontSizeKey;
 static void *textLayerKey = &textLayerKey;
 
 static void (*oldReloadDataImp)(id self, SEL _cmd);
 static void (*oldLayoutSubviewsImp)(id self, SEL _cmd);
+static void (*oldWillMoveToWindowImp)(id self, SEL _cmd, UIWindow *window);
 
 @implementation UITableView (INVCustomCollectionView)
+
+- (int)_inv_isInitialLoad
+{
+    return [objc_getAssociatedObject(self, initialLoadKey) boolValue];
+}
+
+- (void)set_inv_isInitialLoad:(int)initial
+{
+    objc_setAssociatedObject(self, initialLoadKey, @(initial), OBJC_ASSOCIATION_RETAIN);
+}
 
 - (CATextLayer *)_inv_textLayer
 {
@@ -69,11 +85,27 @@ static void (*oldLayoutSubviewsImp)(id self, SEL _cmd);
     [self _inv_updateLayer];
 }
 
+- (void)_inv_willMoveToWindow:(UIWindow *)newWindow
+{
+    if (self.window == nil) {
+        [self set_inv_isInitialLoad:INITIAL_LOAD_NOT_STARTED];
+    }
+
+    oldWillMoveToWindowImp(self, _cmd, newWindow);
+}
+
 - (void)_inv_reloadData
 {
     oldReloadDataImp(self, _cmd);
 
     [self _inv_updateLayer];
+
+    if ([self _inv_isInitialLoad] == INITIAL_LOAD_NOT_STARTED) {
+        [self set_inv_isInitialLoad:INITIAL_LOAD_STARTED];
+    }
+    else if ([self _inv_isInitialLoad] == INITIAL_LOAD_STARTED) {
+        [self set_inv_isInitialLoad:INITIAL_LOAD_FINISHED];
+    }
 }
 
 - (void)_inv_layoutSubviews
@@ -116,7 +148,7 @@ static void (*oldLayoutSubviewsImp)(id self, SEL _cmd);
 
 - (void)_inv_updateLayer
 {
-    if (self.noContentText && ![self _inv_hasContent]) {
+    if (self.noContentText && ![self _inv_hasContent] && [self _inv_isInitialLoad] == INITIAL_LOAD_FINISHED) {
         NSAttributedString *attributedString =
             [[NSAttributedString alloc] initWithString:self.noContentText
                                             attributes:@{
@@ -143,4 +175,5 @@ __attribute__((constructor)) static void UICollectionView_INVCustomCollectionVie
 
     oldReloadDataImp = (void *) safeSwapMethods(kls, @selector(reloadData), @selector(_inv_reloadData));
     oldLayoutSubviewsImp = (void *) safeSwapMethods(kls, @selector(layoutSubviews), @selector(_inv_layoutSubviews));
+    oldWillMoveToWindowImp = (void *) safeSwapMethods(kls, @selector(willMoveToWindow:), @selector(_inv_willMoveToWindow:));
 }

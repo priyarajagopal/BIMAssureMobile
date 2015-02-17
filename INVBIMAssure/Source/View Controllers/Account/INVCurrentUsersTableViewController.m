@@ -195,6 +195,30 @@
     return UITableViewCellEditingStyleNone;
 }
 
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    INVAccountMembership *member = [self.sections[self.sortedSections[indexPath.section]] objectAtIndex:indexPath.row];
+
+    [self.globalDataManager.invServerClient
+        removeUserFromSignedInAccountWithUserId:member.userId
+                            withCompletionBlock:INV_COMPLETION_HANDLER {
+                                INV_ALWAYS:
+                                    [self fetchListOfAccountMembers];
+
+                                INV_SUCCESS:
+
+                                INV_ERROR:
+                                    INVLogError(@"%@", error);
+
+                                    UIAlertController *errorController = [[UIAlertController alloc]
+                                        initWithErrorMessage:NSLocalizedString(@"ERROR_REMOVING_USER", nil)];
+
+                                    [self presentViewController:errorController animated:YES completion:nil];
+                            }];
+}
+
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

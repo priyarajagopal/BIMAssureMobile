@@ -33,6 +33,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     self.tableView.editing = YES;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
+
+    [self setupTableFooter];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,11 +85,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                 [self.refreshControl endRefreshing];
             }
             else {
-                [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+                [self.hud hide:YES];
             }
 
             if (!error) {
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                [self.tableView reloadData];
             }
             else {
                 UIAlertController *errController = [[UIAlertController alloc]
@@ -95,7 +97,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                 [self presentViewController:errController animated:YES completion:nil];
             }
         }];
-    [self setupTableFooter];
 }
 
 #pragma mark - Navigation

@@ -744,7 +744,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
         NSURL *fileURL = [NSURL fileURLWithPath:@(tempFilePath)];
 
-        [self.globalDataManager.invServerClient addThumbnailImageForAccount:self.globalDataManager.loggedInAccount
+        [self.globalDataManager.invServerClient addThumbnailImageForAccount:cell.account.accountId
                                                                   thumbnail:fileURL
                                                       withCompletionHandler:^(INVEmpireMobileError *error) {
                                                           if (error)

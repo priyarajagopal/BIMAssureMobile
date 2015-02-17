@@ -18,4 +18,6 @@ extern NSString *const KVO_INVAccountLoginSuccess;
 @property (nonatomic, assign) BOOL hideSettingsButton;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *settingsButton;
 
+- (IBAction)selectThumbnail:(id)sender;
+
 @end
