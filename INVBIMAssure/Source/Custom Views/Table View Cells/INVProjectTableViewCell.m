@@ -83,12 +83,12 @@
         self.createdOnLabel.attributedText = attrString;
 
         self.thumbnailImageView.image = nil;
-        [MBProgressHUD showHUDAddedTo:self.thumbnailImageView animated:YES];
+        id hud = [MBProgressHUD showHUDAddedTo:self.thumbnailImageView animated:YES];
 
         [[INVGlobalDataManager sharedInstance].invServerClient
             getThumbnailImageForProject:self.project.projectId
                   withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                      [MBProgressHUD hideHUDForView:self.thumbnailImageView animated:YES];
+                      [hud hide:YES];
 
                       if (error) {
                           INVLogError(@"%@", error);

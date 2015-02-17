@@ -530,6 +530,8 @@ static NSString *const reuseIdentifier = @"Cell";
 - (void)showLoadProgress
 {
     self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.hud show:YES];
+    [self.view addSubview:self.hud];
 }
 
 - (void)setEstimatedSizeForCells
