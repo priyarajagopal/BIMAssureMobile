@@ -16,6 +16,7 @@
 #import "INVRuleExecutionsTableViewController.h"
 #import "UIImage+INVCustomizations.h"
 #import "INVPagingManager+ProjectListing.h"
+#import "UIView+INVCustomizations.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger TABINDEX_PROJECT_FILES = 0;
@@ -102,6 +103,45 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 
     [self performSegueWithIdentifier:@"ProjectDetailSegue" sender:nil];
+}
+
+- (void)selectThumbnail:(id)sender
+{
+    INVProjectTableViewCell *cell = [sender findSuperviewOfClass:[INVProjectTableViewCell class] predicate:nil];
+
+    UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
+        // TODO: Update the thumbnail.
+        FILE *temporaryFile = tmpfile();
+        int fd = fileno(temporaryFile);
+
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
+
+        fwrite([imageData bytes], [imageData length], 1, temporaryFile);
+
+        char tempFilePath[PATH_MAX];
+        fcntl(fd, F_GETPATH, tempFilePath);
+
+        NSURL *fileURL = [NSURL fileURLWithPath:@(tempFilePath)];
+
+        [self.globalDataManager.invServerClient addThumbnailImageForProject:cell.project.projectId
+                                                                  thumbnail:fileURL
+                                                      withCompletionHandler:^(INVEmpireMobileError *error) {
+                                                          if (error)
+                                                              INVLogError(@"%@", error);
+
+                                                          fclose(temporaryFile);
+                                                      }];
+    }];
+
+    alertController.modalPresentationStyle = UIModalPresentationPopover;
+
+    [self presentViewController:alertController animated:YES completion:nil];
+
+    alertController.popoverPresentationController.sourceView = sender;
+    alertController.popoverPresentationController.sourceRect =
+        CGRectMake(CGRectGetMidX([sender bounds]), CGRectGetMidY([sender bounds]), 0, 0);
+    alertController.popoverPresentationController.permittedArrowDirections =
+        UIPopoverArrowDirectionDown | UIPopoverArrowDirectionUp;
 }
 
 #pragma mark - server side

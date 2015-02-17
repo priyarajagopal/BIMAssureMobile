@@ -96,7 +96,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" image="project_thumbnail_0" translatesAutoresizingMaskIntoConstraints="NO" id="OdG-Fp-3hC">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" image="project_thumbnail_0" translatesAutoresizingMaskIntoConstraints="NO" id="OdG-Fp-3hC">
                         <rect key="frame" x="16" y="69" width="314" height="192"/>
                     </imageView>
                 </subviews>

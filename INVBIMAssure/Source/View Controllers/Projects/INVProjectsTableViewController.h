@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bottomBarButtonItem;
 
 - (void)setSelectedProject:(INVProject *)project;
+- (IBAction)selectThumbnail:(id)sender;
 
 @end

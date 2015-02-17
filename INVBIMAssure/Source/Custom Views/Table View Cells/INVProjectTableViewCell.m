@@ -7,6 +7,7 @@
 //
 
 #import "INVProjectTableViewCell.h"
+#import "INVProjectsTableViewController.h"
 
 @interface INVProjectTableViewCell ()
 
@@ -23,6 +24,12 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
+    UILongPressGestureRecognizer *gestureRecognizer =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_handleLongTap:)];
+    [self.thumbnailImageView addGestureRecognizer:gestureRecognizer];
+
     // Initialization code
     [self updateUI];
 }
@@ -126,6 +133,13 @@
 {
     if ([self.delegate respondsToSelector:@selector(onProjectEdited:)]) {
         [self.delegate onProjectEdited:self];
+    }
+}
+
+- (IBAction)_handleLongTap:(UIGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        [[UIApplication sharedApplication] sendAction:@selector(selectThumbnail:) to:nil from:self forEvent:nil];
     }
 }
 
