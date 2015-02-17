@@ -240,42 +240,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
         INV_CellConfigurationBlock cellConfigurationBlock =
             ^(INVProjectTableViewCell *cell, INVProject *project, NSIndexPath *indexPath) {
-
                 cell.delegate = self;
-                cell.projectId = project.projectId;
-                cell.name.text = project.name;
-
-                [self.globalDataManager.invServerClient
-                    getTotalCountOfPkgMastersForProject:project.projectId
-                                    WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                        if (error)
-                                            return;
-
-                                        cell.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %d", [result intValue]];
-                                    }];
-
-                // TODO: Load this from a cache first?
-                cell.fileCount.text = @"\uf0c5 0";
-                cell.userCount.text = @"\uf0c0 0";
-
-                NSString *createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
-                NSString *createdOnWithDateStr = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CREATED_ON", nil),
-                                                           [self.dateFormatter stringFromDate:project.createdAt]];
-                NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:createdOnWithDateStr];
-                [attrString addAttribute:NSForegroundColorAttributeName
-                                   value:[UIColor darkTextColor]
-                                   range:NSMakeRange(0, createdOnStr.length - 1)];
-                [attrString addAttribute:NSForegroundColorAttributeName
-                                   value:[UIColor lightGrayColor]
-                                   range:NSMakeRange(createdOnStr.length, createdOnWithDateStr.length - createdOnStr.length)];
-
-                cell.createdOnLabel.attributedText = attrString;
-            
-#warning This shoud eventually be provided as a selected by user during project creation and should subsequently be pulled from server. If user does not select one, we randomly pick one
-                NSInteger index = indexPath.section % 5; // We have 5 canned images
-                NSString *thumbnail = [NSString stringWithFormat:@"project_thumbnail_%ld", (long) index];
-                UIImage *tempImage = [UIImage imageNamed:thumbnail];
-                cell.thumbnailImageView.image = [UIImage resizeImage:tempImage toSize:cell.thumbnailImageView.frame.size];
+                cell.project = project;
             };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"ProjectCell" configureBlock:cellConfigurationBlock];
     }
@@ -324,7 +290,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)onProjectDeleted:(INVProjectTableViewCell *)sender
 {
-    NSNumber *projectId = sender.projectId;
+    NSNumber *projectId = sender.project.projectId;
 
     UIAlertController *alertController =
         [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_DELETE_PROJECT", nil)

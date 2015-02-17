@@ -64,6 +64,25 @@
             [self.signInButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             [self.signInButton setTitle:@"\uf08b" forState:UIControlStateNormal];
         }
+
+        // Only load the thumbnails if we're attached to a window.
+        if (self.window) {
+            id hud = [MBProgressHUD showHUDAddedTo:self.accountThumbnailImageView animated:YES];
+
+            [[INVGlobalDataManager sharedInstance].invServerClient
+                getThumbnailImageForAccount:self.account.accountId
+                      withCompletionHandler:^(id result, INVEmpireMobileError *error) {
+                          [hud hide:YES];
+
+                          if (error) {
+                              INVLogError(@"%@", error);
+                              return;
+                          }
+
+                          UIImage *image = [UIImage imageWithData:result];
+                          self.accountThumbnailImageView.image = image;
+                      }];
+        }
     }
 
     if (self.invite) {

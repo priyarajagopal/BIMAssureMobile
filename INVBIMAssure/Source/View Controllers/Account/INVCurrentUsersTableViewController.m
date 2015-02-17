@@ -102,7 +102,7 @@
                 [self.tableView reloadData];
             } afterNumberOfCalls:objects.count];
 
-            [objects enumerateObjectsUsingBlock:^(INVAccountMembership *membership, NSUInteger idx, BOOL *stop) {
+            for (INVAccountMembership *membership in objects) {
                 for (NSNumber *role in membership.roles) {
                     if (self.sections[role] == nil) {
                         self.sections[role] = [NSMutableArray new];
@@ -122,7 +122,7 @@
 
                                           [successBlock invoke];
                                       }];
-            }];
+            }
         }
 
         INV_ERROR : {
