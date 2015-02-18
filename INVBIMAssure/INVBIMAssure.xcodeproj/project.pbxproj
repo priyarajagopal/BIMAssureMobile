@@ -169,6 +169,8 @@
 		F5789DC61A642A6200D8CEE7 /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA61A642A6200D8CEE7 /* ModelViewer.vsh */; };
 		F5789DDC1A642B2900D8CEE7 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789DCE1A642A6700D8CEE7 /* INVBIMAssureTests.m */; };
 		F5789DDD1A642B2C00D8CEE7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5789DCD1A642A6700D8CEE7 /* Info.plist */; };
+		F59165B41A94F86F00B7205F /* INVPendingInviteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */; };
+		F59165B61A950C7700B7205F /* INVPendingInviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */; };
 		F5D2914D1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */; };
 		F5D2914E1A83F77C000CBA6B /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914C1A83F77C000CBA6B /* libYajl.a */; };
 		F5D291511A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D291501A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m */; };
@@ -473,6 +475,9 @@
 		F5789DA61A642A6200D8CEE7 /* ModelViewer.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.vsh; sourceTree = "<group>"; };
 		F5789DCD1A642A6700D8CEE7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5789DCE1A642A6700D8CEE7 /* INVBIMAssureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBIMAssureTests.m; sourceTree = "<group>"; };
+		F59165B21A94F86F00B7205F /* INVPendingInviteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVPendingInviteCell.h; sourceTree = "<group>"; };
+		F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVPendingInviteCell.m; sourceTree = "<group>"; };
+		F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVPendingInviteCell.xib; sourceTree = "<group>"; };
 		F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRBCollectionViewInfoFolderLayout.a; path = "../../RBCollectionViewInfoFolderLayout/build/Prod-iphoneos/libRBCollectionViewInfoFolderLayout.a"; sourceTree = "<group>"; };
 		F5D2914C1A83F77C000CBA6B /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Yajl/build/Dev-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F5D2914F1A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountDetailFolderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -727,6 +732,8 @@
 				F5D8DBA81A85075300253787 /* INVRoleSelectionTableViewCell.m */,
 				F55AD9101A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.h */,
 				F55AD9111A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.m */,
+				F59165B21A94F86F00B7205F /* INVPendingInviteCell.h */,
+				F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -1031,6 +1038,7 @@
 				F5D291521A84046F000CBA6B /* INVAccountDetailFolderCollectionReusableView.xib */,
 				F5D8DBAA1A85076E00253787 /* INVRoleSelectionTableViewCell.xib */,
 				F55AD9131A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib */,
+				F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */,
 			);
 			path = "Interface Builder";
 			sourceTree = "<group>";
@@ -1157,6 +1165,7 @@
 				F5789DBC1A642A6200D8CEE7 /* INVSearchView.xib in Resources */,
 				F5789DB61A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
 				F5789DAD1A642A6200D8CEE7 /* Images.xcassets in Resources */,
+				F59165B61A950C7700B7205F /* INVPendingInviteCell.xib in Resources */,
 				0278BAD71A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */,
 				F5789DB11A642A6200D8CEE7 /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
 				F5426D561A680F3F0040B2B5 /* Notifications.storyboard in Resources */,
@@ -1375,6 +1384,7 @@
 				F5789D361A642A5500D8CEE7 /* INVLoginScrollView.m in Sources */,
 				F5789D591A642A5500D8CEE7 /* INVGenericTableViewDataSource.m in Sources */,
 				F555FD8D1A70071000C01288 /* INVModelViewerContainerViewController.m in Sources */,
+				F59165B41A94F86F00B7205F /* INVPendingInviteCell.m in Sources */,
 				F5789D5F1A642A5500D8CEE7 /* INVInvitedUsersTableViewController.m in Sources */,
 				F5269DDF1A768AF5006AC27A /* INVCurrentUsersTableViewController.m in Sources */,
 				F5789D381A642A5500D8CEE7 /* INVRunRuleSetHeaderView.m in Sources */,

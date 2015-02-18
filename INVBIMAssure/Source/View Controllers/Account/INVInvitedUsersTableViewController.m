@@ -7,6 +7,9 @@
 //
 
 #import "INVInvitedUsersTableViewController.h"
+#import "INVPendingInviteCell.h"
+#import "INVBlockUtils.h"
+
 #import <VENTokenField/VENTokenField.h>
 
 @import MessageUI;
@@ -14,10 +17,12 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 
 @interface INVInvitedUsersTableViewController () <NSFetchedResultsControllerDelegate>
+
 @property (nonatomic, readwrite) NSFetchedResultsController *dataResultsController;
 @property (nonatomic, strong) INVAccountManager *accountManager;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
+
+@property (nonatomic, strong) NSMutableDictionary *cachedUsers;
 
 @end
 
@@ -34,7 +39,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
 
-    [self setupTableFooter];
+    self.cachedUsers = [NSMutableDictionary new];
+
+    [self.tableView registerNib:[UINib nibWithNibName:@"INVPendingInviteCell" bundle:nil] forCellReuseIdentifier:@"InviteCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,25 +54,16 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 {
     [super viewWillAppear:animated];
 
-    self.tableView.dataSource = self.dataSource;
-    self.tableView.delegate = self;
-
     [self fetchListOfInvitedUsers];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tableView.dataSource = nil;
-    self.dataSource = nil;
+
     self.dateFormatter = nil;
     self.accountManager = nil;
     self.dataResultsController = nil;
-}
-
-- (void)setupTableFooter
-{
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - server side
@@ -74,29 +72,44 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     if (![self.refreshControl isRefreshing]) {
         [self showLoadProgress];
     }
-    /*
-        [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *_){
-        }];
-     */
 
-    [self.globalDataManager.invServerClient
-        getPendingInvitationsSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-            if ([self.refreshControl isRefreshing]) {
-                [self.refreshControl endRefreshing];
-            }
-            else {
-                [self.hud hide:YES];
-            }
+    [self.globalDataManager.invServerClient getPendingInvitationsSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
+        INV_ALWAYS:
+            [self.refreshControl endRefreshing];
+            [self.hud hide:YES];
 
-            if (!error) {
+        INV_SUCCESS : {
+            [self.dataResultsController performFetch:NULL];
+
+            NSArray *objects = self.dataResultsController.fetchedObjects;
+            id successBlock = [INVBlockUtils blockForExecutingBlock:^{
                 [self.tableView reloadData];
+            } afterNumberOfCalls:objects.count];
+
+            for (INVInvite *invite in self.dataResultsController.fetchedObjects) {
+                // Because a user's email can never, change, don't request their profile over and over.
+                if (self.cachedUsers[invite.createdBy]) {
+                    [successBlock invoke];
+                    continue;
+                }
+
+                [self.globalDataManager.invServerClient
+                    getUserProfileInSignedInAccountWithId:invite.createdBy
+                                      withCompletionBlock:^(INVUser *result, INVEmpireMobileError *error) {
+                                          self.cachedUsers[result.userId] = result;
+
+                                          [successBlock invoke];
+                                      }];
             }
-            else {
-                UIAlertController *errController = [[UIAlertController alloc]
-                    initWithErrorMessage:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil), error.code.integerValue];
-                [self presentViewController:errController animated:YES completion:nil];
-            }
-        }];
+        }
+
+        INV_ERROR:
+            INVLogError(@"%@", error);
+
+            UIAlertController *errController = [[UIAlertController alloc]
+                initWithErrorMessage:NSLocalizedString(@"ERROR_LISTOFINVITEDUSERS_LOAD", nil), error.code.integerValue];
+            [self presentViewController:errController animated:YES completion:nil];
+    }];
 }
 
 #pragma mark - Navigation
@@ -120,6 +133,70 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     }
 }
 
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.dataResultsController.sections.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.dataResultsController.sections[section] numberOfObjects];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        INVInvite *invite = [self.dataResultsController objectAtIndexPath:indexPath];
+
+        UIAlertController *confirmDeleteController =
+            [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE", nil)
+                                                message:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_MESSAGE", nil)
+                                         preferredStyle:UIAlertControllerStyleAlert];
+
+        [confirmDeleteController
+            addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_NEGATIVE", nil)
+                                               style:UIAlertActionStyleCancel
+                                             handler:nil]];
+
+        [confirmDeleteController
+            addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_POSITIVE", nil)
+                                               style:UIAlertActionStyleDestructive
+                                             handler:^(UIAlertAction *action) {
+                                                 [self.globalDataManager.invServerClient
+                                                     cancelInviteWithInvitationId:invite.invitationId
+                                                              withCompletionBlock:INV_COMPLETION_HANDLER {
+                                                                  INV_ALWAYS:
+                                                                      [self fetchListOfInvitedUsers];
+
+                                                                  INV_SUCCESS:
+
+                                                                  INV_ERROR:
+                                                                      INVLogError(@"%@", error);
+                                                              }];
+                                             }]];
+
+        [self presentViewController:confirmDeleteController animated:YES completion:nil];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    INVPendingInviteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InviteCell" forIndexPath:indexPath];
+    cell.invite = [self.dataResultsController objectAtIndexPath:indexPath];
+    cell.invitedBy = self.cachedUsers[cell.invite.createdBy];
+
+    return cell;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,90 +207,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NSLocalizedString(@"CANCEL", nil);
-}
-
-#pragma mark - helper
-- (NSString *)userForId:(NSNumber *)userId
-{
-    INVMembersArray members = self.accountManager.accountMembership;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId==%@", userId];
-    NSArray *matches = [members filteredArrayUsingPredicate:predicate];
-    if (matches && matches.count) {
-        INVAccountMembership *member = matches[0];
-        return member.email;
-    }
-    return nil;
-}
-
-#pragma mark - accessor
-- (INVGenericTableViewDataSource *)dataSource
-{
-    if (!_dataSource) {
-        _dataSource = [[INVGenericTableViewDataSource alloc] initWithFetchedResultsController:self.dataResultsController
-                                                                                 forTableView:self.tableView];
-        INV_CellConfigurationBlock cellConfigurationBlock = ^(UITableViewCell *cell, INVInvite *invite,
-                                                                NSIndexPath *indexPath) {
-            cell.textLabel.text = invite.email;
-
-            [self.globalDataManager.invServerClient
-                getUserProfileInSignedInAccountWithId:invite.updatedBy
-                                  withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                      if (error) {
-                                          INVUser *user = (INVUser *) result;
-                                          cell.detailTextLabel.text =
-                                              [NSString stringWithFormat:NSLocalizedString(@"INVITED_ON", nil),
-                                                        [self.dateFormatter stringFromDate:invite.updatedAt]];
-                                      }
-                                      else {
-                                          INVUser *user = result;
-                                          cell.detailTextLabel.text =
-                                              [NSString stringWithFormat:NSLocalizedString(@"INVITED_BY_ON", nil),
-                                                        user.firstName, [self.dateFormatter stringFromDate:invite.updatedAt]];
-                                      }
-                                  }];
-
-            cell.detailTextLabel.text =
-                [NSString stringWithFormat:NSLocalizedString(@"INVITED_BY_ON", nil), [self userForId:invite.updatedBy],
-                          [self.dateFormatter stringFromDate:invite.updatedAt]];
-
-        };
-
-        __weak typeof(self) weakSelf = self;
-
-        _dataSource.editableHandler = ^(id _, id __) {
-            return YES;
-        };
-        _dataSource.deletionHandler = ^(id cell, INVInvite *cellData, NSIndexPath *indexPath) {
-            UIAlertController *confirmDeleteController =
-                [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE", nil)
-                                                    message:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_MESSAGE", nil)
-                                             preferredStyle:UIAlertControllerStyleAlert];
-
-            [confirmDeleteController
-                addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_NEGATIVE", nil)
-                                                   style:UIAlertActionStyleCancel
-                                                 handler:nil]];
-
-            [confirmDeleteController
-                addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_CANCEL_INVITE_POSITIVE", nil)
-                                                   style:UIAlertActionStyleDestructive
-                                                 handler:^(UIAlertAction *action) {
-                                                     [weakSelf.globalDataManager.invServerClient
-                                                         cancelInviteWithInvitationId:cellData.invitationId
-                                                                  withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                                      if (error) {
-                                                                          INVLogError(@"%@", error);
-                                                                          return;
-                                                                      }
-                                                                  }];
-                                                 }]];
-
-            [weakSelf presentViewController:confirmDeleteController animated:YES completion:nil];
-        };
-
-        [_dataSource registerCellWithIdentifierForAllIndexPaths:@"InvitedUserCell" configureBlock:cellConfigurationBlock];
-    }
-    return _dataSource;
 }
 
 - (INVAccountManager *)accountManager
@@ -235,13 +228,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                                                 managedObjectContext:self.accountManager.managedObjectContext
                                                   sectionNameKeyPath:nil
                                                            cacheName:nil];
-        _dataResultsController.delegate = self;
-        NSError *dbError;
-        [_dataResultsController performFetch:&dbError];
-
-        if (dbError) {
-            _dataResultsController = nil;
-        }
     }
     return _dataResultsController;
 }
@@ -254,38 +240,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
         _dateFormatter.dateStyle = NSDateFormatterShortStyle;
     }
     return _dateFormatter;
-}
-
-#pragma mark - NSFetchedResultsControllerDelegate
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller
-    didChangeObject:(id)anObject
-        atIndexPath:(NSIndexPath *)indexPath
-      forChangeType:(NSFetchedResultsChangeType)type
-       newIndexPath:(NSIndexPath *)newIndexPath
-{
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        default:
-            break;
-    }
 }
 
 #pragma mark - UIRefreshControl

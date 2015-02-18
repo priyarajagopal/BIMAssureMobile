@@ -19,7 +19,6 @@
 @property IBOutlet INVTransitionToStoryboard *userProfileTransition;
 
 @property (nonatomic, strong) NSFetchedResultsController *dataResultsController;
-@property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, strong) INVSignedInUser *signedInUser;
 
 @property (nonatomic, strong) NSMutableDictionary *expanded;
@@ -97,7 +96,7 @@
             [self.dataResultsController performFetch:NULL];
             [self.sections removeAllObjects];
 
-            NSArray *objects = [self.dataResultsController.sections.firstObject objects];
+            NSArray *objects = self.dataResultsController.fetchedObjects;
             id successBlock = [INVBlockUtils blockForExecutingBlock:^{
                 [self.tableView reloadData];
             } afterNumberOfCalls:objects.count];
@@ -238,36 +237,6 @@
 {
     return NSLocalizedString(@"REMOVE", nil);
 }
-
-- (void)confirmDeletion:(NSIndexPath *)indexPath
-{
-    NSNumber *userId = [[self.dataResultsController objectAtIndexPath:indexPath] userId];
-
-    UIAlertController *alertController =
-        [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER", nil)
-                                            message:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER_MESSAGE", nil)
-                                     preferredStyle:UIAlertControllerStyleAlert];
-
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER_NEGATIVE", nil)
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ACCOUNT_MEMBER_POSITIVE", nil)
-                                                        style:UIAlertActionStyleDestructive
-                                                      handler:^(UIAlertAction *action) {
-                                                          [self.globalDataManager.invServerClient
-                                                              removeUserFromSignedInAccountWithUserId:userId
-                                                                                  withCompletionBlock:INV_COMPLETION_HANDLER {
-                                                                                      INV_ALWAYS:
-                                                                                      INV_SUCCESS:
-                                                                                      INV_ERROR:
-                                                                                          INVLogError(@"%@", error);
-                                                                                  }];
-                                                      }]];
-
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
 - (NSFetchedResultsController *)dataResultsController
 {
     if (!_dataResultsController) {
@@ -278,60 +247,9 @@
             managedObjectContext:self.globalDataManager.invServerClient.accountManager.managedObjectContext
               sectionNameKeyPath:nil
                        cacheName:nil];
-
-        NSError *dbError;
-        [_dataResultsController performFetch:&dbError];
-
-        if (dbError) {
-            _dataResultsController = nil;
-        }
     }
 
     return _dataResultsController;
-}
-
-- (INVGenericTableViewDataSource *)dataSource
-{
-    if (!_dataSource) {
-        _dataSource = [[INVGenericTableViewDataSource alloc] initWithFetchedResultsController:self.dataResultsController
-                                                                                 forTableView:self.tableView];
-
-        __weak typeof(self) weakSelf = self;
-
-        _dataSource.deletionHandler = ^(UITableViewCell *cell, INVAccountMembership *member, NSIndexPath *indexPath) {
-            [weakSelf confirmDeletion:indexPath];
-        };
-
-        [_dataSource
-            registerCellWithIdentifierForAllIndexPaths:@"UserCell"
-                                        configureBlock:^(INVCurrentUsersProfileTableViewCell *cell,
-                                                           INVAccountMembership *cellData, NSIndexPath *indexPath) {
-
-                                            cell.user = self.cachedUsers[cellData.userId];
-                                            cell.expanded = [self.expanded[indexPath] boolValue];
-
-                                            if (weakSelf.dataSource.editableHandler(cellData, indexPath)) {
-                                                cell.indentationLevel = 0;
-                                                cell.indentationWidth = 0;
-                                            }
-                                            else {
-                                                cell.indentationLevel = 1;
-                                                cell.indentationWidth = 38;
-                                            }
-
-                                            if (cell.user == nil) {
-                                                [self.globalDataManager.invServerClient
-                                                    getUserProfileInSignedInAccountWithId:cellData.userId
-                                                                      withCompletionBlock:^(id result,
-                                                                                              INVEmpireMobileError *error) {
-                                                                          weakSelf.cachedUsers[cellData.userId] = result;
-                                                                          cell.user = result;
-                                                                      }];
-                                            }
-                                        }];
-    }
-
-    return _dataSource;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
