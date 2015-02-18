@@ -782,6 +782,10 @@ static NSString *const reuseIdentifier = @"Cell";
     }
 }
 
+- (IBAction)editAccount:(id)sender
+{
+}
+
 - (IBAction)done:(id)sener
 {
     /* Do nothing */

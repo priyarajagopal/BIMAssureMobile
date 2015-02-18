@@ -8,6 +8,7 @@
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -133,9 +134,22 @@
                                                     <constraint firstItem="uhk-be-sb1" firstAttribute="top" secondItem="w4K-G6-Tjp" secondAttribute="bottom" constant="8" id="v7m-zh-Lwj"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHp-8N-H0i">
+                                                <rect key="frame" x="230" y="32" width="30" height="38"/>
+                                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="editAccount:" destination="-2" eventType="touchUpInside" id="qmK-wd-lom"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="T9h-UK-8FU" firstAttribute="centerY" secondItem="fHp-8N-H0i" secondAttribute="centerY" id="Ujd-cr-dWO"/>
+                                            <constraint firstItem="T9h-UK-8FU" firstAttribute="leading" secondItem="fHp-8N-H0i" secondAttribute="trailing" constant="8" id="VZD-8F-TNj"/>
                                             <constraint firstAttribute="trailing" secondItem="pUe-sB-hZn" secondAttribute="trailing" constant="8" id="Vpb-Sa-NTU"/>
                                             <constraint firstItem="pUe-sB-hZn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ENc-ZF-VLj" secondAttribute="trailing" constant="8" id="YAR-4E-Yxm"/>
                                             <constraint firstItem="T9h-UK-8FU" firstAttribute="top" secondItem="pUe-sB-hZn" secondAttribute="bottom" constant="2" id="aJ6-uP-eG5"/>
