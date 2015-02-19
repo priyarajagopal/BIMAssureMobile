@@ -23,7 +23,7 @@ static void *textLayerKey = &textLayerKey;
 
 static void (*oldReloadDataImp)(id self, SEL _cmd);
 static void (*oldLayoutSubviewsImp)(id self, SEL _cmd);
-static void (*oldWillMoveToWindowImp)(id self, SEL _cmd, UIWindow *window);
+static void (*oldWillMoveToWindowImp)(id self, SEL _cmd, UIWindow *);
 
 @implementation UITableView (INVCustomCollectionView)
 
