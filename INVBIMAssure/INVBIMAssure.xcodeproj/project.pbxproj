@@ -169,6 +169,7 @@
 		F5789DC61A642A6200D8CEE7 /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA61A642A6200D8CEE7 /* ModelViewer.vsh */; };
 		F5789DDC1A642B2900D8CEE7 /* INVBIMAssureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789DCE1A642A6700D8CEE7 /* INVBIMAssureTests.m */; };
 		F5789DDD1A642B2C00D8CEE7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5789DCD1A642A6700D8CEE7 /* Info.plist */; };
+		F58F26811A962809002EA2A8 /* UISwitch+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F58F26801A962809002EA2A8 /* UISwitch+INVCustomizations.m */; };
 		F59165B41A94F86F00B7205F /* INVPendingInviteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */; };
 		F59165B61A950C7700B7205F /* INVPendingInviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */; };
 		F5D2914D1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */; };
@@ -475,6 +476,8 @@
 		F5789DA61A642A6200D8CEE7 /* ModelViewer.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ModelViewer.vsh; sourceTree = "<group>"; };
 		F5789DCD1A642A6700D8CEE7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5789DCE1A642A6700D8CEE7 /* INVBIMAssureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBIMAssureTests.m; sourceTree = "<group>"; };
+		F58F267F1A9627E8002EA2A8 /* UISwitch+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwitch+INVCustomizations.h"; sourceTree = "<group>"; };
+		F58F26801A962809002EA2A8 /* UISwitch+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISwitch+INVCustomizations.m"; sourceTree = "<group>"; };
 		F59165B21A94F86F00B7205F /* INVPendingInviteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVPendingInviteCell.h; sourceTree = "<group>"; };
 		F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVPendingInviteCell.m; sourceTree = "<group>"; };
 		F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVPendingInviteCell.xib; sourceTree = "<group>"; };
@@ -816,6 +819,8 @@
 				F5DB4C181A88FD6B0083331C /* UIFont+INVCustomizations.m */,
 				F54E70E21A93961000FB2BCB /* UILabel+INVCustomizations.h */,
 				F54E70E31A93963F00FB2BCB /* UILabel+INVCustomizations.m */,
+				F58F267F1A9627E8002EA2A8 /* UISwitch+INVCustomizations.h */,
+				F58F26801A962809002EA2A8 /* UISwitch+INVCustomizations.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1382,6 +1387,7 @@
 				024FEEFA1A69B55F001CA262 /* INVPagingManager.m in Sources */,
 				F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */,
 				F5789D361A642A5500D8CEE7 /* INVLoginScrollView.m in Sources */,
+				F58F26811A962809002EA2A8 /* UISwitch+INVCustomizations.m in Sources */,
 				F5789D591A642A5500D8CEE7 /* INVGenericTableViewDataSource.m in Sources */,
 				F555FD8D1A70071000C01288 /* INVModelViewerContainerViewController.m in Sources */,
 				F59165B41A94F86F00B7205F /* INVPendingInviteCell.m in Sources */,
