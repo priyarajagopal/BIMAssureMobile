@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *projectStatusLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *logoButton;
+@property (weak, nonatomic) IBOutlet UIButton *expandButton;
 @property (weak, nonatomic) IBOutlet UIImageView *isDefaultOverlayImageView;
 
 @end
@@ -91,6 +91,13 @@
         self.projectStatusLabel.text = NSLocalizedString(@"ACCOUNT_STATUS_INVITE", nil);
         self.projectStatusLabel.textColor = [UIColor orangeColor];
     }
+
+    if (self.isExpanded) {
+        [self.expandButton setTitle:@"\uf077" forState:UIControlStateNormal];
+    }
+    else {
+        [self.expandButton setTitle:@"\uf078" forState:UIControlStateNormal];
+    }
 }
 
 - (void)setIsCurrentlySignedIn:(BOOL)isSignedIn
@@ -110,6 +117,13 @@
     else {
         [self.isDefaultOverlayImageView setAlpha:0];
     }
+}
+
+- (void)setIsExpanded:(BOOL)isExpanded
+{
+    _isExpanded = isExpanded;
+
+    [self updateUI];
 }
 
 - (void)setAccount:(INVAccount *)account

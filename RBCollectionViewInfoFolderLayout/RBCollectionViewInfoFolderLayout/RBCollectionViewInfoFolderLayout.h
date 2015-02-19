@@ -80,6 +80,8 @@ FOUNDATION_EXPORT NSString *const RBCollectionViewInfoFolderDimpleKind;
  */
 @property (assign, nonatomic) CGFloat interItemSpacingX;
 
+-(NSIndexPath *) indexPathOfOpenFolderInSection:(NSInteger) section;
+
 /**
  * Open/Close the folder view at the given indexPath
  * Will close any other open folder in the same section

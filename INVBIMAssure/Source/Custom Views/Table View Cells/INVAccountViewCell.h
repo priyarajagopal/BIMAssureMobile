@@ -13,7 +13,9 @@
 
 @property (strong, nonatomic) INVAccount *account;
 @property (strong, nonatomic) INVUserInvite *invite;
+
 @property (assign, nonatomic) BOOL isCurrentlySignedIn;
 @property (assign, nonatomic) BOOL isDefault;
+@property (assign, nonatomic) BOOL isExpanded;
 
 @end

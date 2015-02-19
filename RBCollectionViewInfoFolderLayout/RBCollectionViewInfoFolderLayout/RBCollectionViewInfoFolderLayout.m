@@ -110,6 +110,10 @@ NSString *const RBCollectionViewInfoFolderFolderKind = @"RBCollectionViewInfoFol
 
 #pragma mark - Interface
 
+-(NSIndexPath *) indexPathOfOpenFolderInSection:(NSInteger) section {
+    return self.visibleFolderInSection[@(section)];
+}
+
 - (void)closeAllOpenFolders
 {
     NSDictionary * openFolders = [self.visibleFolderInSection copy];

@@ -225,24 +225,19 @@ static NSString *const reuseIdentifier = @"Cell";
     if (indexPath.section == 0) {
         cell.account = accountOrInvite;
 
-        NSNumber *currentAcnt = self.globalDataManager.loggedInAccount;
-        if (currentAcnt && [[accountOrInvite accountId] isEqualToNumber:currentAcnt]) {
-            cell.isCurrentlySignedIn = YES;
-        }
-        else {
-            cell.isCurrentlySignedIn = NO;
-        }
-        if ([self.globalDataManager.defaultAccountId isEqualToNumber:cell.account.accountId]) {
-            cell.isDefault = YES;
-        }
-        else {
-            cell.isDefault = NO;
-        }
+        NSNumber *currentAcct = self.globalDataManager.loggedInAccount;
+        cell.isCurrentlySignedIn = currentAcct && [[accountOrInvite accountId] isEqualToNumber:currentAcct];
+        cell.isDefault = [self.globalDataManager.defaultAccountId isEqualToNumber:cell.account.accountId];
     }
 
     if (indexPath.section == 1) {
         cell.invite = accountOrInvite;
+
+        cell.isCurrentlySignedIn = NO;
+        cell.isDefault = NO;
     }
+
+    cell.isExpanded = [[self.collectionViewLayout indexPathOfOpenFolderInSection:indexPath.section] isEqual:indexPath];
 
     return cell;
 }
@@ -273,7 +268,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.collectionViewLayout toggleFolderViewForIndexPath:indexPath];
+    [self signIn:[collectionView cellForItemAtIndexPath:indexPath]];
 }
 
 #pragma mark - Navigation
@@ -780,6 +775,16 @@ static NSString *const reuseIdentifier = @"Cell";
     else {
         [self presentPendingInvitePrompt:accountOrInvite];
     }
+}
+
+- (IBAction)expandRow:(id)sender
+{
+    INVAccountViewCell *cell = [sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil];
+
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    [self.collectionViewLayout toggleFolderViewForIndexPath:indexPath];
+
+    cell.isExpanded = !cell.isExpanded;
 }
 
 - (IBAction)editAccount:(id)sender
