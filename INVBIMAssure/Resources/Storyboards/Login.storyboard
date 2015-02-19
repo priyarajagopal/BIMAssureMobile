@@ -562,7 +562,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Zfo-HZ-V89">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="cVD-7K-KLq" eventType="editingDidEndOnExit" id="heF-mL-KFN"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="QIp-US-8As" eventType="editingDidBegin" id="52K-aC-kcz"/>
