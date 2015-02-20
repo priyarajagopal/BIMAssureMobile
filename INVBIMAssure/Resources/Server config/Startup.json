@@ -4,8 +4,8 @@
 	{
 		"name": "development",
 		"servers": [
-			{"server": "xospassport", "url": "http://54.149.63.51:8080"},
-			{"server": "empiremanage", "url": "http://54.149.7.76:8080"},
+			{"server": "xospassport", "url": "http://192.168.50.11:8080/xospassport/"},
+			{"server": "empiremanage", "url": "http://192.168.50.11:8080/empiremanage/"},
 			{"server": "empireweb", "url": "http://localhost"}
 		]
 	}

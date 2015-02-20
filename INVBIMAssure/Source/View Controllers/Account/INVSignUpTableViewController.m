@@ -230,6 +230,8 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                                                         self.signupSuccess = YES;
                                                     }
                                                     else {
+                                                        INVLogError(@"%@", error);
+
                                                         [self showSignupFailureAlert];
                                                     }
                                                 }];

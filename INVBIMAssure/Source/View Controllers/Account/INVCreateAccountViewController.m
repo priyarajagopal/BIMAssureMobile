@@ -41,12 +41,39 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self textViewDidChange:nil];
     });
+
+    [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setAccountToEdit:(INVAccount *)accountToEdit
+{
+    _accountToEdit = accountToEdit;
+
+    [self updateUI];
+}
+
+- (void)updateUI
+{
+    if (self.accountToEdit) {
+        self.navigationItem.title = NSLocalizedString(@"EDIT_ACCOUNT", nil);
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"SAVE", nil);
+    }
+
+    self.accountNameTextField.text = self.accountToEdit.name;
+    self.accountDescriptionTextView.text = self.accountToEdit.overview;
+    self.accountCompanyNameTextField.text = self.accountToEdit.companyName;
+    self.accountCompanyAddressTextField.text = self.accountToEdit.companyAddress;
+    self.accountContactNameTextField.text = self.accountToEdit.contactName;
+    self.accountContactPhoneTextField.text = self.accountToEdit.contactPhone;
+    self.accountNumberOfEmployeesTextField.text = [self.accountToEdit.numberEmployees stringValue];
+
+    [self textFieldTextChanged:nil];
 }
 
 #pragma mark UITableViewDataSource
@@ -64,6 +91,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == SECTION_INVITATION_INFO && self.accountToEdit) {
+        return 0;
+    }
+
     if (section == SECTION_INVITATION_INFO && !self.invitationCodeSwitch.on) {
         return [super tableView:tableView numberOfRowsInSection:section] - 1;
     }
@@ -74,11 +105,33 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == SECTION_INVITATION_INFO && self.accountToEdit) {
+        return 0;
+    }
+
     if (indexPath.section == SECTION_ACCOUNT_INFO && indexPath.row == 1) {
         return self.acctDescRowHeight;
     }
 
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == SECTION_INVITATION_INFO && self.accountToEdit) {
+        return nil;
+    }
+
+    return [super tableView:tableView titleForHeaderInSection:section];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == SECTION_INVITATION_INFO && self.accountToEdit) {
+        return CGFLOAT_MIN;
+    }
+
+    return [super tableView:tableView heightForHeaderInSection:section];
 }
 
 #pragma mark - UITextViewDelegate
@@ -127,6 +180,36 @@
                                         [self showSignupFailureAlert];
                                     }
                                 }];
+}
+
+- (void)updateAccount
+{
+    [self showSignupProgress];
+
+    NSNumber *package = @(0);
+
+    [self.globalDataManager.invServerClient
+        updateAccountDetailsWithAccountId:self.accountToEdit.accountId
+                                     name:self.accountNameTextField.text
+                       accountDescription:self.accountDescriptionTextView.text
+                         subscriptionType:package
+                              companyName:self.accountCompanyNameTextField.text
+                           companyAddress:self.accountCompanyAddressTextField.text
+                              contactName:self.accountContactNameTextField.text
+                             contactPhone:self.accountContactPhoneTextField.text
+                          numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
+                      withCompletionBlock:INV_COMPLETION_HANDLER {
+                          INV_ALWAYS:
+                              [self hideSignupProgress];
+
+                          INV_SUCCESS:
+                              self.signupSuccess = YES;
+
+                          INV_ERROR:
+                              INVLogError(@"%@", error);
+
+                              [self showSignupFailureAlert];
+                      }];
 }
 
 - (void)showSignupProgress
@@ -188,7 +271,12 @@
 
 - (IBAction)createAccount:(id)sender
 {
-    [self createAccountOnly];
+    if (self.accountToEdit) {
+        [self updateAccount];
+    }
+    else {
+        [self createAccountOnly];
+    }
 }
 
 @end

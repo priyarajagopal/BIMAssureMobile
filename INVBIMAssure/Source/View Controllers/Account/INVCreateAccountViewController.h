@@ -10,6 +10,7 @@
 
 @interface INVCreateAccountViewController : INVCustomTableViewController
 
+@property (strong, nonatomic) INVAccount *accountToEdit;
 @property (assign, nonatomic) BOOL signupSuccess;
 
 @end

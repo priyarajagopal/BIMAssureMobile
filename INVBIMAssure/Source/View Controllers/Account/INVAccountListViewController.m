@@ -17,6 +17,7 @@ const NSInteger INV_CELLSIZE = 100;
 #import "INVMergedFetchedResultsControler.h"
 #import "INVBlockUtils.h"
 #import "INVSignUpTableViewController.h"
+#import "INVCreateAccountViewController.h"
 #import "INVAccountDetailFolderCollectionReusableView.h"
 #import "UIView+INVCustomizations.h"
 
@@ -34,7 +35,7 @@ NSString *const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic, strong) NSNumber *currentAccountId;
 @property (nonatomic, strong) NSString *currentInviteCode;
 @property (nonatomic, assign) BOOL saveAsDefault;
-@property (nonatomic, strong) INVSignUpTableViewController *signUpController;
+@property (nonatomic, strong) INVCreateAccountViewController *signUpController;
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (readonly, nonatomic, strong) RBCollectionViewInfoFolderLayout *collectionViewLayout;
@@ -278,10 +279,22 @@ static NSString *const reuseIdentifier = @"Cell";
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"SignUpUserSegue"]) {
+    if ([segue.identifier isEqualToString:@"CreateAccountSegue"]) {
         if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
             UINavigationController *navController = segue.destinationViewController;
-            self.signUpController = (INVSignUpTableViewController *) navController.topViewController;
+            self.signUpController = (INVCreateAccountViewController *) navController.topViewController;
+            [self addSignUpObservers];
+        }
+    }
+
+    if ([segue.identifier isEqualToString:@"EditAccountSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
+            UINavigationController *navController = segue.destinationViewController;
+
+            self.signUpController = (INVCreateAccountViewController *) [navController topViewController];
+            self.signUpController.accountToEdit = [self.dataResultsController objectAtIndexPath:indexPath];
+
             [self addSignUpObservers];
         }
     }
@@ -789,6 +802,8 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (IBAction)editAccount:(id)sender
 {
+    [self performSegueWithIdentifier:@"EditAccountSegue"
+                              sender:[sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil]];
 }
 
 - (IBAction)done:(id)sener

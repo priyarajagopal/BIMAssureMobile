@@ -43,13 +43,14 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="X55-kO-DqO">
                             <connections>
-                                <segue destination="hsa-oY-nFp" kind="presentation" identifier="SignUpUserSegue" modalPresentationStyle="formSheet" id="Cvm-2m-UcC"/>
+                                <segue destination="hsa-oY-nFp" kind="presentation" identifier="CreateAccountSegue" modalPresentationStyle="formSheet" id="Cvm-2m-UcC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="uy7-Od-DQf" id="h1K-Wa-qP9"/>
                         <outlet property="settingsButton" destination="HdP-lS-qJt" id="YT0-Ep-mM1"/>
+                        <segue destination="hsa-oY-nFp" kind="presentation" identifier="EditAccountSegue" modalPresentationStyle="formSheet" id="CBK-Ep-Sfc"/>
                     </connections>
                 </collectionViewController>
                 <customObject id="yri-5u-xpK" userLabel="User Info Popover" customClass="INVTransitionToStoryboard">
@@ -551,4 +552,7 @@
             <point key="canvasLocation" x="2188" y="2001"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="CBK-Ep-Sfc"/>
+    </inferredMetricsTieBreakers>
 </document>
