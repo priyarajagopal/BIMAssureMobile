@@ -352,14 +352,17 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
 
 - (IBAction)textFieldTextChanged:(id)sender
 {
+    BOOL numberOfEmployeesIsNumber = [[@([self.accountNumberOfEmployeesTextField.text integerValue]) stringValue]
+        isEqualToString:self.accountNumberOfEmployeesTextField.text];
+
     self.signUpButton.enabled =
         (self.firstNameTextField.text.length > 0 && self.lastNameTextField.text.length > 0 &&
                     self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0 && self.invitationSwitch.on
                 ? (self.invitationCodeTextField.text.length > 0)
-                : (self.accountNameTextField.text.length > 0 && self.accountDescriptionTextView.text.length > 0 &&
-                      self.accountCompanyNameTextField.text.length > 0 && self.accountCompanyAddressTextField.text.length > 0 &&
-                      self.accountContactNameTextField.text.length > 0 && self.accountContactPhoneTextField.text.length > 0 &&
-                      self.accountNumberOfEmployeesTextField.text.length > 0));
+                : (self.accountNameTextField.text.length > 0 && self.accountCompanyNameTextField.text.length > 0 &&
+                      self.accountCompanyAddressTextField.text.length > 0 && self.accountContactNameTextField.text.length > 0 &&
+                      self.accountContactPhoneTextField.text.length > 0 &&
+                      self.accountNumberOfEmployeesTextField.text.length > 0 && numberOfEmployeesIsNumber));
 }
 
 #pragma mark - accessors

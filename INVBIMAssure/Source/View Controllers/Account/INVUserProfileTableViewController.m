@@ -95,4 +95,37 @@
     }
 }
 
+- (IBAction)saveProfile:(id)sender
+{
+    id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    // NOTE: Will this work without a signed in account?
+    [self.globalDataManager.invServerClient
+        updateUserProfileInSignedInAccountWithId:nil
+                                   withFirstName:self.firstNameTextField.text
+                                        lastName:self.lastNameTextField.text
+                                     userAddress:self.addressTextField.text
+                                 userPhoneNumber:self.phoneNumberTextField.text
+                                 userCompanyName:self.companyTextField.text
+                                           title:nil
+                                           email:self.emailTextField.text
+                              allowNotifications:NO
+                             withCompletionBlock:INV_COMPLETION_HANDLER {
+                                 INV_ALWAYS:
+                                     [hud hide:YES];
+
+                                 INV_SUCCESS:
+                                     [self performSegueWithIdentifier:@"unwind" sender:nil];
+
+                                 INV_ERROR:
+                                     INVLogError(@"%@", error);
+
+                                     UIAlertController *errorController = [[UIAlertController alloc]
+                                         initWithErrorMessage:NSLocalizedString(@"GENERIC_SIGNUP_FAILURE_MESSAGE", nil),
+                                         error.code];
+
+                                     [self presentViewController:errorController animated:YES completion:nil];
+                             }];
+}
+
 @end

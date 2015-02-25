@@ -45,7 +45,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ozh-0b-ayD" id="bjU-l5-php">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Current Users" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tdt-n0-JQC">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Account Users" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tdt-n0-JQC">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -144,7 +144,7 @@
             </objects>
             <point key="canvasLocation" x="697" y="3416"/>
         </scene>
-        <!--Current Users-->
+        <!--Account Users-->
         <scene sceneID="U2x-QH-dib">
             <objects>
                 <tableViewController id="1tg-NU-DZ3" customClass="INVCurrentUsersTableViewController" sceneMemberID="viewController">
@@ -160,7 +160,7 @@
                             <outlet property="delegate" destination="1tg-NU-DZ3" id="8av-WU-ChN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Current Users" id="q3i-Ay-2hA"/>
+                    <navigationItem key="navigationItem" title="Account Users" id="q3i-Ay-2hA"/>
                     <connections>
                         <outlet property="userProfileTransition" destination="G0j-N1-JOC" id="WIf-er-6vS"/>
                     </connections>

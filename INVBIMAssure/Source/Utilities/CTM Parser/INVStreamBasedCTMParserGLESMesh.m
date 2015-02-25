@@ -62,8 +62,8 @@ struct __attribute__((packed)) index_struct {
 
 @interface INVStreamBasedCTMParserGLESMesh ()
 
-@property GLsizei vertexCount;
-@property GLsizei indexCount;
+@property (nonatomic) size_t vertexCount;
+@property (nonatomic) size_t indexCount;
 
 @property GLuint vertexArray;
 @property GLuint vertexBuffer;
