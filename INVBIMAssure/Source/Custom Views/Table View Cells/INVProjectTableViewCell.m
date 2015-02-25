@@ -13,7 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *createdOnLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *fileCount;
 @property (weak, nonatomic) IBOutlet UILabel *userCount;
@@ -101,8 +100,8 @@
                           INVLogError(@"%@", error);
                           return;
                       }
-
-                      self.thumbnailImageView.image = result;
+                      UIImage *image = [UIImage imageWithData:result];
+                      self.thumbnailImageView.image = image;
                   }];
     }
 }

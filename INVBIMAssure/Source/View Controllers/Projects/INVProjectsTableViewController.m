@@ -110,26 +110,32 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     INVProjectTableViewCell *cell = [sender findSuperviewOfClass:[INVProjectTableViewCell class] predicate:nil];
 
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
-        // TODO: Update the thumbnail.
-        FILE *temporaryFile = tmpfile();
-        int fd = fileno(temporaryFile);
 
+        cell.thumbnailImageView.image = image;
+        NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
+        NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
         NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
+        
+        [imageData writeToFile:[fileURL path] atomically:YES];
 
-        fwrite([imageData bytes], [imageData length], 1, temporaryFile);
-
-        char tempFilePath[PATH_MAX];
-        fcntl(fd, F_GETPATH, tempFilePath);
-
-        NSURL *fileURL = [NSURL fileURLWithPath:@(tempFilePath)];
 
         [self.globalDataManager.invServerClient addThumbnailImageForProject:cell.project.projectId
                                                                   thumbnail:fileURL
                                                       withCompletionHandler:^(INVEmpireMobileError *error) {
-                                                          if (error)
+                                                          if (error) {
                                                               INVLogError(@"%@", error);
+                                                              UIAlertController *alertController =
+                                                              [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"ERROR_IMAGE_UPDATE", nil) preferredStyle:UIAlertControllerStyleAlert];
+                                                              
+                                                              [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                                                                  style:UIAlertActionStyleDefault
+                                                                                                                handler:^(UIAlertAction *action) {
+                                                                                                                }]];
+                                                              
+                                                              [self presentViewController:alertController animated:YES completion:nil];
+                                                          }
+                                                          
 
-                                                          fclose(temporaryFile);
                                                       }];
     }];
 

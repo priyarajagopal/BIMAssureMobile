@@ -644,14 +644,14 @@ accountManager can be used to retrieve the details of account
 
  @param overview Description of project (currently unused in backend)
 
- @param handler The completion handler that returns error object if there was any error.
+ @param handler The completion handler that returns error object if there was any error. The INVProject object is returned
 
  @see -signIntoAccount:withCompletionBlock:
 
  */
 - (void)createProjectWithName:(NSString *)projectName
                            andDescription:(NSString *)overview
-    ForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
+    ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously ,edit project with specified Id. Only an admin is capable of exercising this call. This API is not supported in

@@ -108,6 +108,9 @@
     [self updateUI];
 }
 
+
+
+
 #pragma mark - UITableViewDataSource
 
 #if !SHOW_PROJECT_MEMBERS
@@ -165,7 +168,7 @@
 - (void)showProjectAlert:(NSString *)title
 {
     UIAlertController *alertController =
-        [UIAlertController alertControllerWithTitle:title message:title preferredStyle:UIAlertControllerStyleAlert];
+        [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
 
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                         style:UIAlertActionStyleDefault
@@ -203,12 +206,17 @@
     else {
         [self.globalDataManager.invServerClient createProjectWithName:projectName
                                                        andDescription:projectDescription
-                                ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+                                ForSignedInAccountWithCompletionBlock:^(INVProject* project,INVEmpireMobileError *error) {
                                     // NOTE: We *probably* need more info about the created project here.
-                                    // TODO: Error handling
-                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
 
-                                    [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED", nil)];
+                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                    if (error) {
+                                        [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_CREATE", nil)];
+                                    }
+                                    else {
+                                        [self uploadProjectThumbnailForProject:project.projectId];
+                                    }
+                                    
                                 }];
     }
 }
@@ -222,6 +230,7 @@
 {
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
         [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
+        
     }];
 
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
@@ -275,6 +284,31 @@
     }
 
     return NO;
+}
+
+
+#pragma mark - Helpers
+-(void)uploadProjectThumbnailForProject:(NSNumber*)projectId {
+    // TODO: Update the thumbnail.
+    NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
+    NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
+    NSData *imageData = UIImageJPEGRepresentation(self.currentThumbnailButton.imageView.image, 0.75);
+    
+    [imageData writeToFile:[fileURL path] atomically:YES];
+   
+    [self.globalDataManager.invServerClient addThumbnailImageForProject:projectId
+                                                              thumbnail:fileURL
+                                                  withCompletionHandler:^(INVEmpireMobileError *error) {
+                                                      if (error) {
+                                                          INVLogError(@"%@", error);
+                                                          [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED_NO_THUMBNAIL", nil)];
+                                                      }
+                                                      else {
+                                                          [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED", nil)];
+                                                      }
+                                                      
+                                                  }];
+
 }
 
 @end

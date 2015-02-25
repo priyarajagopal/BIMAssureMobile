@@ -741,26 +741,19 @@ static NSString *const reuseIdentifier = @"Cell";
     INVAccountViewCell *cell = [sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil];
 
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
-        // TODO: Update the thumbnail.
-        FILE *temporaryFile = tmpfile();
-        int fd = fileno(temporaryFile);
 
+        NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
+        NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
         NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
 
-        fwrite([imageData bytes], [imageData length], 1, temporaryFile);
-
-        char tempFilePath[PATH_MAX];
-        fcntl(fd, F_GETPATH, tempFilePath);
-
-        NSURL *fileURL = [NSURL fileURLWithPath:@(tempFilePath)];
-
+        [imageData writeToFile:[fileURL path] atomically:YES];
         [self.globalDataManager.invServerClient addThumbnailImageForAccount:cell.account.accountId
                                                                   thumbnail:fileURL
                                                       withCompletionHandler:^(INVEmpireMobileError *error) {
-                                                          if (error)
+                                                          if (error) {
                                                               INVLogError(@"%@", error);
+                                                          }
 
-                                                          fclose(temporaryFile);
                                                       }];
     }];
 

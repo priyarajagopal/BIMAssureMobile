@@ -22,5 +22,6 @@
 
 @property (weak, nonatomic) id<INVProjectTableViewCellDelegate> delegate;
 @property (strong, nonatomic) INVProject *project;
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 
 @end
