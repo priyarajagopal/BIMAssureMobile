@@ -24,16 +24,16 @@
     if (INVGlobalDataManager.sharedInstance.loggedInAccount == nil)
         return;
 
-    if (self.previousAccount != INVGlobalDataManager.sharedInstance.loggedInAccount) {
-        self.previousProjects = nil;
-        self.previousAccount = INVGlobalDataManager.sharedInstance.loggedInAccount;
-    }
-
     [[INVGlobalDataManager sharedInstance]
             .invServerClient getAllProjectsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
         if (error) {
             INVLogError(@"%@", error);
             return;
+        }
+
+        if (self.previousAccount != INVGlobalDataManager.sharedInstance.loggedInAccount) {
+            self.previousProjects = nil;
+            self.previousAccount = INVGlobalDataManager.sharedInstance.loggedInAccount;
         }
 
         NSMutableArray *notifications = [NSMutableArray new];

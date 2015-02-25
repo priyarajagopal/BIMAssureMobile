@@ -58,8 +58,7 @@
 
 @end
 
-@interface INVProjectEditViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
-    UITextFieldDelegate, INVStockThumbnailCollectionViewControllerDelegate>
+@interface INVProjectEditViewController () <UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property IBOutlet UITextField *projectNameTextField;
 @property IBOutlet UITextField *projectDescriptionTextField;
@@ -81,6 +80,32 @@
 @end
 
 @implementation INVProjectEditViewController
+
+#pragma mark - View Lifecycle
+
+- (void)updateUI
+{
+    if (self.currentProject) {
+        self.navigationItem.title =
+            [NSString stringWithFormat:NSLocalizedString(@"EDIT_PROJECT", nil), self.currentProject.name];
+
+        self.projectNameTextField.text = self.currentProject.name;
+        self.projectDescriptionTextField.text = self.currentProject.overview;
+    }
+    else {
+        self.navigationItem.title = NSLocalizedString(@"CREATE_PROJECT", nil);
+        self.projectNameTextField.text = nil;
+        self.projectDescriptionTextField.text = nil;
+    }
+
+    [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
+        NSArray *members = [self.globalDataManager.invServerClient.accountManager accountMembership];
+
+        [self.membersInAccountDataSource addObjectsFromArray:[members valueForKey:@"email"]];
+        [self.membersInAccountTableView reloadData];
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -101,49 +126,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setCurrentProject:(INVProject *)currentProject
-{
-    _currentProject = currentProject;
-
-    [self updateUI];
-}
-
-#pragma mark - UITableViewDataSource
-
-#if !SHOW_PROJECT_MEMBERS
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 2;
-}
-
-#endif
-
-- (void)updateUI
-{
-    if (self.currentProject) {
-        self.navigationItem.title =
-            [NSString stringWithFormat:NSLocalizedString(@"EDIT_PROJECT", nil), self.currentProject.name];
-
-        self.projectNameTextField.text = self.currentProject.name;
-
-        // NOTE: No description in model for projects currently. JIRA Bug EMOB-98.
-        // self.projectDescriptionTextField.text = self.currentProject.description;
-    }
-    else {
-        self.navigationItem.title = NSLocalizedString(@"CREATE_PROJECT", nil);
-        self.projectNameTextField.text = nil;
-        self.projectDescriptionTextField.text = nil;
-    }
-
-    [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-        NSArray *members = [self.globalDataManager.invServerClient.accountManager accountMembership];
-
-        [self.membersInAccountDataSource addObjectsFromArray:[members valueForKey:@"email"]];
-        [self.membersInAccountTableView reloadData];
-    }];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"unwind"]) {
@@ -162,19 +144,27 @@
     }
 }
 
-- (void)showProjectAlert:(NSString *)title
+#pragma mark - Getters and Setters
+
+- (void)setCurrentProject:(INVProject *)currentProject
 {
-    UIAlertController *alertController =
-        [UIAlertController alertControllerWithTitle:title message:title preferredStyle:UIAlertControllerStyleAlert];
+    _currentProject = currentProject;
 
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-                                                          [self performSegueWithIdentifier:@"unwind" sender:self];
-                                                      }]];
-
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self updateUI];
 }
+
+#pragma mark - UITableViewDataSource
+
+#if !SHOW_PROJECT_MEMBERS
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+#endif
+
+#pragma mark - IBActions
 
 - (void)save:(id)sender
 {
@@ -232,16 +222,7 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self.currentThumbnailButton setImage:info[UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
-}
-
-- (void)stockThumbnailCollectionViewController:(INVStockThumbnailCollectionViewController *)controller
-                       didSelectStockThumbnail:(UIImage *)image
-{
-    [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
-}
+#pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -275,6 +256,22 @@
     }
 
     return NO;
+}
+
+#pragma mark - Helpers
+
+- (void)showProjectAlert:(NSString *)title
+{
+    UIAlertController *alertController =
+        [UIAlertController alertControllerWithTitle:title message:title preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          [self performSegueWithIdentifier:@"unwind" sender:self];
+                                                      }]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end
