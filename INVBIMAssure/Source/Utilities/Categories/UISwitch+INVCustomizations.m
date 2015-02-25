@@ -9,6 +9,8 @@
 #import "UISwitch+INVCustomizations.h"
 #import "INVRuntimeUtils.h"
 
+#ifdef USE_UISWITCH_HACK
+
 @import ObjectiveC.runtime;
 
 static void (*oldSendAction)(id, SEL, SEL, id, UIEvent *);
@@ -42,3 +44,5 @@ __attribute__((constructor)) static void UISwitch_INVCustomizations_Init()
 
     oldSendAction = (void *) safeSwapMethods(kls, @selector(sendAction:to:forEvent:), @selector(_inv_sendAction:to:forEvent:));
 }
+
+#endif
