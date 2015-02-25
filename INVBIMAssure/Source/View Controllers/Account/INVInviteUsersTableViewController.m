@@ -216,6 +216,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
                      [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 
                      if (error) {
+                         INVLogError(@"%@", error);
+
                          [self showInviteFailureAlert];
                      }
                      else {

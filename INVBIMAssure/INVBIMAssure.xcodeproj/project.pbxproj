@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		021FFBC11A9E27E6005D28DD /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBBE1A9E27E1005D28DD /* EmpireMobileManager.framework */; };
 		021FFBC41A9E2875005D28DD /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBC31A9E2875005D28DD /* EmpireMobileManager.framework */; };
-		021FFBC51A9E2875005D28DD /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBC31A9E2875005D28DD /* EmpireMobileManager.framework */; };
-		021FFBC61A9E287F005D28DD /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBC31A9E2875005D28DD /* EmpireMobileManager.framework */; };
-		021FFBC71A9E287F005D28DD /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBC31A9E2875005D28DD /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		021FFBC91A9E2A37005D28DD /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBC81A9E2A37005D28DD /* EmpireMobileManager.framework */; };
+		021FFBCA1A9E2A37005D28DD /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBC81A9E2A37005D28DD /* EmpireMobileManager.framework */; };
+		021FFBCB1A9E2A40005D28DD /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBC81A9E2A37005D28DD /* EmpireMobileManager.framework */; };
+		021FFBCC1A9E2A40005D28DD /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 021FFBC81A9E2A37005D28DD /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		024FEEF11A69859A001CA262 /* INVTabBarStoryboardLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */; };
 		024FEEF31A6986C1001CA262 /* Files.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 024FEEF21A6986C1001CA262 /* Files.storyboard */; };
 		024FEEF51A698E0E001CA262 /* Rules.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 024FEEF41A698E0E001CA262 /* Rules.storyboard */; };
@@ -60,6 +61,7 @@
 		F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5426D591A6816D40040B2B5 /* INVNotificationsTableViewController.m */; };
 		F5426D5D1A6853BA0040B2B5 /* INVNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5426D5C1A6853BA0040B2B5 /* INVNotificationTableViewCell.m */; };
 		F5426D5F1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */; };
+		F547DA1D1A9E28F600B871A6 /* INVCustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = F547DA1C1A9E28F600B871A6 /* INVCustomSwitch.m */; };
 		F54CB1461A82B32300E8C584 /* INVUserProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54CB1451A82B32300E8C584 /* INVUserProfileTableViewController.m */; };
 		F54E70E41A93963F00FB2BCB /* UILabel+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F54E70E31A93963F00FB2BCB /* UILabel+INVCustomizations.m */; };
 		F555FD8D1A70071000C01288 /* INVModelViewerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */; };
@@ -195,7 +197,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				021FFBC71A9E287F005D28DD /* EmpireMobileManager.framework in Embed Frameworks */,
+				021FFBCC1A9E2A40005D28DD /* EmpireMobileManager.framework in Embed Frameworks */,
 				F55AD90F1A8A420900202F0A /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -205,7 +207,8 @@
 
 /* Begin PBXFileReference section */
 		021FFBBE1A9E27E1005D28DD /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
-		021FFBC31A9E2875005D28DD /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		021FFBC31A9E2875005D28DD /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
+		021FFBC81A9E2A37005D28DD /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		024FEEEF1A69859A001CA262 /* INVTabBarStoryboardLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVTabBarStoryboardLoader.h; path = "Table View Data Sources/INVTabBarStoryboardLoader.h"; sourceTree = "<group>"; };
 		024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVTabBarStoryboardLoader.m; path = "Table View Data Sources/INVTabBarStoryboardLoader.m"; sourceTree = "<group>"; };
 		024FEEF21A6986C1001CA262 /* Files.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Files.storyboard; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 		F5426D5C1A6853BA0040B2B5 /* INVNotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotificationTableViewCell.m; sourceTree = "<group>"; };
 		F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVNotificationTableViewCell.xib; sourceTree = "<group>"; };
 		F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSTimeIntervalToString.h; sourceTree = "<group>"; };
+		F547DA1B1A9E28F600B871A6 /* INVCustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSwitch.h; sourceTree = "<group>"; };
+		F547DA1C1A9E28F600B871A6 /* INVCustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSwitch.m; sourceTree = "<group>"; };
 		F548A58A1A7AD24600DF116C /* INVErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVErrorHandling.h; sourceTree = "<group>"; };
 		F54CB1441A82B32300E8C584 /* INVUserProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVUserProfileTableViewController.h; sourceTree = "<group>"; };
 		F54CB1451A82B32300E8C584 /* INVUserProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVUserProfileTableViewController.m; sourceTree = "<group>"; };
@@ -511,6 +516,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				021FFBCB1A9E2A40005D28DD /* EmpireMobileManager.framework in Frameworks */,
 				F5D2914D1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a in Frameworks */,
 				F55AD90E1A8A420900202F0A /* OpenCTM.framework in Frameworks */,
 				F5D2914E1A83F77C000CBA6B /* libYajl.a in Frameworks */,
@@ -521,7 +527,7 @@
 				021FFBC11A9E27E6005D28DD /* EmpireMobileManager.framework in Frameworks */,
 				F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */,
 				F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */,
-				021FFBC61A9E287F005D28DD /* EmpireMobileManager.framework in Frameworks */,
+				021FFBC91A9E2A37005D28DD /* EmpireMobileManager.framework in Frameworks */,
 				F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,7 +536,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				021FFBC51A9E2875005D28DD /* EmpireMobileManager.framework in Frameworks */,
+				021FFBCA1A9E2A37005D28DD /* EmpireMobileManager.framework in Frameworks */,
 				1827E538D895002A1BC239B6 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -606,7 +612,7 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				021FFBC31A9E2875005D28DD /* EmpireMobileManager.framework */,
+				021FFBC81A9E2A37005D28DD /* EmpireMobileManager.framework */,
 				F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */,
 				F5D2914C1A83F77C000CBA6B /* libYajl.a */,
 				F539D51D1A6447CF007A2BDC /* OpenCTM.framework */,
@@ -681,6 +687,8 @@
 				F5789C971A642A5500D8CEE7 /* INVRuleSetTableViewHeaderView.m */,
 				F5789C981A642A5500D8CEE7 /* INVRunRuleSetHeaderView.h */,
 				F5789C991A642A5500D8CEE7 /* INVRunRuleSetHeaderView.m */,
+				F547DA1B1A9E28F600B871A6 /* INVCustomSwitch.h */,
+				F547DA1C1A9E28F600B871A6 /* INVCustomSwitch.m */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -1388,6 +1396,7 @@
 				0278BAEA1A656E5F009E0E27 /* NSString+INVCustomizations.m in Sources */,
 				F54E70E41A93963F00FB2BCB /* UILabel+INVCustomizations.m in Sources */,
 				F5269DE71A76AD4C006AC27A /* INVChangePasswordTableViewController.m in Sources */,
+				F547DA1D1A9E28F600B871A6 /* INVCustomSwitch.m in Sources */,
 				F5789D7B1A642A5500D8CEE7 /* INVRuleSetManageFilesContainerViewController.m in Sources */,
 				024FEEFA1A69B55F001CA262 /* INVPagingManager.m in Sources */,
 				F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */,

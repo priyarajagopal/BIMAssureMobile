@@ -67,12 +67,12 @@
 
         // Only load the thumbnails if we're attached to a window.
         if (self.window) {
-            id hud = [MBProgressHUD showHUDAddedTo:self.accountThumbnailImageView animated:YES];
+            // id hud = [MBProgressHUD showHUDAddedTo:self.accountThumbnailImageView animated:YES];
 
             [[INVGlobalDataManager sharedInstance].invServerClient
                 getThumbnailImageForAccount:self.account.accountId
                       withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                          [hud hide:YES];
+                          // [hud hide:YES];
 
                           if (error) {
                               INVLogError(@"%@", error);

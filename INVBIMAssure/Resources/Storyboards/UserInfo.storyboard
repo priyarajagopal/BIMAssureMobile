@@ -558,7 +558,11 @@
                                 <segue destination="ecC-9L-ggY" kind="unwind" identifier="unwind" unwindAction="manualDismiss:" id="gbW-la-QMH"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="7NC-uy-nZq"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="7NC-uy-nZq">
+                            <connections>
+                                <action selector="saveProfile:" destination="Aef-cX-Ecl" id="crn-0x-kg6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addressTextField" destination="DiZ-e3-tY6" id="K1d-Kv-G16"/>

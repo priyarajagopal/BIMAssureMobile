@@ -112,7 +112,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cx2-vI-jf0">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cx2-vI-jf0" customClass="INVCustomSwitch">
                                                     <rect key="frame" x="535" y="6" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.54901960780000003" green="0.69803921570000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
@@ -204,7 +204,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Account Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6l7-de-Cq2">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="yqx-zN-JHU" eventType="editingDidEndOnExit" id="RhE-wg-smc"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="Syp-js-frk"/>
@@ -247,8 +247,8 @@
                                                         <outlet property="delegate" destination="1T0-xZ-bHJ" id="D5Y-US-kth"/>
                                                     </connections>
                                                 </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Account Description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOn-oD-nBx">
-                                                    <rect key="frame" x="48" y="8" width="144" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Account Description (Optional):" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOn-oD-nBx">
+                                                    <rect key="frame" x="48" y="8" width="214" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -291,7 +291,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oPZ-el-cXK">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="IDy-Bt-Yrb" eventType="editingDidEndOnExit" id="R6B-i7-Oft"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="gGB-aQ-0Kb"/>
@@ -337,7 +337,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Address" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="IDy-Bt-Yrb">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="8rb-Ra-pdI" eventType="editingDidEndOnExit" id="0pz-Sl-wVm"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="RKt-71-SyY"/>
@@ -383,7 +383,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contact Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8rb-Ra-pdI">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="feS-wB-SbV" eventType="editingDidEndOnExit" id="FrG-RI-qVr"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="Xps-pJ-tCi"/>
@@ -429,7 +429,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contact Phone" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="feS-wB-SbV">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="5W4-Rh-qcl" eventType="editingDidEndOnExit" id="gs5-Dk-EU7"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="Cn1-mG-72P"/>
@@ -475,7 +475,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Number of Employees" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5W4-Rh-qcl">
                                                     <rect key="frame" x="48" y="7" width="544" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="resignFirstResponder" destination="vhR-RB-ds0" eventType="editingDidEndOnExit" id="QQN-Pc-7fu"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="7uf-da-5TH"/>

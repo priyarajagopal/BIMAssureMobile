@@ -67,14 +67,24 @@
     [super updateConstraints];
 
     if (self.expanded) {
-        self.expandedContentView.hidden = NO;
-
         [self.expandedContentView removeConstraint:self.collapseContentViewConstraint];
+
+        if (self.window) {
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 self.expandedContentView.alpha = 1;
+                             }];
+        }
     }
     else {
-        self.expandedContentView.hidden = YES;
-
         [self.expandedContentView addConstraint:self.collapseContentViewConstraint];
+
+        if (self.window) {
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 self.expandedContentView.alpha = 0;
+                             }];
+        }
     }
 }
 
