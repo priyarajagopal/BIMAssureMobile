@@ -200,6 +200,7 @@
 "USER_COMPANY_UNAVAILABLE"="User company unavailable";
 
 "ERROR_LOAD_USER_PROFILE"="User Info Unavailable";
+"ERROR_REMOVING_USER"="There was an error while attempting to remove user from account. Please confirm that you have the right administrative privileges to do so.";
 
 "INV_MEMBERSHIP_TYPE_CURRENT_USER"="Current User";
 "INV_MEMBERSHIP_TYPE_MEMBER"="Member";
