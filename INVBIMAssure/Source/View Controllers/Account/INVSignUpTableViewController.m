@@ -359,8 +359,9 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
         isEqualToString:self.accountNumberOfEmployeesTextField.text];
 
     self.signUpButton.enabled =
-        (self.firstNameTextField.text.length > 0 && self.lastNameTextField.text.length > 0 &&
-                    self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0 && self.invitationSwitch.on
+        (self.firstNameTextField.text.length > 0 && self.accountDescriptionTextView.text.length > 0 &&
+                    self.lastNameTextField.text.length > 0 && self.emailTextField.text.length > 0 &&
+                    self.passwordTextField.text.length > 0 && self.invitationSwitch.on
                 ? (self.invitationCodeTextField.text.length > 0)
                 : (self.accountNameTextField.text.length > 0 && self.accountCompanyNameTextField.text.length > 0 &&
                       self.accountCompanyAddressTextField.text.length > 0 && self.accountContactNameTextField.text.length > 0 &&
