@@ -108,35 +108,33 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 - (void)selectThumbnail:(id)sender
 {
     INVProjectTableViewCell *cell = [sender findSuperviewOfClass:[INVProjectTableViewCell class] predicate:nil];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
+        id hud = [MBProgressHUD showHUDAddedTo:cell.contentView animated:YES];
 
-        cell.thumbnailImageView.image = image;
-        NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
+        NSString *fileName =
+            [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
         NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
         NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
-        
+
         [imageData writeToFile:[fileURL path] atomically:YES];
 
+        [self.globalDataManager.invServerClient
+            addThumbnailImageForProject:cell.project.projectId
+                              thumbnail:fileURL
+                  withCompletionHandler:^(INVEmpireMobileError *error) {
+                      [hud hide:YES];
+                      [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
 
-        [self.globalDataManager.invServerClient addThumbnailImageForProject:cell.project.projectId
-                                                                  thumbnail:fileURL
-                                                      withCompletionHandler:^(INVEmpireMobileError *error) {
-                                                          if (error) {
-                                                              INVLogError(@"%@", error);
-                                                              UIAlertController *alertController =
-                                                              [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"ERROR_IMAGE_UPDATE", nil) preferredStyle:UIAlertControllerStyleAlert];
-                                                              
-                                                              [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                                                                  style:UIAlertActionStyleDefault
-                                                                                                                handler:^(UIAlertAction *action) {
-                                                                                                                }]];
-                                                              
-                                                              [self presentViewController:alertController animated:YES completion:nil];
-                                                          }
-                                                          
+                      if (error) {
+                          INVLogError(@"%@", error);
 
-                                                      }];
+                          UIAlertController *alertController =
+                              [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_IMAGE_UPDATE", nil)];
+                          [self presentViewController:alertController animated:YES completion:nil];
+                      }
+                  }];
     }];
 
     alertController.modalPresentationStyle = UIModalPresentationPopover;
