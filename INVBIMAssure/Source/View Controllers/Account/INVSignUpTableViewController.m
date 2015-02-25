@@ -227,6 +227,8 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                                                     if (!error) {
                                                         INVLogDebug(@"Succesfully signedup user %@ and created account %@",
                                                             self.firstNameTextField.text, self.accountNameTextField.text);
+
+                                                        self.globalDataManager.loggedInUser = self.emailTextField.text;
                                                         self.signupSuccess = YES;
                                                     }
                                                     else {
@@ -257,6 +259,7 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                                                         INVLogDebug(
                                                             @"Succesfully signedup user %@ ", self.firstNameTextField.text);
 
+                                                        self.globalDataManager.loggedInUser = self.emailTextField.text;
                                                         self.globalDataManager.invitationCodeToAutoAccept =
                                                             self.invitationCodeTextField.text;
                                                         self.signupSuccess = YES;
