@@ -188,6 +188,11 @@
             return UITableViewCellEditingStyleNone;
         }
 
+        INVAccountMembership *currentMembership = [self.sections[SECTION_CURRENT_USER] firstObject];
+        if (![[currentMembership roles] containsObject:@(INV_MEMBERSHIP_TYPE_ADMIN)]) {
+            return UITableViewCellEditingStyleNone;
+        }
+
         return UITableViewCellEditingStyleDelete;
     }
 

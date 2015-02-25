@@ -14,3 +14,10 @@
 - (void)setText:(NSString *)text withDefault:(NSString *)defaultLocalizedKey andAttributes:(NSDictionary *)textAttributes;
 
 @end
+
+@interface UITextView (INVCustomizations)
+
+- (void)setText:(NSString *)text withDefault:(NSString *)defaultLocalizedKey;
+- (void)setText:(NSString *)text withDefault:(NSString *)defaultLocalizedKey andAttributes:(NSDictionary *)textAttributes;
+
+@end

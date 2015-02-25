@@ -263,13 +263,14 @@
 - (IBAction)textFieldTextChanged:(id)sender
 {
     BOOL numberOfEmployeesIsNumber = [[@([self.accountNumberOfEmployeesTextField.text integerValue]) stringValue]
-        isEqualToString:self.accountNumberOfEmployeesTextField.text];
+                                         isEqualToString:self.accountNumberOfEmployeesTextField.text] &&
+                                     [self.accountNumberOfEmployeesTextField.text integerValue] > 0;
 
     self.createBarButtonItem.enabled =
-        self.accountNameTextField.text.length > 0 && self.accountCompanyNameTextField.text.length > 0 &&
-        self.accountCompanyAddressTextField.text.length > 0 && self.accountContactNameTextField.text.length > 0 &&
-        self.accountContactPhoneTextField.text.length > 0 && self.accountNumberOfEmployeesTextField.text.length > 0 &&
-        numberOfEmployeesIsNumber;
+        self.accountNameTextField.text.length > 0 && self.accountDescriptionTextView.text.length > 0 &&
+        self.accountCompanyNameTextField.text.length > 0 && self.accountCompanyAddressTextField.text.length > 0 &&
+        self.accountContactNameTextField.text.length > 0 && self.accountContactPhoneTextField.text.length > 0 &&
+        self.accountNumberOfEmployeesTextField.text.length > 0 && numberOfEmployeesIsNumber;
 }
 
 - (IBAction)createAccount:(id)sender

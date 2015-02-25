@@ -227,6 +227,8 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                                                     if (!error) {
                                                         INVLogDebug(@"Succesfully signedup user %@ and created account %@",
                                                             self.firstNameTextField.text, self.accountNameTextField.text);
+
+                                                        self.globalDataManager.loggedInUser = self.emailTextField.text;
                                                         self.signupSuccess = YES;
                                                     }
                                                     else {
@@ -257,6 +259,7 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                                                         INVLogDebug(
                                                             @"Succesfully signedup user %@ ", self.firstNameTextField.text);
 
+                                                        self.globalDataManager.loggedInUser = self.emailTextField.text;
                                                         self.globalDataManager.invitationCodeToAutoAccept =
                                                             self.invitationCodeTextField.text;
                                                         self.signupSuccess = YES;
@@ -356,8 +359,9 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
         isEqualToString:self.accountNumberOfEmployeesTextField.text];
 
     self.signUpButton.enabled =
-        (self.firstNameTextField.text.length > 0 && self.lastNameTextField.text.length > 0 &&
-                    self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0 && self.invitationSwitch.on
+        (self.firstNameTextField.text.length > 0 && self.accountDescriptionTextView.text.length > 0 &&
+                    self.lastNameTextField.text.length > 0 && self.emailTextField.text.length > 0 &&
+                    self.passwordTextField.text.length > 0 && self.invitationSwitch.on
                 ? (self.invitationCodeTextField.text.length > 0)
                 : (self.accountNameTextField.text.length > 0 && self.accountCompanyNameTextField.text.length > 0 &&
                       self.accountCompanyAddressTextField.text.length > 0 && self.accountContactNameTextField.text.length > 0 &&

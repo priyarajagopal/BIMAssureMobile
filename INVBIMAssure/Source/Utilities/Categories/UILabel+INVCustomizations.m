@@ -26,3 +26,22 @@
 }
 
 @end
+
+@implementation UITextView (INVCustomizations)
+
+- (void)setText:(NSString *)text withDefault:(NSString *)defaultLocalizedKey
+{
+    [self setText:text withDefault:defaultLocalizedKey andAttributes:nil];
+}
+
+- (void)setText:(NSString *)text withDefault:(NSString *)defaultLocalizedKey andAttributes:(NSDictionary *)textAttriubtes;
+{
+    self.text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if (self.text.length == 0) {
+        self.attributedText =
+            [[NSAttributedString alloc] initWithString:NSLocalizedString(defaultLocalizedKey, nil) attributes:textAttriubtes];
+    }
+}
+
+@end

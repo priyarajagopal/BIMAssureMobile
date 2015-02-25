@@ -116,6 +116,14 @@
 
     // ABPeoplePicker overrides
     [[UIView appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil] setTintColor:darkGreyColor];
+    [[UIView appearanceWhenContainedIn:[ABPersonViewController class], nil] setTintColor:darkGreyColor];
+    [[UIView appearanceWhenContainedIn:[ABNewPersonViewController class], nil] setTintColor:darkGreyColor];
+    [[UIView appearanceWhenContainedIn:[ABUnknownPersonViewController class], nil] setTintColor:darkGreyColor];
+
+    // NOTE: This is the class used inside the UIRemoteView when tapping an auto-detected link.
+    // Hopefully this won't result in appstore rejections.
+    [[UIView appearanceWhenContainedIn:NSClassFromString(@"ABUnknownPersonViewController_Modern"), nil]
+        setTintColor:darkGreyColor];
 
     [[UINavigationBar appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil] setBarTintColor:cyanBlueColor];
     [[UINavigationBar appearanceWhenContainedIn:[ABPeoplePickerNavigationController class], nil] setTintColor:whiteColor];
@@ -132,6 +140,9 @@
     [[UILabel appearance] setShadowOffset:CGSizeZero];
     [[UITextField appearance] setTextColor:darkGreyColor];
     [[UITextView appearance] setTintColor:darkGreyColor];
+
+    [[UITextView appearanceWhenContainedIn:NSClassFromString(@"INVAccountDetailFolderCollectionReusableView"), nil]
+        setTintColor:[UIColor redColor]];
 }
 
 #pragma mark - VC management

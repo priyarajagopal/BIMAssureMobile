@@ -89,6 +89,11 @@
                             <constraint firstItem="Vma-ec-Oit" firstAttribute="top" secondItem="75P-dp-ChF" secondAttribute="top" id="f3m-ao-blt"/>
                             <constraint firstItem="3SR-UU-hjb" firstAttribute="leading" secondItem="Vma-ec-Oit" secondAttribute="trailing" constant="8" id="kza-5L-ifd"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="9Ez-7W-4qk"/>
+                            </mask>
+                        </variation>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjT-jG-PTj">
                         <rect key="frame" x="338" y="137" width="9" height="26"/>
