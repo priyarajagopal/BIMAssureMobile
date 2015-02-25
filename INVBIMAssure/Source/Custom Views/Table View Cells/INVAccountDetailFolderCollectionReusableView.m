@@ -23,7 +23,7 @@
 @property IBOutlet UILabel *numberEmployeesLabel;
 
 @property IBOutlet UILabel *contactNameLabel;
-@property IBOutlet UILabel *contactPhoneLabel;
+@property IBOutlet UITextView *contactPhoneLabel;
 
 @end
 

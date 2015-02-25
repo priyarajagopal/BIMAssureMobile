@@ -82,12 +82,6 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1 (234) 567-8901" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jo5-FJ-rYK">
-                    <rect key="frame" x="136" y="189" width="624" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6F-Fg-6Sp">
                     <rect key="frame" x="8" y="45" width="752" height="20"/>
                     <attributedString key="attributedText">
@@ -122,19 +116,34 @@
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="1 (234)-5678" translatesAutoresizingMaskIntoConstraints="NO" id="4RW-5t-Cpm">
+                    <rect key="frame" x="136" y="191" width="632" height="17"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="IZF-PZ-TOf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="rect" keyPath="textContainerInset">
+                            <rect key="value" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="b6A-7v-8ct" firstAttribute="leading" secondItem="Qdk-66-WzD" secondAttribute="leading" constant="8" id="26z-GG-dpM"/>
                 <constraint firstItem="zct-DD-vFM" firstAttribute="leading" secondItem="YKc-gH-Qom" secondAttribute="trailing" constant="8" id="3ww-p1-H2V"/>
+                <constraint firstItem="b6A-7v-8ct" firstAttribute="centerY" secondItem="4RW-5t-Cpm" secondAttribute="centerY" id="4yE-Z6-5nY"/>
                 <constraint firstItem="I6F-Fg-6Sp" firstAttribute="top" secondItem="KfZ-Gk-SA0" secondAttribute="bottom" priority="999" constant="8" id="7T4-ey-S9T"/>
+                <constraint firstItem="4RW-5t-Cpm" firstAttribute="leading" secondItem="b6A-7v-8ct" secondAttribute="trailing" constant="8" id="9Yp-uD-t82"/>
                 <constraint firstItem="J6e-VE-0un" firstAttribute="leading" secondItem="hWW-UM-Db9" secondAttribute="trailing" constant="8" id="Cu8-uq-pUe"/>
                 <constraint firstAttribute="trailing" secondItem="I6F-Fg-6Sp" secondAttribute="trailing" constant="8" id="DqU-sn-SQk"/>
                 <constraint firstItem="b6A-7v-8ct" firstAttribute="top" secondItem="hWW-UM-Db9" secondAttribute="bottom" constant="8" id="Dxx-nD-BxW"/>
                 <constraint firstItem="MNt-22-kzf" firstAttribute="baseline" secondItem="KUM-Lw-ERR" secondAttribute="baseline" id="DzD-MQ-rS7"/>
                 <constraint firstItem="YKc-gH-Qom" firstAttribute="top" secondItem="MNt-22-kzf" secondAttribute="bottom" constant="8" id="E3E-N2-Jti"/>
-                <constraint firstAttribute="trailing" secondItem="Jo5-FJ-rYK" secondAttribute="trailing" constant="8" id="M1J-1r-Y3B"/>
-                <constraint firstItem="Jo5-FJ-rYK" firstAttribute="leading" secondItem="b6A-7v-8ct" secondAttribute="trailing" constant="8" id="ORe-ih-fXf"/>
                 <constraint firstItem="hWW-UM-Db9" firstAttribute="leading" secondItem="Qdk-66-WzD" secondAttribute="leading" constant="8" id="Obg-Re-3se"/>
                 <constraint firstItem="O5g-vU-JY4" firstAttribute="leading" secondItem="Qdk-66-WzD" secondAttribute="leading" constant="8" id="PT9-1R-BMV"/>
                 <constraint firstItem="KfZ-Gk-SA0" firstAttribute="top" secondItem="Qdk-66-WzD" secondAttribute="top" constant="8" id="Q7x-jp-XXr"/>
@@ -149,6 +158,7 @@
                 <constraint firstItem="YKc-gH-Qom" firstAttribute="baseline" secondItem="zct-DD-vFM" secondAttribute="baseline" id="ed9-lC-xFH"/>
                 <constraint firstItem="I6F-Fg-6Sp" firstAttribute="leading" secondItem="Qdk-66-WzD" secondAttribute="leading" constant="8" id="gSu-ff-JU5"/>
                 <constraint firstItem="MNt-22-kzf" firstAttribute="top" secondItem="I6F-Fg-6Sp" secondAttribute="bottom" constant="8" id="h1P-PY-qjt"/>
+                <constraint firstAttribute="trailing" secondItem="4RW-5t-Cpm" secondAttribute="trailing" id="h4K-kC-gxp"/>
                 <constraint firstAttribute="trailing" secondItem="KUM-Lw-ERR" secondAttribute="trailing" constant="8" id="jdC-eR-3zf"/>
                 <constraint firstAttribute="trailing" secondItem="KfZ-Gk-SA0" secondAttribute="trailing" constant="8" id="kP5-l7-XmU"/>
                 <constraint firstAttribute="trailing" secondItem="zct-DD-vFM" secondAttribute="trailing" constant="8" id="mJM-qB-268"/>
@@ -156,18 +166,18 @@
                 <constraint firstItem="KfZ-Gk-SA0" firstAttribute="leading" secondItem="Qdk-66-WzD" secondAttribute="leading" constant="8" id="rup-co-xra"/>
                 <constraint firstItem="KUM-Lw-ERR" firstAttribute="leading" secondItem="MNt-22-kzf" secondAttribute="trailing" constant="8" id="sMs-vO-apb"/>
                 <constraint firstItem="O5g-vU-JY4" firstAttribute="top" secondItem="zct-DD-vFM" secondAttribute="bottom" constant="8" id="uAp-PA-tqk"/>
-                <constraint firstItem="b6A-7v-8ct" firstAttribute="baseline" secondItem="Jo5-FJ-rYK" secondAttribute="baseline" id="xaO-ex-DYj"/>
+                <constraint firstItem="b6A-7v-8ct" firstAttribute="centerY" secondItem="4RW-5t-Cpm" secondAttribute="centerY" id="yb4-Ot-4aV"/>
             </constraints>
             <connections>
                 <outlet property="accountOverviewLabel" destination="Gz3-ym-1h7" id="VCP-Ce-sag"/>
                 <outlet property="companyAddressLabel" destination="zct-DD-vFM" id="kwL-Zw-0gE"/>
                 <outlet property="companyNameLabel" destination="KUM-Lw-ERR" id="mVy-gE-kcD"/>
                 <outlet property="contactNameLabel" destination="J6e-VE-0un" id="eLf-Wj-Yz2"/>
-                <outlet property="contactPhoneLabel" destination="Jo5-FJ-rYK" id="mJV-IK-xU1"/>
+                <outlet property="contactPhoneLabel" destination="4RW-5t-Cpm" id="Koq-Cb-rXe"/>
                 <outlet property="createdByAtLabel" destination="I6F-Fg-6Sp" id="BOy-Do-o2g"/>
                 <outlet property="numberEmployeesLabel" destination="AaK-Tf-pVi" id="e0S-Fs-eVY"/>
             </connections>
-            <point key="canvasLocation" x="266" y="230"/>
+            <point key="canvasLocation" x="270" y="229"/>
         </collectionReusableView>
     </objects>
 </document>
