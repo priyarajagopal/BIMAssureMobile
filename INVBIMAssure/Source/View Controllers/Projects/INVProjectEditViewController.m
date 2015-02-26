@@ -58,8 +58,7 @@
 
 @end
 
-@interface INVProjectEditViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
-    UITextFieldDelegate, INVStockThumbnailCollectionViewControllerDelegate>
+@interface INVProjectEditViewController () <UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property IBOutlet UITextField *projectNameTextField;
 @property IBOutlet UITextField *projectDescriptionTextField;
@@ -81,46 +80,8 @@
 @end
 
 @implementation INVProjectEditViewController
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
-    self.refreshControl = nil;
-    self.currentThumbnailButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-    self.membersInAccountDataSource.tableViewCellIdentifier = @"memberCell";
-    self.membersInProjectDataSource.tableViewCellIdentifier = @"memberCell";
-
-    [self updateUI];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)setCurrentProject:(INVProject *)currentProject
-{
-    _currentProject = currentProject;
-
-    [self updateUI];
-}
-
-
-
-
-#pragma mark - UITableViewDataSource
-
-#if !SHOW_PROJECT_MEMBERS
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 2;
-}
-
-#endif
+#pragma mark - View Lifecycle
 
 - (void)updateUI
 {
@@ -165,19 +126,45 @@
     }
 }
 
-- (void)showProjectAlert:(NSString *)title
+- (void)viewDidLoad
 {
-    UIAlertController *alertController =
-        [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
+    [super viewDidLoad];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-                                                          [self performSegueWithIdentifier:@"unwind" sender:self];
-                                                      }]];
+    // Do any additional setup after loading the view.
+    self.refreshControl = nil;
+    self.currentThumbnailButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
-    [self presentViewController:alertController animated:YES completion:nil];
+    self.membersInAccountDataSource.tableViewCellIdentifier = @"memberCell";
+    self.membersInProjectDataSource.tableViewCellIdentifier = @"memberCell";
+
+    [self updateUI];
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)setCurrentProject:(INVProject *)currentProject
+{
+    _currentProject = currentProject;
+
+    [self updateUI];
+}
+
+#pragma mark - UITableViewDataSource
+
+#if !SHOW_PROJECT_MEMBERS
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+#endif
+
+#pragma mark - IBActions
 
 - (void)save:(id)sender
 {
@@ -206,7 +193,7 @@
     else {
         [self.globalDataManager.invServerClient createProjectWithName:projectName
                                                        andDescription:projectDescription
-                                ForSignedInAccountWithCompletionBlock:^(INVProject* project,INVEmpireMobileError *error) {
+                                ForSignedInAccountWithCompletionBlock:^(INVProject *project, INVEmpireMobileError *error) {
                                     // NOTE: We *probably* need more info about the created project here.
 
                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -216,7 +203,7 @@
                                     else {
                                         [self uploadProjectThumbnailForProject:project.projectId];
                                     }
-                                    
+
                                 }];
     }
 }
@@ -230,7 +217,6 @@
 {
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
         [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
-        
     }];
 
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
@@ -241,16 +227,7 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self.currentThumbnailButton setImage:info[UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
-}
-
-- (void)stockThumbnailCollectionViewController:(INVStockThumbnailCollectionViewController *)controller
-                       didSelectStockThumbnail:(UIImage *)image
-{
-    [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
-}
+#pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -286,29 +263,43 @@
     return NO;
 }
 
-
 #pragma mark - Helpers
--(void)uploadProjectThumbnailForProject:(NSNumber*)projectId {
+
+- (void)showProjectAlert:(NSString *)title
+{
+    UIAlertController *alertController =
+        [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          [self performSegueWithIdentifier:@"unwind" sender:self];
+                                                      }]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)uploadProjectThumbnailForProject:(NSNumber *)projectId
+{
     // TODO: Update the thumbnail.
     NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
     NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
     NSData *imageData = UIImageJPEGRepresentation(self.currentThumbnailButton.imageView.image, 0.75);
-    
-    [imageData writeToFile:[fileURL path] atomically:YES];
-   
-    [self.globalDataManager.invServerClient addThumbnailImageForProject:projectId
-                                                              thumbnail:fileURL
-                                                  withCompletionHandler:^(INVEmpireMobileError *error) {
-                                                      if (error) {
-                                                          INVLogError(@"%@", error);
-                                                          [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED_NO_THUMBNAIL", nil)];
-                                                      }
-                                                      else {
-                                                          [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED", nil)];
-                                                      }
-                                                      
-                                                  }];
 
+    [imageData writeToFile:[fileURL path] atomically:YES];
+
+    [self.globalDataManager.invServerClient
+        addThumbnailImageForProject:projectId
+                          thumbnail:fileURL
+              withCompletionHandler:^(INVEmpireMobileError *error) {
+                  if (error) {
+                      INVLogError(@"%@", error);
+                      [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED_NO_THUMBNAIL", nil)];
+                  }
+                  else {
+                      [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED", nil)];
+                  }
+              }];
 }
 
 @end
