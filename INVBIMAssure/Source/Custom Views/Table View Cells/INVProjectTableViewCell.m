@@ -83,22 +83,21 @@
                            range:NSMakeRange(createdOnStr.length, createdOnWithDateStr.length - createdOnStr.length)];
 
         self.createdOnLabel.attributedText = attrString;
+        self.thumbnailImageView.image = [UIImage imageNamed:@"ImageNotFound"];
 
-        self.thumbnailImageView.image = nil;
-        id hud = [MBProgressHUD showHUDAddedTo:self.thumbnailImageView animated:YES];
-
+        /*
         [[INVGlobalDataManager sharedInstance].invServerClient
             getThumbnailImageForProject:self.project.projectId
                   withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                      [hud hide:YES];
-
                       if (error) {
                           INVLogError(@"%@", error);
                           return;
                       }
+
                       UIImage *image = [UIImage imageWithData:result];
                       self.thumbnailImageView.image = image;
                   }];
+         */
     }
 }
 

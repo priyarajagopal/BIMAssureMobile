@@ -13,24 +13,24 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZVE-S7-q50" id="w7f-Ew-fdb">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ig1-uu-YGO">
-                        <rect key="frame" x="15" y="8" width="33" height="20"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koe-8P-6kc">
-                        <rect key="frame" x="56" y="8" width="32" height="20"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oas-TV-RCP">
-                        <rect key="frame" x="15" y="30" width="36" height="17"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="A17-cR-Z0r">
+                        <rect key="frame" x="15" y="50" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="7u2-7z-AKP"/>
+                            <constraint firstAttribute="width" constant="40" id="MAV-oh-1Km"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTq-Pf-q9w" userLabel="Exanded Details">
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBU-RG-IPL">
@@ -88,39 +88,39 @@
                             <constraint firstItem="dPY-wj-iaQ" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="uMe-eU-jz4"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="A17-cR-Z0r">
-                        <rect key="frame" x="308" y="50" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="7u2-7z-AKP"/>
-                            <constraint firstAttribute="width" constant="40" id="MAV-oh-1Km"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="5"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                <integer key="value" value="2"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ig1-uu-YGO">
+                        <rect key="frame" x="63" y="8" width="33" height="20"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koe-8P-6kc">
+                        <rect key="frame" x="104" y="8" width="32" height="20"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oas-TV-RCP">
+                        <rect key="frame" x="63" y="30" width="36" height="17"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="A17-cR-Z0r" secondAttribute="trailing" constant="8" id="1DE-Y5-8U0"/>
+                    <constraint firstItem="A17-cR-Z0r" firstAttribute="leading" secondItem="w7f-Ew-fdb" secondAttribute="leadingMargin" constant="7" id="1DE-Y5-8U0"/>
                     <constraint firstItem="ig1-uu-YGO" firstAttribute="leading" secondItem="Oas-TV-RCP" secondAttribute="leading" id="9Z4-gm-Xsw"/>
-                    <constraint firstItem="A17-cR-Z0r" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="trailing" constant="8" id="EjT-2f-7ve"/>
+                    <constraint firstItem="dTq-Pf-q9w" firstAttribute="leading" secondItem="A17-cR-Z0r" secondAttribute="trailing" constant="8" id="EjT-2f-7ve"/>
                     <constraint firstAttribute="centerY" secondItem="A17-cR-Z0r" secondAttribute="centerY" id="G9v-YP-d90"/>
                     <constraint firstItem="ig1-uu-YGO" firstAttribute="top" secondItem="w7f-Ew-fdb" secondAttribute="topMargin" id="PCU-bD-8Dk"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dTq-Pf-q9w" secondAttribute="trailing" constant="8" id="QQs-BG-4UF"/>
                     <constraint firstItem="Oas-TV-RCP" firstAttribute="top" secondItem="ig1-uu-YGO" secondAttribute="bottom" constant="2" id="St9-l0-Mlf"/>
-                    <constraint firstItem="dTq-Pf-q9w" firstAttribute="leading" secondItem="w7f-Ew-fdb" secondAttribute="leadingMargin" constant="7" id="aeW-s7-eqo"/>
                     <constraint firstItem="dTq-Pf-q9w" firstAttribute="bottom" secondItem="w7f-Ew-fdb" secondAttribute="bottomMargin" id="avL-m2-Ldu"/>
                     <constraint firstItem="koe-8P-6kc" firstAttribute="leading" secondItem="ig1-uu-YGO" secondAttribute="trailing" constant="8" id="d08-l9-ulK"/>
                     <constraint firstItem="koe-8P-6kc" firstAttribute="top" secondItem="w7f-Ew-fdb" secondAttribute="topMargin" id="eQA-rC-HC1"/>
-                    <constraint firstItem="ig1-uu-YGO" firstAttribute="leading" secondItem="w7f-Ew-fdb" secondAttribute="leadingMargin" constant="7" id="fFJ-aH-y2e"/>
                     <constraint firstItem="Oas-TV-RCP" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="dTq-Pf-q9w" secondAttribute="top" id="k4U-Ua-5U5"/>
                     <constraint firstItem="ig1-uu-YGO" firstAttribute="baseline" secondItem="koe-8P-6kc" secondAttribute="baseline" id="os4-nO-owl"/>
+                    <constraint firstItem="ig1-uu-YGO" firstAttribute="leading" secondItem="A17-cR-Z0r" secondAttribute="trailing" constant="8" id="q4E-QJ-jXY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

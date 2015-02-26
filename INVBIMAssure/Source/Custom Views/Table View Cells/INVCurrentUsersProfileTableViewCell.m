@@ -62,6 +62,7 @@
     self.userThumbnailImageView.image = [UIImage imageNamed:@"user"];
 
     if (self.window) {
+        /*
         [[INVGlobalDataManager sharedInstance].invServerClient
             getThumbnailImageForUser:self.user.userId
                withCompletionHandler:^(id result, INVEmpireMobileError *error) {
@@ -72,6 +73,7 @@
                    INV_ERROR:
                        INVLogError(@"%@", error);
                }];
+         */
     }
 
     [self setNeedsLayout];

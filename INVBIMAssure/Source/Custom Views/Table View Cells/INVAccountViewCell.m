@@ -41,8 +41,8 @@
     UIColor *greenShade = [UIColor colorWithRed:79.0 / 255 green:154.0 / 255 blue:65.0 / 255 alpha:1.0];
 
     FAKFontAwesome *greenCheckIcon = [FAKFontAwesome checkCircleIconWithSize:30.0];
-    [greenCheckIcon  addAttribute:NSForegroundColorAttributeName value:greenShade];
-     
+    [greenCheckIcon addAttribute:NSForegroundColorAttributeName value:greenShade];
+
     [self.isCurrentlySignedInImageView setImage:[greenCheckIcon imageWithSize:CGSizeMake(30, 30)]];
 
     [self.isCurrentlySignedInImageView setHidden:YES];
@@ -80,6 +80,7 @@
         if (self.window) {
             // id hud = [MBProgressHUD showHUDAddedTo:self.accountThumbnailImageView animated:YES];
 
+            /*
             [[INVGlobalDataManager sharedInstance].invServerClient
                 getThumbnailImageForAccount:self.account.accountId
                       withCompletionHandler:^(id result, INVEmpireMobileError *error) {
@@ -93,6 +94,7 @@
                           UIImage *image = [UIImage imageWithData:result];
                           self.accountThumbnailImageView.image = image;
                       }];
+             */
         }
     }
 
