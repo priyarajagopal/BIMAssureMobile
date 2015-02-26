@@ -23,6 +23,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *expandButton;
 @property (weak, nonatomic) IBOutlet UIImageView *isDefaultOverlayImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *isCurrentlySignedInImageView;
 
 @end
 
@@ -37,6 +38,14 @@
 
     [self.accountThumbnailImageView addGestureRecognizer:longPressRecognizer];
 
+    UIColor *greenShade = [UIColor colorWithRed:79.0 / 255 green:154.0 / 255 blue:65.0 / 255 alpha:1.0];
+
+    FAKFontAwesome *greenCheckIcon = [FAKFontAwesome checkCircleIconWithSize:30.0];
+    [greenCheckIcon  addAttribute:NSForegroundColorAttributeName value:greenShade];
+     
+    [self.isCurrentlySignedInImageView setImage:[greenCheckIcon imageWithSize:CGSizeMake(30, 30)]];
+
+    [self.isCurrentlySignedInImageView setHidden:YES];
     [self updateUI];
 }
 
@@ -59,10 +68,12 @@
         if (self.isCurrentlySignedIn) {
             [self.signInButton setTitleColor:greenShade forState:UIControlStateNormal];
             [self.signInButton setTitle:@"\uf058" forState:UIControlStateNormal];
+            [self.isCurrentlySignedInImageView setHidden:NO];
         }
         else {
             [self.signInButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             [self.signInButton setTitle:@"\uf08b" forState:UIControlStateNormal];
+            [self.isCurrentlySignedInImageView setHidden:YES];
         }
 
         // Only load the thumbnails if we're attached to a window.
