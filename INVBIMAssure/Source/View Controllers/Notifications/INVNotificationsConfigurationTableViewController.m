@@ -36,6 +36,31 @@
 - (void)notificationsEnabledChanged:(id)sender
 {
     [[INVNotificationPoller instance] setNotificationsEnabled:self.notificationsEnabledSwitch.isOn];
+
+    [self.globalDataManager.invServerClient
+        getSignedInUserProfileWithCompletionBlock:^(INVUser *result, INVEmpireMobileError *error) {
+            INV_ALWAYS:
+            INV_SUCCESS:
+                [self.globalDataManager.invServerClient
+                    updateUserProfileInSignedInAccountWithId:nil
+                                               withFirstName:result.firstName
+                                                    lastName:result.lastName
+                                                 userAddress:result.address
+                                             userPhoneNumber:result.phoneNumber
+                                             userCompanyName:result.companyName
+                                                       title:result.title
+                                                       email:result.email
+                                          allowNotifications:self.notificationsEnabledSwitch.isOn
+                                         withCompletionBlock:INV_COMPLETION_HANDLER {
+                                             INV_ALWAYS:
+                                             INV_SUCCESS:
+                                             INV_ERROR:
+                                                 INVLogError(@"%@", error);
+                                         }];
+
+            INV_ERROR:
+                INVLogError(@"%@", error);
+        }];
 }
 
 @end

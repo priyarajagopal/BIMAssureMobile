@@ -165,6 +165,12 @@
     INVAccountListViewController *accountListVC = (INVAccountListViewController *) accountListNC.topViewController;
     accountListVC.autoSignIntoDefaultAccount = YES;
     [self registerAccountObservers];
+
+    [self.globalManager.invServerClient
+        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *result, INVEmpireMobileError *error){
+            // TODO: EMOB-214 - Wait for the signed in user account API to be fixed.
+            // [[INVNotificationPoller instance] setNotificationsEnabled:[result.allowNotifications boolValue]];
+        }];
 }
 
 - (void)displayLoginRootViewController
@@ -261,8 +267,11 @@
 
 - (void)prepareNotificationPolling
 {
+    [[INVNotificationPoller instance] setNotificationsEnabled:YES];
+
     [[INVNotificationPoller instance] addDataSource:[INVPendingInvitesNotificationDataSource new]];
     [[INVNotificationPoller instance] addDataSource:[INVProjectsNotificationDataSource new]];
+
     [[INVNotificationPoller instance] beginPolling];
 }
 
@@ -321,6 +330,8 @@
     INVLogDebug(@"User logged out");
 
     [self displayLoginRootViewController];
+
+    [[INVNotificationPoller instance] setNotificationsEnabled:NO];
 }
 
 - (void)onAccountLogOut:(NSNotification *)notification

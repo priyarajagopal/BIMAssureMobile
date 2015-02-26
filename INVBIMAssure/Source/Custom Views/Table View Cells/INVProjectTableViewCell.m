@@ -8,10 +8,13 @@
 
 #import "INVProjectTableViewCell.h"
 #import "INVProjectsTableViewController.h"
+#import "UILabel+INVCustomizations.h"
+#import "UIFont+INVCustomizations.h"
 
 @interface INVProjectTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *overviewLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createdOnLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *fileCount;
@@ -59,6 +62,9 @@
 {
     if (self.project != nil) {
         self.name.text = self.project.name;
+        [self.overviewLabel setText:self.project.overview
+                        withDefault:@"DESCRIPTION_UNAVAILABLE"
+                      andAttributes:@{NSFontAttributeName : self.overviewLabel.font.italicFont}];
 
         [[INVGlobalDataManager sharedInstance].invServerClient
             getTotalCountOfPkgMastersForProject:self.project.projectId

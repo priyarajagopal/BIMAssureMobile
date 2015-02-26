@@ -23,13 +23,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created On" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ard-Oq-uvi">
-                        <rect key="frame" x="16" y="44" width="75" height="17"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0G-Pw-T0H">
                         <rect key="frame" x="16" y="16" width="323" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -102,20 +95,37 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" image="project_thumbnail_0" translatesAutoresizingMaskIntoConstraints="NO" id="OdG-Fp-3hC">
-                        <rect key="frame" x="16" y="69" width="314" height="192"/>
+                        <rect key="frame" x="16" y="78" width="314" height="183"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuF-27-9lk">
+                        <rect key="frame" x="16" y="36" width="323" height="17"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created On" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ard-Oq-uvi">
+                        <rect key="frame" x="16" y="53" width="75" height="17"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="Ard-Oq-uvi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="4Be-Lq-jLb"/>
+                    <constraint firstItem="BuF-27-9lk" firstAttribute="top" secondItem="e0G-Pw-T0H" secondAttribute="bottom" id="74i-Dy-ytr"/>
                     <constraint firstItem="OdG-Fp-3hC" firstAttribute="top" secondItem="Ard-Oq-uvi" secondAttribute="bottom" constant="8" id="CBS-H7-RjP"/>
                     <constraint firstItem="xjT-jG-PTj" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Dey-ad-Ouf"/>
                     <constraint firstAttribute="trailing" secondItem="75P-dp-ChF" secondAttribute="trailing" id="Dhh-j0-38e"/>
                     <constraint firstItem="OdG-Fp-3hC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="EGW-xl-4v1"/>
                     <constraint firstAttribute="trailingMargin" secondItem="e0G-Pw-T0H" secondAttribute="trailing" constant="8" id="KOj-ps-gUN"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="BuF-27-9lk" secondAttribute="trailing" constant="8" id="Ol4-PA-VDf"/>
                     <constraint firstAttribute="centerY" secondItem="xjT-jG-PTj" secondAttribute="centerY" id="QKE-Ed-Wio"/>
+                    <constraint firstItem="Ard-Oq-uvi" firstAttribute="top" secondItem="BuF-27-9lk" secondAttribute="bottom" id="X98-HC-9TP"/>
                     <constraint firstItem="e0G-Pw-T0H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="e2Q-iu-xbh"/>
-                    <constraint firstItem="Ard-Oq-uvi" firstAttribute="top" secondItem="e0G-Pw-T0H" secondAttribute="bottom" constant="8" id="jwT-nY-mSt"/>
+                    <constraint firstItem="BuF-27-9lk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="iq5-Ai-Ipe"/>
                     <constraint firstItem="xjT-jG-PTj" firstAttribute="leading" secondItem="OdG-Fp-3hC" secondAttribute="trailing" constant="8" id="m8m-LO-In3"/>
                     <constraint firstItem="e0G-Pw-T0H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="q4g-Mh-pEc"/>
                     <constraint firstItem="75P-dp-ChF" firstAttribute="top" secondItem="OdG-Fp-3hC" secondAttribute="bottom" constant="8" id="qDk-l1-qwE"/>
@@ -128,6 +138,7 @@
                 <outlet property="createdOnLabel" destination="Ard-Oq-uvi" id="hEO-q5-etX"/>
                 <outlet property="fileCount" destination="7fD-iz-oLT" id="t4q-Fa-dvh"/>
                 <outlet property="name" destination="e0G-Pw-T0H" id="IRY-br-Ieu"/>
+                <outlet property="overviewLabel" destination="BuF-27-9lk" id="H4I-Wq-Zqm"/>
                 <outlet property="thumbnailImageView" destination="OdG-Fp-3hC" id="FAq-WX-wPO"/>
                 <outlet property="userCount" destination="9Ez-7W-4qk" id="CBI-Ow-Ofl"/>
             </connections>
