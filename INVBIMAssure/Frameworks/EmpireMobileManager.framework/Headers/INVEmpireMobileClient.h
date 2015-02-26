@@ -805,7 +805,7 @@ accountManager can be used to retrieve the details of account
  @see projectManager
 
  */
-- (void)getTotalCountOfPkgMastersForProject:(NSNumber *)projectId WithCompletionBlock:(CompletionHandlerWithData)handler;
+//- (void)getTotalCountOfPkgMastersForProject:(NSNumber *)projectId WithCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously ,get list of all files associated with a project. Users must have signed into an account in order to be able to

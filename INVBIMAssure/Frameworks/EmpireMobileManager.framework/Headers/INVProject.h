@@ -26,4 +26,5 @@ typedef NSMutableArray *INVProjectMutableArray;
 @property (copy, nonatomic, readonly) NSNumber *projectId;
 @property (copy, nonatomic, readonly) NSNumber *accountId;
 @property (copy, nonatomic, readonly) NSString *name;
+@property (copy, nonatomic, readonly) NSNumber* pkgCount;
 @end
