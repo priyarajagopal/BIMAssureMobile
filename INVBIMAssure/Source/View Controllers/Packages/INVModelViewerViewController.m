@@ -117,10 +117,10 @@ void classDump(Class);
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                NSDictionary *parsedResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 
-                               for (NSString *geomURL in parsedResults[@"outputFiles"]) {
+                               for (NSString *geomPath in parsedResults[@"outputFiles"]) {
                                    NSURLRequest *geomRequest = [[INVGlobalDataManager sharedInstance].invServerClient
                                        requestToFetchModelViewForPkgVersion:self.fileVersionId
-                                                                    forFile:geomURL];
+                                                                    forFile:[geomPath lastPathComponent]];
 
                                    [self->_ctmParser process:geomRequest];
                                }

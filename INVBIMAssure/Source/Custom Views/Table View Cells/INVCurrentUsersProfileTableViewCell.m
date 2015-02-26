@@ -17,6 +17,7 @@
 @property IBOutlet UILabel *emailLabel;
 @property IBOutlet UILabel *addressLabel, *phoneLabel;
 @property IBOutlet UILabel *titleLabel, *companyLabel;
+@property IBOutlet UIImageView *userThumbnailImageView;
 
 @property IBOutlet UIView *expandedContentView;
 @property IBOutlet NSLayoutConstraint *collapseContentViewConstraint;
@@ -57,6 +58,21 @@
     [self.companyLabel setText:self.user.companyName
                    withDefault:@"USER_COMPANY_UNAVAILABLE"
                  andAttributes:subtitleFontDicitonary];
+
+    self.userThumbnailImageView.image = [UIImage imageNamed:@"user"];
+
+    if (self.window) {
+        [[INVGlobalDataManager sharedInstance].invServerClient
+            getThumbnailImageForUser:self.user.userId
+               withCompletionHandler:^(id result, INVEmpireMobileError *error) {
+                   INV_ALWAYS:
+                   INV_SUCCESS:
+                       self.userThumbnailImageView.image = [UIImage imageWithData:result];
+
+                   INV_ERROR:
+                       INVLogError(@"%@", error);
+               }];
+    }
 
     [self setNeedsLayout];
     [self setNeedsUpdateConstraints];

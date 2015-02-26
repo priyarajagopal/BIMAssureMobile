@@ -34,7 +34,7 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTq-Pf-q9w" userLabel="Exanded Details">
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBU-RG-IPL">
-                                <rect key="frame" x="0.0" y="0.0" width="349" height="17"/>
+                                <rect key="frame" x="0.0" y="0.0" width="285" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="17" id="HlR-MB-8c0"/>
                                 </constraints>
@@ -43,7 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxK-SJ-Std">
-                                <rect key="frame" x="0.0" y="-51" width="349" height="17"/>
+                                <rect key="frame" x="0.0" y="-51" width="285" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="17" id="leq-ka-rbT"/>
                                 </constraints>
@@ -52,7 +52,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Bt-Dh-boW">
-                                <rect key="frame" x="0.0" y="-34" width="349" height="17"/>
+                                <rect key="frame" x="0.0" y="-34" width="285" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="17" id="SZT-RG-QCO"/>
                                 </constraints>
@@ -61,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPY-wj-iaQ">
-                                <rect key="frame" x="0.0" y="-17" width="349" height="17"/>
+                                <rect key="frame" x="0.0" y="-17" width="285" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="17" id="K80-ss-pOr"/>
                                 </constraints>
@@ -88,12 +88,32 @@
                             <constraint firstItem="dPY-wj-iaQ" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="leading" id="uMe-eU-jz4"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="A17-cR-Z0r">
+                        <rect key="frame" x="308" y="50" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="7u2-7z-AKP"/>
+                            <constraint firstAttribute="width" constant="40" id="MAV-oh-1Km"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="A17-cR-Z0r" secondAttribute="trailing" constant="8" id="1DE-Y5-8U0"/>
                     <constraint firstItem="ig1-uu-YGO" firstAttribute="leading" secondItem="Oas-TV-RCP" secondAttribute="leading" id="9Z4-gm-Xsw"/>
+                    <constraint firstItem="A17-cR-Z0r" firstAttribute="leading" secondItem="dTq-Pf-q9w" secondAttribute="trailing" constant="8" id="EjT-2f-7ve"/>
+                    <constraint firstAttribute="centerY" secondItem="A17-cR-Z0r" secondAttribute="centerY" id="G9v-YP-d90"/>
                     <constraint firstItem="ig1-uu-YGO" firstAttribute="top" secondItem="w7f-Ew-fdb" secondAttribute="topMargin" id="PCU-bD-8Dk"/>
                     <constraint firstItem="Oas-TV-RCP" firstAttribute="top" secondItem="ig1-uu-YGO" secondAttribute="bottom" constant="2" id="St9-l0-Mlf"/>
-                    <constraint firstAttribute="trailing" secondItem="dTq-Pf-q9w" secondAttribute="trailing" id="Wdr-Lb-FrB"/>
                     <constraint firstItem="dTq-Pf-q9w" firstAttribute="leading" secondItem="w7f-Ew-fdb" secondAttribute="leadingMargin" constant="7" id="aeW-s7-eqo"/>
                     <constraint firstItem="dTq-Pf-q9w" firstAttribute="bottom" secondItem="w7f-Ew-fdb" secondAttribute="bottomMargin" id="avL-m2-Ldu"/>
                     <constraint firstItem="koe-8P-6kc" firstAttribute="leading" secondItem="ig1-uu-YGO" secondAttribute="trailing" constant="8" id="d08-l9-ulK"/>
@@ -113,8 +133,12 @@
                 <outlet property="lastNameLabel" destination="koe-8P-6kc" id="EPM-7Z-oOy"/>
                 <outlet property="phoneLabel" destination="WBU-RG-IPL" id="SSY-PU-d1U"/>
                 <outlet property="titleLabel" destination="OxK-SJ-Std" id="geV-fN-qIv"/>
+                <outlet property="userThumbnailImageView" destination="A17-cR-Z0r" id="Rfc-bl-FxF"/>
             </connections>
-            <point key="canvasLocation" x="246.5" y="546"/>
+            <point key="canvasLocation" x="246.5" y="544"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="user" width="25" height="25"/>
+    </resources>
 </document>
