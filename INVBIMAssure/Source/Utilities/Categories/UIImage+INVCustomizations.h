@@ -14,4 +14,7 @@
 + (NSArray *)imagesInFolderNamed:(NSString *)folderName recursive:(BOOL)recursive;
 
 + (UIImage *)resizeImage:(UIImage *)image toSize:(CGSize)newSize;
+
+- (NSURL *)writeImageToTemporaryFile;
+
 @end
