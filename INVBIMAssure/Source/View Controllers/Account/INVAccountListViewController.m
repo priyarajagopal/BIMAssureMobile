@@ -783,10 +783,12 @@ static NSString *const reuseIdentifier = @"Cell";
 - (IBAction)expandRow:(id)sender
 {
     INVAccountViewCell *cell = [sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil];
-
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    [self.collectionViewLayout toggleFolderViewForIndexPath:indexPath];
 
+    if (indexPath == nil)
+        return;
+
+    [self.collectionViewLayout toggleFolderViewForIndexPath:indexPath];
     cell.isExpanded = !cell.isExpanded;
 }
 
