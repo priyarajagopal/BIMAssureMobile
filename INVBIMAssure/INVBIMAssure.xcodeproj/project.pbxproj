@@ -175,6 +175,7 @@
 		F58F26811A962809002EA2A8 /* UISwitch+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F58F26801A962809002EA2A8 /* UISwitch+INVCustomizations.m */; };
 		F59165B41A94F86F00B7205F /* INVPendingInviteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */; };
 		F59165B61A950C7700B7205F /* INVPendingInviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */; };
+		F5B69DBE1A9F77310014B74B /* NSObject+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B69DBD1A9F77310014B74B /* NSObject+INVCustomizations.m */; };
 		F5D2914D1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */; };
 		F5D2914E1A83F77C000CBA6B /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914C1A83F77C000CBA6B /* libYajl.a */; };
 		F5D291511A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D291501A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m */; };
@@ -487,6 +488,8 @@
 		F59165B21A94F86F00B7205F /* INVPendingInviteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVPendingInviteCell.h; sourceTree = "<group>"; };
 		F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVPendingInviteCell.m; sourceTree = "<group>"; };
 		F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVPendingInviteCell.xib; sourceTree = "<group>"; };
+		F5B69DBC1A9F77310014B74B /* NSObject+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+INVCustomizations.h"; sourceTree = "<group>"; };
+		F5B69DBD1A9F77310014B74B /* NSObject+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+INVCustomizations.m"; sourceTree = "<group>"; };
 		F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRBCollectionViewInfoFolderLayout.a; path = "../../RBCollectionViewInfoFolderLayout/build/Prod-iphoneos/libRBCollectionViewInfoFolderLayout.a"; sourceTree = "<group>"; };
 		F5D2914C1A83F77C000CBA6B /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Yajl/build/Dev-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F5D2914F1A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountDetailFolderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -831,6 +834,8 @@
 				F54E70E31A93963F00FB2BCB /* UILabel+INVCustomizations.m */,
 				F58F267F1A9627E8002EA2A8 /* UISwitch+INVCustomizations.h */,
 				F58F26801A962809002EA2A8 /* UISwitch+INVCustomizations.m */,
+				F5B69DBC1A9F77310014B74B /* NSObject+INVCustomizations.h */,
+				F5B69DBD1A9F77310014B74B /* NSObject+INVCustomizations.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1407,6 +1412,7 @@
 				F5789D381A642A5500D8CEE7 /* INVRunRuleSetHeaderView.m in Sources */,
 				F5789D3D1A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m in Sources */,
 				F5789D6F1A642A5500D8CEE7 /* INVProjectDetailsTabViewController.m in Sources */,
+				F5B69DBE1A9F77310014B74B /* NSObject+INVCustomizations.m in Sources */,
 				F5789D5D1A642A5500D8CEE7 /* INVSearchViewTagsDataSource.m in Sources */,
 				F5DC65B61A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m in Sources */,
 				F5789D741A642A5500D8CEE7 /* INVProjectsTableViewController.m in Sources */,

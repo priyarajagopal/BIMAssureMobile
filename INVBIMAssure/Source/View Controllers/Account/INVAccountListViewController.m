@@ -20,6 +20,7 @@ const NSInteger INV_CELLSIZE = 100;
 #import "INVCreateAccountViewController.h"
 #import "INVAccountDetailFolderCollectionReusableView.h"
 #import "UIView+INVCustomizations.h"
+#import "UIImage+INVCustomizations.h"
 
 #import <RBCollectionViewInfoFolderLayout/RBCollectionViewInfoFolderLayout.h>
 
@@ -741,12 +742,8 @@ static NSString *const reuseIdentifier = @"Cell";
     INVAccountViewCell *cell = [sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil];
 
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
+        NSURL *fileURL = [image writeImageToTemporaryFile];
 
-        NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
-        NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
-
-        [imageData writeToFile:[fileURL path] atomically:YES];
         [self.globalDataManager.invServerClient addThumbnailImageForAccount:cell.account.accountId
                                                                   thumbnail:fileURL
                                                       withCompletionHandler:^(INVEmpireMobileError *error) {

@@ -9,6 +9,7 @@
 #import "INVProjectEditViewController.h"
 #import "INVMutableArrayTableViewDataSource.h"
 #import "INVStockThumbnailCollectionViewController.h"
+#import "UIImage+INVCustomizations.h"
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
@@ -281,12 +282,7 @@
 
 - (void)uploadProjectThumbnailForProject:(NSNumber *)projectId
 {
-    // TODO: Update the thumbnail.
-    NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
-    NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
-    NSData *imageData = UIImageJPEGRepresentation(self.currentThumbnailButton.imageView.image, 0.75);
-
-    [imageData writeToFile:[fileURL path] atomically:YES];
+    NSURL *fileURL = [self.currentThumbnailButton.imageView.image writeImageToTemporaryFile];
 
     [self.globalDataManager.invServerClient
         addThumbnailImageForProject:projectId

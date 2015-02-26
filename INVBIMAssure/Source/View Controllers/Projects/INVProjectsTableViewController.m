@@ -113,12 +113,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
         id hud = [MBProgressHUD showHUDAddedTo:cell.contentView animated:YES];
 
-        NSString *fileName =
-            [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"temp.png"];
-        NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
-
-        [imageData writeToFile:[fileURL path] atomically:YES];
+        NSURL *fileURL = [image writeImageToTemporaryFile];
 
         [self.globalDataManager.invServerClient
             addThumbnailImageForProject:cell.project.projectId

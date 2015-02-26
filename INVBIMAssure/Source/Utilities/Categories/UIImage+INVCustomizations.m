@@ -7,6 +7,9 @@
 //
 
 #import "UIImage+INVCustomizations.h"
+#import "NSObject+INVCustomizations.h"
+
+@import ObjectiveC.runtime;
 
 @implementation UIImage (INVCustomizations)
 
@@ -51,6 +54,25 @@
     UIGraphicsEndImageContext();
 
     return newImage;
+}
+
+- (NSURL *)writeImageToTemporaryFile
+{
+    NSData *imageData = UIImageJPEGRepresentation(self, 0.75);
+
+    NSURL *fileURL = [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    fileURL = [fileURL URLByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
+    fileURL = [fileURL URLByAppendingPathExtension:@"jpg"];
+
+    if ([imageData writeToURL:fileURL atomically:YES]) {
+        [self addDeallocHandler:^(id self) {
+            [[NSFileManager defaultManager] removeItemAtURL:fileURL error:NULL];
+        }];
+
+        return fileURL;
+    }
+
+    return nil;
 }
 
 @end
