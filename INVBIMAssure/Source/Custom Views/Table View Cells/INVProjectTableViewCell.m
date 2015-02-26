@@ -59,18 +59,8 @@
 {
     if (self.project != nil) {
         self.name.text = self.project.name;
-
-        [[INVGlobalDataManager sharedInstance].invServerClient
-            getTotalCountOfPkgMastersForProject:self.project.projectId
-                            WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                if (error)
-                                    return;
-
-                                self.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %d", [result intValue]];
-                            }];
-
-        // TODO: Load this from a cache first?
-        self.fileCount.text = @"\uf0c5 0";
+        self.fileCount.text = [NSString stringWithFormat:@"\uf0c5 %d", [self.project.pkgCount intValue]];
+  
         self.userCount.text = @"\uf0c0 0";
 
         NSString *createdOnStr = NSLocalizedString(@"CREATED_ON", nil);
