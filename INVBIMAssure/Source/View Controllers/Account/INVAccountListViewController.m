@@ -341,7 +341,20 @@ static NSString *const reuseIdentifier = @"Cell";
 
         NSFetchRequest *fetchRequestForAccounts = self.accountManager.fetchRequestForAccountsOfSignedInUser;
         NSSortDescriptor *orderByDate = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-        [fetchRequestForAccounts setSortDescriptors:@[ orderByDate ]];
+        NSSortDescriptor *loggedInAccount =
+            [NSSortDescriptor sortDescriptorWithKey:@"accountId"
+                                          ascending:NO
+                                         comparator:^NSComparisonResult(id obj1, id obj2) {
+                                             if ([self.globalDataManager.loggedInAccount isEqual:obj1])
+                                                 return NSOrderedDescending;
+
+                                             if ([self.globalDataManager.loggedInAccount isEqual:obj2])
+                                                 return NSOrderedAscending;
+
+                                             return NSOrderedSame;
+                                         }];
+
+        [fetchRequestForAccounts setSortDescriptors:@[ loggedInAccount, orderByDate ]];
 
         NSManagedObjectContext *managedObjectContext = self.accountManager.managedObjectContext;
         managedObjectContext.stalenessInterval = 0;
