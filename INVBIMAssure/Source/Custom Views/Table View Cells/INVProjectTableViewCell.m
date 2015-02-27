@@ -85,7 +85,6 @@
         self.createdOnLabel.attributedText = attrString;
         self.thumbnailImageView.image = [UIImage imageNamed:@"ImageNotFound"];
 
-        /*
         [[INVGlobalDataManager sharedInstance].invServerClient
             getThumbnailImageForProject:self.project.projectId
                   withCompletionHandler:^(id result, INVEmpireMobileError *error) {
@@ -97,7 +96,6 @@
                       UIImage *image = [UIImage imageWithData:result];
                       self.thumbnailImageView.image = image;
                   }];
-         */
     }
 }
 
