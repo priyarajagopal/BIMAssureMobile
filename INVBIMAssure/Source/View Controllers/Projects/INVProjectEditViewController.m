@@ -91,14 +91,16 @@
             [NSString stringWithFormat:NSLocalizedString(@"EDIT_PROJECT", nil), self.currentProject.name];
 
         self.projectNameTextField.text = self.currentProject.name;
+        self.projectDescriptionTextField.text = self.currentProject.overview;
 
-        // NOTE: No description in model for projects currently. JIRA Bug EMOB-98.
-        // self.projectDescriptionTextField.text = self.currentProject.description;
+        self.saveBarButtonItem.enabled = YES;
     }
     else {
         self.navigationItem.title = NSLocalizedString(@"CREATE_PROJECT", nil);
         self.projectNameTextField.text = nil;
         self.projectDescriptionTextField.text = nil;
+
+        self.saveBarButtonItem.enabled = NO;
     }
 
     [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
@@ -184,11 +186,18 @@
         [self.globalDataManager.invServerClient updateProjectWithId:self.currentProject.projectId
                                                            withName:projectName
                                                      andDescription:projectDescription
-                              ForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-                                  // TODO: Error handling
-                                  [MBProgressHUD hideHUDForView:self.view animated:YES];
+                              ForSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
+                                  INV_ALWAYS:
+                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
 
-                                  [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
+                                  INV_SUCCESS:
+                                      // TODO: Update thumbnail?
+                                      [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
+
+                                  INV_ERROR:
+                                      INVLogError(@"%@", error);
+
+                                      [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_CREATE", nil)];
                               }];
     }
     else {
@@ -196,15 +205,14 @@
                                                        andDescription:projectDescription
                                 ForSignedInAccountWithCompletionBlock:^(INVProject *project, INVEmpireMobileError *error) {
                                     // NOTE: We *probably* need more info about the created project here.
-
                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
+
                                     if (error) {
                                         [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_CREATE", nil)];
                                     }
                                     else {
                                         [self uploadProjectThumbnailForProject:project.projectId];
                                     }
-
                                 }];
     }
 }

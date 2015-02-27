@@ -56,8 +56,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vma-ec-Oit">
-                                <rect key="frame" x="279" y="0.0" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vma-ec-Oit">
+                                <rect key="frame" x="317" y="0.0" width="30" height="30"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="21"/>
                                 <state key="normal" title="">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,15 +75,18 @@
                             <constraint firstItem="7fD-iz-oLT" firstAttribute="baseline" secondItem="9Ez-7W-4qk" secondAttribute="baseline" id="0gs-RB-BBU"/>
                             <constraint firstAttribute="trailing" secondItem="3SR-UU-hjb" secondAttribute="trailing" constant="8" id="5wm-YK-urV"/>
                             <constraint firstItem="9Ez-7W-4qk" firstAttribute="leading" secondItem="7fD-iz-oLT" secondAttribute="trailing" constant="16" id="6jb-u8-WJu"/>
+                            <constraint firstAttribute="trailing" secondItem="Vma-ec-Oit" secondAttribute="trailing" constant="8" id="9a0-e1-Ejo"/>
                             <constraint firstItem="7fD-iz-oLT" firstAttribute="leading" secondItem="75P-dp-ChF" secondAttribute="leading" constant="8" id="Ca6-Oq-KBx"/>
                             <constraint firstAttribute="bottom" secondItem="3SR-UU-hjb" secondAttribute="bottom" id="Ekj-ki-fD4"/>
                             <constraint firstAttribute="height" constant="30" id="OEp-Tf-uPj"/>
+                            <constraint firstAttribute="centerY" secondItem="7fD-iz-oLT" secondAttribute="centerY" id="WQJ-eu-dY0"/>
                             <constraint firstAttribute="bottom" secondItem="Vma-ec-Oit" secondAttribute="bottom" id="bU4-Kx-Bad"/>
                             <constraint firstItem="Vma-ec-Oit" firstAttribute="top" secondItem="75P-dp-ChF" secondAttribute="top" id="f3m-ao-blt"/>
                             <constraint firstItem="3SR-UU-hjb" firstAttribute="leading" secondItem="Vma-ec-Oit" secondAttribute="trailing" constant="8" id="kza-5L-ifd"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="3SR-UU-hjb"/>
                                 <exclude reference="9Ez-7W-4qk"/>
                             </mask>
                         </variation>
