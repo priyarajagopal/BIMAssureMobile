@@ -102,7 +102,8 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : whiteColor}];
 
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UIToolbar class], nil] setTintColor:[UIColor redColor]];
+    [[UIView appearanceWhenContainedIn:[UIToolbar class], nil] setTintColor:[UIColor blackColor]];
+
     [[UITextField appearance] setTintColor:darkGreyColor];
 
     [[UIView appearanceWhenContainedIn:[UITabBar class], nil] setTintColor:[UIColor darkGrayColor]];

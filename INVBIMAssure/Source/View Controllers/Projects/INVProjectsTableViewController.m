@@ -31,7 +31,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 @property (nonatomic, strong) INVProjectDetailsTabViewController *projectDetailsController;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, strong) INVPagingManager *projectPagingManager;
-@property (nonatomic, weak) UILabel *updatedAtLabel;
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
 @end
 
@@ -64,24 +63,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    if (self.navigationController.toolbarHidden) {
-        UIToolbar *toolbar = self.navigationController.toolbar;
-
-        UILabel *label = [[UILabel alloc]
-            initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), CGRectGetHeight(toolbar.frame))];
-        [label setTintColor:[UIColor darkGrayColor]];
-        [label setTextAlignment:NSTextAlignmentCenter];
-        [label setFont:[UIFont systemFontOfSize:13.0]];
-
-        self.updatedAtLabel = label;
-
-        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:label];
-        [buttonItem setTintColor:[UIColor blackColor]];
-        [self.navigationController.visibleViewController setToolbarItems:@[ buttonItem ]];
-
-        [self.navigationController setToolbarHidden:NO animated:NO];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -221,14 +202,14 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 #pragma mark - helper
 - (void)showLoadProgress
 {
-    [self.updatedAtLabel setText:NSLocalizedString(@"UPDATING", nil)];
+    [self.bottomBarButtonItem setTitle:NSLocalizedString(@"UPDATING", nil)];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)updateTimeStamp
 {
-    [self.updatedAtLabel setText:[NSString stringWithFormat:NSLocalizedString(@"UPDATED_AT", nil),
-                                           [self.dateFormatter stringFromDate:[NSDate date]]]];
+    [self.bottomBarButtonItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"UPDATED_AT", nil),
+                                                 [self.dateFormatter stringFromDate:[NSDate date]]]];
 }
 #pragma mark - INVPagingManagerDelegate
 
