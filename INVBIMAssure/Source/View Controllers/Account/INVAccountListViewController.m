@@ -739,6 +739,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (IBAction)selectThumbnail:(id)sender
 {
+    /*
     INVAccountViewCell *cell = [sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil];
 
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
@@ -763,6 +764,7 @@ static NSString *const reuseIdentifier = @"Cell";
         CGRectMake(CGRectGetMidX([sender bounds]), CGRectGetMidY([sender bounds]), 0, 0);
     alertController.popoverPresentationController.permittedArrowDirections =
         UIPopoverArrowDirectionDown | UIPopoverArrowDirectionUp;
+     */
 }
 
 - (IBAction)signIn:(id)sender
@@ -794,8 +796,10 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (IBAction)editAccount:(id)sender
 {
+    /*
     [self performSegueWithIdentifier:@"EditAccountSegue"
-                              sender:[sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil]];
+     sender:[sender findSuperviewOfClass:[UICollectionViewCell class] predicate:nil]];
+     */
 }
 
 - (IBAction)done:(id)sener

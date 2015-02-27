@@ -8,10 +8,17 @@
 
 #import "INVUserManagementTableViewController.h"
 #import "INVInviteUsersTableViewController.h"
+#import "INVCreateAccountViewController.h"
+
+#define ROW_ACCOUNT_MEMBERS 0
+#define ROW_PENDING_INVITES 1
+#define ROW_INVITE_USERS 2
+#define ROW_EDIT_ACCOUNT 3
 
 @interface INVUserManagementTableViewController ()
 
 @property IBOutlet UILabel *accountNameLabel;
+@property IBOutlet INVTransitionToStoryboard *editAccountTransition;
 
 @end
 
@@ -30,7 +37,18 @@
 {
     [super viewWillAppear:animated];
 
-    self.accountNameLabel.text = [self accountNameForAccountId:self.globalDataManager.loggedInAccount];
+    self.accountNameLabel.text = [self loggedInAccount].name;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"EditAccountSegue"]) {
+        UINavigationController *navController = [segue destinationViewController];
+        INVCreateAccountViewController *createAccountController =
+            (INVCreateAccountViewController *) [navController topViewController];
+
+        createAccountController.accountToEdit = [self loggedInAccount];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -38,18 +56,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if (indexPath.row == ROW_EDIT_ACCOUNT) {
+        [self.editAccountTransition perform:nil];
+    }
 }
 
-- (NSString *)accountNameForAccountId:(NSNumber *)accountId
+- (INVAccount *)loggedInAccount
 {
     INVAccountArray accounts = [self.globalDataManager.invServerClient.accountManager accountsOfSignedInUser];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"accountId==%@", accountId];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"accountId==%@", self.globalDataManager.loggedInAccount];
     NSArray *matches = [accounts filteredArrayUsingPredicate:pred];
-    if (matches && matches.count) {
-        INVAccount *match = matches[0];
-        return match.name;
-    }
-    return nil;
+
+    return [matches firstObject];
 }
 
 @end

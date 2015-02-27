@@ -203,7 +203,7 @@
                               [self hideSignupProgress];
 
                           INV_SUCCESS:
-                              self.signupSuccess = YES;
+                              [self performSegueWithIdentifier:@"unwind" sender:nil];
 
                           INV_ERROR:
                               INVLogError(@"%@", error);
