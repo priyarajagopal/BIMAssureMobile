@@ -21,8 +21,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
 @property (nonatomic, readwrite) NSFetchedResultsController *dataResultsController;
 @property (nonatomic, strong) INVAccountManager *accountManager;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
-
 @property (nonatomic, strong) NSMutableDictionary *cachedUsers;
+@property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
 
 @end
 
@@ -82,6 +82,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
             [self.dataResultsController performFetch:NULL];
 
             NSArray *objects = self.dataResultsController.fetchedObjects;
+   
             id successBlock = [INVBlockUtils blockForExecutingBlock:^{
                 [self.tableView reloadData];
             } afterNumberOfCalls:objects.count];
@@ -175,7 +176,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
                                                      cancelInviteWithInvitationId:invite.invitationId
                                                               withCompletionBlock:INV_COMPLETION_HANDLER {
                                                                   INV_ALWAYS:
-                                                                      [self fetchListOfInvitedUsers];
 
                                                                   INV_SUCCESS:
 
@@ -217,17 +217,51 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 70;
     return _accountManager;
 }
 
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    if (!self.isNSFetchedResultsChangeTypeUpdated) {
+        [self.tableView  reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    self.isNSFetchedResultsChangeTypeUpdated = (type == NSFetchedResultsChangeUpdate);
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
+{
+}
+
+
+#pragma mark - accessors
+
 - (NSFetchedResultsController *)dataResultsController
 {
     if (!_dataResultsController) {
         NSFetchRequest *fetchRequest = self.accountManager.fetchRequestForPendingInvitesForAccount;
         fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO] ];
-
+        
         _dataResultsController =
             [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                 managedObjectContext:self.accountManager.managedObjectContext
                                                   sectionNameKeyPath:nil
                                                            cacheName:nil];
+        _dataResultsController.delegate = self;
     }
     return _dataResultsController;
 }

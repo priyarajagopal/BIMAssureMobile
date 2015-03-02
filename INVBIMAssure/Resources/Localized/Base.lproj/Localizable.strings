@@ -180,6 +180,7 @@
 "DEFAULT_ACCOUNT_PREFIX"="Default-Account-For-%@";
 "SIGNUP_FAILURE"="Account Creation Error";
 "GENERIC_SIGNUP_FAILURE_MESSAGE"="There was an error while trying to create account. Please try again";
+"GENERIC_EDIT_USERPROFILE_MESSAGE"="There was an error editing the user profile information. Please try again.";
 "CREATE_USER_ACCOUNT"="Create User Account";
 "ACCOUNT_NAME"="Enter name of account";
 "UPDATING"="Updating ...";
