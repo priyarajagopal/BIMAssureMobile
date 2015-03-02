@@ -83,13 +83,15 @@
                            range:NSMakeRange(createdOnStr.length, createdOnWithDateStr.length - createdOnStr.length)];
 
         self.createdOnLabel.attributedText = attrString;
-        self.thumbnailImageView.image = [UIImage imageNamed:@"ImageNotFound"];
+
+        self.thumbnailImageView.image = nil;
 
         [[INVGlobalDataManager sharedInstance].invServerClient
             getThumbnailImageForProject:self.project.projectId
                   withCompletionHandler:^(id result, INVEmpireMobileError *error) {
                       if (error) {
                           INVLogError(@"%@", error);
+                          self.thumbnailImageView.image = [UIImage imageNamed:@"ImageNotFound"];
                           return;
                       }
 

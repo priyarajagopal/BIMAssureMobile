@@ -32,6 +32,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, strong) INVPagingManager *projectPagingManager;
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
+@property (nonatomic, strong) NSIndexPath *indexOfProjectBeingEdited;
 @end
 
 @implementation INVProjectsTableViewController
@@ -347,13 +348,20 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)onProjectEdited:(INVProjectTableViewCell *)sender
 {
+    self.indexOfProjectBeingEdited = [self.tableView indexPathForCell:sender];
     [self performSegueWithIdentifier:@"editProject" sender:sender];
 }
 
 - (void)onProjectEditSaved:(INVProjectEditViewController *)controller
 {
-    // Since are not supporting updates via didChangeObject.... callback
-    [self fetchProjectList];
+    [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
+}
+
+- (void)reloadRowAtSelectedIndex
+{
+    [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfProjectBeingEdited ]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+    self.indexOfProjectBeingEdited = nil;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
