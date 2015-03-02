@@ -167,11 +167,7 @@
     accountListVC.autoSignIntoDefaultAccount = YES;
     [self registerAccountObservers];
 
-    [self.globalManager.invServerClient
-        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *result, INVEmpireMobileError *error){
-            // TODO: EMOB-214 - Wait for the signed in user account API to be fixed.
-            // [[INVNotificationPoller instance] setNotificationsEnabled:[result.allowNotifications boolValue]];
-        }];
+    [[INVNotificationPoller instance] beginPolling];
 }
 
 - (void)displayLoginRootViewController
@@ -332,7 +328,7 @@
 
     [self displayLoginRootViewController];
 
-    [[INVNotificationPoller instance] setNotificationsEnabled:NO];
+    [[INVNotificationPoller instance] endPolling];
 }
 
 - (void)onAccountLogOut:(NSNotification *)notification
