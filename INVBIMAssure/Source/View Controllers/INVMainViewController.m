@@ -22,9 +22,15 @@
 
 @implementation INVMainViewController
 
+- (void)dealloc
+{
+    [self deregisterMainMenuObservers];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
     [self setDetailViewConstraints];
     [self performSegueWithIdentifier:@"MainProjectEmbedSegue" sender:nil];
@@ -36,10 +42,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self deregisterMainMenuObservers];
+
     self.detailContainerViewController = nil;
     self.mainMenuVC = nil;
 }
@@ -161,8 +172,10 @@
 - (void)registerMainMenuObservers
 {
     if (self.registeredForMainMenuEvents) {
+        [self deregisterMainMenuObservers];
         return;
     }
+
     self.registeredForMainMenuEvents = YES;
 
     [self.mainMenuVC addObserver:self forKeyPath:KVO_INVOnAccountMenuSelected options:NSKeyValueObservingOptionNew context:nil];

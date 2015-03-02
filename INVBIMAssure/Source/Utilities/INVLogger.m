@@ -8,6 +8,8 @@
 
 #import "INVLogger.h"
 
+@import Darwin.sys.sysctl;
+
 #if DEBUG
 
 static INVLogLevel _INVMinimumLogLevel = INVLogLevelDebug;
@@ -39,6 +41,20 @@ static inline NSString *invLogLevelToString(INVLogLevel level)
     return levels[level];
 }
 
+static inline BOOL isDebuggerAttached(void)
+{
+    struct kinfo_proc info = {0};
+    int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_PID, getpid()};
+    size_t size;
+
+    size = sizeof(info);
+    int error = sysctl(mib, sizeof(mib) / sizeof(*mib), &info, &size, NULL, 0);
+    if (error)
+        return NO;
+
+    return ((info.kp_proc.p_flag & P_TRACED) != 0);
+}
+
 static inline BOOL shouldShowCallstackSymbolsForLevel(INVLogLevel level)
 {
     static BOOL levels[] = {
@@ -50,7 +66,7 @@ static inline BOOL shouldShowCallstackSymbolsForLevel(INVLogLevel level)
         YES, // Crash
     };
 
-    return levels[level];
+    return isDebuggerAttached() && levels[level];
 }
 
 static inline void writeLogfilePreamble(FILE *logFile, NSDateFormatter *dateFormat)

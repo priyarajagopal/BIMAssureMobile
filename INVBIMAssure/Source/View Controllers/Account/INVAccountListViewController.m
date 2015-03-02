@@ -39,7 +39,10 @@ NSString *const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 @property (nonatomic, strong) INVCreateAccountViewController *signUpController;
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @property (readonly, nonatomic, strong) RBCollectionViewInfoFolderLayout *collectionViewLayout;
+@property (nonatomic, strong) INVAccountDetailFolderCollectionReusableView *layoutSizingView;
+@property (nonatomic, strong) NSMutableDictionary *cachedLayoutSizes;
 
 @end
 
@@ -90,6 +93,8 @@ static NSString *const reuseIdentifier = @"Cell";
 
     [self.refreshControl addTarget:self action:@selector(fetchListOfAccounts) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:self.refreshControl];
+
+    self.cachedLayoutSizes = [NSMutableDictionary new];
 }
 
 - (void)didReceiveMemoryWarning
@@ -418,6 +423,7 @@ static NSString *const reuseIdentifier = @"Cell";
                     // persistent store is not updated in this case. This is a race condition between when the poller fetches
                     // the data thereby upating the store  versus when the accounts viewer requests this. Regardless, forcing a
                     // fetch by the FRC will ensure that the in-memory version syncs up with the data store
+                    [self.cachedLayoutSizes removeAllObjects];
                     [self.dataResultsController performFetch:NULL];
                     [self.collectionView reloadData];
 
@@ -880,24 +886,29 @@ static NSString *const reuseIdentifier = @"Cell";
                         layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
     heightForFolderAtIndexPath:(NSIndexPath *)indexPath
 {
-    static INVAccountDetailFolderCollectionReusableView *sizingView = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (self.cachedLayoutSizes[indexPath]) {
+        return [self.cachedLayoutSizes[indexPath] floatValue];
+    }
+
+    if (self.layoutSizingView == nil) {
         UINib *sizingViewNib =
             [UINib nibWithNibName:NSStringFromClass([INVAccountDetailFolderCollectionReusableView class]) bundle:nil];
-        sizingView = [[sizingViewNib instantiateWithOwner:nil options:nil] firstObject];
-    });
+        self.layoutSizingView = [[sizingViewNib instantiateWithOwner:nil options:nil] firstObject];
+    }
 
     id object = [self.dataResultsController objectAtIndexPath:indexPath];
 
     if (indexPath.section == 0) {
-        sizingView.account = object;
+        self.layoutSizingView.account = object;
     }
     else {
-        sizingView.invite = object;
+        self.layoutSizingView.invite = object;
     }
 
-    return [sizingView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    CGFloat height = [self.layoutSizingView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    self.cachedLayoutSizes[indexPath] = @(height);
+
+    return height;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
