@@ -50,6 +50,8 @@ NSString *const INVNotificationPoller_NotificationsEnabledKey = @"INVNotificatio
 @property dispatch_queue_t backgroundQueue;
 @property dispatch_source_t pollingTimer;
 
+@property BOOL polling;
+
 @property NSMutableArray *dataSources;
 @property NSMutableArray *notifications;
 
@@ -151,11 +153,19 @@ NSString *const INVNotificationPoller_NotificationsEnabledKey = @"INVNotificatio
 
 - (void)beginPolling
 {
+    if (self.polling)
+        return;
+
+    self.polling = YES;
     dispatch_resume(_pollingTimer);
 }
 
 - (void)endPolling
 {
+    if (!self.polling)
+        return;
+
+    self.polling = NO;
     dispatch_suspend(_pollingTimer);
 
     [_notifications removeAllObjects];

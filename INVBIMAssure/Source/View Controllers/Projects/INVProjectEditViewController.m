@@ -96,6 +96,22 @@
         self.projectDescriptionTextField.text = self.currentProject.overview;
 
         self.saveBarButtonItem.enabled = NO;
+
+        [self.currentThumbnailButton setImage:[UIImage imageNamed:@"ImageNotFound"] forState:UIControlStateNormal];
+
+        [self.globalDataManager.invServerClient
+            getThumbnailImageForProject:self.currentProject.projectId
+                  withCompletionHandler:^(id result, INVEmpireMobileError *error) {
+                      if (error) {
+                          INVLogError(@"%@", error);
+                          [self.currentThumbnailButton setImage:[UIImage imageNamed:@"ImageNotFound"]
+                                                       forState:UIControlStateNormal];
+
+                          return;
+                      }
+
+                      [self.currentThumbnailButton setImage:[UIImage imageWithData:result] forState:UIControlStateNormal];
+                  }];
     }
     else {
         self.navigationItem.title = NSLocalizedString(@"CREATE_PROJECT", nil);
@@ -103,6 +119,8 @@
         self.projectDescriptionTextField.text = nil;
 
         self.saveBarButtonItem.enabled = NO;
+
+        [self.currentThumbnailButton setImage:[UIImage imageNamed:@"project_thumbnail_0"] forState:UIControlStateNormal];
     }
 
     [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
@@ -193,7 +211,6 @@
                                       [MBProgressHUD hideHUDForView:self.view animated:YES];
 
                                   INV_SUCCESS:
-                                      // TODO: Update thumbnail?
                                       if (self.projectImageUpdated) {
                                           [self uploadProjectThumbnailForProject:self.currentProject.projectId];
                                       }
@@ -234,6 +251,8 @@
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
         [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
         self.projectImageUpdated = YES;
+
+        [self textFieldTextChanged:nil];
     }];
 
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
