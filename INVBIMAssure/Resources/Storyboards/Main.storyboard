@@ -66,7 +66,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="DPl-Pc-fhp" eventType="editingDidEndOnExit" id="QNw-IX-j59"/>
-                                                        <action selector="projectNameChanged:" destination="mBi-Kq-wHv" eventType="editingChanged" id="PCT-KJ-7Z7"/>
+                                                        <action selector="textFieldTextChanged:" destination="mBi-Kq-wHv" eventType="editingChanged" id="gdd-3i-rBt"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -99,6 +99,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="resignFirstResponder" destination="4Gl-hm-Byd" eventType="editingDidEndOnExit" id="brP-gw-isE"/>
+                                                        <action selector="textFieldTextChanged:" destination="mBi-Kq-wHv" eventType="editingChanged" id="Tdp-4d-gqt"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -347,7 +348,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="3293" y="1632"/>
+            <point key="canvasLocation" x="3292" y="1632"/>
         </scene>
         <!--Projects List View Controller-->
         <scene sceneID="SIK-rX-mGO">

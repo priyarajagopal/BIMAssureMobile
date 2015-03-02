@@ -53,7 +53,7 @@
 {
     if (self.account) {
         UIColor *greenShade = [UIColor colorWithRed:79.0 / 255 green:154.0 / 255 blue:65.0 / 255 alpha:1.0];
-
+        
         self.nameLabel.text = self.account.name;
         self.descriptionLabel.text = self.account.overview;
         self.projectStatusLabel.text = self.account.disabled.boolValue ? NSLocalizedString(@"ACCOUNT_STATUS_DISABLED", nil)

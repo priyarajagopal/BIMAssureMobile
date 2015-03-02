@@ -77,7 +77,7 @@
 @property (nonatomic, assign) BOOL projectImageUpdated;
 
 - (IBAction)save:(id)sender;
-- (IBAction)projectNameChanged:(id)sender;
+- (IBAction)textFieldTextChanged:(id)sender;
 - (IBAction)selectThumbnail:(id)sender;
 
 @end
@@ -95,7 +95,7 @@
         self.projectNameTextField.text = self.currentProject.name;
         self.projectDescriptionTextField.text = self.currentProject.overview;
 
-        self.saveBarButtonItem.enabled = YES;
+        self.saveBarButtonItem.enabled = NO;
     }
     else {
         self.navigationItem.title = NSLocalizedString(@"CREATE_PROJECT", nil);
@@ -195,7 +195,7 @@
                                   INV_SUCCESS:
                                       // TODO: Update thumbnail?
                                       if (self.projectImageUpdated) {
-                                           [self uploadProjectThumbnailForProject:self.currentProject.projectId];
+                                          [self uploadProjectThumbnailForProject:self.currentProject.projectId];
                                       }
                                       else {
                                           [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
@@ -224,9 +224,9 @@
     }
 }
 
-- (void)projectNameChanged:(id)sender
+- (void)textFieldTextChanged:(id)sender
 {
-    self.saveBarButtonItem.enabled = ([sender text].length > 0);
+    self.saveBarButtonItem.enabled = ([self.projectNameTextField text].length > 0);
 }
 
 - (void)selectThumbnail:(id)sender
