@@ -145,7 +145,7 @@
                                          INVLogError(@"%@", error);
 
                                          UIAlertController *errorController = [[UIAlertController alloc]
-                                             initWithErrorMessage:NSLocalizedString(@"GENERIC_SIGNUP_FAILURE_MESSAGE", nil),
+                                             initWithErrorMessage:NSLocalizedString(@"GENERIC_EDIT_USERPROFILE_MESSAGE", nil),
                                              error.code];
 
                                          [self presentViewController:errorController animated:YES completion:nil];
