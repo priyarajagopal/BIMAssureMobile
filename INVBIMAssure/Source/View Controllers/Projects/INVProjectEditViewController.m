@@ -74,6 +74,8 @@
 @property IBOutlet INVMutableArrayTableViewDataSource *membersInAccountDataSource;
 @property IBOutlet INVMutableArrayTableViewDataSource *membersInProjectDataSource;
 
+@property (nonatomic, assign) BOOL projectImageUpdated;
+
 - (IBAction)save:(id)sender;
 - (IBAction)projectNameChanged:(id)sender;
 - (IBAction)selectThumbnail:(id)sender;
@@ -192,7 +194,12 @@
 
                                   INV_SUCCESS:
                                       // TODO: Update thumbnail?
-                                      [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
+                                      if (self.projectImageUpdated) {
+                                           [self uploadProjectThumbnailForProject:self.currentProject.projectId];
+                                      }
+                                      else {
+                                          [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
+                                      }
 
                                   INV_ERROR:
                                       INVLogError(@"%@", error);
@@ -226,6 +233,7 @@
 {
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
         [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
+        self.projectImageUpdated = YES;
     }];
 
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
