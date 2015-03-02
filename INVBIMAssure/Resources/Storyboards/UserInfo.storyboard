@@ -316,6 +316,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="dFa-bZ-XdJ">
+                            <rect key="frame" x="0.0" y="64" width="600" height="115"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="VCo-xF-pcg">
+                                    <rect key="frame" x="250" y="15" width="100" height="100"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <gestureRecognizers/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="100" id="Ncr-wC-oih"/>
+                                        <constraint firstAttribute="width" constant="100" id="hRa-Ec-pIe"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="50"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                            <integer key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                            <real key="value" value="0.5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="ZHh-jI-AAP" appends="YES" id="icb-lN-uor"/>
+                                    </connections>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="VCo-xF-pcg" secondAttribute="bottom" id="CHd-GJ-hNo"/>
+                                <constraint firstAttribute="centerX" secondItem="VCo-xF-pcg" secondAttribute="centerX" id="M1g-nI-0vv"/>
+                                <constraint firstItem="VCo-xF-pcg" firstAttribute="top" secondItem="dFa-bZ-XdJ" secondAttribute="top" constant="15" id="XvM-4F-xQA"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="Basic Information" id="A99-qB-DcP">
                                 <cells>
@@ -572,12 +608,21 @@
                         <outlet property="lastNameTextField" destination="4GX-fU-vKE" id="Z9f-ie-ATU"/>
                         <outlet property="phoneNumberTextField" destination="gQg-YX-s8a" id="i8a-fE-3Ij"/>
                         <outlet property="saveButtonItem" destination="7NC-uy-nZq" id="ieN-Z0-bTb"/>
+                        <outlet property="userThumbnailImageView" destination="VCo-xF-pcg" id="Kqn-AS-sSm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yN-k2-NNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ecC-9L-ggY" userLabel="Exit" sceneMemberID="exit"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ZHh-jI-AAP">
+                    <connections>
+                        <action selector="selectThumbnail:" destination="Aef-cX-Ecl" id="b6c-QD-qvA"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2702" y="270"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="user" width="25" height="25"/>
+    </resources>
 </document>

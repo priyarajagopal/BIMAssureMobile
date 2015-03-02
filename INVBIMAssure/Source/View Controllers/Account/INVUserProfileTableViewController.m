@@ -7,6 +7,8 @@
 //
 
 #import "INVUserProfileTableViewController.h"
+#import "UIAlertController+INVCustomizations.h"
+#import "UIImage+INVCustomizations.h"
 
 @interface INVUserProfileTableViewController ()
 
@@ -18,7 +20,10 @@
 @property IBOutlet UITextField *phoneNumberTextField;
 @property IBOutlet UITextField *companyTextField;
 
+@property IBOutlet UIImageView *userThumbnailImageView;
 @property IBOutlet UIBarButtonItem *saveButtonItem;
+
+@property (nonatomic, assign) BOOL userThumbnailChanged;
 
 @end
 
@@ -29,6 +34,8 @@
     [super viewDidLoad];
 
     self.refreshControl = nil;
+
+    [self fetchUserProfileDetails];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,8 +53,6 @@
         // Hide the save button
         self.navigationItem.rightBarButtonItem = nil;
     }
-
-    [self fetchUserProfileDetails];
 }
 
 - (void)fetchUserProfileDetails
@@ -64,6 +69,17 @@
             self.phoneNumberTextField.text = [userProfile phoneNumber];
             self.companyTextField.text = [userProfile companyName];
         }
+
+        [self.globalDataManager.invServerClient getThumbnailImageForUser:userProfile.userId
+                                                   withCompletionHandler:^(id result, INVEmpireMobileError *error) {
+                                                       if (error) {
+                                                           INVLogError(@"%@", error);
+                                                           return;
+                                                       }
+
+                                                       self.userThumbnailChanged = NO;
+                                                       self.userThumbnailImageView.image = [UIImage imageWithData:result];
+                                                   }];
     };
 
     if (self.userId) {
@@ -93,6 +109,26 @@
                 updateUI((INVUser *) signedInUser);
             }];
     }
+}
+
+#pragma mark - IBActions
+
+- (IBAction)selectThumbnail:(UIGestureRecognizer *)sender
+{
+    UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
+        self.userThumbnailImageView.image = image;
+        self.userThumbnailChanged = YES;
+    }];
+
+    alertController.modalPresentationStyle = UIModalPresentationPopover;
+
+    [self presentViewController:alertController animated:YES completion:nil];
+
+    alertController.popoverPresentationController.sourceView = [sender view];
+    alertController.popoverPresentationController.sourceRect = [[sender view] bounds];
+
+    alertController.popoverPresentationController.permittedArrowDirections =
+        UIPopoverArrowDirectionDown | UIPopoverArrowDirectionUp;
 }
 
 - (IBAction)saveProfile:(id)sender
@@ -126,6 +162,23 @@
 
                                      [self presentViewController:errorController animated:YES completion:nil];
                              }];
+
+    if (self.userThumbnailChanged) {
+        [self.globalDataManager.invServerClient
+            addThumbnailImageForSignedInUserWithThumbnail:[self.userThumbnailImageView.image writeImageToTemporaryFile]
+                                    withCompletionHandler:INV_COMPLETION_HANDLER {
+                                        INV_ALWAYS:
+                                        INV_SUCCESS:
+                                        INV_ERROR:
+                                            INVLogError(@"%@", error);
+
+                                            UIAlertController *errorController = [[UIAlertController alloc]
+                                                initWithErrorMessage:NSLocalizedString(@"GENERIC_SIGNUP_FAILURE_MESSAGE", nil),
+                                                error.code];
+
+                                            [self presentViewController:errorController animated:YES completion:nil];
+                                    }];
+    }
 }
 
 @end
