@@ -37,8 +37,7 @@
 {
     [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
-    self.tableView.editing = YES;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     self.expanded = [NSMutableDictionary new];
     self.cachedUsers = [NSMutableDictionary new];

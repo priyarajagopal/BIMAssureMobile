@@ -43,6 +43,7 @@ static inline NSString *invLogLevelToString(INVLogLevel level)
 
 static inline BOOL isDebuggerAttached(void)
 {
+#if DEBUG
     struct kinfo_proc info = {0};
     int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_PID, getpid()};
     size_t size;
@@ -53,6 +54,9 @@ static inline BOOL isDebuggerAttached(void)
         return NO;
 
     return ((info.kp_proc.p_flag & P_TRACED) != 0);
+#endif
+
+    return NO;
 }
 
 static inline BOOL shouldShowCallstackSymbolsForLevel(INVLogLevel level)
