@@ -157,6 +157,8 @@ NSString *const INVNotificationPoller_NotificationsEnabledKey = @"INVNotificatio
 - (void)endPolling
 {
     dispatch_suspend(_pollingTimer);
+
+    [_notifications removeAllObjects];
 }
 
 - (void)addDataSource:(INVNotificationPollerDataSource *)dataSource
