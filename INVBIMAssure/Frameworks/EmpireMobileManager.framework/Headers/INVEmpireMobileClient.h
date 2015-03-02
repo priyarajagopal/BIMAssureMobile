@@ -910,23 +910,6 @@ accountManager can be used to retrieve the details of account
     ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
- Asynchornously ,add thumbnail image for account (NOT YET AVAILABLE ON SERVER SIDE)
-
- @param accountId Id of account for which image should be added
-
- @param thumbnail The file URL of thumbnail image in png format
-
- @param handler The completion handler that returns error object if there was any error.
-
- @see -signInUser:withCompletionBlock:
-
-
- */
-- (void)addThumbnailImageForAccount:(NSNumber *)accountId
-                          thumbnail:(NSURL *)thumbnail
-              withCompletionHandler:(CompletionHandler)handler;
-
-/**
  Asynchornously ,add thumbnail image for signed in account. Users should have signed in with
  signIntoAccount:withCompletionBlock:
 
