@@ -1273,18 +1273,34 @@ accountManager can be used to retrieve the details of account
 - (void)fetchIssueDetailsForId:(NSNumber *)issueId withCompletionBlock:(CompletionHandler)handler;
 
 /**
- Asynchornously , fetch details of issues for specified Id
+ Asynchornously , fetch top level categories of building elements for specified package
+
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
 
- @param issueId The Id of the issue whose details are to be fetched
+ @param plgId The Id of the package for which the building elements are to be fetched
 
- @param handler The completion handler that returns error object if there was any error. If no error, details can be queried via
- the INVRuleExecutionsManager interface
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is re
 
- @see ruleExecutionsManager
 
  */
-- (void)fetchBuildingElementDetailsForId:(NSNumber *)elementId withCompletionBlock:(CompletionHandler)handler;
+- (void)fetchBuildingElementCategoriesForPackageVersionId:(NSNumber *)pkgId
+                                      withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously , fetch building elements for specified category for specified package. The category display name must be
+ retried using fetchBuildingElementCategoriesForPackage:withCompletionBlock
+
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+
+ @param plgId The Id of the package for which the building elements are to be fetched
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is re
+
+ @see fetchBuildingElementCategoriesForPackage:withCompletionBlock
+ */
+- (void)fetchBuildingElementOfSpecifiedCategoryWithDisplayname:(NSString *)categoryName
+                                                    ForPackageVersionId:(NSNumber *)pkgId
+                                           withCompletionBlock:(CompletionHandlerWithData)handler;
 
 #pragma mark - General Account Related
 

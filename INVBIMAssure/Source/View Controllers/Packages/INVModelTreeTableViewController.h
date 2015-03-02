@@ -10,4 +10,6 @@
 
 @interface INVModelTreeTableViewController : INVCustomTableViewController
 
+@property NSNumber *packageVersionId;
+
 @end

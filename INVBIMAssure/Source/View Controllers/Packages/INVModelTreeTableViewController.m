@@ -186,22 +186,13 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = nil;
 
-    self.rootNodes = @[
-        [INVModelTreeNode treeNodeWithName:@"All data is currently FAKE!" children:nil],
-        [INVModelTreeNode
-            treeNodeWithName:@"Section A"
-                    children:@[
-                        [INVModelTreeNode treeNodeWithName:@"Child A" children:nil],
-                        [INVModelTreeNode treeNodeWithName:@"Child B" children:nil],
-                        [INVModelTreeNode treeNodeWithName:@"Child C"
-                                                  children:@[
-                                                      [INVModelTreeNode treeNodeWithName:@"Subchild A" children:nil],
-                                                      [INVModelTreeNode treeNodeWithName:@"Subchild B" children:nil],
-                                                      [INVModelTreeNode treeNodeWithName:@"Subchild C" children:nil],
-                                                  ]]
-                    ]],
-        [INVModelTreeNode treeNodeWithName:@"Section B" children:nil]
-    ];
+    [self.globalDataManager.invServerClient
+        fetchBuildingElementCategoriesForPackageVersionId:@(0)
+                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                          INVLogDebug(@"%@", result);
+                                      }];
+
+    self.rootNodes = @[];
 
     [self _generateParents:self.rootNodes parent:nil];
     [self reloadData];

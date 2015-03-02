@@ -64,7 +64,9 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
 #pragma mark - server side
 - (void)fetchBuildingElementDetailsFromServer
 {
+    /*
     [self showLoadProgress];
+
     [self.buildingElementsWithIssues enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
 #warning This is for now. When backend changes, this will be an array of NSNumbers corresponding to element Id
@@ -100,6 +102,7 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
                                  [self presentViewController:errController animated:YES completion:nil];
                          }];
     }];
+     */
 }
 
 #pragma mark - accessor
