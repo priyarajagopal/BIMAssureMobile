@@ -169,9 +169,9 @@
                               withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                   self.cachedUsers[member.userId] = result;
                                   cell.user = result;
+                                  [self performSelectorOnMainThread:@selector(reloadRowAtIndexPath:) withObject:indexPath waitUntilDone:NO];
 
-                                  [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
-                                                        withRowAnimation:UITableViewRowAnimationNone];
+                                
                               }];
     }
 
@@ -273,6 +273,11 @@
     self.hud = [MBProgressHUD loadingViewHUD:nil];
     [self.hud show:YES];
     [self.view addSubview:self.hud];
+}
+
+-(void)reloadRowAtIndexPath:(NSIndexPath*)indexPath {
+    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
+                          withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end
