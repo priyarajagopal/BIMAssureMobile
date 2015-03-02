@@ -377,6 +377,7 @@
                                                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="FLa-PA-Lwp" eventType="editingDidEndOnExit" id="G1p-34-cOy"/>
+                                                        <action selector="textFieldTextChanged:" destination="Aef-cX-Ecl" eventType="editingChanged" id="V7c-Ej-qz2"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>

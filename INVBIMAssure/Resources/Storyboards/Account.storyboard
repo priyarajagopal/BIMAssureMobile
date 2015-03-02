@@ -495,6 +495,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Thumbnail" id="t3g-Pz-5R4">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="X0Y-QA-rUg">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X0Y-QA-rUg" id="YjU-V6-ggx">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InvicaraLogo" translatesAutoresizingMaskIntoConstraints="NO" id="C8Z-KN-Da7">
+                                                    <rect key="frame" x="8" y="12" width="584" height="175"/>
+                                                    <gestureRecognizers/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="175" id="9UQ-o6-Ksl"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="36E-uf-Tto" appends="YES" id="Wxy-Dt-WKE"/>
+                                                    </connections>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="C8Z-KN-Da7" firstAttribute="leading" secondItem="YjU-V6-ggx" secondAttribute="leadingMargin" id="Bx6-Ee-P5n"/>
+                                                <constraint firstAttribute="centerY" secondItem="C8Z-KN-Da7" secondAttribute="centerY" id="E2a-9j-xSe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="C8Z-KN-Da7" secondAttribute="trailing" id="EEy-1W-U1c"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="1T0-xZ-bHJ" id="fBP-qP-rCK"/>
@@ -522,6 +550,7 @@
                         <outlet property="accountDescriptionTextView" destination="yqx-zN-JHU" id="gBi-j4-S4X"/>
                         <outlet property="accountNameTextField" destination="6l7-de-Cq2" id="PmO-I9-884"/>
                         <outlet property="accountNumberOfEmployeesTextField" destination="5W4-Rh-qcl" id="piS-qv-Skg"/>
+                        <outlet property="accountThumbnailImageView" destination="C8Z-KN-Da7" id="7cY-fb-1vl"/>
                         <outlet property="createBarButtonItem" destination="4rM-3c-czG" id="XLt-it-VhX"/>
                         <outlet property="invitationCodeSwitch" destination="cx2-vI-jf0" id="pL3-MW-b1A"/>
                         <outlet property="invitationCodeTextField" destination="6ju-iV-zcn" id="XHY-G3-A4x"/>
@@ -529,6 +558,11 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhR-RB-ds0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="27U-hy-dJA" userLabel="Exit" sceneMemberID="exit"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="36E-uf-Tto">
+                    <connections>
+                        <action selector="selectThumbnail:" destination="1T0-xZ-bHJ" id="eaW-ft-aQR"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3011" y="2001"/>
         </scene>
@@ -551,4 +585,7 @@
             <point key="canvasLocation" x="2188" y="2001"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="InvicaraLogo" width="3728" height="3548"/>
+    </resources>
 </document>

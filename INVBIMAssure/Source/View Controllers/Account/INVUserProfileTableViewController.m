@@ -23,6 +23,7 @@
 @property IBOutlet UIImageView *userThumbnailImageView;
 @property IBOutlet UIBarButtonItem *saveButtonItem;
 
+@property (nonatomic, assign) BOOL userProfileChanged;
 @property (nonatomic, assign) BOOL userThumbnailChanged;
 
 @end
@@ -34,6 +35,7 @@
     [super viewDidLoad];
 
     self.refreshControl = nil;
+    self.saveButtonItem.enabled = NO;
 
     [self fetchUserProfileDetails];
 }
@@ -41,18 +43,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    if (self.userId) {
-        self.emailTextField.enabled = NO;
-        self.firstNameTextField.enabled = NO;
-        self.lastNameTextField.enabled = NO;
-        self.addressTextField.enabled = NO;
-        self.phoneNumberTextField.enabled = NO;
-        self.companyTextField.enabled = NO;
-
-        // Hide the save button
-        self.navigationItem.rightBarButtonItem = nil;
-    }
 }
 
 - (void)fetchUserProfileDetails
@@ -82,42 +72,37 @@
                                                    }];
     };
 
-    if (self.userId) {
-        [self.globalDataManager.invServerClient
-            getUserProfileInSignedInAccountWithId:self.userId
-                              withCompletionBlock:^(INVUser *userProfile, INVEmpireMobileError *error) {
-                                  [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self.globalDataManager.invServerClient
+        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *signedInUser, INVEmpireMobileError *error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
 
-                                  if (error) {
-                                      INVLogError(@"%@", error);
-                                      return;
-                                  }
+            if (error) {
+                INVLogError(@"%@", error);
+                return;
+            }
 
-                                  updateUI(userProfile);
-                              }];
-    }
-    else {
-        [self.globalDataManager.invServerClient
-            getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *signedInUser, INVEmpireMobileError *error) {
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-
-                if (error) {
-                    INVLogError(@"%@", error);
-                    return;
-                }
-
-                updateUI((INVUser *) signedInUser);
-            }];
-    }
+            updateUI((INVUser *) signedInUser);
+        }];
 }
 
 #pragma mark - IBActions
 
+- (IBAction)textFieldTextChanged:(id)sender
+{
+    self.userProfileChanged = YES;
+
+    self.saveButtonItem.enabled = YES;
+}
+
 - (IBAction)selectThumbnail:(UIGestureRecognizer *)sender
 {
+    if ([sender state] != UIGestureRecognizerStateRecognized)
+        return;
+
     UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
         self.userThumbnailImageView.image = image;
         self.userThumbnailChanged = YES;
+        self.saveButtonItem.enabled = YES;
     }];
 
     alertController.modalPresentationStyle = UIModalPresentationPopover;
@@ -135,40 +120,52 @@
 {
     id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-    // NOTE: Will this work without a signed in account?
-    [self.globalDataManager.invServerClient
-        updateUserProfileInSignedInAccountWithId:nil
-                                   withFirstName:self.firstNameTextField.text
-                                        lastName:self.lastNameTextField.text
-                                     userAddress:self.addressTextField.text
-                                 userPhoneNumber:self.phoneNumberTextField.text
-                                 userCompanyName:self.companyTextField.text
-                                           title:nil
-                                           email:self.emailTextField.text
-                              allowNotifications:NO
-                             withCompletionBlock:INV_COMPLETION_HANDLER {
-                                 INV_ALWAYS:
-                                     [hud hide:YES];
+    BOOL shouldDismiss = !(self.userProfileChanged && self.userThumbnailChanged);
 
-                                 INV_SUCCESS:
-                                     [self performSegueWithIdentifier:@"unwind" sender:nil];
+    if (self.userProfileChanged) {
+        // NOTE: Will this work without a signed in account?
+        [self.globalDataManager.invServerClient
+            updateUserProfileInSignedInAccountWithId:nil
+                                       withFirstName:self.firstNameTextField.text
+                                            lastName:self.lastNameTextField.text
+                                         userAddress:self.addressTextField.text
+                                     userPhoneNumber:self.phoneNumberTextField.text
+                                     userCompanyName:self.companyTextField.text
+                                               title:nil
+                                               email:self.emailTextField.text
+                                  allowNotifications:NO
+                                 withCompletionBlock:INV_COMPLETION_HANDLER {
+                                     INV_ALWAYS:
+                                         [hud hide:YES];
 
-                                 INV_ERROR:
-                                     INVLogError(@"%@", error);
+                                     INV_SUCCESS:
+                                         [self performSegueWithIdentifier:@"unwind" sender:nil];
 
-                                     UIAlertController *errorController = [[UIAlertController alloc]
-                                         initWithErrorMessage:NSLocalizedString(@"GENERIC_SIGNUP_FAILURE_MESSAGE", nil),
-                                         error.code];
+                                     INV_ERROR:
+                                         INVLogError(@"%@", error);
 
-                                     [self presentViewController:errorController animated:YES completion:nil];
-                             }];
+                                         UIAlertController *errorController = [[UIAlertController alloc]
+                                             initWithErrorMessage:NSLocalizedString(@"GENERIC_SIGNUP_FAILURE_MESSAGE", nil),
+                                             error.code];
+
+                                         [self presentViewController:errorController animated:YES completion:nil];
+                                 }];
+    }
 
     if (self.userThumbnailChanged) {
         [self.globalDataManager.invServerClient
             addThumbnailImageForSignedInUserWithThumbnail:[self.userThumbnailImageView.image writeImageToTemporaryFile]
                                     withCompletionHandler:INV_COMPLETION_HANDLER {
                                         INV_ALWAYS:
+                                            if (shouldDismiss) {
+                                                [hud hide:YES];
+                                            }
+
                                         INV_SUCCESS:
+                                            if (shouldDismiss) {
+                                                [self performSegueWithIdentifier:@"unwind" sender:nil];
+                                            }
+
                                         INV_ERROR:
                                             INVLogError(@"%@", error);
 

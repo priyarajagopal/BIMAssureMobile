@@ -7,9 +7,11 @@
 //
 
 #import "INVCreateAccountViewController.h"
+#import "UIImage+INVCustomizations.h"
 
 #define SECTION_INVITATION_INFO 0
 #define SECTION_ACCOUNT_INFO 1
+#define SECTION_ACCOUNT_THUMBNAIL 2
 
 @interface INVCreateAccountViewController () <UITextViewDelegate>
 
@@ -24,9 +26,13 @@
 @property (nonatomic, weak) IBOutlet UITextField *accountContactPhoneTextField;
 @property (nonatomic, weak) IBOutlet UITextField *accountNumberOfEmployeesTextField;
 
+@property (nonatomic, weak) IBOutlet UIImageView *accountThumbnailImageView;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *createBarButtonItem;
 
 @property (nonatomic, assign) CGFloat acctDescRowHeight;
+
+@property BOOL accountProfileChanged;
+@property BOOL accountThumbnailChanged;
 
 @end
 
@@ -37,10 +43,6 @@
     [super viewDidLoad];
 
     self.refreshControl = nil;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self textViewDidChange:nil];
-    });
 
     [self updateUI];
 }
@@ -73,7 +75,18 @@
     self.accountContactPhoneTextField.text = self.accountToEdit.contactPhone;
     self.accountNumberOfEmployeesTextField.text = [self.accountToEdit.numberEmployees stringValue];
 
-    [self textFieldTextChanged:nil];
+    self.accountThumbnailImageView.image = nil;
+    [self.globalDataManager.invServerClient getThumbnailImageForAccount:self.accountToEdit.accountId
+                                                  withCompletionHandler:^(id result, INVEmpireMobileError *error) {
+                                                      if (error) {
+                                                          INVLogError(@"%@", error);
+                                                          self.accountThumbnailImageView.image =
+                                                              [UIImage imageNamed:@"ImageNotFound"];
+
+                                                          return;
+                                                      }
+                                                      self.accountThumbnailImageView.image = [UIImage imageWithData:result];
+                                                  }];
 }
 
 #pragma mark UITableViewDataSource
@@ -81,8 +94,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (self.invitationCodeSwitch.on) {
-        // Hide the final section
-        return [super numberOfSectionsInTableView:tableView] - 1;
+        // Show only the first section
+        return 1;
     }
     else {
         return [super numberOfSectionsInTableView:tableView];
@@ -138,6 +151,8 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+    self.accountProfileChanged = YES;
+
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:SECTION_ACCOUNT_INFO];
 
     UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
@@ -188,28 +203,53 @@
 
     NSNumber *package = @(0);
 
-    [self.globalDataManager.invServerClient
-        updateAccountDetailsWithAccountId:self.accountToEdit.accountId
-                                     name:self.accountNameTextField.text
-                       accountDescription:self.accountDescriptionTextView.text
-                         subscriptionType:package
-                              companyName:self.accountCompanyNameTextField.text
-                           companyAddress:self.accountCompanyAddressTextField.text
-                              contactName:self.accountContactNameTextField.text
-                             contactPhone:self.accountContactPhoneTextField.text
-                          numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
-                      withCompletionBlock:INV_COMPLETION_HANDLER {
-                          INV_ALWAYS:
-                              [self hideSignupProgress];
+    BOOL shouldDismiss = !(self.accountProfileChanged && self.accountThumbnailChanged);
 
-                          INV_SUCCESS:
-                              [self performSegueWithIdentifier:@"unwind" sender:nil];
+    if (self.accountProfileChanged) {
+        [self.globalDataManager.invServerClient
+            updateAccountDetailsWithAccountId:self.accountToEdit.accountId
+                                         name:self.accountNameTextField.text
+                           accountDescription:self.accountDescriptionTextView.text
+                             subscriptionType:package
+                                  companyName:self.accountCompanyNameTextField.text
+                               companyAddress:self.accountCompanyAddressTextField.text
+                                  contactName:self.accountContactNameTextField.text
+                                 contactPhone:self.accountContactPhoneTextField.text
+                              numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
+                          withCompletionBlock:INV_COMPLETION_HANDLER {
+                              INV_ALWAYS:
+                                  [self hideSignupProgress];
 
-                          INV_ERROR:
-                              INVLogError(@"%@", error);
+                              INV_SUCCESS:
+                                  [self performSegueWithIdentifier:@"unwind" sender:nil];
 
-                              [self showSignupFailureAlert];
-                      }];
+                              INV_ERROR:
+                                  INVLogError(@"%@", error);
+
+                                  [self showSignupFailureAlert];
+                          }];
+    }
+
+    if (self.accountThumbnailChanged) {
+        [self.globalDataManager.invServerClient
+            addThumbnailImageForSignedInAccountWithThumbnail:[self.accountThumbnailImageView.image writeImageToTemporaryFile]
+                                       withCompletionHandler:INV_COMPLETION_HANDLER {
+                                           INV_ALWAYS:
+                                               if (shouldDismiss) {
+                                                   [self hideSignupProgress];
+                                               }
+
+                                           INV_SUCCESS:
+                                               if (shouldDismiss) {
+                                                   [self performSegueWithIdentifier:@"unwind" sender:nil];
+                                               }
+
+                                           INV_ERROR:
+                                               INVLogError(@"%@", error);
+
+                                               [self showSignupFailureAlert];
+                                       }];
+    }
 }
 
 - (void)showSignupProgress
@@ -238,16 +278,41 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+#pragma mark - IBActions
+
+- (IBAction)selectThumbnail:(UIGestureRecognizer *)sender
+{
+    if ([sender state] != UIGestureRecognizerStateRecognized)
+        return;
+
+    UIAlertController *thumbnailAlertController =
+        [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
+            self.accountThumbnailChanged = YES;
+            self.accountThumbnailImageView.image = image;
+
+            [self textFieldTextChanged:nil];
+        }];
+
+    thumbnailAlertController.modalPresentationStyle = UIModalPresentationPopover;
+
+    [self presentViewController:thumbnailAlertController animated:YES completion:nil];
+
+    thumbnailAlertController.popoverPresentationController.sourceView = [sender view];
+    thumbnailAlertController.popoverPresentationController.sourceRect = [[sender view] bounds];
+    thumbnailAlertController.popoverPresentationController.permittedArrowDirections =
+        UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+}
+
 - (IBAction)onInvitationSwitchToggled:(UISwitch *)sender
 {
     [self.tableView beginUpdates];
 
     if (self.invitationCodeSwitch.on) {
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:SECTION_ACCOUNT_INFO]
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(SECTION_ACCOUNT_INFO, 2)]
                       withRowAnimation:UITableViewRowAnimationNone];
     }
     else {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:SECTION_ACCOUNT_INFO]
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(SECTION_ACCOUNT_INFO, 2)]
                       withRowAnimation:UITableViewRowAnimationNone];
     }
 
@@ -262,6 +327,10 @@
 
 - (IBAction)textFieldTextChanged:(id)sender
 {
+    if (sender) {
+        self.accountProfileChanged = YES;
+    }
+
     BOOL numberOfEmployeesIsNumber = [[@([self.accountNumberOfEmployeesTextField.text integerValue]) stringValue]
                                          isEqualToString:self.accountNumberOfEmployeesTextField.text] &&
                                      [self.accountNumberOfEmployeesTextField.text integerValue] > 0;

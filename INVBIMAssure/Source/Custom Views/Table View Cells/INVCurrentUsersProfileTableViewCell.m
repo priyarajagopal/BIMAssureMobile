@@ -61,18 +61,16 @@
 
     self.userThumbnailImageView.image = [UIImage imageNamed:@"user"];
 
-    if (self.window) {
-        [[INVGlobalDataManager sharedInstance].invServerClient
-            getThumbnailImageForUser:self.user.userId
-               withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                   INV_ALWAYS:
-                   INV_SUCCESS:
-                       self.userThumbnailImageView.image = [UIImage imageWithData:result];
+    [[INVGlobalDataManager sharedInstance].invServerClient getThumbnailImageForUser:self.user.userId
+                                                              withCompletionHandler:^(id result, INVEmpireMobileError *error) {
+                                                                  INV_ALWAYS:
+                                                                  INV_SUCCESS:
+                                                                      self.userThumbnailImageView.image =
+                                                                          [UIImage imageWithData:result];
 
-                   INV_ERROR:
-                       INVLogError(@"%@", error);
-               }];
-    }
+                                                                  INV_ERROR:
+                                                                      INVLogError(@"%@", error);
+                                                              }];
 
     [self setNeedsLayout];
     [self setNeedsUpdateConstraints];

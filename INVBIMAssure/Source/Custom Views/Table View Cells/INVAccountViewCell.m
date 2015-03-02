@@ -53,7 +53,7 @@
 {
     if (self.account) {
         UIColor *greenShade = [UIColor colorWithRed:79.0 / 255 green:154.0 / 255 blue:65.0 / 255 alpha:1.0];
-        
+
         self.nameLabel.text = self.account.name;
         self.descriptionLabel.text = self.account.overview;
         self.projectStatusLabel.text = self.account.disabled.boolValue ? NSLocalizedString(@"ACCOUNT_STATUS_DISABLED", nil)
@@ -76,20 +76,24 @@
             [self.isCurrentlySignedInImageView setHidden:YES];
         }
 
-        // Only load the thumbnails if we're attached to a window.
-        if (self.window) {
-            [[INVGlobalDataManager sharedInstance].invServerClient
-                getThumbnailImageForAccount:self.account.accountId
-                      withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                          if (error) {
-                              INVLogError(@"%@", error);
-                              return;
-                          }
+        INVAccount *accountForThumbnail = self.account;
+        self.accountThumbnailImageView.image = nil;
+        [[INVGlobalDataManager sharedInstance].invServerClient
+            getThumbnailImageForAccount:self.account.accountId
+                  withCompletionHandler:^(id result, INVEmpireMobileError *error) {
+                      if (error) {
+                          INVLogError(@"%@", error);
+                          return;
+                      }
 
-                          UIImage *image = [UIImage imageWithData:result];
-                          self.accountThumbnailImageView.image = image;
-                      }];
-        }
+                      if (self.account != accountForThumbnail) {
+                          // Thumbnail loaded AFTER this cell has been reused - don't replace the image.
+                          return;
+                      }
+
+                      UIImage *image = [UIImage imageWithData:result];
+                      self.accountThumbnailImageView.image = image;
+                  }];
     }
 
     if (self.invite) {
