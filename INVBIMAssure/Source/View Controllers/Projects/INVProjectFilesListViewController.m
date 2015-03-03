@@ -29,7 +29,8 @@ static const NSInteger SEARCH_BAR_HEIGHT = 45;
 static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
 @interface INVProjectFilesListViewController () <INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource,
-    INVSearchViewDelegate, INVPagingManagerDelegate, UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate>
+    INVSearchViewDelegate, INVPagingManagerDelegate, UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate,
+    UIGestureRecognizerDelegate>
 
 @property BOOL shouldShowSidebarOnReappear;
 @property (nonatomic, strong) INVProjectManager *projectManager;
@@ -53,6 +54,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     // Do any additional setup after loading the view.
 
     self.title = NSLocalizedString(@"FILES", nil);
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 
     UIColor *whiteColor = [UIColor colorWithRed:255.0 / 255 green:255.0 / 255 blue:255.0 / 255 alpha:1.0];
     [self.view setBackgroundColor:whiteColor];
@@ -64,6 +66,11 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [currLayout setItemSize:CGSizeMake(CELL_WIDTH, CELL_HEIGHT)];
 
     self.packagesPagingManager = [[INVPagingManager alloc] initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+}
+
+- (void)dealloc
+{
+    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -482,6 +489,13 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
 }
 
 #pragma mark - helpers

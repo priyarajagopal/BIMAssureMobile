@@ -1277,9 +1277,9 @@ accountManager can be used to retrieve the details of account
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
 
- @param plgId The Id of the package for which the building elements are to be fetched
+ @param pkgId The Id of the package for which the building elements are to be fetched
 
- @param handler The completion handler that returns error object if there was any error. If no error, JSON response is re
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned in the completion handler
 
 
  */
@@ -1288,18 +1288,41 @@ accountManager can be used to retrieve the details of account
 
 /**
  Asynchornously , fetch building elements for specified category for specified package. The category display name must be
- retried using fetchBuildingElementCategoriesForPackage:withCompletionBlock
+ retrieved using fetchBuildingElementCategoriesForPackage:withCompletionBlock
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
 
- @param plgId The Id of the package for which the building elements are to be fetched
+ @param categoryName The display name of the category
+ 
+ @param pkgId The Id of the package for which the building elements are to be fetched
 
- @param handler The completion handler that returns error object if there was any error. If no error, JSON response is re
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned in the completion handler
 
  @see fetchBuildingElementCategoriesForPackage:withCompletionBlock
  */
 - (void)fetchBuildingElementOfSpecifiedCategoryWithDisplayname:(NSString *)categoryName
                                                     ForPackageVersionId:(NSNumber *)pkgId
+                                           withCompletionBlock:(CompletionHandlerWithData)handler;
+
+
+/*
+ Asynchornously , fetch properties of specific building element for specified package. The build element Id  must be
+ retrived using fetchBuildingElementOfSpecifiedCategoryWithDisplayname:ForPackageVersionId:withCompletionBlock
+ 
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ @param buildingElementId The Id of the building element whose properties are to be fetched
+ 
+ @param categoryName The display name of the category
+ 
+ @param pkgId The Id of the package for which the building elements are to be fetched
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned in the completion handler
+ 
+ @see fetchBuildingElementCategoriesForPackage:withCompletionBlock
+ */
+- (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSNumber*)buildingElementId
+                                  ForCategoryDisplayName:(NSString *)categoryName
+                                           ForPackageVersionId:(NSNumber *)pkgId
                                            withCompletionBlock:(CompletionHandlerWithData)handler;
 
 #pragma mark - General Account Related

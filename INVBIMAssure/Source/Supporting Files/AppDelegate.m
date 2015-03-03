@@ -137,6 +137,9 @@
     // This is for the accessory checkmark
     [[UIImageView appearanceWhenContainedIn:[UITableView class], nil] setTintColor:darkGreyColor];
 
+    // This is for the detail disclosure (i)
+    [[UIButton appearanceWhenContainedIn:[UITableView class], nil] setTintColor:darkGreyColor];
+
     // Universal shadow offset
     [[UILabel appearance] setShadowOffset:CGSizeZero];
     [[UITextField appearance] setTextColor:darkGreyColor];
