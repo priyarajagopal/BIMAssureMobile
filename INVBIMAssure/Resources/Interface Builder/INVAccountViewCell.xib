@@ -86,7 +86,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9W-Eg-vYS" userLabel="Middle Container">
-                                        <rect key="frame" x="0.0" y="176" width="306" height="72"/>
+                                        <rect key="frame" x="0.0" y="176" width="306" height="73"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pUe-sB-hZn">
                                                 <rect key="frame" x="250" y="8" width="48" height="22"/>
@@ -110,7 +110,7 @@
                                                 <rect key="frame" x="8" y="14" width="132" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhk-be-sb1">
-                                                        <rect key="frame" x="0.0" y="28" width="132" height="17"/>
+                                                        <rect key="frame" x="0.0" y="27" width="132" height="17"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                         <color key="textColor" red="0.5490196078431373" green="0.5490196078431373" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -162,7 +162,7 @@
                                         </variation>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckL-Ke-o7s" userLabel="Bottom Container">
-                                        <rect key="frame" x="0.0" y="249" width="306" height="37"/>
+                                        <rect key="frame" x="0.0" y="249" width="306" height="36"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYd-Pm-j7e">
                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="37"/>
@@ -265,6 +265,7 @@
             </constraints>
             <size key="customSize" width="313" height="382"/>
             <connections>
+                <outlet property="accountStatusLabel" destination="K0h-oq-kzd" id="PkU-Au-Fkd"/>
                 <outlet property="accountThumbnailImageView" destination="8OG-IU-mJc" id="sGA-Qe-x3C"/>
                 <outlet property="descriptionLabel" destination="uhk-be-sb1" id="1Ye-2w-X62"/>
                 <outlet property="expandButton" destination="rYd-Pm-j7e" id="Q38-MN-XYW"/>
@@ -272,11 +273,10 @@
                 <outlet property="isDefaultOverlayImageView" destination="CTs-ow-LEt" id="Aci-tw-AbG"/>
                 <outlet property="nameLabel" destination="w4K-G6-Tjp" id="6Pj-Kf-dMv"/>
                 <outlet property="projectCountLabel" destination="PBd-97-v1U" id="QBT-Fz-Jjl"/>
-                <outlet property="projectStatusLabel" destination="K0h-oq-kzd" id="Mhp-q0-lMl"/>
-                <outlet property="roleLabel" destination="dnp-RP-P5a" id="BIN-Qg-kJx"/>
+                <outlet property="roleLabel" destination="dnp-RP-P5a" id="3En-jF-psx"/>
                 <outlet property="userCountLabel" destination="ZwR-Is-r1b" id="PRe-qX-gYE"/>
             </connections>
-            <point key="canvasLocation" x="456" y="330"/>
+            <point key="canvasLocation" x="456" y="331"/>
         </collectionViewCell>
     </objects>
     <resources>

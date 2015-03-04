@@ -245,7 +245,14 @@ static NSString *const reuseIdentifier = @"Cell";
     }
 
     cell.isExpanded = [[self.collectionViewLayout indexPathOfOpenFolderInSection:indexPath.section] isEqual:indexPath];
-
+    
+    if (cell.account.disabled.boolValue) {
+        [cell setUserInteractionEnabled:NO];
+    }
+    else {
+        [cell setUserInteractionEnabled:YES];
+    }
+     
     return cell;
 }
 
