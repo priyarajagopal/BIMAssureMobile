@@ -88,6 +88,8 @@
                   withCompletionHandler:^(id result, INVEmpireMobileError *error) {
                       if (error) {
                           INVLogError(@"%@", error);
+                          UIImage* image =  [UIImage imageNamed:@"ImageNotFound"];
+                          self.accountThumbnailImageView.image = image;
                           return;
                       }
 
