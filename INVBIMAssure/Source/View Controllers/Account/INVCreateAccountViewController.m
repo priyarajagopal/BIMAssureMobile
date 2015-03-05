@@ -42,8 +42,8 @@
 {
     [super viewDidLoad];
 
+    self.acctDescRowHeight = 100;
     self.refreshControl = nil;
-
     [self updateUI];
 }
 
