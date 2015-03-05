@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *isCurrentlySignedInImageView;
 @property (weak, nonatomic) IBOutlet UILabel *roleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *accountStatusLabel;
+@property (weak, nonatomic) IBOutlet UIView *roleLabelBGView;
 
 @end
 
@@ -78,7 +79,7 @@
 
 #warning TODO Specify the membership role when available (Always admin for now)
         self.roleLabel.text = NSLocalizedString(@"INV_MEMBERSHIP_TYPE_ADMIN", nil);
-        self.roleLabel.backgroundColor = greenShade;
+        self.roleLabelBGView.backgroundColor = greenShade;
 
         INVAccount *accountForThumbnail = self.account;
         self.accountThumbnailImageView.image = nil;
@@ -102,7 +103,8 @@
 
     if (self.invite) {
         self.nameLabel.text = self.invite.accountName;
-        self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
+        self.descriptionLabel.text = NSLocalizedString(@" ", nil);
+        self.roleLabelBGView.backgroundColor = [UIColor clearColor];
         self.roleLabel.text = NSLocalizedString(@"ACCOUNT_STATUS_INVITE", nil);
         self.roleLabel.textColor = [UIColor orangeColor];
     }

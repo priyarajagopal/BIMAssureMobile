@@ -537,20 +537,18 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                                 withCompletionBlock:(CompletionHandler)handler;
 
 /**
- Asynchornously , disable an account for currently signed in user. Once disabled, the account
+ Asynchornously , disable an account for currently signed in account. Once disabled, the account
  can only be reenabled by out-of-band means(not via an API). Accounts that are disabled are not deleted.
 
- @param accountId Id of account to be disabled
 
  @param handler The completion handler that returns error object if there was any error.
 
  @see accountManager
 
- @see -signInWithUserName:andPassword:withCompletionBlock:
-
+ @see -signIntoAccount:withCompletionBlock:
 
  */
-- (void)disableAccountForSignedInUserWithAccountId:(NSNumber *)accountId withCompletionBlock:(CompletionHandler)handler;
+- (void)disableAccountForSignedInUserWithCompletionBlock:(CompletionHandler)handler;
 
 /**
 Asynchornously , update details of signed in account with the XOS Passport service. If values are not changed, then the existing
