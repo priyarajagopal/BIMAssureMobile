@@ -221,7 +221,7 @@
                                   INV_ERROR:
                                       INVLogError(@"%@", error);
 
-                                      [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_CREATE", nil)];
+                                      [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_UPDATE", nil)];
                               }];
     }
     else {

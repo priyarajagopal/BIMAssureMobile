@@ -207,6 +207,7 @@
 "INV_MEMBERSHIP_TYPE_MEMBER"="Member";
 "INV_MEMBERSHIP_TYPE_ADMIN"="Admin";
 "ERROR_PROJECT_CREATE" = "There was an error while creating the project";
+"ERROR_PROJECT_UPDATE" = "There was an error while updating the project details";
 "PROJECT_CREATED_NO_THUMBNAIL"="The project was created succesfully but there was ane error while uploading the thumbnail image";
 "ERROR_IMAGE_UPDATE"="There was an error while updating the image. Please try again later.";
 
