@@ -162,10 +162,12 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
                                                    andPassword:password
                                            withCompletionBlock:^(INVEmpireMobileError *error) {
                                                [self hideLoginProgress];
+                                               [self removeCredentialsInKC];
                                                if (!error) {
                                                    if (self.saveCredentials) {
                                                        [self saveCredentialsInKC];
                                                    }
+
                                                    self.globalDataManager.loggedInUser = self.emailTextEntry.text;
                                                    self.userToken = self.globalDataManager.invServerClient.accountManager
                                                                         .tokenOfSignedInUser;
@@ -191,6 +193,14 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
     }
 }
 
+- (void)removeCredentialsInKC
+{
+    NSError *error = [self.globalDataManager deleteCurrentlySavedCredentialsFromKC];
+    if (error) {
+        // silently ignoring error
+        INVLogError(@"%@", error);
+    }
+}
 - (void)showLoginProgress
 {
     self.hud = [MBProgressHUD loginUserHUD:nil];
