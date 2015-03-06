@@ -20,6 +20,7 @@ const NSInteger INV_CELLSIZE = 100;
 #import "INVCreateAccountViewController.h"
 #import "INVAccountDetailFolderCollectionReusableView.h"
 #import "UIView+INVCustomizations.h"
+
 #import "UIImage+INVCustomizations.h"
 
 #import <RBCollectionViewInfoFolderLayout/RBCollectionViewInfoFolderLayout.h>

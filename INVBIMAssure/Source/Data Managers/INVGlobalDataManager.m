@@ -31,6 +31,7 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 @property (nonatomic, readwrite) NSDictionary *credentials;
 @property (nonatomic, readwrite) NSNumber *defaultAccountId;
 @property (nonatomic, readwrite) BOOL rememberMeOptionSelected;
+@property (nonatomic, strong) NSMutableSet *editedAccounts;
 @end
 
 @implementation INVGlobalDataManager
@@ -150,6 +151,29 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
         [self deleteCurrentlySavedDefaultAccountFromKC];
         [[NSNotificationCenter defaultCenter] postNotificationName:INV_NotificationUserLogOutSuccess object:nil];
     }];
+}
+
+#pragma mark - Tracking Edited Objects
+- (BOOL)isRecentlyEditedAccount:(NSNumber *)accountId
+{
+    return [self.editedAccounts containsObject:accountId];
+}
+- (void)addToRecentlyEditedAccountList:(NSNumber *)accountId
+{
+    [self.editedAccounts addObject:accountId];
+}
+- (void)removeFromRecentlyEditedAccountList:(NSNumber *)accountId
+{
+    [self.editedAccounts removeObject:accountId];
+}
+
+#pragma mark - private accessors
+- (NSMutableSet *)editedAccounts
+{
+    if (!_editedAccounts) {
+        _editedAccounts = [[NSMutableSet alloc] initWithCapacity:0];
+    }
+    return _editedAccounts;
 }
 
 @end

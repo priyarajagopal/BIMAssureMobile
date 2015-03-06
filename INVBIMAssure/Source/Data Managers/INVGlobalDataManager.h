@@ -33,6 +33,7 @@ extern const NSString *INV_CredentialKeyPassword;
 @property (nonatomic, strong) NSNumber *loggedInAccount;
 @property (nonatomic, copy) NSString *invitationCodeToAutoAccept;
 
+
 + (INVGlobalDataManager *)sharedInstance;
 
 - (NSError *)saveCredentialsInKCForLoggedInUser:(NSString *)email withPassword:(NSString *)password;
@@ -40,6 +41,11 @@ extern const NSString *INV_CredentialKeyPassword;
 
 - (NSError *)saveDefaultAccountInKCForLoggedInUser:(NSNumber *)accountId;
 - (NSError *)deleteCurrentlySavedDefaultAccountFromKC;
+
+-(BOOL)isRecentlyEditedAccount:(NSNumber*)accountId;
+-(void)addToRecentlyEditedAccountList:(NSNumber*)accountId;
+-(void)removeFromRecentlyEditedAccountList:(NSNumber*)accountId;
+
 
 - (void)performLogout;
 
