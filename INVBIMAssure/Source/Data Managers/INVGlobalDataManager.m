@@ -32,6 +32,7 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 @property (nonatomic, readwrite) NSNumber *defaultAccountId;
 @property (nonatomic, readwrite) BOOL rememberMeOptionSelected;
 @property (nonatomic, strong) NSMutableSet *editedAccounts;
+@property (nonatomic, strong) NSMutableSet *editedProjects;
 @end
 
 @implementation INVGlobalDataManager
@@ -167,6 +168,20 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     [self.editedAccounts removeObject:accountId];
 }
 
+- (BOOL)isRecentlyEditedProject:(NSNumber *)projectId
+{
+    return [self.editedProjects containsObject:projectId];
+}
+- (void)addToRecentlyEditedProjectList:(NSNumber *)projectId
+{
+    [self.editedProjects addObject:projectId];
+}
+- (void)removeFromRecentlyEditedProjectList:(NSNumber *)projectId
+{
+    [self.editedProjects removeObject:projectId];
+}
+
+
 #pragma mark - private accessors
 - (NSMutableSet *)editedAccounts
 {
@@ -175,5 +190,14 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     }
     return _editedAccounts;
 }
+
+- (NSMutableSet *)editedProjects
+{
+    if (!_editedProjects) {
+        _editedProjects = [[NSMutableSet alloc] initWithCapacity:0];
+    }
+    return _editedProjects;
+}
+
 
 @end

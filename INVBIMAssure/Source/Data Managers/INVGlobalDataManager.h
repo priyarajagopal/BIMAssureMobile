@@ -46,6 +46,9 @@ extern const NSString *INV_CredentialKeyPassword;
 -(void)addToRecentlyEditedAccountList:(NSNumber*)accountId;
 -(void)removeFromRecentlyEditedAccountList:(NSNumber*)accountId;
 
+-(BOOL)isRecentlyEditedProject:(NSNumber*)projectId;
+-(void)addToRecentlyEditedProjectList:(NSNumber*)projectId;
+-(void)removeFromRecentlyEditedProjectList:(NSNumber*)projectId;
 
 - (void)performLogout;
 

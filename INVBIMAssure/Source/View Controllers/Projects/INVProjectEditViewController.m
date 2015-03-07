@@ -328,6 +328,7 @@
                       [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED_NO_THUMBNAIL", nil)];
                   }
                   else {
+                      [self.globalDataManager addToRecentlyEditedProjectList:projectId];
                       [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED", nil)];
                   }
               }];
