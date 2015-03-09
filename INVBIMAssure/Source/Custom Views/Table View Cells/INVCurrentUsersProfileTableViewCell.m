@@ -62,6 +62,7 @@
                    withDefault:@"USER_COMPANY_UNAVAILABLE"
                  andAttributes:subtitleFontDicitonary];
 
+    
     NSMutableURLRequest *userThumbnail = [[self.globalDataManager.invServerClient
                                            requestToGetThumbnailImageForUser:self.user.userId] mutableCopy];
     if ([self.globalDataManager isRecentlyEditedUser:self.user.userId]) {
@@ -69,8 +70,10 @@
         [self.globalDataManager removeFromRecentlyEditedUserList:self.user.userId];
     }
     __weak __typeof (self)weakSelf = self;
-    [self.userThumbnailImageView setImageWithURLRequest:userThumbnail
-                                          placeholderImage:[UIImage imageNamed:@"user"]
+    UIImage* placeholder = [UIImage imageNamed:@"user"];
+    if (userThumbnail) {
+        [self.userThumbnailImageView setImageWithURLRequest:userThumbnail
+                                          placeholderImage:placeholder
                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                        dispatch_async(dispatch_get_main_queue(), ^{
                                                            weakSelf.userThumbnailImageView.image = image;
@@ -78,8 +81,12 @@
                                                        
                                                    }
                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                       INVLogError(@"Failed to download image for account %@ with error %@", weakSelf.user.userId, error);
+                                                       INVLogError(@"Failed to download image for user %@ with error %@", weakSelf.user.userId, error);
                                                    }];
+    }
+    else {
+        self.userThumbnailImageView.image = placeholder;
+    }
 
    
     [self setNeedsLayout];
