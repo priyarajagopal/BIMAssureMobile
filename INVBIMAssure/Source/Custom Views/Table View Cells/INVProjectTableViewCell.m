@@ -20,7 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *fileCount;
 @property (weak, nonatomic) IBOutlet UILabel *userCount;
-@property (strong, nonatomic) INVGlobalDataManager* globalDataManager;
+@property (strong, nonatomic) INVGlobalDataManager *globalDataManager;
 
 @end
 
@@ -87,39 +87,25 @@
 
         self.createdOnLabel.attributedText = attrString;
 
-        NSMutableURLRequest *projThumbnail = [[self.globalDataManager.invServerClient
-                                               requestToGetThumbnailImageForProject :self.project.projectId] mutableCopy];
+        NSMutableURLRequest *projThumbnail =
+            [[self.globalDataManager.invServerClient requestToGetThumbnailImageForProject:self.project.projectId] mutableCopy];
         if ([self.globalDataManager isRecentlyEditedProject:self.project.projectId]) {
             [projThumbnail setCachePolicy:NSURLRequestReloadIgnoringCacheData];
             [self.globalDataManager removeFromRecentlyEditedProjectList:self.project.projectId];
         }
+        __weak __typeof(self) weakSelf = self;
+
         [self.thumbnailImageView setImageWithURLRequest:projThumbnail
-                                              placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
-                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                                               self.thumbnailImageView.image = image;
-                                                           });
-                                                           
-                                                       }
-                                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                           INVLogError(@"Failed to download image for project %@ with error %@", self.project.projectId, error);
-                                                       }];
-        /*
-        self.thumbnailImageView.image = nil;
+            placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.thumbnailImageView.image = image;
+                });
 
-        [[INVGlobalDataManager sharedInstance].invServerClient
-            getThumbnailImageForProject:self.project.projectId
-                  withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                      if (error) {
-                          INVLogError(@"%@", error);
-                          self.thumbnailImageView.image = [UIImage imageNamed:@"ImageNotFound"];
-                          return;
-                      }
-
-                      UIImage *image = [UIImage imageWithData:result];
-                      self.thumbnailImageView.image = image;
-                  }];
-         */
+            }
+            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                INVLogError(@"Failed to download image for project %@ with error %@", self.project.projectId, error);
+            }];
     }
 }
 

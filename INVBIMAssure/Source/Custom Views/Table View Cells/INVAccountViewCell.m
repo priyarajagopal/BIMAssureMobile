@@ -81,11 +81,13 @@
             [acntThumbnail setCachePolicy:NSURLRequestReloadIgnoringCacheData];
             [self.globalDataManager removeFromRecentlyEditedAccountList:accountForThumbnail.accountId];
         }
+        __weak __typeof (self)weakSelf = self;
+        
         [self.accountThumbnailImageView setImageWithURLRequest:acntThumbnail
             placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
             success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    self.accountThumbnailImageView.image = image;
+                    weakSelf.accountThumbnailImageView.image = image;
                 });
 
             }
