@@ -127,6 +127,8 @@
         fetchBuildingElementPropertiesOfSpecifiedElement:self.buildingElementId
                                   ForCategoryDisplayName:self.buildingElementCategory
                                      ForPackageVersionId:self.packageVersionId
+                                              fromOffset:nil
+                                                withSize:nil
                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                          [hud hide:YES];
 

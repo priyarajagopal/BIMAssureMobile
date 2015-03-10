@@ -1320,11 +1320,17 @@ accountManager can be used to retrieve the details of account
 - (void)fetchIssueDetailsForId:(NSNumber *)issueId withCompletionBlock:(CompletionHandler)handler;
 
 /**
- Asynchornously , fetch top level categories of building elements for specified package
+ Asynchornously , fetch top level categories of building elements for specified package. This API does not currently support
+ pagination.
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
 
  @param pkgId The Id of the package for which the building elements are to be fetched
+
+ @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
+ 0.Offset
+
+ @param size optional value to specify the number of items to be fetched. Passing nil defaults to all.
 
  @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
  in the completion handler
@@ -1344,6 +1350,11 @@ accountManager can be used to retrieve the details of account
 
  @param pkgId The Id of the package for which the building elements are to be fetched
 
+ @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
+ 0.Offset
+
+ @param size optional value to specify the number of items to be fetched. Passing nil defaults to all.
+
  @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
  in the completion handler
 
@@ -1351,6 +1362,8 @@ accountManager can be used to retrieve the details of account
  */
 - (void)fetchBuildingElementOfSpecifiedCategoryWithDisplayname:(NSString *)categoryName
                                            ForPackageVersionId:(NSNumber *)pkgId
+                                                    fromOffset:(NSNumber *)offset
+                                                      withSize:(NSNumber *)size
                                            withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
@@ -1364,6 +1377,11 @@ accountManager can be used to retrieve the details of account
 
  @param pkgId The Id of the package for which the building elements are to be fetched
 
+ @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
+ 0.Offset
+
+ @param size optional value to specify the number of items to be fetched. Passing nil defaults to all.
+
  @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
  in the completion handler
 
@@ -1372,6 +1390,8 @@ accountManager can be used to retrieve the details of account
 - (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSNumber *)buildingElementId
                                   ForCategoryDisplayName:(NSString *)categoryName
                                      ForPackageVersionId:(NSNumber *)pkgId
+                                              fromOffset:(NSNumber *)offset
+                                                withSize:(NSNumber *)size
                                      withCompletionBlock:(CompletionHandlerWithData)handler;
 
 #pragma mark - General Account Related

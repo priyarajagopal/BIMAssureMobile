@@ -464,7 +464,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
             INV_SUCCESS:
                 self.globalDataManager.loggedInAccount = self.currentAccountId;
-
+            INVLogDebug(@"Account token for %@ is %@",self.currentAccountId,self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
                 if (self.saveAsDefault) {
                     // Just ignore the error and continue logging in
                     NSError *error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];

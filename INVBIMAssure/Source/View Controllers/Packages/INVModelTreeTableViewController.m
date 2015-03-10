@@ -203,6 +203,8 @@
         [self.globalDataManager.invServerClient
             fetchBuildingElementOfSpecifiedCategoryWithDisplayname:node.name
                                                ForPackageVersionId:self.packageVersionId
+                                                        fromOffset:nil
+                                                          withSize:nil
                                                withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                                    NSArray *hits = [result valueForKeyPath:@"hits.hits"];
                                                    NSArray *ids = [hits valueForKeyPath:@"_id"];
