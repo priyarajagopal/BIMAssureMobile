@@ -9,7 +9,8 @@
 #import "INVUserProfileTableViewController.h"
 #import "UIAlertController+INVCustomizations.h"
 #import "UIImage+INVCustomizations.h"
-#import "INVImageLoader.h"
+
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface INVUserProfileTableViewController ()
 
@@ -61,11 +62,13 @@
             self.companyTextField.text = [userProfile companyName];
         }
 
-        NSURL *url = [NSURL URLWithString:@"http://www.opensource.apple.com/static/images/ios_white_5s.jpg"];
-
-        [INVImageLoader imageWithContentsOfURLRequest:[NSURLRequest requestWithURL:url]
-                                     withLoadingImage:[UIImage imageNamed:@"user"]
-                                               inView:self.userThumbnailImageView];
+        [self.userThumbnailImageView
+            setImageWithURLRequest:[self.globalDataManager.invServerClient requestToGetThumbnailImageForUser:userProfile.userId]
+                  placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+                           success:nil
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                               INVLogError(@"Failed to load image for user profile with error %@", error);
+                           }];
     };
 
     [self.globalDataManager.invServerClient

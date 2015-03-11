@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *roleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *accountStatusLabel;
 @property (weak, nonatomic) IBOutlet UIView *roleLabelBGView;
-@property (strong, nonatomic) INVGlobalDataManager* globalDataManager;
+@property (strong, nonatomic) INVGlobalDataManager *globalDataManager;
 
 @end
 
@@ -81,20 +81,15 @@
             [acntThumbnail setCachePolicy:NSURLRequestReloadIgnoringCacheData];
             [self.globalDataManager removeFromRecentlyEditedAccountList:accountForThumbnail.accountId];
         }
-        __weak __typeof (self)weakSelf = self;
-        
-        [self.accountThumbnailImageView setImageWithURLRequest:acntThumbnail
-            placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
-            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.accountThumbnailImageView.image = image;
-                });
 
-            }
-            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                INVLogError(@"Failed to download image for account %@ with error %@", accountForThumbnail.accountId, error);
-            }];
-
+        [self.accountThumbnailImageView
+            setImageWithURLRequest:acntThumbnail
+                  placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+                           success:nil
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                               INVLogError(@"Failed to download image for account %@ with error %@",
+                                   accountForThumbnail.accountId, error);
+                           }];
     }
 
     if (self.invite) {
@@ -104,7 +99,6 @@
         self.roleLabel.text = NSLocalizedString(@"ACCOUNT_STATUS_INVITE", nil);
         self.roleLabel.textColor = [UIColor orangeColor];
     }
-
 }
 
 - (void)setIsCurrentlySignedIn:(BOOL)isSignedIn

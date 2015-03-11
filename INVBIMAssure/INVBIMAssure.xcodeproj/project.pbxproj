@@ -191,7 +191,6 @@
 		F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */; };
 		F5FC0CBD1AA6408900FBAE84 /* User Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */; };
 		F5FC0CBF1AA6413800FBAE84 /* Project Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */; };
-		F5FC0CC21AA6452300FBAE84 /* INVImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC0CC11AA6452300FBAE84 /* INVImageLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -519,8 +518,6 @@
 		F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBuildingElementPropertiesTableViewController.m; sourceTree = "<group>"; };
 		F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "User Thumbnails"; sourceTree = "<group>"; };
 		F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Project Thumbnails"; sourceTree = "<group>"; };
-		F5FC0CC01AA6452300FBAE84 /* INVImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVImageLoader.h; sourceTree = "<group>"; };
-		F5FC0CC11AA6452300FBAE84 /* INVImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVImageLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -813,8 +810,6 @@
 				F5313A3E1A7956BC00E476D3 /* INVLogger.h */,
 				F5313A3F1A7956BC00E476D3 /* INVLogger.m */,
 				F548A58A1A7AD24600DF116C /* INVErrorHandling.h */,
-				F5FC0CC01AA6452300FBAE84 /* INVImageLoader.h */,
-				F5FC0CC11AA6452300FBAE84 /* INVImageLoader.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1374,7 +1369,6 @@
 				F5789D601A642A5500D8CEE7 /* INVInviteUsersTableViewController.m in Sources */,
 				F5789D6B1A642A5500D8CEE7 /* INVMainViewController.m in Sources */,
 				F5789D711A642A5500D8CEE7 /* INVProjectFilesListViewController.m in Sources */,
-				F5FC0CC21AA6452300FBAE84 /* INVImageLoader.m in Sources */,
 				024FEF001A69BA59001CA262 /* INVPagingManager+ProjectListing.m in Sources */,
 				F5789D571A642A5500D8CEE7 /* NSURLConnectionBlockDelegate.m in Sources */,
 				F5789D651A642A5500D8CEE7 /* INVCustomCollectionViewController.m in Sources */,
