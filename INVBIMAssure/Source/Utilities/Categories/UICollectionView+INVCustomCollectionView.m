@@ -23,7 +23,6 @@ static void *textLayerKey = &textLayerKey;
 
 static void (*oldReloadDataImp)(id self, SEL _cmd);
 static void (*oldLayoutSubviewsImp)(id self, SEL _cmd);
-static void (*oldWillMoveToWindowImp)(id self, SEL _cmd, UIWindow *);
 
 @implementation UICollectionView (INVCustomCollectionView)
 
@@ -83,15 +82,6 @@ static void (*oldWillMoveToWindowImp)(id self, SEL _cmd, UIWindow *);
     objc_setAssociatedObject(self, fontSizeKey, @(fontSize), OBJC_ASSOCIATION_RETAIN);
 
     [self _inv_updateLayer];
-}
-
-- (void)_inv_willMoveToWindow:(UIWindow *)newWindow
-{
-    if (self.window == nil) {
-        [self set_inv_isInitialLoad:INITIAL_LOAD_NOT_STARTED];
-    }
-
-    oldWillMoveToWindowImp(self, _cmd, newWindow);
 }
 
 - (void)_inv_reloadData
@@ -169,5 +159,4 @@ __attribute__((constructor)) static void UICollectionView_INVCustomCollectionVie
 
     oldReloadDataImp = (void *) safeSwapMethods(kls, @selector(reloadData), @selector(_inv_reloadData));
     oldLayoutSubviewsImp = (void *) safeSwapMethods(kls, @selector(layoutSubviews), @selector(_inv_layoutSubviews));
-    oldWillMoveToWindowImp = (void *) safeSwapMethods(kls, @selector(willMoveToWindow:), @selector(_inv_willMoveToWindow:));
 }

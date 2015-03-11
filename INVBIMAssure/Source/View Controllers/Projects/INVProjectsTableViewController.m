@@ -133,6 +133,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 {
     if (![self.refreshControl isRefreshing]) {
         [self showLoadProgress];
+        [self.tableView reloadData];
     }
 
     [self.projectPagingManager resetOffset];
@@ -226,13 +227,17 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
             UIAlertController *errController =
                 [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error];
             [self presentViewController:errController animated:YES completion:nil];
-            ;
+        }
+        else {
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
     };
+
     [self performSelectorOnMainThread:@selector(updateTimeStamp) withObject:nil waitUntilDone:NO];
     if ([self.refreshControl isRefreshing]) {
         [self.refreshControl endRefreshing];
     }
+
     // Note: need to explicitly do a fetch because our notification poller keeps polling for the same information from server
     //  updating the persistent store. This implies that there is a chance that when the projects view
     // requests the data,there are no changes to the persistent store- so any faulted objects go out of sync
@@ -240,7 +245,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     // is not updated in this case. This is a race condition between when the poller fetches the data thereby upating the store
     // versus when the projects viewer requests this. Regardless, forcing a fetch by the FRC will ensure that
     // the in-memory version syncs up with the data store
-
     if (!error) {
         NSError *dbError;
         [self.dataResultsController performFetch:&dbError];
@@ -360,14 +364,12 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     [self showLoadProgress];
 }
 
-
 - (void)reloadRowAtSelectedIndex
 {
-    
     [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfProjectBeingEdited ]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
     [self performSelectorOnMainThread:@selector(updateTimeStamp) withObject:nil waitUntilDone:NO];
-    
+
     self.indexOfProjectBeingEdited = nil;
 }
 
@@ -389,7 +391,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
     else if (self.indexOfProjectBeingEdited) {
-         [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -399,7 +401,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
       forChangeType:(NSFetchedResultsChangeType)type
        newIndexPath:(NSIndexPath *)newIndexPath
 {
-    INVLogDebug(@"type: %ld",type);
+    INVLogDebug(@"type: %u", type);
     self.isNSFetchedResultsChangeTypeUpdated = (type == NSFetchedResultsChangeUpdate);
 }
 
