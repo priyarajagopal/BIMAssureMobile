@@ -548,7 +548,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  @see -signIntoAccount:withCompletionBlock:
 
  */
-- (void)disableAccountForSignedInUserWithCompletionBlock:(CompletionHandler)handler;
+- (void)disableAccountForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
 
 /**
 Asynchornously , update details of signed in account with the XOS Passport service. If values are not changed, then the existing
@@ -1393,6 +1393,45 @@ accountManager can be used to retrieve the details of account
                                               fromOffset:(NSNumber *)offset
                                                 withSize:(NSNumber *)size
                                      withCompletionBlock:(CompletionHandlerWithData)handler;
+
+#pragma mark -Analyses related
+
+/*
+ Asynchornously , fadd an analysis to a project.
+
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+
+ @param projectId The Id of the project to which analysis is to be added
+
+ @param name required Name of analysis
+
+ @param description Required description of analysis
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler that is of type INVAnalysis
+
+ @see fetchBuildingElementCategoriesForPackage:withCompletionBlock
+ */
+- (void)addAnalysesToProject:(NSNumber *)projectId
+                    withName:(NSString *)name
+              andDescription:(NSString *)description
+         withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously ,get list of all analyses associated with a project. Users must have signed into an account in order to be able
+ to
+ fetch rules.
+
+ @param projectId the Id of the project
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ analysesManager can be used to retrieve rules
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see analysesManager
+
+ */
+- (void)getAllAnalysesForProject:(NSNumber *)project withCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark - General Account Related
 

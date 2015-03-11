@@ -78,7 +78,7 @@
                                     style:UIAlertActionStyleDestructive
                                   handler:^(UIAlertAction *action) {
                                       [self.globalDataManager.invServerClient
-                                          disableAccountForSignedInUserWithCompletionBlock:INV_COMPLETION_HANDLER {
+                                          disableAccountForSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
                                               INV_ALWAYS:
                                               INV_SUCCESS : {
                                                   [self.globalDataManager.invServerClient
