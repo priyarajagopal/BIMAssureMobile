@@ -10,8 +10,8 @@
 #import "UIImage+INVCustomizations.h"
 
 #define SECTION_INVITATION_INFO 0
-#define SECTION_ACCOUNT_INFO 1
-#define SECTION_ACCOUNT_THUMBNAIL 2
+#define SECTION_ACCOUNT_THUMBNAIL 1
+#define SECTION_ACCOUNT_INFO 2
 
 @interface INVCreateAccountViewController () <UITextViewDelegate>
 
@@ -234,7 +234,8 @@
                                                }
 
                                            INV_SUCCESS:
-                                           [self.globalDataManager addToRecentlyEditedAccountList:self.accountToEdit.accountId];
+                                               [self.globalDataManager
+                                                   addToRecentlyEditedAccountList:self.accountToEdit.accountId];
                                                if (shouldDismiss) {
                                                    [self performSegueWithIdentifier:@"unwind" sender:nil];
                                                }
@@ -288,13 +289,13 @@
 - (void)showUpdatingFailureAlert
 {
     UIAlertAction *action =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
-    
+        [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+
     UIAlertController *alertController =
-    [UIAlertController alertControllerWithTitle:nil
-                                        message:NSLocalizedString(@"ACCOUNT_UPDATE_FAILURE_MESSAGE", nil)
-                                 preferredStyle:UIAlertControllerStyleAlert];
-    
+        [UIAlertController alertControllerWithTitle:nil
+                                            message:NSLocalizedString(@"ACCOUNT_UPDATE_FAILURE_MESSAGE", nil)
+                                     preferredStyle:UIAlertControllerStyleAlert];
+
     [alertController addAction:action];
     [self presentViewController:alertController animated:YES completion:nil];
 }

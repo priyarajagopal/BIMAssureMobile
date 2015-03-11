@@ -174,6 +174,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Thumbnail" id="t3g-Pz-5R4">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="X0Y-QA-rUg">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X0Y-QA-rUg" id="YjU-V6-ggx">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InvicaraLogo" translatesAutoresizingMaskIntoConstraints="NO" id="C8Z-KN-Da7">
+                                                    <rect key="frame" x="8" y="12" width="584" height="175"/>
+                                                    <gestureRecognizers/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="175" id="9UQ-o6-Ksl"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="36E-uf-Tto" appends="YES" id="Wxy-Dt-WKE"/>
+                                                    </connections>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="C8Z-KN-Da7" firstAttribute="leading" secondItem="YjU-V6-ggx" secondAttribute="leadingMargin" id="Bx6-Ee-P5n"/>
+                                                <constraint firstAttribute="centerY" secondItem="C8Z-KN-Da7" secondAttribute="centerY" id="E2a-9j-xSe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="C8Z-KN-Da7" secondAttribute="trailing" id="EEy-1W-U1c"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Account Information" id="0i5-h3-vbU">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="UFn-hF-wtO">
@@ -490,34 +518,6 @@
                                                 <constraint firstItem="a3Q-II-YYN" firstAttribute="top" secondItem="35W-FI-H5a" secondAttribute="topMargin" id="i5r-yr-DzQ"/>
                                                 <constraint firstAttribute="centerY" secondItem="a3Q-II-YYN" secondAttribute="centerY" id="iWM-na-erz"/>
                                                 <constraint firstItem="5W4-Rh-qcl" firstAttribute="trailing" secondItem="35W-FI-H5a" secondAttribute="trailingMargin" id="lQs-jJ-Bsr"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Thumbnail" id="t3g-Pz-5R4">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="X0Y-QA-rUg">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X0Y-QA-rUg" id="YjU-V6-ggx">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InvicaraLogo" translatesAutoresizingMaskIntoConstraints="NO" id="C8Z-KN-Da7">
-                                                    <rect key="frame" x="8" y="12" width="584" height="175"/>
-                                                    <gestureRecognizers/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="175" id="9UQ-o6-Ksl"/>
-                                                    </constraints>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="36E-uf-Tto" appends="YES" id="Wxy-Dt-WKE"/>
-                                                    </connections>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="C8Z-KN-Da7" firstAttribute="leading" secondItem="YjU-V6-ggx" secondAttribute="leadingMargin" id="Bx6-Ee-P5n"/>
-                                                <constraint firstAttribute="centerY" secondItem="C8Z-KN-Da7" secondAttribute="centerY" id="E2a-9j-xSe"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="C8Z-KN-Da7" secondAttribute="trailing" id="EEy-1W-U1c"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
