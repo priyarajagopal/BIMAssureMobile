@@ -160,6 +160,11 @@
 "PASSWORD_RESET_SUCCESS_TITLE"="Password reset success";
 "PASSWORD_RESET_SUCCESS_MESSAGE"="An email has been sent detailing instructions on how to reset your password.";
 
+"DISABLE_ACCOUNT_TITLE"="Disable Account";
+"DISABLE_ACCOUNT_MESSAGE"="Are you sure you wish to disable the account? This will cause it to be impossible to log in to or be changed. You will be logged out as soon as you perform this action. This CANNOT be undone!";
+"DISABLE_ACCOUNT_PERFORM_TITLE"="Disable";
+
+
 "AGO_JUST_NOW"="Just Now";
 "AGO_SECONDS"="%ld Seconds Ago";
 "AGO_MINUTES"="%ld Minutes Ago";
@@ -211,6 +216,9 @@
 "ERROR_PROJECT_UPDATE" = "There was an error while updating the project details";
 "PROJECT_CREATED_NO_THUMBNAIL"="The project was created succesfully but there was ane error while uploading the thumbnail image";
 "ERROR_IMAGE_UPDATE"="There was an error while updating the image. Please try again later.";
+
+"ERROR_ACCOUNT_DISABLE_TITLE"="Error";
+"ERROR_ACCOUNT_DISABLE_MESSAGE"="Failed to disable account. Please try again later.";
 
 "PLACEHOLDER_COMPANYNAME"="Company Name";
 "PLACEHOLDER_COMPANYADDRESS"="Company Address";

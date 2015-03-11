@@ -64,6 +64,8 @@
                                                                        : NSLocalizedString(@"ACCOUNT_STATUS_ACTIVE", nil);
 
         self.accountStatusLabel.textColor = self.account.disabled.boolValue ? [UIColor redColor] : greenShade;
+        self.alpha = self.account.disabled.boolValue ? 0.5 : 1;
+        self.expandButton.hidden = self.account.disabled.boolValue;
 
         if (self.descriptionLabel.text.length == 0) {
             self.descriptionLabel.text = NSLocalizedString(@"ACCOUNT_DESCRITPION_UNAVAILABLE", nil);
@@ -93,6 +95,9 @@
     }
 
     if (self.invite) {
+        self.alpha = 1;
+        self.expandButton.hidden = YES;
+
         self.nameLabel.text = self.invite.accountName;
         self.descriptionLabel.text = NSLocalizedString(@" ", nil);
         self.roleLabelBGView.backgroundColor = [UIColor clearColor];

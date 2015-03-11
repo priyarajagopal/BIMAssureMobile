@@ -68,7 +68,7 @@
                                                 message:NSLocalizedString(@"DISABLE_ACCOUNT_MESSAGE", nil)
                                          preferredStyle:UIAlertControllerStyleAlert];
 
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DISABLE_ACCOUNT_CANCEL_TITLE", nil)
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil)
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil]];
 

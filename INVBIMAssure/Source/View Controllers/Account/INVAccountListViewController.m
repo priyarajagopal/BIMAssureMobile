@@ -246,14 +246,14 @@ static NSString *const reuseIdentifier = @"Cell";
     }
 
     cell.isExpanded = [[self.collectionViewLayout indexPathOfOpenFolderInSection:indexPath.section] isEqual:indexPath];
-    
+
     if (cell.account.disabled.boolValue) {
         [cell setUserInteractionEnabled:NO];
     }
     else {
         [cell setUserInteractionEnabled:YES];
     }
-     
+
     return cell;
 }
 
@@ -353,6 +353,9 @@ static NSString *const reuseIdentifier = @"Cell";
         INVMergedFetchedResultsControler *mergedFetchResultsController = [[INVMergedFetchedResultsControler alloc] init];
 
         NSFetchRequest *fetchRequestForAccounts = self.accountManager.fetchRequestForAccountsOfSignedInUser;
+
+        // Uncomment this to sort all disabled accounts at the bottom.
+        // NSSortDescriptor *disabledAtBottom = [NSSortDescriptor sortDescriptorWithKey:@"disabled" ascending:YES];
         NSSortDescriptor *orderByDate = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
         NSSortDescriptor *loggedInAccount =
             [NSSortDescriptor sortDescriptorWithKey:@"accountId"
@@ -367,7 +370,7 @@ static NSString *const reuseIdentifier = @"Cell";
                                              return NSOrderedSame;
                                          }];
 
-        [fetchRequestForAccounts setSortDescriptors:@[ loggedInAccount, orderByDate ]];
+        [fetchRequestForAccounts setSortDescriptors:@[ loggedInAccount, /* disabledAtBottom, */ orderByDate ]];
 
         NSManagedObjectContext *managedObjectContext = self.accountManager.managedObjectContext;
         managedObjectContext.stalenessInterval = 0;
@@ -464,7 +467,8 @@ static NSString *const reuseIdentifier = @"Cell";
 
             INV_SUCCESS:
                 self.globalDataManager.loggedInAccount = self.currentAccountId;
-            INVLogDebug(@"Account token for %@ is %@",self.currentAccountId,self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
+                INVLogDebug(@"Account token for %@ is %@", self.currentAccountId,
+                    self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
                 if (self.saveAsDefault) {
                     // Just ignore the error and continue logging in
                     NSError *error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
