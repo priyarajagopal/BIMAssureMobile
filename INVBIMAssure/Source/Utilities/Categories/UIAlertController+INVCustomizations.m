@@ -54,7 +54,7 @@ static inline void _copyPopoverPresentationAttributes(
     return self;
 }
 
-- (instancetype)initForImageSelectionWithHandler:(void (^)(UIImage *))handler
+- (instancetype)initForImageSelectionInFolder:(NSString *)stockFolder withHandler:(void (^)(UIImage *))handler
 {
     // This is used for holding the current popover attributes assigned to this controller
     __block UIPopoverPresentationController *holdingPopoverController = nil;
@@ -74,6 +74,7 @@ static inline void _copyPopoverPresentationAttributes(
                                            handler:^(UIAlertAction *action) {
                                                INVStockThumbnailCollectionViewController *stockThumbnailController =
                                                    [[INVStockThumbnailCollectionViewController alloc] init];
+                                               stockThumbnailController.imagesPath = stockFolder;
                                                stockThumbnailController.delegate = imageHandlerDelegate;
 
                                                stockThumbnailController.modalPresentationStyle = UIModalPresentationPopover;

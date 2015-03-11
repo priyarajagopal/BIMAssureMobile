@@ -9,6 +9,7 @@
 #import "INVUserProfileTableViewController.h"
 #import "UIAlertController+INVCustomizations.h"
 #import "UIImage+INVCustomizations.h"
+#import "INVImageLoader.h"
 
 @interface INVUserProfileTableViewController ()
 
@@ -60,16 +61,11 @@
             self.companyTextField.text = [userProfile companyName];
         }
 
-        [self.globalDataManager.invServerClient getThumbnailImageForUser:userProfile.userId
-                                                   withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                                                       if (error) {
-                                                           INVLogError(@"%@", error);
-                                                           return;
-                                                       }
+        NSURL *url = [NSURL URLWithString:@"http://www.opensource.apple.com/static/images/ios_white_5s.jpg"];
 
-                                                       self.userThumbnailChanged = NO;
-                                                       self.userThumbnailImageView.image = [UIImage imageWithData:result];
-                                                   }];
+        [INVImageLoader imageWithContentsOfURLRequest:[NSURLRequest requestWithURL:url]
+                                     withLoadingImage:[UIImage imageNamed:@"user"]
+                                               inView:self.userThumbnailImageView];
     };
 
     [self.globalDataManager.invServerClient
@@ -99,11 +95,13 @@
     if ([sender state] != UIGestureRecognizerStateRecognized)
         return;
 
-    UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
-        self.userThumbnailImageView.image = image;
-        self.userThumbnailChanged = YES;
-        self.saveButtonItem.enabled = YES;
-    }];
+    UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionInFolder:@"User Thumbnails"
+                                                                                      withHandler:^(UIImage *image) {
+                                                                                          self.userThumbnailImageView.image =
+                                                                                              image;
+                                                                                          self.userThumbnailChanged = YES;
+                                                                                          self.saveButtonItem.enabled = YES;
+                                                                                      }];
 
     alertController.modalPresentationStyle = UIModalPresentationPopover;
 
@@ -170,7 +168,8 @@
                                             INVLogError(@"%@", error);
 
                                             UIAlertController *errorController = [[UIAlertController alloc]
-                                                initWithErrorMessage:NSLocalizedString(@"GENERIC_EDIT_USERPROFILE_MESSAGE", nil),
+                                                initWithErrorMessage:NSLocalizedString(
+                                                                         @"GENERIC_EDIT_USERPROFILE_MESSAGE", nil),
                                                 error.code];
 
                                             [self presentViewController:errorController animated:YES completion:nil];

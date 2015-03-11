@@ -49,7 +49,7 @@
 		F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */; };
 		F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5181A644771007A2BDC /* libPods-VENTokenField.a */; };
 		F539D53B1A644C1C007A2BDC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F539D5391A644C1C007A2BDC /* Localizable.strings */; };
-		F539D53E1A645497007A2BDC /* Stock Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F539D53D1A645497007A2BDC /* Stock Thumbnails */; };
+		F539D53E1A645497007A2BDC /* Account Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F539D53D1A645497007A2BDC /* Account Thumbnails */; };
 		F5426D501A680EA30040B2B5 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D4B1A680EA30040B2B5 /* Account.storyboard */; };
 		F5426D511A680EA30040B2B5 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D4C1A680EA30040B2B5 /* Login.storyboard */; };
 		F5426D521A680EA30040B2B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5426D4D1A680EA30040B2B5 /* Main.storyboard */; };
@@ -191,6 +191,9 @@
 		F5DC65BB1A82773F001713B9 /* UICollectionView+INVCustomCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65B81A82773F001713B9 /* UICollectionView+INVCustomCollectionView.m */; };
 		F5DC65BC1A82773F001713B9 /* UITableView+INVCustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65BA1A82773F001713B9 /* UITableView+INVCustomTableView.m */; };
 		F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */; };
+		F5FC0CBD1AA6408900FBAE84 /* User Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */; };
+		F5FC0CBF1AA6413800FBAE84 /* Project Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */; };
+		F5FC0CC21AA6452300FBAE84 /* INVImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC0CC11AA6452300FBAE84 /* INVImageLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -281,7 +284,7 @@
 		F539D5181A644771007A2BDC /* libPods-VENTokenField.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VENTokenField.a"; path = "../../Pods/build/Debug-iphoneos/libPods-VENTokenField.a"; sourceTree = "<group>"; };
 		F539D51D1A6447CF007A2BDC /* OpenCTM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenCTM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F539D53A1A644C1C007A2BDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F539D53D1A645497007A2BDC /* Stock Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Stock Thumbnails"; sourceTree = "<group>"; };
+		F539D53D1A645497007A2BDC /* Account Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Account Thumbnails"; sourceTree = "<group>"; };
 		F5426D4B1A680EA30040B2B5 /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		F5426D4C1A680EA30040B2B5 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		F5426D4D1A680EA30040B2B5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -519,6 +522,10 @@
 		F5DC65BA1A82773F001713B9 /* UITableView+INVCustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+INVCustomTableView.m"; sourceTree = "<group>"; };
 		F5FC0CB91AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBuildingElementPropertiesTableViewController.h; sourceTree = "<group>"; };
 		F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBuildingElementPropertiesTableViewController.m; sourceTree = "<group>"; };
+		F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "User Thumbnails"; sourceTree = "<group>"; };
+		F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Project Thumbnails"; sourceTree = "<group>"; };
+		F5FC0CC01AA6452300FBAE84 /* INVImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVImageLoader.h; sourceTree = "<group>"; };
+		F5FC0CC11AA6452300FBAE84 /* INVImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVImageLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -813,6 +820,8 @@
 				F5313A3E1A7956BC00E476D3 /* INVLogger.h */,
 				F5313A3F1A7956BC00E476D3 /* INVLogger.m */,
 				F548A58A1A7AD24600DF116C /* INVErrorHandling.h */,
+				F5FC0CC01AA6452300FBAE84 /* INVImageLoader.h */,
+				F5FC0CC11AA6452300FBAE84 /* INVImageLoader.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1039,7 +1048,9 @@
 				F5789D8C1A642A6200D8CEE7 /* Interface Builder */,
 				F5789D9E1A642A6200D8CEE7 /* Server Config */,
 				F5789DA41A642A6200D8CEE7 /* Shaders */,
-				F539D53D1A645497007A2BDC /* Stock Thumbnails */,
+				F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */,
+				F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */,
+				F539D53D1A645497007A2BDC /* Account Thumbnails */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1205,6 +1216,7 @@
 				F5426D561A680F3F0040B2B5 /* Notifications.storyboard in Resources */,
 				F5426D5F1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib in Resources */,
 				F5789DBF1A642A6200D8CEE7 /* INVTokensTableViewCell.xib in Resources */,
+				F5FC0CBF1AA6413800FBAE84 /* Project Thumbnails in Resources */,
 				F55AD9141A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib in Resources */,
 				F5426D511A680EA30040B2B5 /* Login.storyboard in Resources */,
 				F5789DC11A642A6200D8CEE7 /* ServerConfig-Dev.xcconfig in Resources */,
@@ -1225,6 +1237,7 @@
 				F5426D521A680EA30040B2B5 /* Main.storyboard in Resources */,
 				F5D8DBAB1A85076E00253787 /* INVRoleSelectionTableViewCell.xib in Resources */,
 				F5789DC61A642A6200D8CEE7 /* ModelViewer.vsh in Resources */,
+				F5FC0CBD1AA6408900FBAE84 /* User Thumbnails in Resources */,
 				F5789DBD1A642A6200D8CEE7 /* INVStockThumbnailCollectionViewCell.xib in Resources */,
 				F5789DB21A642A6200D8CEE7 /* INVProjectFileCollectionViewCell.xib in Resources */,
 				F5789DAF1A642A6200D8CEE7 /* INVAccountViewCell.xib in Resources */,
@@ -1232,7 +1245,7 @@
 				F5269DE11A76A434006AC27A /* UserInfo.storyboard in Resources */,
 				F5789DB91A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib in Resources */,
 				F5789DC21A642A6200D8CEE7 /* ServerConfig-Prod.xcconfig in Resources */,
-				F539D53E1A645497007A2BDC /* Stock Thumbnails in Resources */,
+				F539D53E1A645497007A2BDC /* Account Thumbnails in Resources */,
 				F5426D501A680EA30040B2B5 /* Account.storyboard in Resources */,
 				F5789DB01A642A6200D8CEE7 /* INVDefaultAccountAlertView.xib in Resources */,
 				F5426D541A680EA30040B2B5 /* UserManagement.storyboard in Resources */,
@@ -1368,6 +1381,7 @@
 				F5789D601A642A5500D8CEE7 /* INVInviteUsersTableViewController.m in Sources */,
 				F5789D6B1A642A5500D8CEE7 /* INVMainViewController.m in Sources */,
 				F5789D711A642A5500D8CEE7 /* INVProjectFilesListViewController.m in Sources */,
+				F5FC0CC21AA6452300FBAE84 /* INVImageLoader.m in Sources */,
 				024FEF001A69BA59001CA262 /* INVPagingManager+ProjectListing.m in Sources */,
 				F5789D571A642A5500D8CEE7 /* NSURLConnectionBlockDelegate.m in Sources */,
 				F5789D651A642A5500D8CEE7 /* INVCustomCollectionViewController.m in Sources */,

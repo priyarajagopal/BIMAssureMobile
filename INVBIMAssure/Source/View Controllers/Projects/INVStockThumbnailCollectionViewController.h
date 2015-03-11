@@ -19,6 +19,7 @@
 
 @interface INVStockThumbnailCollectionViewController : UICollectionViewController
 
+@property (nonatomic, copy) NSString *imagesPath;
 @property (weak, nonatomic) id<INVStockThumbnailCollectionViewControllerDelegate> delegate;
 
 @end

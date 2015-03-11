@@ -92,27 +92,30 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     INVProjectTableViewCell *cell = [sender findSuperviewOfClass:[INVProjectTableViewCell class] predicate:nil];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 
-    UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
-        id hud = [MBProgressHUD showHUDAddedTo:cell.contentView animated:YES];
+    UIAlertController *alertController = [[UIAlertController alloc]
+        initForImageSelectionInFolder:@"Project Thumbnails"
+                          withHandler:^(UIImage *image) {
+                              id hud = [MBProgressHUD showHUDAddedTo:cell.contentView animated:YES];
 
-        NSURL *fileURL = [image writeImageToTemporaryFile];
+                              NSURL *fileURL = [image writeImageToTemporaryFile];
 
-        [self.globalDataManager.invServerClient
-            addThumbnailImageForProject:cell.project.projectId
-                              thumbnail:fileURL
-                  withCompletionHandler:^(INVEmpireMobileError *error) {
-                      [hud hide:YES];
-                      [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+                              [self.globalDataManager.invServerClient
+                                  addThumbnailImageForProject:cell.project.projectId
+                                                    thumbnail:fileURL
+                                        withCompletionHandler:^(INVEmpireMobileError *error) {
+                                            [hud hide:YES];
+                                            [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
+                                                                  withRowAnimation:UITableViewRowAnimationAutomatic];
 
-                      if (error) {
-                          INVLogError(@"%@", error);
+                                            if (error) {
+                                                INVLogError(@"%@", error);
 
-                          UIAlertController *alertController =
-                              [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_IMAGE_UPDATE", nil)];
-                          [self presentViewController:alertController animated:YES completion:nil];
-                      }
-                  }];
-    }];
+                                                UIAlertController *alertController = [[UIAlertController alloc]
+                                                    initWithErrorMessage:NSLocalizedString(@"ERROR_IMAGE_UPDATE", nil)];
+                                                [self presentViewController:alertController animated:YES completion:nil];
+                                            }
+                                        }];
+                          }];
 
     alertController.modalPresentationStyle = UIModalPresentationPopover;
 

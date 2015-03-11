@@ -28,11 +28,15 @@
     flowLayout.minimumInteritemSpacing = 5;
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5);
 
-    if (self = [super initWithCollectionViewLayout:flowLayout]) {
-        _stockImages = [UIImage imagesInFolderNamed:@"Stock Thumbnails"];
-    }
+    return (self = [super initWithCollectionViewLayout:flowLayout]);
+}
 
-    return self;
+- (void)setImagesPath:(NSString *)imagesPath
+{
+    _imagesPath = imagesPath;
+
+    _stockImages = [UIImage imagesInFolderNamed:_imagesPath];
+    [self.collectionView reloadData];
 }
 
 - (void)viewDidLoad

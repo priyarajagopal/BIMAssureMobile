@@ -286,12 +286,13 @@
         return;
 
     UIAlertController *thumbnailAlertController =
-        [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
-            self.accountThumbnailChanged = YES;
-            self.accountThumbnailImageView.image = image;
+        [[UIAlertController alloc] initForImageSelectionInFolder:@"Account Thumbnails"
+                                                     withHandler:^(UIImage *image) {
+                                                         self.accountThumbnailChanged = YES;
+                                                         self.accountThumbnailImageView.image = image;
 
-            [self textFieldTextChanged:nil];
-        }];
+                                                         [self textFieldTextChanged:nil];
+                                                     }];
 
     thumbnailAlertController.modalPresentationStyle = UIModalPresentationPopover;
 

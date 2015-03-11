@@ -248,12 +248,14 @@
 
 - (void)selectThumbnail:(id)sender
 {
-    UIAlertController *alertController = [[UIAlertController alloc] initForImageSelectionWithHandler:^(UIImage *image) {
-        [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
-        self.projectImageUpdated = YES;
+    UIAlertController *alertController = [[UIAlertController alloc]
+        initForImageSelectionInFolder:@"Project Thumbnails"
+                          withHandler:^(UIImage *image) {
+                              [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
+                              self.projectImageUpdated = YES;
 
-        [self textFieldTextChanged:nil];
-    }];
+                              [self textFieldTextChanged:nil];
+                          }];
 
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
     alertController.popoverPresentationController.sourceView = self.view;
