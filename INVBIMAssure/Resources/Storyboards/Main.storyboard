@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -44,6 +44,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
+                            <tableViewSection headerTitle="Thumbnail" id="VXW-bD-xQr">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="150" id="Qj0-oB-VNa">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qj0-oB-VNa" id="UX8-Nd-jLK">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="8Tc-8S-z33">
+                                                    <rect key="frame" x="8" y="8" width="584" height="133"/>
+                                                    <state key="normal" image="project_thumbnail_0">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="selectThumbnail:" destination="mBi-Kq-wHv" eventType="touchUpInside" id="hkf-Jc-c0u"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8Tc-8S-z33" secondAttribute="trailing" id="66n-N8-MGB"/>
+                                                <constraint firstItem="8Tc-8S-z33" firstAttribute="leading" secondItem="UX8-Nd-jLK" secondAttribute="leadingMargin" id="J4r-zr-jNO"/>
+                                                <constraint firstItem="8Tc-8S-z33" firstAttribute="bottom" secondItem="UX8-Nd-jLK" secondAttribute="bottomMargin" id="cws-Nf-Zob"/>
+                                                <constraint firstItem="8Tc-8S-z33" firstAttribute="top" secondItem="UX8-Nd-jLK" secondAttribute="topMargin" id="h5V-O5-d5U"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Project Info" id="dIv-MT-Ha5">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="50" id="Ek4-El-IHO">
@@ -109,33 +136,6 @@
                                                 <constraint firstItem="DPl-Pc-fhp" firstAttribute="leading" secondItem="KbW-1Z-YOo" secondAttribute="trailing" constant="8" id="Vfd-o6-c1s"/>
                                                 <constraint firstAttribute="centerY" secondItem="KbW-1Z-YOo" secondAttribute="centerY" id="VmF-Nk-egu"/>
                                                 <constraint firstItem="KbW-1Z-YOo" firstAttribute="baseline" secondItem="DPl-Pc-fhp" secondAttribute="baseline" id="bMO-TX-Nuc"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Thumbnail" id="VXW-bD-xQr">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="150" id="Qj0-oB-VNa">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qj0-oB-VNa" id="UX8-Nd-jLK">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="8Tc-8S-z33">
-                                                    <rect key="frame" x="8" y="8" width="584" height="133"/>
-                                                    <state key="normal" image="project_thumbnail_0">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="selectThumbnail:" destination="mBi-Kq-wHv" eventType="touchUpInside" id="hkf-Jc-c0u"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="8Tc-8S-z33" secondAttribute="trailing" id="66n-N8-MGB"/>
-                                                <constraint firstItem="8Tc-8S-z33" firstAttribute="leading" secondItem="UX8-Nd-jLK" secondAttribute="leadingMargin" id="J4r-zr-jNO"/>
-                                                <constraint firstItem="8Tc-8S-z33" firstAttribute="bottom" secondItem="UX8-Nd-jLK" secondAttribute="bottomMargin" id="cws-Nf-Zob"/>
-                                                <constraint firstItem="8Tc-8S-z33" firstAttribute="top" secondItem="UX8-Nd-jLK" secondAttribute="topMargin" id="h5V-O5-d5U"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
