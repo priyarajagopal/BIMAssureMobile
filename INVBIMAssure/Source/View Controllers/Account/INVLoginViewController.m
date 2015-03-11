@@ -168,7 +168,7 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
                                                        [self saveCredentialsInKC];
                                                    }
 
-                                                   self.globalDataManager.loggedInUser = self.emailTextEntry.text;
+                                                   self.globalDataManager.loggedInUser = user;
                                                    self.userToken = self.globalDataManager.invServerClient.accountManager
                                                                         .tokenOfSignedInUser;
 
@@ -308,7 +308,7 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
     self.contentScrollView.scrollIndicatorInsets = contentInsets;
 }
 
-#pragma mark - KBO
+#pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     INVLogDebug();

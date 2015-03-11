@@ -142,6 +142,13 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     return [NSBundle bundleForClass:[self class]].bundleIdentifier;
 }
 
+- (void)setLoggedInUser:(NSString *)loggedInUser
+{
+    INVLogDebug(@"Setting logged in user to: %@", loggedInUser);
+
+    _loggedInUser = loggedInUser;
+}
+
 - (void)performLogout
 {
     [self.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
@@ -182,15 +189,18 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     [self.editedProjects removeObject:projectId];
 }
 
--(BOOL)isRecentlyEditedUser:(NSNumber*)userId{
-     return [self.editedUsers containsObject:userId];
+- (BOOL)isRecentlyEditedUser:(NSNumber *)userId
+{
+    return [self.editedUsers containsObject:userId];
 }
 
--(void)addToRecentlyEditedUsersList:(NSNumber*)userId {
+- (void)addToRecentlyEditedUsersList:(NSNumber *)userId
+{
     [self.editedUsers addObject:userId];
 }
 
--(void)removeFromRecentlyEditedUserList:(NSNumber*)userId{
+- (void)removeFromRecentlyEditedUserList:(NSNumber *)userId
+{
     [self.editedUsers removeObject:userId];
 }
 
@@ -218,6 +228,5 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
     }
     return _editedProjects;
 }
-
 
 @end
