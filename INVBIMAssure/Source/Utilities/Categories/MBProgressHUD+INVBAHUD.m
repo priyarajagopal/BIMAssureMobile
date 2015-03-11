@@ -59,6 +59,22 @@
     return hud;
 }
 
++ (MBProgressHUD *)updatingHUD:(NSString *)extra
+{
+    MBProgressHUD *hud = [[MBProgressHUD alloc] init];
+    
+    [hud setAnimationType:MBProgressHUDAnimationFade];
+    [hud setMode:MBProgressHUDModeIndeterminate];
+    NSString *mesg = extra ? [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"UPDATING", nil), extra]
+    : NSLocalizedString(@"UPDATING", nil);
+    
+    [hud setLabelText:mesg];
+    [hud setDimBackground:YES];
+    [hud setRemoveFromSuperViewOnHide:YES];
+    
+    return hud;
+}
+
 + (MBProgressHUD *)loadingViewHUD:(NSString *)extra
 {
     MBProgressHUD *hud = [[MBProgressHUD alloc] init];

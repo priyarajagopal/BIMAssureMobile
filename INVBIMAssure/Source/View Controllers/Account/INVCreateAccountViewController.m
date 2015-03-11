@@ -42,6 +42,7 @@
 {
     [super viewDidLoad];
 
+    self.acctDescRowHeight = 100;
     self.refreshControl = nil;
 
     [self updateUI];
@@ -65,28 +66,36 @@
     if (self.accountToEdit) {
         self.navigationItem.title = NSLocalizedString(@"EDIT_ACCOUNT", nil);
         self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"SAVE", nil);
+
+        // This trimming should not be really required. Its just that many of the account when user interface allowed "optional"
+        // and the nil values that were mapped internally to
+        // string with single character (Yeah- not great)
+        self.accountNameTextField.text =
+            [self.accountToEdit.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.accountDescriptionTextView.text = self.accountToEdit.overview;
+        self.accountCompanyNameTextField.text =
+            [self.accountToEdit.companyName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.accountCompanyAddressTextField.text = [self.accountToEdit.companyAddress
+            stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.accountContactNameTextField.text =
+            [self.accountToEdit.contactName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.accountContactPhoneTextField.text =
+            [self.accountToEdit.contactPhone stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.accountNumberOfEmployeesTextField.text = [self.accountToEdit.numberEmployees stringValue];
+
+        self.accountThumbnailImageView.image = nil;
+        [self.globalDataManager.invServerClient getThumbnailImageForAccount:self.accountToEdit.accountId
+                                                      withCompletionHandler:^(id result, INVEmpireMobileError *error) {
+                                                          if (error) {
+                                                              INVLogError(@"%@", error);
+                                                              self.accountThumbnailImageView.image =
+                                                                  [UIImage imageNamed:@"ImageNotFound"];
+
+                                                              return;
+                                                          }
+                                                          self.accountThumbnailImageView.image = [UIImage imageWithData:result];
+                                                      }];
     }
-
-    self.accountNameTextField.text = self.accountToEdit.name;
-    self.accountDescriptionTextView.text = self.accountToEdit.overview;
-    self.accountCompanyNameTextField.text = self.accountToEdit.companyName;
-    self.accountCompanyAddressTextField.text = self.accountToEdit.companyAddress;
-    self.accountContactNameTextField.text = self.accountToEdit.contactName;
-    self.accountContactPhoneTextField.text = self.accountToEdit.contactPhone;
-    self.accountNumberOfEmployeesTextField.text = [self.accountToEdit.numberEmployees stringValue];
-
-    self.accountThumbnailImageView.image = nil;
-    [self.globalDataManager.invServerClient getThumbnailImageForAccount:self.accountToEdit.accountId
-                                                  withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                                                      if (error) {
-                                                          INVLogError(@"%@", error);
-                                                          self.accountThumbnailImageView.image =
-                                                              [UIImage imageNamed:@"ImageNotFound"];
-
-                                                          return;
-                                                      }
-                                                      self.accountThumbnailImageView.image = [UIImage imageWithData:result];
-                                                  }];
 }
 
 #pragma mark UITableViewDataSource
@@ -147,21 +156,6 @@
     return [super tableView:tableView heightForHeaderInSection:section];
 }
 
-#pragma mark - UITextViewDelegate
-
-- (void)textViewDidChange:(UITextView *)textView
-{
-    self.accountProfileChanged = YES;
-
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:SECTION_ACCOUNT_INFO];
-
-    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    self.acctDescRowHeight = fmaxf([cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height, 100);
-
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
-}
-
 #pragma mark - Server Side
 
 - (void)createAccountOnly
@@ -199,7 +193,7 @@
 
 - (void)updateAccount
 {
-    [self showSignupProgress];
+    [self showUpdateProgress];
 
     NSNumber *package = @(0);
 
@@ -218,7 +212,7 @@
                               numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
                           withCompletionBlock:INV_COMPLETION_HANDLER {
                               INV_ALWAYS:
-                                  [self hideSignupProgress];
+                                  [self hideUpdatingProgress];
 
                               INV_SUCCESS:
                                   [self performSegueWithIdentifier:@"unwind" sender:nil];
@@ -226,7 +220,7 @@
                               INV_ERROR:
                                   INVLogError(@"%@", error);
 
-                                  [self showSignupFailureAlert];
+                                  [self showUpdatingFailureAlert];
                           }];
     }
 
@@ -236,10 +230,11 @@
                                        withCompletionHandler:INV_COMPLETION_HANDLER {
                                            INV_ALWAYS:
                                                if (shouldDismiss) {
-                                                   [self hideSignupProgress];
+                                                   [self hideUpdatingProgress];
                                                }
 
                                            INV_SUCCESS:
+                                           [self.globalDataManager addToRecentlyEditedAccountList:self.accountToEdit.accountId];
                                                if (shouldDismiss) {
                                                    [self performSegueWithIdentifier:@"unwind" sender:nil];
                                                }
@@ -247,7 +242,7 @@
                                            INV_ERROR:
                                                INVLogError(@"%@", error);
 
-                                               [self showSignupFailureAlert];
+                                               [self showUpdatingFailureAlert];
                                        }];
     }
 }
@@ -259,7 +254,19 @@
     [self.hud show:YES];
 }
 
+- (void)showUpdateProgress
+{
+    self.hud = [MBProgressHUD updatingHUD:nil];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+}
+
 - (void)hideSignupProgress
+{
+    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+}
+
+- (void)hideUpdatingProgress
 {
     [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 }
@@ -278,8 +285,21 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-#pragma mark - IBActions
+- (void)showUpdatingFailureAlert
+{
+    UIAlertAction *action =
+    [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertController *alertController =
+    [UIAlertController alertControllerWithTitle:nil
+                                        message:NSLocalizedString(@"ACCOUNT_UPDATE_FAILURE_MESSAGE", nil)
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:action];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
+#pragma mark - IBActions
 - (IBAction)selectThumbnail:(UIGestureRecognizer *)sender
 {
     if ([sender state] != UIGestureRecognizerStateRecognized)
@@ -332,15 +352,7 @@
         self.accountProfileChanged = YES;
     }
 
-    BOOL numberOfEmployeesIsNumber = [[@([self.accountNumberOfEmployeesTextField.text integerValue]) stringValue]
-                                         isEqualToString:self.accountNumberOfEmployeesTextField.text] &&
-                                     [self.accountNumberOfEmployeesTextField.text integerValue] > 0;
-
-    self.createBarButtonItem.enabled =
-        self.accountNameTextField.text.length > 0 && self.accountDescriptionTextView.text.length > 0 &&
-        self.accountCompanyNameTextField.text.length > 0 && self.accountCompanyAddressTextField.text.length > 0 &&
-        self.accountContactNameTextField.text.length > 0 && self.accountContactPhoneTextField.text.length > 0 &&
-        self.accountNumberOfEmployeesTextField.text.length > 0 && numberOfEmployeesIsNumber;
+    [self testAndEnableSaveButton];
 }
 
 - (IBAction)createAccount:(id)sender
@@ -351,6 +363,35 @@
     else {
         [self createAccountOnly];
     }
+}
+
+#pragma mark - UITextViewDelegate
+- (void)textViewDidChange:(UITextView *)textView
+{
+    self.accountProfileChanged = YES;
+    [self testAndEnableSaveButton];
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:SECTION_ACCOUNT_INFO];
+
+    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    self.acctDescRowHeight = fmaxf([cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height, 100);
+
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
+#pragma mark - helpers
+- (void)testAndEnableSaveButton
+{
+    BOOL numberOfEmployeesIsNumber = [[@([self.accountNumberOfEmployeesTextField.text integerValue]) stringValue]
+                                         isEqualToString:self.accountNumberOfEmployeesTextField.text] &&
+                                     [self.accountNumberOfEmployeesTextField.text integerValue] > 0;
+
+    self.createBarButtonItem.enabled =
+        self.accountNameTextField.text.length > 0 && self.accountDescriptionTextView.text.length > 0 &&
+        self.accountCompanyNameTextField.text.length > 0 && self.accountCompanyAddressTextField.text.length > 0 &&
+        self.accountContactNameTextField.text.length > 0 && self.accountContactPhoneTextField.text.length > 0 &&
+        self.accountNumberOfEmployeesTextField.text.length > 0 && numberOfEmployeesIsNumber;
 }
 
 @end

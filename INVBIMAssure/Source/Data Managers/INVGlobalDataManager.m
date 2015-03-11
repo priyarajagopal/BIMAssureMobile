@@ -31,6 +31,9 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 @property (nonatomic, readwrite) NSDictionary *credentials;
 @property (nonatomic, readwrite) NSNumber *defaultAccountId;
 @property (nonatomic, readwrite) BOOL rememberMeOptionSelected;
+@property (nonatomic, strong) NSMutableSet *editedAccounts;
+@property (nonatomic, strong) NSMutableSet *editedProjects;
+@property (nonatomic, strong) NSMutableSet *editedUsers;
 @end
 
 @implementation INVGlobalDataManager
@@ -151,5 +154,70 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
         [[NSNotificationCenter defaultCenter] postNotificationName:INV_NotificationUserLogOutSuccess object:nil];
     }];
 }
+
+#pragma mark - Tracking Edited Objects
+- (BOOL)isRecentlyEditedAccount:(NSNumber *)accountId
+{
+    return [self.editedAccounts containsObject:accountId];
+}
+- (void)addToRecentlyEditedAccountList:(NSNumber *)accountId
+{
+    [self.editedAccounts addObject:accountId];
+}
+- (void)removeFromRecentlyEditedAccountList:(NSNumber *)accountId
+{
+    [self.editedAccounts removeObject:accountId];
+}
+
+- (BOOL)isRecentlyEditedProject:(NSNumber *)projectId
+{
+    return [self.editedProjects containsObject:projectId];
+}
+- (void)addToRecentlyEditedProjectList:(NSNumber *)projectId
+{
+    [self.editedProjects addObject:projectId];
+}
+- (void)removeFromRecentlyEditedProjectList:(NSNumber *)projectId
+{
+    [self.editedProjects removeObject:projectId];
+}
+
+-(BOOL)isRecentlyEditedUser:(NSNumber*)userId{
+     return [self.editedUsers containsObject:userId];
+}
+
+-(void)addToRecentlyEditedUsersList:(NSNumber*)userId {
+    [self.editedUsers addObject:userId];
+}
+
+-(void)removeFromRecentlyEditedUserList:(NSNumber*)userId{
+    [self.editedUsers removeObject:userId];
+}
+
+#pragma mark - private accessors
+- (NSMutableSet *)editedAccounts
+{
+    if (!_editedAccounts) {
+        _editedAccounts = [[NSMutableSet alloc] initWithCapacity:0];
+    }
+    return _editedAccounts;
+}
+
+- (NSMutableSet *)editedProjects
+{
+    if (!_editedProjects) {
+        _editedProjects = [[NSMutableSet alloc] initWithCapacity:0];
+    }
+    return _editedProjects;
+}
+
+- (NSMutableSet *)editedUsers
+{
+    if (!_editedUsers) {
+        _editedProjects = [[NSMutableSet alloc] initWithCapacity:0];
+    }
+    return _editedProjects;
+}
+
 
 @end

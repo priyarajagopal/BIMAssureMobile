@@ -10,6 +10,7 @@
 #import "INVProjectsTableViewController.h"
 #import "UILabel+INVCustomizations.h"
 #import "UIFont+INVCustomizations.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface INVProjectTableViewCell ()
 
@@ -19,6 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *fileCount;
 @property (weak, nonatomic) IBOutlet UILabel *userCount;
+@property (strong, nonatomic) INVGlobalDataManager *globalDataManager;
 
 @end
 
@@ -27,6 +29,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    self.globalDataManager = [INVGlobalDataManager sharedInstance];
 
     UILongPressGestureRecognizer *gestureRecognizer =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_handleLongTap:)];
@@ -84,20 +87,25 @@
 
         self.createdOnLabel.attributedText = attrString;
 
-        self.thumbnailImageView.image = nil;
+        NSMutableURLRequest *projThumbnail =
+            [[self.globalDataManager.invServerClient requestToGetThumbnailImageForProject:self.project.projectId] mutableCopy];
+        if ([self.globalDataManager isRecentlyEditedProject:self.project.projectId]) {
+            [projThumbnail setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+            [self.globalDataManager removeFromRecentlyEditedProjectList:self.project.projectId];
+        }
+        __weak __typeof(self) weakSelf = self;
 
-        [[INVGlobalDataManager sharedInstance].invServerClient
-            getThumbnailImageForProject:self.project.projectId
-                  withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                      if (error) {
-                          INVLogError(@"%@", error);
-                          self.thumbnailImageView.image = [UIImage imageNamed:@"ImageNotFound"];
-                          return;
-                      }
+        [self.thumbnailImageView setImageWithURLRequest:projThumbnail
+            placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.thumbnailImageView.image = image;
+                });
 
-                      UIImage *image = [UIImage imageWithData:result];
-                      self.thumbnailImageView.image = image;
-                  }];
+            }
+            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                INVLogError(@"Failed to download image for project %@ with error %@", self.project.projectId, error);
+            }];
     }
 }
 

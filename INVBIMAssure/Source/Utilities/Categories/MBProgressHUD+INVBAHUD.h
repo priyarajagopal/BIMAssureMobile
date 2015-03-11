@@ -15,4 +15,5 @@
 + (MBProgressHUD *)loadingViewHUD:(NSString *)extra;
 + (MBProgressHUD *)generalViewHUD:(NSString *)extra;
 + (MBProgressHUD *)signupHUD:(NSString *)extra;
++ (MBProgressHUD *)updatingHUD:(NSString *)extra;
 @end

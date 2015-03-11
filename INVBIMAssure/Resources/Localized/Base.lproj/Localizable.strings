@@ -43,6 +43,7 @@
 "INVITE_FAILURE"="Invite Failure";
 "GENERIC_INVITE_FAILURE_MESSAGE"="There was an error while trying to invite users to the account. Please try again";
 "GENERIC_ACCOUNT_LOGOUT_MESSAGE"="You will be logged out of the \" %1@ \" account.";
+"ACCOUNT_UPDATE_FAILURE_MESSAGE"="There was an error while trying to update account details";
 "ARE_YOU_SURE"="Are you sure?";
 "RULES"="Rules";
 "MANAGE_RULESETS"="Manage RuleSets";
@@ -207,5 +208,15 @@
 "INV_MEMBERSHIP_TYPE_MEMBER"="Member";
 "INV_MEMBERSHIP_TYPE_ADMIN"="Admin";
 "ERROR_PROJECT_CREATE" = "There was an error while creating the project";
+"ERROR_PROJECT_UPDATE" = "There was an error while updating the project details";
 "PROJECT_CREATED_NO_THUMBNAIL"="The project was created succesfully but there was ane error while uploading the thumbnail image";
 "ERROR_IMAGE_UPDATE"="There was an error while updating the image. Please try again later.";
+
+"PLACEHOLDER_COMPANYNAME"="Company Name";
+"PLACEHOLDER_COMPANYADDRESS"="Company Address";
+"PLACEHOLDER_COMPANYCONTACT"="Company Contact Name";
+"PLACEHOLDER_COMPANYCONTACTPHONE"="Company Contact Phone";
+"PLACEHOLDER_COMPANYNUMEMPLOYEES"="Number Of Employees";
+"PLACEHOLDER_ACCOUNTNAME"="Account Name";
+
+

@@ -10,6 +10,7 @@
 
 #import "UIFont+INVCustomizations.h"
 #import "UILabel+INVCustomizations.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface INVCurrentUsersProfileTableViewCell ()
 
@@ -21,6 +22,7 @@
 
 @property IBOutlet UIView *expandedContentView;
 @property IBOutlet NSLayoutConstraint *collapseContentViewConstraint;
+@property (strong, nonatomic) INVGlobalDataManager* globalDataManager;
 
 @end
 
@@ -29,6 +31,7 @@
 - (void)awakeFromNib
 {
     // Initialization code
+    self.globalDataManager = [INVGlobalDataManager sharedInstance];
     [self updateUI];
 }
 
@@ -59,19 +62,33 @@
                    withDefault:@"USER_COMPANY_UNAVAILABLE"
                  andAttributes:subtitleFontDicitonary];
 
-    self.userThumbnailImageView.image = [UIImage imageNamed:@"user"];
+    
+    NSMutableURLRequest *userThumbnail = [[self.globalDataManager.invServerClient
+                                           requestToGetThumbnailImageForUser:self.user.userId] mutableCopy];
+    if ([self.globalDataManager isRecentlyEditedUser:self.user.userId]) {
+        [userThumbnail setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+        [self.globalDataManager removeFromRecentlyEditedUserList:self.user.userId];
+    }
+    __weak __typeof (self)weakSelf = self;
+    UIImage* placeholder = [UIImage imageNamed:@"user"];
+    if (userThumbnail) {
+        [self.userThumbnailImageView setImageWithURLRequest:userThumbnail
+                                          placeholderImage:placeholder
+                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                                           weakSelf.userThumbnailImageView.image = image;
+                                                       });
+                                                       
+                                                   }
+                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                       INVLogError(@"Failed to download image for user %@ with error %@", weakSelf.user.userId, error);
+                                                   }];
+    }
+    else {
+        self.userThumbnailImageView.image = placeholder;
+    }
 
-    [[INVGlobalDataManager sharedInstance].invServerClient getThumbnailImageForUser:self.user.userId
-                                                              withCompletionHandler:^(id result, INVEmpireMobileError *error) {
-                                                                  INV_ALWAYS:
-                                                                  INV_SUCCESS:
-                                                                      self.userThumbnailImageView.image =
-                                                                          [UIImage imageWithData:result];
-
-                                                                  INV_ERROR:
-                                                                      INVLogError(@"%@", error);
-                                                              }];
-
+   
     [self setNeedsLayout];
     [self setNeedsUpdateConstraints];
 }

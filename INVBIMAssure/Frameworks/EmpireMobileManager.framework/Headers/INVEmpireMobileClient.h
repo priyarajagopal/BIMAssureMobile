@@ -537,20 +537,18 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                                 withCompletionBlock:(CompletionHandler)handler;
 
 /**
- Asynchornously , disable an account for currently signed in user. Once disabled, the account
+ Asynchornously , disable an account for currently signed in account. Once disabled, the account
  can only be reenabled by out-of-band means(not via an API). Accounts that are disabled are not deleted.
 
- @param accountId Id of account to be disabled
 
  @param handler The completion handler that returns error object if there was any error.
 
  @see accountManager
 
- @see -signInWithUserName:andPassword:withCompletionBlock:
-
+ @see -signIntoAccount:withCompletionBlock:
 
  */
-- (void)disableAccountForSignedInUserWithAccountId:(NSNumber *)accountId withCompletionBlock:(CompletionHandler)handler;
+- (void)disableAccountForSignedInUserWithCompletionBlock:(CompletionHandler)handler;
 
 /**
 Asynchornously , update details of signed in account with the XOS Passport service. If values are not changed, then the existing
@@ -910,6 +908,19 @@ accountManager can be used to retrieve the details of account
     ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
+ return request to fetch thumbnail image for specified pkgVersion. User should have signed in with
+ -signInUser:withCompletionBlock:
+
+ @param pkgVersionId Id of pkgVersionId
+
+ @param handler The NSURLRequest
+
+ @see -signIntoUser:withCompletionBlock:
+
+ */
+- (NSURLRequest *)requestToGetThumbnailImageForPkgVersionId:(NSNumber *)pkgVersionId;
+
+/**
  Asynchornously ,add thumbnail image for signed in account. Users should have signed in with
  signIntoAccount:withCompletionBlock:
 
@@ -937,6 +948,18 @@ accountManager can be used to retrieve the details of account
 
  */
 - (void)getThumbnailImageForAccount:(NSNumber *)accountId withCompletionHandler:(CompletionHandlerWithData)handler;
+
+/**
+ return request to fetch thumbnail image for specified account. User should have signed in with -signInUser:withCompletionBlock:
+
+ @param accountId Id of account
+
+ @param handler The NSURLRequest
+
+ @see -signIntoUser:withCompletionBlock:
+
+ */
+- (NSURLRequest *)requestToGetThumbnailImageForAccount:(NSNumber *)accountId;
 
 /**
  Asynchornously,add thumbnail image for project
@@ -971,6 +994,18 @@ accountManager can be used to retrieve the details of account
 - (void)getThumbnailImageForProject:(NSNumber *)projectId withCompletionHandler:(CompletionHandlerWithData)handler;
 
 /**
+ return request to fetch thumbnail image for specified project. User should have signed in with -signInUser:withCompletionBlock:
+
+ @param projectId Id of project
+
+ @param handler The NSURLRequest
+
+ @see -signIntoUser:withCompletionBlock:
+
+ */
+- (NSURLRequest *)requestToGetThumbnailImageForProject:(NSNumber *)projectId;
+
+/**
  Asynchornously,add thumbnail image for signed in user. User should have been signed in with -signInUser:withCompletionBlock:
 
  ***NOTE*** Due to a server side issue , the user shouolkd be signed into an account in order to upload the image. This should
@@ -999,6 +1034,18 @@ accountManager can be used to retrieve the details of account
 
  */
 - (void)getThumbnailImageForUser:(NSNumber *)userId withCompletionHandler:(CompletionHandlerWithData)handler;
+
+/**
+ return request to fetch thumbnail image for specified user . User should have signed in with -signInUser:withCompletionBlock:
+
+ @param userId Id of user
+
+ @param handler The NSURLRequest
+
+ @see -signIntoUser:withCompletionBlock:
+
+ */
+- (NSURLRequest *)requestToGetThumbnailImageForUser:(NSNumber *)userId;
 
 #pragma mark - Rule Sets Membership Related
 
@@ -1273,13 +1320,20 @@ accountManager can be used to retrieve the details of account
 - (void)fetchIssueDetailsForId:(NSNumber *)issueId withCompletionBlock:(CompletionHandler)handler;
 
 /**
- Asynchornously , fetch top level categories of building elements for specified package
+ Asynchornously , fetch top level categories of building elements for specified package. This API does not currently support
+ pagination.
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
 
  @param pkgId The Id of the package for which the building elements are to be fetched
 
- @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned in the completion handler
+ @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
+ 0.Offset
+
+ @param size optional value to specify the number of items to be fetched. Passing nil defaults to all.
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler
 
 
  */
@@ -1293,37 +1347,52 @@ accountManager can be used to retrieve the details of account
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
 
  @param categoryName The display name of the category
- 
+
  @param pkgId The Id of the package for which the building elements are to be fetched
 
- @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned in the completion handler
+ @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
+ 0.Offset
+
+ @param size optional value to specify the number of items to be fetched. Passing nil defaults to all.
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler
 
  @see fetchBuildingElementCategoriesForPackage:withCompletionBlock
  */
 - (void)fetchBuildingElementOfSpecifiedCategoryWithDisplayname:(NSString *)categoryName
-                                                    ForPackageVersionId:(NSNumber *)pkgId
+                                           ForPackageVersionId:(NSNumber *)pkgId
+                                                    fromOffset:(NSNumber *)offset
+                                                      withSize:(NSNumber *)size
                                            withCompletionBlock:(CompletionHandlerWithData)handler;
-
 
 /*
  Asynchornously , fetch properties of specific building element for specified package. The build element Id  must be
  retrived using fetchBuildingElementOfSpecifiedCategoryWithDisplayname:ForPackageVersionId:withCompletionBlock
- 
+
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
  @param buildingElementId The Id of the building element whose properties are to be fetched
- 
+
  @param categoryName The display name of the category
- 
+
  @param pkgId The Id of the package for which the building elements are to be fetched
- 
- @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned in the completion handler
- 
+
+ @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
+ 0.Offset
+
+ @param size optional value to specify the number of items to be fetched. Passing nil defaults to all.
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler
+
  @see fetchBuildingElementCategoriesForPackage:withCompletionBlock
  */
-- (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSNumber*)buildingElementId
+- (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSNumber *)buildingElementId
                                   ForCategoryDisplayName:(NSString *)categoryName
-                                           ForPackageVersionId:(NSNumber *)pkgId
-                                           withCompletionBlock:(CompletionHandlerWithData)handler;
+                                     ForPackageVersionId:(NSNumber *)pkgId
+                                              fromOffset:(NSNumber *)offset
+                                                withSize:(NSNumber *)size
+                                     withCompletionBlock:(CompletionHandlerWithData)handler;
 
 #pragma mark - General Account Related
 

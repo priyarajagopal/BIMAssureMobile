@@ -221,7 +221,7 @@
                                   INV_ERROR:
                                       INVLogError(@"%@", error);
 
-                                      [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_CREATE", nil)];
+                                      [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_UPDATE", nil)];
                               }];
     }
     else {
@@ -330,6 +330,7 @@
                       [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED_NO_THUMBNAIL", nil)];
                   }
                   else {
+                      [self.globalDataManager addToRecentlyEditedProjectList:projectId];
                       [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED", nil)];
                   }
               }];

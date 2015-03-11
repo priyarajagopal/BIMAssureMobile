@@ -357,13 +357,17 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)onProjectEditSaved:(INVProjectEditViewController *)controller
 {
-    [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
+    [self showLoadProgress];
 }
+
 
 - (void)reloadRowAtSelectedIndex
 {
+    
     [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfProjectBeingEdited ]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self performSelectorOnMainThread:@selector(updateTimeStamp) withObject:nil waitUntilDone:NO];
+    
     self.indexOfProjectBeingEdited = nil;
 }
 
@@ -374,6 +378,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+    INVLogDebug();
     // Note on special case:
     // The project notifications periodically fetches the projects list in the background. This results in the local cache
     // getting updated with GET results - anytime the core data cache is touched, the
@@ -383,6 +388,9 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     if (!self.isNSFetchedResultsChangeTypeUpdated) {
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
+    else if (self.indexOfProjectBeingEdited) {
+         [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
+    }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
@@ -391,6 +399,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
       forChangeType:(NSFetchedResultsChangeType)type
        newIndexPath:(NSIndexPath *)newIndexPath
 {
+    INVLogDebug(@"type: %ld",type);
     self.isNSFetchedResultsChangeTypeUpdated = (type == NSFetchedResultsChangeUpdate);
 }
 

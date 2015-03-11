@@ -20,6 +20,7 @@ const NSInteger INV_CELLSIZE = 100;
 #import "INVCreateAccountViewController.h"
 #import "INVAccountDetailFolderCollectionReusableView.h"
 #import "UIView+INVCustomizations.h"
+
 #import "UIImage+INVCustomizations.h"
 
 #import <RBCollectionViewInfoFolderLayout/RBCollectionViewInfoFolderLayout.h>
@@ -245,7 +246,14 @@ static NSString *const reuseIdentifier = @"Cell";
     }
 
     cell.isExpanded = [[self.collectionViewLayout indexPathOfOpenFolderInSection:indexPath.section] isEqual:indexPath];
-
+    
+    if (cell.account.disabled.boolValue) {
+        [cell setUserInteractionEnabled:NO];
+    }
+    else {
+        [cell setUserInteractionEnabled:YES];
+    }
+     
     return cell;
 }
 
@@ -456,7 +464,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
             INV_SUCCESS:
                 self.globalDataManager.loggedInAccount = self.currentAccountId;
-
+            INVLogDebug(@"Account token for %@ is %@",self.currentAccountId,self.globalDataManager.invServerClient.accountManager.tokenOfSignedInAccount);
                 if (self.saveAsDefault) {
                     // Just ignore the error and continue logging in
                     NSError *error = [self.globalDataManager saveDefaultAccountInKCForLoggedInUser:self.currentAccountId];
