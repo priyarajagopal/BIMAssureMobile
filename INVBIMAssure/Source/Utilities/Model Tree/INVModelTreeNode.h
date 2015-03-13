@@ -12,7 +12,7 @@
 
 typedef NSArray * (^INVModelTreeNodeFetchChildrenBlock)(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount);
 
-@interface INVModelTreeNode : NSObject
+@interface INVModelTreeNode : NSObject<NSCopying>
 
 @property (nonatomic, strong) INVModelTreeNode *parent;
 

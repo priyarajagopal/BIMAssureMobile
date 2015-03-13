@@ -122,4 +122,17 @@
     };
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    // Don't support copying
+    return self;
+}
+
+- (NSUInteger)hash
+{
+    return [self.id hash];
+}
+
 @end

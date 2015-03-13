@@ -27,6 +27,7 @@
 
 @interface INVModelTreeTableViewController ()
 
+@property (nonatomic) NSMutableDictionary *nodeHeights;
 @property BOOL shouldAnimatedPostUpdate;
 @property (nonatomic, readwrite) INVModelTreeNodeTableViewCell *sizingCell;
 @property (nonatomic, readwrite) INVModelTreeNode *rootNode;
@@ -48,8 +49,13 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = nil;
 
+    self.nodeHeights = [NSMutableDictionary new];
+
     UINib *modelTreeCellNib = [UINib nibWithNibName:@"INVModelTreeNodeTableViewCell" bundle:nil];
     self.sizingCell = [[modelTreeCellNib instantiateWithOwner:nil options:nil] firstObject];
+
+    [self.tableView addSubview:self.sizingCell];
+    [self.sizingCell setHidden:YES];
 
     [self.tableView registerNib:modelTreeCellNib forCellReuseIdentifier:@"treeCell"];
 }
@@ -134,15 +140,22 @@
         return tableView.rowHeight;
     }
 
-    self.sizingCell.node = node;
+    if (_nodeHeights[node]) {
+        return [_nodeHeights[node] floatValue];
+    }
+
     self.sizingCell.indentationLevel = [self tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+    self.sizingCell.node = node;
 
     [self.sizingCell setNeedsUpdateConstraints];
     [self.sizingCell layoutIfNeeded];
 
-    return [self.sizingCell systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, 0)
-                          withHorizontalFittingPriority:UILayoutPriorityRequired
-                                verticalFittingPriority:UILayoutPriorityDefaultLow].height;
+    CGFloat height = [self.sizingCell systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, 0)
+                                    withHorizontalFittingPriority:UILayoutPriorityRequired
+                                          verticalFittingPriority:UILayoutPriorityDefaultLow].height;
+    _nodeHeights[node] = @(height);
+
+    return height;
 }
 
 #pragma mark - UITableViewDelegate
@@ -163,11 +176,11 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+- (IBAction)onModelTreeNodeDetailsSelected:(id)sender
 {
-    INVModelTreeNode *node = self.flattenedNodes[indexPath.row];
+    INVModelTreeNodeTableViewCell *cell = [sender findSuperviewOfClass:[INVModelTreeNodeTableViewCell class] predicate:nil];
+    INVModelTreeNode *node = cell.node;
 
-    INVModelTreeNodeTableViewCell *cell = (INVModelTreeNodeTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
     UINavigationController *viewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"ViewPropertiesNC"];
 
     INVBuildingElementPropertiesTableViewController *propertiesViewController =
@@ -184,7 +197,7 @@
     viewController.popoverPresentationController.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
 
     // This should be the accessory button.
-    UIView *anchor = [cell findSubviewOfClass:[UIImageView class] predicate:[NSPredicate predicateWithFormat:@"image != null"]];
+    UIView *anchor = sender;
 
     viewController.popoverPresentationController.sourceView = anchor;
     viewController.popoverPresentationController.sourceRect = [anchor bounds];

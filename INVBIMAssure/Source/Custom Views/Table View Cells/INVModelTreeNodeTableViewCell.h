@@ -12,9 +12,6 @@
 
 @interface INVModelTreeNodeTableViewCell : UITableViewCell
 
-@property (nonatomic) IBOutlet UILabel *nameLabel;
-@property (nonatomic) IBOutlet UILabel *expandedIndicator;
-
 @property (nonatomic) INVModelTreeNode *node;
 
 @end
