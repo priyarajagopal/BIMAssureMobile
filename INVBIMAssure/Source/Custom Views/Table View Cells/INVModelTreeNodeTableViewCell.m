@@ -8,6 +8,8 @@
 
 #import "INVModelTreeNodeTableViewCell.h"
 
+#import "UIFont+INVCustomizations.h"
+
 @interface INVModelTreeNodeTableViewCell ()
 
 @property (nonatomic) IBOutlet UIButton *detailsButton;
@@ -59,9 +61,11 @@
         self.detailsButton.hidden = (self.indentationLevel == 0);
 
         if (self.indentationLevel == 0) {
+            self.nameLabel.font = [self.nameLabel.font fontWithTraits:UIFontDescriptorTraitBold];
             [self.detailsButton addConstraint:self.collapseDetailsButtonConstraint];
         }
         else {
+            self.nameLabel.font = [self.nameLabel.font fontWithTraits:0];
             [self.detailsButton removeConstraint:self.collapseDetailsButtonConstraint];
         }
     }

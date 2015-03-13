@@ -23,7 +23,7 @@
 - (UIFont *)fontWithTraits:(UIFontDescriptorSymbolicTraits)traits
 {
     UIFontDescriptor *fontDescriptor = [self fontDescriptor];
-    fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:fontDescriptor.symbolicTraits | traits];
+    fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:traits];
 
     return [UIFont fontWithDescriptor:fontDescriptor size:0];
 }

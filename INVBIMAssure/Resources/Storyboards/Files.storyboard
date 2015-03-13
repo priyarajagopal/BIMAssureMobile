@@ -341,9 +341,16 @@
                             <outlet property="delegate" destination="9Ir-AK-vuP" id="6zb-O1-YpW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Building Element Properties" id="xEE-kh-JHp"/>
+                    <navigationItem key="navigationItem" title="Building Element Properties" id="xEE-kh-JHp">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="wh4-8W-RmQ">
+                            <connections>
+                                <segue destination="YIh-LU-dRt" kind="unwind" unwindAction="done:" id="zrr-7n-95D"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tzG-pR-840" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="YIh-LU-dRt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6017" y="4619"/>
         </scene>
