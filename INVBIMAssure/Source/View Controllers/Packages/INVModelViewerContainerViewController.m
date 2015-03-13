@@ -32,6 +32,10 @@
     if ([[segue destinationViewController] isKindOfClass:[INVModelViewerViewController class]]) {
         self.modelViewController = segue.destinationViewController;
     }
+
+    if ([[segue destinationViewController] isKindOfClass:[INVModelTreeTableViewController class]]) {
+        self.modelTreeViewController = segue.destinationViewController;
+    }
 }
 
 - (void)setModelViewController:(INVModelViewerViewController *)modelViewController
@@ -40,6 +44,13 @@
 
     _modelViewController.modelId = self.modelId;
     _modelViewController.fileVersionId = self.fileVersionId;
+}
+
+- (void)setModelTreeViewController:(INVModelTreeTableViewController *)modelTreeViewController
+{
+    _modelTreeViewController = modelTreeViewController;
+
+    _modelTreeViewController.packageVersionId = self.fileVersionId;
 }
 
 - (void)setModelId:(NSNumber *)modelId
@@ -54,6 +65,7 @@
     _fileVersionId = fileVersionId;
 
     _modelViewController.fileVersionId = fileVersionId;
+    _modelTreeViewController.packageVersionId = fileVersionId;
 }
 
 /*

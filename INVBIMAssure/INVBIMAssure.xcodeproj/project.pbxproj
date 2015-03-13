@@ -35,6 +35,9 @@
 		F5024AFD1A6808FA002EEE5F /* INVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024AFA1A6808FA002EEE5F /* INVNotification.m */; };
 		F5024AFE1A6808FA002EEE5F /* INVNotificationPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024AFC1A6808FA002EEE5F /* INVNotificationPoller.m */; };
 		F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */; };
+		F5076B891AB1CA3D002A0EA8 /* INVModelTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F5076B881AB1CA3D002A0EA8 /* INVModelTreeNode.m */; };
+		F5076B8C1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5076B8B1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m */; };
+		F5076B8E1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5076B8D1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib */; };
 		F5269DDF1A768AF5006AC27A /* INVCurrentUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */; };
 		F5269DE11A76A434006AC27A /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5269DE01A76A434006AC27A /* UserInfo.storyboard */; };
 		F5269DE41A76A83E006AC27A /* INVModalPresentationFromParentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */; };
@@ -44,6 +47,7 @@
 		F52BB7351A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */; };
 		F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */; };
 		F5313A401A7956BC00E476D3 /* INVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F5313A3F1A7956BC00E476D3 /* INVLogger.m */; };
+		F5356ED51AB210F500D8F917 /* INVMutableSectionedArray.m in Sources */ = {isa = PBXBuildFile; fileRef = F5356ED41AB210F500D8F917 /* INVMutableSectionedArray.m */; };
 		F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */; };
 		F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */; };
 		F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */; };
@@ -71,6 +75,7 @@
 		F55AD9121A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F55AD9111A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.m */; };
 		F55AD9141A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F55AD9131A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib */; };
 		F55FF5FF1A83E20C00ED6691 /* UIView+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F55FF5FE1A83E20C00ED6691 /* UIView+INVCustomizations.m */; };
+		F56C9DFF1AB1C46100D365AD /* libPods-AWPagedArray.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F56C9DFE1AB1C46100D365AD /* libPods-AWPagedArray.a */; };
 		F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C841A6429F200D8CEE7 /* Crashlytics.framework */; };
 		F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C861A6429F200D8CEE7 /* Fabric.framework */; };
 		F5789D351A642A5500D8CEE7 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C931A642A5500D8CEE7 /* INVDefaultAccountAlertView.m */; };
@@ -255,6 +260,11 @@
 		F5024AFC1A6808FA002EEE5F /* INVNotificationPoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVNotificationPoller.m; sourceTree = "<group>"; };
 		F5024AFF1A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVPendingInvitesNotificationDataSource.h; sourceTree = "<group>"; };
 		F5024B001A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVPendingInvitesNotificationDataSource.m; sourceTree = "<group>"; };
+		F5076B871AB1CA3D002A0EA8 /* INVModelTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeNode.h; sourceTree = "<group>"; };
+		F5076B881AB1CA3D002A0EA8 /* INVModelTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeNode.m; sourceTree = "<group>"; };
+		F5076B8A1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeNodeTableViewCell.h; sourceTree = "<group>"; };
+		F5076B8B1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeNodeTableViewCell.m; sourceTree = "<group>"; };
+		F5076B8D1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVModelTreeNodeTableViewCell.xib; sourceTree = "<group>"; };
 		F5269DDD1A768AF5006AC27A /* INVCurrentUsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCurrentUsersTableViewController.h; sourceTree = "<group>"; };
 		F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCurrentUsersTableViewController.m; sourceTree = "<group>"; };
 		F5269DE01A76A434006AC27A /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
@@ -272,6 +282,8 @@
 		F52BB73B1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVResetPasswordTableViewController.m; sourceTree = "<group>"; };
 		F5313A3E1A7956BC00E476D3 /* INVLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVLogger.h; sourceTree = "<group>"; };
 		F5313A3F1A7956BC00E476D3 /* INVLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVLogger.m; sourceTree = "<group>"; };
+		F5356ED31AB210F500D8F917 /* INVMutableSectionedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVMutableSectionedArray.h; sourceTree = "<group>"; };
+		F5356ED41AB210F500D8F917 /* INVMutableSectionedArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVMutableSectionedArray.m; sourceTree = "<group>"; };
 		F539D5151A644771007A2BDC /* libPods-FontAwesomeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FontAwesomeKit.a"; path = "../../Pods/build/Debug-iphoneos/libPods-FontAwesomeKit.a"; sourceTree = "<group>"; };
 		F539D5161A644771007A2BDC /* libPods-FrameAccessor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FrameAccessor.a"; path = "../../Pods/build/Debug-iphoneos/libPods-FrameAccessor.a"; sourceTree = "<group>"; };
 		F539D5171A644771007A2BDC /* libPods-MBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MBProgressHUD.a"; path = "../../Pods/build/Debug-iphoneos/libPods-MBProgressHUD.a"; sourceTree = "<group>"; };
@@ -311,6 +323,7 @@
 		F55FF5FD1A83E20C00ED6691 /* UIView+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+INVCustomizations.h"; sourceTree = "<group>"; };
 		F55FF5FE1A83E20C00ED6691 /* UIView+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+INVCustomizations.m"; sourceTree = "<group>"; };
 		F567EF841A8118B800DCD933 /* INVRuntimeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INVRuntimeUtils.h; sourceTree = "<group>"; };
+		F56C9DFE1AB1C46100D365AD /* libPods-AWPagedArray.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AWPagedArray.a"; path = "/Volumes/Data/GitHub/EmpireMobileApp-iOS/Pods/../build/Debug-iphoneos/libPods-AWPagedArray.a"; sourceTree = "<absolute>"; };
 		F5789C841A6429F200D8CEE7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F5789C861A6429F200D8CEE7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F5789C921A642A5500D8CEE7 /* INVDefaultAccountAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVDefaultAccountAlertView.h; sourceTree = "<group>"; };
@@ -525,6 +538,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F56C9DFF1AB1C46100D365AD /* libPods-AWPagedArray.a in Frameworks */,
 				02913EDC1AAF709E003E116B /* EmpireMobileManager.framework in Frameworks */,
 				F5D2914D1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a in Frameworks */,
 				F55AD90E1A8A420900202F0A /* OpenCTM.framework in Frameworks */,
@@ -619,6 +633,7 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F56C9DFE1AB1C46100D365AD /* libPods-AWPagedArray.a */,
 				02913EDB1AAF709E003E116B /* EmpireMobileManager.framework */,
 				F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */,
 				F5D2914C1A83F77C000CBA6B /* libYajl.a */,
@@ -647,6 +662,15 @@
 				F52BB7341A72A2D5002E0BC5 /* INVProjectsNotificationDataSource.m */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		F5076B861AB1CA24002A0EA8 /* Model Tree */ = {
+			isa = PBXGroup;
+			children = (
+				F5076B871AB1CA3D002A0EA8 /* INVModelTreeNode.h */,
+				F5076B881AB1CA3D002A0EA8 /* INVModelTreeNode.m */,
+			);
+			path = "Model Tree";
 			sourceTree = "<group>";
 		};
 		F539D52E1A64495D007A2BDC /* Localized */ = {
@@ -757,6 +781,8 @@
 				F55AD9111A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.m */,
 				F59165B21A94F86F00B7205F /* INVPendingInviteCell.h */,
 				F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */,
+				F5076B8A1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.h */,
+				F5076B8B1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -788,6 +814,7 @@
 		F5789CC51A642A5500D8CEE7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F5076B861AB1CA24002A0EA8 /* Model Tree */,
 				F5789CC61A642A5500D8CEE7 /* Categories */,
 				F5789CCE1A642A5500D8CEE7 /* CTM Parser */,
 				F5024AF81A6808D8002EEE5F /* Notifications */,
@@ -810,6 +837,8 @@
 				F5313A3E1A7956BC00E476D3 /* INVLogger.h */,
 				F5313A3F1A7956BC00E476D3 /* INVLogger.m */,
 				F548A58A1A7AD24600DF116C /* INVErrorHandling.h */,
+				F5356ED31AB210F500D8F917 /* INVMutableSectionedArray.h */,
+				F5356ED41AB210F500D8F917 /* INVMutableSectionedArray.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1072,6 +1101,7 @@
 				F5D8DBAA1A85076E00253787 /* INVRoleSelectionTableViewCell.xib */,
 				F55AD9131A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib */,
 				F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */,
+				F5076B8D1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib */,
 			);
 			path = "Interface Builder";
 			sourceTree = "<group>";
@@ -1204,6 +1234,7 @@
 				F5426D561A680F3F0040B2B5 /* Notifications.storyboard in Resources */,
 				F5426D5F1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib in Resources */,
 				F5789DBF1A642A6200D8CEE7 /* INVTokensTableViewCell.xib in Resources */,
+				F5076B8E1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib in Resources */,
 				F5FC0CBF1AA6413800FBAE84 /* Project Thumbnails in Resources */,
 				F55AD9141A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib in Resources */,
 				F5426D511A680EA30040B2B5 /* Login.storyboard in Resources */,
@@ -1364,10 +1395,12 @@
 				F55AD9031A895BCC00202F0A /* INVCreateAccountViewController.m in Sources */,
 				F5789D401A642A5500D8CEE7 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
 				0278BAE01A655CE9009E0E27 /* INVGenericTextEntryTableViewCell.m in Sources */,
+				F5356ED51AB210F500D8F917 /* INVMutableSectionedArray.m in Sources */,
 				F5789D7C1A642A5500D8CEE7 /* INVRulesListViewController.m in Sources */,
 				F5789D561A642A5500D8CEE7 /* INVStreamBasedJSONParser.m in Sources */,
 				F5789D601A642A5500D8CEE7 /* INVInviteUsersTableViewController.m in Sources */,
 				F5789D6B1A642A5500D8CEE7 /* INVMainViewController.m in Sources */,
+				F5076B891AB1CA3D002A0EA8 /* INVModelTreeNode.m in Sources */,
 				F5789D711A642A5500D8CEE7 /* INVProjectFilesListViewController.m in Sources */,
 				024FEF001A69BA59001CA262 /* INVPagingManager+ProjectListing.m in Sources */,
 				F5789D571A642A5500D8CEE7 /* NSURLConnectionBlockDelegate.m in Sources */,
@@ -1376,6 +1409,7 @@
 				024FEEF11A69859A001CA262 /* INVTabBarStoryboardLoader.m in Sources */,
 				F5789D511A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
 				F5789D641A642A5500D8CEE7 /* INVUserManagementTableViewController.m in Sources */,
+				F5076B8C1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m in Sources */,
 				F5789D351A642A5500D8CEE7 /* INVDefaultAccountAlertView.m in Sources */,
 				F5789D7D1A642A5500D8CEE7 /* INVRunRulesTableViewController.m in Sources */,
 				F5269DF11A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m in Sources */,
@@ -1556,8 +1590,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphonesimulator",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/RBCollectionViewInfoFolderLayout/build/Prod-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Yajl/build/Dev-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1718,8 +1750,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphonesimulator",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/RBCollectionViewInfoFolderLayout/build/Prod-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Yajl/build/Dev-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1880,8 +1910,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphonesimulator",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/RBCollectionViewInfoFolderLayout/build/Prod-iphoneos",
-					"/Volumes/Data/GitHub/EmpireMobileApp-iOS/Yajl/build/Dev-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (

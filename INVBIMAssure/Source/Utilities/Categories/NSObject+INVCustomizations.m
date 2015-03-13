@@ -13,7 +13,7 @@
 @interface NSObject_DeallocHandler : NSObject
 
 @property (copy) void (^blockToRun)(id);
-@property (weak) id theObject;
+@property (assign) id theObject;
 
 - (id)initWithBlock:(void (^)(id))block onObject:(id)object;
 + (id)deallocHandlerWithBlock:(void (^)(id))block onObject:(id)object;

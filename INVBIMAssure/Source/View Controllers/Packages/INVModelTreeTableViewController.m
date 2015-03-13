@@ -7,95 +7,29 @@
 //
 
 #import "INVModelTreeTableViewController.h"
-#import "NSArray+INVCustomizations.h"
-#import "UIView+INVCustomizations.h"
 #import "INVBuildingElementPropertiesTableViewController.h"
 
-@interface INVModelTreeNode : NSObject
+#import "NSArray+INVCustomizations.h"
+#import "UIView+INVCustomizations.h"
+#import "NSObject+INVCustomizations.h"
 
-@property (nonatomic, strong) INVModelTreeNode *parent;
+#import "INVModelTreeNode.h"
+#import "INVModelTreeNodeTableViewCell.h"
 
-@property (nonatomic, copy) NSNumber *id;
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSArray *children;
+#import "INVMutableSectionedArray.h"
+#import <AWPagedArray/AWPagedArray.h>
 
-@property (nonatomic, getter=isExpanded) BOOL expanded;
+#define CONTEXT_NODE_LEVEL(n) ((void *) (n))
 
-+ (instancetype)treeNodeWithName:(NSString *)name id:(NSNumber *)id children:(NSArray *)children;
-- (id)initWithName:(NSString *)name id:(NSNumber *)id children:(NSArray *)children;
-
-@end
-
-@implementation INVModelTreeNode
-
-+ (instancetype)treeNodeWithName:(NSString *)name id:(NSNumber *)id children:(NSArray *)children
-{
-    return [[self alloc] initWithName:name id:id children:children];
-}
-
-- (id)initWithName:(NSString *)name id:(NSNumber *)id children:(NSArray *)children
-{
-    if (self = [super init]) {
-        self.name = name;
-        self.id = id;
-        self.children = children;
-    }
-
-    return self;
-}
-
-@end
-
-@interface INVModelTreeNodeTableViewCell : UITableViewCell
-
-@property (nonatomic) IBOutlet UILabel *nameLabel;
-@property (nonatomic) IBOutlet UILabel *expandedIndicator;
-
-@property (nonatomic) INVModelTreeNode *node;
-
-@end
-
-@implementation INVModelTreeNodeTableViewCell
-
-- (void)awakeFromNib
-{
-    [self updateUI];
-}
-
-- (void)setNode:(INVModelTreeNode *)node
-{
-    _node = node;
-
-    [self updateUI];
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    [self updateUI];
-
-    UIEdgeInsets margins = self.contentView.layoutMargins;
-    margins.left = 8 + (self.indentationLevel * self.indentationWidth);
-
-    self.contentView.layoutMargins = margins;
-}
-
-- (void)updateUI
-{
-    self.nameLabel.text = self.node.name;
-
-    self.expandedIndicator.text = self.node.expanded ? @"\uf0d7" : @"\uf0da";
-    self.expandedIndicator.hidden = (self.indentationLevel > 0);
-
-    self.accessoryType = (self.indentationLevel > 0) ? UITableViewCellAccessoryDetailButton : UITableViewCellAccessoryNone;
-}
-
-@end
+#define NODE_LEVEL_ROOT CONTEXT_NODE_LEVEL(0)
+#define NODE_LEVEL_CATEGORY CONTEXT_NODE_LEVEL(1)
+#define NODE_LEVEL_ELEMENT CONTEXT_NODE_LEVEL(2)
 
 @interface INVModelTreeTableViewController ()
 
-@property (nonatomic, copy) NSArray *rootNodes;
-@property (nonatomic, readonly) NSArray *flattenedNodes;
+@property (nonatomic, readwrite) INVModelTreeNodeTableViewCell *sizingCell;
+@property (nonatomic, readwrite) INVModelTreeNode *rootNode;
+@property (nonatomic, readonly) INVMutableSectionedArray *flattenedNodes;
 
 @end
 
@@ -111,31 +45,31 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = nil;
 
-    self.packageVersionId = @(0);
+    UINib *modelTreeCellNib = [UINib nibWithNibName:@"INVModelTreeNodeTableViewCell" bundle:nil];
+    self.sizingCell = [[modelTreeCellNib instantiateWithOwner:nil options:nil] firstObject];
 
-    [self.globalDataManager.invServerClient
-        fetchBuildingElementCategoriesForPackageVersionId:self.packageVersionId
-                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                          NSArray *categories = [result valueForKeyPath:@"aggregations.category.buckets.key"];
+    [self.tableView registerNib:modelTreeCellNib forCellReuseIdentifier:@"treeCell"];
+}
 
-                                          self.rootNodes =
-                                              [categories arrayByApplyingBlock:^id(id obj, NSUInteger _, BOOL *__) {
-                                                  return [INVModelTreeNode treeNodeWithName:obj id:@([obj hash]) children:nil];
-                                              }];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 
-                                          [self _generateParents:self.rootNodes parent:nil];
-                                          [self reloadData];
-                                      }];
-
-    self.rootNodes = @[];
-
-    [self _generateParents:self.rootNodes parent:nil];
-    [self reloadData];
+    [self reloadData:@NO];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"children"]) {
+        [self performSelectorOnMainThread:@selector(reloadData:) withObject:@YES waitUntilDone:NO];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -152,13 +86,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    INVModelTreeNode *node = self.flattenedNodes[indexPath.row];
-    NSInteger depth = -1;
+    INVModelTreeNode *node = [self.flattenedNodes rawObjectAtIndex:indexPath.row];
+    if ([node isKindOfClass:[NSNull class]]) {
+        return 0;
+    }
 
-    do {
-        node = node.parent;
+    NSInteger depth = 0;
+
+    while (![node isKindOfClass:[NSNull class]] && node.parent != self.rootNode) {
         depth++;
-    } while (node != nil);
+        node = node.parent;
+    }
 
     return depth;
 }
@@ -173,18 +111,22 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    CGFloat height = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-
-    [cell prepareForReuse];
-    return height;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewAutomaticDimension;
+    INVModelTreeNode *node = [self.flattenedNodes rawObjectAtIndex:indexPath.row];
+    if ([node isKindOfClass:[NSNull class]]) {
+        return tableView.rowHeight;
+    }
+
+    self.sizingCell.node = node;
+    self.sizingCell.indentationLevel = [self tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+
+    [self.sizingCell setNeedsUpdateConstraints];
+    [self.sizingCell layoutIfNeeded];
+
+    return [self.sizingCell systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, 0)
+                          withHorizontalFittingPriority:UILayoutPriorityRequired
+                                verticalFittingPriority:UILayoutPriorityDefaultLow].height;
 }
 
 #pragma mark - UITableViewDelegate
@@ -194,40 +136,11 @@
     INVModelTreeNode *node = self.flattenedNodes[indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    if (node.parent == nil) {
+    if (node.parent.parent == nil) {
         // Load the category contents
         node.expanded = !node.expanded;
 
-        [tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
-
-        [self.globalDataManager.invServerClient
-            fetchBuildingElementOfSpecifiedCategoryWithDisplayname:node.name
-                                               ForPackageVersionId:self.packageVersionId
-                                                        fromOffset:nil
-                                                          withSize:nil
-                                               withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                                   NSArray *hits = [result valueForKeyPath:@"hits.hits"];
-                                                   NSArray *ids = [hits valueForKeyPath:@"_id"];
-                                                   NSArray *names =
-                                                       [[[hits valueForKey:@"fields"] valueForKey:@"intrinsics.name.display"]
-                                                           valueForKeyPath:@"@unionOfArrays.self"];
-
-                                                   NSDictionary *elements =
-                                                       [[NSDictionary alloc] initWithObjects:names forKeys:ids];
-
-                                                   NSMutableArray *children = [NSMutableArray new];
-
-                                                   [elements enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                                                       [children addObject:[INVModelTreeNode treeNodeWithName:obj
-                                                                                                           id:key
-                                                                                                     children:nil]];
-                                                   }];
-
-                                                   node.children = [children copy];
-
-                                                   [self _generateParents:node.children parent:node];
-                                                   [self reloadData];
-                                               }];
+        [self reloadData:@YES];
     }
     else {
         // TODO: Highlight in viewer.
@@ -264,35 +177,147 @@
 
 #pragma mark - Content Management
 
+- (INVModelTreeNode *)treeNodeForElement:(NSNumber *)elementId
+                         withDisplayName:(NSString *)displayName
+                               andParent:(INVModelTreeNode *)parent
+{
+    INVModelTreeNode *node = [INVModelTreeNode treeNodeWithName:displayName id:elementId andLoadingBlock:nil];
+    node.parent = parent;
+
+    return node;
+}
+
+- (INVModelTreeNode *)treeNodeForCategory:(NSString *)category withParent:(INVModelTreeNode *)parent
+{
+    INVModelTreeNode *node = [INVModelTreeNode
+        treeNodeWithName:category
+                      id:@([category hash])
+         andLoadingBlock:^NSArray *(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount) {
+             dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+             __block NSArray *childNodes = nil;
+
+             [self.globalDataManager.invServerClient
+                 fetchBuildingElementOfSpecifiedCategoryWithDisplayname:node.name
+                                                    ForPackageVersionId:self.packageVersionId
+                                                             fromOffset:@(range.location)
+                                                               withSize:@(range.length)
+                                                    withCompletionBlock:^(id searchResult, INVEmpireMobileError *error) {
+                                                        NSArray *hits = [searchResult valueForKeyPath:@"hits"];
+                                                        NSArray *ids = [hits valueForKeyPath:@"_id"];
+                                                        NSArray *names = [[[hits valueForKey:@"fields"]
+                                                            valueForKey:@"intrinsics.name.display"]
+                                                            valueForKeyPath:@"@unionOfArrays.self"];
+
+                                                        *expectedTotalCount =
+                                                            [[searchResult valueForKeyPath:@"total"] integerValue];
+
+                                                        NSDictionary *elements =
+                                                            [[NSDictionary alloc] initWithObjects:names forKeys:ids];
+
+                                                        NSMutableArray *children = [NSMutableArray new];
+
+                                                        [elements
+                                                            enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                                                                [children addObject:[self treeNodeForElement:key
+                                                                                             withDisplayName:obj
+                                                                                                   andParent:node]];
+
+                                                            }];
+
+                                                        childNodes = children;
+
+                                                        dispatch_semaphore_signal(waitSemaphore);
+                                                    }];
+
+             dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_FOREVER);
+
+             return childNodes;
+         }];
+
+    node.parent = parent;
+
+    [node addObserver:self forKeyPath:@"children" options:0 context:NODE_LEVEL_CATEGORY];
+    [node addDeallocHandler:^(id node) {
+        [node removeObserver:self forKeyPath:@"children"];
+    }];
+
+    return node;
+}
+
+- (INVModelTreeNode *)rootNode
+{
+    if (_rootNode == nil) {
+        _rootNode = [INVModelTreeNode
+            treeNodeWithName:nil
+                          id:nil
+             andLoadingBlock:^NSArray *(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount) {
+                 dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+                 __block NSArray *childNodes = nil;
+
+                 [self.globalDataManager.invServerClient
+                     fetchBuildingElementCategoriesForPackageVersionId:self.packageVersionId
+                                                   withCompletionBlock:^(id searchResult, INVEmpireMobileError *error) {
+                                                       NSArray *categories =
+                                                           [searchResult valueForKeyPath:@"aggregations.category.buckets.key"];
+
+                                                       childNodes = [categories
+                                                           arrayByApplyingBlock:^id(id obj, NSUInteger _, BOOL *__) {
+                                                               return [self treeNodeForCategory:obj withParent:node];
+                                                           }];
+
+                                                       dispatch_semaphore_signal(waitSemaphore);
+                                                   }];
+
+                 dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_FOREVER);
+                 *expectedTotalCount = [childNodes count];
+
+                 return childNodes;
+             }];
+
+        [_rootNode addObserver:self forKeyPath:@"children" options:0 context:NODE_LEVEL_ROOT];
+
+        __weak typeof(self) weakSelf = self;
+        [_rootNode addDeallocHandler:^(id rootNode) {
+            [rootNode removeObserver:weakSelf forKeyPath:@"children"];
+        }];
+    }
+
+    return _rootNode;
+}
+
 // Force iVar generation for readonly property
 @synthesize flattenedNodes = _flattenedNodes;
 
-- (NSArray *)flattenedNodes
+- (INVMutableSectionedArray *)flattenedNodes
 {
     if (_flattenedNodes)
         return _flattenedNodes;
 
-    NSMutableArray *results = [NSMutableArray new];
+    INVMutableSectionedArray *results = [INVMutableSectionedArray new];
 
     __weak __block id weakBlock;
     void (^iterateBlock)(id, NSUInteger, BOOL *) = ^(INVModelTreeNode *object, NSUInteger index, BOOL *stop) {
-        [results addObject:object];
-
         if (object.isExpanded) {
-            [object.children enumerateObjectsUsingBlock:weakBlock];
+            [(AWPagedArray *) object.children enumerateExistingObjectsUsingBlock:weakBlock];
+
+            [results insertArray:object.children atIndex:index];
         }
     };
 
     weakBlock = iterateBlock;
-    [self.rootNodes enumerateObjectsUsingBlock:weakBlock];
 
-    _flattenedNodes = [results copy];
+    [results addObjectsFromArray:self.rootNode.children];
+    [(AWPagedArray *) self.rootNode.children enumerateExistingObjectsUsingBlock:weakBlock];
+
+    _flattenedNodes = results;
 
     return _flattenedNodes;
 }
 
-- (void)reloadData
+- (void)reloadData:(NSNumber *)animated
 {
+    animated = @NO;
+
     NSArray *oldNodes = self.flattenedNodes;
 
     // This flushes the cache
@@ -300,63 +325,59 @@
 
     NSArray *newNodes = self.flattenedNodes;
 
-    [self.tableView beginUpdates];
+    if ([animated boolValue]) {
+        [self.tableView beginUpdates];
 
-    NSUInteger lastStableIndex = -1;
-    for (NSUInteger index = 0; index < oldNodes.count; index++) {
-        INVModelTreeNode *node = oldNodes[index];
-        NSUInteger newIndex = [newNodes indexOfObject:node];
+        NSUInteger lastStableIndex = -1;
+        for (NSUInteger index = 0; index < oldNodes.count; index++) {
+            INVModelTreeNode *node = oldNodes[index];
+            NSUInteger newIndex = [newNodes indexOfObject:node];
 
-        if (newIndex == NSNotFound) {
-            [self.tableView deleteRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:index inSection:0] ]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (newIndex == NSNotFound) {
+                [self.tableView deleteRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:index inSection:0] ]
+                                      withRowAnimation:UITableViewRowAnimationAutomatic];
 
-            if (lastStableIndex) {
-                [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:lastStableIndex inSection:0] ]
-                                      withRowAnimation:UITableViewRowAnimationNone];
+                if (lastStableIndex) {
+                    [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:lastStableIndex inSection:0] ]
+                                          withRowAnimation:UITableViewRowAnimationNone];
 
-                lastStableIndex = -1;
+                    lastStableIndex = -1;
+                }
+            }
+            else if (index != newIndex) {
+                [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
+                                       toIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0]];
+            }
+            else {
+                lastStableIndex = index;
             }
         }
-        else if (index != newIndex) {
-            [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
-                                   toIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0]];
-        }
-        else {
-            lastStableIndex = index;
-        }
-    }
 
-    lastStableIndex = -1;
-    for (NSUInteger index = 0; index < newNodes.count; index++) {
-        INVModelTreeNode *node = newNodes[index];
-        NSUInteger oldIndex = [oldNodes indexOfObject:node];
+        lastStableIndex = -1;
+        for (NSUInteger index = 0; index < newNodes.count; index++) {
+            INVModelTreeNode *node = newNodes[index];
+            NSUInteger oldIndex = [oldNodes indexOfObject:node];
 
-        if (oldIndex == NSNotFound) {
-            [self.tableView insertRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:index inSection:0] ]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (oldIndex == NSNotFound) {
+                [self.tableView insertRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:index inSection:0] ]
+                                      withRowAnimation:UITableViewRowAnimationAutomatic];
 
-            if (lastStableIndex) {
-                [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:lastStableIndex inSection:0] ]
-                                      withRowAnimation:UITableViewRowAnimationNone];
+                if (lastStableIndex) {
+                    [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:lastStableIndex inSection:0] ]
+                                          withRowAnimation:UITableViewRowAnimationNone];
 
-                lastStableIndex = -1;
+                    lastStableIndex = -1;
+                }
+            }
+            else {
+                lastStableIndex = index;
             }
         }
-        else {
-            lastStableIndex = index;
-        }
+
+        [self.tableView endUpdates];
     }
-
-    [self.tableView endUpdates];
-}
-
-- (void)_generateParents:(NSArray *)nodes parent:(INVModelTreeNode *)parent
-{
-    for (INVModelTreeNode *node in nodes) {
-        node.parent = parent;
-
-        [self _generateParents:node.children parent:node];
+    else {
+        [self.tableView reloadData];
     }
 }
 

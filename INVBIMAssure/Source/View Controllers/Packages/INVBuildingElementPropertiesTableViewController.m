@@ -125,7 +125,6 @@
 
     [self.globalDataManager.invServerClient
         fetchBuildingElementPropertiesOfSpecifiedElement:self.buildingElementId
-                                  ForCategoryDisplayName:self.buildingElementCategory
                                      ForPackageVersionId:self.packageVersionId
                                               fromOffset:nil
                                                 withSize:nil
@@ -133,7 +132,7 @@
                                          [hud hide:YES];
 
                                          self.elementProperties =
-                                             [[[result valueForKeyPath:@"hits.hits._source.intrinsics"] firstObject] allValues];
+                                             [[[result valueForKeyPath:@"hits._source.intrinsics"] firstObject] allValues];
                                          [self.tableView reloadData];
                                      }];
 }

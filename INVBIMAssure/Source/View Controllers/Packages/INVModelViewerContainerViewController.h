@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "INVModelViewerViewController.h"
+#import "INVModelTreeTableViewController.h"
 
 @interface INVModelViewerContainerViewController : UIViewController
 
 @property (nonatomic, strong) INVModelViewerViewController *modelViewController;
+@property (nonatomic, strong) INVModelTreeTableViewController *modelTreeViewController;
 
 @property (nonatomic, strong) NSNumber *fileVersionId;
 @property (nonatomic, strong) NSNumber *modelId;

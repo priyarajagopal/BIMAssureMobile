@@ -73,6 +73,7 @@
 
 #warning TODO Specify the membership role when available (Always admin for now)
         self.roleLabel.text = NSLocalizedString(@"INV_MEMBERSHIP_TYPE_ADMIN", nil);
+        self.roleLabel.textColor = [UIColor whiteColor];
         self.roleLabelBGView.backgroundColor = greenShade;
 
         INVAccount *accountForThumbnail = self.account;

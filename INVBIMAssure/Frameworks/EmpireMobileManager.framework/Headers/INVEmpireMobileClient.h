@@ -1373,7 +1373,6 @@ accountManager can be used to retrieve the details of account
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
  @param buildingElementId The Id of the building element whose properties are to be fetched
 
- @param categoryName The display name of the category
 
  @param pkgId The Id of the package for which the building elements are to be fetched
 
@@ -1387,8 +1386,7 @@ accountManager can be used to retrieve the details of account
 
  @see fetchBuildingElementCategoriesForPackage:withCompletionBlock
  */
-- (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSNumber *)buildingElementId
-                                  ForCategoryDisplayName:(NSString *)categoryName
+- (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSString *)buildingElementId
                                      ForPackageVersionId:(NSNumber *)pkgId
                                               fromOffset:(NSNumber *)offset
                                                 withSize:(NSNumber *)size
