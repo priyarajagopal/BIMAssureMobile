@@ -27,8 +27,11 @@
 
 @interface INVModelTreeTableViewController ()
 
+@property BOOL shouldAnimatedPostUpdate;
 @property (nonatomic, readwrite) INVModelTreeNodeTableViewCell *sizingCell;
 @property (nonatomic, readwrite) INVModelTreeNode *rootNode;
+
+@property (nonatomic, readonly) INVMutableSectionedArray *oldNodes;
 @property (nonatomic, readonly) INVMutableSectionedArray *flattenedNodes;
 
 @end
@@ -68,7 +71,20 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"children"]) {
-        [self performSelectorOnMainThread:@selector(reloadData:) withObject:@YES waitUntilDone:NO];
+        BOOL animated = NO;
+
+        if (context == NODE_LEVEL_CATEGORY) {
+            if (change[NSKeyValueChangeNotificationIsPriorKey]) {
+                _shouldAnimatedPostUpdate = [[object children] count] == 0;
+                return;
+            }
+            else {
+                animated = _shouldAnimatedPostUpdate;
+                _shouldAnimatedPostUpdate = NO;
+            }
+        }
+
+        [self performSelectorOnMainThread:@selector(reloadData:) withObject:@(animated) waitUntilDone:YES];
     }
 }
 
@@ -202,6 +218,11 @@
                                                              fromOffset:@(range.location)
                                                                withSize:@(range.length)
                                                     withCompletionBlock:^(id searchResult, INVEmpireMobileError *error) {
+                                                        if (error) {
+                                                            INVLogError(@"%@", error);
+                                                            return;
+                                                        }
+
                                                         NSArray *hits = [searchResult valueForKeyPath:@"hits"];
                                                         NSArray *ids = [hits valueForKeyPath:@"_id"];
                                                         NSArray *names = [[[hits valueForKey:@"fields"]
@@ -236,7 +257,7 @@
 
     node.parent = parent;
 
-    [node addObserver:self forKeyPath:@"children" options:0 context:NODE_LEVEL_CATEGORY];
+    [node addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionPrior context:NODE_LEVEL_CATEGORY];
     [node addDeallocHandler:^(id node) {
         [node removeObserver:self forKeyPath:@"children"];
     }];
@@ -257,6 +278,11 @@
                  [self.globalDataManager.invServerClient
                      fetchBuildingElementCategoriesForPackageVersionId:self.packageVersionId
                                                    withCompletionBlock:^(id searchResult, INVEmpireMobileError *error) {
+                                                       if (error) {
+                                                           INVLogError(@"%@", error);
+                                                           return;
+                                                       }
+
                                                        NSArray *categories =
                                                            [searchResult valueForKeyPath:@"aggregations.category.buckets.key"];
 
@@ -274,7 +300,7 @@
                  return childNodes;
              }];
 
-        [_rootNode addObserver:self forKeyPath:@"children" options:0 context:NODE_LEVEL_ROOT];
+        [_rootNode addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionPrior context:NODE_LEVEL_ROOT];
 
         __weak typeof(self) weakSelf = self;
         [_rootNode addDeallocHandler:^(id rootNode) {
@@ -300,7 +326,7 @@
         if (object.isExpanded) {
             [(AWPagedArray *) object.children enumerateExistingObjectsUsingBlock:weakBlock];
 
-            [results insertArray:object.children atIndex:index];
+            [results insertArray:object.children atIndex:[results rawIndexOfObject:object]];
         }
     };
 
@@ -314,64 +340,64 @@
     return _flattenedNodes;
 }
 
+- (NSArray *)arrayWithIndexPathsInRange:(NSRange)range forSection:(NSUInteger)section
+{
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    for (NSUInteger row = range.location; row < range.location + range.length; row++) {
+        [results addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+    }
+
+    return [results copy];
+}
+
 - (void)reloadData:(NSNumber *)animated
 {
     animated = @NO;
 
-    NSArray *oldNodes = self.flattenedNodes;
-
     // This flushes the cache
     _flattenedNodes = nil;
 
-    NSArray *newNodes = self.flattenedNodes;
+    INVMutableSectionedArray *newNodes = self.flattenedNodes;
 
     if ([animated boolValue]) {
         [self.tableView beginUpdates];
 
-        NSUInteger lastStableIndex = -1;
-        for (NSUInteger index = 0; index < oldNodes.count; index++) {
-            INVModelTreeNode *node = oldNodes[index];
-            NSUInteger newIndex = [newNodes indexOfObject:node];
+        // First step, remove all old sections
+        NSUInteger currentIndex = 0;
+        for (INVMutableSectionedArraySection *section in _oldNodes.sections) {
+            NSRange sectionRange = NSMakeRange(currentIndex, section.range.length);
+            NSArray *sectionRows = [self arrayWithIndexPathsInRange:sectionRange forSection:0];
 
-            if (newIndex == NSNotFound) {
-                [self.tableView deleteRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:index inSection:0] ]
-                                      withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (![[newNodes sections] containsObject:section]) {
+                [self.tableView deleteRowsAtIndexPaths:sectionRows withRowAnimation:UITableViewRowAnimationLeft];
+                continue;
+            }
 
-                if (lastStableIndex) {
-                    [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:lastStableIndex inSection:0] ]
-                                          withRowAnimation:UITableViewRowAnimationNone];
-
-                    lastStableIndex = -1;
-                }
-            }
-            else if (index != newIndex) {
-                [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
-                                       toIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0]];
-            }
-            else {
-                lastStableIndex = index;
-            }
+            currentIndex += section.range.length;
         }
 
-        lastStableIndex = -1;
-        for (NSUInteger index = 0; index < newNodes.count; index++) {
-            INVModelTreeNode *node = newNodes[index];
-            NSUInteger oldIndex = [oldNodes indexOfObject:node];
+        currentIndex = 0;
+        for (INVMutableSectionedArraySection *section in newNodes.sections) {
+            NSRange sectionRange = NSMakeRange(currentIndex, section.range.length);
+            NSArray *sectionRows = [self arrayWithIndexPathsInRange:sectionRange forSection:0];
 
-            if (oldIndex == NSNotFound) {
-                [self.tableView insertRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:index inSection:0] ]
-                                      withRowAnimation:UITableViewRowAnimationAutomatic];
+            if ([_oldNodes.sections containsObject:section]) {
+                INVMutableSectionedArraySection *oldSection =
+                    [_oldNodes.sections objectAtIndex:[_oldNodes.sections indexOfObject:section]];
 
-                if (lastStableIndex) {
-                    [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:lastStableIndex inSection:0] ]
-                                          withRowAnimation:UITableViewRowAnimationNone];
-
-                    lastStableIndex = -1;
+                // Initial content load
+                if (oldSection.range.length == 0) {
+                    [self.tableView insertRowsAtIndexPaths:sectionRows withRowAnimation:UITableViewRowAnimationLeft];
+                }
+                else {
+                    // [self.tableView reloadRowsAtIndexPaths:sectionRows withRowAnimation:UITableViewRowAnimationNone];
                 }
             }
             else {
-                lastStableIndex = index;
+                [self.tableView insertRowsAtIndexPaths:sectionRows withRowAnimation:UITableViewRowAnimationLeft];
             }
+
+            currentIndex += section.range.length;
         }
 
         [self.tableView endUpdates];
@@ -379,6 +405,8 @@
     else {
         [self.tableView reloadData];
     }
+
+    _oldNodes = [newNodes copy];
 }
 
 @end

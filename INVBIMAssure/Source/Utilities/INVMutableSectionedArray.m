@@ -12,13 +12,6 @@
     [NSException raise:NSInvalidArgumentException                                                                              \
                 format:@"Cannot call %@ on an instance of %@", NSStringFromSelector(_cmd), [self class]]
 
-@interface INVMutableSectionedArraySection : NSObject
-
-@property NSArray *array;
-@property NSRange range;
-
-@end
-
 @implementation INVMutableSectionedArraySection
 
 - (id)init
@@ -52,10 +45,37 @@
                                 (unsigned long) self.range.length];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    INVMutableSectionedArraySection *results = [[INVMutableSectionedArraySection allocWithZone:zone] init];
+    results.array = self.array;
+    results.range = self.range;
+    results.userInfo = self.userInfo;
+
+    return results;
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[INVMutableSectionedArraySection class]]) {
+        INVMutableSectionedArraySection *other = object;
+
+        if (self.userInfo || other.userInfo) {
+            return [self.userInfo isEqual:other.userInfo];
+        }
+
+        return [[other array] isEqual:[self array]] && other.range.location == self.range.location &&
+               other.range.length == self.range.length;
+    }
+
+    return NO;
+}
+
 @end
 
 @interface INVMutableSectionedArray ()
 
+@property (readwrite) NSUInteger userInfoCount;
 @property (readwrite) NSMutableArray *sections;
 
 @end
@@ -130,18 +150,18 @@
     }
 
     // Split into three sections
-    NSUInteger sectionIndex = [_sections indexOfObject:firstHalf];
+    NSUInteger sectionIndex = [_sections indexOfObjectIdenticalTo:firstHalf];
 
     INVMutableSectionedArraySection *toInsert = [INVMutableSectionedArraySection new];
-    INVMutableSectionedArraySection *secondHalf = [INVMutableSectionedArraySection new];
+    INVMutableSectionedArraySection *secondHalf = [firstHalf copy];
 
+    toInsert.userInfo = @(_userInfoCount++);
     toInsert.array = array;
-    secondHalf.array = firstHalf.array;
 
     NSUInteger firstRangeStart = firstHalf.range.location;
-    NSUInteger firstRangeEnd = adjustedIndex + 1;
+    NSUInteger firstRangeEnd = firstRangeStart + adjustedIndex + 1;
 
-    NSUInteger secondRangeStart = adjustedIndex + 1;
+    NSUInteger secondRangeStart = firstRangeEnd;
     NSUInteger secondRangeEnd = firstRangeStart + firstHalf.range.length;
 
     firstHalf.range = NSMakeRange(firstRangeStart, (firstRangeEnd - firstRangeStart));
@@ -155,6 +175,7 @@
 {
     INVMutableSectionedArraySection *section = [INVMutableSectionedArraySection new];
     section.array = otherArray;
+    section.userInfo = @(_userInfoCount++);
 
     [_sections addObject:section];
 }
@@ -167,7 +188,7 @@
     }]];
 }
 
-- (NSUInteger)rawCount
+- (NSUInteger)count
 {
     NSUInteger count = 0;
     for (INVMutableSectionedArraySection *section in _sections) {
@@ -175,11 +196,6 @@
     }
 
     return count;
-}
-
-- (NSUInteger)count
-{
-    return [self rawCount];
 }
 
 - (id)objectAtIndex:(NSUInteger)index
@@ -208,6 +224,31 @@
     }
 
     return [section.array objectAtIndex:section.range.location + adjustedIndex];
+}
+
+- (NSUInteger)rawIndexOfObject:(id)object
+{
+    for (NSUInteger index = 0; index < [self count]; index++) {
+        if ([[self rawObjectAtIndex:index] isEqual:object]) {
+            return index;
+        }
+    }
+
+    return NSNotFound;
+}
+
+- (id)copy
+{
+    NSMutableArray *sections = [[NSMutableArray alloc] initWithArray:_sections copyItems:YES];
+    for (INVMutableSectionedArraySection *section in sections) {
+        section.array = [section.array subarrayWithRange:section.range];
+        section.range = NSMakeRange(0, section.array.count);
+    }
+
+    INVMutableSectionedArray *copy = [INVMutableSectionedArray new];
+    copy.sections = sections;
+
+    return copy;
 }
 
 @end

@@ -20,6 +20,7 @@
 #import "UISplitViewController+ToggleSidebar.h"
 
 #include <sys/utsname.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @import CoreData;
 
@@ -138,8 +139,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         [collectionView dequeueReusableCellWithReuseIdentifier:@"ProjectFileCell" forIndexPath:indexPath];
 
     // Configure the cell
-    NSManagedObject *managedFileObj = [self.dataResultsController objectAtIndexPath:indexPath];
-    INVPackage *file = [MTLManagedObjectAdapter modelOfClass:[INVPackage class] fromManagedObject:managedFileObj error:nil];
+    INVPackage *file = [self.dataResultsController objectAtIndexPath:indexPath];
 
     cell.fileId = file.packageId;
     cell.tipId = file.tipId;
@@ -158,24 +158,17 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     else {
         [cell.loaderActivity startAnimating];
 
-        [self.globalDataManager.invServerClient getThumbnailImageForPkgVersion:file.tipId
-                                         ForSignedInAccountWithCompletionBlock:^(id data, INVEmpireMobileError *error) {
-                                             if (!error) {
-                                                 [cell.loaderActivity stopAnimating];
+        [cell.fileThumbnail
+            setImageWithURLRequest:[self.globalDataManager.invServerClient requestToGetThumbnailImageForPkgVersionId:file.tipId]
+            placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                [cell.loaderActivity stopAnimating];
+            }
+            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                INVLogError(@"Error while loading thumbnail: %@", error);
 
-                                                 // TODO: Optimize memory usage here - this resizing spikes memory usage upwards
-                                                 // of 300MB, which isn't good.
-                                                 UIImage *origImage = [UIImage imageWithData:data];
-                                                 cell.fileThumbnail.image =
-                                                     [UIImage resizeImage:origImage toSize:cell.fileThumbnail.frame.size];
-                                             }
-                                             else {
-                                                 UIImage *placeHolder = [UIImage imageNamed:@"ImageNotFound"];
-
-                                                 [cell.loaderActivity stopAnimating];
-                                                 cell.fileThumbnail.image = placeHolder;
-                                             }
-                                         }];
+                [cell.loaderActivity stopAnimating];
+            }];
     }
 
 #warning - eventually deal with file versions

@@ -222,6 +222,10 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
+    if (error) {
+        INVLogError(@"%@", error);
+    }
+
     void (^failureBlock)(NSInteger errorCode) = ^(NSInteger errorCode) {
         if (errorCode != INV_ERROR_CODE_NOMOREPAGES) {
             UIAlertController *errController =
