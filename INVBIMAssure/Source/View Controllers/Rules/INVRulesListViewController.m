@@ -18,7 +18,8 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 @interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,
-    INVRuleSetTableViewHeaderViewAcionDelegate, INVRuleInstanceTableViewControllerDelegate, NSFetchedResultsControllerDelegate>
+    INVRuleSetTableViewHeaderViewAcionDelegate, INVRuleInstanceTableViewControllerDelegate, NSFetchedResultsControllerDelegate,
+    UISplitViewControllerDelegate>
 @property (nonatomic, strong) INVRulesManager *rulesManager;
 @property (nonatomic, strong) NSFetchedResultsController *dataResultsController;
 @property (nonatomic, strong) INVRulesTableViewDataSource *dataSource;

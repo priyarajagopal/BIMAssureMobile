@@ -177,17 +177,37 @@
                                        contactPhone:self.accountContactPhoneTextField.text
                                     numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
                                        forUserEmail:email
-                                withCompletionBlock:^(INVEmpireMobileError *error) {
-                                    [self hideSignupProgress];
-
-                                    if (!error) {
+                                withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                    INV_ALWAYS:
+                                    INV_SUCCESS : {
                                         INVLogDebug(@"Succesfully created account %@", self.accountNameTextField.text);
 
-                                        self.signupSuccess = YES;
+                                        [self.globalDataManager.invServerClient
+                                                signIntoAccount:[result accountId]
+                                            withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                self.globalDataManager.loggedInAccount = [result accountId];
+
+                                                [self.globalDataManager.invServerClient
+                                                    addThumbnailImageForSignedInAccountWithThumbnail:
+                                                        [self.accountThumbnailImageView.image writeImageToTemporaryFile]
+                                                                               withCompletionHandler:INV_COMPLETION_HANDLER {
+                                                                                   INV_ALWAYS:
+                                                                                       [self hideSignupProgress];
+
+                                                                                   INV_SUCCESS:
+                                                                                       self.signupSuccess = YES;
+
+                                                                                   INV_ERROR:
+                                                                                       INVLogError(@"%@", error);
+
+                                                                                       [self showSignupFailureAlert];
+                                                                               }];
+                                            }];
                                     }
-                                    else {
+
+                                    INV_ERROR:
+                                        [self hideSignupProgress];
                                         [self showSignupFailureAlert];
-                                    }
                                 }];
 }
 
@@ -330,11 +350,11 @@
     [self.tableView beginUpdates];
 
     if (self.invitationCodeSwitch.on) {
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(SECTION_ACCOUNT_INFO, 2)]
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(SECTION_ACCOUNT_THUMBNAIL, 2)]
                       withRowAnimation:UITableViewRowAnimationNone];
     }
     else {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(SECTION_ACCOUNT_INFO, 2)]
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(SECTION_ACCOUNT_THUMBNAIL, 2)]
                       withRowAnimation:UITableViewRowAnimationNone];
     }
 

@@ -205,6 +205,7 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
     // _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
     NSNumber *package = @(0);
 
+    // TODO: Support thumbnails
     [self.globalDataManager.invServerClient signUpUserWithFirstName:self.firstNameTextField.text
                                                            lastName:self.lastNameTextField.text
                                                         userAddress:self.userAddressTextField.text
@@ -222,8 +223,7 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                                                         contactName:self.accountContactNameTextField.text
                                                        contactPhone:self.accountContactPhoneTextField.text
                                                     numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
-                                                withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                    [self hideSignupProgress];
+                                                withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                                     if (!error) {
                                                         INVLogDebug(@"Succesfully signedup user %@ and created account %@",
                                                             self.firstNameTextField.text, self.accountNameTextField.text);
@@ -252,7 +252,7 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                                                               email:self.emailTextField.text
                                                            password:self.passwordTextField.text
                                                  allowNotifications:NO
-                                                withCompletionBlock:^(INVEmpireMobileError *error) {
+                                                withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                                     [self hideSignupProgress];
 
                                                     if (!error) {

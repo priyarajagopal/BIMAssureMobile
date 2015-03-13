@@ -431,7 +431,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  @param numEmployees  optional number of employees
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- accountManager can be used to retrieve the details of account
+ accountManager can be used to retrieve the details of account. Instance of INVUser is created
 
  @see accountManager
 
@@ -455,7 +455,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                     contactName:(NSString *)contactName
                    contactPhone:(NSString *)contactPhone
                 numberEmployees:(NSNumber *)numEmployees
-            withCompletionBlock:(CompletionHandler)handler;
+            withCompletionBlock:(CompletionHandlerWithData)handler;
 /**
  Asynchornously , sign up a user with the XOS Passport service
 
@@ -479,7 +479,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- accountManager can be used to retrieve the details of account
+ accountManager can be used to retrieve the details of account. Instance of INVUser is returned
 
  @see accountManager
 
@@ -494,7 +494,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                           email:(NSString *)userEmail
                        password:(NSString *)password
              allowNotifications:(BOOL)allowNotifications
-            withCompletionBlock:(CompletionHandler)handler;
+            withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously , create an account for currently signed in user with the XOS Passport service
@@ -519,7 +519,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  @param userEmail The email address of signed in user. ***** THE SERVER API SHOULD BE UPDATED TO NOT REQUIRE THIS FIELD ******
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- accountManager can be used to retrieve the details of account
+ accountManager can be used to retrieve the details of account. Instance of INVAccount is returned
 
  @see accountManager
 
@@ -534,7 +534,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                                        contactPhone:(NSString *)contactPhone
                                     numberEmployees:(NSNumber *)numEmployees
                                        forUserEmail:(NSString *)userEmail
-                                withCompletionBlock:(CompletionHandler)handler;
+                                withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously , disable an account for currently signed in account. Once disabled, the account
