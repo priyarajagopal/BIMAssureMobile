@@ -194,7 +194,7 @@
 
     [self presentViewController:viewController animated:YES completion:nil];
 
-    viewController.popoverPresentationController.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+    viewController.popoverPresentationController.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
 
     // This should be the accessory button.
     UIView *anchor = sender;

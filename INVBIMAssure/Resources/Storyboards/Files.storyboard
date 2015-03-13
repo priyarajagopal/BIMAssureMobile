@@ -281,45 +281,54 @@
         <scene sceneID="aWN-df-IPR">
             <objects>
                 <tableViewController id="9Ir-AK-vuP" customClass="INVBuildingElementPropertiesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" alpha="0.65000000000000002" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="cPv-HR-6oB">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="cPv-HR-6oB">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="propertyCell" rowHeight="75" id="1kv-O4-2R9" customClass="INVBuildingElementPropertiesTableViewCell">
+                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="propertyCell" rowHeight="75" id="1kv-O4-2R9" customClass="INVBuildingElementPropertiesTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1kv-O4-2R9" id="x60-10-BJJ">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1kv-O4-2R9" id="x60-10-BJJ">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Value" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="veE-gk-Xi6">
-                                            <rect key="frame" x="242" y="12" width="150" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="d81-Fp-9kD"/>
-                                            </constraints>
+                                            <rect key="frame" x="209" y="12" width="183" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Property" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="SVC-kP-5CS">
-                                            <rect key="frame" x="15" y="12" width="150" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="srU-Su-ha5"/>
-                                            </constraints>
+                                            <rect key="frame" x="15" y="12" width="177" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IZE-41-rpl">
+                                            <rect key="frame" x="200" y="0.0" width="1" height="74"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="1" id="Tu8-bS-S03"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="SVC-kP-5CS" secondAttribute="bottom" constant="4" id="BSg-j5-QmR"/>
+                                        <constraint firstItem="IZE-41-rpl" firstAttribute="leading" secondItem="SVC-kP-5CS" secondAttribute="trailing" constant="8" id="IkS-DO-jSa"/>
                                         <constraint firstItem="SVC-kP-5CS" firstAttribute="top" secondItem="x60-10-BJJ" secondAttribute="topMargin" constant="4" id="LtY-q5-W5r"/>
                                         <constraint firstItem="SVC-kP-5CS" firstAttribute="leading" secondItem="x60-10-BJJ" secondAttribute="leading" constant="15" id="O2L-Xf-yKI"/>
-                                        <constraint firstItem="veE-gk-Xi6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SVC-kP-5CS" secondAttribute="trailing" constant="20" id="SSW-wB-8eV"/>
+                                        <constraint firstItem="IZE-41-rpl" firstAttribute="top" secondItem="x60-10-BJJ" secondAttribute="top" id="RKy-gs-RI8"/>
+                                        <constraint firstItem="veE-gk-Xi6" firstAttribute="leading" secondItem="IZE-41-rpl" secondAttribute="trailing" constant="8" id="dFd-Sf-hyf"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="veE-gk-Xi6" secondAttribute="bottom" constant="4" id="dtw-KE-dHk"/>
                                         <constraint firstItem="veE-gk-Xi6" firstAttribute="top" secondItem="x60-10-BJJ" secondAttribute="topMargin" constant="4" id="hag-qK-ZeE"/>
+                                        <constraint firstAttribute="centerX" secondItem="IZE-41-rpl" secondAttribute="centerX" id="iZ3-vu-K80"/>
                                         <constraint firstAttribute="trailing" secondItem="veE-gk-Xi6" secondAttribute="trailing" constant="8" id="qDC-do-e9x"/>
+                                        <constraint firstAttribute="bottom" secondItem="IZE-41-rpl" secondAttribute="bottom" id="yUv-PQ-Jl8"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="propertyNameLabel" destination="SVC-kP-5CS" id="gRg-N3-9My"/>
                                     <outlet property="propertyValueLabel" destination="veE-gk-Xi6" id="OQo-4h-jNl"/>
@@ -336,12 +345,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tzG-pR-840" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6017" y="4621"/>
+            <point key="canvasLocation" x="6017" y="4619"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Building Element Properties Navigation View Controller-->
         <scene sceneID="Ocj-gs-zn2">
             <objects>
-                <navigationController storyboardIdentifier="ViewPropertiesNC" id="0qD-yi-J2h" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ViewPropertiesNC" id="0qD-yi-J2h" customClass="INVBuildingElementPropertiesNavigationViewController" sceneMemberID="viewController">
                     <value key="contentSizeForViewInPopover" type="size" width="400" height="600"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

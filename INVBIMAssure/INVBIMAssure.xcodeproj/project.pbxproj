@@ -64,6 +64,7 @@
 		F5426D5D1A6853BA0040B2B5 /* INVNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5426D5C1A6853BA0040B2B5 /* INVNotificationTableViewCell.m */; };
 		F5426D5F1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */; };
 		F547DA1D1A9E28F600B871A6 /* INVCustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = F547DA1C1A9E28F600B871A6 /* INVCustomSwitch.m */; };
+		F54864921AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54864911AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m */; };
 		F54CB1461A82B32300E8C584 /* INVUserProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54CB1451A82B32300E8C584 /* INVUserProfileTableViewController.m */; };
 		F54E70E41A93963F00FB2BCB /* UILabel+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F54E70E31A93963F00FB2BCB /* UILabel+INVCustomizations.m */; };
 		F555FD8D1A70071000C01288 /* INVModelViewerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */; };
@@ -305,6 +306,8 @@
 		F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSTimeIntervalToString.h; sourceTree = "<group>"; };
 		F547DA1B1A9E28F600B871A6 /* INVCustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCustomSwitch.h; sourceTree = "<group>"; };
 		F547DA1C1A9E28F600B871A6 /* INVCustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCustomSwitch.m; sourceTree = "<group>"; };
+		F54864901AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBuildingElementPropertiesNavigationViewController.h; sourceTree = "<group>"; };
+		F54864911AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBuildingElementPropertiesNavigationViewController.m; sourceTree = "<group>"; };
 		F548A58A1A7AD24600DF116C /* INVErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVErrorHandling.h; sourceTree = "<group>"; };
 		F54CB1441A82B32300E8C584 /* INVUserProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVUserProfileTableViewController.h; sourceTree = "<group>"; };
 		F54CB1451A82B32300E8C584 /* INVUserProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVUserProfileTableViewController.m; sourceTree = "<group>"; };
@@ -1007,6 +1010,8 @@
 				F555FD8F1A702BBA00C01288 /* INVModelTreeTableViewController.m */,
 				F5FC0CB91AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.h */,
 				F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */,
+				F54864901AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.h */,
+				F54864911AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1469,6 +1474,7 @@
 				F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */,
 				F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */,
 				F5789D391A642A5500D8CEE7 /* INVSearchView.m in Sources */,
+				F54864921AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m in Sources */,
 				F5789D681A642A5500D8CEE7 /* INVCustomTableViewController.m in Sources */,
 				F5789D6A1A642A5500D8CEE7 /* INVMainMenuViewController.m in Sources */,
 				F55AD9001A893A3300202F0A /* UIResponder+IBHelpers.m in Sources */,

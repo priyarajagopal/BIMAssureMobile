@@ -10,6 +10,9 @@
 #import "INVLoginViewController.h"
 #import "INVAccountListViewController.h"
 #import "INVProjectListSplitViewController.h"
+#import "INVBuildingElementPropertiesTableViewController.h"
+#import "INVBuildingElementPropertiesNavigationViewController.h"
+
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -140,6 +143,14 @@
 
     // This is for the detail disclosure (i)
     [[UIButton appearanceWhenContainedIn:NSClassFromString(@"INVModelTreeNodeTableViewCell"), nil] setTintColor:darkGreyColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[INVBuildingElementPropertiesNavigationViewController class], nil]
+        setBarTintColor:[UIColor blackColor]];
+
+    [[UITableView appearanceWhenContainedIn:[INVBuildingElementPropertiesTableViewController class], nil]
+        setTintColor:[UIColor clearColor]];
+
+    [[NSClassFromString(@"INVBuildingElementPropertiesTableViewCell") appearance] setBackgroundColor:[UIColor clearColor]];
 
     // Universal shadow offset
     [[UILabel appearance] setShadowOffset:CGSizeZero];

@@ -61,9 +61,12 @@
         else {
             self.propertyValueLabel.text = [value description];
         }
+
+        self.propertyValueLabel.textColor = [UIColor whiteColor];
     }
     else {
-        self.propertyValueLabel.text = nil;
+        self.propertyValueLabel.text = NSLocalizedString(@"VALUE_MISSING", nil);
+        self.propertyValueLabel.textColor = [UIColor redColor];
     }
 }
 
