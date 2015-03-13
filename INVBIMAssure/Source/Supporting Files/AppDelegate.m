@@ -103,6 +103,7 @@
 
     [[UIBarButtonItem appearance] setTintColor:whiteColor];
     [[UIView appearanceWhenContainedIn:[UIToolbar class], nil] setTintColor:[UIColor blackColor]];
+    [[UIView appearanceWhenContainedIn:[UIToolbar class], [UICollectionView class], nil] setTintColor:whiteColor];
 
     [[UITextField appearance] setTintColor:darkGreyColor];
 
@@ -138,7 +139,7 @@
     [[UIImageView appearanceWhenContainedIn:[UITableView class], nil] setTintColor:darkGreyColor];
 
     // This is for the detail disclosure (i)
-    [[UIButton appearanceWhenContainedIn:[UITableView class], nil] setTintColor:darkGreyColor];
+    [[UIButton appearanceWhenContainedIn:NSClassFromString(@"INVModelTreeNodeTableViewCell"), nil] setTintColor:darkGreyColor];
 
     // Universal shadow offset
     [[UILabel appearance] setShadowOffset:CGSizeZero];
