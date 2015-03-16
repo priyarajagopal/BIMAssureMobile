@@ -15,8 +15,6 @@
 @import OpenCTM;
 @import GLKit;
 
-void classDump(Class);
-
 @interface INVModelViewerViewController () <INVStreamBasedCTMParserDelegate> {
     EAGLContext *_context;
 
@@ -327,10 +325,6 @@ void classDump(Class);
         }
          */
     }
-}
-
-- (IBAction)toggleSidebar:(id)sender
-{
 }
 
 - (IBAction)goHome:(id)sender

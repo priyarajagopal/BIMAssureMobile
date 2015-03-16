@@ -27,7 +27,6 @@
 		0278BB0B1A66C60D009E0E27 /* INVTransitionToStoryboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */; };
 		02913EDC1AAF709E003E116B /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02913EDB1AAF709E003E116B /* EmpireMobileManager.framework */; };
 		02913EDD1AAF709E003E116B /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02913EDB1AAF709E003E116B /* EmpireMobileManager.framework */; };
-		02913EDE1AAF70AB003E116B /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02913EDB1AAF709E003E116B /* EmpireMobileManager.framework */; };
 		02913EDF1AAF70AB003E116B /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02913EDB1AAF709E003E116B /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02AFD1801A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AFD17F1A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m */; };
 		1827E538D895002A1BC239B6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A017907C030AFB8C7812E225 /* libPods.a */; };
@@ -170,9 +169,6 @@
 		F5789DBE1A642A6200D8CEE7 /* INVTextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D9C1A642A6200D8CEE7 /* INVTextViewTableViewCell.xib */; };
 		F5789DBF1A642A6200D8CEE7 /* INVTokensTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D9D1A642A6200D8CEE7 /* INVTokensTableViewCell.xib */; };
 		F5789DC01A642A6200D8CEE7 /* invicara_config_server.cer in Resources */ = {isa = PBXBuildFile; fileRef = F5789D9F1A642A6200D8CEE7 /* invicara_config_server.cer */; };
-		F5789DC11A642A6200D8CEE7 /* ServerConfig-Dev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA01A642A6200D8CEE7 /* ServerConfig-Dev.xcconfig */; };
-		F5789DC21A642A6200D8CEE7 /* ServerConfig-Prod.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA11A642A6200D8CEE7 /* ServerConfig-Prod.xcconfig */; };
-		F5789DC31A642A6200D8CEE7 /* ServerConfig-QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA21A642A6200D8CEE7 /* ServerConfig-QA.xcconfig */; };
 		F5789DC41A642A6200D8CEE7 /* Startup.json in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA31A642A6200D8CEE7 /* Startup.json */; };
 		F5789DC51A642A6200D8CEE7 /* ModelViewer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA51A642A6200D8CEE7 /* ModelViewer.fsh */; };
 		F5789DC61A642A6200D8CEE7 /* ModelViewer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = F5789DA61A642A6200D8CEE7 /* ModelViewer.vsh */; };
@@ -549,7 +545,6 @@
 				F5D2914E1A83F77C000CBA6B /* libYajl.a in Frameworks */,
 				F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */,
 				F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */,
-				02913EDE1AAF70AB003E116B /* EmpireMobileManager.framework in Frameworks */,
 				F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */,
 				F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */,
 				F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */,
@@ -1193,7 +1188,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = INV;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Invicara Inc.";
 				TargetAttributes = {
 					02C8845619E317E900DFB4E2 = {
@@ -1245,7 +1240,6 @@
 				F5FC0CBF1AA6413800FBAE84 /* Project Thumbnails in Resources */,
 				F55AD9141A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib in Resources */,
 				F5426D511A680EA30040B2B5 /* Login.storyboard in Resources */,
-				F5789DC11A642A6200D8CEE7 /* ServerConfig-Dev.xcconfig in Resources */,
 				F5789DB51A642A6200D8CEE7 /* INVRuleInstanceActualParamTableViewCell.xib in Resources */,
 				024FEEF31A6986C1001CA262 /* Files.storyboard in Resources */,
 				F5024AE91A66E7EE002EEE5F /* LaunchScreen.xib in Resources */,
@@ -1270,12 +1264,10 @@
 				0278BAE41A655D03009E0E27 /* INVGenericTextEntryTableViewCell.xib in Resources */,
 				F5269DE11A76A434006AC27A /* UserInfo.storyboard in Resources */,
 				F5789DB91A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib in Resources */,
-				F5789DC21A642A6200D8CEE7 /* ServerConfig-Prod.xcconfig in Resources */,
 				F539D53E1A645497007A2BDC /* Account Thumbnails in Resources */,
 				F5426D501A680EA30040B2B5 /* Account.storyboard in Resources */,
 				F5789DB01A642A6200D8CEE7 /* INVDefaultAccountAlertView.xib in Resources */,
 				F5426D541A680EA30040B2B5 /* UserManagement.storyboard in Resources */,
-				F5789DC31A642A6200D8CEE7 /* ServerConfig-QA.xcconfig in Resources */,
 				F5789DBB1A642A6200D8CEE7 /* INVRunRuleSetHeaderView.xib in Resources */,
 				F5789DB81A642A6200D8CEE7 /* INVRuleInstanceOverviewTableViewCell.xib in Resources */,
 			);

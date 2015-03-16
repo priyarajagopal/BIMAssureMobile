@@ -179,7 +179,7 @@
 		F548D4741A1CE7DA00503F2F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = Invicara;
 				TargetAttributes = {
 					F548D47C1A1CE7DB00503F2F = {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -46,12 +46,12 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Kbt-Ki-NaR" firstAttribute="leading" secondItem="IID-2t-rK8" secondAttribute="trailing" id="0rm-dV-Mi8"/>
-                    <constraint firstItem="IID-2t-rK8" firstAttribute="leading" secondItem="h8B-id-Blc" secondAttribute="leadingMargin" constant="20" id="4hU-Tn-3u7"/>
+                    <constraint firstItem="Kbt-Ki-NaR" firstAttribute="leading" secondItem="IID-2t-rK8" secondAttribute="trailing" priority="750" id="0rm-dV-Mi8"/>
+                    <constraint firstItem="IID-2t-rK8" firstAttribute="leading" secondItem="h8B-id-Blc" secondAttribute="leadingMargin" priority="750" constant="20" id="4hU-Tn-3u7"/>
                     <constraint firstAttribute="centerY" secondItem="OuS-HU-Tgl" secondAttribute="centerY" id="74G-Vd-B7x"/>
-                    <constraint firstAttribute="trailing" secondItem="Kbt-Ki-NaR" secondAttribute="trailing" id="8bB-JB-iBE"/>
+                    <constraint firstAttribute="trailing" secondItem="Kbt-Ki-NaR" secondAttribute="trailing" priority="750" id="8bB-JB-iBE"/>
                     <constraint firstAttribute="centerY" secondItem="Kbt-Ki-NaR" secondAttribute="centerY" id="AKh-N7-j9w"/>
-                    <constraint firstItem="OuS-HU-Tgl" firstAttribute="leading" secondItem="h8B-id-Blc" secondAttribute="leadingMargin" constant="4" id="ITR-zl-Lcw"/>
+                    <constraint firstItem="OuS-HU-Tgl" firstAttribute="leading" secondItem="h8B-id-Blc" secondAttribute="leadingMargin" priority="750" constant="4" id="ITR-zl-Lcw"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="IID-2t-rK8" secondAttribute="bottom" constant="4" id="dlE-9Y-Imf"/>
                     <constraint firstItem="IID-2t-rK8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="h8B-id-Blc" secondAttribute="topMargin" constant="4" id="thL-tf-v4d"/>
                 </constraints>

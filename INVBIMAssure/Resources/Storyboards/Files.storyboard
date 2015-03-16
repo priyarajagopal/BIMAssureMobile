@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ahG-CS-8Ts">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ahG-CS-8Ts">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -105,12 +105,27 @@
                                     <segue destination="Gdv-NB-RqF" kind="embed" id="Ut4-iU-mkk"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="755" translatesAutoresizingMaskIntoConstraints="NO" id="o2M-5U-rhd">
+                                <rect key="frame" x="16" y="20" width="240" height="452"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" priority="750" constant="240" id="Cqc-0o-UIP"/>
+                                    <constraint firstAttribute="width" id="Zro-oD-pO7"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Zro-oD-pO7"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="IMO-Jd-l5K" kind="embed" id="v6y-7G-6ju"/>
+                                </connections>
+                            </containerView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vaF-o5-git">
                                 <rect key="frame" x="0.0" y="492" width="600" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HiK-PY-hpB"/>
-                                    <barButtonItem style="plain" id="Phk-Z3-vyT" userLabel="sidebar">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YwU-qt-pps">
+                                    <barButtonItem style="plain" id="LGD-Ib-AOa" userLabel="sidebar">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SCb-4Q-zFr">
                                             <rect key="frame" x="334" y="10" width="35" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
@@ -118,7 +133,7 @@
                                                 <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="toggleSidebar:" destination="Gdv-NB-RqF" eventType="touchUpInside" id="nKK-Jm-hJx"/>
+                                                <action selector="toggleSidebar:" destination="7X8-1T-t9z" eventType="touchUpInside" id="w3f-zr-2OU"/>
                                             </connections>
                                         </button>
                                         <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -192,15 +207,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="755" translatesAutoresizingMaskIntoConstraints="NO" id="o2M-5U-rhd">
-                                <rect key="frame" x="16" y="20" width="240" height="452"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="Cqc-0o-UIP"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="IMO-Jd-l5K" kind="embed" id="v6y-7G-6ju"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -225,6 +231,10 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Model Viewer" id="k14-4y-C3Q"/>
+                    <connections>
+                        <outlet property="collapseModelTreeConstraint" destination="Zro-oD-pO7" id="Cd7-D7-bVC"/>
+                        <outlet property="modelTreeView" destination="o2M-5U-rhd" id="mAE-If-o9G"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="00r-BC-8AP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -304,12 +314,6 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Property" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="SVC-kP-5CS">
-                                            <rect key="frame" x="15" y="12" width="177" height="50"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IZE-41-rpl">
                                             <rect key="frame" x="200" y="0.0" width="1" height="74"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -317,6 +321,12 @@
                                                 <constraint firstAttribute="width" constant="1" id="Tu8-bS-S03"/>
                                             </constraints>
                                         </view>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Property" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="SVC-kP-5CS">
+                                            <rect key="frame" x="15" y="12" width="177" height="50"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>

@@ -11,6 +11,9 @@
 
 @interface INVModelViewerContainerViewController ()
 
+@property IBOutlet UIView *modelTreeView;
+@property IBOutlet NSLayoutConstraint *collapseModelTreeConstraint;
+
 @end
 
 @implementation INVModelViewerContainerViewController
@@ -77,5 +80,27 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)toggleSidebar:(id)sender
+{
+    if ([[self.modelTreeView constraints] containsObject:self.collapseModelTreeConstraint]) {
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             self.modelTreeView.alpha = 1;
+
+                             [self.modelTreeView removeConstraint:self.collapseModelTreeConstraint];
+                             [self.modelTreeView layoutIfNeeded];
+                         }];
+    }
+    else {
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             self.modelTreeView.alpha = 0;
+
+                             [self.modelTreeView addConstraint:self.collapseModelTreeConstraint];
+                             [self.modelTreeView layoutIfNeeded];
+                         }];
+    }
+}
 
 @end
