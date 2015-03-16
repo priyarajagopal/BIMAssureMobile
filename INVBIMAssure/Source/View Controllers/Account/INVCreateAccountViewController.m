@@ -117,6 +117,10 @@
         return 0;
     }
 
+    if (section == SECTION_ACCOUNT_THUMBNAIL && !self.accountToEdit) {
+        return 0;
+    }
+
     if (section == SECTION_INVITATION_INFO && !self.invitationCodeSwitch.on) {
         return [super tableView:tableView numberOfRowsInSection:section] - 1;
     }
@@ -128,6 +132,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == SECTION_INVITATION_INFO && self.accountToEdit) {
+        return 0;
+    }
+
+    if (indexPath.section == SECTION_ACCOUNT_THUMBNAIL && !self.accountToEdit) {
         return 0;
     }
 
@@ -144,12 +152,20 @@
         return nil;
     }
 
+    if (section == SECTION_ACCOUNT_THUMBNAIL && !self.accountToEdit) {
+        return nil;
+    }
+
     return [super tableView:tableView titleForHeaderInSection:section];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == SECTION_INVITATION_INFO && self.accountToEdit) {
+        return CGFLOAT_MIN;
+    }
+
+    if (section == SECTION_ACCOUNT_THUMBNAIL && !self.accountToEdit) {
         return CGFLOAT_MIN;
     }
 
@@ -181,64 +197,15 @@
                                     INV_ALWAYS:
                                     INV_SUCCESS : {
                                         INVLogDebug(@"Succesfully created account %@", self.accountNameTextField.text);
+                                        [self hideSignupProgress];
 
-                                        [self addThumbanilToAccountWithId:[result accountId]];
+                                        self.signupSuccess = YES;
                                     }
 
                                     INV_ERROR:
                                         [self hideSignupProgress];
                                         [self showSignupFailureAlert];
                                 }];
-}
-
-- (void)addThumbanilToAccountWithId:(NSNumber *)accountId
-{
-    NSNumber *oldAccountId = self.globalDataManager.loggedInAccount;
-
-    [self.globalDataManager.invServerClient
-            signIntoAccount:accountId
-        withCompletionBlock:^(INVEmpireMobileError *error) {
-            self.globalDataManager.loggedInAccount = accountId;
-
-            [self.globalDataManager.invServerClient
-                addThumbnailImageForSignedInAccountWithThumbnail:[self.accountThumbnailImageView
-                                                                         .image writeImageToTemporaryFile]
-                                           withCompletionHandler:INV_COMPLETION_HANDLER {
-                                               INV_ALWAYS:
-                                               INV_SUCCESS : {
-                                                   id completionHandler = INV_COMPLETION_HANDLER
-                                                   {
-                                                   INV_ALWAYS:
-                                                       [self hideSignupProgress];
-
-                                                   INV_SUCCESS:
-                                                       self.globalDataManager.loggedInAccount = oldAccountId;
-                                                       self.signupSuccess = YES;
-
-                                                   INV_ERROR:
-                                                       INVLogError(@"%@", error);
-
-                                                       [self showSignupFailureAlert];
-                                                   };
-
-                                                   if (oldAccountId) {
-                                                       [self.globalDataManager.invServerClient
-                                                               signIntoAccount:oldAccountId
-                                                           withCompletionBlock:completionHandler];
-                                                   }
-                                                   else {
-                                                       [self.globalDataManager.invServerClient
-                                                           logOffSignedInAccountWithCompletionBlock:completionHandler];
-                                                   }
-                                               }
-
-                                               INV_ERROR:
-                                                   INVLogError(@"%@", error);
-
-                                                   [self hideSignupProgress];
-                                                   [self showSignupFailureAlert];
-                                           }];
-        }];
 }
 
 - (void)updateAccount
