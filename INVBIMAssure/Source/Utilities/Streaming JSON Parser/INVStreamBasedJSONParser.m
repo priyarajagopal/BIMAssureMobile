@@ -3,6 +3,8 @@
 
 #include <yajl/yajl_parse.h>
 
+static NSString *const INVYajlErrorDomain = @"INVYajlErrorDomain";
+
 @interface NSInputStreamBlockDelegate : NSObject<NSStreamDelegate>
 
 @property (copy) void (^handleEvent)(NSStream *, NSStreamEvent);
@@ -39,7 +41,7 @@
 @property NSMutableArray *pendingData;
 @property NSThread *backgroundThread;
 
-@property NSCondition *hasDataCondition;
+@property dispatch_semaphore_t hasDataSemaphore;
 @property dispatch_queue_t consumeQueue;
 @property yajl_handle yajlHandle;
 
@@ -54,66 +56,7 @@
 
 @end
 
-static int _yajl_callback_null(void *ctx)
-{
-    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
-
-    return [self yajl_callback_null];
-}
-
-static int _yajl_callback_number(void *ctx, const char *numberVal, size_t numberLen)
-{
-    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
-
-    return [self yajl_callback_number:numberVal len:numberLen];
-}
-
-static int _yajl_callback_string(void *ctx, const unsigned char *stringVal, size_t stringLen)
-{
-    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
-
-    return [self yajl_callback_string:(const char *) stringVal len:stringLen];
-}
-
-static int _yajl_callback_start_map(void *ctx)
-{
-    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
-
-    return [self yajl_callback_start_map];
-}
-
-static int _yajl_callback_map_key(void *ctx, const unsigned char *key, size_t stringLen)
-{
-    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
-
-    return [self yajl_callback_map_key:(const char *) key len:stringLen];
-}
-
-static int _yajl_callback_end_map(void *ctx)
-{
-    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
-
-    return [self yajl_callback_end_map];
-}
-
-static int _yajl_callback_start_array(void *ctx)
-{
-    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
-
-    return [self yajl_callback_start_array];
-}
-
-static int _yajl_callback_end_array(void *ctx)
-{
-    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
-
-    return [self yajl_callback_end_array];
-}
-
-static yajl_callbacks callbacks = {
-    _yajl_callback_null, NULL, NULL, NULL, _yajl_callback_number, _yajl_callback_string, _yajl_callback_start_map,
-    _yajl_callback_map_key, _yajl_callback_end_map, _yajl_callback_start_array, _yajl_callback_end_array,
-};
+static yajl_callbacks callbacks;
 
 @implementation INVStreamBasedJSONParser
 
@@ -124,10 +67,12 @@ static yajl_callbacks callbacks = {
         yajl_config(_yajlHandle, yajl_allow_multiple_values, 1);
 
         _pendingData = [NSMutableArray new];
-        _hasDataCondition = [NSCondition new];
+        _hasDataSemaphore = dispatch_semaphore_create(0);
 
         _consumeQueue = dispatch_queue_create("com.invicara.json.parser.consume", DISPATCH_QUEUE_SERIAL);
-        [NSThread detachNewThreadSelector:@selector(_backgroundThread) toTarget:self withObject:nil];
+        _backgroundThread = [[NSThread alloc] initWithTarget:self selector:@selector(_backgroundThread) object:nil];
+
+        [_backgroundThread start];
     }
 
     return self;
@@ -143,29 +88,38 @@ static yajl_callbacks callbacks = {
 {
     @autoreleasepool
     {
-        _backgroundThread = [NSThread currentThread];
-        // _backgroundRunLoop = [NSRunLoop currentRunLoop];
-
         while (YES) {
             if ([[NSThread currentThread] isCancelled])
                 return;
 
-            [_hasDataCondition lock];
-
             if (_pendingData.count == 0) {
-                [_hasDataCondition wait];
+                dispatch_semaphore_wait(_hasDataSemaphore, DISPATCH_TIME_FOREVER);
             }
 
             NSDictionary *toConsume = [_pendingData lastObject];
             [_pendingData removeLastObject];
 
-            [_hasDataCondition unlock];
-
             if (toConsume) {
                 NSData *data = toConsume[@"data"];
                 id callback = toConsume[@"callback"];
 
-                yajl_parse(_yajlHandle, [data bytes], [data length]);
+                yajl_status status = yajl_parse(_yajlHandle, [data bytes], [data length]);
+                if (status != yajl_status_ok) {
+                    uint8_t *errorMessage = yajl_get_error(_yajlHandle, 1, [data bytes], [data length]);
+
+                    NSError *error = [[NSError alloc] initWithDomain:INVYajlErrorDomain
+                                                                code:status
+                                                            userInfo:@{
+                                                                NSLocalizedDescriptionKey : @((const char *) errorMessage),
+                                                            }];
+
+                    yajl_free_error(_yajlHandle, errorMessage);
+
+                    if (![self.delegate respondsToSelector:@selector(jsonParser:shouldRecoverFromError:)] ||
+                        ![self.delegate jsonParser:self shouldRecoverFromError:error]) {
+                        yajl_complete_parse(_yajlHandle);
+                    }
+                }
 
                 if (callback) {
                     [callback invoke];
@@ -312,12 +266,9 @@ static yajl_callbacks callbacks = {
 
 - (void)sendData:(NSData *)data complete:(dispatch_block_t)complete async:(BOOL)async
 {
-    [_hasDataCondition lock];
-
     [_pendingData insertObject:@{ @"data" : data } atIndex:0];
 
-    [_hasDataCondition signal];
-    [_hasDataCondition unlock];
+    dispatch_semaphore_signal(_hasDataSemaphore);
 }
 
 #pragma mark - YAJL callbacks
@@ -408,3 +359,64 @@ static yajl_callbacks callbacks = {
 }
 
 @end
+
+static int _yajl_callback_null(void *ctx)
+{
+    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
+
+    return [self yajl_callback_null];
+}
+
+static int _yajl_callback_number(void *ctx, const char *numberVal, size_t numberLen)
+{
+    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
+
+    return [self yajl_callback_number:numberVal len:numberLen];
+}
+
+static int _yajl_callback_string(void *ctx, const unsigned char *stringVal, size_t stringLen)
+{
+    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
+
+    return [self yajl_callback_string:(const char *) stringVal len:stringLen];
+}
+
+static int _yajl_callback_start_map(void *ctx)
+{
+    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
+
+    return [self yajl_callback_start_map];
+}
+
+static int _yajl_callback_map_key(void *ctx, const unsigned char *key, size_t stringLen)
+{
+    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
+
+    return [self yajl_callback_map_key:(const char *) key len:stringLen];
+}
+
+static int _yajl_callback_end_map(void *ctx)
+{
+    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
+
+    return [self yajl_callback_end_map];
+}
+
+static int _yajl_callback_start_array(void *ctx)
+{
+    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
+
+    return [self yajl_callback_start_array];
+}
+
+static int _yajl_callback_end_array(void *ctx)
+{
+    INVStreamBasedJSONParser *self = (__bridge INVStreamBasedJSONParser *) ctx;
+
+    return [self yajl_callback_end_array];
+}
+
+static yajl_callbacks callbacks = {
+    _yajl_callback_null, NULL, NULL, NULL, _yajl_callback_number, _yajl_callback_string, _yajl_callback_start_map,
+    _yajl_callback_map_key, _yajl_callback_end_map, _yajl_callback_start_array, _yajl_callback_end_array,
+};
