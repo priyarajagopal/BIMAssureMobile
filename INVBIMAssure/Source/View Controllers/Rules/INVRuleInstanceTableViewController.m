@@ -244,7 +244,7 @@ static NSString *INV_ActualParamValue = @"Value";
 {
     INVRuleInstanceActualParamDictionary actualParam =
         [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
-
+/*
     [self.globalDataManager.invServerClient
         createRuleInstanceForRuleId:self.ruleId
                         inRuleSetId:self.ruleSetId
@@ -264,6 +264,7 @@ static NSString *INV_ActualParamValue = @"Value";
                         [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil) isCreated:YES];
                     }
                 }];
+ */
 }
 
 - (void)sendUpdatedRuleInstanceToServer
@@ -274,9 +275,10 @@ static NSString *INV_ActualParamValue = @"Value";
 
     INVRuleInstanceActualParamDictionary actualParam =
         [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
+    /*
     [self.globalDataManager.invServerClient
         modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId
-                                  forRuleId:/* ruleInstance.accountRuleId */ nil
+                                  forRuleId: nil
                                 inRuleSetId:self.ruleSetId
                                withRuleName:self.ruleName
                              andDescription:self.intermediateRuleOverview
@@ -295,6 +297,7 @@ static NSString *INV_ActualParamValue = @"Value";
                                                     isCreated:NO];
                             }
                         }];
+     */
 }
 
 #pragma mark - Navigation
