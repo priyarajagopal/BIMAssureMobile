@@ -24,6 +24,18 @@
 		<data>
 		qvFPtXX7E/j6WRQTiCiIR40K6VA=
 		</data>
+		<key>Headers/INVAnalysesManager.h</key>
+		<data>
+		ap5g6USpEPd8ofnMbzUGwBH4ZMY=
+		</data>
+		<key>Headers/INVAnalysis.h</key>
+		<data>
+		tg6orfMVao83ohU+stJ4lJDFtsI=
+		</data>
+		<key>Headers/INVAnalysisPkgMembership.h</key>
+		<data>
+		7Dv1fUg29/LIYzp7bwdIcFlS5ic=
+		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
 		0rKmOgScNbbit5trjqyH07UB+yw=
@@ -34,7 +46,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		7OSzqmEdNpchK/pXGAJFNrOlE60=
+		BaslmSWKadJ7oXEnklh56JtSn9E=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -62,7 +74,7 @@
 		</data>
 		<key>Headers/INVRule.h</key>
 		<data>
-		63EJQIpZpBajUsRcb6InC+BXEPE=
+		e3c5srIDOAyjhq7PyABqTVhHTBY=
 		</data>
 		<key>Headers/INVRuleExecutionManager.h</key>
 		<data>
@@ -74,7 +86,7 @@
 		</data>
 		<key>Headers/INVRuleInstance.h</key>
 		<data>
-		+z+hVnJZ1QL1NYJIcV416ytHU7A=
+		fLanpdGmGyT+cQqP96UtjdD1bFs=
 		</data>
 		<key>Headers/INVRuleInstanceExecution.h</key>
 		<data>
@@ -110,15 +122,15 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		Gw7eWjn2rDg3texSZ89r7/Ntjyw=
+		l0BvixCD8xI9Jt9QOiG2sqfaorQ=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		NwA6lOF+0lsCTLpmn0VRUWOnJTE=
+		aIEaVDE5CAKufI6rKIjmJ79vQv8=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		RLMHQHmEt8q163NyvvFPfQecfgc=
+		B/I6apcbkUnCSzQklSYbPzZLs8U=
 		</data>
 		<key>InvicaraLogo.png</key>
 		<data>
@@ -171,6 +183,18 @@
 		<data>
 		qvFPtXX7E/j6WRQTiCiIR40K6VA=
 		</data>
+		<key>Headers/INVAnalysesManager.h</key>
+		<data>
+		ap5g6USpEPd8ofnMbzUGwBH4ZMY=
+		</data>
+		<key>Headers/INVAnalysis.h</key>
+		<data>
+		tg6orfMVao83ohU+stJ4lJDFtsI=
+		</data>
+		<key>Headers/INVAnalysisPkgMembership.h</key>
+		<data>
+		7Dv1fUg29/LIYzp7bwdIcFlS5ic=
+		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
 		0rKmOgScNbbit5trjqyH07UB+yw=
@@ -181,7 +205,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		7OSzqmEdNpchK/pXGAJFNrOlE60=
+		BaslmSWKadJ7oXEnklh56JtSn9E=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -209,7 +233,7 @@
 		</data>
 		<key>Headers/INVRule.h</key>
 		<data>
-		63EJQIpZpBajUsRcb6InC+BXEPE=
+		e3c5srIDOAyjhq7PyABqTVhHTBY=
 		</data>
 		<key>Headers/INVRuleExecutionManager.h</key>
 		<data>
@@ -221,7 +245,7 @@
 		</data>
 		<key>Headers/INVRuleInstance.h</key>
 		<data>
-		+z+hVnJZ1QL1NYJIcV416ytHU7A=
+		fLanpdGmGyT+cQqP96UtjdD1bFs=
 		</data>
 		<key>Headers/INVRuleInstanceExecution.h</key>
 		<data>
@@ -257,11 +281,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		Gw7eWjn2rDg3texSZ89r7/Ntjyw=
+		l0BvixCD8xI9Jt9QOiG2sqfaorQ=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		NwA6lOF+0lsCTLpmn0VRUWOnJTE=
+		aIEaVDE5CAKufI6rKIjmJ79vQv8=
 		</data>
 		<key>InvicaraLogo.png</key>
 		<data>

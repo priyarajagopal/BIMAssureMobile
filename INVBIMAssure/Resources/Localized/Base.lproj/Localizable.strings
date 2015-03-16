@@ -217,6 +217,8 @@
 "PROJECT_CREATED_NO_THUMBNAIL"="The project was created succesfully but there was ane error while uploading the thumbnail image";
 "ERROR_IMAGE_UPDATE"="There was an error while updating the image. Please try again later.";
 
+"ERROR_ANALYSES_LOAD"="Failed to load analyses. Please try again later.";
+
 "ERROR_ACCOUNT_DISABLE_TITLE"="Error";
 "ERROR_ACCOUNT_DISABLE_MESSAGE"="Failed to disable account. Please try again later.";
 

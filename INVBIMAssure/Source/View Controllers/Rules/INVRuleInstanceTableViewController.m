@@ -276,7 +276,7 @@ static NSString *INV_ActualParamValue = @"Value";
         [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
     [self.globalDataManager.invServerClient
         modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId
-                                  forRuleId:ruleInstance.accountRuleId
+                                  forRuleId:/* ruleInstance.accountRuleId */ nil
                                 inRuleSetId:self.ruleSetId
                                withRuleName:self.ruleName
                              andDescription:self.intermediateRuleOverview

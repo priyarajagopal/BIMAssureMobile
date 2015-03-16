@@ -342,7 +342,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                     cell.name.text = ruleInstance.ruleName;
                     cell.overview.text = ruleInstance.overview;
                     cell.ruleInstanceId = ruleInstance.ruleInstanceId;
-                    cell.ruleSetId = ruleInstance.ruleSetId;
+                    // cell.ruleSetId = ruleInstance.ruleSetId;
                     cell.actionDelegate = self;
 
                     cell.ruleWarning.hidden = ([ruleInstance.emptyParamCount integerValue] == 0);
