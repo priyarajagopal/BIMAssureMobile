@@ -236,3 +236,6 @@
 "PLACEHOLDER_ACCOUNTNAME"="Account Name";
 
 "VALUE_MISSING"="Value Missing";
+
+"EDIT_ANALYSIS"="Edit Analysis";
+"CREATE_ANALYSIS"="Create Analysis";

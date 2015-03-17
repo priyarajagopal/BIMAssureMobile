@@ -71,7 +71,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                                                     <connections>
-                                                        <action selector="becomeFirstResponder" destination="LUz-uT-Mpx" eventType="editingDidEndOnExit" id="Vdj-He-dM4"/>
                                                         <action selector="onTextFieldTextChanged:" destination="ZTb-WZ-2fi" eventType="editingChanged" id="Sto-Tw-U9v"/>
                                                     </connections>
                                                 </textField>
@@ -99,21 +98,25 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Analysis Description (Optional)" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="LUz-uT-Mpx">
-                                                    <rect key="frame" x="174" y="16" width="418" height="19"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUZ-4N-Sbf">
+                                                    <rect key="frame" x="166" y="8" width="426" height="33"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" white="0.58999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
-                                                        <action selector="onTextFieldTextChanged:" destination="ZTb-WZ-2fi" eventType="editingChanged" id="ZBF-Mh-Du7"/>
-                                                        <action selector="resignFirstResponder" destination="ziA-uZ-swI" eventType="editingDidEndOnExit" id="SVv-bh-YUs"/>
+                                                        <outlet property="delegate" destination="ZTb-WZ-2fi" id="Khg-mK-uIL"/>
                                                     </connections>
-                                                </textField>
+                                                </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="LUz-uT-Mpx" firstAttribute="trailing" secondItem="47y-C6-GrK" secondAttribute="trailingMargin" id="4Xj-Xy-uue"/>
-                                                <constraint firstItem="a6N-vK-lM7" firstAttribute="baseline" secondItem="LUz-uT-Mpx" secondAttribute="baseline" id="8kN-yI-4Kz"/>
+                                                <constraint firstItem="a6N-vK-lM7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="47y-C6-GrK" secondAttribute="topMargin" id="2Hb-XB-DxS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="QUZ-4N-Sbf" secondAttribute="trailing" id="9Nl-tC-27r"/>
+                                                <constraint firstItem="QUZ-4N-Sbf" firstAttribute="top" secondItem="47y-C6-GrK" secondAttribute="topMargin" id="CMl-bO-TZM"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="a6N-vK-lM7" secondAttribute="bottom" id="UaN-DE-iJp"/>
                                                 <constraint firstAttribute="centerY" secondItem="a6N-vK-lM7" secondAttribute="centerY" id="ZK3-gg-YUg"/>
-                                                <constraint firstItem="LUz-uT-Mpx" firstAttribute="leading" secondItem="a6N-vK-lM7" secondAttribute="trailing" constant="8" id="r7R-ng-O8j"/>
+                                                <constraint firstItem="QUZ-4N-Sbf" firstAttribute="leading" secondItem="a6N-vK-lM7" secondAttribute="trailing" id="csD-kQ-SAN"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="QUZ-4N-Sbf" secondAttribute="bottom" id="fsb-3D-eQ4"/>
                                                 <constraint firstItem="a6N-vK-lM7" firstAttribute="leading" secondItem="47y-C6-GrK" secondAttribute="leadingMargin" constant="8" id="vQ4-Lg-QLm"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -139,7 +142,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="analysisDescriptionTextField" destination="LUz-uT-Mpx" id="v7L-Yn-6P4"/>
+                        <outlet property="analysisDescriptionTextView" destination="QUZ-4N-Sbf" id="VPz-dU-BIt"/>
                         <outlet property="analysisNameTextField" destination="B8x-BI-GN7" id="nqT-vR-4NT"/>
                         <outlet property="saveButtonItem" destination="rwI-ql-kgf" id="x7g-Av-OMh"/>
                     </connections>

@@ -1120,8 +1120,8 @@
 				F5789D991A642A6200D8CEE7 /* INVRunRuleSetHeaderView.xib */,
 				F5789D9A1A642A6200D8CEE7 /* INVSearchView.xib */,
 				F5789D9B1A642A6200D8CEE7 /* INVStockThumbnailCollectionViewCell.xib */,
-				0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */,
 				F5789D9C1A642A6200D8CEE7 /* INVTextViewTableViewCell.xib */,
+				0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */,
 				F5789D9D1A642A6200D8CEE7 /* INVTokensTableViewCell.xib */,
 				F5024AE71A66E7EE002EEE5F /* LaunchScreen.xib */,
 			);

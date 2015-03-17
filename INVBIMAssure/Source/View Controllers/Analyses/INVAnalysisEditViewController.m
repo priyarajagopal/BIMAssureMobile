@@ -7,11 +7,12 @@
 //
 
 #import "INVAnalysisEditViewController.h"
+#import "UIView+INVCustomizations.h"
 
-@interface INVAnalysisEditViewController ()
+@interface INVAnalysisEditViewController () <UITextViewDelegate>
 
 @property IBOutlet UITextField *analysisNameTextField;
-@property IBOutlet UITextField *analysisDescriptionTextField;
+@property IBOutlet UITextView *analysisDescriptionTextView;
 @property IBOutlet UIBarButtonItem *saveButtonItem;
 
 - (IBAction)onSaveSelected:(id)sender;
@@ -45,14 +46,14 @@
         self.navigationItem.title = NSLocalizedString(@"EDIT_ANALYSIS", nil);
 
         self.analysisNameTextField.text = self.analysis.name;
-        self.analysisDescriptionTextField.text = self.analysis.overview;
+        self.analysisDescriptionTextView.text = self.analysis.overview;
         self.saveButtonItem.title = NSLocalizedString(@"SAVE", nil);
     }
     else {
         self.navigationItem.title = NSLocalizedString(@"CREATE_ANALYSIS", nil);
 
         self.analysisNameTextField.text = nil;
-        self.analysisDescriptionTextField.text = nil;
+        self.analysisDescriptionTextView.text = nil;
         self.saveButtonItem.title = NSLocalizedString(@"CREATE", nil);
     }
 }
@@ -66,7 +67,7 @@
 
         [self.globalDataManager.invServerClient updateAnalyses:self.analysis.analysisId
                                                       withName:self.analysisNameTextField.text
-                                                andDescription:self.analysisDescriptionTextField.text
+                                                andDescription:self.analysisDescriptionTextView.text
                                            withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                                INV_ALWAYS:
                                                    [hud hide:YES];
@@ -89,7 +90,7 @@
         [self.globalDataManager.invServerClient
             addAnalysesToProject:self.projectId
                         withName:self.analysisNameTextField.text
-                  andDescription:self.analysisDescriptionTextField.text
+                  andDescription:self.analysisDescriptionTextView.text
              withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                  INV_ALWAYS:
                      [hud hide:YES];
@@ -112,11 +113,38 @@
 {
     if (self.analysis) {
         self.saveButtonItem.enabled = !([self.analysisNameTextField.text isEqualToString:self.analysis.name] &&
-                                          [self.analysisDescriptionTextField.text isEqualToString:self.analysis.overview]);
+                                          [self.analysisDescriptionTextView.text isEqualToString:self.analysis.overview]);
     }
     else {
         self.saveButtonItem.enabled = self.analysisNameTextField.text.length > 0;
     }
+}
+
+#pragma mark UITableViewDataSource
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 1) {
+        UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+
+        CGSize size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+
+        [cell prepareForReuse];
+
+        return size.height;
+    }
+
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
+#pragma mark UITextViewDelegate
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    [self onTextFieldTextChanged:textView];
+
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 @end
