@@ -110,15 +110,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 - (void)configureDisplayModeButton
 {
     INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
-
-    if (splitVC.displayMode == UISplitViewControllerDisplayModeAllVisible) {
-        self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.rightBarButtonItem = splitVC.displayModeButtonItem;
-    }
-    else {
-        self.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem;
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+    self.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem;
 }
 
 #pragma mark <UICollectionViewDataSource>

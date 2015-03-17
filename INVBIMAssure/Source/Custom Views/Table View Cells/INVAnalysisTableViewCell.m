@@ -14,6 +14,9 @@
 @property IBOutlet UILabel *analysisDescriptionLabel;
 @property IBOutlet UIButton *ruleCountButton;
 
+@property IBOutlet UILabel *emptyRulesLabel;
+@property IBOutlet NSLayoutConstraint *collapseEmptyRulesConstraint;
+
 @end
 
 @implementation INVAnalysisTableViewCell
@@ -41,6 +44,13 @@
         [self.ruleCountButton setTitle:[NSString stringWithFormat:@"%lu %@", (unsigned long) [self.analysis.rules count],
                                                  NSLocalizedString(@"RULES", nil)]
                               forState:UIControlStateNormal];
+
+        if ([self.analysis.emptyParamCount integerValue] > 0) {
+            [self.emptyRulesLabel removeConstraint:self.collapseEmptyRulesConstraint];
+        }
+        else {
+            [self.emptyRulesLabel addConstraint:self.collapseEmptyRulesConstraint];
+        }
     }
 }
 

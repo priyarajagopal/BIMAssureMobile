@@ -8,13 +8,16 @@
 
 #import "INVAnalysesTableViewController.h"
 #import "INVAnalysisTableViewCell.h"
+#import "INVAnalysisEditViewController.h"
 
 #import "UISplitViewController+ToggleSidebar.h"
 #import "INVProjectListSplitViewController.h"
 
-@interface INVAnalysesTableViewController () <UISplitViewControllerDelegate>
+@interface INVAnalysesTableViewController () <UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic) NSFetchedResultsController *dataResultsController;
+@property (nonatomic) BOOL isNSFetchedResultsChangeTypeUpdated;
+@property (nonatomic) NSIndexPath *indexOfProjectBeingEdited;
 
 @end
 
@@ -41,23 +44,23 @@
 - (void)configureDisplayModeButton
 {
     UISplitViewController *splitVC = self.splitViewController;
-
-    if (splitVC.displayMode == UISplitViewControllerDisplayModeAllVisible) {
-        self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.rightBarButtonItem = splitVC.displayModeButtonItem;
-    }
-    else {
-        self.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem;
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+    self.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"analysisDetails"]) {
-        if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible) {
-            [self.splitViewController toggleSidebar];
-        }
+    if ([[segue identifier] isEqualToString:@"editAnalysis"]) {
+        INVAnalysisEditViewController *editVC =
+            (INVAnalysisEditViewController *) [[segue destinationViewController] topViewController];
+
+        editVC.analysis = sender;
+    }
+
+    if ([[segue identifier] isEqualToString:@"createAnalysis"]) {
+        INVAnalysisEditViewController *editVC =
+            (INVAnalysisEditViewController *) [[segue destinationViewController] topViewController];
+
+        editVC.projectId = self.projectId;
     }
 }
 
@@ -96,6 +99,8 @@
 {
     if (_dataResultsController == nil) {
         NSFetchRequest *fetchRequest = [self.globalDataManager.invServerClient.analysesManager fetchRequestForAnalyses];
+
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"projectId = %@", self.projectId];
         fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES] ];
 
         _dataResultsController = [[NSFetchedResultsController alloc]
@@ -103,9 +108,19 @@
             managedObjectContext:self.globalDataManager.invServerClient.analysesManager.managedObjectContext
               sectionNameKeyPath:nil
                        cacheName:nil];
+
+        _dataResultsController.delegate = self;
     }
 
     return _dataResultsController;
+}
+
+- (void)reloadRowAtSelectedIndex
+{
+    [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfProjectBeingEdited ]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    self.indexOfProjectBeingEdited = nil;
 }
 
 #pragma mark - UITableViewDataSource
@@ -138,16 +153,37 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return @[
-        [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
-                                           title:NSLocalizedString(@"DELETE", nil)
-                                         handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [UITableViewRowAction
+            rowActionWithStyle:UITableViewRowActionStyleDestructive
+                         title:NSLocalizedString(@"DELETE", nil)
+                       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                           id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-                                         }],
-        [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
-                                           title:NSLocalizedString(@"EDIT", nil)
-                                         handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+                           [self.globalDataManager.invServerClient
+                                    deleteAnalyses:[self.dataResultsController objectAtIndexPath:indexPath]
+                               withCompletionBlock:INV_COMPLETION_HANDLER {
+                                   INV_ALWAYS:
+                                       [hud hide:YES];
 
-                                         }],
+                                   INV_SUCCESS:
+                                   INV_ERROR:
+                                       INVLogError(@"%@", error);
+
+                                       UIAlertController *errorController = [[UIAlertController alloc]
+                                           initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_DELETE", nil)];
+
+                                       [self presentViewController:errorController animated:YES completion:nil];
+                               }];
+                       }],
+        [UITableViewRowAction
+            rowActionWithStyle:UITableViewRowActionStyleNormal
+                         title:NSLocalizedString(@"EDIT", nil)
+                       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                           self.indexOfProjectBeingEdited = indexPath;
+
+                           [self performSegueWithIdentifier:@"editAnalysis"
+                                                     sender:[self.dataResultsController objectAtIndexPath:indexPath]];
+                       }],
     ];
 }
 
@@ -160,8 +196,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    [self performSegueWithIdentifier:@"analysisDetails" sender:[self.dataResultsController objectAtIndexPath:indexPath]];
 }
 
 #pragma mark - UISplitViewControllerDelegate
@@ -171,6 +205,33 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self configureDisplayModeButton];
     });
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    // Note on special case:
+    // The project notifications periodically fetches the projects list in the background. This results in the local cache
+    // getting updated with GET results - anytime the core data cache is touched, the
+    // NSFetchedResultsController delegate is notified. The GET may not may not result in a change so we do not want to keep
+    // reloading the data.
+    // if the user has manually triggered a refresh or the view is loaded, the table view is reloaded.
+    if (!self.isNSFetchedResultsChangeTypeUpdated) {
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }
+    else if (self.indexOfProjectBeingEdited) {
+        [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+    didChangeObject:(id)anObject
+        atIndexPath:(NSIndexPath *)indexPath
+      forChangeType:(NSFetchedResultsChangeType)type
+       newIndexPath:(NSIndexPath *)newIndexPath
+{
+    self.isNSFetchedResultsChangeTypeUpdated = (type == NSFetchedResultsChangeUpdate);
 }
 
 @end

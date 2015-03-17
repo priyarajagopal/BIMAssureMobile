@@ -41,6 +41,7 @@
 		F5076B8E1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5076B8D1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib */; };
 		F523B47A1AB76D090001508C /* INVAnalysisTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F523B4791AB76D090001508C /* INVAnalysisTableViewCell.m */; };
 		F523B47C1AB772BA0001508C /* INVAnalysisTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F523B47B1AB772BA0001508C /* INVAnalysisTableViewCell.xib */; };
+		F523B4821AB862EB0001508C /* INVAnalysisEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F523B4811AB862EB0001508C /* INVAnalysisEditViewController.m */; };
 		F5269DDF1A768AF5006AC27A /* INVCurrentUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */; };
 		F5269DE11A76A434006AC27A /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5269DE01A76A434006AC27A /* UserInfo.storyboard */; };
 		F5269DE41A76A83E006AC27A /* INVModalPresentationFromParentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */; };
@@ -271,6 +272,8 @@
 		F523B4781AB76D090001508C /* INVAnalysisTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisTableViewCell.h; sourceTree = "<group>"; };
 		F523B4791AB76D090001508C /* INVAnalysisTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisTableViewCell.m; sourceTree = "<group>"; };
 		F523B47B1AB772BA0001508C /* INVAnalysisTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVAnalysisTableViewCell.xib; sourceTree = "<group>"; };
+		F523B4801AB862EB0001508C /* INVAnalysisEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisEditViewController.h; sourceTree = "<group>"; };
+		F523B4811AB862EB0001508C /* INVAnalysisEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisEditViewController.m; sourceTree = "<group>"; };
 		F5269DDD1A768AF5006AC27A /* INVCurrentUsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCurrentUsersTableViewController.h; sourceTree = "<group>"; };
 		F5269DDE1A768AF5006AC27A /* INVCurrentUsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCurrentUsersTableViewController.m; sourceTree = "<group>"; };
 		F5269DE01A76A434006AC27A /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
@@ -580,16 +583,16 @@
 		025489451A6726AB00EE012D /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				F5426D4C1A680EA30040B2B5 /* Login.storyboard */,
 				F5426D4B1A680EA30040B2B5 /* Account.storyboard */,
-				F5426D4D1A680EA30040B2B5 /* Main.storyboard */,
-				F5426D4E1A680EA30040B2B5 /* Settings.storyboard */,
-				F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */,
-				F5269DE01A76A434006AC27A /* UserInfo.storyboard */,
-				F5426D551A680F3F0040B2B5 /* Notifications.storyboard */,
-				024FEEF21A6986C1001CA262 /* Files.storyboard */,
-				024FEEF41A698E0E001CA262 /* Rules.storyboard */,
 				F5D932ED1AB76406008D1051 /* Analyses.storyboard */,
+				024FEEF21A6986C1001CA262 /* Files.storyboard */,
+				F5426D4C1A680EA30040B2B5 /* Login.storyboard */,
+				F5426D4D1A680EA30040B2B5 /* Main.storyboard */,
+				F5426D551A680F3F0040B2B5 /* Notifications.storyboard */,
+				024FEEF41A698E0E001CA262 /* Rules.storyboard */,
+				F5426D4E1A680EA30040B2B5 /* Settings.storyboard */,
+				F5269DE01A76A434006AC27A /* UserInfo.storyboard */,
+				F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -753,13 +756,31 @@
 		F5789CA01A642A5500D8CEE7 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				F5D2914F1A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.h */,
+				F5D291501A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m */,
 				F5789CA11A642A5500D8CEE7 /* INVAccountViewCell.h */,
 				F5789CA21A642A5500D8CEE7 /* INVAccountViewCell.m */,
+				F523B4781AB76D090001508C /* INVAnalysisTableViewCell.h */,
+				F523B4791AB76D090001508C /* INVAnalysisTableViewCell.m */,
+				F55AD9101A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.h */,
+				F55AD9111A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.m */,
 				F5789CA31A642A5500D8CEE7 /* INVGeneralAddRemoveTableViewCell.h */,
 				F5789CA41A642A5500D8CEE7 /* INVGeneralAddRemoveTableViewCell.m */,
+				0278BADB1A655CE9009E0E27 /* INVGenericSwitchTableViewCell.h */,
+				0278BADC1A655CE9009E0E27 /* INVGenericSwitchTableViewCell.m */,
+				0278BADD1A655CE9009E0E27 /* INVGenericTextEntryTableViewCell.h */,
+				0278BADE1A655CE9009E0E27 /* INVGenericTextEntryTableViewCell.m */,
+				F5076B8A1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.h */,
+				F5076B8B1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m */,
+				F5426D5B1A6853BA0040B2B5 /* INVNotificationTableViewCell.h */,
+				F5426D5C1A6853BA0040B2B5 /* INVNotificationTableViewCell.m */,
+				F59165B21A94F86F00B7205F /* INVPendingInviteCell.h */,
+				F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */,
 				F5789CA61A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m */,
 				F5789CA71A642A5500D8CEE7 /* INVProjectTableViewCell.h */,
 				F5789CA81A642A5500D8CEE7 /* INVProjectTableViewCell.m */,
+				F5D8DBA71A85075300253787 /* INVRoleSelectionTableViewCell.h */,
+				F5D8DBA81A85075300253787 /* INVRoleSelectionTableViewCell.m */,
 				F5789CA91A642A5500D8CEE7 /* INVRuleDefinitionTableViewCell.h */,
 				F5789CAA1A642A5500D8CEE7 /* INVRuleDefinitionTableViewCell.m */,
 				F5789CAB1A642A5500D8CEE7 /* INVRuleInstanceActualParamTableViewCell.h */,
@@ -774,30 +795,12 @@
 				F5789CB41A642A5500D8CEE7 /* INVRuleInstanceTableViewCell.m */,
 				F5789CB51A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.h */,
 				F5789CB61A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.m */,
-				F5789CB71A642A5500D8CEE7 /* INVTextViewTableViewCell.h */,
-				F5789CB81A642A5500D8CEE7 /* INVTextViewTableViewCell.m */,
 				0278BAD31A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.h */,
 				0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */,
+				F5789CB71A642A5500D8CEE7 /* INVTextViewTableViewCell.h */,
+				F5789CB81A642A5500D8CEE7 /* INVTextViewTableViewCell.m */,
 				F5789CB91A642A5500D8CEE7 /* INVTokensTableViewCell.h */,
 				F5789CBA1A642A5500D8CEE7 /* INVTokensTableViewCell.m */,
-				0278BADB1A655CE9009E0E27 /* INVGenericSwitchTableViewCell.h */,
-				0278BADC1A655CE9009E0E27 /* INVGenericSwitchTableViewCell.m */,
-				0278BADD1A655CE9009E0E27 /* INVGenericTextEntryTableViewCell.h */,
-				0278BADE1A655CE9009E0E27 /* INVGenericTextEntryTableViewCell.m */,
-				F5426D5B1A6853BA0040B2B5 /* INVNotificationTableViewCell.h */,
-				F5426D5C1A6853BA0040B2B5 /* INVNotificationTableViewCell.m */,
-				F5D2914F1A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.h */,
-				F5D291501A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m */,
-				F5D8DBA71A85075300253787 /* INVRoleSelectionTableViewCell.h */,
-				F5D8DBA81A85075300253787 /* INVRoleSelectionTableViewCell.m */,
-				F55AD9101A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.h */,
-				F55AD9111A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.m */,
-				F59165B21A94F86F00B7205F /* INVPendingInviteCell.h */,
-				F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */,
-				F5076B8A1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.h */,
-				F5076B8B1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m */,
-				F523B4781AB76D090001508C /* INVAnalysisTableViewCell.h */,
-				F523B4791AB76D090001508C /* INVAnalysisTableViewCell.m */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -1093,34 +1096,34 @@
 		F5789D8C1A642A6200D8CEE7 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
-				F5024AE71A66E7EE002EEE5F /* LaunchScreen.xib */,
+				F5D291521A84046F000CBA6B /* INVAccountDetailFolderCollectionReusableView.xib */,
 				F5789D8D1A642A6200D8CEE7 /* INVAccountViewCell.xib */,
+				F523B47B1AB772BA0001508C /* INVAnalysisTableViewCell.xib */,
+				F55AD9131A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib */,
 				F5789D8E1A642A6200D8CEE7 /* INVDefaultAccountAlertView.xib */,
 				F5789D8F1A642A6200D8CEE7 /* INVGeneralAddRemoveTableViewCell.xib */,
+				0278BAE11A655D03009E0E27 /* INVGenericSwitchTableViewCell.xib */,
+				0278BAE21A655D03009E0E27 /* INVGenericTextEntryTableViewCell.xib */,
+				F5076B8D1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib */,
+				F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */,
+				F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */,
 				F5789D901A642A6200D8CEE7 /* INVProjectFileCollectionViewCell.xib */,
-				0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */,
 				F5789D911A642A6200D8CEE7 /* INVProjectTableViewCell.xib */,
+				F5D8DBAA1A85076E00253787 /* INVRoleSelectionTableViewCell.xib */,
 				F5789D921A642A6200D8CEE7 /* INVRuleDefinitionTableViewCell.xib */,
 				F5789D931A642A6200D8CEE7 /* INVRuleInstanceActualParamTableViewCell.xib */,
 				F5789D941A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib */,
 				F5789D951A642A6200D8CEE7 /* INVRuleInstanceNameTableViewCell.xib */,
 				F5789D961A642A6200D8CEE7 /* INVRuleInstanceOverviewTableViewCell.xib */,
+				F5789D971A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib */,
 				F5789D981A642A6200D8CEE7 /* INVRuleSetTableViewHeaderView.xib */,
 				F5789D991A642A6200D8CEE7 /* INVRunRuleSetHeaderView.xib */,
 				F5789D9A1A642A6200D8CEE7 /* INVSearchView.xib */,
-				F5789D971A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib */,
 				F5789D9B1A642A6200D8CEE7 /* INVStockThumbnailCollectionViewCell.xib */,
+				0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */,
 				F5789D9C1A642A6200D8CEE7 /* INVTextViewTableViewCell.xib */,
 				F5789D9D1A642A6200D8CEE7 /* INVTokensTableViewCell.xib */,
-				0278BAE11A655D03009E0E27 /* INVGenericSwitchTableViewCell.xib */,
-				0278BAE21A655D03009E0E27 /* INVGenericTextEntryTableViewCell.xib */,
-				F5426D5E1A6853CA0040B2B5 /* INVNotificationTableViewCell.xib */,
-				F5D291521A84046F000CBA6B /* INVAccountDetailFolderCollectionReusableView.xib */,
-				F5D8DBAA1A85076E00253787 /* INVRoleSelectionTableViewCell.xib */,
-				F55AD9131A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib */,
-				F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */,
-				F5076B8D1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib */,
-				F523B47B1AB772BA0001508C /* INVAnalysisTableViewCell.xib */,
+				F5024AE71A66E7EE002EEE5F /* LaunchScreen.xib */,
 			);
 			path = "Interface Builder";
 			sourceTree = "<group>";
@@ -1160,6 +1163,8 @@
 			children = (
 				F5D932F01AB764EB008D1051 /* INVAnalysesTableViewController.h */,
 				F5D932F11AB764EB008D1051 /* INVAnalysesTableViewController.m */,
+				F523B4801AB862EB0001508C /* INVAnalysisEditViewController.h */,
+				F523B4811AB862EB0001508C /* INVAnalysisEditViewController.m */,
 			);
 			path = Analyses;
 			sourceTree = "<group>";
@@ -1491,6 +1496,7 @@
 				F5789D3D1A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m in Sources */,
 				F5789D6F1A642A5500D8CEE7 /* INVProjectDetailsTabViewController.m in Sources */,
 				F5B69DBE1A9F77310014B74B /* NSObject+INVCustomizations.m in Sources */,
+				F523B4821AB862EB0001508C /* INVAnalysisEditViewController.m in Sources */,
 				F5789D5D1A642A5500D8CEE7 /* INVSearchViewTagsDataSource.m in Sources */,
 				F5DC65B61A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m in Sources */,
 				F5789D741A642A5500D8CEE7 /* INVProjectsTableViewController.m in Sources */,
