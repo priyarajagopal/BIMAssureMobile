@@ -8,6 +8,9 @@
 
 #import "INVAnalysisTableViewCell.h"
 
+#import "UIFont+INVCustomizations.h"
+#import "UILabel+INVCustomizations.h"
+
 @interface INVAnalysisTableViewCell ()
 
 @property IBOutlet UILabel *analysisNameLabel;
@@ -38,8 +41,13 @@
 - (void)updateUI
 {
     if (self.analysis) {
-        self.analysisNameLabel.text = self.analysis.name;
-        self.analysisDescriptionLabel.text = self.analysis.overview;
+        [self.analysisNameLabel setText:self.analysis.name
+                            withDefault:@"ANALYSIS_NAME_UNAVAILABLE"
+                          andAttributes:@{NSFontAttributeName : [self.analysisNameLabel.font italicFont]}];
+
+        [self.analysisDescriptionLabel setText:self.analysis.overview
+                                   withDefault:@"ANALYSIS_DESCRIPTION_UNAVAILABLE"
+                                 andAttributes:@{NSFontAttributeName : [self.analysisDescriptionLabel.font italicFont]}];
 
         [self.ruleCountButton setTitle:[NSString stringWithFormat:@"%lu %@", (unsigned long) [self.analysis.rules count],
                                                  NSLocalizedString(@"RULES", nil)]

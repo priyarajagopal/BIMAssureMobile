@@ -10,7 +10,9 @@
 #import "INVAnalysisTableViewCell.h"
 #import "INVAnalysisEditViewController.h"
 
+#import "UIView+INVCustomizations.h"
 #import "UISplitViewController+ToggleSidebar.h"
+
 #import "INVProjectListSplitViewController.h"
 
 @interface INVAnalysesTableViewController () <UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate>
@@ -18,6 +20,8 @@
 @property (nonatomic) NSFetchedResultsController *dataResultsController;
 @property (nonatomic) BOOL isNSFetchedResultsChangeTypeUpdated;
 @property (nonatomic) NSIndexPath *indexOfProjectBeingEdited;
+
+- (IBAction)onShowRulesForAnalysis:(id)sender;
 
 @end
 
@@ -168,6 +172,12 @@
                           withRowAnimation:UITableViewRowAnimationAutomatic];
 
     self.indexOfProjectBeingEdited = nil;
+}
+
+#pragma mark - IBActions
+
+- (void)onShowRulesForAnalysis:(id)sender
+{
 }
 
 #pragma mark - UITableViewDataSource

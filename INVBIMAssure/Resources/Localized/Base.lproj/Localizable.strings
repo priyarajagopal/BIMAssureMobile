@@ -235,6 +235,9 @@
 "PLACEHOLDER_COMPANYNUMEMPLOYEES"="Number Of Employees";
 "PLACEHOLDER_ACCOUNTNAME"="Account Name";
 
+"ANALYSIS_NAME_UNAVAILABLE"="Analysis name unavailbable";
+"ANALYSIS_DESCRIPTION_UNAVAILABLE"="Analysis description unavailable";
+
 "VALUE_MISSING"="Value Missing";
 
 "EDIT_ANALYSIS"="Edit Analysis";

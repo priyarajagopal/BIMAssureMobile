@@ -7,6 +7,7 @@
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -19,15 +20,22 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="500" text="Analysis Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1w2-Te-odX">
-                        <rect key="frame" x="15" y="8" width="484" height="20"/>
+                        <rect key="frame" x="15" y="8" width="454" height="20"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSN-ox-VjW">
-                        <rect key="frame" x="507" y="15" width="77" height="30"/>
-                        <state key="normal" title="Rule Count">
-                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Analysis Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RV-tJ-E2V">
+                        <rect key="frame" x="15" y="28" width="454" height="23"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4R1-Hu-yPU">
+                        <rect key="frame" x="562" y="16" width="30" height="27"/>
+                        <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="15"/>
+                        <state key="normal" title="">
+                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -39,23 +47,29 @@
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Analysis Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RV-tJ-E2V">
-                        <rect key="frame" x="15" y="28" width="484" height="23"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSN-ox-VjW">
+                        <rect key="frame" x="477" y="15" width="77" height="30"/>
+                        <state key="normal" title="Rule Count">
+                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onShowRulesForAnalysis:" destination="-2" eventType="touchUpInside" id="NOy-ib-1gk"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="MSN-ox-VjW" firstAttribute="leading" secondItem="4RV-tJ-E2V" secondAttribute="trailing" constant="8" id="4pG-Pa-HKi"/>
                     <constraint firstAttribute="centerY" secondItem="aWd-L1-wPq" secondAttribute="centerY" id="CUc-s2-IBL"/>
+                    <constraint firstItem="4R1-Hu-yPU" firstAttribute="leading" secondItem="aWd-L1-wPq" secondAttribute="trailing" id="CXc-bh-e6s"/>
                     <constraint firstItem="1w2-Te-odX" firstAttribute="leading" secondItem="6B1-8K-Qr5" secondAttribute="leadingMargin" constant="7" id="HTh-Mo-ft8"/>
                     <constraint firstItem="aWd-L1-wPq" firstAttribute="leading" secondItem="MSN-ox-VjW" secondAttribute="trailing" constant="8" id="MBA-EQ-X7g"/>
+                    <constraint firstAttribute="centerY" secondItem="4R1-Hu-yPU" secondAttribute="centerY" id="MUu-r2-z2H"/>
+                    <constraint firstItem="4R1-Hu-yPU" firstAttribute="trailing" secondItem="6B1-8K-Qr5" secondAttribute="trailingMargin" id="YXb-sq-Txz"/>
                     <constraint firstItem="MSN-ox-VjW" firstAttribute="leading" secondItem="1w2-Te-odX" secondAttribute="trailing" constant="8" id="Z64-MZ-UeP"/>
                     <constraint firstAttribute="bottomMargin" secondItem="4RV-tJ-E2V" secondAttribute="bottom" id="dsk-aS-0Ym"/>
                     <constraint firstAttribute="centerY" secondItem="MSN-ox-VjW" secondAttribute="centerY" id="i0S-fi-WiE"/>
                     <constraint firstItem="1w2-Te-odX" firstAttribute="top" secondItem="6B1-8K-Qr5" secondAttribute="topMargin" id="nnS-JS-m5l"/>
-                    <constraint firstItem="aWd-L1-wPq" firstAttribute="trailing" secondItem="6B1-8K-Qr5" secondAttribute="trailingMargin" id="tBd-fa-4GM"/>
                     <constraint firstItem="4RV-tJ-E2V" firstAttribute="top" secondItem="1w2-Te-odX" secondAttribute="bottom" id="u2s-kW-C49"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="MSN-ox-VjW" secondAttribute="trailing" id="vmu-2n-5Ll"/>
                     <constraint firstItem="4RV-tJ-E2V" firstAttribute="leading" secondItem="6B1-8K-Qr5" secondAttribute="leadingMargin" constant="7" id="zjj-Bl-yP5"/>
