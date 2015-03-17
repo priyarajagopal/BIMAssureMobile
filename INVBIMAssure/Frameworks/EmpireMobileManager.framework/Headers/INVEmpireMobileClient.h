@@ -1634,11 +1634,15 @@ accountManager can be used to retrieve the details of account
  */
 - (void)deleteRuleInstanceForId:(NSNumber *)ruleInstanceId WithCompletionBlock:(CompletionHandler)handler;
 
+#pragma mark Analyses Rules Management  Related
+
 #pragma mark Analyses Execution Related
 
 #pragma mark Analyses Execution Results Related
 
 #pragma mark - General Account Related
+
+#warning Include way to asyncronously Notify when log out is done
 /**
  Removes any user /account information persisted for the user.An error is not returned  if user has not signed in
 

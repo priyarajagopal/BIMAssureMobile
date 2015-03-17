@@ -34,10 +34,18 @@
     UINib *cellNib = [UINib nibWithNibName:@"INVAnalysisTableViewCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"analysisCell"];
 
-    INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
-    [splitVC.aggregateDelegate addDelegate:self];
-
     [self fetchListOfAnalyses];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationItem.leftBarButtonItem = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self configureDisplayModeButton];
 }
 
@@ -160,7 +168,7 @@
                            id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
                            [self.globalDataManager.invServerClient
-                                    deleteAnalyses:[self.dataResultsController objectAtIndexPath:indexPath]
+                                    deleteAnalyses:[[self.dataResultsController objectAtIndexPath:indexPath] analysisId]
                                withCompletionBlock:INV_COMPLETION_HANDLER {
                                    INV_ALWAYS:
                                        [hud hide:YES];
@@ -196,15 +204,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - UISplitViewControllerDelegate
-
-- (void)splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self configureDisplayModeButton];
-    });
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

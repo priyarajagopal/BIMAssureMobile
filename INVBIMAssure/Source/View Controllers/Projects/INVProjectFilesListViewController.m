@@ -85,8 +85,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [super viewWillAppear:animated];
 
     INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
-    [splitVC.aggregateDelegate addDelegate:self];
-    [self configureDisplayModeButton];
+    // [splitVC.aggregateDelegate addDelegate:self];
 
     if (self.shouldShowSidebarOnReappear) {
         if (splitVC.displayMode != UISplitViewControllerDisplayModeAllVisible) {
@@ -97,11 +96,14 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     }
 
     [self fetchPackagesFromCurrentOffset];
+    [self configureDisplayModeButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+
+    self.navigationItem.leftBarButtonItem = nil;
     self.dataResultsController = nil;
     self.projectManager = nil;
     self.searchView = nil;
@@ -455,15 +457,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 - (void)searchView:(INVSearchView *)searchView onTagsSaved:(NSOrderedSet *)tags withName:(NSString *)name
 {
     // TODO: Save search
-}
-
-#pragma mark - UISplitViewControllerDelegate
-
-- (void)splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self configureDisplayModeButton];
-    });
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

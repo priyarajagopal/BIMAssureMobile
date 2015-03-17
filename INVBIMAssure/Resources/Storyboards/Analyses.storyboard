@@ -13,6 +13,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Z7m-Ru-Set">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Analyses"/>
                         </userDefinedRuntimeAttributes>
@@ -128,7 +132,7 @@
                                 <segue destination="ijk-zd-GaY" kind="unwind" identifier="unwind" unwindAction="done:" id="RPD-5T-j9D"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="rwI-ql-kgf">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Save" style="done" id="rwI-ql-kgf">
                             <connections>
                                 <action selector="onSaveSelected:" destination="ZTb-WZ-2fi" id="vdY-Pz-Zg6"/>
                             </connections>
