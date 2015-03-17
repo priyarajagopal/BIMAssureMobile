@@ -174,17 +174,17 @@ static NSString *INV_ActualParamValue = @"Value";
 #pragma mark - server side
 - (void)fetchRuleInstance
 {
-    if (!self.ruleSetId || !self.ruleInstanceId) {
+    if (!self.analysesId || !self.ruleInstanceId) {
 #warning Show an error alert or a default page
         INVLogError(
-            @"Cannot fetch rule instance details for RuleSet %@ and RuleInstanceId %@", self.ruleSetId, self.ruleInstanceId);
+            @"Cannot fetch rule instance details for analyses %@ and RuleInstanceId %@", self.analysesId, self.ruleInstanceId);
     }
     else {
 #warning If unlikely case that matchingRuleInstance was not fetched from the server due to any reason when this view was loaded , fetch it
 
         INVRuleInstance *ruleInstance =
             [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId
-                                                                                  forRuleSetId:self.ruleSetId];
+                                                                                  forRuleSetId:self.analysesId];
 
         self.intermediateRuleOverview = ruleInstance.overview ? ruleInstance.overview : @"";
         self.ruleName = ruleInstance.ruleName;
@@ -271,7 +271,7 @@ static NSString *INV_ActualParamValue = @"Value";
 {
     INVRuleInstance *ruleInstance =
         [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId
-                                                                              forRuleSetId:self.ruleSetId];
+                                                                              forRuleSetId:self.analysesId];
 
     INVRuleInstanceActualParamDictionary actualParam =
         [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
@@ -531,7 +531,7 @@ static NSString *INV_ActualParamValue = @"Value";
         if (self.ruleInstanceId) {
             INVRuleInstance *ruleInstance =
                 [self.globalDataManager.invServerClient.rulesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId
-                                                                                      forRuleSetId:self.ruleSetId];
+                                                                                      forRuleSetId:self.analysesId];
             self.intermediateRuleOverview = ruleInstance.overview ? ruleInstance.overview : @"";
             self.ruleName = ruleInstance.ruleName;
         }
