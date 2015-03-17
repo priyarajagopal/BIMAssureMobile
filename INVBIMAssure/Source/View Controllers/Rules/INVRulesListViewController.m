@@ -309,7 +309,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     if ([segue.identifier isEqualToString:@"RuleInstanceViewSegue"]) {
         INVRuleInstanceTableViewController *ruleInstanceTVC = segue.destinationViewController;
         ruleInstanceTVC.ruleInstanceId = self.selectedRuleInstanceId;
-        ruleInstanceTVC.ruleSetId = self.selectedRuleSetId;
+        ruleInstanceTVC.analysesId = self.selectedRuleSetId;
         ruleInstanceTVC.delegate = self;
     }
     if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
@@ -319,7 +319,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }
     if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
         INVRuleDefinitionsTableViewController *ruleDefnTVC = segue.destinationViewController;
-        ruleDefnTVC.ruleSetId = self.selectedRuleSetId;
+        ruleDefnTVC.analysesId = self.selectedRuleSetId;
         ruleDefnTVC.createRuleInstanceDelegate = self;
     }
 }

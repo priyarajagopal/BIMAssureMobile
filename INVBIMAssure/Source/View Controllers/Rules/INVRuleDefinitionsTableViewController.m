@@ -12,7 +12,7 @@
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 @interface INVRuleDefinitionsTableViewController () <NSFetchedResultsControllerDelegate>
-@property (nonatomic, strong) INVRulesManager *rulesManager;
+@property (nonatomic, strong) INVAnalysesManager *analysesManager;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, readwrite) NSFetchedResultsController *dataResultsController;
 @property (nonatomic, copy) NSNumber *selectedRuleId;
@@ -53,7 +53,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.rulesManager = nil;
+    self.analysesManager = nil;
     self.tableView.dataSource = nil;
     self.dataSource = nil;
     self.dataResultsController = nil;
@@ -103,7 +103,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
     INVRule *rule = [self.dataResultsController objectAtIndexPath:indexPath];
     self.selectedRuleId = rule.ruleId;
-    self.selectedRuleName = ruleDefnCell.ruleName.text;
+    self.selectedRuleName = rule.overview;
     [self performSegueWithIdentifier:@"CreateRuleInstanceSegue" sender:nil];
 }
 
@@ -143,7 +143,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INVRuleInstanceTableViewController *ruleInstanceTVC =
             (INVRuleInstanceTableViewController *) segue.destinationViewController;
         ruleInstanceTVC.ruleId = self.selectedRuleId;
-        ruleInstanceTVC.ruleSetId = self.ruleSetId;
+        ruleInstanceTVC.analysesId = self.analysesId;
         ruleInstanceTVC.ruleName = self.selectedRuleName;
         ruleInstanceTVC.delegate = self.createRuleInstanceDelegate;
     }
@@ -166,7 +166,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INV_CellConfigurationBlock cellConfigurationBlock =
             ^(INVRuleDefinitionTableViewCell *cell, INVRule *rule, NSIndexPath *indexPath) {
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.ruleName.text = rule.ruleName;
                 cell.ruleDescription.text = rule.overview;
 
             };
@@ -174,20 +173,20 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }
     return _dataSource;
 }
-- (INVRulesManager *)rulesManager
+- (INVAnalysesManager *)analysesManager
 {
-    if (!_rulesManager) {
-        _rulesManager = self.globalDataManager.invServerClient.rulesManager;
+    if (!_analysesManager) {
+        _analysesManager = self.globalDataManager.invServerClient.analysesManager;
     }
-    return _rulesManager;
+    return _analysesManager;
 }
 
 - (NSFetchedResultsController *)dataResultsController
 {
     if (!_dataResultsController) {
-        NSFetchRequest *fetchRequest = self.rulesManager.fetchRequestForRules;
+        NSFetchRequest *fetchRequest = self.analysesManager.fetchRequestForRules;
         _dataResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                     managedObjectContext:self.rulesManager.managedObjectContext
+                                                                     managedObjectContext:self.analysesManager.managedObjectContext
                                                                        sectionNameKeyPath:@"ruleId"
                                                                                 cacheName:nil];
         [_dataResultsController setDelegate:self];
