@@ -11,6 +11,7 @@
 #import "INVAccountManager.h"
 #import "INVProjectManager.h"
 #import "INVRulesManager.h"
+#import "INVAnalysesManager.h"
 #import "INVRuleExecutionManager.h"
 #import "INVRuleInstanceExecution.h"
 #import "INVBuildingManager.h"
@@ -53,6 +54,11 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  Rules Manager resposible for managing responses to rules related requests
  */
 @property (nonatomic, readonly) INVRulesManager *rulesManager;
+
+/**
+ Analyses Manager resposible for managing responses to analyses related requests
+ */
+@property (nonatomic, readonly) INVAnalysesManager *analysesManager;
 
 /**
  Rule execution Manager resposible for managing responses to rule execution related requests
@@ -431,7 +437,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  @param numEmployees  optional number of employees
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- accountManager can be used to retrieve the details of account
+ accountManager can be used to retrieve the details of account. Instance of INVUser is created
 
  @see accountManager
 
@@ -455,7 +461,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                     contactName:(NSString *)contactName
                    contactPhone:(NSString *)contactPhone
                 numberEmployees:(NSNumber *)numEmployees
-            withCompletionBlock:(CompletionHandler)handler;
+            withCompletionBlock:(CompletionHandlerWithData)handler;
 /**
  Asynchornously , sign up a user with the XOS Passport service
 
@@ -479,7 +485,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- accountManager can be used to retrieve the details of account
+ accountManager can be used to retrieve the details of account. Instance of INVUser is returned
 
  @see accountManager
 
@@ -494,7 +500,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                           email:(NSString *)userEmail
                        password:(NSString *)password
              allowNotifications:(BOOL)allowNotifications
-            withCompletionBlock:(CompletionHandler)handler;
+            withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously , create an account for currently signed in user with the XOS Passport service
@@ -519,7 +525,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  @param userEmail The email address of signed in user. ***** THE SERVER API SHOULD BE UPDATED TO NOT REQUIRE THIS FIELD ******
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- accountManager can be used to retrieve the details of account
+ accountManager can be used to retrieve the details of account. Instance of INVAccount is returned
 
  @see accountManager
 
@@ -534,7 +540,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                                        contactPhone:(NSString *)contactPhone
                                     numberEmployees:(NSNumber *)numEmployees
                                        forUserEmail:(NSString *)userEmail
-                                withCompletionBlock:(CompletionHandler)handler;
+                                withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously , disable an account for currently signed in account. Once disabled, the account
@@ -548,7 +554,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  @see -signIntoAccount:withCompletionBlock:
 
  */
-- (void)disableAccountForSignedInUserWithCompletionBlock:(CompletionHandler)handler;
+- (void)disableAccountForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
 
 /**
 Asynchornously , update details of signed in account with the XOS Passport service. If values are not changed, then the existing
@@ -1167,12 +1173,12 @@ accountManager can be used to retrieve the details of account
 
 
  */
-- (void)createRuleInstanceForRuleId:(NSNumber *)ruleId
-                        inRuleSetId:(NSNumber *)ruleSetId
-                       withRuleName:(NSString *)ruleName
-                     andDescription:(NSString *)overview
-                andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams
-                WithCompletionBlock:(CompletionHandler)handler;
+- (void)old_createRuleInstanceForRuleId:(NSNumber *)ruleId
+                            inRuleSetId:(NSNumber *)ruleSetId
+                           withRuleName:(NSString *)ruleName
+                         andDescription:(NSString *)overview
+                    andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams
+                    WithCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously ,update the specified rule instance.
@@ -1194,13 +1200,13 @@ accountManager can be used to retrieve the details of account
 
 
  */
-- (void)modifyRuleInstanceForRuleInstanceId:(NSNumber *)ruleInstanceId
-                                  forRuleId:(NSNumber *)ruleId
-                                inRuleSetId:(NSNumber *)ruleSetId
-                               withRuleName:(NSString *)ruleName
-                             andDescription:(NSString *)overview
-                        andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams
-                        WithCompletionBlock:(CompletionHandler)handler;
+- (void)old_modifyRuleInstanceForRuleInstanceId:(NSNumber *)ruleInstanceId
+                                      forRuleId:(NSNumber *)ruleId
+                                    inRuleSetId:(NSNumber *)ruleSetId
+                                   withRuleName:(NSString *)ruleName
+                                 andDescription:(NSString *)overview
+                            andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams
+                            WithCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously ,delete the specified rule instance.
@@ -1213,7 +1219,7 @@ accountManager can be used to retrieve the details of account
 
 
  */
-- (void)deleteRuleInstanceForId:(NSNumber *)ruleInstanceId WithCompletionBlock:(CompletionHandler)handler;
+- (void)old_deleteRuleInstanceForId:(NSNumber *)ruleInstanceId WithCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark - Rules Definition Related
 /**
@@ -1228,7 +1234,7 @@ accountManager can be used to retrieve the details of account
  @see rulesManager
 
  */
-- (void)getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
+- (void)old_getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously ,get rule definition associated with specific ruleId. Users must have signed into an account in order to be able
@@ -1242,7 +1248,7 @@ accountManager can be used to retrieve the details of account
  @see rulesManager
 
  */
-- (void)getRuleDefinitionForRuleId:(NSNumber *)ruleId WithCompletionBlock:(CompletionHandler)handler;
+- (void)old_getRuleDefinitionForRuleId:(NSNumber *)ruleId WithCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark - Rules Execution Related
 /**
@@ -1373,7 +1379,6 @@ accountManager can be used to retrieve the details of account
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
  @param buildingElementId The Id of the building element whose properties are to be fetched
 
- @param categoryName The display name of the category
 
  @param pkgId The Id of the package for which the building elements are to be fetched
 
@@ -1387,16 +1392,253 @@ accountManager can be used to retrieve the details of account
 
  @see fetchBuildingElementCategoriesForPackage:withCompletionBlock
  */
-- (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSNumber *)buildingElementId
-                                  ForCategoryDisplayName:(NSString *)categoryName
+- (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSString *)buildingElementId
                                      ForPackageVersionId:(NSNumber *)pkgId
                                               fromOffset:(NSNumber *)offset
                                                 withSize:(NSNumber *)size
                                      withCompletionBlock:(CompletionHandlerWithData)handler;
 
-#pragma mark - General Account Related
+#pragma mark Basic Analyses related
 
-#warning Include way to asyncronously Notify when log out is done
+/*
+ Asynchornously , fadd an analysis to a project.
+
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+
+ @param projectId The Id of the project to which analysis is to be added
+
+ @param name required Name of analysis
+
+ @param description Required description of analysis
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler that is of type INVAnalysis
+
+  @see analysesManager
+ */
+- (void)addAnalysesToProject:(NSNumber *)projectId
+                    withName:(NSString *)name
+              andDescription:(NSString *)description
+         withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously ,get list of all analyses associated with a project. Users must have signed into an account in order to be able
+ to
+ fetch rules.
+
+ @param projectId the Id of the project
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ analysesManager can be used to retrieve rules
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see analysesManager
+
+ */
+- (void)getAllAnalysesForProject:(NSNumber *)project withCompletionBlock:(CompletionHandler)handler;
+
+/*
+ Asynchornously , update basic info associated with an analyses .
+
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+
+ @param analysis The Id of the analysis to be updated
+
+ @param name required Name of analysis
+
+ @param description Required description of analysis
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler that is of type INVAnalysis
+
+  @see analysesManager
+  */
+- (void)updateAnalyses:(NSNumber *)analysisId
+               withName:(NSString *)name
+         andDescription:(NSString *)description
+    withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/*
+ Asynchornously , delete an analysis.
+
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+
+ @param analysisId The Id of the analysis to be deleted
+
+
+ @param handler The completion handler that returns error object if there was any error. If no error, nil returned
+
+ @see analysesManager
+
+ */
+- (void)deleteAnalyses:(NSNumber *)analysisId withCompletionBlock:(CompletionHandler)handler;
+
+#pragma mark Analyses Pkg Master Membership Related
+
+/**
+ Asynchornously ,get list of all package masters associated with a analyses. Users must have signed into an account in order to
+ be able to fetch file masters.
+
+ @param analysisId The analysis for which the package masters need to be fetched
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ analysisManager can be used to retrieve pkg master list
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see analysesManager
+
+
+ */
+- (void)getAnalysisMembership:(NSNumber *)analysisId WithCompletionBlock:(CompletionHandler)handler;
+
+/**
+ Asynchornously , add the list of package masters to a analysis. The user must have succesfully into the account via
+ signIntoAccount:withCompletionBlock:
+
+ @param analysisId  The analysis Id
+
+ @param pkgMasters The list of package master ids to be associated with the rule set
+
+ @param handler The completion handler that returns error object if there was any error. If no error, then return analysis
+ membership
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see analysesManager
+
+ */
+- (void)addToAnalysis:(NSNumber *)analysisId
+             pkgMasters:(NSArray *)pkgMasters
+    withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously ,remove specified package master members associated with a analyses. Users must have signed into an account in
+ order to
+ be able to fetch file masters.
+
+ @param analysisMembershipId The analysis membership Id to be removed
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ rulesManager can be used to retrieve files for the project
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see analysesManager
+
+
+ */
+- (void)removeAnalysisMembership:(NSNumber *)analysisMembershipId WithCompletionBlock:(CompletionHandler)handler;
+
+#pragma mark Rule Definitions Related
+
+/**
+ Asynchornously ,get list of all rules associated with a account. Users must have signed into an account in order to be able to
+ fetch rules.
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ analysesManager can be used to retrieve rules
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see analysesManager
+
+ */
+- (void)getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
+
+/**
+ Asynchornously ,get rule definition associated with specific ruleId. Users must have signed into an account in order to be able
+ to fetch rules.
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then INVRule
+ object is returned in callback
+
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see analysesManager
+
+ */
+- (void)getRuleDefinitionForRuleId:(NSNumber *)ruleId WithCompletionBlock:(CompletionHandlerWithData)handler;
+
+#pragma mark Rules (Instances) Related
+
+/**
+ Asynchornously ,create a specified rule instance from a rule definition and associate it with an analyses.
+
+ @param ruleId The Id of the rule definition corresponding to the instance
+
+ @param analysisId the Id of the rule analyses that the rule is associated with
+
+ @param ruleName The name of the tule
+
+ @param overview The rule description
+
+ @param actualParams A dictionary of key:value pairs representing the actual parameters for the given instance
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ newly created rule instance is returned
+
+ @see -signIntoAccount:withCompletionBlock:
+
+
+ */
+- (void)createRuleForRuleDefinitionId:(NSNumber *)ruleId
+                           inAnalysis:(NSNumber *)analysisId
+                         withRuleName:(NSString *)ruleName
+                       andDescription:(NSString *)overview
+                  andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams
+                  WithCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously ,update the specified rule instance associated with an analyses. All values provided will override existing
+ values. So must provide existing values if they are to be unchanged.
+
+ @param ruleInstanceId The id of the rule Instance
+
+ @param ruleId The Id of the rule definition corresponding to the instance
+
+ @param analysisId The id of the analysis
+
+ @param ruleName The name of the rule.
+
+ @param overview The rule description
+
+ @param actualParams A dictionary of key:value pairs representing the actual parameters for the given instance
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ updated rule instance is returned
+
+ @see -signIntoAccount:withCompletionBlock:
+
+
+ */
+- (void)modifyRuleInstanceForRuleInstanceId:(NSNumber *)ruleInstanceId
+                                  forRuleId:(NSNumber *)ruleId
+                                 inAnalysis:(NSNumber *)analysisId
+                               withRuleName:(NSString *)ruleName
+                             andDescription:(NSString *)overview
+                        andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams
+                        WithCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously ,delete the specified rule instance.
+
+ @param ruleInstanceId The id of the rule Instance
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ rulesManager can be used to retrieve rulesets
+
+ @see -signIntoAccount:withCompletionBlock:
+
+
+ */
+- (void)deleteRuleInstanceForId:(NSNumber *)ruleInstanceId WithCompletionBlock:(CompletionHandler)handler;
+
+#pragma mark Analyses Execution Related
+
+#pragma mark Analyses Execution Results Related
+
+#pragma mark - General Account Related
 /**
  Removes any user /account information persisted for the user.An error is not returned  if user has not signed in
 

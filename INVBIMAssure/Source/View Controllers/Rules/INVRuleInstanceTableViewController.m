@@ -211,7 +211,7 @@ static NSString *INV_ActualParamValue = @"Value";
         [self showLoadProgress];
         [self.globalDataManager.invServerClient
             getRuleDefinitionForRuleId:ruleId
-                   WithCompletionBlock:^(INVEmpireMobileError *error) {
+                   WithCompletionBlock:^(INVRule* rule,INVEmpireMobileError *error) {
                        [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 
                        if (!error) {
