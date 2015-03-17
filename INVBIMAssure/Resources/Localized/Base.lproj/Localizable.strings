@@ -6,6 +6,7 @@
   Copyright (c) 2014 Invicara Inc. All rights reserved.
 */
 "SAVE"="Save";
+"CREATE"="Create";
 "CANCEL"="Cancel";
 "DELETE"="Delete";
 "REMOVE"="Remove";
@@ -93,6 +94,11 @@
 "CONFIRM_DELETE_ACCOUNT_MEMBER_MESSAGE"="Are you sure you want to delete this member? This cannot be undone!";
 "CONFIRM_DELETE_ACCOUNT_MEMBER_NEGATIVE"="No";
 "CONFIRM_DELETE_ACCOUNT_MEMBER_POSITIVE"="Yes";
+
+"CONFIRM_DELETE_ANALYSIS_TITLE"="Confirm Delete";
+"CONFIRM_DELETE_ANALYSIS_MESSAGE"="Are you sure you want to delete this analysis? This cannot be undone!";
+"CONFIRM_DELETE_ANALYSIS_NEGATIVE"="No";
+"CONFIRM_DELETE_ANALYSIS_POSITIVE"="Yes";
 
 "CONFIRM_CANCEL_INVITE"="Confirm Cancel";
 "CONFIRM_CANCEL_INVITE_MESSAGE"="Are you sure you want to cancel this invite? This cannot be undone!";

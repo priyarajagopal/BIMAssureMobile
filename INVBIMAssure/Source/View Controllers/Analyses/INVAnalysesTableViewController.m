@@ -103,6 +103,45 @@
              }];
 }
 
+- (void)deleteRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIAlertController *confirmController =
+        [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ANALYSIS_TITLE", nil)
+                                            message:NSLocalizedString(@"CONFIRM_DELETE_ANALYSIS_MESSAGE", nil)
+                                     preferredStyle:UIAlertControllerStyleAlert];
+
+    [confirmController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ANALYSIS_NEGATIVE", nil)
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:nil]];
+
+    [confirmController
+        addAction:[UIAlertAction
+                      actionWithTitle:NSLocalizedString(@"CONFIRM_DELETE_ANALYSIS_POSITIVE", nil)
+                                style:UIAlertActionStyleDestructive
+                              handler:^(UIAlertAction *action) {
+
+                                  id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+                                  [self.globalDataManager.invServerClient
+                                           deleteAnalyses:[[self.dataResultsController objectAtIndexPath:indexPath] analysisId]
+                                      withCompletionBlock:INV_COMPLETION_HANDLER {
+                                          INV_ALWAYS:
+                                              [hud hide:YES];
+
+                                          INV_SUCCESS:
+                                          INV_ERROR:
+                                              INVLogError(@"%@", error);
+
+                                              UIAlertController *errorController = [[UIAlertController alloc]
+                                                  initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_DELETE", nil)];
+
+                                              [self presentViewController:errorController animated:YES completion:nil];
+                                      }];
+                              }]];
+
+    [self presentViewController:confirmController animated:YES completion:nil];
+}
+
 - (NSFetchedResultsController *)dataResultsController
 {
     if (_dataResultsController == nil) {
@@ -161,28 +200,11 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return @[
-        [UITableViewRowAction
-            rowActionWithStyle:UITableViewRowActionStyleDestructive
-                         title:NSLocalizedString(@"DELETE", nil)
-                       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                           id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
-                           [self.globalDataManager.invServerClient
-                                    deleteAnalyses:[[self.dataResultsController objectAtIndexPath:indexPath] analysisId]
-                               withCompletionBlock:INV_COMPLETION_HANDLER {
-                                   INV_ALWAYS:
-                                       [hud hide:YES];
-
-                                   INV_SUCCESS:
-                                   INV_ERROR:
-                                       INVLogError(@"%@", error);
-
-                                       UIAlertController *errorController = [[UIAlertController alloc]
-                                           initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_DELETE", nil)];
-
-                                       [self presentViewController:errorController animated:YES completion:nil];
-                               }];
-                       }],
+        [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
+                                           title:NSLocalizedString(@"DELETE", nil)
+                                         handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                                             [self deleteRowAtIndexPath:indexPath];
+                                         }],
         [UITableViewRowAction
             rowActionWithStyle:UITableViewRowActionStyleNormal
                          title:NSLocalizedString(@"EDIT", nil)
