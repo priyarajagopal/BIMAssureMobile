@@ -9,6 +9,7 @@
 #import "INVAnalysesTableViewController.h"
 #import "INVAnalysisTableViewCell.h"
 #import "INVAnalysisEditViewController.h"
+#import "INVAnalysisRulesTableViewController.h"
 
 #import "UIView+INVCustomizations.h"
 #import "UISplitViewController+ToggleSidebar.h"
@@ -19,9 +20,15 @@
 
 @property (nonatomic) NSFetchedResultsController *dataResultsController;
 @property (nonatomic) BOOL isNSFetchedResultsChangeTypeUpdated;
-@property (nonatomic) NSIndexPath *indexOfProjectBeingEdited;
+@property (nonatomic) NSIndexPath *indexOfAnalysisBeingEdited;
 
+@property (nonatomic) NSMutableDictionary *cachedHeigts;
+@property (nonatomic) INVAnalysisTableViewCell *sizingCell;
+
+- (IBAction)onEditAnalysis:(id)sender;
 - (IBAction)onShowRulesForAnalysis:(id)sender;
+- (IBAction)onRunRulesForAnalysis:(id)sender;
+- (IBAction)onDeleteAnalysis:(id)sender;
 
 @end
 
@@ -35,8 +42,15 @@
 {
     [super viewDidLoad];
 
+    INVProjectListSplitViewController *splitVC = (INVProjectListSplitViewController *) self.splitViewController;
+    [splitVC.aggregateDelegate removeDelegate:self];
+    [splitVC.aggregateDelegate addDelegate:self];
+
     UINib *cellNib = [UINib nibWithNibName:@"INVAnalysisTableViewCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"analysisCell"];
+
+    self.cachedHeigts = [NSMutableDictionary new];
+    self.sizingCell = [[cellNib instantiateWithOwner:nil options:nil] firstObject];
 
     [self fetchListOfAnalyses];
 }
@@ -74,6 +88,14 @@
 
         editVC.projectId = self.projectId;
     }
+
+    if ([[segue identifier] isEqual:@"showRules"]) {
+        INVAnalysisRulesTableViewController *rulesVC =
+            (INVAnalysisRulesTableViewController *) [[segue destinationViewController] topViewController];
+
+        rulesVC.projectId = self.projectId;
+        rulesVC.analysisId = [sender analysisId];
+    }
 }
 
 #pragma mark - Content Management
@@ -95,6 +117,7 @@
                      [self.refreshControl endRefreshing];
 
                  INV_SUCCESS:
+                     [self.cachedHeigts removeAllObjects];
                      [self.dataResultsController performFetch:NULL];
                      [self.tableView reloadData];
 
@@ -168,23 +191,55 @@
 
 - (void)reloadRowAtSelectedIndex
 {
-    [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfProjectBeingEdited ]
+    [self.cachedHeigts removeObjectForKey:self.indexOfAnalysisBeingEdited];
+    [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfAnalysisBeingEdited ]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
 
-    self.indexOfProjectBeingEdited = nil;
+    self.indexOfAnalysisBeingEdited = nil;
 }
 
 #pragma mark - IBActions
 
+- (void)onEditAnalysis:(id)sender
+{
+    INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
+
+    self.indexOfAnalysisBeingEdited = [self.tableView indexPathForCell:cell];
+    [self performSegueWithIdentifier:@"editAnalysis" sender:cell.analysis];
+}
+
 - (void)onShowRulesForAnalysis:(id)sender
 {
+    INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
+
+    self.indexOfAnalysisBeingEdited = [self.tableView indexPathForCell:cell];
+    [self performSegueWithIdentifier:@"showRules" sender:cell.analysis];
+}
+
+- (void)onDeleteAnalysis:(id)sender
+{
+    INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
+
+    [self deleteRowAtIndexPath:[self.tableView indexPathForCell:cell]];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewAutomaticDimension;
+    if (self.cachedHeigts[indexPath]) {
+        return [self.cachedHeigts[indexPath] floatValue];
+    }
+
+    self.sizingCell.analysis = [self.dataResultsController objectAtIndexPath:indexPath];
+
+    CGSize size = [self.sizingCell systemLayoutSizeFittingSize:CGSizeMake(tableView.bounds.size.width, 0)
+                                 withHorizontalFittingPriority:UILayoutPriorityRequired
+                                       verticalFittingPriority:UILayoutPriorityDefaultLow];
+
+    self.cachedHeigts[indexPath] = @(size.height);
+
+    return size.height;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -207,32 +262,6 @@
 
 #pragma mark - UITableViewDelegate
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @[
-        [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
-                                           title:NSLocalizedString(@"DELETE", nil)
-                                         handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                             [self deleteRowAtIndexPath:indexPath];
-                                         }],
-        [UITableViewRowAction
-            rowActionWithStyle:UITableViewRowActionStyleNormal
-                         title:NSLocalizedString(@"EDIT", nil)
-                       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                           self.indexOfProjectBeingEdited = indexPath;
-
-                           [self performSegueWithIdentifier:@"editAnalysis"
-                                                     sender:[self.dataResultsController objectAtIndexPath:indexPath]];
-                       }],
-    ];
-}
-
-- (void)tableView:(UITableView *)tableView
-    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-     forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -249,9 +278,10 @@
     // reloading the data.
     // if the user has manually triggered a refresh or the view is loaded, the table view is reloaded.
     if (!self.isNSFetchedResultsChangeTypeUpdated) {
+        [self.cachedHeigts removeAllObjects];
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
-    else if (self.indexOfProjectBeingEdited) {
+    else if (self.indexOfAnalysisBeingEdited) {
         [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
     }
 }
@@ -263,6 +293,13 @@
        newIndexPath:(NSIndexPath *)newIndexPath
 {
     self.isNSFetchedResultsChangeTypeUpdated = (type == NSFetchedResultsChangeUpdate);
+}
+
+#pragma mark - UISplitViewControllerDelegate
+
+- (void)splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode
+{
+    [self.cachedHeigts removeAllObjects];
 }
 
 @end

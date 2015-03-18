@@ -17,9 +17,8 @@
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
-@interface INVRulesListViewController () <INVRuleInstanceTableViewCellActionDelegate,
-    INVRuleSetTableViewHeaderViewAcionDelegate, INVRuleInstanceTableViewControllerDelegate, NSFetchedResultsControllerDelegate,
-    UISplitViewControllerDelegate>
+@interface INVRulesListViewController () <INVRuleSetTableViewHeaderViewAcionDelegate,
+    INVRuleInstanceTableViewControllerDelegate, NSFetchedResultsControllerDelegate, UISplitViewControllerDelegate>
 @property (nonatomic, strong) INVRulesManager *rulesManager;
 @property (nonatomic, strong) NSFetchedResultsController *dataResultsController;
 @property (nonatomic, strong) INVRulesTableViewDataSource *dataSource;
@@ -130,8 +129,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 - (void)onViewRuleTappedFor:(INVRuleInstanceTableViewCell *)sender
 {
     INVRuleInstanceTableViewCell *ruleInstanceCell = (INVRuleInstanceTableViewCell *) sender;
-    self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
-    self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
+    // self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
+    // self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
     self.selectedRowInstanceCell = ruleInstanceCell;
 
     [self performSegueWithIdentifier:@"RuleInstanceViewSegue" sender:self];
@@ -140,8 +139,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 - (void)onDeleteRuleTappedFor:(INVRuleInstanceTableViewCell *)sender
 {
     INVRuleInstanceTableViewCell *ruleInstanceCell = (INVRuleInstanceTableViewCell *) sender;
-    self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
-    self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
+    // self.selectedRuleInstanceId = ruleInstanceCell.ruleInstanceId;
+    // self.selectedRuleSetId = ruleInstanceCell.ruleSetId;
     self.selectedRowInstanceCell = ruleInstanceCell;
 
     [self showDeletePromptAlert];
@@ -211,7 +210,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     INVRuleInstanceTableViewCell *cell = (INVRuleInstanceTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
-    [cell openCell];
+    // [cell openCell];
 }
 
 #pragma mark - INVRuleSetTableViewHeaderViewAcionDelegate
@@ -319,7 +318,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }
     if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
         INVRuleDefinitionsTableViewController *ruleDefnTVC = segue.destinationViewController;
-        ruleDefnTVC.analysesId = self.selectedRuleSetId;
+        ruleDefnTVC.analysisId = self.selectedRuleSetId;
         ruleDefnTVC.createRuleInstanceDelegate = self;
     }
 }
@@ -339,13 +338,15 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                 if (ruleInstances && ruleInstances.count > cellRow) {
                     INVRuleInstance *ruleInstance = [ruleInstances objectAtIndex:indexPath.row];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.name.text = ruleInstance.ruleName;
+                    /*
+                     cell.name.text = ruleInstance.ruleName;
                     cell.overview.text = ruleInstance.overview;
                     cell.ruleInstanceId = ruleInstance.ruleInstanceId;
                     // cell.ruleSetId = ruleInstance.ruleSetId;
                     cell.actionDelegate = self;
 
                     cell.ruleWarning.hidden = ([ruleInstance.emptyParamCount integerValue] == 0);
+                     */
                 }
             };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleInstanceCell" configureBlock:cellConfigurationBlock];

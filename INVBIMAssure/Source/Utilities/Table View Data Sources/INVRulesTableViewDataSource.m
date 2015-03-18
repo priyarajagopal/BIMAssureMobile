@@ -9,7 +9,7 @@
 #import "INVRulesTableViewDataSource.h"
 #import "INVRuleInstanceTableViewCell.h"
 
-@interface INVRulesTableViewDataSource () <INVRuleInstanceTableViewCellStateDelegate>
+@interface INVRulesTableViewDataSource ()
 @property (nonatomic, strong) INV_CellConfigurationBlock cellConfigBlock;
 @property (nonatomic, strong) NSString *cellIdentifier;
 @property (nonatomic, strong) NSMutableSet *indexPathsOfOpenCells;
@@ -54,7 +54,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     INVRuleInstanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
-    cell.stateDelegate = self;
     id cellData = self.fetchedResultsController.fetchedObjects[indexPath.section];
     INV_CellConfigurationBlock matchBlock = self.cellConfigBlock;
 
@@ -63,7 +62,7 @@
     }
 
     if ([self.indexPathsOfOpenCells containsObject:indexPath]) {
-        [cell openCell];
+        // [cell openCell];
     }
     return cell;
 }

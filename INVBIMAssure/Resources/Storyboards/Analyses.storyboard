@@ -9,7 +9,7 @@
         <scene sceneID="noh-gD-Yyw">
             <objects>
                 <tableViewController id="sHN-WS-EBf" customClass="INVAnalysesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="1gA-BP-I7Y">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="1gA-BP-I7Y">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,11 +35,94 @@
                     </navigationItem>
                     <connections>
                         <segue destination="06H-DG-7xN" kind="presentation" identifier="editAnalysis" modalPresentationStyle="formSheet" id="b7D-42-Tuy"/>
+                        <segue destination="kYh-w8-Kel" kind="presentation" identifier="showRules" modalPresentationStyle="formSheet" id="AWy-or-XJf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XkO-hA-fud" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="996" y="353"/>
+        </scene>
+        <!--Rules-->
+        <scene sceneID="5PY-Ba-OWK">
+            <objects>
+                <tableViewController id="1TP-av-uJH" customClass="INVAnalysisRulesTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QcS-8b-AjI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="1TP-av-uJH" id="Bcc-Yd-cfO"/>
+                            <outlet property="delegate" destination="1TP-av-uJH" id="Me5-2V-DXb"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Rules" id="qmQ-cN-AAG">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="clg-l4-pHm">
+                            <connections>
+                                <segue destination="cUj-uS-7Zg" kind="unwind" unwindAction="done:" id="rJz-3f-XWS"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bif-sG-7DE">
+                            <connections>
+                                <action selector="perform:" destination="p3J-1q-2ga" id="yJH-uq-Faa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="editRuleInstanceTransition" destination="hec-lz-kJW" id="0eK-Xd-yhn"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="53U-Sl-cep" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cUj-uS-7Zg" userLabel="Exit" sceneMemberID="exit"/>
+                <customObject id="p3J-1q-2ga" customClass="INVTransitionToStoryboard">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="RuleDefinitionsTVC"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="showRuleDefinitions"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="modalPresentationStyle">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="1TP-av-uJH" id="tQo-RK-J0Z"/>
+                    </connections>
+                </customObject>
+                <customObject id="hec-lz-kJW" customClass="INVTransitionToStoryboard">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="CreateRuleInstanceTVC"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="editRuleInstance"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="modalPresentationStyle">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="1TP-av-uJH" id="ze6-Eo-4TW"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="2329" y="1056"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IaN-J1-IKj">
+            <objects>
+                <navigationController id="kYh-w8-Kel" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eTW-ng-Ceu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="1TP-av-uJH" kind="relationship" relationship="rootViewController" id="1QU-b1-sGC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="80K-DQ-aY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1673" y="1056"/>
         </scene>
         <!--Edit Analysis-->
         <scene sceneID="lmC-KP-CyG">

@@ -106,7 +106,7 @@
 
  @return The rule instance
  */
-- (INVRuleInstance *)ruleInstanceForAnalysisId:(NSNumber *)ruleInstanceId forAnalysisId:(NSNumber *)analysisId;
+- (INVRuleInstance *)ruleInstanceForRuleInstanceId:(NSNumber *)ruleInstanceId forAnalysisId:(NSNumber *)analysisId;
 
 /**
  Returns list of pkg master Ids for given analyses. Details of the packages can be retrieved via the INVProjectManager
