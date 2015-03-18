@@ -8,15 +8,20 @@
 
 #import "INVRuleDefinitionsTableViewController.h"
 #import "INVRuleDefinitionTableViewCell.h"
+#import "INVBlockUtils.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 @interface INVRuleDefinitionsTableViewController () <NSFetchedResultsControllerDelegate>
+
 @property (nonatomic, strong) INVAnalysesManager *analysesManager;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, readwrite) NSFetchedResultsController *dataResultsController;
-@property (nonatomic, copy) NSNumber *selectedRuleId;
-@property (nonatomic, copy) NSString *selectedRuleName;
+
+@property (nonatomic) NSMutableDictionary *selectedRules;
+
+- (IBAction)onSaveRuleDefinitons:(id)sender;
+
 @end
 
 @implementation INVRuleDefinitionsTableViewController
@@ -30,6 +35,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
     UINib *nib = [UINib nibWithNibName:@"INVRuleDefinitionTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleDefinitionCell"];
+
+    self.selectedRules = [NSMutableDictionary new];
 
     self.tableView.dataSource = self.dataSource;
     self.clearsSelectionOnViewWillAppear = YES;
@@ -60,13 +67,31 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 }
 
 #pragma mark - UIEvent handler
-- (IBAction)done:(UIStoryboardSegue *)segue
-{
-}
 
 - (void)onRefreshControlSelected:(id)event
 {
     [self fetchListOfRuleDefinitions];
+}
+
+- (void)onSaveRuleDefinitons:(id)sender
+{
+    id alwaysBlock = [INVBlockUtils blockForExecutingBlock:^{
+        [self.hud hide:YES];
+    } afterNumberOfCalls:self.selectedRules.count];
+
+    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
+        [self performSegueWithIdentifier:@"unwind" sender:nil];
+    } afterNumberOfCalls:self.selectedRules.count];
+
+    // This makes our block only execute once
+    id errorBlock = [INVBlockUtils blockForExecutingBlock:^{
+        UIAlertController *errorController =
+            [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_RULE_DEFINITION_SAVE", nil)];
+
+        [self presentViewController:errorController animated:YES completion:nil];
+    } afterNumberOfCalls:1];
+
+    [self showLoadProgress];
 }
 
 #pragma mark - server side
@@ -75,36 +100,39 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     if (![self.refreshControl isRefreshing]) {
         [self showLoadProgress];
     }
+
     [self.globalDataManager.invServerClient
         getAllRuleDefinitionsForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
-            if ([self.refreshControl isRefreshing]) {
+            INV_ALWAYS:
                 [self.refreshControl endRefreshing];
-            }
-            else {
-                [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-            }
+                [self.hud hide:YES];
 
-            if (!error) {
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-            }
-            else {
+            INV_SUCCESS:
+                [self.selectedRules removeAllObjects];
+                [self.tableView reloadData];
+
+            INV_ERROR:
+                INVLogError(@"%@", error);
+
                 UIAlertController *errController = [[UIAlertController alloc]
                     initWithErrorMessage:NSLocalizedString(@"ERROR_RULE_DEFINITION_LOAD", nil), error.code.integerValue];
                 [self presentViewController:errController animated:YES completion:nil];
-            }
         }];
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    INVRuleDefinitionTableViewCell *ruleDefnCell =
-        (INVRuleDefinitionTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
-
     INVRule *rule = [self.dataResultsController objectAtIndexPath:indexPath];
-    self.selectedRuleId = rule.ruleId;
-    self.selectedRuleName = rule.overview;
-    [self performSegueWithIdentifier:@"CreateRuleInstanceSegue" sender:nil];
+
+    if (self.selectedRules[rule.ruleId]) {
+        [self.selectedRules removeObjectForKey:rule.ruleId];
+    }
+    else {
+        self.selectedRules[rule.ruleId] = rule;
+    }
+
+    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -132,23 +160,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 {
 }
 
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"CreateRuleInstanceSegue"]) {
-        INVRuleInstanceTableViewController *ruleInstanceTVC =
-            (INVRuleInstanceTableViewController *) segue.destinationViewController;
-        ruleInstanceTVC.ruleId = self.selectedRuleId;
-        ruleInstanceTVC.analysesId = self.analysisId;
-        ruleInstanceTVC.ruleName = self.selectedRuleName;
-        ruleInstanceTVC.delegate = self.createRuleInstanceDelegate;
-    }
-}
-
 #pragma mark - helpers
 - (void)showLoadProgress
 {
@@ -166,6 +177,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INV_CellConfigurationBlock cellConfigurationBlock =
             ^(INVRuleDefinitionTableViewCell *cell, INVRule *rule, NSIndexPath *indexPath) {
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.accessoryType =
+                    self.selectedRules[rule.ruleId] != nil ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 cell.ruleDescription.text = rule.overview;
 
             };

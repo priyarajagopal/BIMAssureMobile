@@ -4,11 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="FontAwesome.otf">
-            <string>FontAwesome</string>
-        </mutableArray>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,38 +15,18 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Rule Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6w-qr-3kz">
-                        <rect key="frame" x="8" y="13" width="297" height="73"/>
+                        <rect key="frame" x="15" y="13" width="337" height="73"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E93-gl-Qx2">
-                        <rect key="frame" x="306" y="18" width="46" height="60"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="46" id="3oO-NI-wQo"/>
-                            <constraint firstAttribute="height" constant="60" id="mgs-N3-qOQ"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="26"/>
-                        <state key="normal" title="">
-                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="J6w-qr-3kz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="4sL-3c-qpt"/>
+                    <constraint firstItem="J6w-qr-3kz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="4sL-3c-qpt"/>
                     <constraint firstAttribute="bottomMargin" secondItem="J6w-qr-3kz" secondAttribute="bottom" constant="5.5" id="6bZ-F5-i4L"/>
-                    <constraint firstItem="E93-gl-Qx2" firstAttribute="leading" secondItem="J6w-qr-3kz" secondAttribute="trailing" constant="1" id="6oq-pR-3r4"/>
-                    <constraint firstItem="E93-gl-Qx2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="I2p-bH-S1E"/>
                     <constraint firstItem="J6w-qr-3kz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="KCm-RU-lj5"/>
-                    <constraint firstAttribute="centerY" secondItem="E93-gl-Qx2" secondAttribute="centerY" constant="1.75" id="VI4-au-Rp1"/>
-                    <constraint firstItem="E93-gl-Qx2" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Xb4-Q2-Pvw"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="J6w-qr-3kz" secondAttribute="trailing" id="rt7-xz-34M"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="I2p-bH-S1E"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="ruleDescription" destination="J6w-qr-3kz" id="bcG-xp-A5e"/>
