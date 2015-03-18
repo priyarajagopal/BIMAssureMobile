@@ -407,10 +407,10 @@
             </objects>
             <point key="canvasLocation" x="2606" y="3468"/>
         </scene>
-        <!--RuleSets Manage Container View Controller-->
+        <!--Analyses manage Container View Controller-->
         <scene sceneID="M7o-Fo-yb7">
             <objects>
-                <viewController id="Yxc-mk-q8b" userLabel="RuleSets Manage Container View Controller" customClass="INVFileManageRuleSetsContainerViewController" sceneMemberID="viewController">
+                <viewController id="Yxc-mk-q8b" userLabel="Analyses manage Container View Controller" customClass="INVFileManageRuleSetsContainerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hP6-z3-RiH"/>
                         <viewControllerLayoutGuide type="bottom" id="BFr-Fd-gTo"/>
@@ -422,7 +422,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDH-qr-FEb">
                                 <rect key="frame" x="-4" y="0.0" width="608" height="44"/>
                                 <items>
-                                    <navigationItem title="Manage Rule Sets" id="D8P-u0-XRh">
+                                    <navigationItem title="Manage Analyses" id="D8P-u0-XRh">
                                         <barButtonItem key="leftBarButtonItem" title="Reset" id="mmI-WY-bzz">
                                             <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
@@ -503,10 +503,10 @@
             </objects>
             <point key="canvasLocation" x="3195" y="4184"/>
         </scene>
-        <!--RuleSets In File Table View COntroller-->
+        <!--Analyses In File Table View COntroller-->
         <scene sceneID="odW-ur-rO4">
             <objects>
-                <tableViewController id="rFD-jO-7Mm" userLabel="RuleSets In File Table View COntroller" customClass="INVFileAnalysesMembershipTableViewController" sceneMemberID="viewController">
+                <tableViewController id="rFD-jO-7Mm" userLabel="Analyses In File Table View COntroller" customClass="INVFileAnalysesMembershipTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IcV-s2-QUR">
                         <rect key="frame" x="0.0" y="0.0" width="598" height="265"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -529,10 +529,10 @@
             </objects>
             <point key="canvasLocation" x="2831" y="5040.5"/>
         </scene>
-        <!--RuleSets In File Table ViewController-->
+        <!--Analyses In File Table ViewController-->
         <scene sceneID="Mao-0k-4QW">
             <objects>
-                <tableViewController id="iaN-E1-Vck" userLabel="RuleSets In File Table ViewController" customClass="INVFileAnalysesMembershipTableViewController" sceneMemberID="viewController">
+                <tableViewController id="iaN-E1-Vck" userLabel="Analyses In File Table ViewController" customClass="INVFileAnalysesMembershipTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="5sW-T6-vzt">
                         <rect key="frame" x="0.0" y="0.0" width="598" height="275"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -556,10 +556,10 @@
             </objects>
             <point key="canvasLocation" x="3507" y="5045.5"/>
         </scene>
-        <!--Run Rules Table View Controller-->
+        <!--Run Analyses Table View Controller-->
         <scene sceneID="yeM-PP-w32">
             <objects>
-                <tableViewController id="lYF-B1-91r" userLabel="Run Rules Table View Controller" customClass="INVRunRulesTableViewController" sceneMemberID="viewController">
+                <tableViewController id="lYF-B1-91r" userLabel="Run Analyses Table View Controller" customClass="INVRunRulesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="qj3-F4-vah">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -568,7 +568,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
-                                <navigationItem title="Select Rules To Run" id="f8i-Vj-lSH">
+                                <navigationItem title="Select Analyses To Run" id="f8i-Vj-lSH">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lE1-ax-WJS">
                                         <connections>
                                             <segue destination="DR1-lY-qqf" kind="unwind" unwindAction="manualDismiss:" id="GY4-FN-AaB"/>
