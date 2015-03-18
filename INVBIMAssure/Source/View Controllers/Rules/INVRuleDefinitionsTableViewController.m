@@ -75,23 +75,25 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
 - (void)onSaveRuleDefinitons:(id)sender
 {
-    id alwaysBlock = [INVBlockUtils blockForExecutingBlock:^{
-        [self.hud hide:YES];
-    } afterNumberOfCalls:self.selectedRules.count];
-
-    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
-        [self performSegueWithIdentifier:@"unwind" sender:nil];
-    } afterNumberOfCalls:self.selectedRules.count];
-
-    // This makes our block only execute once
-    id errorBlock = [INVBlockUtils blockForExecutingBlock:^{
-        UIAlertController *errorController =
-            [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_RULE_DEFINITION_SAVE", nil)];
-
-        [self presentViewController:errorController animated:YES completion:nil];
-    } afterNumberOfCalls:1];
-
     [self showLoadProgress];
+
+    [self.globalDataManager.invServerClient addToAnalysis:self.analysisId
+                                        ruleDefinitionIds:[self.selectedRules allKeys]
+                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                          INV_ALWAYS:
+                                              [self.hud hide:YES];
+
+                                          INV_SUCCESS:
+                                              [self performSegueWithIdentifier:@"unwind" sender:nil];
+
+                                          INV_ERROR:
+                                              INVLogError(@"%@", error);
+
+                                              UIAlertController *errorController = [[UIAlertController alloc]
+                                                  initWithErrorMessage:NSLocalizedString(@"ERROR_RULE_DEFINITION_SAVE", nil)];
+
+                                              [self presentViewController:errorController animated:YES completion:nil];
+                                      }];
 }
 
 #pragma mark - server side

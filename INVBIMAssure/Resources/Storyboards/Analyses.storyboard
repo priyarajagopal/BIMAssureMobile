@@ -46,7 +46,7 @@
         <scene sceneID="5PY-Ba-OWK">
             <objects>
                 <tableViewController id="1TP-av-uJH" customClass="INVAnalysisRulesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QcS-8b-AjI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QcS-8b-AjI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -56,14 +56,23 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Rules" id="qmQ-cN-AAG">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="clg-l4-pHm">
+                            <connections>
+                                <segue destination="cUj-uS-7Zg" kind="unwind" unwindAction="done:" id="rJz-3f-XWS"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bif-sG-7DE">
                             <connections>
                                 <action selector="perform:" destination="p3J-1q-2ga" id="yJH-uq-Faa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="editRuleInstanceTransition" destination="hec-lz-kJW" id="0eK-Xd-yhn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="53U-Sl-cep" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cUj-uS-7Zg" userLabel="Exit" sceneMemberID="exit"/>
                 <customObject id="p3J-1q-2ga" customClass="INVTransitionToStoryboard">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
@@ -78,6 +87,22 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="1TP-av-uJH" id="tQo-RK-J0Z"/>
+                    </connections>
+                </customObject>
+                <customObject id="hec-lz-kJW" customClass="INVTransitionToStoryboard">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="CreateRuleInstanceTVC"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="editRuleInstance"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="modalPresentationStyle">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="1TP-av-uJH" id="ze6-Eo-4TW"/>
                     </connections>
                 </customObject>
             </objects>

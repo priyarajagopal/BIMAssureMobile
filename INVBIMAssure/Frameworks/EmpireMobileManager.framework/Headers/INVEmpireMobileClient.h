@@ -14,7 +14,7 @@
 #import "INVAnalysesManager.h"
 #import "INVRuleExecutionManager.h"
 #import "INVRuleInstanceExecution.h"
-#import "INVBuildingManager.h"
+#import "INVAnalysisRunResult.h"
 
 /**
  Completion Handler that returns the status of the request. In case of no error, the appropriate Data Manager
@@ -65,10 +65,7 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  */
 @property (nonatomic, readonly) INVRuleExecutionManager *ruleExecutionManager;
 
-/**
- Building Manager resposible for managing responses to building related requests
- */
-@property (nonatomic, readonly) INVBuildingManager *buildingManager;
+
 
 #pragma mark - Creation
 /**
@@ -1481,8 +1478,9 @@ accountManager can be used to retrieve the details of account
 
  @param analysisId The analysis for which the package masters need to be fetched
 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- analysisManager can be used to retrieve pkg master list
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then 
+ then membership data is returned.
+ The analysesManager can be used to retrieve pkg master list
 
  @see -signIntoAccount:withCompletionBlock:
 
@@ -1490,7 +1488,7 @@ accountManager can be used to retrieve the details of account
 
 
  */
-- (void)getAnalysisMembership:(NSNumber *)analysisId WithCompletionBlock:(CompletionHandler)handler;
+- (void)getPkgMembershipForAnalysis:(NSNumber *)analysisId WithCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously , add the list of package masters to a analysis. The user must have succesfully into the account via
@@ -1511,6 +1509,65 @@ accountManager can be used to retrieve the details of account
 - (void)addToAnalysis:(NSNumber *)analysisId
              pkgMasters:(NSArray *)pkgMasters
     withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously , add the list of analyses to a package master. The user must have succesfully into the account via
+ signIntoAccount:withCompletionBlock:
+ 
+ @param pkgMasterId  The package master Id
+ 
+ @param analyses The list of analyses to be associated with the pkg master
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, then return analysis
+ membership
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see analysesManager
+ 
+ */
+- (void)addToPkgMaster:(NSNumber *)pkgMasterId
+           analyses:(NSArray *)analyses
+  withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously , add the list of rule Ids to analysis The user must have succesfully into the account via
+ signIntoAccount:withCompletionBlock:
+ 
+ @param analysisId  The analysis Id
+ 
+ @param ruleDefIds The list of rule definition ids to be associated with the rule set
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, then return analysis
+ membership
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see analysesManager
+ 
+ */
+- (void)addToAnalysis:(NSNumber *)analysisId
+           ruleDefinitionIds:(NSArray *)ruleDefIds
+  withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously ,get list of all analyses  associated with a pkg master. Users must have signed into an account in order to
+ be able to fetch analyses
+ 
+ @param pkgMasterId The pkgMasterId for which the analyses  need to be fetched
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ then membership data is returned.
+ The analysesManager can be used to retrieve pkg master list
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see analysesManager
+ 
+ 
+ */
+- (void)getAnalysisMembershipForPkgMaster:(NSNumber *)pkgMasterId WithCompletionBlock:(CompletionHandlerWithData)handler;
+
 
 /**
  Asynchornously ,remove specified package master members associated with a analyses. Users must have signed into an account in
@@ -1635,8 +1692,41 @@ accountManager can be used to retrieve the details of account
 - (void)deleteRuleInstanceForId:(NSNumber *)ruleInstanceId WithCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark Analyses Execution Related
+/**
+ Asynchornously ,run specified analysis. The analysis run results ARE NOT cached
+ 
+ @param analysisId The Id of analysis to be executed
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the status of execution can be retrieved getExecutionResultsForAnalysisRun:WithCompletionBlock:. The handler returns the Ids of the analyses runs (there would be a separate analysesrun Id for every  rule that is executed)
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see analysesManager
+ 
+ @see getExecutionResultsForAnalysisRun:WithCompletionBlock:
+ 
+ 
+ */
+- (void)runAnalysis:(NSNumber *)analysisId WithCompletionBlock:(CompletionHandlerWithData)handler;
+
 
 #pragma mark Analyses Execution Results Related
+
+/**
+ Asynchornously ,get result of specified analysis run that is scheduled using runAnalysis:WithCompletionBlock. The execution results ARE NOT cached
+ 
+ @param analysisId The Id of analysis to be executed
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the status of execution is returned in the handler
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see -runAnalysis:WithCompletionBlock:
+ 
+ @see analysesManager
+ 
+ 
+ */
+- (void)getExecutionResultsForAnalysisRun:(NSNumber *)analysisRunId WithCompletionBlock:(void (^)(INVAnalysisRunResultsArray response, INVEmpireMobileError* error))handler;
 
 #pragma mark - General Account Related
 /**

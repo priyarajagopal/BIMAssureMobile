@@ -36,7 +36,7 @@ typedef NSMutableArray *INVAnalysisMutableArray;
 @property (copy, nonatomic, readonly) NSNumber *analysisId;
 @property (copy, nonatomic, readonly) NSNumber *totalParamCount;
 @property (copy, nonatomic, readonly) NSNumber *emptyParamCount;
-@property (copy, nonatomic, readonly) INVRuleInstanceArray rules;
+@property (copy, nonatomic, readwrite) INVRuleInstanceArray rules;
 @property (copy, nonatomic, readonly) NSString *name;
 @property (copy, nonatomic, readonly) NSString *overview;
 @property (copy, nonatomic, readonly) NSNumber *projectId;

@@ -14,6 +14,7 @@
 #import "INVAnalysis.h"
 #import "INVRule.h"
 #import "INVRuleInstance.h"
+#import "INVAnalysisPkgMembership.h"
 
 @interface INVAnalysesManager : NSObject
 
@@ -64,6 +65,16 @@
 - (INVAnalysisArray)analysesForProject:(NSNumber *)projectId;
 
 /**
+ Returns analyses objects given list of  for analysisIds
+  @param analysesIds Ids for which analyses objects are to be fetched
+
+ @see INVMobileClient
+
+ @return The array of INVAnalyses objects corresponding to the list of analysisIds
+ */
+- (INVAnalysisArray)analysesForIds:(NSArray *)analysesIds;
+
+/**
  Returns rule definitions for current account for specific ruleId
 
  @see INVRule
@@ -95,7 +106,7 @@
 
  @return The rule instance
  */
-- (INVRuleInstance *)ruleInstanceForAnalysisId:(NSNumber *)ruleInstanceId forAnalysisId:(NSNumber *)analysisId;
+- (INVRuleInstance *)ruleInstanceForRuleInstanceId:(NSNumber *)ruleInstanceId forAnalysisId:(NSNumber *)analysisId;
 
 /**
  Returns list of pkg master Ids for given analyses. Details of the packages can be retrieved via the INVProjectManager
@@ -106,21 +117,32 @@
 
  @see INVProjectManager
 
- @return The array of rule Ids
+ @return The array of pkg masters
  */
 - (NSSet *)pkgMastersForAnalysisId:(NSNumber *)analysisId;
 
 /**
- Returns list of analysesIds for given pkg master. Details of the rules can be retrieved via the fetchRequestForRules
+ Returns list of membershipIds for given analysisId.
 
- @param pkgMasterId Id for pkgMaster
+ @param analysisId Id for analysis
 
- @see INVPackage
+ @return The array of INVAnalysisPkgMembership objects
+ */
+- (INVAnalysisPkgMembershipArray)membershipIdsForAnalysisIds:(NSArray *)analysisIds;
 
- @see fetchRequestForRules
+/**
+ Returns list of analysesIds for given pkg master
 
- @return The array of rule sets
+ @param pkgMasterId the Id of the pkg master
+
+ @return The array of analyses Ids
  */
 - (NSSet *)analysesIdsForPkgMaster:(NSNumber *)pkgMasterId;
+
+/*
+ Removes rule instance from local cache and updates corresponding analyses object
+ */
+
+- (NSError *)removeCachedRuleInstanceForInstanceId:(NSNumber *)ruleInstanceId;
 
 @end

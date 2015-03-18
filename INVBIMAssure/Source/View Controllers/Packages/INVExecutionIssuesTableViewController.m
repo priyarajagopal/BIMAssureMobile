@@ -13,9 +13,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 static const NSInteger DEFAULT_SECTION_INDEX = 0;
 
 @interface INVExecutionIssuesTableViewController ()
-@property (nonatomic, strong) INVBuildingManager *buildingManager;
+
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
-@property (nonatomic, strong) INVBuildingElementMutableArray buildingElementDetails;
+@property (nonatomic, strong) NSMutableArray *buildingElementDetails;
 @end
 
 @implementation INVExecutionIssuesTableViewController
@@ -50,7 +50,6 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
     [super viewWillDisappear:animated];
     self.buildingElementDetails = nil;
 
-    self.buildingManager = nil;
     self.buildingElementsWithIssues = nil;
     self.tableView.dataSource = nil;
     self.dataSource = nil;
@@ -120,9 +119,9 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
         }
 
         INV_CellConfigurationBlock cellConfigurationBlock =
-            ^(UITableViewCell *cell, INVBuildingElement *buildingElement, NSIndexPath *indexPath) {
+            ^(UITableViewCell *cell, id buildingElement, NSIndexPath *indexPath) {
 
-                cell.textLabel.text = buildingElement.name;
+                cell.textLabel.text = [buildingElement name];
                 cell.detailTextLabel.text = @"MORE_DETAILS_OF_ELEMENT_GO_HERE";
 
             };
@@ -131,20 +130,12 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
     return _dataSource;
 }
 
-- (INVBuildingElementMutableArray)buildingElementDetails
+- (NSArray *)buildingElementDetails
 {
     if (!_buildingElementDetails) {
         _buildingElementDetails = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return _buildingElementDetails;
-}
-
-- (INVBuildingManager *)buildingManager
-{
-    if (!_buildingManager) {
-        _buildingManager = self.globalDataManager.invServerClient.buildingManager;
-    }
-    return _buildingManager;
 }
 
 #pragma mark - helper

@@ -282,7 +282,7 @@
 		F5269DE31A76A83E006AC27A /* INVModalPresentationFromParentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModalPresentationFromParentSegue.m; sourceTree = "<group>"; };
 		F5269DE51A76AD4C006AC27A /* INVChangePasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVChangePasswordTableViewController.h; sourceTree = "<group>"; };
 		F5269DE61A76AD4C006AC27A /* INVChangePasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVChangePasswordTableViewController.m; sourceTree = "<group>"; };
-		F5269DEC1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSplitViewControllerAggregateDelegate.h; sourceTree = "<group>"; };
+		F5269DEC1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVSplitViewControllerAggregateDelegate.h; path = ../INVSplitViewControllerAggregateDelegate.h; sourceTree = "<group>"; };
 		F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSplitViewControllerAggregateDelegate.m; sourceTree = "<group>"; };
 		F5269DEF1A7836E2006AC27A /* UISplitViewController+ToggleSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISplitViewController+ToggleSidebar.h"; sourceTree = "<group>"; };
 		F5269DF01A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISplitViewController+ToggleSidebar.m"; sourceTree = "<group>"; };
@@ -686,6 +686,7 @@
 		F5076B861AB1CA24002A0EA8 /* Model Tree */ = {
 			isa = PBXGroup;
 			children = (
+				F5269DEC1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.h */,
 				F5076B871AB1CA3D002A0EA8 /* INVModelTreeNode.h */,
 				F5076B881AB1CA3D002A0EA8 /* INVModelTreeNode.m */,
 			);
@@ -853,7 +854,6 @@
 				0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */,
 				F5426D601A6860830040B2B5 /* NSTimeIntervalToString.h */,
 				F567EF841A8118B800DCD933 /* INVRuntimeUtils.h */,
-				F5269DEC1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.h */,
 				F5269DED1A782E5F006AC27A /* INVSplitViewControllerAggregateDelegate.m */,
 				F5313A3E1A7956BC00E476D3 /* INVLogger.h */,
 				F5313A3F1A7956BC00E476D3 /* INVLogger.m */,

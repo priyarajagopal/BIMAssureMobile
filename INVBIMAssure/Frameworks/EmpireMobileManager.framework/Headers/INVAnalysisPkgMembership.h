@@ -8,6 +8,16 @@
 
 #import <Mantle/Mantle.h>
 
+/**
+ Array of INVAnalysisPkgMembership objects
+ */
+typedef NSArray *INVAnalysisPkgMembershipArray;
+/**
+ Mutable array of INVAnalysisPkgMembership objects
+ */
+typedef NSMutableArray *INVAnalysisPkgMembershipMutableArray;
+
+
 @interface INVAnalysisPkgMembership : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
 @property (copy, nonatomic, readonly) NSNumber *analysisId;
 @property (copy, nonatomic, readonly) NSNumber *pkgMasterId;

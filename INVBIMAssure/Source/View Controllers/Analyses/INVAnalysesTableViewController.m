@@ -93,6 +93,7 @@
         INVAnalysisRulesTableViewController *rulesVC =
             (INVAnalysisRulesTableViewController *) [[segue destinationViewController] topViewController];
 
+        rulesVC.projectId = self.projectId;
         rulesVC.analysisId = [sender analysisId];
     }
 }
@@ -211,6 +212,7 @@
 {
     INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
 
+    self.indexOfAnalysisBeingEdited = [self.tableView indexPathForCell:cell];
     [self performSegueWithIdentifier:@"showRules" sender:cell.analysis];
 }
 

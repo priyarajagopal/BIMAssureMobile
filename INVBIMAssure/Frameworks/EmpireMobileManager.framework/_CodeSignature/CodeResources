@@ -26,15 +26,19 @@
 		</data>
 		<key>Headers/INVAnalysesManager.h</key>
 		<data>
-		+bePtpiYperqpLX4FoaP1T9eAnU=
+		tic461BmqVOWVSBZrjj2rnQQnmA=
 		</data>
 		<key>Headers/INVAnalysis.h</key>
 		<data>
-		tg6orfMVao83ohU+stJ4lJDFtsI=
+		T78v67TU2t7YNxIheXLORVbXs80=
 		</data>
 		<key>Headers/INVAnalysisPkgMembership.h</key>
 		<data>
-		7Dv1fUg29/LIYzp7bwdIcFlS5ic=
+		9nVBo5TJJ1p+55OXX8gPSfisSjw=
+		</data>
+		<key>Headers/INVAnalysisRunResult.h</key>
+		<data>
+		Sd4IEcPSZkCUJYCIfnTVl6oJOGA=
 		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
@@ -46,7 +50,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		F/K6bHKYg3iBpTmdMwOHDVM6z/Y=
+		jXiorzFzC3hRFGw1HC/OMA5Ou78=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -63,6 +67,10 @@
 		<key>Headers/INVPackage.h</key>
 		<data>
 		6yPzO/fCEQeo4hxhp6uOe3mWWYc=
+		</data>
+		<key>Headers/INVPkgRuleMembership.h</key>
+		<data>
+		hkL736226EZxvPpciI60nqQ408w=
 		</data>
 		<key>Headers/INVProject.h</key>
 		<data>
@@ -130,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		+pzpYe1LwihjC7drtm3XC82Tamw=
+		B/I6apcbkUnCSzQklSYbPzZLs8U=
 		</data>
 		<key>InvicaraLogo.png</key>
 		<data>
@@ -185,15 +193,19 @@
 		</data>
 		<key>Headers/INVAnalysesManager.h</key>
 		<data>
-		+bePtpiYperqpLX4FoaP1T9eAnU=
+		tic461BmqVOWVSBZrjj2rnQQnmA=
 		</data>
 		<key>Headers/INVAnalysis.h</key>
 		<data>
-		tg6orfMVao83ohU+stJ4lJDFtsI=
+		T78v67TU2t7YNxIheXLORVbXs80=
 		</data>
 		<key>Headers/INVAnalysisPkgMembership.h</key>
 		<data>
-		7Dv1fUg29/LIYzp7bwdIcFlS5ic=
+		9nVBo5TJJ1p+55OXX8gPSfisSjw=
+		</data>
+		<key>Headers/INVAnalysisRunResult.h</key>
+		<data>
+		Sd4IEcPSZkCUJYCIfnTVl6oJOGA=
 		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
@@ -205,7 +217,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		F/K6bHKYg3iBpTmdMwOHDVM6z/Y=
+		jXiorzFzC3hRFGw1HC/OMA5Ou78=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -222,6 +234,10 @@
 		<key>Headers/INVPackage.h</key>
 		<data>
 		6yPzO/fCEQeo4hxhp6uOe3mWWYc=
+		</data>
+		<key>Headers/INVPkgRuleMembership.h</key>
+		<data>
+		hkL736226EZxvPpciI60nqQ408w=
 		</data>
 		<key>Headers/INVProject.h</key>
 		<data>

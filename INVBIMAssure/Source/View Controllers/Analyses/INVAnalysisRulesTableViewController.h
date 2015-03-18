@@ -10,6 +10,7 @@
 
 @interface INVAnalysisRulesTableViewController : INVCustomTableViewController
 
+@property NSNumber *projectId;
 @property NSNumber *analysisId;
 
 @end
