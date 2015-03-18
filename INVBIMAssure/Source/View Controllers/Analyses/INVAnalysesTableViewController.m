@@ -19,12 +19,15 @@
 
 @property (nonatomic) NSFetchedResultsController *dataResultsController;
 @property (nonatomic) BOOL isNSFetchedResultsChangeTypeUpdated;
-@property (nonatomic) NSIndexPath *indexOfProjectBeingEdited;
+@property (nonatomic) NSIndexPath *indexOfAnalysisBeingEdited;
 
 @property (nonatomic) NSMutableDictionary *cachedHeigts;
 @property (nonatomic) INVAnalysisTableViewCell *sizingCell;
 
+- (IBAction)onEditAnalysis:(id)sender;
 - (IBAction)onShowRulesForAnalysis:(id)sender;
+- (IBAction)onRunRulesForAnalysis:(id)sender;
+- (IBAction)onDeleteAnalysis:(id)sender;
 
 @end
 
@@ -179,20 +182,35 @@
 
 - (void)reloadRowAtSelectedIndex
 {
-    [self.cachedHeigts removeObjectForKey:self.indexOfProjectBeingEdited];
-    [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfProjectBeingEdited ]
+    [self.cachedHeigts removeObjectForKey:self.indexOfAnalysisBeingEdited];
+    [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfAnalysisBeingEdited ]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
 
-    self.indexOfProjectBeingEdited = nil;
+    self.indexOfAnalysisBeingEdited = nil;
 }
 
 #pragma mark - IBActions
+
+- (void)onEditAnalysis:(id)sender
+{
+    INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
+
+    self.indexOfAnalysisBeingEdited = [self.tableView indexPathForCell:cell];
+    [self performSegueWithIdentifier:@"editAnalysis" sender:cell.analysis];
+}
 
 - (void)onShowRulesForAnalysis:(id)sender
 {
     INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
 
     INVLogDebug(@"%@", [[cell analysis] rules]);
+}
+
+- (void)onDeleteAnalysis:(id)sender
+{
+    INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
+
+    [self deleteRowAtIndexPath:[self.tableView indexPathForCell:cell]];
 }
 
 #pragma mark - UITableViewDataSource
@@ -234,33 +252,7 @@
 
 #pragma mark - UITableViewDelegate
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @[
-        [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
-                                           title:NSLocalizedString(@"DELETE", nil)
-                                         handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                             [self deleteRowAtIndexPath:indexPath];
-                                         }],
-        [UITableViewRowAction
-            rowActionWithStyle:UITableViewRowActionStyleNormal
-                         title:NSLocalizedString(@"EDIT", nil)
-                       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                           self.indexOfProjectBeingEdited = indexPath;
-
-                           [self performSegueWithIdentifier:@"editAnalysis"
-                                                     sender:[self.dataResultsController objectAtIndexPath:indexPath]];
-                       }],
-    ];
-}
-
-- (void)tableView:(UITableView *)tableView
-         commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-          forRowAtIndexPath:(NSIndexPath *)indexPath{}
-
-                            - (void)
-                  tableView:(UITableView *)tableView
-    didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -279,7 +271,7 @@
         [self.cachedHeigts removeAllObjects];
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
-    else if (self.indexOfProjectBeingEdited) {
+    else if (self.indexOfAnalysisBeingEdited) {
         [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
     }
 }
