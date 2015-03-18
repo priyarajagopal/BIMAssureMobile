@@ -183,6 +183,7 @@
 		F59165B61A950C7700B7205F /* INVPendingInviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F59165B51A950C7700B7205F /* INVPendingInviteCell.xib */; };
 		F59B78D81AA60DD300E14F86 /* NSArray+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F59B78D71AA60DD300E14F86 /* NSArray+INVCustomizations.m */; };
 		F5B69DBE1A9F77310014B74B /* NSObject+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B69DBD1A9F77310014B74B /* NSObject+INVCustomizations.m */; };
+		F5BDE9FF1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BDE9FE1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m */; };
 		F5D2914D1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */; };
 		F5D2914E1A83F77C000CBA6B /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914C1A83F77C000CBA6B /* libYajl.a */; };
 		F5D291511A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D291501A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m */; };
@@ -518,6 +519,8 @@
 		F59B78D71AA60DD300E14F86 /* NSArray+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+INVCustomizations.m"; sourceTree = "<group>"; };
 		F5B69DBC1A9F77310014B74B /* NSObject+INVCustomizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+INVCustomizations.h"; sourceTree = "<group>"; };
 		F5B69DBD1A9F77310014B74B /* NSObject+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+INVCustomizations.m"; sourceTree = "<group>"; };
+		F5BDE9FD1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisRulesTableViewController.h; sourceTree = "<group>"; };
+		F5BDE9FE1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisRulesTableViewController.m; sourceTree = "<group>"; };
 		F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRBCollectionViewInfoFolderLayout.a; path = "../../RBCollectionViewInfoFolderLayout/build/Prod-iphoneos/libRBCollectionViewInfoFolderLayout.a"; sourceTree = "<group>"; };
 		F5D2914C1A83F77C000CBA6B /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Yajl/build/Dev-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F5D2914F1A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountDetailFolderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -1165,6 +1168,8 @@
 				F5D932F11AB764EB008D1051 /* INVAnalysesTableViewController.m */,
 				F523B4801AB862EB0001508C /* INVAnalysisEditViewController.h */,
 				F523B4811AB862EB0001508C /* INVAnalysisEditViewController.m */,
+				F5BDE9FD1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.h */,
+				F5BDE9FE1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m */,
 			);
 			path = Analyses;
 			sourceTree = "<group>";
@@ -1420,6 +1425,7 @@
 				F5789D621A642A5500D8CEE7 /* INVSettingsViewController.m in Sources */,
 				F55FF5FF1A83E20C00ED6691 /* UIView+INVCustomizations.m in Sources */,
 				F5789D4D1A642A5500D8CEE7 /* UIAlertController+INVCustomizations.m in Sources */,
+				F5BDE9FF1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m in Sources */,
 				F5789D431A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.m in Sources */,
 				02AFD1801A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m in Sources */,
 				F5789D5B1A642A5500D8CEE7 /* INVRulesTableViewDataSource.m in Sources */,

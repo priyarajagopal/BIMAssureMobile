@@ -319,7 +319,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }
     if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {
         INVRuleDefinitionsTableViewController *ruleDefnTVC = segue.destinationViewController;
-        ruleDefnTVC.analysesId = self.selectedRuleSetId;
+        ruleDefnTVC.analysisId = self.selectedRuleSetId;
         ruleDefnTVC.createRuleInstanceDelegate = self;
     }
 }

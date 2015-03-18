@@ -9,6 +9,7 @@
 #import "INVAnalysesTableViewController.h"
 #import "INVAnalysisTableViewCell.h"
 #import "INVAnalysisEditViewController.h"
+#import "INVAnalysisRulesTableViewController.h"
 
 #import "UIView+INVCustomizations.h"
 #import "UISplitViewController+ToggleSidebar.h"
@@ -86,6 +87,13 @@
             (INVAnalysisEditViewController *) [[segue destinationViewController] topViewController];
 
         editVC.projectId = self.projectId;
+    }
+
+    if ([[segue identifier] isEqual:@"showRules"]) {
+        INVAnalysisRulesTableViewController *rulesVC =
+            (INVAnalysisRulesTableViewController *) [[segue destinationViewController] topViewController];
+
+        rulesVC.analysisId = [sender analysisId];
     }
 }
 
@@ -203,7 +211,7 @@
 {
     INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
 
-    INVLogDebug(@"%@", [[cell analysis] rules]);
+    [self performSegueWithIdentifier:@"showRules" sender:cell.analysis];
 }
 
 - (void)onDeleteAnalysis:(id)sender

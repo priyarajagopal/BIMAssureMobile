@@ -31,6 +31,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     UINib *nib = [UINib nibWithNibName:@"INVRuleDefinitionTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleDefinitionCell"];
 
+    self.tableView.dataSource = self.dataSource;
     self.clearsSelectionOnViewWillAppear = YES;
 
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
@@ -46,7 +47,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tableView.dataSource = self.dataSource;
     [self fetchListOfRuleDefinitions];
 }
 
@@ -143,7 +143,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INVRuleInstanceTableViewController *ruleInstanceTVC =
             (INVRuleInstanceTableViewController *) segue.destinationViewController;
         ruleInstanceTVC.ruleId = self.selectedRuleId;
-        ruleInstanceTVC.analysesId = self.analysesId;
+        ruleInstanceTVC.analysesId = self.analysisId;
         ruleInstanceTVC.ruleName = self.selectedRuleName;
         ruleInstanceTVC.delegate = self.createRuleInstanceDelegate;
     }
@@ -185,10 +185,11 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 {
     if (!_dataResultsController) {
         NSFetchRequest *fetchRequest = self.analysesManager.fetchRequestForRules;
-        _dataResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                     managedObjectContext:self.analysesManager.managedObjectContext
-                                                                       sectionNameKeyPath:@"ruleId"
-                                                                                cacheName:nil];
+        _dataResultsController =
+            [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                managedObjectContext:self.analysesManager.managedObjectContext
+                                                  sectionNameKeyPath:@"ruleId"
+                                                           cacheName:nil];
         [_dataResultsController setDelegate:self];
         NSError *dbError = nil;
         [_dataResultsController performFetch:&dbError];
