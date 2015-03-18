@@ -127,7 +127,9 @@
     if (indexPath.row == 1) {
         UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
 
-        CGSize size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        CGSize size = [cell systemLayoutSizeFittingSize:CGSizeMake(tableView.bounds.size.width, 0)
+                          withHorizontalFittingPriority:UILayoutPriorityRequired
+                                verticalFittingPriority:UILayoutPriorityDefaultLow];
 
         [cell prepareForReuse];
 
