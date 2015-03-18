@@ -97,6 +97,46 @@
     return _analysis;
 }
 
+- (void)deleteRule:(INVRuleInstance *)rule
+{
+    UIAlertController *confirmDeleteController =
+        [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_RULE_CONFIRM_TITLE", nil)
+                                            message:NSLocalizedString(@"DELETE_RULE_CONFIRM_MESSAGE", nil)
+                                     preferredStyle:UIAlertControllerStyleAlert];
+
+    [confirmDeleteController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"DELETE_RULE_CONFIRM_NEGATIVE", nil)
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:nil]];
+
+    [confirmDeleteController
+        addAction:[UIAlertAction
+                      actionWithTitle:NSLocalizedString(@"DELETE_RULE_CONFIRM_POSITIVE", nil)
+                                style:UIAlertActionStyleDestructive
+                              handler:^(UIAlertAction *action) {
+                                  id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+                                  [self.globalDataManager.invServerClient
+                                      deleteRuleInstanceForId:rule.ruleInstanceId
+                                          WithCompletionBlock:^(INVEmpireMobileError *error) {
+                                              INV_ALWAYS:
+                                                  [hud hide:YES];
+
+                                              INV_SUCCESS:
+                                                  [self fetchListOfRules];
+
+                                              INV_ERROR:
+                                                  INVLogError(@"%@", error);
+
+                                                  UIAlertController *errorController = [[UIAlertController alloc]
+                                                      initWithErrorMessage:@"ERROR_RULE_INSTANCE_DELETE"];
+
+                                                  [self presentViewController:errorController animated:YES completion:nil];
+                                          }];
+                              }]];
+
+    [self presentViewController:confirmDeleteController animated:YES completion:nil];
+}
+
 #pragma mark - IBActions
 
 - (void)onRefreshControlSelected:(id)sender
@@ -109,6 +149,13 @@
     INVRuleInstanceTableViewCell *cell = [sender findSuperviewOfClass:[INVRuleInstanceTableViewCell class] predicate:nil];
 
     [self.editRuleInstanceTransition perform:cell.ruleInstance];
+}
+
+- (void)onRuleInstanceDeleteSelected:(id)sender
+{
+    INVRuleInstanceTableViewCell *cell = [sender findSuperviewOfClass:[INVRuleInstanceTableViewCell class] predicate:nil];
+
+    [self deleteRule:cell.ruleInstance];
 }
 
 #pragma mark - UITableViewDataSource
