@@ -7,11 +7,11 @@
 //
 
 #import "INVFileManageRuleSetsContainerViewController.h"
-#import "INVFileRuleSetListTableViewController.h"
+#import "INVFileAnalysesMembershipTableViewController.h"
 
 @interface INVFileManageRuleSetsContainerViewController ()
-@property (nonatomic, strong) INVFileRuleSetListTableViewController *includedRuleSetsTVC;
-@property (nonatomic, strong) INVFileRuleSetListTableViewController *excludedRuleSetsTVC;
+@property (nonatomic, strong) INVFileAnalysesMembershipTableViewController *includedRuleSetsTVC;
+@property (nonatomic, strong) INVFileAnalysesMembershipTableViewController *excludedRuleSetsTVC;
 @end
 
 #pragma mark - implementation
@@ -46,20 +46,20 @@
         self.includedRuleSetsTVC = segue.destinationViewController;
         self.includedRuleSetsTVC.projectId = self.projectId;
         self.includedRuleSetsTVC.fileId = self.fileId;
-        self.includedRuleSetsTVC.showRuleSetsForFileId = YES;
+        self.includedRuleSetsTVC.showAnalysesForPkg = YES;
     }
     else if ([segue.identifier isEqualToString:@"ExcludedRuleSetsSegue"]) {
         self.excludedRuleSetsTVC = segue.destinationViewController;
         self.excludedRuleSetsTVC.projectId = self.projectId;
         self.excludedRuleSetsTVC.fileId = self.fileId;
-        self.excludedRuleSetsTVC.showRuleSetsForFileId = NO;
+        self.excludedRuleSetsTVC.showAnalysesForPkg = NO;
     }
 }
 
 #pragma mark - UIEvent handlers
 - (IBAction)onResetTapped:(UIBarButtonItem *)sender
 {
-    [self.includedRuleSetsTVC resetRuleSetEntries];
-    [self.excludedRuleSetsTVC resetRuleSetEntries];
+    [self.includedRuleSetsTVC resetAnalysesEntries];
+    [self.excludedRuleSetsTVC resetAnalysesEntries];
 }
 @end

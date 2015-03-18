@@ -53,6 +53,8 @@
 "MANAGE_FILES"="Manage Files";
 "RULESETS_INCLUDED_IN_FILE"="RuleSets Associated with File";
 "RULESETS_NOT_INCLUDED_IN_FILE"="RuleSets Not Associated with File";
+"ANALYSES_INCLUDED_IN_FILE"="Analyses Associated with Package";
+"ANALYSES_NOT_INCLUDED_IN_FILE"="Analyses Not Associated with Package";
 "EDIT"="Edit";
 "SELECT_RULE_TEMPLATES"="Select Rule Template";
 "SEARCH"="Search";
@@ -116,6 +118,7 @@
 "ERROR_BUILDING_ELEMENT_LOAD"="There was an error while loading the list of building elements with issues [%1d]";
 "ERROR_EXECUTION_LOAD"="There was an error while fetching list of executions [%1d]";
 "ERROR_RULESET_MEMBERSHIP_LOAD"="There was an error while fetching ruleset membership [%1d]";
+"ERROR_ANALYSES_MEMBERSHIP_LOAD"="There was an error while fetching analyses members [%1d]";
 "ERROR_PKGMASTER_MEMBERSHIP_LOAD"="There was an error while fetching package master membership [%1d]";
 "ERROR_RULESET_MEMBERSHIP_UPDATE"="There was an error while updating ruleset membership [%1d]";
 "ERROR_PKGMASTER_MEMBERSHIP_UPDATE"="There was an error while updating package master membership [%1d]";

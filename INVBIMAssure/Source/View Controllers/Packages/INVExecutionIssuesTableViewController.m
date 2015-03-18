@@ -13,9 +13,9 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 static const NSInteger DEFAULT_SECTION_INDEX = 0;
 
 @interface INVExecutionIssuesTableViewController ()
-@property (nonatomic, strong) INVBuildingManager *buildingManager;
+@property (nonatomic, strong) INVAnalysesManager *analysisManager;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
-@property (nonatomic, strong) INVBuildingElementMutableArray buildingElementDetails;
+//@property (nonatomic, strong) INVBuildingElementMutableArray buildingElementDetails;
 @end
 
 @implementation INVExecutionIssuesTableViewController
@@ -48,19 +48,20 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.buildingElementDetails = nil;
+  //  self.buildingElementDetails = nil;
 
-    self.buildingManager = nil;
+    self.analysisManager = nil;
     self.buildingElementsWithIssues = nil;
     self.tableView.dataSource = nil;
     self.dataSource = nil;
 }
+/*
 
 - (void)updateTableViewDataSource
 {
     [self.dataSource updateWithDataArray:self.buildingElementDetails forSection:DEFAULT_SECTION_INDEX];
 }
-
+*/
 #pragma mark - server side
 - (void)fetchBuildingElementDetailsFromServer
 {
@@ -106,6 +107,7 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
 }
 
 #pragma mark - accessor
+/*
 - (INVGenericTableViewDataSource *)dataSource
 {
     if (!_dataSource) {
@@ -146,7 +148,7 @@ static const NSInteger DEFAULT_SECTION_INDEX = 0;
     }
     return _buildingManager;
 }
-
+*/
 #pragma mark - helper
 - (void)showLoadProgress
 {
