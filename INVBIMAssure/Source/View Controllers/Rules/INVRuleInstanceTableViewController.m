@@ -196,7 +196,6 @@ static NSString *INV_ActualParamValue = @"Value";
         [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
         [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams
                                   forSection:SECTION_RULEINSTANCEACTUALPARAM];
- 
     }
 
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
@@ -245,28 +244,26 @@ static NSString *INV_ActualParamValue = @"Value";
 {
     INVRuleInstanceActualParamDictionary actualParam =
         [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
-    /*
-        [self.globalDataManager.invServerClient
-            createRuleInstanceForRuleId:self.ruleId
-                            inRuleSetId:self.ruleSetId
-                           withRuleName:self.ruleName
-                         andDescription:self.intermediateRuleOverview
-                    andActualParameters:actualParam
-                    WithCompletionBlock:^(INVEmpireMobileError *error) {
-                        if (error) {
-                            if (error) {
-                                UIAlertController *errController = [[UIAlertController alloc]
-                                    initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_CREATE", nil),
-                                    error.code.integerValue];
-                                [self presentViewController:errController animated:YES completion:nil];
-                            }
-                        }
-                        else {
-                            [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil)
-       isCreated:YES];
-                        }
-                    }];
-     */
+
+    [self.globalDataManager.invServerClient
+        createRuleForRuleDefinitionId:self.ruleId
+                           inAnalysis:self.analysesId
+                         withRuleName:self.ruleName
+                       andDescription:self.intermediateRuleOverview
+                  andActualParameters:actualParam
+                  WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                      if (error) {
+                          if (error) {
+                              UIAlertController *errController = [[UIAlertController alloc]
+                                  initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_CREATE", nil),
+                                  error.code.integerValue];
+                              [self presentViewController:errController animated:YES completion:nil];
+                          }
+                      }
+                      else {
+                          [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil) isCreated:YES];
+                      }
+                  }];
 }
 
 - (void)sendUpdatedRuleInstanceToServer
@@ -277,15 +274,15 @@ static NSString *INV_ActualParamValue = @"Value";
 
     INVRuleInstanceActualParamDictionary actualParam =
         [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
-    /*
+
     [self.globalDataManager.invServerClient
         modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId
-                                  forRuleId: nil
-                                inRuleSetId:self.ruleSetId
+                                  forRuleId:nil
+                                 inAnalysis:self.analysesId
                                withRuleName:self.ruleName
                              andDescription:self.intermediateRuleOverview
                         andActualParameters:actualParam
-                        WithCompletionBlock:^(INVEmpireMobileError *error) {
+                        WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
                             if (error) {
                                 if (error) {
                                     UIAlertController *errController = [[UIAlertController alloc]
@@ -299,7 +296,6 @@ static NSString *INV_ActualParamValue = @"Value";
                                                     isCreated:NO];
                             }
                         }];
-     */
 }
 
 #pragma mark - Navigation
@@ -532,7 +528,8 @@ static NSString *INV_ActualParamValue = @"Value";
     if (!_dataSource) {
         if (self.ruleInstanceId) {
             INVRuleInstance *ruleInstance =
-                [self.globalDataManager.invServerClient.analysesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId  forAnalysisId:self.analysesId];
+                [self.globalDataManager.invServerClient.analysesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId
+                                                                                        forAnalysisId:self.analysesId];
 
             self.intermediateRuleOverview = ruleInstance.overview ? ruleInstance.overview : @"";
             self.ruleName = ruleInstance.ruleName;

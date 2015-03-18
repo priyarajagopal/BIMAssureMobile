@@ -47,7 +47,6 @@
         INVRuleInstanceTableViewController *ruleInstanceVC = [segue destinationViewController];
         ruleInstanceVC.ruleName = [sender ruleName];
         ruleInstanceVC.ruleInstanceId = [sender ruleInstanceId];
-        ruleInstanceVC.ruleId = [sender ruleDefId];
         ruleInstanceVC.analysesId = self.analysisId;
     }
 }
