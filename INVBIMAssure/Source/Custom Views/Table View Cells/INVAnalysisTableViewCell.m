@@ -17,6 +17,11 @@
 @property IBOutlet UILabel *analysisDescriptionLabel;
 @property IBOutlet UIButton *ruleCountButton;
 
+@property IBOutlet UIButton *editButton;
+@property IBOutlet UIButton *rulesButton;
+@property IBOutlet UIButton *runButton;
+@property IBOutlet UIButton *deleteButton;
+
 @property IBOutlet UILabel *emptyRulesLabel;
 @property IBOutlet NSLayoutConstraint *collapseEmptyRulesConstraint;
 
@@ -52,6 +57,8 @@
         [self.ruleCountButton setTitle:[NSString stringWithFormat:@"%lu %@", (unsigned long) [self.analysis.rules count],
                                                  NSLocalizedString(@"RULES", nil)]
                               forState:UIControlStateNormal];
+
+        self.runButton.enabled = (self.analysis.rules.count > 0);
 
         if ([self.analysis.emptyParamCount integerValue] > 0) {
             [self.emptyRulesLabel removeConstraint:self.collapseEmptyRulesConstraint];

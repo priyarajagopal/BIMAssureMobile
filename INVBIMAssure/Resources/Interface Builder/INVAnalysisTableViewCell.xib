@@ -40,7 +40,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="15"/>
                                 <state key="normal" title=" Edit">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -84,6 +84,9 @@
                                 <state key="normal" title=" Run">
                                     <color key="titleColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="onRunRulesForAnalysis:" destination="-2" eventType="touchUpInside" id="ueK-vQ-0rd"/>
@@ -221,8 +224,12 @@
                 <outlet property="analysisDescriptionLabel" destination="4RV-tJ-E2V" id="Y5y-nn-Y11"/>
                 <outlet property="analysisNameLabel" destination="1w2-Te-odX" id="yzv-bf-v5a"/>
                 <outlet property="collapseEmptyRulesConstraint" destination="gSY-I4-SAO" id="Bor-PJ-VAr"/>
+                <outlet property="deleteButton" destination="C00-uw-XQU" id="cl9-NE-RDH"/>
+                <outlet property="editButton" destination="yCi-4Y-7WJ" id="5zk-GR-oA3"/>
                 <outlet property="emptyRulesLabel" destination="aWd-L1-wPq" id="ua3-go-1ib"/>
                 <outlet property="ruleCountButton" destination="MSN-ox-VjW" id="aXE-0g-Dmp"/>
+                <outlet property="rulesButton" destination="ypk-Mz-ZUu" id="wpz-9U-kQF"/>
+                <outlet property="runButton" destination="cJ5-aO-zRA" id="cc5-EC-hQx"/>
             </connections>
             <point key="canvasLocation" x="239" y="697"/>
         </tableViewCell>
