@@ -67,9 +67,9 @@
 /**
  Returns analyses objects given list of  for analysisIds
   @param analysesIds Ids for which analyses objects are to be fetched
-
+ 
  @see INVMobileClient
-
+ 
  @return The array of INVAnalyses objects corresponding to the list of analysisIds
  */
 - (INVAnalysisArray)analysesForIds:(NSArray *)analysesIds;
@@ -128,13 +128,22 @@
 
  @return The array of INVAnalysisPkgMembership objects
  */
-- (INVAnalysisPkgMembershipArray)membershipIdsForAnalysisIds:(NSArray *)analysisIds;
+- (INVAnalysisPkgMembershipArray)membershipIdsForAnalysisIds:(NSArray*)analysisIds;
 
 /**
  Returns list of analysesIds for given pkg master
-
+ 
  @param pkgMasterId the Id of the pkg master
+ 
+ @return The array of analyses Ids
+ */
+- (NSSet *)analysesIdsForPkgMaster:(NSNumber *)pkgMasterId;
 
+/**
+ Returns list of analysesIds for given pkg master
+ 
+ @param pkgMasterId the Id of the pkg master
+ 
  @return The array of analyses Ids
  */
 - (NSSet *)analysesIdsForPkgMaster:(NSNumber *)pkgMasterId;

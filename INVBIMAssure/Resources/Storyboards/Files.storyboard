@@ -501,7 +501,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iN-gC-lsS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="OVn-dK-M1p" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3195" y="4184"/>
+            <point key="canvasLocation" x="3081" y="4205"/>
         </scene>
         <!--Analyses In File Table View COntroller-->
         <scene sceneID="odW-ur-rO4">
@@ -678,10 +678,10 @@
             </objects>
             <point key="canvasLocation" x="2083" y="4929"/>
         </scene>
-        <!--Rule Executions Table View Controller-->
+        <!--Analysis Executions Table View Controller-->
         <scene sceneID="JJ9-8b-vha">
             <objects>
-                <tableViewController id="u6z-td-IlQ" customClass="INVRuleExecutionsTableViewController" sceneMemberID="viewController">
+                <tableViewController id="u6z-td-IlQ" customClass="INVAnalysisExecutionsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="20" id="cqd-1l-EAf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

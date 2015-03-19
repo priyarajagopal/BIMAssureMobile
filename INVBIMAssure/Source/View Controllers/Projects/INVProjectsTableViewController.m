@@ -13,7 +13,7 @@
 #import "INVProjectEditViewController.h"
 #import "INVRulesListViewController.h"
 #import "INVProjectListSplitViewController.h"
-#import "INVRuleExecutionsTableViewController.h"
+#import "INVAnalysisExecutionsTableViewController.h"
 #import "UIImage+INVCustomizations.h"
 #import "INVPagingManager+ProjectListing.h"
 #import "UIView+INVCustomizations.h"

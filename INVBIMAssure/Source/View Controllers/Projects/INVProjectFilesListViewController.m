@@ -12,7 +12,7 @@
 #import "INVProjectFileViewerController.h"
 #import "INVFileManageRuleSetsContainerViewController.h"
 #import "INVRunRulesTableViewController.h"
-#import "INVRuleExecutionsTableViewController.h"
+#import "INVAnalysisExecutionsTableViewController.h"
 #import "INVSearchView.h"
 #import "UIImage+INVCustomizations.h"
 #import "INVPagingManager+PackageMasterListing.h"
@@ -341,8 +341,11 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         vc.modelId = self.selectedModelId;
     }
     if ([segue.identifier isEqualToString:@"ShowExecutionsSegue"]) {
-        INVRuleExecutionsTableViewController *vc = (INVRuleExecutionsTableViewController *) segue.destinationViewController;
+        INVAnalysisExecutionsTableViewController *vc =
+            (INVAnalysisExecutionsTableViewController *) segue.destinationViewController;
         vc.projectId = self.projectId;
+        // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
+        vc.analysisRunId = @3336 ;
         vc.fileVersionId = self.selectedFileTipId;
         vc.fileMasterId = self.selectedFileId;
         vc.modelId = self.selectedModelId;
