@@ -31,6 +31,7 @@ typedef NSArray *INVAnalysisArray;
  Mutable array of INVAnalysis objects
  */
 typedef NSMutableArray *INVAnalysisMutableArray;
+
 @interface INVAnalysis : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
 
 @property (copy, nonatomic, readonly) NSNumber *analysisId;

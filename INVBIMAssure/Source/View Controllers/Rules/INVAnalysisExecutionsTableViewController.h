@@ -1,5 +1,5 @@
 //
-//  INVRuleExecutionsTableViewController.h
+//  INVAnalysisExecutionsTableViewController.h
 //  INVBIMAssure
 //
 //  Created by Priya Rajagopal on 12/3/14.
@@ -8,9 +8,10 @@
 
 #import "INVCustomTableViewController.h"
 
-@interface INVRuleExecutionsTableViewController : INVCustomTableViewController
+@interface INVAnalysisExecutionsTableViewController : INVCustomTableViewController
 
 @property (nonatomic, copy) NSNumber *projectId;
+@property (nonatomic, copy) NSNumber *analysisRunId;
 @property (nonatomic, copy) NSNumber *fileVersionId;
 @property (nonatomic, copy) NSNumber *fileMasterId;
 @property (nonatomic, copy) NSNumber *modelId;

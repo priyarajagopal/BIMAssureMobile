@@ -48,7 +48,7 @@ typedef NSArray *INVAnalysisRunResultsArray;
  */
 typedef NSMutableArray *INVAnalysisRunResultsMutableArray;
 
-@interface INVAnalysisRunResult : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
+@interface INVAnalysisRunResult : MTLModel<MTLJSONSerializing>
 @property (copy, nonatomic, readonly) NSNumber *ruleInstanceId;
 @property (copy, nonatomic, readonly) NSNumber *ruleDefId;
 @property (copy, nonatomic, readonly) NSString *ruleName;
