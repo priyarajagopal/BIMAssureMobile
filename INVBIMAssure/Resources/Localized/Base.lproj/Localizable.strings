@@ -245,3 +245,19 @@
 
 "EDIT_ANALYSIS"="Edit Analysis";
 "CREATE_ANALYSIS"="Create Analysis";
+
+"CONFIRM_ANALYSIS_RUN_TITLE"="Run Analysis?";
+"CONFIRM_ANALYSIS_RUN_MESSAGE"="Are you sure you wish to run this analysis? This may take some time.";
+"CONFIRM_ANALYSIS_RUN_POSITIVE"="Yes";
+"CONFIRM_ANALYSIS_RUN_NEGATIVE"="No";
+
+"ERROR_RUN_ANALYSIS"="Error while running analysis. Please ensure you have added this analysis to a file and try again later.";
+"ERROR_ANALYSES_LOAD"="Error while fetching analyses. Please try again later.";
+"ERROR_ANALYSIS_DELETE"="Error while deleting analysis. Please try again later.";
+"ERROR_ANALYSIS_RULES_FETCH"="Error while fecthing analysis rules. Please try again later.";
+"ERROR_RULE_INSTANCE_DELETE"="Error while deleting rule instance. Please try again later.";
+
+"DELETE_RULE_CONFIRM_TITLE"="Confirm Deletion";
+"DELETE_RULE_CONFIRM_MESSAGE"="Are you sure you wish to delete this rule instance? This CANNOT be undone!";
+"DELETE_RULE_CONFIRM_NEGATIVE"="No";
+"DELETE_RULE_CONFIRM_POSITIVE"="Yes";
