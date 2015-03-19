@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Invicara Inc. All rights reserved.
 //
 
-#import "INVModelTreeTableViewController.h"
+#import "INVModelTreeBuildingElementsTableViewController.h"
 #import "INVBuildingElementPropertiesTableViewController.h"
 
 #import "NSArray+INVCustomizations.h"
@@ -25,7 +25,7 @@
 #define NODE_LEVEL_CATEGORY CONTEXT_NODE_LEVEL(1)
 #define NODE_LEVEL_ELEMENT CONTEXT_NODE_LEVEL(2)
 
-@interface INVModelTreeTableViewController ()
+@interface INVModelTreeBuildingElementsTableViewController ()
 
 @property (nonatomic) NSMutableDictionary *nodeHeights;
 @property BOOL shouldAnimatedPostUpdate;
@@ -37,7 +37,7 @@
 
 @end
 
-@implementation INVModelTreeTableViewController
+@implementation INVModelTreeBuildingElementsTableViewController
 
 #pragma mark - View Lifecyle
 
