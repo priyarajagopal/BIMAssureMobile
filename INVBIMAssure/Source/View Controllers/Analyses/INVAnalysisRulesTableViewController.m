@@ -159,6 +159,12 @@
     [self deleteRule:cell.ruleInstance];
 }
 
+- (void)manualDismiss:(UIStoryboardSegue *)segue
+{
+    [self fetchListOfRules];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -185,8 +191,14 @@
 
 #pragma mark - INVRuleInstanceTableViewControllerDelegate
 
+- (void)onRuleInstanceCreated:(INVRuleInstanceTableViewController *)sender
+{
+}
+
 - (void)onRuleInstanceModified:(INVRuleInstanceTableViewController *)sender
 {
+    [self fetchListOfRules];
+
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.tableView reloadData];
 }

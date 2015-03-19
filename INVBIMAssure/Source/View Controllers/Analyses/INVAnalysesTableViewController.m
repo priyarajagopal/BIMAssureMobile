@@ -223,6 +223,64 @@
     [self deleteRowAtIndexPath:[self.tableView indexPathForCell:cell]];
 }
 
+- (void)onRunRulesForAnalysis:(id)sender
+{
+    INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
+    id analysis = cell.analysis;
+
+    UIAlertController *confirmController =
+        [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONFIRM_ANALYSIS_RUN_TITLE", nil)
+                                            message:NSLocalizedString(@"CONFIRM_ANALYSIS_RUN_MESSAGE", nil)
+                                     preferredStyle:UIAlertControllerStyleAlert];
+
+    [confirmController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CONFIRM_ANALYSIS_RUN_NEGATIVE", nil)
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:nil]];
+
+    [confirmController
+        addAction:[UIAlertAction
+                      actionWithTitle:NSLocalizedString(@"CONFIRM_ANALYSIS_RUN_POSITIVE", nil)
+                                style:UIAlertActionStyleDefault
+                              handler:^(UIAlertAction *action) {
+
+                                  id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+                                  [self.globalDataManager.invServerClient
+                                              runAnalysis:[analysis analysisId]
+                                      WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                          INV_ALWAYS:
+                                              [hud hide:YES];
+
+                                          INV_SUCCESS : {
+                                              UIAlertController *successController = [UIAlertController
+                                                  alertControllerWithTitle:NSLocalizedString(
+                                                                               @"ANALYSIS_EXECUTION_STARTED_TITLE", nil)
+                                                                   message:NSLocalizedString(
+                                                                               @"ANALYSIS_EXECUTION_STARTED_MESSAGE", nil)
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+                                              [self presentViewController:successController animated:YES completion:nil];
+                                          }
+
+                                          INV_ERROR:
+                                              INVLogError(@"%@", error);
+
+                                              UIAlertController *errorController = [[UIAlertController alloc]
+                                                  initWithErrorMessage:NSLocalizedString(@"ERROR_RUN_ANALYSIS", nil)];
+
+                                              [errorController
+                                                  addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                                     style:UIAlertActionStyleDefault
+                                                                                   handler:nil]];
+
+                                              [self presentViewController:errorController animated:YES completion:nil];
+                                      }];
+
+                              }]];
+
+    [self presentViewController:confirmController animated:YES completion:nil];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
