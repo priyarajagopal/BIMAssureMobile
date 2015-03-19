@@ -16,15 +16,14 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 100;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
-@interface INVAnalysisExecutionsTableViewController () <NSFetchedResultsControllerDelegate>
+@interface INVAnalysisExecutionsTableViewController ()
 @property (nonatomic, strong) INVProjectManager *projectManager;
 @property (nonatomic, strong) INVAnalysesManager *analysesManager;
-@property (nonatomic, strong) INVRuleExecutionManager *rulesExecManager;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, strong) INVPackage *file;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, assign) NSInteger fetchedFilesExecutionCallbackCount;
-@property (nonatomic, readwrite) NSFetchedResultsController *dataResultsController;
+
 
 @end
 
@@ -65,10 +64,8 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     [super viewWillDisappear:animated];
     self.projectManager = nil;
     self.analysesManager = nil;
-    self.rulesExecManager = nil;
     self.dateFormatter = nil;
     self.file = nil;
-    self.dataResultsController = nil;
     self.tableView.dataSource = nil;
     self.dataSource = nil;
 }
@@ -155,7 +152,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 {
     return DEFAULT_FOOTER_HEIGHT;
 }
-
+/*
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 #warning Use attributed text for header label
@@ -169,6 +166,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     headerLabel.textAlignment = NSTextAlignmentCenter;
     return headerLabel;
 }
+*/
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -229,38 +227,6 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     [self fetchExecutionsForFilesFromServer];
 }
 
-#pragma mark - NSFetchedResultsControllerDelegate
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller
-    didChangeObject:(id)anObject
-        atIndexPath:(NSIndexPath *)indexPath
-      forChangeType:(NSFetchedResultsChangeType)type
-       newIndexPath:(NSIndexPath *)newIndexPath
-{
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        default:
-            break;
-    }
-}
-
 #pragma mark - accessor
 
 - (INVAnalysesManager *)analysesManager
@@ -271,13 +237,6 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     return _analysesManager;
 }
 
-- (INVRuleExecutionManager *)rulesExecManager
-{
-    if (!_rulesExecManager) {
-        _rulesExecManager = self.globalDataManager.invServerClient.ruleExecutionManager;
-    }
-    return _rulesExecManager;
-}
 
 - (INVProjectManager *)projectManager
 {
@@ -297,27 +256,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     return _dateFormatter;
 }
 
-- (NSFetchedResultsController *)dataResultsController
-{
-    if (!_dataResultsController) {
-        NSFetchRequest *fetchRequest = self.rulesExecManager.fetchRequestForRuleInstanceExecutions;
-        NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"pkgVersionId==%@", self.fileVersionId];
-        [fetchRequest setPredicate:fetchPredicate];
 
-        _dataResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                     managedObjectContext:self.analysesManager.managedObjectContext
-                                                                       sectionNameKeyPath:nil
-                                                                                cacheName:nil];
-        _dataResultsController.delegate = self;
-        NSError *dbError;
-        [_dataResultsController performFetch:&dbError];
-
-        if (dbError) {
-            _dataResultsController = nil;
-        }
-    }
-    return _dataResultsController;
-}
 
 - (INVPackage *)file
 {
