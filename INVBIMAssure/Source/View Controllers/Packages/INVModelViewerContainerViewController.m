@@ -7,9 +7,13 @@
 //
 
 #import "INVModelViewerContainerViewController.h"
-#import "INVModelViewerViewController.h"
+#import "INVModelTreeContainerViewController.h"
+#import "NSObject+INVCustomizations.h"
 
 @interface INVModelViewerContainerViewController ()
+
+@property (nonatomic, strong) INVModelViewerViewController *modelViewController;
+@property (nonatomic, strong) INVModelTreeContainerViewController *modelTreeContainerViewController;
 
 @property IBOutlet UIView *modelTreeView;
 @property IBOutlet NSLayoutConstraint *collapseModelTreeConstraint;
@@ -21,6 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
 }
 
@@ -34,41 +39,16 @@
 {
     if ([[segue destinationViewController] isKindOfClass:[INVModelViewerViewController class]]) {
         self.modelViewController = segue.destinationViewController;
+
+        [self bindKeyPath:@"modelId" toObject:self keyPath:@"modelViewController.modelId"];
+        [self bindKeyPath:@"fileVersionId" toObject:self keyPath:@"modelViewController.fileVersionId"];
     }
 
-    if ([[segue destinationViewController] isKindOfClass:[INVModelTreeTableViewController class]]) {
-        self.modelTreeViewController = segue.destinationViewController;
+    if ([[segue destinationViewController] isKindOfClass:[INVModelTreeContainerViewController class]]) {
+        self.modelTreeContainerViewController = segue.destinationViewController;
+
+        [self bindKeyPath:@"fileVersionId" toObject:self keyPath:@"modelTreeContainerViewController.packageVersionId"];
     }
-}
-
-- (void)setModelViewController:(INVModelViewerViewController *)modelViewController
-{
-    _modelViewController = modelViewController;
-
-    _modelViewController.modelId = self.modelId;
-    _modelViewController.fileVersionId = self.fileVersionId;
-}
-
-- (void)setModelTreeViewController:(INVModelTreeTableViewController *)modelTreeViewController
-{
-    _modelTreeViewController = modelTreeViewController;
-
-    _modelTreeViewController.packageVersionId = self.fileVersionId;
-}
-
-- (void)setModelId:(NSNumber *)modelId
-{
-    _modelId = modelId;
-
-    _modelViewController.modelId = modelId;
-}
-
-- (void)setFileVersionId:(NSNumber *)fileVersionId
-{
-    _fileVersionId = fileVersionId;
-
-    _modelViewController.fileVersionId = fileVersionId;
-    _modelTreeViewController.packageVersionId = fileVersionId;
 }
 
 /*

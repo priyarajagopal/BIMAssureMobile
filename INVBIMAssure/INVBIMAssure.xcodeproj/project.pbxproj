@@ -79,7 +79,7 @@
 		F54CB1461A82B32300E8C584 /* INVUserProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54CB1451A82B32300E8C584 /* INVUserProfileTableViewController.m */; };
 		F54E70E41A93963F00FB2BCB /* UILabel+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F54E70E31A93963F00FB2BCB /* UILabel+INVCustomizations.m */; };
 		F555FD8D1A70071000C01288 /* INVModelViewerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */; };
-		F555FD901A702BBA00C01288 /* INVModelTreeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8F1A702BBA00C01288 /* INVModelTreeTableViewController.m */; };
+		F555FD901A702BBA00C01288 /* INVModelTreeBuildingElementsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F555FD8F1A702BBA00C01288 /* INVModelTreeBuildingElementsTableViewController.m */; };
 		F55AD9001A893A3300202F0A /* UIResponder+IBHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F55AD8FF1A893A0300202F0A /* UIResponder+IBHelpers.m */; };
 		F55AD9031A895BCC00202F0A /* INVCreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55AD9021A895BCC00202F0A /* INVCreateAccountViewController.m */; };
 		F55AD90E1A8A420900202F0A /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D51D1A6447CF007A2BDC /* OpenCTM.framework */; };
@@ -191,6 +191,9 @@
 		F59B78D81AA60DD300E14F86 /* NSArray+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F59B78D71AA60DD300E14F86 /* NSArray+INVCustomizations.m */; };
 		F5B69DBE1A9F77310014B74B /* NSObject+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B69DBD1A9F77310014B74B /* NSObject+INVCustomizations.m */; };
 		F5BDE9FF1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BDE9FE1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m */; };
+		F5BEE57D1ABB4BC70089E177 /* INVModelTreeContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BEE57C1ABB4BC70089E177 /* INVModelTreeContainerViewController.m */; };
+		F5BEE5801ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BEE57F1ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.m */; };
+		F5BEE5831ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BEE5821ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.m */; };
 		F5D2914D1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */; };
 		F5D2914E1A83F77C000CBA6B /* libYajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D2914C1A83F77C000CBA6B /* libYajl.a */; };
 		F5D291511A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D291501A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m */; };
@@ -338,8 +341,8 @@
 		F54E70E31A93963F00FB2BCB /* UILabel+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+INVCustomizations.m"; sourceTree = "<group>"; };
 		F555FD8B1A70071000C01288 /* INVModelViewerContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerContainerViewController.h; sourceTree = "<group>"; };
 		F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelViewerContainerViewController.m; sourceTree = "<group>"; };
-		F555FD8E1A702BBA00C01288 /* INVModelTreeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeTableViewController.h; sourceTree = "<group>"; };
-		F555FD8F1A702BBA00C01288 /* INVModelTreeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeTableViewController.m; sourceTree = "<group>"; };
+		F555FD8E1A702BBA00C01288 /* INVModelTreeBuildingElementsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeBuildingElementsTableViewController.h; sourceTree = "<group>"; };
+		F555FD8F1A702BBA00C01288 /* INVModelTreeBuildingElementsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeBuildingElementsTableViewController.m; sourceTree = "<group>"; };
 		F55AD8FF1A893A0300202F0A /* UIResponder+IBHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+IBHelpers.m"; sourceTree = "<group>"; };
 		F55AD9011A895BCC00202F0A /* INVCreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCreateAccountViewController.h; sourceTree = "<group>"; };
 		F55AD9021A895BCC00202F0A /* INVCreateAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCreateAccountViewController.m; sourceTree = "<group>"; };
@@ -535,6 +538,12 @@
 		F5B69DBD1A9F77310014B74B /* NSObject+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+INVCustomizations.m"; sourceTree = "<group>"; };
 		F5BDE9FD1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisRulesTableViewController.h; sourceTree = "<group>"; };
 		F5BDE9FE1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisRulesTableViewController.m; sourceTree = "<group>"; };
+		F5BEE57B1ABB4BC70089E177 /* INVModelTreeContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeContainerViewController.h; sourceTree = "<group>"; };
+		F5BEE57C1ABB4BC70089E177 /* INVModelTreeContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeContainerViewController.m; sourceTree = "<group>"; };
+		F5BEE57E1ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeIssuesTableViewController.h; sourceTree = "<group>"; };
+		F5BEE57F1ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeIssuesTableViewController.m; sourceTree = "<group>"; };
+		F5BEE5811ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeNormalizationTableViewController.h; sourceTree = "<group>"; };
+		F5BEE5821ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeNormalizationTableViewController.m; sourceTree = "<group>"; };
 		F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRBCollectionViewInfoFolderLayout.a; path = "../../RBCollectionViewInfoFolderLayout/build/Prod-iphoneos/libRBCollectionViewInfoFolderLayout.a"; sourceTree = "<group>"; };
 		F5D2914C1A83F77C000CBA6B /* libYajl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYajl.a; path = "../../Yajl/build/Dev-iphoneos/libYajl.a"; sourceTree = "<group>"; };
 		F5D2914F1A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAccountDetailFolderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -1038,20 +1047,26 @@
 		F5789D0E1A642A5500D8CEE7 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				F54864901AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.h */,
+				F54864911AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m */,
+				F5FC0CB91AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.h */,
+				F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */,
 				F5789D0F1A642A5500D8CEE7 /* INVExecutionIssuesTableViewController.h */,
 				F5789D101A642A5500D8CEE7 /* INVExecutionIssuesTableViewController.m */,
 				F5789D111A642A5500D8CEE7 /* INVFileManageRuleSetsContainerViewController.h */,
 				F5789D121A642A5500D8CEE7 /* INVFileManageRuleSetsContainerViewController.m */,
-				F5789D131A642A5500D8CEE7 /* INVModelViewerViewController.h */,
-				F5789D141A642A5500D8CEE7 /* INVModelViewerViewController.m */,
+				F555FD8E1A702BBA00C01288 /* INVModelTreeBuildingElementsTableViewController.h */,
+				F555FD8F1A702BBA00C01288 /* INVModelTreeBuildingElementsTableViewController.m */,
+				F5BEE57B1ABB4BC70089E177 /* INVModelTreeContainerViewController.h */,
+				F5BEE57C1ABB4BC70089E177 /* INVModelTreeContainerViewController.m */,
 				F555FD8B1A70071000C01288 /* INVModelViewerContainerViewController.h */,
 				F555FD8C1A70071000C01288 /* INVModelViewerContainerViewController.m */,
-				F555FD8E1A702BBA00C01288 /* INVModelTreeTableViewController.h */,
-				F555FD8F1A702BBA00C01288 /* INVModelTreeTableViewController.m */,
-				F5FC0CB91AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.h */,
-				F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */,
-				F54864901AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.h */,
-				F54864911AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m */,
+				F5789D131A642A5500D8CEE7 /* INVModelViewerViewController.h */,
+				F5789D141A642A5500D8CEE7 /* INVModelViewerViewController.m */,
+				F5BEE57E1ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.h */,
+				F5BEE57F1ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.m */,
+				F5BEE5811ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.h */,
+				F5BEE5821ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.m */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1440,6 +1455,7 @@
 				F5DC65BB1A82773F001713B9 /* UICollectionView+INVCustomCollectionView.m in Sources */,
 				F5D41A2F1A65A40E00780B9A /* INVBlockUtils.m in Sources */,
 				F5789D451A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.m in Sources */,
+				F5BEE57D1ABB4BC70089E177 /* INVModelTreeContainerViewController.m in Sources */,
 				0278BB0B1A66C60D009E0E27 /* INVTransitionToStoryboard.m in Sources */,
 				0278BB031A66BCFF009E0E27 /* INVServerConfigManager.m in Sources */,
 				F5789D7A1A642A5500D8CEE7 /* INVRuleSetFilesListTableViewController.m in Sources */,
@@ -1472,12 +1488,13 @@
 				F5789D351A642A5500D8CEE7 /* INVDefaultAccountAlertView.m in Sources */,
 				F5789D7D1A642A5500D8CEE7 /* INVRunRulesTableViewController.m in Sources */,
 				F5269DF11A7836E2006AC27A /* UISplitViewController+ToggleSidebar.m in Sources */,
-				F555FD901A702BBA00C01288 /* INVModelTreeTableViewController.m in Sources */,
+				F555FD901A702BBA00C01288 /* INVModelTreeBuildingElementsTableViewController.m in Sources */,
 				F5789D6C1A642A5500D8CEE7 /* INVExecutionIssuesTableViewController.m in Sources */,
 				F5024AFD1A6808FA002EEE5F /* INVNotification.m in Sources */,
 				F5DB4C191A88FD6B0083331C /* UIFont+INVCustomizations.m in Sources */,
 				F5789D3A1A642A5500D8CEE7 /* INVSearchViewQuickSearchBackgroundView.m in Sources */,
 				F5789D3C1A642A5500D8CEE7 /* INVGeneralAddRemoveTableViewCell.m in Sources */,
+				F5BEE5801ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.m in Sources */,
 				F5789D411A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */,
 				F5426D5D1A6853BA0040B2B5 /* INVNotificationTableViewCell.m in Sources */,
 				F5789D5C1A642A5500D8CEE7 /* INVSearchViewQuickSearchDataSource.m in Sources */,
@@ -1547,6 +1564,7 @@
 				F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */,
 				F5789D541A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m in Sources */,
 				F5789D781A642A5500D8CEE7 /* INVRuleExecutionsTableViewController.m in Sources */,
+				F5BEE5831ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.m in Sources */,
 				F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */,
 				F5789D701A642A5500D8CEE7 /* INVProjectEditViewController.m in Sources */,
 				F5789D6D1A642A5500D8CEE7 /* INVFileManageRuleSetsContainerViewController.m in Sources */,

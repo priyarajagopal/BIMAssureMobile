@@ -246,6 +246,11 @@
                                                                                @"ANALYSIS_EXECUTION_STARTED_MESSAGE", nil)
                                                             preferredStyle:UIAlertControllerStyleAlert];
 
+                                              [successController
+                                                  addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                                     style:UIAlertActionStyleDefault
+                                                                                   handler:nil]];
+
                                               [self presentViewController:successController animated:YES completion:nil];
                                           }
 
