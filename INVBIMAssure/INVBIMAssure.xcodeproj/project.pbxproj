@@ -211,6 +211,7 @@
 		F5DC65B61A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65B51A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m */; };
 		F5DC65BB1A82773F001713B9 /* UICollectionView+INVCustomCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65B81A82773F001713B9 /* UICollectionView+INVCustomCollectionView.m */; };
 		F5DC65BC1A82773F001713B9 /* UITableView+INVCustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65BA1A82773F001713B9 /* UITableView+INVCustomTableView.m */; };
+		F5EA59C61ABB638F00458C0C /* INVModelTreeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA59C51ABB638F00458C0C /* INVModelTreeBaseViewController.m */; };
 		F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */; };
 		F5FC0CBD1AA6408900FBAE84 /* User Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */; };
 		F5FC0CBF1AA6413800FBAE84 /* Project Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */; };
@@ -573,6 +574,8 @@
 		F5DC65B81A82773F001713B9 /* UICollectionView+INVCustomCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+INVCustomCollectionView.m"; sourceTree = "<group>"; };
 		F5DC65B91A82773F001713B9 /* UITableView+INVCustomTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+INVCustomTableView.h"; sourceTree = "<group>"; };
 		F5DC65BA1A82773F001713B9 /* UITableView+INVCustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+INVCustomTableView.m"; sourceTree = "<group>"; };
+		F5EA59C41ABB638F00458C0C /* INVModelTreeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeBaseViewController.h; sourceTree = "<group>"; };
+		F5EA59C51ABB638F00458C0C /* INVModelTreeBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeBaseViewController.m; sourceTree = "<group>"; };
 		F5FC0CB91AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBuildingElementPropertiesTableViewController.h; sourceTree = "<group>"; };
 		F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBuildingElementPropertiesTableViewController.m; sourceTree = "<group>"; };
 		F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "User Thumbnails"; sourceTree = "<group>"; };
@@ -1076,6 +1079,8 @@
 				F5BEE57F1ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.m */,
 				F5BEE5811ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.h */,
 				F5BEE5821ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.m */,
+				F5EA59C41ABB638F00458C0C /* INVModelTreeBaseViewController.h */,
+				F5EA59C51ABB638F00458C0C /* INVModelTreeBaseViewController.m */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1520,6 +1525,7 @@
 				F5D932F21AB764EB008D1051 /* INVAnalysesTableViewController.m in Sources */,
 				F5789D661A642A5500D8CEE7 /* INVCustomSplitViewController.m in Sources */,
 				F5789D491A642A5500D8CEE7 /* INVModalPresentationFromSplitViewControllerSegue.m in Sources */,
+				F5EA59C61ABB638F00458C0C /* INVModelTreeBaseViewController.m in Sources */,
 				0278BADF1A655CE9009E0E27 /* INVGenericSwitchTableViewCell.m in Sources */,
 				F5789D441A642A5500D8CEE7 /* INVRuleInstanceTableViewCell.m in Sources */,
 				F5789D421A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.m in Sources */,

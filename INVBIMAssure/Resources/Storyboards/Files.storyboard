@@ -301,6 +301,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="240" height="452"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="hfq-2q-Bmp">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="CE7-1h-N1b" style="IBUITableViewCellStyleDefault" id="7ED-OR-Vgj">
                                 <autoresizingMask key="autoresizingMask"/>

@@ -7,8 +7,9 @@
 //
 
 #import "INVCustomTableViewController.h"
+#import "INVModelTreeBaseViewController.h"
 
-@interface INVModelTreeIssuesTableViewController : INVCustomTableViewController
+@interface INVModelTreeIssuesTableViewController : INVModelTreeBaseViewController
 
 @property NSNumber *packageVersionId;
 
