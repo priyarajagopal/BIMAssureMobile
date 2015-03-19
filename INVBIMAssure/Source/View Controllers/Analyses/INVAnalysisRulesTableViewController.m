@@ -12,7 +12,7 @@
 
 #import "UIView+INVCustomizations.h"
 
-@interface INVAnalysisRulesTableViewController ()
+@interface INVAnalysisRulesTableViewController () <INVRuleInstanceTableViewControllerDelegate>
 
 @property (nonatomic) INVAnalysis *analysis;
 @property (nonatomic) IBOutlet INVTransitionToStoryboard *editRuleInstanceTransition;
@@ -45,8 +45,10 @@
 
     if ([[segue identifier] isEqualToString:@"editRuleInstance"]) {
         INVRuleInstanceTableViewController *ruleInstanceVC = [segue destinationViewController];
+        ruleInstanceVC.delegate = self;
         ruleInstanceVC.ruleName = [sender ruleName];
         ruleInstanceVC.ruleInstanceId = [sender ruleInstanceId];
+        ruleInstanceVC.ruleId = [sender ruleDefId];
         ruleInstanceVC.analysesId = self.analysisId;
     }
 }
@@ -180,5 +182,13 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+#pragma mark - INVRuleInstanceTableViewControllerDelegate
+
+- (void)onRuleInstanceModified:(INVRuleInstanceTableViewController *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.tableView reloadData];
+}
 
 @end

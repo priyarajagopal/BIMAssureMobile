@@ -13,10 +13,10 @@
 @interface INVRuleInstanceTableViewCell () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *overviewLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ruleWarningLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collapseRuleWarningConstraint;
+@property (nonatomic) IBOutlet UILabel *nameLabel;
+@property (nonatomic) IBOutlet UILabel *overviewLabel;
+@property (nonatomic) IBOutlet UILabel *ruleWarningLabel;
+@property (nonatomic) IBOutlet NSLayoutConstraint *collapseRuleWarningConstraint;
 
 @end
 

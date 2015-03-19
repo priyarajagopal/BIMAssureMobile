@@ -192,10 +192,28 @@ static NSString *INV_ActualParamValue = @"Value";
         NSArray *ruleInfoArray = ruleInstance ? @[ self.ruleName, self.intermediateRuleOverview ] : [NSArray array];
         [self.dataSource updateWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
 
-        INVRuleInstanceActualParamDictionary ruleInstanceActualParam = ruleInstance.actualParameters;
-        [self transformRuleInstanceParamsToArray:ruleInstanceActualParam];
-        [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams
-                                  forSection:SECTION_RULEINSTANCEACTUALPARAM];
+        [self.globalDataManager.invServerClient
+            getRuleDefinitionForRuleId:ruleInstance.ruleDefId
+                   WithCompletionBlock:^(INVRule *rule, INVEmpireMobileError *error) {
+                       [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+
+                       if (!error) {
+                           [self transformRuleInstanceParamsToArray:ruleInstance definition:rule];
+                           [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams
+                                                     forSection:SECTION_RULEINSTANCEACTUALPARAM];
+                       }
+                       else {
+                           if (error) {
+                               UIAlertController *errController = [[UIAlertController alloc]
+                                   initWithErrorMessage:NSLocalizedString(@"ERROR_RULE_DEFINITION_FORINSTANCE_LOAD", nil),
+                                   error.code.integerValue];
+                               [self presentViewController:errController animated:YES completion:nil];
+                           }
+                       }
+
+                       [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                       [self performSelectorOnMainThread:@selector(setupTableFooter) withObject:nil waitUntilDone:NO];
+                   }];
     }
 
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
@@ -217,6 +235,7 @@ static NSString *INV_ActualParamValue = @"Value";
                        if (!error) {
                            self.ruleDefinition =
                                [self.globalDataManager.invServerClient.rulesManager ruleDefinitionForRuleId:ruleId];
+
                            INVRuleFormalParam *ruleFormalParam = self.ruleDefinition.formalParams;
 
                            [self transformRuleDefinitionParamsToArray:ruleFormalParam];
@@ -277,7 +296,7 @@ static NSString *INV_ActualParamValue = @"Value";
 
     [self.globalDataManager.invServerClient
         modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId
-                                  forRuleId:nil
+                                  forRuleId:self.ruleId
                                  inAnalysis:self.analysesId
                                withRuleName:self.ruleName
                              andDescription:self.intermediateRuleOverview
@@ -456,11 +475,22 @@ static NSString *INV_ActualParamValue = @"Value";
     }
 }
 
-- (void)transformRuleInstanceParamsToArray:(INVRuleInstanceActualParamDictionary)actualParamDict
+- (void)transformRuleInstanceParamsToArray:(INVRuleInstance *)ruleInstance definition:(INVRule *)ruleDefinition
 {
-    [actualParamDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSDictionary *actualParam = @{INV_ActualParamName : key, INV_ActualParamValue : obj};
-        [self.intermediateRuleInstanceActualParams addObject:actualParam];
+    [self.intermediateRuleInstanceActualParams removeAllObjects];
+
+    NSMutableDictionary *entries = [NSMutableDictionary new];
+
+    [ruleDefinition.formalParams.properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        entries[key] = @"";
+    }];
+
+    [ruleInstance.actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        entries[key] = obj;
+    }];
+
+    [entries enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [self.intermediateRuleInstanceActualParams addObject:@{INV_ActualParamName : key, INV_ActualParamValue : obj}];
     }];
 }
 
