@@ -1572,7 +1572,7 @@
 				F5789D631A642A5500D8CEE7 /* INVSimpleUserInfoTableViewController.m in Sources */,
 				F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */,
 				F5789D541A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m in Sources */,
-				F5789D781A642A5500D8CEE7 /* INVRuleExecutionsTableViewController.m in Sources */,
+				F5789D781A642A5500D8CEE7 /* INVAnalysisExecutionsTableViewController.m in Sources */,
 				F5BEE5831ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.m in Sources */,
 				F52BB73C1A72E75B002E0BC5 /* INVResetPasswordTableViewController.m in Sources */,
 				F5789D701A642A5500D8CEE7 /* INVProjectEditViewController.m in Sources */,
