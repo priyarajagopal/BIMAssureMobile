@@ -17,26 +17,38 @@
 
 @implementation INVModelTreeIssuesTableViewController
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+
+    CGFloat imageSize = 25 * UIScreen.mainScreen.scale;
+    self.tabBarItem.image = [[FAKFontAwesome warningIconWithSize:imageSize] imageWithSize:CGSizeMake(imageSize, imageSize)];
+}
+
 - (INVModelTreeNode *)rootNode
 {
     if (_rootNode == nil) {
         _rootNode = [INVModelTreeNode
-            treeNodeWithName:nil
+            treeNodeWithName:NSStringFromClass([self class])
                           id:nil
-             andLoadingBlock:^NSArray *(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount) {
-                 dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
-                 __block NSArray *childNodes = nil;
-
+             andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+                                 NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
                  [self.globalDataManager.invServerClient
                      getAnalysisMembershipForPkgMaster:self.packageVersionId
                                    WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                       if (error) {
+                                           *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
+                                                                           code:error.code.integerValue
+                                                                       userInfo:@{NSLocalizedDescriptionKey : error.message}];
+
+                                           completed(nil);
+                                           return;
+                                       }
+
                                        INVLogDebug(@"%@", result);
                                    }];
 
-                 dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_FOREVER);
-                 *expectedTotalCount = [childNodes count];
-
-                 return childNodes;
+                 return YES;
              }];
 
         [_rootNode addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionPrior context:NODE_LEVEL_ROOT];

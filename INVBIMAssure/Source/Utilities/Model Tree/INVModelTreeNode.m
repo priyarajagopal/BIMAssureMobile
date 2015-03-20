@@ -14,6 +14,7 @@
 
 @interface INVModelTreeNode () <AWPagedArrayDelegate>
 
+@property (nonatomic) dispatch_queue_t loadingQueue;
 @property (nonatomic, copy) INVModelTreeNodeFetchChildrenBlock fetchChildrenBlock;
 @property (readwrite) AWPagedArray *pagedChildren;
 
@@ -21,15 +22,20 @@
 
 @implementation INVModelTreeNode
 
-+ (dispatch_queue_t)modelTreeLoadingQueue
+- (dispatch_queue_t)loadingQueue
 {
-    static dispatch_queue_t modelTreeLoadingQueue;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        modelTreeLoadingQueue = dispatch_queue_create("com.invicara.model-tree-queue", NULL);
-    });
+    if (_parent) {
+        return _parent.loadingQueue;
+    }
 
-    return modelTreeLoadingQueue;
+    if (_loadingQueue == nil) {
+        char nameBuffer[256];
+        snprintf(nameBuffer, 256, "com.invicara.model-tree-queue.%s", [self.name UTF8String]);
+
+        _loadingQueue = dispatch_queue_create(nameBuffer, DISPATCH_QUEUE_SERIAL);
+    }
+
+    return _loadingQueue;
 }
 
 + (instancetype)treeNodeWithName:(NSString *)name
@@ -68,14 +74,39 @@
 
 - (void)loadPageAtIndex:(NSUInteger)pageIndex force:(BOOL)force
 {
-    dispatch_async([[self class] modelTreeLoadingQueue], ^{
+    dispatch_async(self.loadingQueue, ^{
         if (self.pagedChildren.pages[@(pageIndex)] != nil && !force) {
             return;
         }
 
+        dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+
         NSInteger expectedTotalCount = [self.children count];
-        NSArray *objects = self.fetchChildrenBlock(self,
-            NSMakeRange(pageIndex * self.pagedChildren.objectsPerPage, self.pagedChildren.objectsPerPage), &expectedTotalCount);
+        __strong NSError *error = nil;
+        __block NSArray *objects = nil;
+
+        void (^completionHandler)(NSArray *) = ^(NSArray *data) {
+            if (objects) {
+                return;
+            }
+
+            objects = data;
+            dispatch_semaphore_signal(waitSemaphore);
+        };
+
+        BOOL hasData = self.fetchChildrenBlock(self,
+            NSMakeRange(pageIndex * self.pagedChildren.objectsPerPage, self.pagedChildren.objectsPerPage), &expectedTotalCount,
+            &error, completionHandler);
+
+        if (hasData) {
+            dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_FOREVER);
+
+            if (error) {
+                INVLogError(@"%@", error);
+
+                objects = nil;
+            }
+        }
 
         if (objects == nil) {
             objects = @[];
@@ -116,9 +147,9 @@
 - (INVModelTreeNodeFetchChildrenBlock)fetchChildrenBlock
 {
     // This way we only have to null check in one place.
-    return _fetchChildrenBlock ?: ^NSArray *(INVModelTreeNode *node, NSRange range, NSInteger *expectedCount)
-    {
-        return nil;
+    return _fetchChildrenBlock ?: ^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedCount,
+                                      NSError *__strong *error, void (^complete)(NSArray *) ) {
+        return NO;
     };
 }
 

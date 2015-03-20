@@ -215,6 +215,7 @@
 		F5DC65BB1A82773F001713B9 /* UICollectionView+INVCustomCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65B81A82773F001713B9 /* UICollectionView+INVCustomCollectionView.m */; };
 		F5DC65BC1A82773F001713B9 /* UITableView+INVCustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65BA1A82773F001713B9 /* UITableView+INVCustomTableView.m */; };
 		F5EA59C61ABB638F00458C0C /* INVModelTreeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA59C51ABB638F00458C0C /* INVModelTreeBaseViewController.m */; };
+		F5EA59C81ABC52BC00458C0C /* INVErrorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA59C71ABC52BC00458C0C /* INVErrorHandling.m */; };
 		F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */; };
 		F5FC0CBD1AA6408900FBAE84 /* User Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */; };
 		F5FC0CBF1AA6413800FBAE84 /* Project Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */; };
@@ -582,6 +583,7 @@
 		F5DC65BA1A82773F001713B9 /* UITableView+INVCustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+INVCustomTableView.m"; sourceTree = "<group>"; };
 		F5EA59C41ABB638F00458C0C /* INVModelTreeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeBaseViewController.h; sourceTree = "<group>"; };
 		F5EA59C51ABB638F00458C0C /* INVModelTreeBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeBaseViewController.m; sourceTree = "<group>"; };
+		F5EA59C71ABC52BC00458C0C /* INVErrorHandling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVErrorHandling.m; sourceTree = "<group>"; };
 		F5FC0CB91AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBuildingElementPropertiesTableViewController.h; sourceTree = "<group>"; };
 		F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBuildingElementPropertiesTableViewController.m; sourceTree = "<group>"; };
 		F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "User Thumbnails"; sourceTree = "<group>"; };
@@ -909,6 +911,7 @@
 				F5313A3E1A7956BC00E476D3 /* INVLogger.h */,
 				F5313A3F1A7956BC00E476D3 /* INVLogger.m */,
 				F548A58A1A7AD24600DF116C /* INVErrorHandling.h */,
+				F5EA59C71ABC52BC00458C0C /* INVErrorHandling.m */,
 				F5356ED31AB210F500D8F917 /* INVMutableSectionedArray.h */,
 				F5356ED41AB210F500D8F917 /* INVMutableSectionedArray.m */,
 			);
@@ -1491,6 +1494,7 @@
 				F5789D5B1A642A5500D8CEE7 /* INVRulesTableViewDataSource.m in Sources */,
 				F5789D501A642A5500D8CEE7 /* INVStreamBasedCTMParser.m in Sources */,
 				F55AD9031A895BCC00202F0A /* INVCreateAccountViewController.m in Sources */,
+				F5EA59C81ABC52BC00458C0C /* INVErrorHandling.m in Sources */,
 				F5789D401A642A5500D8CEE7 /* INVRuleInstanceActualParamTableViewCell.m in Sources */,
 				0278BAE01A655CE9009E0E27 /* INVGenericTextEntryTableViewCell.m in Sources */,
 				F5356ED51AB210F500D8F917 /* INVMutableSectionedArray.m in Sources */,

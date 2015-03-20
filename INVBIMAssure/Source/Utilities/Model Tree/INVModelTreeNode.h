@@ -10,7 +10,8 @@
 
 @class INVModelTreeNode;
 
-typedef NSArray * (^INVModelTreeNodeFetchChildrenBlock)(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount);
+typedef BOOL (^INVModelTreeNodeFetchChildrenBlock)(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+    NSError *__strong *error, void (^completed)(NSArray *));
 
 @interface INVModelTreeNode : NSObject<NSCopying>
 

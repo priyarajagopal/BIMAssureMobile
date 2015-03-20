@@ -27,14 +27,6 @@
 
 @implementation INVModelTreeBuildingElementsTableViewController
 
-- (void)setPackageVersionId:(NSNumber *)packageVersionId
-{
-    _packageVersionId = packageVersionId;
-    _rootNode = nil;
-
-    [self reloadData:@NO];
-}
-
 #pragma - Content Management
 
 - (INVModelTreeNode *)treeNodeForElement:(NSNumber *)elementId
@@ -52,10 +44,8 @@
     INVModelTreeNode *node = [INVModelTreeNode
         treeNodeWithName:category
                       id:@([category hash])
-         andLoadingBlock:^NSArray *(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount) {
-             dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
-             __block NSArray *childNodes = nil;
-
+         andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+                             NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
                  fetchBuildingElementOfSpecifiedCategoryWithDisplayname:node.name
                                                     ForPackageVersionId:self.packageVersionId
@@ -63,7 +53,13 @@
                                                                withSize:@(range.length)
                                                     withCompletionBlock:^(id searchResult, INVEmpireMobileError *error) {
                                                         if (error) {
-                                                            INVLogError(@"%@", error);
+                                                            *errorPtr = [NSError
+                                                                errorWithDomain:INVEmpireMobileErrorDomain
+                                                                           code:error.code.integerValue
+                                                                       userInfo:@{NSLocalizedDescriptionKey : error.message}];
+
+                                                            completed(nil);
+
                                                             return;
                                                         }
 
@@ -89,14 +85,10 @@
 
                                                             }];
 
-                                                        childNodes = children;
-
-                                                        dispatch_semaphore_signal(waitSemaphore);
+                                                        completed(children);
                                                     }];
 
-             dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_FOREVER);
-
-             return childNodes;
+             return YES;
          }];
 
     node.parent = parent;
@@ -113,37 +105,35 @@
 {
     if (_rootNode == nil) {
         _rootNode = [INVModelTreeNode
-            treeNodeWithName:nil
+            treeNodeWithName:NSStringFromClass([self class])
                           id:nil
-             andLoadingBlock:^NSArray *(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount) {
-                 dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
-                 __block NSArray *childNodes = nil;
-
+             andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+                                 NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
                  [self.globalDataManager.invServerClient
                      fetchBuildingElementCategoriesForPackageVersionId:self.packageVersionId
                                                    withCompletionBlock:^(id searchResult, INVEmpireMobileError *error) {
                                                        if (error) {
-                                                           INVLogError(@"%@", error);
+                                                           *errorPtr = [NSError
+                                                               errorWithDomain:INVEmpireMobileErrorDomain
+                                                                          code:error.code.integerValue
+                                                                      userInfo:@{NSLocalizedDescriptionKey : error.message}];
 
-                                                           dispatch_semaphore_signal(waitSemaphore);
+                                                           completed(nil);
                                                            return;
                                                        }
 
                                                        NSArray *categories =
                                                            [searchResult valueForKeyPath:@"aggregations.category.buckets.key"];
 
-                                                       childNodes = [categories
+                                                       *expectedTotalCount = [categories count];
+
+                                                       completed([categories
                                                            arrayByApplyingBlock:^id(id obj, NSUInteger _, BOOL *__) {
                                                                return [self treeNodeForCategory:obj withParent:node];
-                                                           }];
-
-                                                       dispatch_semaphore_signal(waitSemaphore);
+                                                           }]);
                                                    }];
 
-                 dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_FOREVER);
-                 *expectedTotalCount = [childNodes count];
-
-                 return childNodes;
+                 return YES;
              }];
 
         [_rootNode addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionPrior context:NODE_LEVEL_ROOT];

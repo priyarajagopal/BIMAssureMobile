@@ -36,3 +36,5 @@
 #define INV_ERROR                                                                                                              \
     goto __handler_start;                                                                                                      \
     __error_handler
+
+extern NSString *const INVEmpireMobileErrorDomain;

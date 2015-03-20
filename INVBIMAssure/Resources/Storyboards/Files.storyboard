@@ -269,7 +269,7 @@
             <objects>
                 <tableViewController id="IMO-Jd-l5K" customClass="INVModelTreeBuildingElementsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" alpha="0.65000000000000002" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jqW-Bh-WGy">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="452"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="403"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="0gw-Rl-dtJ">
@@ -287,6 +287,7 @@
                             <outlet property="delegate" destination="IMO-Jd-l5K" id="S39-Mt-cLN"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Elements" id="scG-n8-JJr"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WCO-iM-BAz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -298,7 +299,7 @@
             <objects>
                 <tableViewController id="Wwo-CP-tLN" customClass="INVModelTreeIssuesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9Bb-pe-TF4">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="452"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="403"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="hfq-2q-Bmp">
@@ -329,7 +330,8 @@
                             <outlet property="delegate" destination="Wwo-CP-tLN" id="9ST-tY-4wY"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Issues" badgeValue="10" id="Gkw-zF-igY"/>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <tabBarItem key="tabBarItem" title="Issues" id="Gkw-zF-igY"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="grs-Kj-qRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -360,7 +362,7 @@
             <objects>
                 <tableViewController id="qKs-OG-rnK" customClass="INVModelTreeNormalizationTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="omT-Pe-6cg">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="452"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="403"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -430,6 +432,7 @@
                             <outlet property="delegate" destination="qKs-OG-rnK" id="kba-ep-uqq"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Normalization" id="DLW-ab-Khp"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQQ-KN-Xy0" userLabel="First Responder" sceneMemberID="firstResponder"/>
