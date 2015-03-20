@@ -159,8 +159,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
                 [cell.loaderActivity stopAnimating];
             }
             failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                INVLogError(@"Error while loading thumbnail: %@", error);
-
                 [cell.loaderActivity stopAnimating];
             }];
     }
@@ -345,7 +343,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
             (INVAnalysisExecutionsTableViewController *) segue.destinationViewController;
         vc.projectId = self.projectId;
         // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
-        vc.analysisRunId = @6290 ;
+        vc.analysisRunId = @6290;
         vc.fileVersionId = self.selectedFileTipId;
         vc.fileMasterId = self.selectedFileId;
         vc.modelId = self.selectedModelId;
