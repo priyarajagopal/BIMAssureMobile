@@ -331,7 +331,11 @@
                   }
                   else {
                       [self.globalDataManager addToRecentlyEditedProjectList:projectId];
-                      [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED", nil)];
+                      NSString *mesgToDisplay = NSLocalizedString(@"PROJECT_CREATED", nil);
+                      if (self.currentProject) {
+                          mesgToDisplay = NSLocalizedString(@"PROJECT_UPDATED", nil);
+                      }
+                      [self showProjectAlert:mesgToDisplay];
                   }
               }];
 }

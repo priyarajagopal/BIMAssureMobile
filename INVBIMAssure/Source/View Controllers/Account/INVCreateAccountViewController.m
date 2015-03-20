@@ -195,15 +195,13 @@
                                        forUserEmail:email
                                 withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                     INV_ALWAYS:
+                                      [self hideSignupProgress];
                                     INV_SUCCESS : {
                                         INVLogDebug(@"Succesfully created account %@", self.accountNameTextField.text);
-                                        [self hideSignupProgress];
-
                                         self.signupSuccess = YES;
                                     }
 
                                     INV_ERROR:
-                                        [self hideSignupProgress];
                                         [self showSignupFailureAlert];
                                 }];
 }

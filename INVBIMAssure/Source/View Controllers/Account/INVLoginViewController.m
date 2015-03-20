@@ -178,7 +178,7 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
                                                }
                                                else {
                                                    INVLogError(@"%@", error);
-
+                                                   self.loginSuccess = NO;
                                                    [self showLoginFailureAlert];
                                                }
                                            }];
@@ -212,7 +212,7 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
 
 - (void)hideLoginProgress
 {
-    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:YES];
 }
 
 - (void)showLoginFailureAlert

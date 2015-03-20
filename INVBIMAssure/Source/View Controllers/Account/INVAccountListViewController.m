@@ -458,13 +458,10 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)loginAccount
 {
-    [self showLoginProgress];
-    [self.globalDataManager.invServerClient
+     [self.globalDataManager.invServerClient
             signIntoAccount:self.currentAccountId
         withCompletionBlock:INV_COMPLETION_HANDLER {
             INV_ALWAYS:
-                [self.hud hide:YES];
-
             INV_SUCCESS:
                 self.globalDataManager.loggedInAccount = self.currentAccountId;
                 INVLogDebug(@"Account token for %@ is %@", self.currentAccountId,
