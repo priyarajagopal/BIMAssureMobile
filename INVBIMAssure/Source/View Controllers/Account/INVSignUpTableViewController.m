@@ -224,6 +224,7 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                                                        contactPhone:self.accountContactPhoneTextField.text
                                                     numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
                                                 withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                                    [self hideSignupProgress];
                                                     if (!error) {
                                                         INVLogDebug(@"Succesfully signedup user %@ and created account %@",
                                                             self.firstNameTextField.text, self.accountNameTextField.text);
