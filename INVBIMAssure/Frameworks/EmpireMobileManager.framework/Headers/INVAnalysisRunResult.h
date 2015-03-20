@@ -8,37 +8,8 @@
 
 #import <Mantle/Mantle.h>
 #import "INVRuleInstance.h"
-/*
- (
- {
- actualparams =         {
- name = "OST_Doors";
- property = "FURNITURE_HEIGHT";
- };
- analysisrunid = 3336;
- createdat = 1426641643000;
- createdby = 1775;
- id = 3337;
- issues =         (
- {
- description = "com.invicara.empire.rules.CheckPropertyExist has issues.";
- errorcount = 0;
- id = 3338;
- name = "com.invicara.empire.rules.CheckPropertyExist";
- status = Unknown;
- }
- );
- ruledescription = "This is a rule to check that DOOR element has HEIGHT property";
- ruleid = 2483;
- rulename = CheckPropertyExist;
- runtime = 207;
- status = Success;
- updatedat = 1426641643000;
- updatedby = 1775;
- }
- )
- */
 
+ 
 /**
  Array of INVAnalysisRunResult objects
  */
