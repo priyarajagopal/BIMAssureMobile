@@ -157,7 +157,7 @@
     INVModelTreeNode *node = self.flattenedNodes[indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    if (node.parent.parent == nil) {
+    if (!node.isLeaf) {
         // Load the category contents
         node.expanded = !node.expanded;
 
@@ -196,9 +196,9 @@
     __weak __block id weakBlock;
     void (^iterateBlock)(id, NSUInteger, BOOL *) = ^(INVModelTreeNode *object, NSUInteger index, BOOL *stop) {
         if (object.isExpanded) {
-            [(AWPagedArray *) object.children enumerateExistingObjectsUsingBlock:weakBlock];
-
             [results insertArray:object.children atIndex:[results rawIndexOfObject:object]];
+
+            [(AWPagedArray *) object.children enumerateExistingObjectsUsingBlock:weakBlock];
         }
     };
 

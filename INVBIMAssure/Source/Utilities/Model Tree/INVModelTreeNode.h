@@ -22,6 +22,7 @@ typedef BOOL (^INVModelTreeNodeFetchChildrenBlock)(INVModelTreeNode *node, NSRan
 @property (nonatomic, readonly, copy) NSArray *children;
 
 @property (nonatomic, getter=isExpanded) BOOL expanded;
+@property (nonatomic, readonly, getter=isLeaf) BOOL leaf;
 
 + (instancetype)treeNodeWithName:(NSString *)name
                               id:(id)id

@@ -26,17 +26,73 @@
     self.tabBarItem.image = [[FAKFontAwesome warningIconWithSize:imageSize] imageWithSize:CGSizeMake(imageSize, imageSize)];
 }
 
-- (INVModelTreeNode *)treeNodeForIssue:(id)issue withParent:(INVModelTreeNode *)parent
+- (INVModelTreeNode *)treeNodeForBuildingElement:(id)buildingElement withParent:(INVModelTreeNode *)parent
 {
-    INVModelTreeNode *node = [INVModelTreeNode treeNodeWithName:@"Issue" id:nil andLoadingBlock:nil];
+    INVModelTreeNode *node = [INVModelTreeNode treeNodeWithName:@"Building Element" id:nil andLoadingBlock:nil];
+
     node.parent = parent;
+    [self registerNode:node animateChanges:YES];
 
     return node;
 }
 
-- (INVModelTreeNode *)treeNodeForAnalysisRunResult:(INVAnalysisRunResult *)result withParent:(INVModelTreeNode *)parent
+- (INVModelTreeNode *)treeNodeForIssue:(NSDictionary *)issue withParent:(INVModelTreeNode *)parent
 {
-    return nil;
+    INVModelTreeNode *node = [INVModelTreeNode
+        treeNodeWithName:issue[@"description"]
+                      id:issue[@"id"]
+         andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+                             NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
+             [self.globalDataManager.invServerClient
+                 fetchBuildingElementDetailsForIssue:issue[@"id"]
+                                 withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                     if (error) {
+                                         *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
+                                                                         code:error.code.integerValue
+                                                                     userInfo:@{NSLocalizedDescriptionKey : error.message}];
+
+                                         completed(nil);
+                                         return;
+                                     }
+
+                                     *expectedTotalCount = [result count];
+                                     completed([result arrayByApplyingBlock:^id(id buildingElement, NSUInteger _, BOOL *__) {
+                                         return [self treeNodeForBuildingElement:buildingElement withParent:node];
+                                     }]);
+                                 }];
+
+             return YES;
+         }];
+
+    node.parent = parent;
+    [self registerNode:node animateChanges:YES];
+
+    return node;
+}
+
+- (INVModelTreeNode *)treeNodeForAnalysisRunDetails:(INVAnalysisRunDetails *)result withParent:(INVModelTreeNode *)parent
+{
+    INVModelTreeNode *node =
+        [INVModelTreeNode treeNodeWithName:[NSString stringWithFormat:@"Run Details %@", result.analysisRunDetailsId]
+                                        id:result.analysisRunDetailsId
+                           andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+                                               NSError *__strong *error, void (^completed)(NSArray *) ) {
+
+                               NSArray *issues = [result.runDetails valueForKeyPath:@"@unionOfArrays.issues"];
+                               *expectedTotalCount = [issues count];
+                               completed([issues arrayByApplyingBlock:^id(id issue, NSUInteger _, BOOL *__) {
+                                   return [self treeNodeForIssue:issue withParent:node];
+                               }]);
+
+                               return YES;
+                           }];
+
+    node.parent = parent;
+    node.expanded = YES;
+
+    [self registerNode:node animateChanges:YES];
+
+    return node;
 }
 
 - (INVModelTreeNode *)rootNode
@@ -49,7 +105,7 @@
                                  NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
                  [self.globalDataManager.invServerClient
                      getAnalysisRunResultsForPkgVersion:self.packageVersionId
-                                    WithCompletionBlock:^(INVAnalysisRunResultsArray analysisruns,
+                                    WithCompletionBlock:^(INVAnalysisRunDetailsArray analysisDetails,
                                                             INVEmpireMobileError *error) {
                                         if (error) {
                                             *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
@@ -60,10 +116,21 @@
                                             return;
                                         }
 
-                                        *expectedTotalCount = [analysisruns count];
-                                        completed([analysisruns
-                                            arrayByApplyingBlock:^id(INVAnalysisRunResult *result, NSUInteger _, BOOL *__) {
-                                                return [self treeNodeForAnalysisRunResult:result withParent:node];
+                                        analysisDetails = [analysisDetails
+                                            filteredArrayUsingPredicate:
+                                                [NSPredicate predicateWithBlock:^BOOL(INVAnalysisRunDetails *details,
+                                                                                    NSDictionary *bindings) {
+                                                    return [details.runDetails
+                                                               indexOfObjectPassingTest:^BOOL(INVAnalysisRunResult *run,
+                                                                                            NSUInteger idx, BOOL *stop) {
+                                                                   return run.issues.count > 0;
+                                                               }] != NSNotFound;
+                                                }]];
+
+                                        *expectedTotalCount = [analysisDetails count];
+                                        completed([analysisDetails
+                                            arrayByApplyingBlock:^id(INVAnalysisRunDetails *details, NSUInteger _, BOOL *__) {
+                                                return [self treeNodeForAnalysisRunDetails:details withParent:node];
                                             }]);
                                     }];
 

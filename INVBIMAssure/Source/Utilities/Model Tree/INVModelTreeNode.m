@@ -153,6 +153,11 @@
     };
 }
 
+- (BOOL)isLeaf
+{
+    return _fetchChildrenBlock == nil;
+}
+
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone
