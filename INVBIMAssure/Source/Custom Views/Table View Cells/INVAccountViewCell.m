@@ -91,7 +91,7 @@
                            success:nil
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                INVLogError(@"Failed to download image for account %@ with error %@",
-                                   accountForThumbnail.accountId, error);
+                                   accountForThumbnail.accountId, error.localizedDescription);
                            }];
     }
 

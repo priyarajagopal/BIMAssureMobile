@@ -162,8 +162,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
                 [cell.loaderActivity stopAnimating];
             }
             failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                INVLogError(@"Error while loading thumbnail: %@", error);
-
                 [cell.loaderActivity stopAnimating];
             }];
     }
