@@ -34,64 +34,9 @@
     return node;
 }
 
-- (INVModelTreeNode *)treeNodeForAnalysisRun:(INVAnalysisRunResult *)runResult withParent:(INVModelTreeNode *)parent
+- (INVModelTreeNode *)treeNodeForAnalysisRunResult:(INVAnalysisRunResult *)result withParent:(INVModelTreeNode *)parent
 {
-    INVModelTreeNode *node =
-        [INVModelTreeNode treeNodeWithName:runResult.status
-                                        id:nil
-                           andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
-                                               NSError *__strong *error, void (^completed)(NSArray *) ) {
-                               *expectedTotalCount = [runResult.issues count];
-
-                               completed([runResult.issues arrayByApplyingBlock:^id(id issue, NSUInteger _, BOOL *__) {
-                                   return [self treeNodeForIssue:issue withParent:parent];
-                               }]);
-
-                               return YES;
-                           }];
-
-    node.parent = parent;
-
-    [self registerNode:node animateChanges:YES];
-
-    return node;
-}
-
-- (INVModelTreeNode *)treeNodeForAnalysis:(INVAnalysis *)analysis withParent:(INVModelTreeNode *)parent
-{
-    INVModelTreeNode *node = [INVModelTreeNode
-        treeNodeWithName:analysis.name
-                      id:analysis.analysisId
-         andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
-                             NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
-             [self.globalDataManager.invServerClient
-                 getAnalysisRunsForAnalysis:node.id
-                        WithCompletionBlock:^(NSArray *result, INVEmpireMobileError *error) {
-                            if (error) {
-                                *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
-                                                                code:error.code.integerValue
-                                                            userInfo:@{NSLocalizedDescriptionKey : error.message}];
-
-                                completed(nil);
-                                return;
-                            }
-
-                            INVLogDebug(@"%@", result);
-                            *expectedTotalCount = [result count];
-
-                            completed([result arrayByApplyingBlock:^(INVAnalysisRunResult *runResult, NSUInteger _, BOOL *__) {
-                                return [self treeNodeForAnalysisRun:runResult withParent:node];
-                            }]);
-                        }];
-
-             return YES;
-         }];
-
-    node.parent = parent;
-
-    [self registerNode:node animateChanges:YES];
-
-    return node;
+    return nil;
 }
 
 - (INVModelTreeNode *)rootNode
@@ -103,24 +48,24 @@
              andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                                  NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
                  [self.globalDataManager.invServerClient
-                     getAnalysisMembershipForPkgMaster:self.packageVersionId
-                                   WithCompletionBlock:^(NSArray *result, INVEmpireMobileError *error) {
-                                       if (error) {
-                                           *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
-                                                                           code:error.code.integerValue
-                                                                       userInfo:@{NSLocalizedDescriptionKey : error.message}];
+                     getAnalysisRunResultsForPkgVersion:self.packageVersionId
+                                    WithCompletionBlock:^(INVAnalysisRunResultsArray analysisruns,
+                                                            INVEmpireMobileError *error) {
+                                        if (error) {
+                                            *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
+                                                                            code:error.code.integerValue
+                                                                        userInfo:@{NSLocalizedDescriptionKey : error.message}];
 
-                                           completed(nil);
-                                           return;
-                                       }
+                                            completed(nil);
+                                            return;
+                                        }
 
-                                       INVLogDebug(@"%@", result);
-                                       *expectedTotalCount = [result count];
-
-                                       completed([result arrayByApplyingBlock:^(INVAnalysis *analysis, NSUInteger _, BOOL *__) {
-                                           return [self treeNodeForAnalysis:analysis withParent:node];
-                                       }]);
-                                   }];
+                                        *expectedTotalCount = [analysisruns count];
+                                        completed([analysisruns
+                                            arrayByApplyingBlock:^id(INVAnalysisRunResult *result, NSUInteger _, BOOL *__) {
+                                                return [self treeNodeForAnalysisRunResult:result withParent:node];
+                                            }]);
+                                    }];
 
                  return YES;
              }];
