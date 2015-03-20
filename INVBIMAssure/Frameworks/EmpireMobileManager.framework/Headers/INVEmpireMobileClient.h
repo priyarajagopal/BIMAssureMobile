@@ -15,6 +15,7 @@
 #import "INVRuleExecutionManager.h"
 #import "INVRuleInstanceExecution.h"
 #import "INVAnalysisRunResult.h"
+#import "INVAnalysisRunDetails.h"
 
 /**
  Completion Handler that returns the status of the request. In case of no error, the appropriate Data Manager
@@ -1261,7 +1262,7 @@ accountManager can be used to retrieve the details of account
  @see ruleExecutionManager
 
  */
-- (void)executeRuleSet:(NSNumber *)ruleSetId
+- (void)old_executeRuleSet:(NSNumber *)ruleSetId
     againstPackageVersionId:(NSNumber *)pkgVersionId
         withCompletionBlock:(CompletionHandler)handler;
 
@@ -1280,7 +1281,7 @@ accountManager can be used to retrieve the details of account
  @see ruleExecutionManager
 
  */
-- (void)executeRuleInstance:(NSNumber *)ruleInstanceId
+- (void)old_executeRuleInstance:(NSNumber *)ruleInstanceId
     againstPackageVersionId:(NSNumber *)pkgVersionId
         withCompletionBlock:(CompletionHandler)handler;
 
@@ -1303,7 +1304,7 @@ accountManager can be used to retrieve the details of account
  @see -executeRuleInstance:againstFileVersionId:againstModel:withCompletionBlock:
 
  */
-- (void)fetchRuleExecutionsForPackageVersionId:(NSNumber *)pkgVersionId withCompletionBlock:(CompletionHandler)handler;
+- (void)old_fetchRuleExecutionsForPackageVersionId:(NSNumber *)pkgVersionId withCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark - Model/Building Related
 /**
@@ -1318,7 +1319,7 @@ accountManager can be used to retrieve the details of account
  @see ruleExecutionsManager
 
  */
-- (void)fetchIssueDetailsForId:(NSNumber *)issueId withCompletionBlock:(CompletionHandler)handler;
+- (void)old_fetchIssueDetailsForId:(NSNumber *)issueId withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously , fetch top level categories of building elements for specified package. This API does not currently support
@@ -1710,13 +1711,55 @@ accountManager can be used to retrieve the details of account
 #pragma mark Analyses Execution Results Related
 
 /**
+ Asynchornously ,get list of analysis tuns that is scheduled using runAnalysis:WithCompletionBlock. The execution results ARE
+ NOT cached. The details of result of the run can be fetcged using getExecutionResultsForAnalysisRun:WithCompletionBlock
+ 
+ @param analysisId The Id of analysis to be executed
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the status
+ of execution is returned in the handler
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see -getExecutionResultsForAnalysisRun:WithCompletionBlock
+ 
+ @see -runAnalysis:WithCompletionBlock:
+ 
+ @see analysesManager
+ 
+ 
+ */
+- (void)getAnalysisRunsForAnalysis:(NSNumber *)analysisId
+               WithCompletionBlock:(CompletionHandlerWithData)handler;
+
+
+/**
+ Asynchornously ,get list of analysis uns that is scheduled using runAnalysis:WithCompletionBlock for a pkg version. The execution results ARE
+ NOT cached. The details of result of the run can be fetcged using getExecutionResultsForAnalysisRun:WithCompletionBlock
+ 
+ @param pkgVersion The Id of pkg Version
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the results of analysis run results is returned in the handler
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ @see -runAnalysis:WithCompletionBlock:
+ 
+ @see analysesManager
+ 
+ 
+ */
+- (void)getAnalysisRunResultsForPkgVersion:(NSNumber *)pkgVersion
+               WithCompletionBlock:(void (^)(INVAnalysisRunResultsArray analysisruns, INVEmpireMobileError* error))handler;
+
+/**
  Asynchornously ,get result of specified analysis run that is scheduled using runAnalysis:WithCompletionBlock. The execution
  results ARE NOT cached
 
  @param analysisId The Id of analysis to be executed
 
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the status
- of execution is returned in the handler
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, thearray of INVAnalysisRunDetail objects is returned
 
  @see -signIntoAccount:withCompletionBlock:
 
@@ -1727,29 +1770,22 @@ accountManager can be used to retrieve the details of account
 
  */
 - (void)getExecutionResultsForAnalysisRun:(NSNumber *)analysisRunId
-                      WithCompletionBlock:(void (^)(INVAnalysisRunResultsArray response, INVEmpireMobileError *error))handler;
+                      WithCompletionBlock:(void (^)(INVAnalysisRunDetailsArray response, INVEmpireMobileError *error))handler;
+
 
 /**
- Asynchornously ,get list of analysis tuns that is scheduled using runAnalysis:WithCompletionBlock. The execution results ARE
- NOT cached. The details of result of the run can be fetcged using getExecutionResultsForAnalysisRun:WithCompletionBlock
-
- @param analysisId The Id of analysis to be executed
-
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the status
- of execution is returned in the handler
-
- @see -signIntoAccount:withCompletionBlock:
-
- @see -getExecutionResultsForAnalysisRun:WithCompletionBlock
-
- @see -runAnalysis:WithCompletionBlock:
-
+ Asynchornously , fetch details of issues for specified Id. This returns the list of building element details
+ 
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
+ 
+ @param issueId The Id of the issue whose details are to be fetched
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, issue details are returned
+ 
  @see analysesManager
-
-
+ 
  */
-- (void)getAnalysisRunsForAnalysis:(NSNumber *)analysisId
-               WithCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)fetchBuildingElementDetailsForIssue:(NSNumber *)issueId withCompletionBlock:(CompletionHandlerWithData)handler;
 
 #pragma mark - General Account Related
 /**

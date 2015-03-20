@@ -10,6 +10,8 @@
 
 @interface NSArray (INVCustomizations)
 
++ (NSArray *)arrayWithObject:(id)object repeated:(NSUInteger)times;
+
 - (NSArray *)arrayByApplyingExpression:(NSExpression *)expression;
 - (NSArray *)arrayByApplyingBlock:(id (^)(id, NSUInteger, BOOL *))block;
 

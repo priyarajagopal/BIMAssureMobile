@@ -18,6 +18,7 @@
 #import "INVPagingManager+PackageMasterListing.h"
 #import "INVProjectListSplitViewController.h"
 #import "UISplitViewController+ToggleSidebar.h"
+#import "INVAnalysisRunsCollectionViewController.h"
 
 #include <sys/utsname.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
@@ -32,6 +33,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 @interface INVProjectFilesListViewController () <INVProjectFileCollectionViewCellDelegate, INVSearchViewDataSource,
     INVSearchViewDelegate, INVPagingManagerDelegate, UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate,
     UIGestureRecognizerDelegate>
+
+@property IBOutlet INVTransitionToStoryboard *showAnalysisRunsTransition;
 
 @property BOOL shouldShowSidebarOnReappear;
 @property (nonatomic, strong) INVProjectManager *projectManager;
@@ -301,7 +304,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     self.selectedModelId = fileCell.modelId;
     self.selectedFileId = fileCell.fileId;
     self.selectedFileTipId = fileCell.tipId;
-    [self performSegueWithIdentifier:@"ShowExecutionsSegue" sender:self];
+
+    [self.showAnalysisRunsTransition perform:self];
 }
 
 #pragma mark - Navigation
@@ -340,15 +344,30 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         vc.fileMasterId = self.selectedFileId;
         vc.modelId = self.selectedModelId;
     }
+
     if ([segue.identifier isEqualToString:@"ShowExecutionsSegue"]) {
         INVAnalysisExecutionsTableViewController *vc =
             (INVAnalysisExecutionsTableViewController *) segue.destinationViewController;
         vc.projectId = self.projectId;
         // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
-        vc.analysisRunId = @6290 ;
+        vc.analysisRunId = @6290;
         vc.fileVersionId = self.selectedFileTipId;
         vc.fileMasterId = self.selectedFileId;
         vc.modelId = self.selectedModelId;
+    }
+
+    if ([segue.identifier isEqualToString:@"ShowAnalysisRuns"]) {
+        INVAnalysisRunsCollectionViewController *vc = segue.destinationViewController;
+
+        vc.projectId = self.projectId;
+        vc.packageMasterId = self.selectedFileId;
+        vc.packageVersionId = self.selectedFileTipId;
+
+        if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible) {
+            [self.splitViewController toggleSidebar];
+
+            self.shouldShowSidebarOnReappear = YES;
+        }
     }
 }
 

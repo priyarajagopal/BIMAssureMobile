@@ -216,6 +216,9 @@
 		F5DC65BC1A82773F001713B9 /* UITableView+INVCustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DC65BA1A82773F001713B9 /* UITableView+INVCustomTableView.m */; };
 		F5EA59C61ABB638F00458C0C /* INVModelTreeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA59C51ABB638F00458C0C /* INVModelTreeBaseViewController.m */; };
 		F5EA59C81ABC52BC00458C0C /* INVErrorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA59C71ABC52BC00458C0C /* INVErrorHandling.m */; };
+		F5EA59CB1ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA59CA1ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.m */; };
+		F5EA59CD1ABC6F3000458C0C /* INVAnalysisRunCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EA59CC1ABC6F3000458C0C /* INVAnalysisRunCollectionViewCell.xib */; };
+		F5EA59D01ABC727100458C0C /* INVAnalysisRunCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EA59CF1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.m */; };
 		F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */; };
 		F5FC0CBD1AA6408900FBAE84 /* User Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */; };
 		F5FC0CBF1AA6413800FBAE84 /* Project Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */; };
@@ -584,6 +587,11 @@
 		F5EA59C41ABB638F00458C0C /* INVModelTreeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeBaseViewController.h; sourceTree = "<group>"; };
 		F5EA59C51ABB638F00458C0C /* INVModelTreeBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeBaseViewController.m; sourceTree = "<group>"; };
 		F5EA59C71ABC52BC00458C0C /* INVErrorHandling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVErrorHandling.m; sourceTree = "<group>"; };
+		F5EA59C91ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisRunsCollectionViewController.h; sourceTree = "<group>"; };
+		F5EA59CA1ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisRunsCollectionViewController.m; sourceTree = "<group>"; };
+		F5EA59CC1ABC6F3000458C0C /* INVAnalysisRunCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVAnalysisRunCollectionViewCell.xib; sourceTree = "<group>"; };
+		F5EA59CE1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisRunCollectionViewCell.h; sourceTree = "<group>"; };
+		F5EA59CF1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisRunCollectionViewCell.m; sourceTree = "<group>"; };
 		F5FC0CB91AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVBuildingElementPropertiesTableViewController.h; sourceTree = "<group>"; };
 		F5FC0CBA1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVBuildingElementPropertiesTableViewController.m; sourceTree = "<group>"; };
 		F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "User Thumbnails"; sourceTree = "<group>"; };
@@ -858,6 +866,8 @@
 				F5789CB81A642A5500D8CEE7 /* INVTextViewTableViewCell.m */,
 				F5789CB91A642A5500D8CEE7 /* INVTokensTableViewCell.h */,
 				F5789CBA1A642A5500D8CEE7 /* INVTokensTableViewCell.m */,
+				F5EA59CE1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.h */,
+				F5EA59CF1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.m */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -1163,6 +1173,7 @@
 			children = (
 				F5D291521A84046F000CBA6B /* INVAccountDetailFolderCollectionReusableView.xib */,
 				F5789D8D1A642A6200D8CEE7 /* INVAccountViewCell.xib */,
+				F5EA59CC1ABC6F3000458C0C /* INVAnalysisRunCollectionViewCell.xib */,
 				F523B47B1AB772BA0001508C /* INVAnalysisTableViewCell.xib */,
 				F55AD9131A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib */,
 				F5789D8E1A642A6200D8CEE7 /* INVDefaultAccountAlertView.xib */,
@@ -1232,6 +1243,8 @@
 				F523B4811AB862EB0001508C /* INVAnalysisEditViewController.m */,
 				F5BDE9FD1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.h */,
 				F5BDE9FE1AB9CB8D005E46DE /* INVAnalysisRulesTableViewController.m */,
+				F5EA59C91ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.h */,
+				F5EA59CA1ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.m */,
 			);
 			path = Analyses;
 			sourceTree = "<group>";
@@ -1325,6 +1338,7 @@
 			files = (
 				F5789DBA1A642A6200D8CEE7 /* INVRuleSetTableViewHeaderView.xib in Resources */,
 				F5789DC01A642A6200D8CEE7 /* invicara_config_server.cer in Resources */,
+				F5EA59CD1ABC6F3000458C0C /* INVAnalysisRunCollectionViewCell.xib in Resources */,
 				F5789DBC1A642A6200D8CEE7 /* INVSearchView.xib in Resources */,
 				F5789DB61A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
 				F5789DAD1A642A6200D8CEE7 /* Images.xcassets in Resources */,
@@ -1547,6 +1561,7 @@
 				F5789D4E1A642A5500D8CEE7 /* UIImage+INVCustomizations.m in Sources */,
 				F5024AFE1A6808FA002EEE5F /* INVNotificationPoller.m in Sources */,
 				F5D291511A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m in Sources */,
+				F5EA59D01ABC727100458C0C /* INVAnalysisRunCollectionViewCell.m in Sources */,
 				F5269DE41A76A83E006AC27A /* INVModalPresentationFromParentSegue.m in Sources */,
 				F5789D3B1A642A5500D8CEE7 /* INVAccountViewCell.m in Sources */,
 				0278BAEA1A656E5F009E0E27 /* NSString+INVCustomizations.m in Sources */,
@@ -1566,6 +1581,7 @@
 				F5269DDF1A768AF5006AC27A /* INVCurrentUsersTableViewController.m in Sources */,
 				F5789D381A642A5500D8CEE7 /* INVRunRuleSetHeaderView.m in Sources */,
 				F5789D3D1A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m in Sources */,
+				F5EA59CB1ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.m in Sources */,
 				F5789D6F1A642A5500D8CEE7 /* INVProjectDetailsTabViewController.m in Sources */,
 				F5B69DBE1A9F77310014B74B /* NSObject+INVCustomizations.m in Sources */,
 				F523B4821AB862EB0001508C /* INVAnalysisEditViewController.m in Sources */,

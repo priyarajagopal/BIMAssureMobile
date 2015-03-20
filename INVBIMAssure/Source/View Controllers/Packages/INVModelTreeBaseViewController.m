@@ -71,7 +71,7 @@
     if ([keyPath isEqualToString:@"children"]) {
         BOOL animated = NO;
 
-        if (context == NODE_LEVEL_CATEGORY) {
+        if (context) {
             if (change[NSKeyValueChangeNotificationIsPriorKey]) {
                 _shouldAnimatedPostUpdate = [[object children] count] == 0;
                 return;
@@ -279,6 +279,17 @@
     }
 
     _oldNodes = [newNodes copy];
+}
+
+- (void)registerNode:(INVModelTreeNode *)node animateChanges:(BOOL)animated
+{
+    static void *contextPtr = &contextPtr;
+    __weak typeof(self) weakSelf = self;
+
+    [node addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionPrior context:animated ? contextPtr : NULL];
+    [node addDeallocHandler:^(id node) {
+        [node removeObserver:weakSelf forKeyPath:@"children"];
+    }];
 }
 
 @end

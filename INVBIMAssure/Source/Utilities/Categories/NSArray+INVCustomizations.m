@@ -8,7 +8,45 @@
 
 #import "NSArray+INVCustomizations.h"
 
+@interface SingleObjectArray : NSArray
+
+- (id)initWithObject:(id)object count:(NSUInteger)count;
+
+@property id object;
+
+@end
+
+@implementation SingleObjectArray
+
+@synthesize count = _count;
+
+- (id)initWithObject:(id)object count:(NSUInteger)count
+{
+    if (self = [super init]) {
+        _object = object;
+        _count = count;
+    }
+
+    return self;
+}
+
+- (id)objectAtIndex:(NSUInteger)index
+{
+    if (index >= self.count) {
+        [NSException raise:NSRangeException format:@"Index %lu out of range!", (unsigned long) index];
+    }
+
+    return _object;
+}
+
+@end
+
 @implementation NSArray (INVCustomizations)
+
++ (NSArray *)arrayWithObject:(id)object repeated:(NSUInteger)times
+{
+    return [[SingleObjectArray alloc] initWithObject:object count:times];
+}
 
 - (NSArray *)arrayByApplyingExpression:(NSExpression *)expression
 {

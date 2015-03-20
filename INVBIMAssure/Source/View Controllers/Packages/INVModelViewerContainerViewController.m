@@ -10,6 +10,8 @@
 #import "INVModelTreeContainerViewController.h"
 #import "NSObject+INVCustomizations.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @interface INVModelViewerContainerViewController ()
 
 @property (nonatomic, strong) INVModelViewerViewController *modelViewController;

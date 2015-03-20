@@ -93,10 +93,7 @@
 
     node.parent = parent;
 
-    [node addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionPrior context:NODE_LEVEL_CATEGORY];
-    [node addDeallocHandler:^(id node) {
-        [node removeObserver:self forKeyPath:@"children"];
-    }];
+    [self registerNode:node animateChanges:YES];
 
     return node;
 }
@@ -136,12 +133,7 @@
                  return YES;
              }];
 
-        [_rootNode addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionPrior context:NODE_LEVEL_ROOT];
-
-        __weak typeof(self) weakSelf = self;
-        [_rootNode addDeallocHandler:^(id rootNode) {
-            [rootNode removeObserver:weakSelf forKeyPath:@"children"];
-        }];
+        [self registerNode:_rootNode animateChanges:NO];
     }
 
     return _rootNode;
