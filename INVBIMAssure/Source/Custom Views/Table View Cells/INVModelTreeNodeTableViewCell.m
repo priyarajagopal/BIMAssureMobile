@@ -56,16 +56,21 @@
         self.nameLabel.text = self.node.name;
 
         self.expandedIndicator.text = self.node.expanded ? @"\uf0d7" : @"\uf0da";
-        self.expandedIndicator.hidden = (self.indentationLevel > 0);
+        self.expandedIndicator.hidden = self.node.isLeaf;
 
-        self.detailsButton.hidden = (self.indentationLevel == 0);
+        self.detailsButton.hidden = !self.node.isLeaf;
 
         if (self.indentationLevel == 0) {
             self.nameLabel.font = [self.nameLabel.font fontWithTraits:UIFontDescriptorTraitBold];
-            [self.detailsButton addConstraint:self.collapseDetailsButtonConstraint];
         }
         else {
             self.nameLabel.font = [self.nameLabel.font fontWithTraits:0];
+        }
+
+        if (!self.node.isLeaf) {
+            [self.detailsButton addConstraint:self.collapseDetailsButtonConstraint];
+        }
+        else {
             [self.detailsButton removeConstraint:self.collapseDetailsButtonConstraint];
         }
     }
