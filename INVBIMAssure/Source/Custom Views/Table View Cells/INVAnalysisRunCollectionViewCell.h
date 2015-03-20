@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <EmpireMobileManager/INVAnalysisRun.h>
+@import EmpireMobileManager;
 
 @interface INVAnalysisRunCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic) INVAnalysis *analysis;
-@property (nonatomic) INVAnalysisRun *run;
-@property (nonatomic) INVAnalysisRunResultsArray runResults;
-
+@property (nonatomic, copy) INVAnalysisRunResultsArray result;
 @end

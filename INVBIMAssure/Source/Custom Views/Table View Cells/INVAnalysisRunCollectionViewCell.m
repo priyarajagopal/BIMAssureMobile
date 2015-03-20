@@ -8,6 +8,7 @@
 
 #import "INVAnalysisRunCollectionViewCell.h"
 #import "UILabel+INVCustomizations.h"
+#import <QuartzCore/QuartzCore.h>
 #import "UIFont+INVCustomizations.h"
 
 @interface INVAnalysisRunCollectionViewCell ()
@@ -18,6 +19,8 @@
 
 @property IBOutlet UILabel *ruleCountLabel;
 @property IBOutlet UIButton *showAnalysisButton;
+@property (nonatomic, assign) BOOL didAnalysisChange;
+@property (weak, nonatomic) IBOutlet UIView *theView;
 
 @end
 
@@ -26,37 +29,43 @@
 - (void)setAnalysis:(INVAnalysis *)analysis
 {
     _analysis = analysis;
-
+    self.didAnalysisChange = YES;
+ 
     [self setNeedsLayout];
 }
 
-- (void)setRun:(INVAnalysisRun *)run
+- (void)setResult:(INVAnalysisRunResultsArray)result
 {
-    _run = run;
-
-    [self setNeedsLayout];
-}
-
-- (void)setRunResults:(INVAnalysisRunResultsArray)runResults
-{
-    _runResults = runResults;
+    _result = result;
 
     [self setNeedsLayout];
 }
 
 - (void)layoutSubviews
 {
-    [self.analysisNameLabel setText:self.analysis.name
-                        withDefault:NSLocalizedString(@"ANALYSIS_NAME_UNAVAILABLE", nil)
-                      andAttributes:@{NSFontAttributeName : self.analysisNameLabel.font.italicFont}];
+    if (self.didAnalysisChange) {
+        [self.analysisNameLabel setText:self.analysis.name
+                            withDefault:NSLocalizedString(@"ANALYSIS_NAME_UNAVAILABLE", nil)
+                          andAttributes:@{NSFontAttributeName : self.analysisNameLabel.font.italicFont}];
 
-    [self.analysisOverviewLabel setText:self.analysis.overview
-                            withDefault:NSLocalizedString(@"ANALYSIS_OVERVIEW_UNAVAILABLE", nil)
-                          andAttributes:@{NSFontAttributeName : self.analysisOverviewLabel.font.italicFont}];
+        [self.analysisOverviewLabel setText:self.analysis.overview
+                                withDefault:NSLocalizedString(@"ANALYSIS_OVERVIEW_UNAVAILABLE", nil)
+                              andAttributes:@{NSFontAttributeName : self.analysisOverviewLabel.font.italicFont}];
+        self.didAnalysisChange = NO;
+    }
+    else {
+        NSInteger count = 0;
+        for (INVAnalysisRunResult *resultVal in self.result) {
+            count += resultVal.issues.count;
+        }
+        self.analysisIssueCountLabel.text = [NSString stringWithFormat:@"%ld", count];
 
-    self.analysisIssueCountLabel.text = [[self.runResults valueForKeyPath:@"@count.issues"] stringValue];
-
+        NSInteger ruleCount = self.result.count;
+        self.ruleCountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NUM_RULES", nil), ruleCount];
+    }
+   
     [super layoutSubviews];
 }
+
 
 @end

@@ -10,8 +10,8 @@
 #import "INVAnalysisRunCollectionViewCell.h"
 #import "NSArray+INVCustomizations.h"
 #import "INVBlockUtils.h"
+#import "INVAnalysisExecutionsTableViewController.h"
 
-#import <EmpireMobileManager/INVAnalysisRun.h>
 
 @interface INVAnalysisRunsCollectionViewController ()
 
@@ -34,108 +34,51 @@
     UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([INVAnalysisRunCollectionViewCell class]) bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"analysisRunCell"];
 
-    [self fetchAnalysisMembership];
+    [self fetchListOfAnalysisRuns];
 }
 
 #pragma mark - Content Management
-
-- (void)fetchAnalysisMembership
+- (void)fetchListOfAnalysisRuns
 {
+    self.validAnalysisRunsForCurrentPackage = [NSMutableArray new];
+
     [self.globalDataManager.invServerClient
-        getAnalysisMembershipForPkgMaster:self.packageMasterId
-                      WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                          INV_ALWAYS:
-                          INV_SUCCESS:
-                              self.analysisIdsToAnalyses = [[NSMutableDictionary alloc]
-                                  initWithObjects:[NSArray arrayWithObject:[NSNull null] repeated:[result count]]
-                                          forKeys:[result valueForKeyPath:@"analysisId"]];
+        getAnalysisRunResultsForPkgVersion:self.packageVersionId
+                       WithCompletionBlock:^(INVAnalysisRunDetailsArray analysisruns, INVEmpireMobileError *error) {
+                           INV_ALWAYS:
+                           INV_SUCCESS:
+                               self.validAnalysisRunsForCurrentPackage = [analysisruns mutableCopy];
+                               [self fetchListOfAnalyses];
 
-                              [self fetchListOfAnalyses];
+                           INV_ERROR:
+                               [self handleContentError:error];
 
-                          INV_ERROR:
-                              [self handleContentError:error];
-                      }];
+                       }];
 }
 
 - (void)fetchListOfAnalyses
 {
-    [self.globalDataManager.invServerClient getAllAnalysesForProject:self.projectId
-                                                 withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                     INV_ALWAYS:
-                                                     INV_SUCCESS : {
-                                                         NSArray *analyses =
-                                                             [self.globalDataManager.invServerClient.analysesManager
-                                                                 analysesForIds:[self.analysisIdsToAnalyses allKeys]];
-                                                         for (INVAnalysis *analysis in analyses) {
-                                                             self.analysisIdsToAnalyses[analysis.analysisId] = analysis;
-                                                         }
-
-                                                         [self fetchListOfAnalysisRuns];
-                                                     }
-
-                                                     INV_ERROR:
-                                                         [self handleContentError:error];
-                                                 }];
-}
-
-- (void)fetchListOfAnalysisRuns
-{
-    self.analysesToAnalysisRuns = [NSMutableDictionary new];
-
-    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
-        [self filterAnalysisRuns];
-    } afterNumberOfCalls:self.analysisIdsToAnalyses.count];
-
-    for (INVAnalysis *analysis in [self.analysisIdsToAnalyses allValues]) {
-        [self.globalDataManager.invServerClient getAnalysisRunsForAnalysis:analysis.analysisId
-                                                       WithCompletionBlock:^(NSArray *result, INVEmpireMobileError *error) {
-                                                           INV_ALWAYS:
-                                                           INV_SUCCESS:
-                                                               self.analysesToAnalysisRuns[analysis] = result;
-                                                               [successBlock invoke];
-
-                                                           INV_ERROR:
-                                                               [self handleContentError:error];
-                                                       }];
-    }
-}
-
-- (void)filterAnalysisRuns
-{
-    self.validAnalysisRunsForCurrentPackage = [NSMutableArray new];
-
-    // This flattens out the array of analysis runs
-    [[self.analysesToAnalysisRuns allValues]
-        makeObjectsPerformSelector:@selector(enumerateObjectsUsingBlock:)
-                        withObject:^(INVAnalysisRun *object, NSUInteger index, BOOL *stop) {
-                            if ([object.pkgVersionId isEqual:self.packageVersionId]) {
-                                [self.validAnalysisRunsForCurrentPackage addObject:object];
-                            }
-                        }];
-
-    [self fetchListOfAnalysisRunResults];
-}
-
-- (void)fetchListOfAnalysisRunResults
-{
-    self.analysisRunsToRunResults = [NSMutableDictionary new];
+    self.analysisIdsToAnalyses = [[NSMutableDictionary alloc] initWithCapacity:0];
 
     id successBlock = [INVBlockUtils blockForExecutingBlock:^{
         [self.collectionView reloadData];
-    } afterNumberOfCalls:self.validAnalysisRunsForCurrentPackage.count];
+    } afterNumberOfCalls:self.validAnalysisRunsForCurrentPackage.count ];
 
-    for (INVAnalysisRun *run in self.validAnalysisRunsForCurrentPackage) {
-        [self.globalDataManager.invServerClient
-            getExecutionResultsForAnalysisRun:run.analysisRunId
-                          WithCompletionBlock:^(INVAnalysisRunResultsArray response, INVEmpireMobileError *error) {
-                              INV_ALWAYS:
-                              INV_SUCCESS:
-                                  self.analysisRunsToRunResults[run] = response;
-                                  [successBlock invoke];
+    for (INVAnalysisRunDetails *analysisDetails in self.validAnalysisRunsForCurrentPackage) {
+        NSNumber *analysisId = analysisDetails.analysisId;
 
-                              INV_ERROR:
-                                  [self handleContentError:error];
-                          }];
+        [self.globalDataManager.invServerClient getAnalysesForId:analysisId
+                                             withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                                 INV_ALWAYS:
+                                                 INV_SUCCESS : {
+                        
+                                                     self.analysisIdsToAnalyses[analysisId] = result;
+                                                     [successBlock invoke];
+                                                 }
+
+                                                 INV_ERROR:
+                                                   [self handleContentError:error];
+                                             }];
     }
 }
 
@@ -168,12 +111,25 @@
     INVAnalysisRunCollectionViewCell *cell =
         [collectionView dequeueReusableCellWithReuseIdentifier:@"analysisRunCell" forIndexPath:indexPath];
 
-    cell.run = self.validAnalysisRunsForCurrentPackage[indexPath.row];
-
-    cell.analysis = self.analysisIdsToAnalyses[cell.run.analysisId];
-    cell.runResults = self.analysisRunsToRunResults[cell.run];
-
+    INVAnalysisRunDetails* details = self.validAnalysisRunsForCurrentPackage[indexPath.row];
+    cell.result = details.runDetails;
+    cell.analysis = self.analysisIdsToAnalyses[details.analysisId];
+ 
     return cell;
+}
+
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ShowAnalysisRunResultsSegue"]) {
+        INVAnalysisExecutionsTableViewController *vc =
+        (INVAnalysisExecutionsTableViewController *) segue.destinationViewController;
+        vc.projectId = self.projectId;
+        // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
+        vc.analysisRunId = @6290;
+        
+        
+    }
 }
 
 @end

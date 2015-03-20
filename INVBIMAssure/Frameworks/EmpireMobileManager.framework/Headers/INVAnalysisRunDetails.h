@@ -7,7 +7,7 @@
 //
 
 #import <Mantle/Mantle.h>
-#import "INVAnalysisRun.h"
+#import "INVAnalysisRunResult.h"
 
 /***
  {
@@ -100,6 +100,6 @@ typedef NSMutableArray *INVAnalysisRunDetailsMutableArray;
 @property (copy, nonatomic, readonly) NSNumber *updatedBy;
 @property (copy, nonatomic, readonly) NSDate *completedAt;
 
-@property (copy, nonatomic, readonly) INVAnalysisRunArray runDetails;
+@property (copy, nonatomic, readonly) INVAnalysisRunResultsArray runDetails;
 
 @end
