@@ -85,4 +85,9 @@
     }
 }
 
+- (void)highlightElement:(NSString *)elementId
+{
+    [self.modelViewController highlightElement:elementId];
+}
+
 @end

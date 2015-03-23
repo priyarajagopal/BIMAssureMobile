@@ -154,8 +154,11 @@ struct __attribute__((packed)) index_struct {
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
 
-    _vertexPointer = glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
-    _indexPointer = glMapBufferOES(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
+    _vertexPointer =
+        glMapBufferRangeEXT(GL_ARRAY_BUFFER, 0, MAX_VERTEX_BUFFER_SIZE, GL_MAP_READ_BIT_EXT | GL_MAP_WRITE_BIT_EXT);
+
+    _indexPointer =
+        glMapBufferRangeEXT(GL_ELEMENT_ARRAY_BUFFER, 0, MAX_INDEX_BUFFER_SIZE, GL_MAP_READ_BIT_EXT | GL_MAP_WRITE_BIT_EXT);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -173,8 +176,8 @@ struct __attribute__((packed)) index_struct {
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
 
-    glUnmapBufferOES(GL_ARRAY_BUFFER);
-    glUnmapBufferOES(GL_ELEMENT_ARRAY_BUFFER);
+    glUnmapBuffer(GL_ARRAY_BUFFER);
+    glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
 
     _vertexPointer = NULL;
     _indexPointer = NULL;
@@ -361,6 +364,27 @@ struct __attribute__((packed)) index_struct {
     }
 
     return closestElement;
+}
+
+- (BOOL)containsEelementWithId:(NSString *)elementId
+{
+    return _elements[elementId] != nil;
+}
+
+- (GLKVector4)colorOfElementWithId:(NSString *)elementId
+{
+    [self _mapBuffers];
+
+    INVStreamBasedCTMParserGLESMeshElement *element = _elements[elementId];
+
+    if (element) {
+        struct vertex_struct vertex = _vertexPointer[element.vertexRange.location];
+
+        return GLKVector4Make(
+            vertex.color[0] / 255.0, vertex.color[1] / 255.0, vertex.color[1] / 255.0, vertex.color[2] / 255.0);
+    }
+
+    return GLKVector4Make(0, 0, 0, 0);
 }
 
 - (void)setColorOfElementWithId:(NSString *)elementId withColor:(GLKVector4)color

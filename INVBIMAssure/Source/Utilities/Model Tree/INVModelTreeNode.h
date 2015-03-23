@@ -18,6 +18,8 @@ typedef BOOL (^INVModelTreeNodeFetchChildrenBlock)(INVModelTreeNode *node, NSRan
 @property (nonatomic, strong) INVModelTreeNode *parent;
 
 @property (nonatomic, readonly, copy) id id;
+@property (nonatomic, copy) id buildingElementId;
+
 @property (nonatomic, readonly, copy) NSString *name;
 @property (nonatomic, readonly, copy) NSArray *children;
 

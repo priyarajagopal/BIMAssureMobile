@@ -7,6 +7,7 @@
 //
 
 #import "INVModelTreeIssuesTableViewController.h"
+#import "INVModelViewerContainerViewController.h"
 #import "INVModelTreeNodeTableViewCell.h"
 #import "INVBuildingElementPropertiesTableViewController.h"
 
@@ -37,6 +38,7 @@
                                         id:buildingElement[@"_id"]
                            andLoadingBlock:nil];
 
+    node.buildingElementId = [buildingElement valueForKeyPath:@"_source.system.id"];
     node.parent = parent;
     [self registerNode:node animateChanges:YES];
 
@@ -180,6 +182,19 @@
     viewController.popoverPresentationController.sourceView = anchor;
     viewController.popoverPresentationController.sourceRect = [anchor bounds];
     viewController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionLeft;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    INVModelTreeNodeTableViewCell *cell = (INVModelTreeNodeTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+
+    [(INVModelViewerContainerViewController *) self.parentViewController.parentViewController
+        highlightElement:cell.node.buildingElementId];
+
+    if (!cell.node.isLeaf) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 @end
