@@ -85,6 +85,26 @@
     }
 }
 
+- (IBAction)goHome:(id)sender
+{
+    [self.modelViewController goHome:sender];
+}
+
+- (IBAction)toggleShadow:(id)sender
+{
+    [self.modelViewController toggleShadow:sender];
+}
+
+- (IBAction)toggleGlass:(id)sender
+{
+    [self.modelViewController toggleGlass:sender];
+}
+
+- (IBAction)toggleVisible:(id)sender
+{
+    [self.modelViewController toggleVisible:sender];
+}
+
 - (void)highlightElement:(NSString *)elementId
 {
     [self.modelViewController highlightElement:elementId];
