@@ -144,6 +144,9 @@
                             <outlet property="delegate" destination="KM8-Lt-5HP" id="Czi-Lv-zVO"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <segue destination="Yyu-fj-bdp" kind="showDetail" identifier="ShowAnalysisRunResultsSegue" id="gm3-L9-LMN"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUA-Tr-lO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -429,6 +432,93 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CoF-ho-Lwg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1358" y="1967.5"/>
+        </scene>
+        <!--Execution Issues Table View Controller-->
+        <scene sceneID="oHE-iR-Waq">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ilx-TF-x42" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="BnC-dz-NYQ" userLabel="Exit" sceneMemberID="exit"/>
+                <tableViewController id="ig8-vm-oos" customClass="INVExecutionIssuesTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="r9n-MG-czj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="YaN-KW-K2b">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Issues" id="0f2-Em-6Nz">
+                                    <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="PRk-FS-oGa">
+                                        <connections>
+                                            <segue destination="BnC-dz-NYQ" kind="unwind" unwindAction="manualDismiss:" id="G04-Fw-xHt"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="LLK-Jp-9yf">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuildingElementTVC" textLabel="IrC-bD-42I" detailTextLabel="tga-Tg-c49" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="01R-fA-VHi">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="01R-fA-VHi" id="vpS-Q8-DlM">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IrC-bD-42I">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tga-Tg-c49">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Execution Issues"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="dataSource" destination="ig8-vm-oos" id="Vrs-or-YxP"/>
+                            <outlet property="delegate" destination="ig8-vm-oos" id="bek-06-h4l"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="220" y="2551"/>
+        </scene>
+        <!--Analysis Executions Table View Controller-->
+        <scene sceneID="DVv-Cj-i7N">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0oE-AW-4cY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="Yyu-fj-bdp" customClass="INVAnalysisExecutionsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="20" id="ZdC-dn-eU6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Rule Executions"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="dataSource" destination="Yyu-fj-bdp" id="fKl-Pe-hCF"/>
+                            <outlet property="delegate" destination="Yyu-fj-bdp" id="ULs-LF-Fin"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="dx7-YY-eGw"/>
+                    <connections>
+                        <segue destination="ig8-vm-oos" kind="presentation" identifier="ShowIssuesSegue" modalPresentationStyle="formSheet" id="1V2-Xi-BX3"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="28" y="1737"/>
         </scene>
     </scenes>
     <resources>

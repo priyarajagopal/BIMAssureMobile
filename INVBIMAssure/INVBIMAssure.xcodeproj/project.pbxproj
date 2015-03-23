@@ -482,10 +482,10 @@
 		F5789D2A1A642A5500D8CEE7 /* INVAnalysisExecutionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVAnalysisExecutionsTableViewController.m; path = ../Rules/INVAnalysisExecutionsTableViewController.m; sourceTree = "<group>"; };
 		F5789D2B1A642A5500D8CEE7 /* INVRuleInstanceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceTableViewController.h; sourceTree = "<group>"; };
 		F5789D2C1A642A5500D8CEE7 /* INVRuleInstanceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceTableViewController.m; sourceTree = "<group>"; };
-		F5789D2D1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisFilesListTableViewController.h; sourceTree = "<group>"; };
-		F5789D2E1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisFilesListTableViewController.m; sourceTree = "<group>"; };
-		F5789D2F1A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisManageFilesContainerViewController.h; sourceTree = "<group>"; };
-		F5789D301A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisManageFilesContainerViewController.m; sourceTree = "<group>"; };
+		F5789D2D1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVAnalysisFilesListTableViewController.h; path = ../Rules/INVAnalysisFilesListTableViewController.h; sourceTree = "<group>"; };
+		F5789D2E1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVAnalysisFilesListTableViewController.m; path = ../Rules/INVAnalysisFilesListTableViewController.m; sourceTree = "<group>"; };
+		F5789D2F1A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVAnalysisManageFilesContainerViewController.h; path = ../Rules/INVAnalysisManageFilesContainerViewController.h; sourceTree = "<group>"; };
+		F5789D301A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVAnalysisManageFilesContainerViewController.m; path = ../Rules/INVAnalysisManageFilesContainerViewController.m; sourceTree = "<group>"; };
 		F5789D311A642A5500D8CEE7 /* INVRulesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRulesListViewController.h; sourceTree = "<group>"; };
 		F5789D321A642A5500D8CEE7 /* INVRulesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRulesListViewController.m; sourceTree = "<group>"; };
 		F5789D331A642A5500D8CEE7 /* INVRunRulesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRunRulesTableViewController.h; sourceTree = "<group>"; };
@@ -1043,8 +1043,6 @@
 		F5789D0E1A642A5500D8CEE7 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				F5789D251A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.h */,
-				F5789D261A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.m */,
 				F54864901AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.h */,
 				F54864911AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m */,
 				F5FC0CB91AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.h */,
@@ -1099,10 +1097,6 @@
 				F5789D281A642A5500D8CEE7 /* INVRuleDefinitionsTableViewController.m */,
 				F5789D2B1A642A5500D8CEE7 /* INVRuleInstanceTableViewController.h */,
 				F5789D2C1A642A5500D8CEE7 /* INVRuleInstanceTableViewController.m */,
-				F5789D2D1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.h */,
-				F5789D2E1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.m */,
-				F5789D2F1A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.h */,
-				F5789D301A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.m */,
 				F5789D311A642A5500D8CEE7 /* INVRulesListViewController.h */,
 				F5789D321A642A5500D8CEE7 /* INVRulesListViewController.m */,
 				F5789D331A642A5500D8CEE7 /* INVRunRulesTableViewController.h */,
@@ -1207,6 +1201,12 @@
 				F5EA59CA1ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.m */,
 				F5789D291A642A5500D8CEE7 /* INVAnalysisExecutionsTableViewController.h */,
 				F5789D2A1A642A5500D8CEE7 /* INVAnalysisExecutionsTableViewController.m */,
+				F5789D2F1A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.h */,
+				F5789D301A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.m */,
+				F5789D2D1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.h */,
+				F5789D2E1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.m */,
+				F5789D251A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.h */,
+				F5789D261A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.m */,
 			);
 			path = Analyses;
 			sourceTree = "<group>";

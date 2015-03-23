@@ -21,6 +21,7 @@
 @property IBOutlet UIButton *showAnalysisButton;
 @property (nonatomic, assign) BOOL didAnalysisChange;
 @property (weak, nonatomic) IBOutlet UIView *theView;
+- (IBAction)showAnalysisRun:(UIButton *)sender;
 
 @end
 
@@ -66,6 +67,7 @@
    
     [super layoutSubviews];
 }
+
 
 
 @end

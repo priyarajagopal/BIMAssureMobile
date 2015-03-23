@@ -102,7 +102,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
             UIColor *failColor = [UIColor colorWithRed:212.0 / 255 green:38.0 / 255 blue:58.0 / 255 alpha:1.0];
             UIColor *otherColor = [UIColor darkGrayColor];
 
-            if ([execution.status isEqualToString:@"Success"]) {
+            if ([execution.status isEqualToString:@"Completed"]) {
                 cell.executionStatus.backgroundColor = successColor;
             }
             else if ([execution.status isEqualToString:@"Failed"]) {
