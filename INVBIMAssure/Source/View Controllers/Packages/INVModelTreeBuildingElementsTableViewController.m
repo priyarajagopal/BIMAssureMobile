@@ -8,6 +8,7 @@
 
 #import "INVModelTreeBuildingElementsTableViewController.h"
 #import "INVBuildingElementPropertiesTableViewController.h"
+#import "INVModelViewerContainerViewController.h"
 
 #import "NSArray+INVCustomizations.h"
 #import "UIView+INVCustomizations.h"
@@ -29,11 +30,13 @@
 
 #pragma - Content Management
 
-- (INVModelTreeNode *)treeNodeForElement:(NSNumber *)elementId
+- (INVModelTreeNode *)treeNodeForElement:(NSString *)elementId
+                   withBuildingElementId:(NSNumber *)buildingElementId
                          withDisplayName:(NSString *)displayName
                                andParent:(INVModelTreeNode *)parent
 {
     INVModelTreeNode *node = [INVModelTreeNode treeNodeWithName:displayName id:elementId andLoadingBlock:nil];
+    node.buildingElementId = buildingElementId;
     node.parent = parent;
 
     return node;
@@ -64,26 +67,29 @@
                                                         }
 
                                                         NSArray *hits = [searchResult valueForKeyPath:@"hits"];
+
                                                         NSArray *ids = [hits valueForKeyPath:@"_id"];
                                                         NSArray *names = [[[hits valueForKey:@"fields"]
                                                             valueForKey:@"intrinsics.name.display"]
                                                             valueForKeyPath:@"@unionOfArrays.self"];
 
+                                                        NSArray *buildingElementIds =
+                                                            [[[hits valueForKey:@"fields"] valueForKey:@"system.id"]
+                                                                valueForKeyPath:@"@unionOfArrays.self"];
+
                                                         *expectedTotalCount =
                                                             [[searchResult valueForKeyPath:@"total"] integerValue];
 
-                                                        NSDictionary *elements =
-                                                            [[NSDictionary alloc] initWithObjects:names forKeys:ids];
-
                                                         NSMutableArray *children = [NSMutableArray new];
 
-                                                        [elements
-                                                            enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                                                                [children addObject:[self treeNodeForElement:key
-                                                                                             withDisplayName:obj
-                                                                                                   andParent:node]];
+                                                        [ids enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                            [children
+                                                                addObject:[self treeNodeForElement:obj
+                                                                              withBuildingElementId:buildingElementIds[idx]
+                                                                                    withDisplayName:names[idx]
+                                                                                          andParent:node]];
 
-                                                            }];
+                                                        }];
 
                                                         completed(children);
                                                     }];
@@ -167,6 +173,20 @@
     viewController.popoverPresentationController.sourceView = anchor;
     viewController.popoverPresentationController.sourceRect = [anchor bounds];
     viewController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionLeft;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+
+    INVModelTreeNodeTableViewCell *cell = (INVModelTreeNodeTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+
+    [(INVModelViewerContainerViewController *) self.parentViewController.parentViewController
+        highlightElement:cell.node.buildingElementId];
+
+    if (!cell.node.isLeaf) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 @end

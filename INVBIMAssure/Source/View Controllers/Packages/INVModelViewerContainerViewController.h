@@ -15,4 +15,6 @@
 @property (nonatomic, strong) NSNumber *fileVersionId;
 @property (nonatomic, strong) NSNumber *modelId;
 
+- (void)highlightElement:(NSString *)elementId;
+
 @end

@@ -35,6 +35,9 @@
     NSUInteger _triangleCount;
 
     BOOL _transparentEnabled;
+
+    NSString *highlightedElement;
+    NSMutableArray *highlightedElementOldColors;
 }
 
 @end
@@ -343,6 +346,34 @@
 
 - (IBAction)toggleVisible:(id)sender
 {
+}
+
+- (void)highlightElement:(NSString *)elementId
+{
+    if (highlightedElement) {
+        for (INVStreamBasedCTMParserGLESMesh *mesh in [_meshes arrayByAddingObjectsFromArray:_transparentMeshes]) {
+            if ([mesh containsEelementWithId:highlightedElement]) {
+                GLKVector4 color = {};
+                NSValue *colorValue = [highlightedElementOldColors firstObject];
+                [highlightedElementOldColors removeObjectAtIndex:0];
+
+                [colorValue getValue:&color];
+                [mesh setColorOfElementWithId:highlightedElement withColor:color];
+            }
+        }
+    }
+
+    highlightedElement = elementId;
+    highlightedElementOldColors = [NSMutableArray new];
+
+    for (INVStreamBasedCTMParserGLESMesh *mesh in [_meshes arrayByAddingObjectsFromArray:_transparentMeshes]) {
+        if ([mesh containsEelementWithId:elementId]) {
+            GLKVector4 color = [mesh colorOfElementWithId:elementId];
+            [highlightedElementOldColors addObject:[NSValue valueWithBytes:&color objCType:@encode(typeof(color))]];
+
+            [mesh setColorOfElementWithId:elementId withColor:GLKVector4Make(1, 1, 0, color.a)];
+        }
+    }
 }
 
 @end

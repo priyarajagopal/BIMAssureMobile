@@ -27,6 +27,9 @@ extern int INVStreamBasedCTMParser_ColorAttributeLocation;
 
 - (NSString *)elementIdOfElementInterceptingRay:(GLKVector3)rayPosition direction:(GLKVector3)rayDirection;
 
+- (BOOL)containsEelementWithId:(NSString *)elementId;
+
+- (GLKVector4)colorOfElementWithId:(NSString *)elementId;
 - (void)setColorOfElementWithId:(NSString *)elementId withColor:(GLKVector4)color;
 
 - (size_t)vertexCount;

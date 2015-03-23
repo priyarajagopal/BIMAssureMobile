@@ -155,16 +155,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     INVModelTreeNode *node = self.flattenedNodes[indexPath.row];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     if (!node.isLeaf) {
         // Load the category contents
         node.expanded = !node.expanded;
 
         [self reloadData:@YES];
-    }
-    else {
-        // TODO: Highlight in viewer.
     }
 }
 

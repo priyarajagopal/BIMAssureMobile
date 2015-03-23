@@ -405,7 +405,7 @@ static CTMuint _ctmReadNSData(void *buf, CTMuint size, void *userData)
             _elementType = value;
         }
 
-        if ([_lastKey isEqualToString:@"id"]) {
+        if ([_lastKey isEqualToString:@"elementId"] || [_lastKey isEqualToString:@"id"]) {
             _elementId = value;
         }
     }
