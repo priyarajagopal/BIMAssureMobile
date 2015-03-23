@@ -97,12 +97,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self prepareGL];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self loadModel];
-    });
-
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    [self loadModel];
 }
 
 - (void)loadModel
@@ -348,7 +350,7 @@
 {
 }
 
-- (void)highlightElement:(NSString *)elementId
+- (IBAction)highlightElement:(NSString *)elementId
 {
     if (highlightedElement) {
         for (INVStreamBasedCTMParserGLESMesh *mesh in [_meshes arrayByAddingObjectsFromArray:_transparentMeshes]) {

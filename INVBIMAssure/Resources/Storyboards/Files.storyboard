@@ -146,7 +146,7 @@
                                                 <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="toggleSidebar:" destination="7X8-1T-t9z" eventType="touchUpInside" id="w3f-zr-2OU"/>
+                                                <action selector="toggleSidebar:" destination="7X8-1T-t9z" eventType="touchUpInside" id="FGt-wy-8gt"/>
                                             </connections>
                                         </button>
                                         <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -160,7 +160,7 @@
                                                 <color key="titleColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="goHome:" destination="Gdv-NB-RqF" eventType="touchUpInside" id="HDv-hX-tYh"/>
+                                                <action selector="goHome:" destination="7X8-1T-t9z" eventType="touchUpInside" id="Ax3-vW-eNf"/>
                                             </connections>
                                         </button>
                                         <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -175,7 +175,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="toggleShadow:" destination="Gdv-NB-RqF" eventType="touchUpInside" id="3TA-0d-gOG"/>
+                                                <action selector="toggleShadow:" destination="7X8-1T-t9z" eventType="touchUpInside" id="iqQ-2B-fRh"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -200,7 +200,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="toggleGlass:" destination="Gdv-NB-RqF" eventType="touchUpInside" id="68z-Jm-CPg"/>
+                                                <action selector="toggleGlass:" destination="7X8-1T-t9z" eventType="touchUpInside" id="ee2-9Y-YYg"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -214,7 +214,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="toggleVisible:" destination="Gdv-NB-RqF" eventType="touchUpInside" id="Mgx-DA-wIc"/>
+                                                <action selector="toggleVisible:" destination="7X8-1T-t9z" eventType="touchUpInside" id="cIt-Dt-q7I"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
