@@ -73,23 +73,21 @@
                                                             valueForKey:@"intrinsics.name.display"]
                                                             valueForKeyPath:@"@unionOfArrays.self"];
 
-                                                        NSArray *buildingElementIds = [hits valueForKey:@"_source.system.id"];
+                                                        NSArray *buildingElementIds =
+                                                            [[[hits valueForKey:@"fields"] valueForKey:@"system.id"]
+                                                                valueForKeyPath:@"@unionOfArrays.self"];
 
                                                         *expectedTotalCount =
                                                             [[searchResult valueForKeyPath:@"total"] integerValue];
 
-                                                        NSDictionary *elements =
-                                                            [[NSDictionary alloc] initWithObjects:names forKeys:ids];
-
                                                         NSMutableArray *children = [NSMutableArray new];
 
-                                                        [elements enumerateKeysAndObjectsUsingBlock:^(id key, id obj,
-                                                                                                        BOOL *stop) {
-                                                            [children addObject:[self treeNodeForElement:key
-                                                                                    withBuildingElementId:[buildingElementIds
-                                                                                                                  firstObject]
-                                                                                          withDisplayName:obj
-                                                                                                andParent:node]];
+                                                        [ids enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                            [children
+                                                                addObject:[self treeNodeForElement:obj
+                                                                              withBuildingElementId:buildingElementIds[idx]
+                                                                                    withDisplayName:names[idx]
+                                                                                          andParent:node]];
 
                                                         }];
 
