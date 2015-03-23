@@ -7,6 +7,10 @@
 //
 
 #import "INVModelTreeIssuesTableViewController.h"
+#import "INVModelTreeNodeTableViewCell.h"
+#import "INVBuildingElementPropertiesTableViewController.h"
+
+#import "UIView+INVCustomizations.h"
 #import "NSObject+INVCustomizations.h"
 #import "NSArray+INVCustomizations.h"
 
@@ -26,9 +30,12 @@
     self.tabBarItem.image = [[FAKFontAwesome warningIconWithSize:imageSize] imageWithSize:CGSizeMake(imageSize, imageSize)];
 }
 
-- (INVModelTreeNode *)treeNodeForBuildingElement:(id)buildingElement withParent:(INVModelTreeNode *)parent
+- (INVModelTreeNode *)treeNodeForBuildingElement:(NSDictionary *)buildingElement withParent:(INVModelTreeNode *)parent
 {
-    INVModelTreeNode *node = [INVModelTreeNode treeNodeWithName:@"Building Element" id:nil andLoadingBlock:nil];
+    INVModelTreeNode *node =
+        [INVModelTreeNode treeNodeWithName:[buildingElement valueForKeyPath:@"_source.intrinsics.name.display"]
+                                        id:buildingElement[@"_id"]
+                           andLoadingBlock:nil];
 
     node.parent = parent;
     [self registerNode:node animateChanges:YES];
@@ -116,6 +123,7 @@
                                             return;
                                         }
 
+                                        /*
                                         analysisDetails = [analysisDetails
                                             filteredArrayUsingPredicate:
                                                 [NSPredicate predicateWithBlock:^BOOL(INVAnalysisRunDetails *details,
@@ -126,6 +134,7 @@
                                                                    return run.issues.count > 0;
                                                                }] != NSNotFound;
                                                 }]];
+                                        */
 
                                         *expectedTotalCount = [analysisDetails count];
                                         completed([analysisDetails
@@ -141,6 +150,36 @@
     }
 
     return _rootNode;
+}
+
+#pragma mark - IBActions
+
+- (void)onModelTreeNodeDetailsSelected:(id)sender
+{
+    INVModelTreeNodeTableViewCell *cell = [sender findSuperviewOfClass:[INVModelTreeNodeTableViewCell class] predicate:nil];
+    INVModelTreeNode *node = cell.node;
+
+    UINavigationController *viewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"ViewPropertiesNC"];
+
+    INVBuildingElementPropertiesTableViewController *propertiesViewController =
+        (INVBuildingElementPropertiesTableViewController *) [viewController topViewController];
+    propertiesViewController.packageVersionId = self.packageVersionId;
+    propertiesViewController.buildingElementCategory = node.parent.name;
+    propertiesViewController.buildingElementName = node.name;
+    propertiesViewController.buildingElementId = node.id;
+
+    viewController.modalPresentationStyle = UIModalPresentationPopover;
+
+    [self presentViewController:viewController animated:YES completion:nil];
+
+    viewController.popoverPresentationController.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+
+    // This should be the accessory button.
+    UIView *anchor = sender;
+
+    viewController.popoverPresentationController.sourceView = anchor;
+    viewController.popoverPresentationController.sourceRect = [anchor bounds];
+    viewController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionLeft;
 }
 
 @end
