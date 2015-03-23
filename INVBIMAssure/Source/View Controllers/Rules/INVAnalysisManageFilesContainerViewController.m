@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-#import "INVRuleSetManageFilesContainerViewController.h"
-#import "INVRuleSetFilesListTableViewController.h"
+#import "INVAnalysisManageFilesContainerViewController.h"
+#import "INVAnalysisFilesListTableViewController.h"
 
-@interface INVRuleSetManageFilesContainerViewController ()
-@property (nonatomic, strong) INVRuleSetFilesListTableViewController *includedFilesTVC;
-@property (nonatomic, strong) INVRuleSetFilesListTableViewController *excludedFilesTVC;
+@interface INVAnalysisManageFilesContainerViewController ()
+@property (nonatomic, strong) INVAnalysisFilesListTableViewController *includedFilesTVC;
+@property (nonatomic, strong) INVAnalysisFilesListTableViewController *excludedFilesTVC;
 @end
 
 #pragma mark - implementation
-@implementation INVRuleSetManageFilesContainerViewController
+@implementation INVAnalysisManageFilesContainerViewController
 
 - (void)viewDidLoad
 {
@@ -45,14 +45,14 @@
     if ([segue.identifier isEqualToString:@"IncludedFilesSegue"]) {
         self.includedFilesTVC = segue.destinationViewController;
         self.includedFilesTVC.projectId = self.projectId;
-        self.includedFilesTVC.ruleSetId = self.ruleSetId;
-        self.includedFilesTVC.showFilesForRuleSetId = YES;
+        self.includedFilesTVC.analysisId = self.analysisId;
+        self.includedFilesTVC.showFilesForAnalysisId = YES;
     }
     else if ([segue.identifier isEqualToString:@"ExcludedFilesSegue"]) {
         self.excludedFilesTVC = segue.destinationViewController;
         self.excludedFilesTVC.projectId = self.projectId;
-        self.excludedFilesTVC.ruleSetId = self.ruleSetId;
-        self.excludedFilesTVC.showFilesForRuleSetId = NO;
+        self.excludedFilesTVC.analysisId = self.analysisId;
+        self.excludedFilesTVC.showFilesForAnalysisId = NO;
     }
 }
 

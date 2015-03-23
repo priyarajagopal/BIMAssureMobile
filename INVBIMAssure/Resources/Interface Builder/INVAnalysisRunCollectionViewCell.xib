@@ -16,7 +16,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ltc-rV-HYU">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="175"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hgx-bh-aq9" userLabel="Footer">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hgx-bh-aq9" userLabel="Footer">
                                 <rect key="frame" x="2" y="122" width="396" height="52"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdD-f8-yBn">
@@ -76,7 +76,7 @@
                                 <rect key="frame" x="2" y="2" width="396" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issues" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVy-Va-PE5">
-                                        <rect key="frame" x="339" y="42" width="49" height="20.5"/>
+                                        <rect key="frame" x="339" y="42" width="49" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -106,7 +106,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Zoa-ja-LLC" secondAttribute="trailing" constant="8" id="ykt-vu-WXD"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jqp-JK-O8t" userLabel="Red Separator">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jqp-JK-O8t" userLabel="Red Separator">
                                 <rect key="frame" x="0.0" y="120" width="400" height="2"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>

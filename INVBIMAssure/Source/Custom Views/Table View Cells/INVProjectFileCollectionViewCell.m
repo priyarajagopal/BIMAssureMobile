@@ -18,28 +18,28 @@
 }
 
 #pragma mark - UIEvent handlers
-- (IBAction)onViewProjectSelected:(UIBarButtonItem *)sender
+- (IBAction)onViewProjectSelected:(UIButton *)sender
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(onViewProjectFile:)]) {
         [self.delegate onViewProjectFile:self];
     }
 }
 
-- (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender
+- (IBAction)onManageAnalysesSelected:(UIButton *)sender
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(onManageRuleSetsForProjectFile:)]) {
         [self.delegate onManageRuleSetsForProjectFile:self];
     }
 }
 
-- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender
+- (IBAction)onRunRulesSelected:(UIButton *)sender
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(onRunRulesForProjectFile:)]) {
         [self.delegate onRunRulesForProjectFile:self];
     }
 }
 
-- (IBAction)onShowExecutionsSelected:(UIBarButtonItem *)sender
+- (IBAction)onShowExecutionsSelected:(UIButton *)sender
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(onShowExecutionsForProjectFile:)]) {
         [self.delegate onShowExecutionsForProjectFile:self];
