@@ -381,7 +381,7 @@ struct __attribute__((packed)) index_struct {
         struct vertex_struct vertex = _vertexPointer[element.vertexRange.location];
 
         return GLKVector4Make(
-            vertex.color[0] / 255.0, vertex.color[1] / 255.0, vertex.color[1] / 255.0, vertex.color[2] / 255.0);
+            vertex.color[0] / 255.0, vertex.color[1] / 255.0, vertex.color[2] / 255.0, vertex.color[3] / 255.0);
     }
 
     return GLKVector4Make(0, 0, 0, 0);

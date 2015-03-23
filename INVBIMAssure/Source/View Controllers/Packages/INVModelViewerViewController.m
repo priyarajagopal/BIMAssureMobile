@@ -37,7 +37,7 @@
     BOOL _transparentEnabled;
 
     NSString *highlightedElement;
-    GLKVector4 highlightedElementOldColor;
+    NSMutableArray *highlightedElementOldColors;
 }
 
 @end
@@ -351,27 +351,27 @@
 - (void)highlightElement:(NSString *)elementId
 {
     if (highlightedElement) {
-        for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
-            if (mesh.transparent)
-                continue;
+        for (INVStreamBasedCTMParserGLESMesh *mesh in [_meshes arrayByAddingObjectsFromArray:_transparentMeshes]) {
+            if ([mesh containsEelementWithId:highlightedElement]) {
+                GLKVector4 color = {};
+                NSValue *colorValue = [highlightedElementOldColors firstObject];
+                [highlightedElementOldColors removeObjectAtIndex:0];
 
-            [mesh setColorOfElementWithId:highlightedElement withColor:highlightedElementOldColor];
+                [colorValue getValue:&color];
+                [mesh setColorOfElementWithId:highlightedElement withColor:color];
+            }
         }
-
-        highlightedElement = nil;
-        highlightedElementOldColor = GLKVector4Make(0, 0, 0, 0);
     }
 
     highlightedElement = elementId;
+    highlightedElementOldColors = [NSMutableArray new];
 
-    for (INVStreamBasedCTMParserGLESMesh *mesh in _meshes) {
-        if (mesh.transparent)
-            continue;
-
+    for (INVStreamBasedCTMParserGLESMesh *mesh in [_meshes arrayByAddingObjectsFromArray:_transparentMeshes]) {
         if ([mesh containsEelementWithId:elementId]) {
-            highlightedElementOldColor = [mesh colorOfElementWithId:elementId];
+            GLKVector4 color = [mesh colorOfElementWithId:elementId];
+            [highlightedElementOldColors addObject:[NSValue valueWithBytes:&color objCType:@encode(typeof(color))]];
 
-            [mesh setColorOfElementWithId:elementId withColor:GLKVector4Make(1, 1, 0, 1)];
+            [mesh setColorOfElementWithId:elementId withColor:GLKVector4Make(1, 1, 0, color.a)];
         }
     }
 }
