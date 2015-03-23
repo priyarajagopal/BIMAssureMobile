@@ -10,7 +10,7 @@
 #import "INVAnalysisTableViewCell.h"
 #import "INVAnalysisEditViewController.h"
 #import "INVAnalysisRulesTableViewController.h"
-
+#import "INVAnalysisManageFilesContainerViewController.h"
 #import "UIView+INVCustomizations.h"
 #import "UISplitViewController+ToggleSidebar.h"
 
@@ -28,7 +28,7 @@
 - (IBAction)onShowRulesForAnalysis:(id)sender;
 - (IBAction)onRunRulesForAnalysis:(id)sender;
 - (IBAction)onDeleteAnalysis:(id)sender;
-
+- (IBAction)onPackageMembershipForAnalysis:(id)sender;
 @end
 
 @implementation INVAnalysesTableViewController
@@ -75,25 +75,37 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"editAnalysis"]) {
-        INVAnalysisEditViewController *editVC =
-            (INVAnalysisEditViewController *) [[segue destinationViewController] topViewController];
-
-        editVC.analysis = sender;
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            INVAnalysisEditViewController *editVC =
+                (INVAnalysisEditViewController *) [[segue destinationViewController] topViewController];
+            editVC.analysis = sender;
+        }
     }
 
     if ([[segue identifier] isEqualToString:@"createAnalysis"]) {
-        INVAnalysisEditViewController *editVC =
-            (INVAnalysisEditViewController *) [[segue destinationViewController] topViewController];
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            INVAnalysisEditViewController *editVC =
+                (INVAnalysisEditViewController *) [[segue destinationViewController] topViewController];
 
-        editVC.projectId = self.projectId;
+            editVC.projectId = self.projectId;
+        }
     }
 
     if ([[segue identifier] isEqual:@"showRules"]) {
-        INVAnalysisRulesTableViewController *rulesVC =
-            (INVAnalysisRulesTableViewController *) [[segue destinationViewController] topViewController];
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            INVAnalysisRulesTableViewController *rulesVC =
+                (INVAnalysisRulesTableViewController *) [[segue destinationViewController] topViewController];
 
-        rulesVC.projectId = self.projectId;
-        rulesVC.analysisId = [sender analysisId];
+            rulesVC.projectId = self.projectId;
+            rulesVC.analysisId = [sender analysisId];
+        }
+    }
+    if ([[segue identifier] isEqual:@"AnalysisFilesSegue"]) {
+        INVAnalysisManageFilesContainerViewController *aVC =
+            (INVAnalysisManageFilesContainerViewController *) [segue destinationViewController];
+
+        aVC.projectId = self.projectId;
+        aVC.analysisId = [sender analysisId];
     }
 }
 
@@ -187,7 +199,7 @@
     return _dataResultsController;
 }
 
-#pragma mark - IBActions
+#pragma mark - IBActions for INVAnalysisTableViewCell
 
 - (void)onEditAnalysis:(id)sender
 {
@@ -271,6 +283,13 @@
                               }]];
 
     [self presentViewController:confirmController animated:YES completion:nil];
+}
+
+- (void)onPackageMembershipForAnalysis:(id)sender
+{
+    INVAnalysisTableViewCell *cell = [sender findSuperviewOfClass:[INVAnalysisTableViewCell class] predicate:nil];
+
+    [self performSegueWithIdentifier:@"AnalysisFilesSegue" sender:cell.analysis];
 }
 
 #pragma mark - UITableViewDataSource

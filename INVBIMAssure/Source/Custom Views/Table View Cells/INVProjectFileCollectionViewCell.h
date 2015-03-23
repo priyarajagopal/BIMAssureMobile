@@ -28,9 +28,9 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loaderActivity;
 
 @property (weak, nonatomic) IBOutlet UIImageView *fileThumbnail;
-- (IBAction)onViewProjectSelected:(UIBarButtonItem *)sender;
-- (IBAction)onManageRuleSetsSelected:(UIBarButtonItem *)sender;
-- (IBAction)onRunRulesSelected:(UIBarButtonItem *)sender;
-- (IBAction)onShowExecutionsSelected:(UIBarButtonItem *)sender;
+- (IBAction)onViewProjectSelected:(UIButton *)sender;
+- (IBAction)onManageAnalysesSelected:(UIButton *)sender;
+- (IBAction)onRunRulesSelected:(UIButton *)sender;
+- (IBAction)onShowExecutionsSelected:(UIButton *)sender;
 
 @end

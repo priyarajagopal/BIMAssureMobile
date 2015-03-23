@@ -11,7 +11,7 @@
 #import "INVRulesTableViewDataSource.h"
 #import "INVRuleInstanceTableViewController.h"
 #import "INVRuleSetTableViewHeaderView.h"
-#import "INVRuleSetManageFilesContainerViewController.h"
+#import "INVAnalysisManageFilesContainerViewController.h"
 #import "INVRuleDefinitionsTableViewController.h"
 #import "INVProjectListSplitViewController.h"
 
@@ -312,8 +312,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         ruleInstanceTVC.delegate = self;
     }
     if ([segue.identifier isEqualToString:@"RuleSetFilesSegue"]) {
-        INVRuleSetManageFilesContainerViewController *rulesetFilesTVC = segue.destinationViewController;
-        rulesetFilesTVC.ruleSetId = self.selectedRuleSetId;
+        INVAnalysisManageFilesContainerViewController *rulesetFilesTVC = segue.destinationViewController;
+        rulesetFilesTVC.analysisId = self.selectedRuleSetId;
         rulesetFilesTVC.projectId = self.projectId;
     }
     if ([segue.identifier isEqualToString:@"AddRuleInstanceSegue"]) {

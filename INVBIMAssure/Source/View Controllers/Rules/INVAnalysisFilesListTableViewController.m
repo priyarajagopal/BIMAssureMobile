@@ -1,30 +1,30 @@
 //
-//  INVRuleSetIncludedFilesViewController.m
+//  INVAnalysisFilesListTableViewController.m
 //  INVBIMAssure
 //
 //  Created by Priya Rajagopal on 11/4/14.
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-#import "INVRuleSetFilesListTableViewController.h"
+#import "INVAnalysisFilesListTableViewController.h"
 #import "INVGeneralAddRemoveTableViewCell.h"
 #import "INVPagingManager+PackageMasterListing.h"
 
-static const NSInteger SECTION_RULESETFILES = 0;
+static const NSInteger SECTION_ANALYSISFILES = 0;
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
-@interface INVRuleSetFilesListTableViewController () <INVGeneralAddRemoveTableViewCellAcionDelegate, INVPagingManagerDelegate>
+@interface INVAnalysisFilesListTableViewController () <INVGeneralAddRemoveTableViewCellAcionDelegate, INVPagingManagerDelegate>
 @property (nonatomic, strong) INVGenericTableViewDataSource *filesDataSource;
 @property (nonatomic, strong) INVProjectManager *projectManager;
-@property (nonatomic, strong) INVRulesManager *rulesManager;
+@property (nonatomic, strong) INVAnalysesManager *analysesManager;
 @property (nonatomic, strong) INVPackageMutableArray files;
 @property (nonatomic, assign) BOOL observersAdded;
 @property (nonatomic, strong) INVPagingManager *packagesPagingManager;
 @end
 
-@implementation INVRuleSetFilesListTableViewController
+@implementation INVAnalysisFilesListTableViewController
 
 - (void)viewDidLoad
 {
@@ -39,11 +39,11 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
 
-    if (self.showFilesForRuleSetId) {
-        [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_INCLUDED_IN_RULESET", nil)];
+    if (self.showFilesForAnalysisId) {
+        [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_INCLUDED_IN_ANALYSIS", nil)];
     }
     else {
-        [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_NOT_INCLUDED_IN_RULESET", nil)];
+        [self setHeaderViewWithHeading:NSLocalizedString(@"FILES_NOT_INCLUDED_IN_ANALYSIS", nil)];
     }
     self.refreshControl = nil;
 }
@@ -67,12 +67,12 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 {
     [super viewWillDisappear:animated];
     [self removeObserversForFileMoveNotification];
-    if (self.showFilesForRuleSetId) {
-        [self pushAddedPkgMastersForRuleSetIdToServer];
-        [self pushRemovedPkgMastersForRuleSetIdToServer];
+    if (self.showFilesForAnalysisId) {
+        [self pushAddedPkgMastersForAnalysesToServer];
+        [self pushRemovedPkgMastersForAnalysisIdToServer];
     }
     self.projectManager = nil;
-    self.rulesManager = nil;
+    self.analysesManager = nil;
     self.tableView.dataSource = nil;
     self.filesDataSource = nil;
     self.files = nil;
@@ -82,42 +82,23 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 - (void)resetFileEntries
 {
     [self updateFilesListFromServer];
-    [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
+    [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_ANALYSISFILES];
     [self.tableView reloadData];
 }
 
 #pragma mark - server side
-/*
--(void)fetchListOfProjectFiles {
-    [self showLoadProgress];
-    [self.globalDataManager.invServerClient getAllPkgMastersForProject:self.projectId WithCompletionBlock:^(INVEmpireMobileError
-*error) {
-         [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 
-        if (!error) {
-            [self fetchProjectFilesForRuleSetId];
-        }
-        else {
-
-            UIAlertController* errController = [[UIAlertController alloc]initWithErrorMessage:[NSString
-stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),error.code]];
-            [self presentViewController:errController animated:YES completion:nil];
-        }
-    }];
-}
-*/
-- (void)fetchProjectFilesForRuleSetId
+- (void)fetchListOfProjectFiles
 {
     [self showLoadProgress];
+
     [self.globalDataManager.invServerClient
-        getAllPkgMastersForRuleSet:self.ruleSetId
+        getAllPkgMastersForProject:self.projectId
                WithCompletionBlock:^(INVEmpireMobileError *error) {
                    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 
                    if (!error) {
-                       [self updateFilesListFromServer];
-                       [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
-                       [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                       [self fetchProjectFilesForAnalysisId];
                    }
                    else {
                        UIAlertController *errController = [[UIAlertController alloc]
@@ -128,65 +109,89 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
                }];
 }
 
+- (void)fetchProjectFilesForAnalysisId
+{
+    [self showLoadProgress];
+
+    [self.globalDataManager.invServerClient
+        getPkgMembershipForAnalysis:self.analysisId
+                WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                    [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+
+                    if (!error) {
+                        [self updateFilesListFromServer];
+                        [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_ANALYSISFILES];
+                        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                    }
+                    else {
+                        UIAlertController *errController = [[UIAlertController alloc]
+                            initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),
+                            error.code.integerValue];
+                        [self presentViewController:errController animated:YES completion:nil];
+                    }
+                }];
+}
+
 - (void)fetchPackagesFromCurrentOffset
 {
     [self showLoadProgress];
     [self.packagesPagingManager fetchPackageMastersFromCurrentOffsetForProject:self.projectId];
 }
 
-- (void)pushAddedPkgMastersForRuleSetIdToServer
+- (void)pushAddedPkgMastersForAnalysesToServer
 {
-    NSSet *currentPkgMastersForRuleSet =
-        [self.globalDataManager.invServerClient.rulesManager pkgMastersForRuleSetId:self.ruleSetId];
+    NSSet *currentPkgMastersForAnalyses = [self.analysesManager pkgMastersForAnalysisId:self.analysisId];
     NSMutableSet *updatedPkgMasterIds = [[NSMutableSet alloc] initWithCapacity:0];
     [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVPackage *package = obj;
         [updatedPkgMasterIds addObject:package.packageId];
     }];
 
-    [updatedPkgMasterIds minusSet:currentPkgMastersForRuleSet];
+    [updatedPkgMasterIds minusSet:currentPkgMastersForAnalyses];
 
-    [self.globalDataManager.invServerClient addToRuleSet:self.ruleSetId
-                                              pkgMasters:[updatedPkgMasterIds allObjects]
-                                     withCompletionBlock:^(INVEmpireMobileError *error) {
-                                         if (error) {
-                                             INVLogError(@"Failed to add pkg masters %@ for rule set %@ with error %@",
-                                                 updatedPkgMasterIds, self.ruleSetId, error);
-                                         }
-                                         else {
-                                             INVLogDebug(@"Succesfully added pkg master %@ for rule set %@",
-                                                 updatedPkgMasterIds, self.ruleSetId);
-                                         }
-                                     }];
+    [self.globalDataManager.invServerClient addToAnalysis:self.analysisId
+                                               pkgMasters:[updatedPkgMasterIds allObjects]
+                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                          if (error) {
+                                              INVLogError(@"Failed to add pkg masters %@ for rule set %@ with error %@",
+                                                  updatedPkgMasterIds, self.analysisId, error);
+                                          }
+                                          else {
+                                              INVLogDebug(@"Succesfully added pkg master %@ for rule set %@",
+                                                  updatedPkgMasterIds, self.analysisId);
+                                          }
+                                      }];
 }
 
-- (void)pushRemovedPkgMastersForRuleSetIdToServer
+- (void)pushRemovedPkgMastersForAnalysisIdToServer
 {
-    NSMutableSet *currentPkgMastersForRuleSet =
-        [[self.globalDataManager.invServerClient.rulesManager pkgMastersForRuleSetId:self.ruleSetId] mutableCopy];
+    NSMutableSet *currentPkgMastersForAnalyses = [[self.analysesManager pkgMastersForAnalysisId:self.analysisId] mutableCopy];
     NSMutableSet *updatedPkgMasterIds = [[NSMutableSet alloc] initWithCapacity:0];
     [self.files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVPackage *package = obj;
         [updatedPkgMasterIds addObject:package.packageId];
     }];
 
-    [currentPkgMastersForRuleSet minusSet:updatedPkgMasterIds];
+    [currentPkgMastersForAnalyses minusSet:updatedPkgMasterIds];
 
-    [currentPkgMastersForRuleSet enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        NSNumber *pkgMasterToRemove = obj;
-        [self.globalDataManager.invServerClient removeFromRuleSet:self.ruleSetId
-                                                        pkgMaster:pkgMasterToRemove
-                                              withCompletionBlock:^(INVEmpireMobileError *error) {
-                                                  if (error) {
-                                                      INVLogError(
-                                                          @"Failed to remove pkg masters  %@ for rule set %@ with error %@",
-                                                          pkgMasterToRemove, self.ruleSetId, error);
-                                                  }
-                                                  else {
-                                                      INVLogDebug(@"Succesfully removed pkg master %@ for rule set %@",
-                                                          updatedPkgMasterIds, self.ruleSetId);
-                                                  }
-                                              }];
+    INVAnalysisPkgMembershipArray membersToBeRemoved =
+        [self.globalDataManager.invServerClient.analysesManager membershipIdsForPkgVersionIds:[currentPkgMastersForAnalyses allObjects]];
+
+    [membersToBeRemoved enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVAnalysisPkgMembership *member = obj;
+        NSNumber *idToRemove = member.membershipId;
+        INVLogDebug(@"Will remove member Id %@", idToRemove);
+        [self.globalDataManager.invServerClient removeAnalysisMembership:idToRemove
+                                                     WithCompletionBlock:INV_COMPLETION_HANDLER {
+                                                         INV_ALWAYS:
+                                                         INV_SUCCESS:
+                                                             INVLogDebug(@"Succesfully removed pkg massters for analysisId");
+
+                                                         INV_ERROR:
+                                                             INVLogError(
+                                                                 @"Failed to remove pkg masters for analysisId with error %@:",
+                                                                 error);
+                                                     }];
 
     }];
 }
@@ -197,7 +202,7 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
     [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 
     if (!error) {
-        [self fetchProjectFilesForRuleSetId];
+        [self fetchProjectFilesForAnalysisId];
     }
     else {
         UIAlertController *errController = [[UIAlertController alloc]
@@ -239,12 +244,12 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
     return _projectManager;
 }
 
-- (INVRulesManager *)rulesManager
+- (INVAnalysesManager *)analysesManager
 {
-    if (!_rulesManager) {
-        _rulesManager = self.globalDataManager.invServerClient.rulesManager;
+    if (!_analysesManager) {
+        _analysesManager = self.globalDataManager.invServerClient.analysesManager;
     }
-    return _rulesManager;
+    return _analysesManager;
 }
 
 - (INVPackageMutableArray)files
@@ -259,13 +264,13 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
 {
     if (!_filesDataSource) {
         _filesDataSource = [[INVGenericTableViewDataSource alloc] initWithDataArray:self.files
-                                                                         forSection:SECTION_RULESETFILES
+                                                                         forSection:SECTION_ANALYSISFILES
                                                                        forTableView:self.tableView];
 
         INV_CellConfigurationBlock cellConfigurationBlock =
             ^(INVGeneralAddRemoveTableViewCell *cell, INVPackage *file, NSIndexPath *indexPath) {
                 cell.name.text = file.packageName;
-                cell.isAdded = self.showFilesForRuleSetId;
+                cell.isAdded = self.showFilesForAnalysisId;
                 cell.contentId = file.packageId;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -289,7 +294,7 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
                              NSDictionary *userInfo = note.userInfo;
                              INVGeneralAddRemoveTableViewCell *tableViewCell = userInfo[@"AddRemoveCell"];
 
-                             if (self.showFilesForRuleSetId) {
+                             if (self.showFilesForAnalysisId) {
                                  if (tableViewCell.isAdded) {
                                      [self removeFromLocalFileList:tableViewCell.contentId];
                                  }
@@ -305,7 +310,7 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
                                      [self removeFromLocalFileList:tableViewCell.contentId];
                                  }
                              }
-                             [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_RULESETFILES];
+                             [self.filesDataSource updateWithDataArray:self.files forSection:SECTION_ANALYSISFILES];
                              [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 
                          }];
@@ -326,15 +331,15 @@ stringWithFormat:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),erro
 - (void)updateFilesListFromServer
 {
     self.files = [[self.projectManager packagesForProjectId:self.projectId] mutableCopy];
-    NSSet *filesMasterIdsInRuleSet = [self.rulesManager pkgMastersForRuleSetId:self.ruleSetId];
-    INVPackageMutableArray filesAssociatedWithRuleSet =
-        [[self.projectManager packageFilesForMasterIds:[filesMasterIdsInRuleSet allObjects]] mutableCopy];
-    if (self.showFilesForRuleSetId) {
-        self.files = filesAssociatedWithRuleSet;
+    NSSet *filesMasterIdsInAnalyses = [self.analysesManager pkgMastersForAnalysisId:self.analysisId];
+    INVPackageMutableArray filesAssociatedWithAnalysis =
+        [[self.projectManager packageFilesForMasterIds:[filesMasterIdsInAnalyses allObjects]] mutableCopy];
+    if (self.showFilesForAnalysisId) {
+        self.files = filesAssociatedWithAnalysis;
     }
     else {
-        if (filesAssociatedWithRuleSet && filesAssociatedWithRuleSet.count) {
-            [self.files removeObjectsInArray:filesAssociatedWithRuleSet];
+        if (filesAssociatedWithAnalysis && filesAssociatedWithAnalysis.count) {
+            [self.files removeObjectsInArray:filesAssociatedWithAnalysis];
         }
     }
 }

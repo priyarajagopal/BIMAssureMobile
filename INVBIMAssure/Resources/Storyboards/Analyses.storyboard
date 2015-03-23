@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PQI-PW-gSM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PQI-PW-gSM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Analyses-->
@@ -35,6 +36,7 @@
                     <connections>
                         <segue destination="06H-DG-7xN" kind="presentation" identifier="editAnalysis" modalPresentationStyle="formSheet" id="b7D-42-Tuy"/>
                         <segue destination="kYh-w8-Kel" kind="presentation" identifier="showRules" modalPresentationStyle="formSheet" id="AWy-or-XJf"/>
+                        <segue destination="P2e-58-oFY" kind="presentation" identifier="AnalysisFilesSegue" modalPresentationStyle="formSheet" id="mP2-hQ-umN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XkO-hA-fud" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -290,6 +292,143 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBt-Rr-clW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="316" y="355"/>
+        </scene>
+        <!--Manage Pkgs in Analysis Container View Controller-->
+        <scene sceneID="9w0-SP-R2S">
+            <objects>
+                <viewController modalPresentationStyle="formSheet" id="P2e-58-oFY" userLabel="Manage Pkgs in Analysis Container View Controller" customClass="INVAnalysisManageFilesContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6yW-Wp-1pY"/>
+                        <viewControllerLayoutGuide type="bottom" id="KJu-5O-eJc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZaY-N0-7fs">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQu-Si-EOl">
+                                <rect key="frame" x="-4" y="0.0" width="608" height="44"/>
+                                <items>
+                                    <navigationItem title="Manage Packages" id="ECG-m9-9oL">
+                                        <barButtonItem key="leftBarButtonItem" title="Reset" id="XAK-RA-eAV">
+                                            <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="onResetTapped:" destination="P2e-58-oFY" id="e0v-bN-CKg"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="pYd-3A-o61">
+                                            <connections>
+                                                <segue destination="En7-c9-emf" kind="unwind" unwindAction="manualDismiss:" id="ksc-5v-6db"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fg-sL-Izg" userLabel="inRSView">
+                                <rect key="frame" x="-4" y="44" width="608" height="274"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brZ-b7-P72" userLabel="RuleSetFiles Container View">
+                                        <rect key="frame" x="5" y="5" width="598" height="265"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="SXn-uu-XFR" kind="embed" identifier="IncludedFilesSegue" id="BSD-Kc-UyV"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="brZ-b7-P72" secondAttribute="bottom" constant="4" id="51i-B6-yUW"/>
+                                    <constraint firstItem="brZ-b7-P72" firstAttribute="leading" secondItem="0Fg-sL-Izg" secondAttribute="leading" constant="5" id="98j-8i-p4a"/>
+                                    <constraint firstItem="brZ-b7-P72" firstAttribute="top" secondItem="0Fg-sL-Izg" secondAttribute="top" constant="5" id="VL4-CC-pXa"/>
+                                    <constraint firstAttribute="trailing" secondItem="brZ-b7-P72" secondAttribute="trailing" constant="5" id="bQP-aI-N9Y"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfG-SF-BBE" userLabel="notInRSView">
+                                <rect key="frame" x="-4" y="316" width="608" height="300"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LvD-C2-dA6" userLabel="NotInRuleSetFiles Container View">
+                                        <rect key="frame" x="5" y="5" width="598" height="275"/>
+                                        <connections>
+                                            <segue destination="egl-TR-V7x" kind="embed" identifier="ExcludedFilesSegue" id="tGr-Ng-MkU"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="LvD-C2-dA6" firstAttribute="top" secondItem="tfG-SF-BBE" secondAttribute="top" constant="5" id="Pn2-GU-vq4"/>
+                                    <constraint firstItem="LvD-C2-dA6" firstAttribute="leading" secondItem="tfG-SF-BBE" secondAttribute="leading" constant="5" id="ZeE-gZ-Wo8"/>
+                                    <constraint firstAttribute="trailing" secondItem="LvD-C2-dA6" secondAttribute="trailing" constant="5" id="l9f-c4-H1C"/>
+                                    <constraint firstAttribute="bottom" secondItem="LvD-C2-dA6" secondAttribute="bottom" constant="20" id="x4c-NI-UZm"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tfG-SF-BBE" firstAttribute="leading" secondItem="ZaY-N0-7fs" secondAttribute="leadingMargin" constant="-20" id="6ly-fc-sPa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XQu-Si-EOl" secondAttribute="trailing" constant="-20" id="7kw-Jl-smj"/>
+                            <constraint firstItem="0Fg-sL-Izg" firstAttribute="leading" secondItem="ZaY-N0-7fs" secondAttribute="leadingMargin" constant="-20" id="IK4-nO-sHX"/>
+                            <constraint firstItem="XQu-Si-EOl" firstAttribute="top" secondItem="6yW-Wp-1pY" secondAttribute="bottom" id="R2U-zf-ct0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tfG-SF-BBE" secondAttribute="trailing" constant="-20" id="SpE-ts-Eax"/>
+                            <constraint firstItem="tfG-SF-BBE" firstAttribute="height" secondItem="ZaY-N0-7fs" secondAttribute="height" multiplier="0.5" id="USK-bP-pBu"/>
+                            <constraint firstItem="XQu-Si-EOl" firstAttribute="leading" secondItem="ZaY-N0-7fs" secondAttribute="leadingMargin" constant="-20" id="Uph-fA-4Fc"/>
+                            <constraint firstItem="0Fg-sL-Izg" firstAttribute="height" secondItem="ZaY-N0-7fs" secondAttribute="height" multiplier="0.5" constant="-26" id="XVw-8g-B7g"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0Fg-sL-Izg" secondAttribute="trailing" constant="-20" id="dJE-7V-Xma"/>
+                            <constraint firstItem="tfG-SF-BBE" firstAttribute="top" secondItem="0Fg-sL-Izg" secondAttribute="bottom" constant="-2" id="fgm-WH-pLU"/>
+                            <constraint firstItem="0Fg-sL-Izg" firstAttribute="top" secondItem="6yW-Wp-1pY" secondAttribute="bottom" constant="44" id="go8-0x-I9k"/>
+                            <constraint firstItem="KJu-5O-eJc" firstAttribute="top" secondItem="tfG-SF-BBE" secondAttribute="bottom" constant="-16" id="r3H-N4-Vwy"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="77Q-Ri-rQH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="En7-c9-emf" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="683" y="1805"/>
+        </scene>
+        <!--Pkgs in Analysis Table View Controller-->
+        <scene sceneID="kLr-gt-fEV">
+            <objects>
+                <tableViewController id="SXn-uu-XFR" userLabel="Pkgs in Analysis Table View Controller" customClass="INVAnalysisFilesListTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="JCY-YD-wOs">
+                        <rect key="frame" x="0.0" y="0.0" width="598" height="265"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Packages"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="dataSource" destination="SXn-uu-XFR" id="dj5-rn-DCa"/>
+                            <outlet property="delegate" destination="SXn-uu-XFR" id="RfG-4y-6yA"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="view" destination="JCY-YD-wOs" id="bL8-Yy-NS3"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jaw-e4-v1m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1358" y="1639.5"/>
+        </scene>
+        <!--Pkgs in Analysis Table View Controller-->
+        <scene sceneID="ffy-iI-ube">
+            <objects>
+                <tableViewController id="egl-TR-V7x" userLabel="Pkgs in Analysis Table View Controller" customClass="INVAnalysisFilesListTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="usP-2M-6Aw">
+                        <rect key="frame" x="0.0" y="0.0" width="598" height="275"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Packages"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="dataSource" destination="egl-TR-V7x" id="kQl-Gd-7In"/>
+                            <outlet property="delegate" destination="egl-TR-V7x" id="PXT-kp-3bw"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CoF-ho-Lwg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1358" y="1967.5"/>
         </scene>
     </scenes>
     <resources>

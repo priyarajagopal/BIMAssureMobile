@@ -1,5 +1,5 @@
 //
-//  INVRuleSetIncludedFilesViewController.h
+//  INVAnalysisFilesListTableViewController.h
 //  INVBIMAssure
 //
 //  Created by Priya Rajagopal on 11/4/14.
@@ -8,10 +8,10 @@
 
 #import "INVCustomTableViewController.h"
 
-@interface INVRuleSetFilesListTableViewController : INVCustomTableViewController
-@property (nonatomic, assign) BOOL showFilesForRuleSetId;
+@interface INVAnalysisFilesListTableViewController : INVCustomTableViewController
+@property (nonatomic, assign) BOOL showFilesForAnalysisId;
 @property (nonatomic, copy) NSNumber *projectId;
-@property (nonatomic, copy) NSNumber *ruleSetId;
+@property (nonatomic, copy) NSNumber *analysisId;
 
 - (void)resetFileEntries;
 @end

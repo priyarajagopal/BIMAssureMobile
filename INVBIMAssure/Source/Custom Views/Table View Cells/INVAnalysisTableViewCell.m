@@ -21,6 +21,7 @@
 @property IBOutlet UIButton *rulesButton;
 @property IBOutlet UIButton *runButton;
 @property IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIButton *packagesButton;
 
 @property IBOutlet UILabel *emptyRulesLabel;
 @property IBOutlet NSLayoutConstraint *collapseEmptyRulesConstraint;

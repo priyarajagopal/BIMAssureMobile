@@ -122,13 +122,23 @@
 - (NSSet *)pkgMastersForAnalysisId:(NSNumber *)analysisId;
 
 /**
- Returns list of membershipIds for given analysisId.
+ Returns list of membershipIds for given array of analysisIds.
 
  @param analysisId Id for analysis
 
  @return The array of INVAnalysisPkgMembership objects
  */
 - (INVAnalysisPkgMembershipArray)membershipIdsForAnalysisIds:(NSArray *)analysisIds;
+
+
+/**
+ Returns list of membershipIds for given array of pkg VersionIds.
+ 
+ @param pkgVersionId Id for pkg versions
+ 
+ @return The array of INVAnalysisPkgMembership objects
+ */
+- (INVAnalysisPkgMembershipArray)membershipIdsForPkgVersionIds:(NSArray *)pkgVersionIds;
 
 /**
  Returns list of analysesIds for given pkg master

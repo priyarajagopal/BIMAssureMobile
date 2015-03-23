@@ -37,7 +37,7 @@
         <!--Files Manage Files Container View Controller-->
         <scene sceneID="5ne-mH-hNj">
             <objects>
-                <viewController modalPresentationStyle="formSheet" id="rP5-fk-2Ub" userLabel="Files Manage Files Container View Controller" customClass="INVRuleSetManageFilesContainerViewController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="formSheet" id="rP5-fk-2Ub" userLabel="Files Manage Files Container View Controller" customClass="INVAnalysisManageFilesContainerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zhl-re-aYS"/>
                         <viewControllerLayoutGuide type="bottom" id="mYr-S1-xA9"/>
@@ -127,7 +127,7 @@
         <!--Files In RuleSet Table View Controller-->
         <scene sceneID="Vqs-Z0-nb1">
             <objects>
-                <tableViewController id="cCw-BF-p36" userLabel="Files In RuleSet Table View Controller" customClass="INVRuleSetFilesListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="cCw-BF-p36" userLabel="Files In RuleSet Table View Controller" customClass="INVAnalysisFilesListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="B6K-V7-XwS">
                         <rect key="frame" x="0.0" y="0.0" width="598" height="265"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -153,7 +153,7 @@
         <!--Files In RuleSet Table View Controller-->
         <scene sceneID="GAd-U2-nef">
             <objects>
-                <tableViewController id="8Ht-Z0-YuN" userLabel="Files In RuleSet Table View Controller" customClass="INVRuleSetFilesListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="8Ht-Z0-YuN" userLabel="Files In RuleSet Table View Controller" customClass="INVAnalysisFilesListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rct-AS-wXD">
                         <rect key="frame" x="0.0" y="0.0" width="598" height="275"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
