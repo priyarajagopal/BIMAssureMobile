@@ -124,15 +124,20 @@
         INVAnalysisRunCollectionViewCell *cell =
             [sender findSuperviewOfClass:[INVAnalysisRunCollectionViewCell class] predicate:nil];
 
-        INVAnalysisExecutionsTableViewController *vc =
-            (INVAnalysisExecutionsTableViewController *) segue.destinationViewController;
-        vc.projectId = self.projectId;
-        // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
-        if (cell.result && cell.result.count) {
-            INVAnalysisRunResult* resultVal = cell.result[0];
-            vc.analysisRunId = resultVal.analysisRunId;
+        BOOL showError = YES;
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            INVAnalysisExecutionsTableViewController *vc =
+            (INVAnalysisExecutionsTableViewController *) ((UINavigationController*)(segue.destinationViewController)).topViewController;
+            vc.projectId = self.projectId;
+            // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
+            if (cell.result && cell.result.count) {
+                INVAnalysisRunResult* resultVal = cell.result[0];
+                vc.analysisRunId = resultVal.analysisRunId;
+                showError = NO;
+            }
+           
         }
-        else {
+        if (showError) {
             UIAlertController *errorController =
             [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_RUN_RESULT_FETCH", nil)];
             

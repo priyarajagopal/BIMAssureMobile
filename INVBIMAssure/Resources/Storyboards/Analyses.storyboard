@@ -145,7 +145,7 @@
                         </connections>
                     </collectionView>
                     <connections>
-                        <segue destination="Yyu-fj-bdp" kind="showDetail" identifier="ShowAnalysisRunResultsSegue" id="gm3-L9-LMN"/>
+                        <segue destination="Euo-Ap-i24" kind="showDetail" identifier="ShowAnalysisRunResultsSegue" id="gm3-L9-LMN"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUA-Tr-lO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -384,7 +384,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="77Q-Ri-rQH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="En7-c9-emf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="683" y="1805"/>
+            <point key="canvasLocation" x="1495" y="1805"/>
         </scene>
         <!--Pkgs in Analysis Table View Controller-->
         <scene sceneID="kLr-gt-fEV">
@@ -410,7 +410,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jaw-e4-v1m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1358" y="1639.5"/>
+            <point key="canvasLocation" x="2170" y="1639.5"/>
         </scene>
         <!--Pkgs in Analysis Table View Controller-->
         <scene sceneID="ffy-iI-ube">
@@ -431,7 +431,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CoF-ho-Lwg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1358" y="1967.5"/>
+            <point key="canvasLocation" x="2170" y="1967.5"/>
         </scene>
         <!--Execution Issues Table View Controller-->
         <scene sceneID="oHE-iR-Waq">
@@ -517,6 +517,24 @@
                         <segue destination="ig8-vm-oos" kind="presentation" identifier="ShowIssuesSegue" modalPresentationStyle="formSheet" id="1V2-Xi-BX3"/>
                     </connections>
                 </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="840" y="1737"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8Kh-Cd-G5L">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Euo-Ap-i24" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tuG-2y-Qop">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Yyu-fj-bdp" kind="relationship" relationship="rootViewController" id="MFG-e6-okt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vxh-FD-nv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="28" y="1737"/>
         </scene>
