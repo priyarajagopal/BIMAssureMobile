@@ -145,7 +145,7 @@
                         </connections>
                     </collectionView>
                     <connections>
-                        <segue destination="Euo-Ap-i24" kind="showDetail" identifier="ShowAnalysisRunResultsSegue" id="gm3-L9-LMN"/>
+                        <segue destination="Euo-Ap-i24" kind="show" identifier="ShowAnalysisRunResultsSegue" id="gm3-L9-LMN"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUA-Tr-lO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -536,7 +536,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vxh-FD-nv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="28" y="1737"/>
+            <point key="canvasLocation" x="-116" y="1825"/>
         </scene>
     </scenes>
     <resources>
