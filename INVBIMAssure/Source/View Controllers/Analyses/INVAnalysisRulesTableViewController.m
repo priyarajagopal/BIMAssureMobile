@@ -49,6 +49,7 @@
         ruleInstanceVC.ruleName = [sender ruleName];
         ruleInstanceVC.ruleInstanceId = [sender ruleInstanceId];
         ruleInstanceVC.ruleId = [sender ruleDefId];
+        ruleInstanceVC.projectId = self.projectId;
         ruleInstanceVC.analysesId = self.analysisId;
     }
 }

@@ -87,6 +87,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
         INVRuleInstanceTableViewController *ruleInstanceViewController =
             (INVRuleInstanceTableViewController *) segue.destinationViewController;
+
+        ruleInstanceViewController.projectId = self.projectId;
         ruleInstanceViewController.analysesId = ruleSet.ruleSetId;
         ruleInstanceViewController.ruleInstanceId = ruleInstance.ruleInstanceId;
     }

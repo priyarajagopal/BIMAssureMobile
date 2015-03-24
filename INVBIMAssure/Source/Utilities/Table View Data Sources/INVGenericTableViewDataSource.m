@@ -19,6 +19,7 @@ typedef NSDictionary *INVHeaderContentDictionary;
  Keys for INVCellContentDictionary
  */
 const static NSString *INV_CellContextIndexPath = @"IndexPath";
+const static NSString *INV_CellContextCellBlock = @"CellBlock";
 const static NSString *INV_CellContextConfigBlock = @"ConfigBlock";
 const static NSString *INV_CellContextIdentifier = @"Identifier";
 const static NSString *INV_CellContextConfigBlockExtended = @"ConfigBlockWithIndexPath";
@@ -107,6 +108,22 @@ const static NSString *INV_HeaderContextIdentifier = @"Identifier";
     }
     [cellContentForSection addObject:content];
     self.cellConfigDictionary[@(indexPath.section)] = cellContentForSection;
+}
+
+- (void)registerCellBlock:(INV_CellBlock)cellBlock forSection:(NSInteger)section
+{
+    INVCellContentDictionary content = @{
+        INV_CellContextIndexPath : [NSIndexPath indexPathForRow:DEFAULT_ROW_INDEX inSection:section],
+        INV_CellContextCellBlock : [cellBlock copy]
+    };
+
+    NSMutableArray *cellContentForSection = self.cellConfigDictionary[@(section)];
+    if (!cellContentForSection) {
+        cellContentForSection = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+
+    [cellContentForSection addObject:content];
+    self.cellConfigDictionary[@(section)] = cellContentForSection;
 }
 
 - (CGFloat)heightOfRowContentAtIndexPath:(NSIndexPath *)indexPath
@@ -220,18 +237,24 @@ const static NSString *INV_HeaderContextIdentifier = @"Identifier";
         }];
     }
     if (cellContext) {
-        NSString *matchIdentifier = cellContext[INV_CellContextIdentifier];
-        id cell = [tableView dequeueReusableCellWithIdentifier:matchIdentifier];
-        [self configureCell:cell atIndexPath:indexPath withCellContext:cellContext];
+        id cell = nil;
+
+        if (cellContext[INV_CellContextIdentifier]) {
+            NSString *matchIdentifier = cellContext[INV_CellContextIdentifier];
+            cell = [tableView dequeueReusableCellWithIdentifier:matchIdentifier];
+        }
+
+        cell = [self configureCell:cell atIndexPath:indexPath withCellContext:cellContext];
+
         return cell;
     }
     return nil;
 }
 
 #pragma mark - helper
-- (void)configureCell:(UITableViewCell *)cell
-          atIndexPath:(NSIndexPath *)indexPath
-      withCellContext:(INVCellContentDictionary)cellContext
+- (id)configureCell:(UITableViewCell *)cell
+        atIndexPath:(NSIndexPath *)indexPath
+    withCellContext:(INVCellContentDictionary)cellContext
 {
     id cellData = nil;
     if (self.dataDictionary) {
@@ -241,11 +264,19 @@ const static NSString *INV_HeaderContextIdentifier = @"Identifier";
     else {
         cellData = [self.fetchedResultsController objectAtIndexPath:indexPath];
     }
+
+    INV_CellBlock cellBlock = cellContext[INV_CellContextCellBlock];
     INV_CellConfigurationBlock matchBlock = cellContext[INV_CellContextConfigBlock];
+
+    if (cellBlock) {
+        cell = cellBlock(cellData, indexPath);
+    }
 
     if (matchBlock) {
         matchBlock(cell, cellData, indexPath);
     }
+
+    return cell;
 }
 
 @end

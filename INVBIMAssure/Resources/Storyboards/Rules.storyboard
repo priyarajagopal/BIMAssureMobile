@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -178,7 +178,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="dAA-HH-HF5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="2Ld-2c-xxZ">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -211,7 +211,7 @@
         <scene sceneID="LVs-Vv-b5z">
             <objects>
                 <tableViewController storyboardIdentifier="CreateRuleInstanceTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1ma-4v-SeD" userLabel="Rule Instance Modify TVC" customClass="INVRuleInstanceTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uFl-9X-1Tq">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uFl-9X-1Tq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -233,6 +233,10 @@
                                 </navigationItem>
                             </items>
                         </navigationBar>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="ZLc-ru-YFg">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <connections>
                             <outlet property="dataSource" destination="1ma-4v-SeD" id="Lwc-em-yZh"/>
                             <outlet property="delegate" destination="1ma-4v-SeD" id="L3g-HT-Nc6"/>
@@ -241,11 +245,32 @@
                     <connections>
                         <outlet property="navigationBar" destination="Gjl-oh-30q" id="J2R-EA-oWp"/>
                         <outlet property="saveBarButton" destination="wqK-ha-n4d" id="THk-Qj-xGh"/>
+                        <segue destination="Ld6-mz-qkW" kind="popoverPresentation" identifier="showAnalysisRuleElements" popoverAnchorView="uFl-9X-1Tq" id="Q4n-A2-XAH">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES"/>
+                        </segue>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tke-Ms-i6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4605" y="3440"/>
+        </scene>
+        <!--Analysis Rule Element Types Table View Controller-->
+        <scene sceneID="6DX-LX-Rqi">
+            <objects>
+                <tableViewController id="Ld6-mz-qkW" customClass="INVAnalysisRuleElementTypesTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vOV-QW-vnr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Ld6-mz-qkW" id="SsB-Fz-yIb"/>
+                            <outlet property="delegate" destination="Ld6-mz-qkW" id="bLl-ut-IJ1"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5hk-NW-l4B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4605" y="4201"/>
         </scene>
         <!--Rules-->
         <scene sceneID="Ta0-YB-6ZV">
@@ -266,56 +291,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m8S-k0-Df8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4266" y="2641"/>
-        </scene>
-        <!--Create Rule Instance TVC-->
-        <scene sceneID="wwQ-UH-wCR">
-            <objects>
-                <tableViewController storyboardIdentifier="RuleInstanceDetailTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ako-p8-m6l" userLabel="Create Rule Instance TVC" customClass="INVRuleInstanceTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="6rA-Ax-a9d">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="gBv-rY-nWp">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <items>
-                                <navigationItem title="Rule" id="ajd-xJ-ixN">
-                                    <barButtonItem key="leftBarButtonItem" title="Cancel" id="ngU-Et-fNt">
-                                        <color key="tintColor" red="0.56078431370000004" green="0.039215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <segue destination="9hY-bV-zbN" kind="unwind" identifier="CancelSegue" unwindAction="manualDismiss:" id="JVa-wE-hAf"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem key="rightBarButtonItem" title="Save" id="9PK-b7-cuE">
-                                        <connections>
-                                            <action selector="onSaveRuleInstanceTapped:" destination="ako-p8-m6l" id="0oy-iJ-Y3z"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </navigationItem>
-                            </items>
-                        </navigationBar>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="RuleInstanceDetailCell" id="RBz-eu-5qF" customClass="INVRuleInstanceActualParamTableViewCell">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RBz-eu-5qF" id="ytC-xx-LEm">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="ako-p8-m6l" id="WqT-jd-VSI"/>
-                            <outlet property="delegate" destination="ako-p8-m6l" id="0bg-6d-5ok"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="navigationBar" destination="gBv-rY-nWp" id="GSE-m5-0gp"/>
-                        <outlet property="saveBarButton" destination="9PK-b7-cuE" id="lSM-cx-ddz"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qgh-l2-OgT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="9hY-bV-zbN" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="6455" y="4509"/>
         </scene>
     </scenes>
     <resources>

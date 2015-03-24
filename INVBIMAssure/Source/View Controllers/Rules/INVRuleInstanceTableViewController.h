@@ -17,8 +17,11 @@
 @interface INVRuleInstanceTableViewController : INVCustomTableViewController
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) id<INVRuleInstanceTableViewControllerDelegate> delegate;
+
 @property (nonatomic, copy) NSString *ruleName;
+@property (nonatomic, copy) NSNumber *projectId;
 @property (nonatomic, copy) NSNumber *ruleInstanceId;
 @property (nonatomic, copy) NSNumber *analysesId;
 @property (nonatomic, copy) NSNumber *ruleId;
+
 @end

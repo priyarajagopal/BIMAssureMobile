@@ -145,10 +145,18 @@
     }
 
     if (object == source && [keyPath isEqual:self.sourceKeyPath]) {
-        [target setValue:newValue forKeyPath:self.targetKeyPath];
+        id oldValue = [target valueForKeyPath:self.targetKeyPath];
+
+        if (![oldValue isEqual:newValue]) {
+            [target setValue:newValue forKeyPath:self.targetKeyPath];
+        }
     }
     else if (self.bothWays && object == target && [keyPath isEqual:self.targetKeyPath]) {
-        [source setValue:newValue forKeyPath:self.sourceKeyPath];
+        id oldValue = [source valueForKey:self.sourceKeyPath];
+
+        if (![oldValue isEqual:newValue]) {
+            [source setValue:newValue forKeyPath:self.sourceKeyPath];
+        }
     }
 }
 

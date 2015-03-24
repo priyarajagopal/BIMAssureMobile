@@ -10,6 +10,7 @@
 @import CoreData;
 
 typedef void (^INV_FetchMoreCellConfigurationBlock)(NSIndexPath *indexPath);
+typedef UITableViewCell * (^INV_CellBlock)(id cellData, NSIndexPath *indexPath);
 typedef void (^INV_CellConfigurationBlock)(id cell, id cellData, NSIndexPath *indexPath);
 typedef void (^INV_HeaderConfigurationBlock)(id headerView, id headerData, NSInteger section);
 typedef void (^INV_DeleteRowBlock)(id cell, id cellData, NSIndexPath *indexPath);
@@ -38,6 +39,8 @@ typedef BOOL (^INV_RowEditableBlock)(id cellData, NSIndexPath *indexPath);
 - (void)registerCellWithIdentifier:(NSString *)cellIdentifier
                     configureBlock:(INV_CellConfigurationBlock)configBlock
                       forIndexPath:(NSIndexPath *)indexPath;
+
+- (void)registerCellBlock:(INV_CellBlock)cellBlock forSection:(NSInteger)section;
 
 - (CGFloat)heightOfRowContentAtIndexPath:(NSIndexPath *)indexPath;
 @end

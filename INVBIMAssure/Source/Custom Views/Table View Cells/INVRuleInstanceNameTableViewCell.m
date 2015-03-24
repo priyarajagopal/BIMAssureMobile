@@ -26,6 +26,11 @@
     // Configure the view for the selected state
 }
 
+- (BOOL)becomeFirstResponder
+{
+    return [self.ruleName becomeFirstResponder];
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
