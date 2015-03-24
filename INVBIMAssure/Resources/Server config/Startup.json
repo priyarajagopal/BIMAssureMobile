@@ -2,10 +2,10 @@
 	"defaultdeploy": "development",
 	"deploys": [
 	{
-		"name": "development",
+		"name": "QA",
 		"servers": [
-			{"server": "xospassport", "url": "http://192.168.50.11:8080/xospassport/"},
-			{"server": "empiremanage", "url": "http://192.168.50.11:8080/empiremanage/"},
+			{"server": "xospassport", "url": "http://54.69.132.93:8080/xospassport/"},
+			{"server": "empiremanage", "url": "http://54.69.132.93:8080/empiremanage/"},
 			{"server": "empireweb", "url": "http://localhost"}
 		]
 	}

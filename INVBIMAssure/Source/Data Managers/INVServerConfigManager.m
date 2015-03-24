@@ -112,6 +112,7 @@
     INVLogDebug(@"JSON config from %@ recieved: %@", [url URL], jsonConfig);
 
     NSString *deployName = @STRINGIFY(INV_DEPLOYMENT_NAME);
+
     NSString *defaultDeployName = jsonConfig[@"defaultdeploy"];
 
     NSDictionary *defaultDeploy = nil;
@@ -149,6 +150,7 @@
         }
     }
 
+    INVLogDebug(@"_empireManageServerURL %@, _passportServerURL is %@", _empireManageServerURL, _passportServerURL);
     if (data) {
         *data = configData;
     }
