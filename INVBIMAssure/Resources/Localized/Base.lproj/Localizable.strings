@@ -272,3 +272,4 @@
 
 "FILES_INCLUDED_IN_ANALYSIS"="Packages included in Analysis";
 "FILES_NOT_INCLUDED_IN_ANALYSIS"="Packages not included in Analysis";
+"ANALYSIS_RUN_DETAILS"="Analysis Run : %1d";

@@ -12,5 +12,8 @@
 @interface INVModelTreeIssuesTableViewController : INVModelTreeBaseViewController
 
 @property NSNumber *packageVersionId;
+@property (nonatomic,copy)INVAnalysisRunResult* runResult;
+@property NSNumber* analysisRunId;
 
+@property (assign)BOOL doNotClearBackground;
 @end

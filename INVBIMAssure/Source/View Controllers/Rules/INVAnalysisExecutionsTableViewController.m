@@ -10,6 +10,7 @@
 #import "INVRuleInstanceExecutionResultTableViewCell.h"
 #import "INVExecutionIssuesTableViewController.h"
 #import "EmpireMobileManager/INVRuleInstanceExecution.h"
+#import "INVModelTreeIssuesTableViewController.h"
 
 static const NSInteger SECTION_INDEX_RESULTS = 0;
 static const NSInteger DEFAULT_CELL_HEIGHT = 100;
@@ -23,7 +24,6 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 @property (nonatomic, strong) INVPackage *file;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, assign) NSInteger fetchedFilesExecutionCallbackCount;
-
 
 @end
 
@@ -72,66 +72,66 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
 - (void)initializeTableViewDataSource
 {
-    self.dataSource = [[INVGenericTableViewDataSource alloc] initWithDataArray:@[] forSection:SECTION_INDEX_RESULTS forTableView:self.tableView];
-    INV_CellConfigurationBlock cellConfigurationBlock =
-        ^(INVRuleInstanceExecutionResultTableViewCell *cell, INVAnalysisRunResult *execution, NSIndexPath *indexPath) {
+    self.dataSource = [[INVGenericTableViewDataSource alloc] initWithDataArray:@[
+    ] forSection:SECTION_INDEX_RESULTS forTableView:self.tableView];
+    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceExecutionResultTableViewCell *cell,
+                                                            INVAnalysisRunResult *execution, NSIndexPath *indexPath) {
+        cell.runResult = execution;
+        cell.ruleInstanceName.text = execution.ruleName;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-            cell.ruleInstanceName.text = execution.ruleName;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSString *overView = execution.ruleDescription && execution.ruleDescription.length
+                                 ? execution.ruleDescription
+                                 : NSLocalizedString(@"DESCRIPTION_UNAVAILABLE", nil);
+        cell.ruleInstanceOverview.text = overView;
 
-            NSString *overView = execution.ruleDescription && execution.ruleDescription.length
-                                     ? execution.ruleDescription
-                                     : NSLocalizedString(@"DESCRIPTION_UNAVAILABLE", nil);
-            cell.ruleInstanceOverview.text = overView;
+        NSString *executedAtStr = NSLocalizedString(@"EXECUTED_AT", nil);
 
-            NSString *executedAtStr = NSLocalizedString(@"EXECUTED_AT", nil);
-        
+        NSString *executedAtWithDateStr =
+            [NSString stringWithFormat:@"%@ : %@", executedAtStr, [self.dateFormatter stringFromDate:execution.createdAt]];
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:executedAtWithDateStr];
+        [attrString addAttribute:NSForegroundColorAttributeName
+                           value:[UIColor darkTextColor]
+                           range:NSMakeRange(0, executedAtStr.length - 1)];
+        [attrString addAttribute:NSForegroundColorAttributeName
+                           value:[UIColor lightGrayColor]
+                           range:NSMakeRange(executedAtStr.length, executedAtWithDateStr.length - executedAtStr.length)];
+        cell.ruleInstanceExecutionDate.attributedText = attrString;
 
-            NSString *executedAtWithDateStr =
-                [NSString stringWithFormat:@"%@ : %@", executedAtStr, [self.dateFormatter stringFromDate:execution.createdAt]];
-            NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:executedAtWithDateStr];
-            [attrString addAttribute:NSForegroundColorAttributeName
-                               value:[UIColor darkTextColor]
-                               range:NSMakeRange(0, executedAtStr.length - 1)];
-            [attrString addAttribute:NSForegroundColorAttributeName
-                               value:[UIColor lightGrayColor]
-                               range:NSMakeRange(executedAtStr.length, executedAtWithDateStr.length - executedAtStr.length)];
-            cell.ruleInstanceExecutionDate.attributedText = attrString;
+        UIColor *successColor = [UIColor colorWithRed:63.0 / 255 green:166.0 / 255 blue:125.0 / 255 alpha:1.0];
+        UIColor *failColor = [UIColor colorWithRed:212.0 / 255 green:38.0 / 255 blue:58.0 / 255 alpha:1.0];
+        UIColor *otherColor = [UIColor darkGrayColor];
 
-            UIColor *successColor = [UIColor colorWithRed:63.0 / 255 green:166.0 / 255 blue:125.0 / 255 alpha:1.0];
-            UIColor *failColor = [UIColor colorWithRed:212.0 / 255 green:38.0 / 255 blue:58.0 / 255 alpha:1.0];
-            UIColor *otherColor = [UIColor darkGrayColor];
+        if ([execution.status isEqualToString:@"Completed"]) {
+            cell.executionStatus.backgroundColor = successColor;
+        }
+        else if ([execution.status isEqualToString:@"Failed"]) {
+            cell.executionStatus.backgroundColor = failColor;
+        }
+        else {
+            cell.executionStatus.backgroundColor = otherColor;
+        }
 
-            if ([execution.status isEqualToString:@"Completed"]) {
-                cell.executionStatus.backgroundColor = successColor;
-            }
-            else if ([execution.status isEqualToString:@"Failed"]) {
-                cell.executionStatus.backgroundColor = failColor;
-            }
-            else {
-                cell.executionStatus.backgroundColor = otherColor;
-            }
+        cell.executionStatus.text = execution.status;
+        NSString *issuesText = NSLocalizedString(@"NO_ISSUES", nil);
 
-            cell.executionStatus.text = execution.status;
-            NSString *issuesText = NSLocalizedString(@"NO_ISSUES", nil);
+        if (execution.issues.count) {
+            NSDictionary *issueElement = execution.issues[0];
+            NSArray *buildingElements = issueElement[@"buildingElements"];
+            issuesText = [NSString stringWithFormat:@"%@: %ld", NSLocalizedString(@"NUM_ERRORS", nil), execution.issues.count];
+            cell.numIssues.textColor = failColor;
+            cell.associatedBuildingElementsWithIssues = buildingElements;
 
-            if (execution.issues.count) {
-                NSDictionary *issueElement = execution.issues[0];
-                NSArray *buildingElements = issueElement[@"buildingElements"];
-                issuesText = [NSString stringWithFormat:@"%@: %ld", NSLocalizedString(@"NUM_ERRORS", nil), execution.issues.count];
-                cell.numIssues.textColor = failColor;
-                cell.associatedBuildingElementsWithIssues = buildingElements;
+            [cell.alertIconLabel setHidden:NO];
+        }
+        else {
+            cell.numIssues.textColor = [UIColor colorWithRed:60.0 / 255 green:130.0 / 255 blue:102.0 / 255 alpha:1.0];
+            [cell.alertIconLabel setHidden:YES];
+            cell.associatedBuildingElementsWithIssues = nil;
+        }
+        cell.numIssues.text = issuesText;
 
-                [cell.alertIconLabel setHidden:NO];
-            }
-            else {
-                cell.numIssues.textColor = [UIColor colorWithRed:60.0 / 255 green:130.0 / 255 blue:102.0 / 255 alpha:1.0];
-                [cell.alertIconLabel setHidden:YES];
-                cell.associatedBuildingElementsWithIssues = nil;
-            }
-            cell.numIssues.text = issuesText;
-
-        };
+    };
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleExecutionTVC" configureBlock:cellConfigurationBlock];
     self.tableView.dataSource = self.dataSource;
 }
@@ -174,10 +174,7 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIAlertController *errController =
-        [[UIAlertController alloc] initWithErrorMessage:@"The issues list is not supported in this version!"];
-    [self presentViewController:errController animated:YES completion:nil];
-
+#define _SERVER_SUPPORT_AVAILABLE_
 #ifdef _SERVER_SUPPORT_AVAILABLE_
     INVRuleInstanceExecutionResultTableViewCell *cell =
         (INVRuleInstanceExecutionResultTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
@@ -185,6 +182,11 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         return;
     }
     [self performSegueWithIdentifier:@"ShowIssuesSegue" sender:self];
+
+#else
+    UIAlertController *errController =
+        [[UIAlertController alloc] initWithErrorMessage:@"The issues list is not supported in this version!"];
+    [self presentViewController:errController animated:YES completion:nil];
 
 #endif
 }
@@ -197,27 +199,29 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         [self showLoadProgress];
     }
 
-    [self.globalDataManager.invServerClient  getExecutionResultsForAnalysisRun:self.analysisRunId WithCompletionBlock:^(INVAnalysisRunResultsArray response, INVEmpireMobileError *error) {
-        if ([self.refreshControl isRefreshing]) {
-            [self.refreshControl endRefreshing];
-        }
-        else {
-            [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-        }
-        
-        if (!error) {
-            [self.dataSource updateWithDataArray:response forSection:SECTION_INDEX_RESULTS];
-            [self.tableView performSelectorOnMainThread:@selector(reloadData)
-                                             withObject:nil
-                                          waitUntilDone:NO];
-        }
-        else {
-            UIAlertController *errController = [[UIAlertController alloc]
-                                                initWithErrorMessage:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),
-                                                error.code.integerValue];
-            [self presentViewController:errController animated:YES completion:nil];
-        }
-    } ];
+    [self.globalDataManager.invServerClient
+        getExecutionResultsForAnalysisRun:self.analysisRunId
+                      WithCompletionBlock:^(INVAnalysisRunResultsArray response, INVEmpireMobileError *error) {
+                          if ([self.refreshControl isRefreshing]) {
+                              [self.refreshControl endRefreshing];
+                          }
+                          else {
+                              [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
+                          }
+
+                          if (!error) {
+                              [self.dataSource updateWithDataArray:response forSection:SECTION_INDEX_RESULTS];
+                              [self.tableView performSelectorOnMainThread:@selector(reloadData)
+                                                               withObject:nil
+                                                            waitUntilDone:NO];
+                          }
+                          else {
+                              UIAlertController *errController = [[UIAlertController alloc]
+                                  initWithErrorMessage:NSLocalizedString(@"ERROR_EXECUTION_LOAD", nil),
+                                  error.code.integerValue];
+                              [self presentViewController:errController animated:YES completion:nil];
+                          }
+                      }];
 }
 
 #pragma mark - UIEvent handler
@@ -237,7 +241,6 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     return _analysesManager;
 }
 
-
 - (INVProjectManager *)projectManager
 {
     if (!_projectManager) {
@@ -255,8 +258,6 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     }
     return _dateFormatter;
 }
-
-
 
 - (INVPackage *)file
 {
@@ -281,9 +282,15 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
     if ([segue.identifier isEqualToString:@"ShowIssuesSegue"]) {
         INVRuleInstanceExecutionResultTableViewCell *cell = (INVRuleInstanceExecutionResultTableViewCell *)
             [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-        INVExecutionIssuesTableViewController *executionTVC =
-            (INVExecutionIssuesTableViewController *) segue.destinationViewController;
-        executionTVC.buildingElementsWithIssues = cell.associatedBuildingElementsWithIssues;
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            INVModelTreeIssuesTableViewController *executionTVC =
+          (INVModelTreeIssuesTableViewController*) ( (UINavigationController *) segue.destinationViewController).topViewController;
+            executionTVC.packageVersionId = self.fileVersionId;
+            executionTVC.analysisRunId = self.analysisRunId;
+            executionTVC.runResult = cell.runResult;
+            executionTVC.doNotClearBackground  = YES;
+        }
+  
     }
 }
 
