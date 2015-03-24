@@ -458,11 +458,11 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)loginAccount
 {
-     [self.globalDataManager.invServerClient
+    [self.globalDataManager.invServerClient
             signIntoAccount:self.currentAccountId
         withCompletionBlock:INV_COMPLETION_HANDLER {
             INV_ALWAYS:
-            
+
             INV_SUCCESS:
                 self.globalDataManager.loggedInAccount = self.currentAccountId;
                 INVLogDebug(@"Account token for %@ is %@", self.currentAccountId,
@@ -479,7 +479,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
             INV_ERROR:
                 INVLogError(@"%@", error);
-            self.globalDataManager deleteCurrentlySavedCredentialsFromKC
+                [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
                 [self showLoginFailureAlert];
         }];
 }
