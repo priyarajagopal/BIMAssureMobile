@@ -1227,6 +1227,12 @@
 				F5789D2A1A642A5500D8CEE7 /* INVAnalysisExecutionsTableViewController.m */,
 				F577DBC21AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.h */,
 				F577DBC31AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m */,
+				F5789D2F1A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.h */,
+				F5789D301A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.m */,
+				F5789D2D1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.h */,
+				F5789D2E1A642A5500D8CEE7 /* INVAnalysisFilesListTableViewController.m */,
+				F5789D251A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.h */,
+				F5789D261A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.m */,
 			);
 			path = Analyses;
 			sourceTree = "<group>";
