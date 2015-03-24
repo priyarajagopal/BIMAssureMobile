@@ -9,16 +9,6 @@
 #import <Mantle/Mantle.h>
 #import "INVUser.h"
 
-@interface INVSignedInUser : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
-@property (copy, nonatomic, readonly) NSString *email;
-@property (copy, nonatomic, readonly) NSString *firstName;
-@property (copy, nonatomic, readonly) NSString *lastName;
-@property (copy, nonatomic, readonly) NSString *accountGuid;
-@property (copy, nonatomic, readonly) NSNumber* accountId;
-@property (copy, nonatomic, readonly) NSArray* context;
-@property (copy, nonatomic, readonly) NSString* accountType;
-@property (copy, nonatomic, readonly) NSArray* roles;
-@property (copy, nonatomic, readonly) NSNumber *userId;
-@property (copy, nonatomic, readonly) NSString* expires;
+@interface INVSignedInUser : INVUser
 
 @end

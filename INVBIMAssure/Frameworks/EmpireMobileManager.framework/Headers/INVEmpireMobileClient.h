@@ -239,6 +239,24 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  */
 - (void)getUserProfileInSignedInAccountWithId:(NSNumber *)userId withCompletionBlock:(CompletionHandlerWithData)handler;
 
+
+/**
+ Asynchornously ,get profile of signed in user
+ 
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then  the
+ INVSignedUser object is returned
+ 
+ 
+ @see -signInWithUserName:andPassword:withCompletionBlock:
+ 
+ @see accountManager
+ 
+ 
+ */
+- (void)getUserProfileInSignedUserWithCompletionBlock:(void(^)(INVSignedInUser* user, INVEmpireMobileError* error))handler;
+
+
 /**
  Asynchornously ,update profile of specified user.User should have signed in with
  -signInWithUserName:andPassword:withCompletionBlock: . The values provided will override
@@ -284,6 +302,51 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                                            email:(NSString *)userEmail
                               allowNotifications:(BOOL)allowNotifications
                              withCompletionBlock:(CompletionHandler)handler;
+
+/**
+ Asynchornously ,update profile of current signed in user.User should have signed in with
+ -signInWithUserName:andPassword:withCompletionBlock: . The values provided will override
+ the existing values so it is important to provide values even for those parameters that are not changed
+ 
+ NOTE : This API is not fully functional on server side. Should be available shortly
+ 
+ @param userId The ID of user whose profile is to be updated
+ 
+ @param firstName FirstName of user to be added
+ 
+ @param lastName lastName of user to be added
+ 
+ @param userAddress optional address of user to be added
+ 
+ @param userPhoneNumber optional phone number of user to be added
+ 
+ @param userCompanyName optional company name of user to be added
+ 
+ @param title optional title of user to be added
+ 
+ @param userEmail email address of user
+ 
+ 
+ @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then  the
+ INVSignedInUser object is returned
+ 
+ @see -signInWithUserName:andPassword:withCompletionBlock:
+ 
+ @see accountManager
+ 
+ 
+ */
+- (void)updateUserProfileOfUserWithId:(NSNumber *)userId withFirstName:(NSString *)firstName
+                                        lastName:(NSString *)lastName
+                                     userAddress:(NSString *)userAddress
+                                 userPhoneNumber:(NSString *)userPhoneNumber
+                                 userCompanyName:(NSString *)userCompanyname
+                                           title:(NSString *)title
+                                           email:(NSString *)userEmail
+                              allowNotifications:(BOOL)allowNotifications
+                             withCompletionBlock:(void(^)(INVSignedInUser* user, INVEmpireMobileError* error))handler;
 
 /**
  Asynchornously ,get list of members belonging to currentrly signed in account. If the request is made on behalf of admin user,
