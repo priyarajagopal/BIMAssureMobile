@@ -133,6 +133,9 @@
             if (cell.result && cell.result.count) {
                 INVAnalysisRunResult* resultVal = cell.result[0];
                 vc.analysisRunId = resultVal.analysisRunId;
+                vc.fileVersionId = self.packageVersionId;
+                vc.fileMasterId = self.packageMasterId;
+                vc.projectId = self.projectId;
                 showError = NO;
             }
            

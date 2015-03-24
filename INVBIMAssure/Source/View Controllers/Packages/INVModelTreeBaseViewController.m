@@ -38,8 +38,8 @@
     [super viewDidLoad];
 
     self.refreshControl = nil;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.backgroundView = nil;
+  //  self.tableView.backgroundColor = [UIColor clearColor];
+  //  self.tableView.backgroundView = nil;
 
     self.nodeHeights = [NSMutableDictionary new];
 

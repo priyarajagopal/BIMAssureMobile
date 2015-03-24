@@ -29,6 +29,11 @@
 
     CGFloat imageSize = 25;
     self.tabBarItem.image = [[FAKFontAwesome warningIconWithSize:imageSize] imageWithSize:CGSizeMake(imageSize, imageSize)];
+    
+    if (self.doNotClearBackground) {
+        self.tableView.backgroundColor = [UIColor whiteColor];
+    }
+   
 }
 
 - (INVModelTreeNode *)treeNodeForBuildingElement:(NSDictionary *)buildingElement withParent:(INVModelTreeNode *)parent
@@ -82,7 +87,7 @@
 - (INVModelTreeNode *)treeNodeForAnalysisRunDetails:(INVAnalysisRunDetails *)result withParent:(INVModelTreeNode *)parent
 {
     INVModelTreeNode *node =
-        [INVModelTreeNode treeNodeWithName:[NSString stringWithFormat:@"Run Details %@", result.analysisRunDetailsId]
+    [INVModelTreeNode treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS",nil), result.analysisRunDetailsId]
                                         id:result.analysisRunDetailsId
                            andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                                                NSError *__strong *error, void (^completed)(NSArray *) ) {
@@ -107,6 +112,25 @@
 - (INVModelTreeNode *)rootNode
 {
     if (_rootNode == nil) {
+        if (self.runResult) {
+            _rootNode = [INVModelTreeNode treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS",nil), self.analysisRunId]
+                                            id:self.analysisRunId
+                               andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+                                                     NSError *__strong *error, void (^completed)(NSArray *) ) {
+                                   
+                                   NSArray *issues = self.runResult.issues;
+                                   *expectedTotalCount = [issues count];
+                                   completed([issues arrayByApplyingBlock:^id(id issue, NSUInteger _, BOOL *__) {
+                                       return [self treeNodeForIssue:issue withParent:node];
+                                   }]);
+                                   
+                                   return YES;
+                               }];
+        
+        
+
+        }
+        else {
         _rootNode = [INVModelTreeNode
             treeNodeWithName:NSStringFromClass([self class])
                           id:nil
@@ -147,6 +171,7 @@
 
                  return YES;
              }];
+        }
 
         [self registerNode:_rootNode animateChanges:NO];
     }
