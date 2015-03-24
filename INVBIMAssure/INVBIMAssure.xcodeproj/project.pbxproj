@@ -85,6 +85,9 @@
 		F55FF5FF1A83E20C00ED6691 /* UIView+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F55FF5FE1A83E20C00ED6691 /* UIView+INVCustomizations.m */; };
 		F56C9DFF1AB1C46100D365AD /* libPods-AWPagedArray.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F56C9DFE1AB1C46100D365AD /* libPods-AWPagedArray.a */; };
 		F577DBC41AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F577DBC31AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m */; };
+		F577DBC71AC1F1ED002A904C /* Licensing.md in Sources */ = {isa = PBXBuildFile; fileRef = F577DBC61AC1F1ED002A904C /* Licensing.md */; };
+		F577DBC91AC1F3BA002A904C /* Licensing.html in Resources */ = {isa = PBXBuildFile; fileRef = F577DBC81AC1F3BA002A904C /* Licensing.html */; };
+		F577DBCD1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F577DBCC1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.m */; };
 		F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C841A6429F200D8CEE7 /* Crashlytics.framework */; };
 		F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5789C861A6429F200D8CEE7 /* Fabric.framework */; };
 		F5789D351A642A5500D8CEE7 /* INVDefaultAccountAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789C931A642A5500D8CEE7 /* INVDefaultAccountAlertView.m */; };
@@ -355,6 +358,10 @@
 		F56C9DFE1AB1C46100D365AD /* libPods-AWPagedArray.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AWPagedArray.a"; path = "/Volumes/Data/GitHub/EmpireMobileApp-iOS/Pods/../build/Debug-iphoneos/libPods-AWPagedArray.a"; sourceTree = "<absolute>"; };
 		F577DBC21AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisRuleElementTypesTableViewController.h; sourceTree = "<group>"; };
 		F577DBC31AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisRuleElementTypesTableViewController.m; sourceTree = "<group>"; };
+		F577DBC61AC1F1ED002A904C /* Licensing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
+		F577DBC81AC1F3BA002A904C /* Licensing.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Licensing.html; sourceTree = "<group>"; };
+		F577DBCB1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVThirdPartySoftwareViewController.h; sourceTree = "<group>"; };
+		F577DBCC1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVThirdPartySoftwareViewController.m; sourceTree = "<group>"; };
 		F5789C841A6429F200D8CEE7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F5789C861A6429F200D8CEE7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F5789C921A642A5500D8CEE7 /* INVDefaultAccountAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVDefaultAccountAlertView.h; sourceTree = "<group>"; };
@@ -630,11 +637,11 @@
 				F5D932ED1AB76406008D1051 /* Analyses.storyboard */,
 				024FEEF21A6986C1001CA262 /* Files.storyboard */,
 				F5426D4C1A680EA30040B2B5 /* Login.storyboard */,
-				F5426D4D1A680EA30040B2B5 /* Main.storyboard */,
 				F5426D4B1A680EA30040B2B5 /* Account.storyboard */,
 				F5426D551A680F3F0040B2B5 /* Notifications.storyboard */,
 				024FEEF41A698E0E001CA262 /* Rules.storyboard */,
 				F5426D4E1A680EA30040B2B5 /* Settings.storyboard */,
+				F5426D4D1A680EA30040B2B5 /* Main.storyboard */,
 				F5269DE01A76A434006AC27A /* UserInfo.storyboard */,
 				F5426D4F1A680EA30040B2B5 /* UserManagement.storyboard */,
 			);
@@ -751,6 +758,24 @@
 				F5DC65B51A816F9C001713B9 /* INVNotificationsConfigurationTableViewController.m */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		F577DBC51AC1F1ED002A904C /* Legal */ = {
+			isa = PBXGroup;
+			children = (
+				F577DBC81AC1F3BA002A904C /* Licensing.html */,
+				F577DBC61AC1F1ED002A904C /* Licensing.md */,
+			);
+			path = Legal;
+			sourceTree = "<group>";
+		};
+		F577DBCA1AC1F49C002A904C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F577DBCB1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.h */,
+				F577DBCC1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.m */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		F5789C901A642A5500D8CEE7 /* Source */ = {
@@ -995,6 +1020,7 @@
 		F5789CEF1A642A5500D8CEE7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F577DBCA1AC1F49C002A904C /* Settings */,
 				F5D932EF1AB764C8008D1051 /* Analyses */,
 				F5789CFF1A642A5500D8CEE7 /* Base View Controllers  */,
 				F5426D571A6816B40040B2B5 /* Notifications */,
@@ -1134,16 +1160,17 @@
 		F5789D891A642A6200D8CEE7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				025489451A6726AB00EE012D /* Storyboards */,
-				F539D52E1A64495D007A2BDC /* Localized */,
+				F539D53D1A645497007A2BDC /* Account Thumbnails */,
 				F5789D8A1A642A6200D8CEE7 /* Images.xcassets */,
 				F5789D8B1A642A6200D8CEE7 /* Info.plist */,
 				F5789D8C1A642A6200D8CEE7 /* Interface Builder */,
+				F577DBC51AC1F1ED002A904C /* Legal */,
+				F539D52E1A64495D007A2BDC /* Localized */,
+				F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */,
 				F5789D9E1A642A6200D8CEE7 /* Server Config */,
 				F5789DA41A642A6200D8CEE7 /* Shaders */,
-				F5FC0CBE1AA6413800FBAE84 /* Project Thumbnails */,
+				025489451A6726AB00EE012D /* Storyboards */,
 				F5FC0CBC1AA6408900FBAE84 /* User Thumbnails */,
-				F539D53D1A645497007A2BDC /* Account Thumbnails */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1342,6 +1369,7 @@
 				F55AD9141A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib in Resources */,
 				F5426D511A680EA30040B2B5 /* Login.storyboard in Resources */,
 				F5789DB51A642A6200D8CEE7 /* INVRuleInstanceStringParamTableViewCell.xib in Resources */,
+				F577DBC91AC1F3BA002A904C /* Licensing.html in Resources */,
 				024FEEF31A6986C1001CA262 /* Files.storyboard in Resources */,
 				F5024AE91A66E7EE002EEE5F /* LaunchScreen.xib in Resources */,
 				F5789DC41A642A6200D8CEE7 /* Startup.json in Resources */,
@@ -1522,6 +1550,7 @@
 				F5024AFD1A6808FA002EEE5F /* INVNotification.m in Sources */,
 				F5DB4C191A88FD6B0083331C /* UIFont+INVCustomizations.m in Sources */,
 				F5789D3A1A642A5500D8CEE7 /* INVSearchViewQuickSearchBackgroundView.m in Sources */,
+				F577DBCD1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.m in Sources */,
 				F5789D3C1A642A5500D8CEE7 /* INVGeneralAddRemoveTableViewCell.m in Sources */,
 				F5BEE5801ABB4E7C0089E177 /* INVModelTreeIssuesTableViewController.m in Sources */,
 				F5789D411A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */,
@@ -1582,6 +1611,7 @@
 				F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */,
 				F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */,
 				F5789D391A642A5500D8CEE7 /* INVSearchView.m in Sources */,
+				F577DBC71AC1F1ED002A904C /* Licensing.md in Sources */,
 				F54864921AB36A2400975CF7 /* INVBuildingElementPropertiesNavigationViewController.m in Sources */,
 				F5789D681A642A5500D8CEE7 /* INVCustomTableViewController.m in Sources */,
 				F5789D6A1A642A5500D8CEE7 /* INVMainMenuViewController.m in Sources */,
