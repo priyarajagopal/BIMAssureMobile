@@ -7,41 +7,44 @@
 //
 
 #import "INVRuleInstanceOverviewTableViewCell.h"
+#import "NSObject+INVCustomizations.h"
 
-@interface INVRuleInstanceOverviewTableViewCell () <UITextFieldDelegate, UITextViewDelegate>
+@interface INVRuleInstanceOverviewTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UITextView *ruleDescription;
+
 @end
 
 @implementation INVRuleInstanceOverviewTableViewCell
 
 - (void)awakeFromNib
 {
-    // Initialization code
     [self.ruleDescription setTintColor:[UIColor darkGrayColor]];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (BOOL)becomeFirstResponder
 {
-    [super setSelected:selected animated:animated];
+    return [self.ruleDescription becomeFirstResponder];
+}
 
-    // Configure the view for the selected state
+- (void)setOverview:(NSString *)overview
+{
+    self.ruleDescription.text = [overview copy];
+}
+
+- (NSString *)overview
+{
+    return self.ruleDescription.text;
 }
 
 #pragma mark - UITextViewDelegate
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(onBeginEditingRuleInstanceOverviewField:)]) {
-        [self.delegate onBeginEditingRuleInstanceOverviewField:self];
-    }
-    return YES;
-}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"]) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(onRuleInstanceOverviewUpdated:)]) {
-            [self.delegate onRuleInstanceOverviewUpdated:self];
-        }
+        return NO;
     }
+
     return YES;
 }
 
