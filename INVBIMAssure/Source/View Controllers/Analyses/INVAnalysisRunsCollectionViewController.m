@@ -11,7 +11,7 @@
 #import "NSArray+INVCustomizations.h"
 #import "INVBlockUtils.h"
 #import "INVAnalysisExecutionsTableViewController.h"
-
+#import "UIView+INVCustomizations.h"
 
 @interface INVAnalysisRunsCollectionViewController ()
 
@@ -20,7 +20,7 @@
 
 @property NSMutableArray *validAnalysisRunsForCurrentPackage;
 @property NSMutableDictionary *analysisRunsToRunResults;
-
+- (IBAction)showAnalysisRunExecution:(UIButton *)sender;
 @end
 
 @implementation INVAnalysisRunsCollectionViewController
@@ -62,7 +62,7 @@
 
     id successBlock = [INVBlockUtils blockForExecutingBlock:^{
         [self.collectionView reloadData];
-    } afterNumberOfCalls:self.validAnalysisRunsForCurrentPackage.count ];
+    } afterNumberOfCalls:self.validAnalysisRunsForCurrentPackage.count];
 
     for (INVAnalysisRunDetails *analysisDetails in self.validAnalysisRunsForCurrentPackage) {
         NSNumber *analysisId = analysisDetails.analysisId;
@@ -71,13 +71,12 @@
                                              withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                                  INV_ALWAYS:
                                                  INV_SUCCESS : {
-                        
                                                      self.analysisIdsToAnalyses[analysisId] = result;
                                                      [successBlock invoke];
                                                  }
 
                                                  INV_ERROR:
-                                                   [self handleContentError:error];
+                                                     [self handleContentError:error];
                                              }];
     }
 }
@@ -111,10 +110,10 @@
     INVAnalysisRunCollectionViewCell *cell =
         [collectionView dequeueReusableCellWithReuseIdentifier:@"analysisRunCell" forIndexPath:indexPath];
 
-    INVAnalysisRunDetails* details = self.validAnalysisRunsForCurrentPackage[indexPath.row];
+    INVAnalysisRunDetails *details = self.validAnalysisRunsForCurrentPackage[indexPath.row];
     cell.result = details.runDetails;
     cell.analysis = self.analysisIdsToAnalyses[details.analysisId];
- 
+
     return cell;
 }
 
@@ -122,14 +121,36 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"ShowAnalysisRunResultsSegue"]) {
-        INVAnalysisExecutionsTableViewController *vc =
-        (INVAnalysisExecutionsTableViewController *) segue.destinationViewController;
-        vc.projectId = self.projectId;
-        // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
-        vc.analysisRunId = @6290;
-        
-        
+        INVAnalysisRunCollectionViewCell *cell =
+            [sender findSuperviewOfClass:[INVAnalysisRunCollectionViewCell class] predicate:nil];
+
+        BOOL showError = YES;
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            INVAnalysisExecutionsTableViewController *vc =
+            (INVAnalysisExecutionsTableViewController *) ((UINavigationController*)(segue.destinationViewController)).topViewController;
+            vc.projectId = self.projectId;
+            // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
+            if (cell.result && cell.result.count) {
+                INVAnalysisRunResult* resultVal = cell.result[0];
+                vc.analysisRunId = resultVal.analysisRunId;
+                showError = NO;
+            }
+           
+        }
+        if (showError) {
+            UIAlertController *errorController =
+            [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_RUN_RESULT_FETCH", nil)];
+            
+            [self presentViewController:errorController animated:YES completion:nil];
+
+        }
     }
+}
+
+#pragma mark - UIEvent handlers
+- (IBAction)showAnalysisRunExecution:(UIButton *)sender
+{
+    [self performSegueWithIdentifier:@"ShowAnalysisRunResultsSegue" sender:sender];
 }
 
 @end

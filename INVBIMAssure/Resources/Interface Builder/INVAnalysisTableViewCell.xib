@@ -115,8 +115,21 @@
                                 <rect key="frame" x="240" y="0.0" width="120" height="47"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="jP7-s6-wy6"/>
+                                    <constraint firstAttribute="height" constant="42" id="Ez8-Xt-g8o"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="GC0-Tr-CJs"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="15"/>
+                                <state key="normal" title=" Packages">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onPackageMembershipForAnalysis:" destination="-2" eventType="touchUpInside" id="WWa-5E-5w6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cbi-DP-o69">
+                                <rect key="frame" x="360" y="0.0" width="120" height="47"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="15"/>
                                 <state key="normal" title=" Run">
                                     <color key="titleColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -127,18 +140,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onRunRulesForAnalysis:" destination="-2" eventType="touchUpInside" id="ueK-vQ-0rd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cbi-DP-o69">
-                                <rect key="frame" x="360" y="0.0" width="120" height="47"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="15"/>
-                                <state key="normal" title=" Packages">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onPackageMembershipForAnalysis:" destination="-2" eventType="touchUpInside" id="WWa-5E-5w6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCi-4Y-7WJ">
@@ -185,6 +186,14 @@
                             <constraint firstItem="C00-uw-XQU" firstAttribute="top" secondItem="RbA-hw-GfB" secondAttribute="top" id="v2G-t6-a6J"/>
                             <constraint firstAttribute="trailing" secondItem="C00-uw-XQU" secondAttribute="trailing" id="zQc-AV-0dj"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="mnB-XZ-kKh"/>
+                                <exclude reference="uPV-eD-5mT"/>
+                                <exclude reference="BUo-vH-mIq"/>
+                                <exclude reference="KBD-f6-2Cj"/>
+                            </mask>
+                        </variation>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5E-J4-J51" userLabel="Analysis View">
                         <rect key="frame" x="0.0" y="25" width="600" height="52"/>
