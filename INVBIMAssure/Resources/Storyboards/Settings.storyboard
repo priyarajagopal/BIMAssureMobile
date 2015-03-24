@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
@@ -84,6 +84,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="uiw-i3-cJZ" kind="show" id="Zg1-b9-ka1"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -105,6 +108,43 @@
                 <exit id="UrH-Py-4Fh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-806" y="2077"/>
+        </scene>
+        <!--Third Party Software-->
+        <scene sceneID="sNr-NG-jgj">
+            <objects>
+                <viewController id="uiw-i3-cJZ" customClass="INVThirdPartySoftwareViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="quw-ox-Aqq"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kqq-N1-1fK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4ry-wB-Z2T">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXF-75-8fJ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="uiw-i3-cJZ" id="Yee-cE-XZP"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xXF-75-8fJ" firstAttribute="leading" secondItem="4ry-wB-Z2T" secondAttribute="leading" id="9e1-ok-ayS"/>
+                            <constraint firstItem="xXF-75-8fJ" firstAttribute="top" secondItem="quw-ox-Aqq" secondAttribute="bottom" id="DIx-AK-JOR"/>
+                            <constraint firstAttribute="trailing" secondItem="xXF-75-8fJ" secondAttribute="trailing" id="ZpK-Hf-5cm"/>
+                            <constraint firstAttribute="bottom" secondItem="xXF-75-8fJ" secondAttribute="bottom" id="hmD-Ef-S3a"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Third Party Software" id="2P0-R9-RL7"/>
+                    <connections>
+                        <outlet property="licenseWebView" destination="xXF-75-8fJ" id="Xl4-qK-IVy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bB8-vy-JGE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-117" y="2072"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ref-dw-VXP">
