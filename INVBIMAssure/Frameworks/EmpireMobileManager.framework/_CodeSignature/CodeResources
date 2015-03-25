@@ -58,7 +58,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		Jpxrs3xHwCjgWAux9jqnQgTEeYI=
+		dPVg7bkvdfm9skMctRzGDlstCeY=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -67,6 +67,10 @@
 		<key>Headers/INVFileVersion.h</key>
 		<data>
 		UVsi7T02d9fPsHWip/PUkfYNeXY=
+		</data>
+		<key>Headers/INVGenericResponse.h</key>
+		<data>
+		pN8x69EU67TAdQHFYryyampCGf4=
 		</data>
 		<key>Headers/INVInvite.h</key>
 		<data>
@@ -138,11 +142,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		eVMA7Z3VESP6/Oyw+pw1506mmao=
+		km0goqtTAwCFE7I7TDofbKcBbhc=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		POsfhICoJPrNawn8mUgWDYEcyBs=
+		fDYTALFCE4yR285Vt+DlUMwr9eE=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -233,7 +237,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		Jpxrs3xHwCjgWAux9jqnQgTEeYI=
+		dPVg7bkvdfm9skMctRzGDlstCeY=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -242,6 +246,10 @@
 		<key>Headers/INVFileVersion.h</key>
 		<data>
 		UVsi7T02d9fPsHWip/PUkfYNeXY=
+		</data>
+		<key>Headers/INVGenericResponse.h</key>
+		<data>
+		pN8x69EU67TAdQHFYryyampCGf4=
 		</data>
 		<key>Headers/INVInvite.h</key>
 		<data>
@@ -313,11 +321,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		eVMA7Z3VESP6/Oyw+pw1506mmao=
+		km0goqtTAwCFE7I7TDofbKcBbhc=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		POsfhICoJPrNawn8mUgWDYEcyBs=
+		fDYTALFCE4yR285Vt+DlUMwr9eE=
 		</data>
 		<key>InvicaraLogo.png</key>
 		<data>
