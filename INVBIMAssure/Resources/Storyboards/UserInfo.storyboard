@@ -414,6 +414,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="4GX-fU-vKE" eventType="editingDidEndOnExit" id="nfs-ML-7iw"/>
+                                                        <action selector="textFieldTextChanged:" destination="Aef-cX-Ecl" eventType="editingChanged" id="12U-qI-3jS"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -451,6 +452,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="DiZ-e3-tY6" eventType="editingDidEndOnExit" id="6wg-mj-H8q"/>
+                                                        <action selector="textFieldTextChanged:" destination="Aef-cX-Ecl" eventType="editingChanged" id="TCw-PG-c0Q"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -492,6 +494,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="gQg-YX-s8a" eventType="editingDidEndOnExit" id="Uaf-nW-bjJ"/>
+                                                        <action selector="textFieldTextChanged:" destination="Aef-cX-Ecl" eventType="editingChanged" id="zhW-q1-cWu"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -529,6 +532,7 @@
                                                     <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="next"/>
                                                     <connections>
                                                         <action selector="becomeFirstResponder" destination="1Bg-yk-cFO" eventType="editingDidEndOnExit" id="75P-2p-3Py"/>
+                                                        <action selector="textFieldTextChanged:" destination="Aef-cX-Ecl" eventType="editingChanged" id="g5S-tX-HyM"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -566,6 +570,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="resignFirstResponder" destination="1yN-k2-NNa" eventType="editingDidEndOnExit" id="IJA-W8-rDS"/>
+                                                        <action selector="textFieldTextChanged:" destination="Aef-cX-Ecl" eventType="editingChanged" id="Nbr-no-rAf"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -578,6 +583,44 @@
                                                 <constraint firstItem="yuO-1O-Cpg" firstAttribute="leading" secondItem="T22-or-Hsc" secondAttribute="leadingMargin" constant="7" id="tVF-34-BTH"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="1Bg-yk-cFO" secondAttribute="trailing" id="tWE-hd-XGl"/>
                                                 <constraint firstItem="1Bg-yk-cFO" firstAttribute="baseline" secondItem="yuO-1O-Cpg" secondAttribute="baseline" id="tom-GY-Mhk"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="gom-d1-FPF">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gom-d1-FPF" id="DCd-dR-WUe">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="1000" text="Title:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Uc-gX-9f9">
+                                                    <rect key="frame" x="15" y="0.0" width="125" height="43"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="125" id="yZl-tQ-6jE"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kqd-eJ-E3a">
+                                                    <rect key="frame" x="160" y="8" width="432" height="27"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                                    <connections>
+                                                        <action selector="resignFirstResponder" destination="1yN-k2-NNa" eventType="editingDidEndOnExit" id="k4r-dR-HEp"/>
+                                                        <action selector="textFieldTextChanged:" destination="Aef-cX-Ecl" eventType="editingChanged" id="GOP-Fh-zGF"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Kqd-eJ-E3a" secondAttribute="trailing" id="0bh-m7-cVx"/>
+                                                <constraint firstItem="6Uc-gX-9f9" firstAttribute="top" secondItem="DCd-dR-WUe" secondAttribute="top" id="A6f-7e-dFJ"/>
+                                                <constraint firstItem="Kqd-eJ-E3a" firstAttribute="leading" secondItem="6Uc-gX-9f9" secondAttribute="trailing" constant="20" id="Go2-Yk-WWZ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Kqd-eJ-E3a" secondAttribute="bottom" id="Ijf-wk-VBh"/>
+                                                <constraint firstAttribute="bottom" secondItem="6Uc-gX-9f9" secondAttribute="bottom" id="NqC-Z5-NYt"/>
+                                                <constraint firstItem="Kqd-eJ-E3a" firstAttribute="top" secondItem="DCd-dR-WUe" secondAttribute="topMargin" id="UmQ-L1-4rL"/>
+                                                <constraint firstItem="6Uc-gX-9f9" firstAttribute="leading" secondItem="DCd-dR-WUe" secondAttribute="leadingMargin" constant="7" id="XI5-H6-QIg"/>
+                                                <constraint firstItem="Kqd-eJ-E3a" firstAttribute="baseline" secondItem="6Uc-gX-9f9" secondAttribute="baseline" id="cPL-Zi-2GT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -609,6 +652,7 @@
                         <outlet property="lastNameTextField" destination="4GX-fU-vKE" id="Z9f-ie-ATU"/>
                         <outlet property="phoneNumberTextField" destination="gQg-YX-s8a" id="i8a-fE-3Ij"/>
                         <outlet property="saveButtonItem" destination="7NC-uy-nZq" id="ieN-Z0-bTb"/>
+                        <outlet property="titleTextField" destination="Kqd-eJ-E3a" id="JWI-SA-DAe"/>
                         <outlet property="userThumbnailImageView" destination="VCo-xF-pcg" id="Kqn-AS-sSm"/>
                     </connections>
                 </tableViewController>

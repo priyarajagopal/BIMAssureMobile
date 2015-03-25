@@ -21,6 +21,7 @@
 @property IBOutlet UITextField *addressTextField;
 @property IBOutlet UITextField *phoneNumberTextField;
 @property IBOutlet UITextField *companyTextField;
+@property IBOutlet UITextField *titleTextField;
 
 @property IBOutlet UIImageView *userThumbnailImageView;
 @property IBOutlet UIBarButtonItem *saveButtonItem;
@@ -49,38 +50,34 @@
 
 - (void)fetchUserProfileDetails
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
-    const void (^updateUI)(INVUser *) = ^(INVUser *userProfile) {
-        self.firstNameTextField.text = [userProfile firstName];
-        self.lastNameTextField.text = [userProfile lastName];
-        self.emailTextField.text = [userProfile email];
-
-        if ([userProfile respondsToSelector:@selector(address)]) {
-            self.addressTextField.text = [userProfile address];
-            self.phoneNumberTextField.text = [userProfile phoneNumber];
-            self.companyTextField.text = [userProfile companyName];
-        }
-
-        [self.userThumbnailImageView
-            setImageWithURLRequest:[self.globalDataManager.invServerClient requestToGetThumbnailImageForUser:userProfile.userId]
-                  placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
-                           success:nil
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                               INVLogError(@"Failed to load image for user profile with error %@", error);
-                           }];
-    };
+    id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     [self.globalDataManager.invServerClient
-        getSignedInUserProfileWithCompletionBlock:^(INVSignedInUser *signedInUser, INVEmpireMobileError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        getUserProfileInSignedUserWithCompletionBlock:^(INVSignedInUser *userProfile, INVEmpireMobileError *error) {
+            INV_ALWAYS:
+                [hud hide:YES];
 
-            if (error) {
+            INV_SUCCESS:
+                self.firstNameTextField.text = [userProfile firstName];
+                self.lastNameTextField.text = [userProfile lastName];
+                self.emailTextField.text = [userProfile email];
+
+                self.addressTextField.text = [userProfile address];
+                self.phoneNumberTextField.text = [userProfile phoneNumber];
+                self.companyTextField.text = [userProfile companyName];
+                self.titleTextField.text = [userProfile title];
+
+                [self.userThumbnailImageView
+                    setImageWithURLRequest:[self.globalDataManager.invServerClient
+                                               requestToGetThumbnailImageForUser:userProfile.userId]
+                          placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+                                   success:nil
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                       INVLogError(@"Failed to load image for user profile with error %@", error);
+                                   }];
+
+            INV_ERROR:
                 INVLogError(@"%@", error);
-                return;
-            }
-
-            updateUI((INVUser *) signedInUser);
         }];
 }
 
@@ -124,33 +121,31 @@
     BOOL shouldDismiss = !(self.userProfileChanged && self.userThumbnailChanged);
 
     if (self.userProfileChanged) {
-        // NOTE: Will this work without a signed in account?
         [self.globalDataManager.invServerClient
-            updateUserProfileInSignedInAccountWithId:nil
-                                       withFirstName:self.firstNameTextField.text
-                                            lastName:self.lastNameTextField.text
-                                         userAddress:self.addressTextField.text
-                                     userPhoneNumber:self.phoneNumberTextField.text
-                                     userCompanyName:self.companyTextField.text
-                                               title:nil
-                                               email:self.emailTextField.text
-                                  allowNotifications:NO
-                                 withCompletionBlock:INV_COMPLETION_HANDLER {
-                                     INV_ALWAYS:
-                                         [hud hide:YES];
+            updateUserProfileOfUserWithId:self.globalDataManager.invServerClient.accountManager.signedinUser.userId
+                            withFirstName:self.firstNameTextField.text
+                                 lastName:self.lastNameTextField.text
+                              userAddress:self.addressTextField.text
+                          userPhoneNumber:self.phoneNumberTextField.text
+                          userCompanyName:self.companyTextField.text
+                                    title:self.titleTextField.text
+                                    email:self.emailTextField.text
+                       allowNotifications:NO
+                      withCompletionBlock:^(INVSignedInUser *user, INVEmpireMobileError *error) {
+                          INV_ALWAYS:
+                              [hud hide:YES];
 
-                                     INV_SUCCESS:
-                                         [self performSegueWithIdentifier:@"unwind" sender:nil];
+                          INV_SUCCESS:
+                              [self performSegueWithIdentifier:@"unwind" sender:nil];
 
-                                     INV_ERROR:
-                                         INVLogError(@"%@", error);
+                          INV_ERROR:
+                              INVLogError(@"%@", error);
 
-                                         UIAlertController *errorController = [[UIAlertController alloc]
-                                             initWithErrorMessage:NSLocalizedString(@"GENERIC_EDIT_USERPROFILE_MESSAGE", nil),
-                                             error.code];
+                              UIAlertController *errorController = [[UIAlertController alloc]
+                                  initWithErrorMessage:NSLocalizedString(@"GENERIC_EDIT_USERPROFILE_MESSAGE", nil), error.code];
 
-                                         [self presentViewController:errorController animated:YES completion:nil];
-                                 }];
+                              [self presentViewController:errorController animated:YES completion:nil];
+                      }];
     }
 
     if (self.userThumbnailChanged) {
