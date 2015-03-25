@@ -114,7 +114,8 @@
                                       withCompletionBlock:^(INVUser *user, INVEmpireMobileError *error) {
                                           self.cachedUsers[user.userId] = user;
 
-                                          if ([user.email isEqual:self.globalDataManager.loggedInUser]) {
+                                          if ([user.userId isEqual:self.globalDataManager.invServerClient.accountManager
+                                                                       .signedinUser.userId]) {
                                               self.sections[SECTION_CURRENT_USER] = @[ membership ];
                                           }
 
@@ -169,9 +170,10 @@
                               withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                   self.cachedUsers[member.userId] = result;
                                   cell.user = result;
-                                  [self performSelectorOnMainThread:@selector(reloadRowAtIndexPath:) withObject:indexPath waitUntilDone:NO];
+                                  [self performSelectorOnMainThread:@selector(reloadRowAtIndexPath:)
+                                                         withObject:indexPath
+                                                      waitUntilDone:NO];
 
-                                
                               }];
     }
 
@@ -183,7 +185,7 @@
     INVAccountMembership *member = [self.sections[self.sortedSections[indexPath.section]] objectAtIndex:indexPath.row];
 
     if (self.cachedUsers[member.userId]) {
-        if ([[self.cachedUsers[member.userId] email] isEqual:self.globalDataManager.loggedInUser]) {
+        if ([member.userId isEqual:self.globalDataManager.invServerClient.accountManager.signedinUser.userId]) {
             return UITableViewCellEditingStyleNone;
         }
 
@@ -275,9 +277,9 @@
     [self.view addSubview:self.hud];
 }
 
--(void)reloadRowAtIndexPath:(NSIndexPath*)indexPath {
-    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
-                          withRowAnimation:UITableViewRowAnimationNone];
+- (void)reloadRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end
