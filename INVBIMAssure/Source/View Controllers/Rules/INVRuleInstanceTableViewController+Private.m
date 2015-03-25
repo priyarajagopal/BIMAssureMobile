@@ -8,7 +8,7 @@
 
 #import "INVRuleInstanceTableViewController+Private.h"
 
-static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"elementType"};
+static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"batype"};
 static size_t INVParamaterTypeStringsCount = sizeof(INVParamaterTypeStrings) / sizeof(*INVParamaterTypeStrings);
 
 NSString *INVParameterTypeToString(INVParameterType type)

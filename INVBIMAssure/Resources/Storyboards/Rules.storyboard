@@ -245,16 +245,30 @@
                     <connections>
                         <outlet property="navigationBar" destination="Gjl-oh-30q" id="J2R-EA-oWp"/>
                         <outlet property="saveBarButton" destination="wqK-ha-n4d" id="THk-Qj-xGh"/>
-                        <segue destination="Ld6-mz-qkW" kind="popoverPresentation" identifier="showAnalysisRuleElements" popoverAnchorView="uFl-9X-1Tq" id="Q4n-A2-XAH">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES"/>
-                        </segue>
+                        <segue destination="lah-lM-GMn" kind="presentation" identifier="showAnalysisRuleElements" modalPresentationStyle="overCurrentContext" id="SS9-fH-2Nl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tke-Ms-i6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4605" y="3440"/>
         </scene>
-        <!--Analysis Rule Element Types Table View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="r29-46-4OF">
+            <objects>
+                <navigationController id="lah-lM-GMn" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="giw-dM-MbP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ld6-mz-qkW" kind="relationship" relationship="rootViewController" id="yVS-J8-7Rt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V84-rj-TC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4605" y="4153"/>
+        </scene>
+        <!--Select Element Type-->
         <scene sceneID="6DX-LX-Rqi">
             <objects>
                 <tableViewController id="Ld6-mz-qkW" customClass="INVAnalysisRuleElementTypesTableViewController" sceneMemberID="viewController">
@@ -267,10 +281,24 @@
                             <outlet property="delegate" destination="Ld6-mz-qkW" id="bLl-ut-IJ1"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Select Element Type" id="RDk-uH-9ne">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="a7a-Nm-Trj">
+                            <connections>
+                                <action selector="cancel:" destination="Ld6-mz-qkW" id="crY-Rr-foG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="73U-py-eOL">
+                            <connections>
+                                <segue destination="RMM-Io-EVx" kind="unwind" identifier="unwind" unwindAction="done:" id="cLg-yS-dhU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hk-NW-l4B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="RMM-Io-EVx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4605" y="4201"/>
+            <point key="canvasLocation" x="4605" y="4870"/>
         </scene>
         <!--Rules-->
         <scene sceneID="Ta0-YB-6ZV">

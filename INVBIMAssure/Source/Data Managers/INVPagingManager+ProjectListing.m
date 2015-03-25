@@ -15,7 +15,6 @@
 {
     [self.globalDataManager.invServerClient getAllProjectsForSignedInAccountWithOffset:@(self.currOffset)
                                                                               pageSize:@(self.pageSize)
-                                                                     includeTotalCount:NO
                                                                    WithCompletionBlock:^(INVEmpireMobileError *error) {
                                                                        [self handlePagedResponse:error];
                                                                    }];

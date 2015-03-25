@@ -31,7 +31,8 @@
     self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamName];
 
     if ([self.actualParamDictionary[INVActualParamValue] length]) {
-        [self.ruleInstanceElementType setTitle:self.actualParamDictionary[INVActualParamValue] forState:UIControlStateNormal];
+        [self.ruleInstanceElementType setTitle:self.actualParamDictionary[INVActualParamValue]
+                                      forState:UIControlStateNormal];
     }
     else {
         [self.ruleInstanceElementType setTitle:NSLocalizedString(@"SELECT_ELEMENT_TYPE", nil) forState:UIControlStateNormal];

@@ -111,7 +111,7 @@
                                     <action selector="onShowRulesForAnalysis:" destination="-2" eventType="touchUpInside" id="Tsw-Pr-Enr"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJ5-aO-zRA">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJ5-aO-zRA">
                                 <rect key="frame" x="240" y="0.0" width="120" height="42"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -193,7 +193,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5E-J4-J51" userLabel="Analysis View">
                         <rect key="frame" x="0.0" y="25" width="600" height="57"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWd-L1-wPq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWd-L1-wPq">
                                 <constraints>
                                     <constraint firstAttribute="width" id="gSY-I4-SAO"/>
                                 </constraints>
@@ -233,10 +233,10 @@
                             <constraint firstItem="MSN-ox-VjW" firstAttribute="leading" secondItem="4RV-tJ-E2V" secondAttribute="trailing" constant="8" id="Nnc-42-o9t"/>
                             <constraint firstAttribute="bottom" secondItem="4RV-tJ-E2V" secondAttribute="bottom" constant="7" id="TT8-mk-KmK"/>
                             <constraint firstItem="1w2-Te-odX" firstAttribute="top" secondItem="v5E-J4-J51" secondAttribute="top" constant="8" id="Zeo-3x-zOj"/>
-                            <constraint firstAttribute="centerY" secondItem="aWd-L1-wPq" secondAttribute="centerY" constant="26.5" id="epw-og-hUW"/>
+                            <constraint firstAttribute="centerY" secondItem="aWd-L1-wPq" secondAttribute="centerY" id="epw-og-hUW"/>
                             <constraint firstItem="4RV-tJ-E2V" firstAttribute="top" secondItem="1w2-Te-odX" secondAttribute="bottom" id="m8v-OB-DpF"/>
-                            <constraint firstItem="aWd-L1-wPq" firstAttribute="leading" secondItem="MSN-ox-VjW" secondAttribute="trailing" constant="-584" id="sYt-cK-w4F"/>
-                            <constraint firstAttribute="trailing" secondItem="aWd-L1-wPq" secondAttribute="trailing" constant="600" id="x8t-Wb-yEa"/>
+                            <constraint firstItem="aWd-L1-wPq" firstAttribute="leading" secondItem="MSN-ox-VjW" secondAttribute="trailing" constant="8" id="sYt-cK-w4F"/>
+                            <constraint firstItem="aWd-L1-wPq" firstAttribute="trailing" secondItem="v5E-J4-J51" secondAttribute="trailingMargin" id="x8t-Wb-yEa"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxL-Bq-tLD">

@@ -333,10 +333,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         INVRuleInstanceElementTypeParamTableViewCell *cell =
             [sender findSuperviewOfClass:[INVRuleInstanceElementTypeParamTableViewCell class] predicate:nil];
 
-        INVAnalysisRuleElementTypesTableViewController *ruleTypesVC = segue.destinationViewController;
-
-        ruleTypesVC.projectId = self.projectId;
-        ruleTypesVC.analysisId = self.analysesId;
+        INVAnalysisRuleElementTypesTableViewController *ruleTypesVC = (id)[segue.destinationViewController topViewController];
         ruleTypesVC.currentSelection = cell.actualParamDictionary[INVActualParamValue];
 
         [ruleTypesVC addObserver:self
@@ -348,9 +345,6 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         [ruleTypesVC addDeallocHandler:^(id ruleTypesVC) {
             [ruleTypesVC removeObserver:weakSelf forKeyPath:@"currentSelection"];
         }];
-
-        ruleTypesVC.popoverPresentationController.sourceView = sender;
-        ruleTypesVC.popoverPresentationController.sourceRect = [sender bounds];
     }
 }
 

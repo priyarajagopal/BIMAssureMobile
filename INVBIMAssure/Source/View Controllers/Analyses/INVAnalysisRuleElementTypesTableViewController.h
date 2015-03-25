@@ -10,9 +10,6 @@
 
 @interface INVAnalysisRuleElementTypesTableViewController : INVCustomTableViewController
 
-@property NSNumber *projectId;
-@property NSNumber *analysisId;
-
 @property NSString *currentSelection;
 
 @end

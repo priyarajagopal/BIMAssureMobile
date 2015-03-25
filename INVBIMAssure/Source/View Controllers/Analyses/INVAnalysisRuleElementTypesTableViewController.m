@@ -9,10 +9,14 @@
 #import "INVAnalysisRuleElementTypesTableViewController.h"
 #import "INVBlockUtils.h"
 
-@interface INVAnalysisRuleElementTypesTableViewController ()
+#import <AWPagedArray/AWPagedArray.h>
 
-@property NSArray *packageMasters;
-@property NSMutableDictionary *packageElementCategories;
+@interface INVAnalysisRuleElementTypesTableViewController () <AWPagedArrayDelegate>
+
+@property NSString *originalSelection;
+
+@property AWPagedArray *pagedArray;
+@property NSArray *baTypes;
 
 @end
 
@@ -22,110 +26,79 @@
 {
     [super viewDidLoad];
 
-    [self fetchListOfPackageMasters];
+    self.pagedArray = [[AWPagedArray alloc] initWithCount:0 objectsPerPage:1000 initialPageIndex:0];
+    self.pagedArray.delegate = self;
+
+    self.baTypes = (NSArray *) self.pagedArray;
+
+    [self loadPageAtIndex:0];
+
+    self.originalSelection = self.currentSelection;
 }
 
 #pragma mark - Content Management
 
-- (void)fetchListOfPackageMasters
+- (void)loadPageAtIndex:(NSUInteger)pageIndex
 {
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    static dispatch_queue_t queue;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        queue = dispatch_queue_create("com.invicara.analysis-rule-types-queue", DISPATCH_QUEUE_SERIAL);
+    });
 
-    [self.globalDataManager.invServerClient
-        getPkgMembershipForAnalysis:self.analysisId
-                WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                    INV_ALWAYS:
-                    INV_SUCCESS : {
-                        NSSet *packageMasterIds =
-                            [self.globalDataManager.invServerClient.analysesManager pkgMastersForAnalysisId:self.analysisId];
+    dispatch_async(queue, ^{
+        if (self.pagedArray.totalCount && self.pagedArray.pages[@(pageIndex)]) {
+            return;
+        }
 
-                        [self fetchPackageMastersForIds:packageMasterIds];
-                    }
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
-                    INV_ERROR:
-                        INVLogError(@"%@", error);
-                }];
-}
+        [self.globalDataManager.invServerClient fetchBATypesFromOffset:@(pageIndex * self.pagedArray.objectsPerPage)
+                                                              withSize:@(self.pagedArray.objectsPerPage)
+                                                   withCompletionBlock:^(NSDictionary *result, INVEmpireMobileError *error) {
+                                                       [self.refreshControl endRefreshing];
 
-- (void)fetchPackageMastersForIds:(NSSet *)ids
-{
-    [self.globalDataManager.invServerClient
-        getAllPkgMastersForProject:self.projectId
-               WithCompletionBlock:^(INVEmpireMobileError *error) {
-                   INV_ALWAYS:
-                   INV_SUCCESS:
-                       self.packageMasters =
-                           [self.globalDataManager.invServerClient.projectManager packageFilesForMasterIds:[ids allObjects]];
-                       [self fetchListOfCategories];
+                                                       self.pagedArray.totalCount = [result[@"totalcount"] integerValue];
 
-                   INV_ERROR:
-                       INVLogError(@"%@", error);
+                                                       [self.pagedArray setObjects:result[@"list"] forPage:pageIndex];
+                                                       [self.tableView reloadData];
 
-               }];
-}
+                                                       dispatch_semaphore_signal(semaphore);
+                                                   }];
 
-- (void)fetchListOfCategories
-{
-    self.packageElementCategories = [NSMutableDictionary new];
-
-    id alwaysBlock = [INVBlockUtils blockForExecutingBlock:^{
-        [self.hud hide:YES];
-        [self.refreshControl endRefreshing];
-    } afterNumberOfCalls:self.packageMasters.count];
-
-    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
-        [self.tableView reloadData];
-    } afterNumberOfCalls:self.packageMasters.count];
-
-    id errorBlock = [INVBlockUtils blockForExecutingBlock:^{
-        UIAlertController *errorController =
-            [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ELEMENT_TYPES_LOAD", nil)];
-        [self presentViewController:errorController animated:YES completion:nil];
-    } afterNumberOfCalls:1];
-
-    for (INVPackage *package in self.packageMasters) {
-        [self.globalDataManager.invServerClient
-            fetchBuildingElementCategoriesForPackageVersionId:package.tipId
-                                          withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                              INV_ALWAYS:
-                                                  [alwaysBlock invoke];
-
-                                              INV_SUCCESS:
-                                                  self.packageElementCategories[package] =
-                                                      [result valueForKeyPath:@"aggregations.category.buckets.key"];
-
-                                                  [successBlock invoke];
-
-                                              INV_ERROR:
-                                                  INVLogError(@"%@", error);
-
-                                                  [errorBlock invoke];
-                                          }];
-    }
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    });
 }
 
 #pragma mark - IBActions
 
 - (void)onRefreshControlSelected:(id)sender
 {
-    [self fetchListOfPackageMasters];
+    [self.pagedArray invalidateContents];
+    self.pagedArray.totalCount = 0;
+
+    [self loadPageAtIndex:0];
+
+    [self.tableView reloadData];
+}
+
+- (IBAction)cancel:(id)sender
+{
+    self.currentSelection = self.originalSelection;
+
+    [self performSegueWithIdentifier:@"unwind" sender:nil];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.packageMasters.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.packageElementCategories[self.packageMasters[section]] count];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return [self.packageMasters[section] packageName];
+    return [self.baTypes count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,13 +108,18 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ruleElementType"];
     }
 
-    INVPackage *packageMaster = self.packageMasters[indexPath.section];
+    id result = self.baTypes[indexPath.row];
+    if ([result isKindOfClass:[NSNull class]]) {
+        cell.textLabel.text = @"";
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    else {
+        cell.textLabel.text = result[@"name"];
+        cell.accessoryType = UITableViewCellAccessoryNone;
 
-    cell.textLabel.text = self.packageElementCategories[packageMaster][indexPath.row];
-    cell.accessoryType = UITableViewCellAccessoryNone;
-
-    if ([cell.textLabel.text isEqualToString:self.currentSelection]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        if ([result[@"code"] isEqualToString:self.currentSelection]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
 
     return cell;
@@ -151,10 +129,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    INVPackage *packageMaster = self.packageMasters[indexPath.section];
-    self.currentSelection = self.packageElementCategories[packageMaster][indexPath.row];
+    id result = self.baTypes[indexPath.row];
+
+    self.currentSelection = result[@"code"];
 
     [self.tableView reloadData];
+}
+
+#pragma mark - AWPagedArrayDelegate
+
+- (void)pagedArray:(AWPagedArray *)pagedArray willAccessIndex:(NSUInteger)index returnObject:(__autoreleasing id *)returnObject
+{
+    if ([*returnObject isKindOfClass:[NSNull class]]) {
+        [self loadPageAtIndex:[pagedArray pageForIndex:index]];
+    }
 }
 
 @end
