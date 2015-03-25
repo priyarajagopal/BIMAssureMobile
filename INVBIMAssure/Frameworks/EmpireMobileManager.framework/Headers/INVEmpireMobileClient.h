@@ -239,23 +239,21 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  */
 - (void)getUserProfileInSignedInAccountWithId:(NSNumber *)userId withCompletionBlock:(CompletionHandlerWithData)handler;
 
-
 /**
  Asynchornously ,get profile of signed in user
- 
- 
+
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then  the
  INVSignedUser object is returned
- 
- 
- @see -signInWithUserName:andPassword:withCompletionBlock:
- 
- @see accountManager
- 
- 
- */
-- (void)getUserProfileInSignedUserWithCompletionBlock:(void(^)(INVSignedInUser* user, INVEmpireMobileError* error))handler;
 
+
+ @see -signInWithUserName:andPassword:withCompletionBlock:
+
+ @see accountManager
+
+
+ */
+- (void)getUserProfileInSignedUserWithCompletionBlock:(void (^)(INVSignedInUser *user, INVEmpireMobileError *error))handler;
 
 /**
  Asynchornously ,update profile of specified user.User should have signed in with
@@ -307,46 +305,47 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  Asynchornously ,update profile of current signed in user.User should have signed in with
  -signInWithUserName:andPassword:withCompletionBlock: . The values provided will override
  the existing values so it is important to provide values even for those parameters that are not changed
- 
+
  NOTE : This API is not fully functional on server side. Should be available shortly
- 
+
  @param userId The ID of user whose profile is to be updated
- 
+
  @param firstName FirstName of user to be added
- 
+
  @param lastName lastName of user to be added
- 
+
  @param userAddress optional address of user to be added
- 
+
  @param userPhoneNumber optional phone number of user to be added
- 
+
  @param userCompanyName optional company name of user to be added
- 
+
  @param title optional title of user to be added
- 
+
  @param userEmail email address of user
- 
- 
+
+
  @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
- 
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then  the
  INVSignedInUser object is returned
- 
+
  @see -signInWithUserName:andPassword:withCompletionBlock:
- 
+
  @see accountManager
- 
- 
+
+
  */
-- (void)updateUserProfileOfUserWithId:(NSNumber *)userId withFirstName:(NSString *)firstName
-                                        lastName:(NSString *)lastName
-                                     userAddress:(NSString *)userAddress
-                                 userPhoneNumber:(NSString *)userPhoneNumber
-                                 userCompanyName:(NSString *)userCompanyname
-                                           title:(NSString *)title
-                                           email:(NSString *)userEmail
-                              allowNotifications:(BOOL)allowNotifications
-                             withCompletionBlock:(void(^)(INVSignedInUser* user, INVEmpireMobileError* error))handler;
+- (void)updateUserProfileOfUserWithId:(NSNumber *)userId
+                        withFirstName:(NSString *)firstName
+                             lastName:(NSString *)lastName
+                          userAddress:(NSString *)userAddress
+                      userPhoneNumber:(NSString *)userPhoneNumber
+                      userCompanyName:(NSString *)userCompanyname
+                                title:(NSString *)title
+                                email:(NSString *)userEmail
+                   allowNotifications:(BOOL)allowNotifications
+                  withCompletionBlock:(void (^)(INVSignedInUser *user, INVEmpireMobileError *error))handler;
 
 /**
  Asynchornously ,get list of members belonging to currentrly signed in account. If the request is made on behalf of admin user,
@@ -1457,6 +1456,22 @@ accountManager can be used to retrieve the details of account
                                                 withSize:(NSNumber *)size
                                      withCompletionBlock:(CompletionHandlerWithData)handler;
 
+/*
+ Asynchornously , fetch list of normalized BA types
+
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+  @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
+ 0.Offset
+
+ @param size optional value to specify the number of items to be fetched. Passing nil defaults to all.
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler
+
+ */
+- (void)fetchBATypesFromOffset:(NSNumber *)offset
+                       withSize:(NSNumber *)size
+            withCompletionBlock:(CompletionHandlerWithData)handler;
 #pragma mark Basic Analyses related
 
 /*
@@ -1498,16 +1513,16 @@ accountManager can be used to retrieve the details of account
 
 /**
  Asynchornously ,get analysis for specified Id. the INVAnalysis object is returned
- 
+
  @param analysisId the Id of the analysis
- 
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
 INVAnalysis object is returned
- 
+
  @see -signIntoAccount:withCompletionBlock:
- 
+
  @see analysesManager
- 
+
  */
 - (void)getAnalysesForId:(NSNumber *)analysisId withCompletionBlock:(CompletionHandlerWithData)handler;
 
@@ -1766,7 +1781,6 @@ INVAnalysis object is returned
 
  */
 - (void)deleteRuleInstanceForId:(NSNumber *)ruleInstanceId WithCompletionBlock:(CompletionHandler)handler;
-
 
 #pragma mark Analyses Execution Related
 /**
