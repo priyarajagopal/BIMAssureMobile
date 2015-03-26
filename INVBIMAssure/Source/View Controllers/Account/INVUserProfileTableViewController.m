@@ -73,7 +73,8 @@
                           placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
                                    success:nil
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                       INVLogError(@"Failed to load image for user profile with error %@", error);
+                                       INVLogError(
+                                           @"Failed to load image for user profile with error %@", error.localizedDescription);
                                    }];
 
             INV_ERROR:

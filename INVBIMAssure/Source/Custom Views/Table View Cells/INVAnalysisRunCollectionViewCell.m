@@ -55,14 +55,17 @@
         self.didAnalysisChange = NO;
     }
     else {
-        NSInteger count = 0;
+        NSNumber* count = self.result.numIssues;
+        
+        /*
         for (INVAnalysisRunResult *resultVal in self.result) {
             count += resultVal.issues.count;
         }
-        self.analysisIssueCountLabel.text = [NSString stringWithFormat:@"%ld", count];
+         */
+        self.analysisIssueCountLabel.text = [NSString stringWithFormat:@"%@", count];
 
-        NSInteger ruleCount = self.result.count;
-        self.ruleCountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NUM_RULES", nil), ruleCount];
+        NSNumber* ruleCount = self.result.numRules;
+        self.ruleCountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NUM_RULES", nil), ruleCount.integerValue];
     }
    
     [super layoutSubviews];

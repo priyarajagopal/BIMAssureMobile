@@ -84,7 +84,7 @@
 
 - (IBAction)cancel:(id)sender
 {
-    self.currentSelection = self.originalSelection;
+    self.currentSelection = self.originalSelection?self.originalSelection:@"";
 
     [self performSegueWithIdentifier:@"unwind" sender:nil];
 }
@@ -133,7 +133,7 @@
 
     self.currentSelection = result[@"code"];
 
-    [self.tableView reloadData];
+ //   [self.tableView reloadData];
 }
 
 #pragma mark - AWPagedArrayDelegate

@@ -102,20 +102,20 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
         UIColor *failColor = [UIColor colorWithRed:212.0 / 255 green:38.0 / 255 blue:58.0 / 255 alpha:1.0];
         UIColor *otherColor = [UIColor darkGrayColor];
 
-        if ([execution.status isEqualToString:@"Completed"]) {
+        if (execution.status.integerValue == INV_ANALYSISRUN_TYPE_COMPLETED) {
             cell.executionStatus.backgroundColor = successColor;
         }
-        else if ([execution.status isEqualToString:@"Failed"]) {
+        else if (execution.status.integerValue == INV_ANALYSISRUN_TYPE_FAILED) {
             cell.executionStatus.backgroundColor = failColor;
         }
         else {
             cell.executionStatus.backgroundColor = otherColor;
         }
 
-        cell.executionStatus.text = execution.status;
+        cell.executionStatus.text = [INVEmpireMobileClient analysisRunStatusMap][execution.status];
         NSString *issuesText = NSLocalizedString(@"NO_ISSUES", nil);
-
-        if (execution.issues.count) {
+/*
+        if (execution.) {
             NSDictionary *issueElement = execution.issues[0];
             NSArray *buildingElements = issueElement[@"buildingElements"];
             issuesText = [NSString stringWithFormat:@"%@: %ld", NSLocalizedString(@"NUM_ERRORS", nil), execution.issues.count];
@@ -124,7 +124,9 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 
             [cell.alertIconLabel setHidden:NO];
         }
-        else {
+        else 
+ */
+        {
             cell.numIssues.textColor = [UIColor colorWithRed:60.0 / 255 green:130.0 / 255 blue:102.0 / 255 alpha:1.0];
             [cell.alertIconLabel setHidden:YES];
             cell.associatedBuildingElementsWithIssues = nil;
@@ -178,9 +180,11 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 #ifdef _SERVER_SUPPORT_AVAILABLE_
     INVRuleInstanceExecutionResultTableViewCell *cell =
         (INVRuleInstanceExecutionResultTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+    /*
     if (cell.alertIconLabel.isHidden) {
         return;
     }
+     */
     [self performSegueWithIdentifier:@"ShowIssuesSegue" sender:self];
 
 #else

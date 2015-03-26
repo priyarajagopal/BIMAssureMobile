@@ -44,7 +44,7 @@
 
     [self.globalDataManager.invServerClient
         getAnalysisRunResultsForPkgVersion:self.packageVersionId
-                       WithCompletionBlock:^(INVAnalysisRunDetailsArray analysisruns, INVEmpireMobileError *error) {
+                       WithCompletionBlock:^(INVAnalysisRunArray analysisruns, INVEmpireMobileError *error) {
                            INV_ALWAYS:
                            INV_SUCCESS:
                                self.validAnalysisRunsForCurrentPackage = [analysisruns mutableCopy];
@@ -64,7 +64,7 @@
         [self.collectionView reloadData];
     } afterNumberOfCalls:self.validAnalysisRunsForCurrentPackage.count];
 
-    for (INVAnalysisRunDetails *analysisDetails in self.validAnalysisRunsForCurrentPackage) {
+    for (INVAnalysisRun *analysisDetails in self.validAnalysisRunsForCurrentPackage) {
         NSNumber *analysisId = analysisDetails.analysisId;
 
         [self.globalDataManager.invServerClient getAnalysesForId:analysisId
@@ -110,8 +110,8 @@
     INVAnalysisRunCollectionViewCell *cell =
         [collectionView dequeueReusableCellWithReuseIdentifier:@"analysisRunCell" forIndexPath:indexPath];
 
-    INVAnalysisRunDetails *details = self.validAnalysisRunsForCurrentPackage[indexPath.row];
-    cell.result = details.runDetails;
+    INVAnalysisRun *details = self.validAnalysisRunsForCurrentPackage[indexPath.row];
+    cell.result = details;
     cell.analysis = self.analysisIdsToAnalyses[details.analysisId];
 
     return cell;
@@ -129,9 +129,9 @@
             INVAnalysisExecutionsTableViewController *vc =
             (INVAnalysisExecutionsTableViewController *) ((UINavigationController*)(segue.destinationViewController)).topViewController;
             vc.projectId = self.projectId;
-            // TODO: THIS IS JUST FOR T1234ESTING. THIS WILL HAVE TO BE REPLACED WITH AN ANALYSIS RUNS VIEW THAT LISTS ALL ANALYSES
-            if (cell.result && cell.result.count) {
-                INVAnalysisRunResult* resultVal = cell.result[0];
+       
+            if (cell.result) {
+                INVAnalysisRun* resultVal = cell.result;
                 vc.analysisRunId = resultVal.analysisRunId;
                 vc.fileVersionId = self.packageVersionId;
                 vc.fileMasterId = self.packageMasterId;

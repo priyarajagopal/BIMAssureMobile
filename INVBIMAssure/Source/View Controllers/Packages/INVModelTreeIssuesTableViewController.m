@@ -49,15 +49,15 @@
     return node;
 }
 
-- (INVModelTreeNode *)treeNodeForIssue:(NSDictionary *)issue withParent:(INVModelTreeNode *)parent
+- (INVModelTreeNode *)treeNodeForIssue:(INVRuleIssue *)issue withParent:(INVModelTreeNode *)parent
 {
     INVModelTreeNode *node = [INVModelTreeNode
-        treeNodeWithName:issue[@"description"]
-                      id:issue[@"id"]
+        treeNodeWithName:issue.issueDescription
+                      id:issue.issueId
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
-                 fetchBuildingElementDetailsForIssue:issue[@"id"]
+                 fetchBuildingElementDetailsForIssue:issue.issueId
                                  withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                      if (error) {
                                          *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
@@ -83,23 +83,72 @@
     return node;
 }
 
-- (INVModelTreeNode *)treeNodeForAnalysisRunDetails:(INVAnalysisRunDetails *)result withParent:(INVModelTreeNode *)parent
+- (INVModelTreeNode *)treeNodeForAnalysisRunResult:(INVAnalysisRunResult *)runResult withParent:(INVModelTreeNode *)parent
 {
-    INVModelTreeNode *node =
-        [INVModelTreeNode treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS", nil),
-                                                     result.analysisRunDetailsId]
-                                        id:result.analysisRunDetailsId
-                           andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
-                                               NSError *__strong *error, void (^completed)(NSArray *) ) {
+    INVModelTreeNode *node = [INVModelTreeNode
+        treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS", nil), runResult.analysisRunId]
+                      id:runResult.analysisRunId
+         andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+                             NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
+             [self.globalDataManager.invServerClient
+                 getIssuesForExecutionResult:self.runResult.analysisRunResultId
+                         WithCompletionBlock:^(INVRuleIssueArray issues, INVEmpireMobileError *error) {
 
-                               NSArray *issues = [result.runDetails valueForKeyPath:@"@unionOfArrays.issues"];
-                               *expectedTotalCount = [issues count];
-                               completed([issues arrayByApplyingBlock:^id(id issue, NSUInteger _, BOOL *__) {
-                                   return [self treeNodeForIssue:issue withParent:node];
-                               }]);
+                             if (error) {
+                                 *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
+                                                                 code:error.code.integerValue
+                                                             userInfo:@{NSLocalizedDescriptionKey : error.message}];
 
-                               return YES;
-                           }];
+                                 completed(nil);
+                                 return;
+                             }
+
+                             *expectedTotalCount = [issues count];
+                             completed([issues arrayByApplyingBlock:^id(INVRuleIssue *issue, NSUInteger _, BOOL *__) {
+                                 return [self treeNodeForIssue:issue withParent:node];
+                             }]);
+                         }];
+
+             return YES;
+         }];
+
+    node.parent = parent;
+    node.expanded = YES;
+
+    [self registerNode:node animateChanges:YES];
+
+    return node;
+}
+
+- (INVModelTreeNode *)treeNodeForAnalysisRun:(INVAnalysisRun *)run withParent:(INVModelTreeNode *)parent
+{
+    INVModelTreeNode *node = [INVModelTreeNode
+        treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS", nil), run.analysisRunId]
+                      id:run.analysisRunId
+         andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
+                             NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
+             [self.globalDataManager.invServerClient
+                 getExecutionResultsForAnalysisRun:run.analysisRunId
+                               WithCompletionBlock:^(INVAnalysisRunResultsArray results, INVEmpireMobileError *error) {
+                                   if (error) {
+                                       *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
+                                                                       code:error.code.integerValue
+                                                                   userInfo:@{NSLocalizedDescriptionKey : error.message}];
+
+                                       completed(nil);
+                                       return;
+                                   }
+
+                                   *expectedTotalCount = [results count];
+                                   completed([results
+                                       arrayByApplyingBlock:^id(INVAnalysisRunResult *runResult, NSUInteger _, BOOL *__) {
+                                           return [self treeNodeForAnalysisRunResult:runResult withParent:node];
+                                       }]);
+
+                               }];
+
+             return YES;
+         }];
 
     node.parent = parent;
     node.expanded = YES;
@@ -113,20 +162,8 @@
 {
     if (_rootNode == nil) {
         if (self.runResult) {
-            _rootNode = [INVModelTreeNode
-                treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS", nil), self.analysisRunId]
-                              id:self.analysisRunId
-                 andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
-                                     NSError *__strong *error, void (^completed)(NSArray *) ) {
-
-                     NSArray *issues = self.runResult.issues;
-                     *expectedTotalCount = [issues count];
-                     completed([issues arrayByApplyingBlock:^id(id issue, NSUInteger _, BOOL *__) {
-                         return [self treeNodeForIssue:issue withParent:node];
-                     }]);
-
-                     return YES;
-                 }];
+            _rootNode = [self treeNodeForAnalysisRunResult:self.runResult withParent:nil];
+    
         }
         else {
             _rootNode = [INVModelTreeNode
@@ -136,8 +173,7 @@
                                      NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
                      [self.globalDataManager.invServerClient
                          getAnalysisRunResultsForPkgVersion:self.packageVersionId
-                                        WithCompletionBlock:^(INVAnalysisRunDetailsArray analysisDetails,
-                                                                INVEmpireMobileError *error) {
+                                        WithCompletionBlock:^(INVAnalysisRunArray analysisRuns, INVEmpireMobileError *error) {
                                             if (error) {
                                                 *errorPtr =
                                                     [NSError errorWithDomain:INVEmpireMobileErrorDomain
@@ -148,23 +184,11 @@
                                                 return;
                                             }
 
-                                            /*
-                                            analysisDetails = [analysisDetails
-                                                filteredArrayUsingPredicate:
-                                                    [NSPredicate predicateWithBlock:^BOOL(INVAnalysisRunDetails *details,
-                                                                                        NSDictionary *bindings) {
-                                                        return [details.runDetails
-                                                                   indexOfObjectPassingTest:^BOOL(INVAnalysisRunResult *run,
-                                                                                                NSUInteger idx, BOOL *stop) {
-                                                                       return run.issues.count > 0;
-                                                                   }] != NSNotFound;
-                                                    }]];
-                                            */
+                                            *expectedTotalCount = [analysisRuns count];
+                                            completed([analysisRuns arrayByApplyingBlock:^id(INVAnalysisRun *run, NSUInteger _,
+                                                                                             BOOL *__) {
+                                                return [self treeNodeForAnalysisRun:run withParent:node];
 
-                                            *expectedTotalCount = [analysisDetails count];
-                                            completed([analysisDetails arrayByApplyingBlock:^id(INVAnalysisRunDetails *details,
-                                                                                                NSUInteger _, BOOL *__) {
-                                                return [self treeNodeForAnalysisRunDetails:details withParent:node];
                                             }]);
                                         }];
 

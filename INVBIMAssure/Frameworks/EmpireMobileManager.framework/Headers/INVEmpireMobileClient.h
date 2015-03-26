@@ -15,8 +15,9 @@
 #import "INVRuleExecutionManager.h"
 #import "INVRuleInstanceExecution.h"
 #import "INVAnalysisRunResult.h"
-#import "INVAnalysisRunDetails.h"
+#import "INVAnalysisRun.h"
 #import "INVGenericResponse.h"
+#import "INVRuleIssue.h"
 
 /**
  Completion Handler that returns the status of the request. In case of no error, the appropriate Data Manager
@@ -834,16 +835,17 @@ accountManager can be used to retrieve the details of account
 /**
  Asynchornously ,get count of all projects for signed in account. Users should have signed in via the
  signIntoAccount:withCompletionBlock: method.
- 
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then
  projectManager can be used to retrieve projects
- 
+
  @see -signIntoAccount:withCompletionBlock:
- 
+
  @see projectManager
- 
+
  */
-- (void)getProjectCountForSignedInAccountWithCompletionBlock:(void (^)(INVGenericResponse* response,INVEmpireMobileError* error))handler;
+- (void)getProjectCountForSignedInAccountWithCompletionBlock:(void (^)(INVGenericResponse *response,
+                                                                 INVEmpireMobileError *error))handler;
 
 /**
  Asynchornously ,get list of all projects for signed in account from specified offset and with specified page count. Users
@@ -879,7 +881,8 @@ accountManager can be used to retrieve the details of account
  @see projectManager
 
  */
-- (void)getPkgMasterCountForProject:(NSNumber *)projectId WithCompletionBlock:(void (^)(INVGenericResponse* response,INVEmpireMobileError* error))handler;
+- (void)getPkgMasterCountForProject:(NSNumber *)projectId
+                WithCompletionBlock:(void (^)(INVGenericResponse *response, INVEmpireMobileError *error))handler;
 
 /**
  Asynchornously ,get list of all files associated with a project. Users must have signed into an account in order to be able to
@@ -1480,8 +1483,8 @@ accountManager can be used to retrieve the details of account
 
  */
 - (void)fetchBATypesFromOffset:(NSNumber *)offset
-                       withSize:(NSNumber *)size
-            withCompletionBlock:(CompletionHandlerWithData)handler;
+                      withSize:(NSNumber *)size
+           withCompletionBlock:(CompletionHandlerWithData)handler;
 #pragma mark Basic Analyses related
 
 /*
@@ -1839,13 +1842,12 @@ INVAnalysis object is returned
  execution results ARE
  NOT cached. The details of result of the run can be fetcged using getExecutionResultsForAnalysisRun:WithCompletionBlock
 
- @param pkgVersion The Id of pkg Version
+ @param pkgVersion The Id of pkg Version for which analysis runs are to be fetched
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the results
  of analysis run results is returned in the handler
 
  @see -signIntoAccount:withCompletionBlock:
-
 
  @see -runAnalysis:WithCompletionBlock:
 
@@ -1854,37 +1856,60 @@ INVAnalysis object is returned
 
  */
 - (void)getAnalysisRunResultsForPkgVersion:(NSNumber *)pkgVersion
-                       WithCompletionBlock:
-                           (void (^)(INVAnalysisRunDetailsArray analysisruns, INVEmpireMobileError *error))handler;
+                       WithCompletionBlock:(void (^)(INVAnalysisRunArray analysisruns, INVEmpireMobileError *error))handler;
 
 /**
  Asynchornously ,get result of specified analysis run that is scheduled using runAnalysis:WithCompletionBlock. The execution
  results ARE NOT cached
 
- @param analysisId The Id of analysis to be executed
+ @param analysisRunId The Id of analysisrun Id for which the execution results are to be fetched. Retrieved using
+ getAnalysisRunResultsForPkgVersion:WithCompletionBlock
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, thearray of
- INVAnalysisRunDetail objects is returned
+ INVAnalysisRunResult objects is returned
 
  @see -signIntoAccount:withCompletionBlock:
 
- @see -runAnalysis:WithCompletionBlock:
+ @see -getAnalysisRunResultsForPkgVersion:WithCompletionBlock
 
  @see analysesManager
 
 
  */
 - (void)getExecutionResultsForAnalysisRun:(NSNumber *)analysisRunId
-                      WithCompletionBlock:(void (^)(INVAnalysisRunDetailsArray response, INVEmpireMobileError *error))handler;
+                      WithCompletionBlock:(void (^)(INVAnalysisRunResultsArray response, INVEmpireMobileError *error))handler;
+
+/**
+ Asynchornously ,get list of issues for Execution result corresponding to an analysis run . The execution
+ result issuesARE NOT cached
+
+ @param runResultsId The Id of run result Id for which the execution issues are to be fetched. Retrieved using
+ getExecutionResultsForAnalysisRun:WithCompletionBlock
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, thearray of
+ INVAnalysisRunDetail objects is returned
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see -getExecutionResultsForAnalysisRun:WithCompletionBlock
+
+ @see analysesManager
+
+
+ */
+- (void)getIssuesForExecutionResult:(NSNumber *)runResultsId
+                WithCompletionBlock:(void (^)(INVRuleIssueArray response, INVEmpireMobileError *error))handler;
 
 /**
  Asynchornously , fetch details of issues for specified Id. This returns the list of building element details
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
 
- @param issueId The Id of the issue whose details are to be fetched
+ @param issueId The Id of the issue whose details are to be fetched. Retrieved using
+ getIssuesForExecutionResult:WithCompletionBlock
 
- @param handler The completion handler that returns error object if there was any error. If no error, issue details are returned
+ @param handler The completion handler that returns error object if there was any error. If no error, building elements  are
+ returned
 
  @see analysesManager
 
@@ -1924,5 +1949,14 @@ INVAnalysis object is returned
  */
 
 + (INVMembershipTypeDictionary)membershipRoles;
+
+/**
+ Convenience method that retuns the possible analysis run statuses
+
+ @see INVAnalyisRunDetails
+
+ */
+
++ (INVANalysisRunStatusDictionary)analysisRunStatusMap;
 
 @end
