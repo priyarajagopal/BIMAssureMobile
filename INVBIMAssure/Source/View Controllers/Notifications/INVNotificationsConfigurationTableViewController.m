@@ -31,36 +31,38 @@
     [super viewWillAppear:animated];
 
     self.notificationsEnabledSwitch.on = [[INVNotificationPoller instance] notificationsEnabled];
+
+    [self.globalDataManager.invServerClient
+        getUserProfileInSignedUserWithCompletionBlock:^(INVSignedInUser *user, INVEmpireMobileError *error) {
+            INV_ALWAYS:
+            INV_SUCCESS:
+            INV_ERROR:
+                INVLogError(@"%@", error);
+        }];
 }
 
 - (void)notificationsEnabledChanged:(id)sender
 {
     [[INVNotificationPoller instance] setNotificationsEnabled:self.notificationsEnabledSwitch.isOn];
 
-    [self.globalDataManager.invServerClient
-        getSignedInUserProfileWithCompletionBlock:^(INVUser *result, INVEmpireMobileError *error) {
-            INV_ALWAYS:
-            INV_SUCCESS:
-                [self.globalDataManager.invServerClient
-                    updateUserProfileInSignedInAccountWithId:nil
-                                               withFirstName:result.firstName
-                                                    lastName:result.lastName
-                                                 userAddress:result.address
-                                             userPhoneNumber:result.phoneNumber
-                                             userCompanyName:result.companyName
-                                                       title:result.title
-                                                       email:result.email
-                                          allowNotifications:self.notificationsEnabledSwitch.isOn
-                                         withCompletionBlock:INV_COMPLETION_HANDLER {
-                                             INV_ALWAYS:
-                                             INV_SUCCESS:
-                                             INV_ERROR:
-                                                 INVLogError(@"%@", error);
-                                         }];
+    INVSignedInUser *user = self.globalDataManager.invServerClient.accountManager.signedinUser;
 
-            INV_ERROR:
-                INVLogError(@"%@", error);
-        }];
+    [self.globalDataManager.invServerClient
+        updateUserProfileOfUserWithId:user.userId
+                        withFirstName:user.firstName
+                             lastName:user.lastName
+                          userAddress:user.address
+                      userPhoneNumber:user.phoneNumber
+                      userCompanyName:user.companyName
+                                title:user.title
+                                email:user.email
+                   allowNotifications:self.notificationsEnabledSwitch.isOn
+                  withCompletionBlock:^(INVSignedInUser *user, INVEmpireMobileError *error) {
+                      INV_ALWAYS:
+                      INV_SUCCESS:
+                      INV_ERROR:
+                          INVLogError(@"%@", error);
+                  }];
 }
 
 @end

@@ -42,7 +42,6 @@
     [self enableCrashReporting];
     [self setupNetworkCache];
     [self registerGlobalNotifications];
-    [self prepareNotificationPolling];
 
     [self displayLoginRootViewController];
     [self setUpViewAppearance];
@@ -180,9 +179,9 @@
     self.window.rootViewController = accountListNC;
     INVAccountListViewController *accountListVC = (INVAccountListViewController *) accountListNC.topViewController;
     accountListVC.autoSignIntoDefaultAccount = YES;
-    [self registerAccountObservers];
 
-    [[INVNotificationPoller instance] beginPolling];
+    [self registerAccountObservers];
+    [self prepareNotificationPolling];
 }
 
 - (void)displayLoginRootViewController
@@ -279,12 +278,18 @@
 
 - (void)prepareNotificationPolling
 {
-    [[INVNotificationPoller instance] setNotificationsEnabled:YES];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[INVNotificationPoller instance] addDataSource:[INVPendingInvitesNotificationDataSource new]];
+        [[INVNotificationPoller instance] addDataSource:[INVProjectsNotificationDataSource new]];
+    });
 
-    [[INVNotificationPoller instance] addDataSource:[INVPendingInvitesNotificationDataSource new]];
-    [[INVNotificationPoller instance] addDataSource:[INVProjectsNotificationDataSource new]];
+    [self.globalManager.invServerClient
+        getUserProfileInSignedUserWithCompletionBlock:^(INVSignedInUser *user, INVEmpireMobileError *error) {
+            [[INVNotificationPoller instance] setNotificationsEnabled:user.allowNotifications.boolValue];
 
-    [[INVNotificationPoller instance] beginPolling];
+            [[INVNotificationPoller instance] beginPolling];
+        }];
 }
 
 - (UIViewController *)rootController

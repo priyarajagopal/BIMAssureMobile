@@ -45,7 +45,7 @@
         <scene sceneID="RGz-1y-pBr">
             <objects>
                 <tableViewController id="TRx-Ig-SgT" customClass="INVNotificationsConfigurationTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gkl-ii-gG1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gkl-ii-gG1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -93,6 +93,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Preferences" id="Dkq-KA-yny"/>
                     <value key="contentSizeForViewInPopover" type="size" width="240" height="120"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="notificationsEnabledSwitch" destination="YRS-gP-VYi" id="gay-eA-jgf"/>
                     </connections>
