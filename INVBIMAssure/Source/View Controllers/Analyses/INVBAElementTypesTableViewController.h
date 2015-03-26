@@ -8,7 +8,7 @@
 
 #import "INVCustomTableViewController.h"
 
-@interface INVAnalysisRuleElementTypesTableViewController : INVCustomTableViewController
+@interface INVBAElementTypesTableViewController : INVCustomTableViewController
 
 @property NSString *currentSelection;
 

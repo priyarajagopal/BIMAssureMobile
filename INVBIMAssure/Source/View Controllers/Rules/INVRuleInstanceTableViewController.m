@@ -12,7 +12,7 @@
 #import "INVRuleInstanceStringParamTableViewCell.h"
 #import "INVRuleInstanceOverviewTableViewCell.h"
 #import "INVRuleInstanceNameTableViewCell.h"
-#import "INVAnalysisRuleElementTypesTableViewController.h"
+#import "INVBAElementTypesTableViewController.h"
 
 #import "NSObject+INVCustomizations.h"
 #import "NSArray+INVCustomizations.h"
@@ -195,12 +195,10 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 - (void)fetchRuleInstance
 {
     if (!self.analysesId || !self.ruleInstanceId) {
-#warning Show an error alert or a default page
         INVLogError(
             @"Cannot fetch rule instance details for analyses %@ and RuleInstanceId %@", self.analysesId, self.ruleInstanceId);
     }
     else {
-#warning If unlikely case that matchingRuleInstance was not fetched from the server due to any reason when this view was loaded , fetch it
 
         INVRuleInstance *ruleInstance =
             [self.globalDataManager.invServerClient.analysesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId
@@ -333,7 +331,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         INVRuleInstanceBAElementTypeParamTableViewCell *cell =
             [sender findSuperviewOfClass:[INVRuleInstanceBAElementTypeParamTableViewCell class] predicate:nil];
 
-        INVAnalysisRuleElementTypesTableViewController *ruleTypesVC = (id)[segue.destinationViewController topViewController];
+        INVBAElementTypesTableViewController *ruleTypesVC = (id)[segue.destinationViewController topViewController];
         ruleTypesVC.currentSelection = cell.actualParamDictionary[INVActualParamValue];
 
         [ruleTypesVC addObserver:self

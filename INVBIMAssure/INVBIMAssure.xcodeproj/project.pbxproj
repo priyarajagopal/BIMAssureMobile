@@ -83,7 +83,7 @@
 		F55AD9141A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F55AD9131A8A67CD00202F0A /* INVCurrentUsersProfileTableViewCell.xib */; };
 		F55FF5FF1A83E20C00ED6691 /* UIView+INVCustomizations.m in Sources */ = {isa = PBXBuildFile; fileRef = F55FF5FE1A83E20C00ED6691 /* UIView+INVCustomizations.m */; };
 		F56C9DFF1AB1C46100D365AD /* libPods-AWPagedArray.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F56C9DFE1AB1C46100D365AD /* libPods-AWPagedArray.a */; };
-		F577DBC41AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F577DBC31AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m */; };
+		F577DBC41AC1D3C0002A904C /* INVBAElementTypesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F577DBC31AC1D3C0002A904C /* INVBAElementTypesTableViewController.m */; };
 		F577DBC71AC1F1ED002A904C /* Licensing.md in Sources */ = {isa = PBXBuildFile; fileRef = F577DBC61AC1F1ED002A904C /* Licensing.md */; };
 		F577DBC91AC1F3BA002A904C /* Licensing.html in Resources */ = {isa = PBXBuildFile; fileRef = F577DBC81AC1F3BA002A904C /* Licensing.html */; };
 		F577DBCD1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F577DBCC1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.m */; };
@@ -354,8 +354,8 @@
 		F55FF5FE1A83E20C00ED6691 /* UIView+INVCustomizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+INVCustomizations.m"; sourceTree = "<group>"; };
 		F567EF841A8118B800DCD933 /* INVRuntimeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INVRuntimeUtils.h; sourceTree = "<group>"; };
 		F56C9DFE1AB1C46100D365AD /* libPods-AWPagedArray.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AWPagedArray.a"; path = "/Volumes/Data/GitHub/EmpireMobileApp-iOS/Pods/../build/Debug-iphoneos/libPods-AWPagedArray.a"; sourceTree = "<absolute>"; };
-		F577DBC21AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisRuleElementTypesTableViewController.h; sourceTree = "<group>"; };
-		F577DBC31AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisRuleElementTypesTableViewController.m; sourceTree = "<group>"; };
+		F577DBC21AC1D3C0002A904C /* INVBAElementTypesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVBAElementTypesTableViewController.h; path = ../Analyses/INVBAElementTypesTableViewController.h; sourceTree = "<group>"; };
+		F577DBC31AC1D3C0002A904C /* INVBAElementTypesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVBAElementTypesTableViewController.m; path = ../Analyses/INVBAElementTypesTableViewController.m; sourceTree = "<group>"; };
 		F577DBC61AC1F1ED002A904C /* Licensing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
 		F577DBC81AC1F3BA002A904C /* Licensing.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Licensing.html; sourceTree = "<group>"; };
 		F577DBCB1AC1F4B7002A904C /* INVThirdPartySoftwareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVThirdPartySoftwareViewController.h; sourceTree = "<group>"; };
@@ -1150,6 +1150,8 @@
 				F5789D321A642A5500D8CEE7 /* INVRulesListViewController.m */,
 				F5789D331A642A5500D8CEE7 /* INVRunRulesTableViewController.h */,
 				F5789D341A642A5500D8CEE7 /* INVRunRulesTableViewController.m */,
+				F577DBC21AC1D3C0002A904C /* INVBAElementTypesTableViewController.h */,
+				F577DBC31AC1D3C0002A904C /* INVBAElementTypesTableViewController.m */,
 			);
 			path = Rules;
 			sourceTree = "<group>";
@@ -1252,8 +1254,6 @@
 				F5EA59CA1ABC6EC000458C0C /* INVAnalysisRunsCollectionViewController.m */,
 				F5789D291A642A5500D8CEE7 /* INVAnalysisExecutionsTableViewController.h */,
 				F5789D2A1A642A5500D8CEE7 /* INVAnalysisExecutionsTableViewController.m */,
-				F577DBC21AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.h */,
-				F577DBC31AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m */,
 				F5789D251A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.h */,
 				F5789D261A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.m */,
 			);
@@ -1492,7 +1492,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F577DBC41AC1D3C0002A904C /* INVAnalysisRuleElementTypesTableViewController.m in Sources */,
+				F577DBC41AC1D3C0002A904C /* INVBAElementTypesTableViewController.m in Sources */,
 				F5789D671A642A5500D8CEE7 /* INVCustomTabBarController.m in Sources */,
 				F5789D4A1A642A5500D8CEE7 /* AppDelegate.m in Sources */,
 				F5789D761A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.m in Sources */,

@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Invicara Inc. All rights reserved.
 //
 
-#import "INVAnalysisRuleElementTypesTableViewController.h"
+#import "INVBAElementTypesTableViewController.h"
 #import "INVBlockUtils.h"
 
 #import <AWPagedArray/AWPagedArray.h>
 
-@interface INVAnalysisRuleElementTypesTableViewController () <AWPagedArrayDelegate>
+@interface INVBAElementTypesTableViewController () <AWPagedArrayDelegate>
 
 @property NSString *originalSelection;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation INVAnalysisRuleElementTypesTableViewController
+@implementation INVBAElementTypesTableViewController
 
 - (void)viewDidLoad
 {
@@ -84,7 +84,7 @@
 
 - (IBAction)cancel:(id)sender
 {
-    self.currentSelection = self.originalSelection?self.originalSelection:@"";
+    self.currentSelection = self.originalSelection ? self.originalSelection : @"";
 
     [self performSegueWithIdentifier:@"unwind" sender:nil];
 }
@@ -106,19 +106,20 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ruleElementType"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ruleElementType"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
     id result = self.baTypes[indexPath.row];
     if ([result isKindOfClass:[NSNull class]]) {
         cell.textLabel.text = @"";
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
     }
     else {
         cell.textLabel.text = result[@"name"];
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
 
         if ([result[@"code"] isEqualToString:self.currentSelection]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            cell.accessoryView = [[UIImageView alloc] initWithImage:[self _selectedImage]];
         }
     }
 
@@ -133,7 +134,7 @@
 
     self.currentSelection = result[@"code"];
 
- //   [self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:YES];
 }
 
 #pragma mark - AWPagedArrayDelegate
@@ -143,6 +144,23 @@
     if ([*returnObject isKindOfClass:[NSNull class]]) {
         [self loadPageAtIndex:[pagedArray pageForIndex:index]];
     }
+}
+
+#pragma mark - helpers
+
+- (UIImage *)_selectedImage
+{
+    FAKFontAwesome *selectedIcon = [FAKFontAwesome checkCircleIconWithSize:30];
+    [selectedIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+    return [selectedIcon imageWithSize:CGSizeMake(30, 30)];
+}
+
+- (UIImage *)_deselectedImage
+{
+    FAKFontAwesome *deselectedIcon = [FAKFontAwesome circleOIconWithSize:30];
+    [deselectedIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+
+    return [deselectedIcon imageWithSize:CGSizeMake(30, 30)];
 }
 
 @end
