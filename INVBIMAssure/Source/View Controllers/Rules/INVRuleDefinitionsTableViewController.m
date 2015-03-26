@@ -19,6 +19,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic, readwrite) NSFetchedResultsController *dataResultsController;
 
 @property (nonatomic) NSMutableDictionary *selectedRules;
+@property IBOutlet UIBarButtonItem *saveButtonItem;
 
 - (IBAction)onSaveRuleDefinitons:(id)sender;
 
@@ -55,6 +56,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 {
     [super viewWillAppear:animated];
     [self fetchListOfRuleDefinitions];
+    
+    self.saveButtonItem.enabled = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -134,6 +137,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         self.selectedRules[rule.ruleId] = rule;
     }
 
+    self.saveButtonItem.enabled = self.selectedRules.count > 0;
     [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

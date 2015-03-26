@@ -201,6 +201,9 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Rule Definitons"/>
                         </userDefinedRuntimeAttributes>
                     </tableView>
+                    <connections>
+                        <outlet property="saveButtonItem" destination="2ER-rh-d5W" id="2J0-uL-0eu"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4b2-Jt-qqI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="OOp-hR-orm" userLabel="Exit" sceneMemberID="exit"/>
