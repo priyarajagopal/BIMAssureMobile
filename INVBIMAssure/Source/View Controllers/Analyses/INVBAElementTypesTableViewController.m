@@ -58,9 +58,9 @@
                                                    withCompletionBlock:^(NSDictionary *result, INVEmpireMobileError *error) {
                                                        [self.refreshControl endRefreshing];
 
-                                                       self.pagedArray.totalCount = [result[@"totalcount"] integerValue];
+                                                       self.pagedArray.totalCount = [result[@"total"] integerValue];
 
-                                                       [self.pagedArray setObjects:result[@"list"] forPage:pageIndex];
+                                                       [self.pagedArray setObjects:result[@"hits"] forPage:pageIndex];
                                                        [self.tableView reloadData];
 
                                                        dispatch_semaphore_signal(semaphore);
@@ -115,10 +115,10 @@
         cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
     }
     else {
-        cell.textLabel.text = result[@"name"];
+        cell.textLabel.text = result[@"_id"];
         cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
 
-        if ([result[@"code"] isEqualToString:self.currentSelection]) {
+        if ([result[@"_id"] isEqualToString:self.currentSelection]) {
             cell.accessoryView = [[UIImageView alloc] initWithImage:[self _selectedImage]];
         }
     }
@@ -132,9 +132,10 @@
 {
     id result = self.baTypes[indexPath.row];
 
-    self.currentSelection = result[@"code"];
+    self.currentSelection = result[@"_id"];
 
-    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:YES];
+    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - AWPagedArrayDelegate
