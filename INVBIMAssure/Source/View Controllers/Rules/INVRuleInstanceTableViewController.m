@@ -431,15 +431,24 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
+#warning TODO May want to move this to separate parser class code re
 - (void)transformRuleInstanceParamsToArray:(INVRuleInstance *)ruleInstance definition:(INVRule *)ruleDefinition
 {
     NSArray *keys = ruleDefinition.formalParams.properties.allKeys;
     NSDictionary *entries = [NSDictionary dictionaryWithObjects:[keys arrayByApplyingBlock:^id(id key, NSUInteger _, BOOL *__) {
         INVRuleFormalParam *formalParam = ruleDefinition.formalParams;
+        NSDictionary* elementDesc = (NSDictionary*)formalParam.properties[key];
+        NSString *localizedDisplayName = key;
+        if ([elementDesc.allKeys containsObject:@"display"]) {
+            NSDictionary *displayName = formalParam.properties[key][@"display"];
+            NSString *currentLocale = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+            localizedDisplayName = displayName[currentLocale];
+  
+        }
+       
         INVParameterType type = INVParameterTypeFromString(formalParam.properties[key][@"type"]);
-        NSDictionary *displayName = formalParam.properties[key][@"display"];
-        NSString *currentLocale = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-        NSString *localizedDisplayName = displayName[currentLocale];
+     NSString *currentLocale = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+ 
         return [@{
             INVActualParamName : key,
             INVActualParamType : @(type),
