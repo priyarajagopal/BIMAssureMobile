@@ -1,21 +1,21 @@
 //
-//  INVRuleInstanceElementTypeParamTableViewCell.m
+// INVRuleInstanceBAElementTypeParamTableViewCell.m
 //  INVBIMAssure
 //
 //  Created by Richard Ross on 3/24/15.
 //  Copyright (c) 2015 Invicara Inc. All rights reserved.
 //
 
-#import "INVRuleInstanceElementTypeParamTableViewCell.h"
+#import "INVRuleInstanceBAElementTypeParamTableViewCell.h"
 
-@interface INVRuleInstanceElementTypeParamTableViewCell ()
+@interface INVRuleInstanceBAElementTypeParamTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *ruleInstanceKey;
 @property (weak, nonatomic) IBOutlet UIButton *ruleInstanceElementType;
 
 @end
 
-@implementation INVRuleInstanceElementTypeParamTableViewCell
+@implementation INVRuleInstanceBAElementTypeParamTableViewCell
 
 - (void)layoutSubviews
 {

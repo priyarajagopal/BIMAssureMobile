@@ -8,9 +8,6 @@
 
 #import "INVRuleInstanceStringParamTableViewCell.h"
 
-NSString *const INVActualParamName = @"Name";
-NSString *const INVActualParamType = @"Type";
-NSString *const INVActualParamValue = @"value"; // Data contains a "value" element
 
 @interface INVRuleInstanceStringParamTableViewCell () <UITextFieldDelegate>
 

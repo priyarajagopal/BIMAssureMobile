@@ -1,5 +1,5 @@
 //
-//  INVRuleInstanceElementTypeParamTableViewCell.h
+//  INVRuleInstanceBAElementTypeParamTableViewCell.h
 //  INVBIMAssure
 //
 //  Created by Richard Ross on 3/24/15.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "INVRuleInstanceTableViewController+Private.h"
 
-@interface INVRuleInstanceElementTypeParamTableViewCell : UITableViewCell
+@interface INVRuleInstanceBAElementTypeParamTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) INVActualParamKeyValuePair actualParamDictionary;
 

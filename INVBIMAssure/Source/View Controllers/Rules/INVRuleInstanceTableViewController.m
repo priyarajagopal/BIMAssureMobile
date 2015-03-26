@@ -8,7 +8,7 @@
 
 #import "INVRuleInstanceTableViewController.h"
 
-#import "INVRuleInstanceElementTypeParamTableViewCell.h"
+#import "INVRuleInstanceBAElementTypeParamTableViewCell.h"
 #import "INVRuleInstanceStringParamTableViewCell.h"
 #import "INVRuleInstanceOverviewTableViewCell.h"
 #import "INVRuleInstanceNameTableViewCell.h"
@@ -59,7 +59,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     [self.tableView registerNib:parameterStringNib forCellReuseIdentifier:@"RuleInstanceStringCell"];
 
     UINib *parameterElementTypeNib =
-        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceElementTypeParamTableViewCell class])
+        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceBAElementTypeParamTableViewCell class])
                        bundle:[NSBundle bundleForClass:[self class]]];
 
     [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceElementTypeCell"];
@@ -112,7 +112,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 {
      if ([keyPath isEqualToString:@"currentSelection"] && ((NSString*)change[NSKeyValueChangeNewKey]).length) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
-        INVRuleInstanceElementTypeParamTableViewCell *elementTypeCell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
+        INVRuleInstanceBAElementTypeParamTableViewCell *elementTypeCell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
 
         elementTypeCell.actualParamDictionary[INVActualParamValue]= change[NSKeyValueChangeNewKey];
 
@@ -330,8 +330,8 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     }
 
     if ([segue.identifier isEqualToString:@"showAnalysisRuleElements"]) {
-        INVRuleInstanceElementTypeParamTableViewCell *cell =
-            [sender findSuperviewOfClass:[INVRuleInstanceElementTypeParamTableViewCell class] predicate:nil];
+        INVRuleInstanceBAElementTypeParamTableViewCell *cell =
+            [sender findSuperviewOfClass:[INVRuleInstanceBAElementTypeParamTableViewCell class] predicate:nil];
 
         INVAnalysisRuleElementTypesTableViewController *ruleTypesVC = (id)[segue.destinationViewController topViewController];
         ruleTypesVC.currentSelection = cell.actualParamDictionary[INVActualParamValue];
