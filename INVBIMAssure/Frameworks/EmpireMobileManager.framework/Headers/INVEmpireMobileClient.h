@@ -1470,7 +1470,7 @@ accountManager can be used to retrieve the details of account
                                      withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
- Asynchornously , fetch list of normalized BA types
+ Asynchornously , fetch list of normalized BA types. The types will be returned in alphabetical order of name
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
   @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to

@@ -15,6 +15,7 @@
 
 @property NSString *originalSelection;
 
+@property NSMutableSet *loadingPages;
 @property AWPagedArray *pagedArray;
 @property NSArray *baTypes;
 
@@ -26,10 +27,11 @@
 {
     [super viewDidLoad];
 
-    self.pagedArray = [[AWPagedArray alloc] initWithCount:0 objectsPerPage:1000 initialPageIndex:0];
+    self.pagedArray = [[AWPagedArray alloc] initWithCount:0 objectsPerPage:50 initialPageIndex:0];
     self.pagedArray.delegate = self;
 
     self.baTypes = (NSArray *) self.pagedArray;
+    self.loadingPages = [NSMutableSet new];
 
     [self loadPageAtIndex:0];
 
@@ -46,27 +48,51 @@
         queue = dispatch_queue_create("com.invicara.analysis-rule-types-queue", DISPATCH_QUEUE_SERIAL);
     });
 
-    dispatch_async(queue, ^{
-        if (self.pagedArray.totalCount && self.pagedArray.pages[@(pageIndex)]) {
-            return;
-        }
+    if ([self.loadingPages containsObject:@(pageIndex)] || self.pagedArray.pages[@(pageIndex)] != nil)
+        return;
 
+    [self.loadingPages addObject:@(pageIndex)];
+    dispatch_async(queue, ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
-        [self.globalDataManager.invServerClient fetchBATypesFromOffset:@(pageIndex * self.pagedArray.objectsPerPage)
-                                                              withSize:@(self.pagedArray.objectsPerPage)
-                                                   withCompletionBlock:^(NSDictionary *result, INVEmpireMobileError *error) {
-                                                       [self.refreshControl endRefreshing];
+        [self.globalDataManager.invServerClient
+            fetchBATypesFromOffset:@(pageIndex * self.pagedArray.objectsPerPage)
+                          withSize:@(self.pagedArray.objectsPerPage)
+               withCompletionBlock:^(NSDictionary *result, INVEmpireMobileError *error) {
+                   if (self.refreshControl.isRefreshing) {
+                       [self.refreshControl endRefreshing];
+                   }
 
-                                                       self.pagedArray.totalCount = [result[@"total"] integerValue];
+                   NSUInteger oldCount = self.pagedArray.totalCount;
+                   if (oldCount != [result[@"total"] integerValue]) {
+                       self.pagedArray.totalCount = [result[@"total"] integerValue];
+                       [self.tableView reloadData];
+                   }
 
-                                                       [self.pagedArray setObjects:result[@"hits"] forPage:pageIndex];
-                                                       [self.tableView reloadData];
+                   NSMutableArray *hits = [[result valueForKeyPath:@"hits.fields"] mutableCopy];
+                   [hits enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                          usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                              NSDictionary *replacement = @{
+                                                  @"code" : [obj[@"code"] firstObject],
+                                                  @"name" : [obj[@"name"] firstObject]
+                                              };
 
-                                                       dispatch_semaphore_signal(semaphore);
-                                                   }];
+                                              [hits replaceObjectAtIndex:idx withObject:replacement];
+                                          }];
+
+                   [self.pagedArray setObjects:hits forPage:pageIndex];
+
+                   [self.tableView beginUpdates];
+                   [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows
+                                         withRowAnimation:UITableViewRowAnimationNone];
+                   [self.tableView endUpdates];
+
+                   dispatch_semaphore_signal(semaphore);
+               }];
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+        [self.loadingPages removeObject:@(pageIndex)];
     });
 }
 
@@ -78,7 +104,6 @@
     self.pagedArray.totalCount = 0;
 
     [self loadPageAtIndex:0];
-
     [self.tableView reloadData];
 }
 
@@ -107,23 +132,31 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ruleElementType"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
     }
 
     id result = self.baTypes[indexPath.row];
     if ([result isKindOfClass:[NSNull class]]) {
         cell.textLabel.text = @"";
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
+        [(UIImageView *) cell.accessoryView setImage:[self _deselectedImage]];
     }
     else {
-        cell.textLabel.text = result[@"_id"];
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
+        cell.textLabel.text = result[@"name"];
 
-        if ([result[@"_id"] isEqualToString:self.currentSelection]) {
-            cell.accessoryView = [[UIImageView alloc] initWithImage:[self _selectedImage]];
+        if ([result[@"code"] isEqualToString:self.currentSelection]) {
+            [(UIImageView *) cell.accessoryView setImage:[self _selectedImage]];
+        }
+        else {
+            [(UIImageView *) cell.accessoryView setImage:[self _deselectedImage]];
         }
     }
 
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
 }
 
 #pragma mark - UITableViewDelegate
@@ -132,10 +165,10 @@
 {
     id result = self.baTypes[indexPath.row];
 
-    self.currentSelection = result[@"_id"];
+    self.currentSelection = result[@"code"];
 
     [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows]
-                          withRowAnimation:UITableViewRowAnimationAutomatic];
+                          withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - AWPagedArrayDelegate
@@ -145,23 +178,38 @@
     if ([*returnObject isKindOfClass:[NSNull class]]) {
         [self loadPageAtIndex:[pagedArray pageForIndex:index]];
     }
+    else {
+        [self loadPageAtIndex:[pagedArray pageForIndex:index + 1]];
+    }
 }
 
 #pragma mark - helpers
 
 - (UIImage *)_selectedImage
 {
-    FAKFontAwesome *selectedIcon = [FAKFontAwesome checkCircleIconWithSize:30];
-    [selectedIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
-    return [selectedIcon imageWithSize:CGSizeMake(30, 30)];
+    static UIImage *selectedImage;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        FAKFontAwesome *selectedIcon = [FAKFontAwesome checkCircleIconWithSize:30];
+        [selectedIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+        selectedImage = [selectedIcon imageWithSize:CGSizeMake(30, 30)];
+    });
+
+    return selectedImage;
 }
 
 - (UIImage *)_deselectedImage
 {
-    FAKFontAwesome *deselectedIcon = [FAKFontAwesome circleOIconWithSize:30];
-    [deselectedIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+    static UIImage *deselectedImage;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        FAKFontAwesome *deselectedIcon = [FAKFontAwesome circleOIconWithSize:30];
+        [deselectedIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
 
-    return [deselectedIcon imageWithSize:CGSizeMake(30, 30)];
+        deselectedImage = [deselectedIcon imageWithSize:CGSizeMake(30, 30)];
+    });
+
+    return deselectedImage;
 }
 
 @end
