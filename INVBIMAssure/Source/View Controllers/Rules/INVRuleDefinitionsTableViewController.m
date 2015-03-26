@@ -183,9 +183,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         INV_CellConfigurationBlock cellConfigurationBlock =
             ^(INVRuleDefinitionTableViewCell *cell, INVRule *rule, NSIndexPath *indexPath) {
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.accessoryType =
-                    self.selectedRules[rule.ruleId] != nil ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-                cell.ruleDescription.text = rule.overview;
+                
+                cell.checked = self.selectedRules[rule.ruleId] != nil;
+                cell.ruleDefinition = rule;
 
             };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleDefinitionCell" configureBlock:cellConfigurationBlock];

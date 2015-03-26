@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface INVRuleDefinitionTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *ruleDescription;
+
+@property (nonatomic) INVRule *ruleDefinition;
+@property (nonatomic) BOOL checked;
 
 @end

@@ -8,18 +8,40 @@
 
 #import "INVRuleDefinitionTableViewCell.h"
 
+@interface INVRuleDefinitionTableViewCell()
+
+@property (weak, nonatomic) IBOutlet UILabel *ruleDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *checkmarkLabel;
+
+@end
+
 @implementation INVRuleDefinitionTableViewCell
 
-- (void)awakeFromNib
-{
-    // Initialization code
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    [self updateUI];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
+-(void) updateUI {
+    self.ruleDescriptionLabel.text = self.ruleDefinition.overview;
+    
+    if (self.checked) {
+        self.checkmarkLabel.text = @"\uf05d";
+    } else {
+        self.checkmarkLabel.text = @"\uf10c";
+    }
+}
 
-    // Configure the view for the selected state
+-(void) setRuleDefinition:(INVRule *)ruleDefinition {
+    _ruleDefinition = ruleDefinition;
+    
+    [self updateUI];
+}
+
+-(void) setChecked:(BOOL)checked {
+    _checked = checked;
+    
+    [self updateUI];
 }
 
 @end
