@@ -41,7 +41,7 @@
 
 - (void)updateUI
 {
-    self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamName];
+    self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamDisplayName];
     self.ruleInstanceValue.text = self.actualParamDictionary[INVActualParamValue];
 }
 

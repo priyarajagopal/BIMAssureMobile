@@ -110,11 +110,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-     if ([keyPath isEqualToString:@"currentSelection"] && ((NSString*)change[NSKeyValueChangeNewKey]).length) {
+    if ([keyPath isEqualToString:@"currentSelection"] && ((NSString *) change[NSKeyValueChangeNewKey]).length) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
         INVRuleInstanceBAElementTypeParamTableViewCell *elementTypeCell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
 
-        elementTypeCell.actualParamDictionary[INVActualParamValue]= change[NSKeyValueChangeNewKey];
+        elementTypeCell.actualParamDictionary[INVActualParamValue] = change[NSKeyValueChangeNewKey];
 
         [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
     }
@@ -437,13 +437,20 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 {
     NSArray *keys = ruleDefinition.formalParams.properties.allKeys;
     NSDictionary *entries = [NSDictionary dictionaryWithObjects:[keys arrayByApplyingBlock:^id(id key, NSUInteger _, BOOL *__) {
-        INVParameterType type = INVParameterTypeFromString(ruleDefinition.formalParams.properties[key][@"type"]);
-
-        return [@{ INVActualParamName : key, INVActualParamType : @(type) } mutableCopy];
+        INVRuleFormalParam *formalParam = ruleDefinition.formalParams;
+        INVParameterType type = INVParameterTypeFromString(formalParam.properties[key][@"type"]);
+        NSDictionary *displayName = formalParam.properties[key][@"display"];
+        NSString *currentLocale = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+        NSString *localizedDisplayName = displayName[currentLocale];
+        return [@{
+            INVActualParamName : key,
+            INVActualParamType : @(type),
+            INVActualParamDisplayName : localizedDisplayName
+        } mutableCopy];
     }] forKeys:keys];
 
     [ruleInstance.actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary)obj;
+        INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary) obj;
         entries[key][INVActualParamValue] = valueDict[@"value"];
     }];
 
@@ -461,7 +468,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         NSString *key = actualDict[INVActualParamName];
         NSString *value = actualDict[INVActualParamValue] ?: @"";
 
-        [actualParam setObject:@{INVActualParamValue:value} forKey:key];
+        [actualParam setObject:@{ INVActualParamValue : value } forKey:key];
     }];
 
     return actualParam;

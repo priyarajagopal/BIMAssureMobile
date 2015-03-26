@@ -28,7 +28,7 @@
 
 - (void)updateUI
 {
-    self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamName];
+    self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamDisplayName];
 
     if ([self.actualParamDictionary[INVActualParamValue] length]) {
         [self.ruleInstanceElementType setTitle:self.actualParamDictionary[INVActualParamValue]
