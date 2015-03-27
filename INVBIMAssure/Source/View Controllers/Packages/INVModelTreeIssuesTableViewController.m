@@ -86,12 +86,12 @@
 - (INVModelTreeNode *)treeNodeForAnalysisRunResult:(INVAnalysisRunResult *)runResult withParent:(INVModelTreeNode *)parent
 {
     INVModelTreeNode *node = [INVModelTreeNode
-        treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS", nil), runResult.analysisRunId]
+        treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_RESULT", nil), runResult.analysisRunId]
                       id:runResult.analysisRunId
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
-                 getIssuesForExecutionResult:self.runResult.analysisRunResultId
+                 getIssuesForExecutionResult:runResult.analysisRunResultId
                          WithCompletionBlock:^(INVRuleIssueArray issues, INVEmpireMobileError *error) {
 
                              if (error) {
@@ -113,7 +113,7 @@
          }];
 
     node.parent = parent;
-    node.expanded = YES;
+    // node.expanded = YES;
 
     [self registerNode:node animateChanges:YES];
 
@@ -163,7 +163,6 @@
     if (_rootNode == nil) {
         if (self.runResult) {
             _rootNode = [self treeNodeForAnalysisRunResult:self.runResult withParent:nil];
-    
         }
         else {
             _rootNode = [INVModelTreeNode
@@ -185,11 +184,11 @@
                                             }
 
                                             *expectedTotalCount = [analysisRuns count];
-                                            completed([analysisRuns arrayByApplyingBlock:^id(INVAnalysisRun *run, NSUInteger _,
-                                                                                             BOOL *__) {
-                                                return [self treeNodeForAnalysisRun:run withParent:node];
+                                            completed([analysisRuns
+                                                arrayByApplyingBlock:^id(INVAnalysisRun *run, NSUInteger _, BOOL *__) {
+                                                    return [self treeNodeForAnalysisRun:run withParent:node];
 
-                                            }]);
+                                                }]);
                                         }];
 
                      return YES;
