@@ -35,15 +35,12 @@
 
         id code = self.actualParamDictionary[INVActualParamValue];
         [[INVGlobalDataManager sharedInstance].invServerClient
-            fetchBATypesFilteredByName:nil
-                               andCode:code
-                            fromOffset:@(0)
-                              withSize:@(1)
-                   withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                       NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
+            fetchBATypeDisplayNameForCode:code
+                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                          NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
 
-                       [self.ruleInstanceElementType setTitle:title forState:UIControlStateNormal];
-                   }];
+                          [self.ruleInstanceElementType setTitle:title forState:UIControlStateNormal];
+                      }];
     }
     else {
         [self.ruleInstanceElementType setTitle:NSLocalizedString(@"SELECT_ELEMENT_TYPE", nil) forState:UIControlStateNormal];

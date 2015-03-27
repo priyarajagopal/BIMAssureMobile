@@ -8,20 +8,6 @@
 
 #import "INVUnitsListTableViewController.h"
 
-static inline NSArray *getUnitsList()
-{
-    return @[
-        @{ @"display" : @"feet",
-            @"unit" : @"ft" },
-        @{ @"display" : @"meters",
-            @"unit" : @"m" },
-        @{ @"display" : @"yards",
-            @"unit" : @"yd" },
-        @{ @"display" : @"kilometers",
-            @"unit" : @"km" }
-    ];
-}
-
 @interface INVUnitsListTableViewController () <UISearchBarDelegate>
 
 @property IBOutlet UIBarButtonItem *saveButtonItem;
@@ -49,7 +35,20 @@ static inline NSArray *getUnitsList()
 
 - (void)fetchListOfUnits
 {
-    self.allUnits = getUnitsList();
+    [self.globalDataManager.invServerClient
+        fetchSupportedUnitsForSignedInAccountWithCompletionBlock:^(INVBAUnitArray units, INVEmpireMobileError *error) {
+            INV_ALWAYS:
+                if (self.refreshControl.isRefreshing) {
+                    [self.refreshControl endRefreshing];
+                }
+
+            INV_SUCCESS:
+                self.allUnits = units;
+                [self filterListOfUnits];
+
+            INV_ERROR:
+                INVLogError(@"%@", error);
+        }];
 
     if (self.refreshControl.isRefreshing)
         [self.refreshControl endRefreshing];
