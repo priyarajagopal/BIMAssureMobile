@@ -1485,6 +1485,27 @@ accountManager can be used to retrieve the details of account
 - (void)fetchBATypesFromOffset:(NSNumber *)offset
                       withSize:(NSNumber *)size
            withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/*
+ Asynchornously , fetch list of normalized BA types filtered by specified name and/or code
+ 
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+ 
+ @param displayName  the name to be filtered on. Can be nil
+ 
+ @param code The code to be filtered on. Can ne nil
+ 
+ @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
+ 0.Offset
+ 
+ @param size optional value to specify the number of items to be fetched. Passing nil defaults to all.
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler
+ 
+ */
+- (void)fetchBATypesFilteredByName:(NSString *)displayName andCode:(NSString*)code fromOffset:(NSNumber*)offset withSize:(NSNumber*)size
+           withCompletionBlock:(CompletionHandlerWithData)handler;
 #pragma mark Basic Analyses related
 
 /*

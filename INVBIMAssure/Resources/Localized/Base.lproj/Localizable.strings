@@ -63,6 +63,7 @@
 "SELECT_RULES_TO_RUN"="Select Rules to Run";
 "EXECUTED_AT"="Executed At";
 "NO_ISSUES"="No Errors Reported";
+"ISSUES_UNKNOWN"="Issue Count Unavailable";
 "NUM_ERRORS"="Issues Count";
 "EXECUTIONS"="Executions";
 "DESCRIPTION_UNAVAILABLE"="Description Unavailable";

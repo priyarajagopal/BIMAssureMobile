@@ -74,66 +74,71 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
 {
     self.dataSource = [[INVGenericTableViewDataSource alloc] initWithDataArray:@[
     ] forSection:SECTION_INDEX_RESULTS forTableView:self.tableView];
-    INV_CellConfigurationBlock cellConfigurationBlock = ^(INVRuleInstanceExecutionResultTableViewCell *cell,
-                                                            INVAnalysisRunResult *execution, NSIndexPath *indexPath) {
-        cell.runResult = execution;
-        cell.ruleInstanceName.text = execution.ruleName;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    INV_CellConfigurationBlock cellConfigurationBlock =
+        ^(INVRuleInstanceExecutionResultTableViewCell *cell, INVAnalysisRunResult *execution, NSIndexPath *indexPath) {
+            cell.runResult = execution;
+            cell.ruleInstanceName.text = execution.ruleName;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-        NSString *overView = execution.ruleDescription && execution.ruleDescription.length
-                                 ? execution.ruleDescription
-                                 : NSLocalizedString(@"DESCRIPTION_UNAVAILABLE", nil);
-        cell.ruleInstanceOverview.text = overView;
+            NSString *overView = execution.ruleDescription && execution.ruleDescription.length
+                                     ? execution.ruleDescription
+                                     : NSLocalizedString(@"DESCRIPTION_UNAVAILABLE", nil);
+            cell.ruleInstanceOverview.text = overView;
 
-        NSString *executedAtStr = NSLocalizedString(@"EXECUTED_AT", nil);
+            NSString *executedAtStr = NSLocalizedString(@"EXECUTED_AT", nil);
 
-        NSString *executedAtWithDateStr =
-            [NSString stringWithFormat:@"%@ : %@", executedAtStr, [self.dateFormatter stringFromDate:execution.createdAt]];
-        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:executedAtWithDateStr];
-        [attrString addAttribute:NSForegroundColorAttributeName
-                           value:[UIColor darkTextColor]
-                           range:NSMakeRange(0, executedAtStr.length - 1)];
-        [attrString addAttribute:NSForegroundColorAttributeName
-                           value:[UIColor lightGrayColor]
-                           range:NSMakeRange(executedAtStr.length, executedAtWithDateStr.length - executedAtStr.length)];
-        cell.ruleInstanceExecutionDate.attributedText = attrString;
+            NSString *executedAtWithDateStr =
+                [NSString stringWithFormat:@"%@ : %@", executedAtStr, [self.dateFormatter stringFromDate:execution.createdAt]];
+            NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:executedAtWithDateStr];
+            [attrString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor darkTextColor]
+                               range:NSMakeRange(0, executedAtStr.length - 1)];
+            [attrString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor lightGrayColor]
+                               range:NSMakeRange(executedAtStr.length, executedAtWithDateStr.length - executedAtStr.length)];
+            cell.ruleInstanceExecutionDate.attributedText = attrString;
 
-        UIColor *successColor = [UIColor colorWithRed:63.0 / 255 green:166.0 / 255 blue:125.0 / 255 alpha:1.0];
-        UIColor *failColor = [UIColor colorWithRed:212.0 / 255 green:38.0 / 255 blue:58.0 / 255 alpha:1.0];
-        UIColor *otherColor = [UIColor darkGrayColor];
+            UIColor *successColor = [UIColor colorWithRed:63.0 / 255 green:166.0 / 255 blue:125.0 / 255 alpha:1.0];
+            UIColor *failColor = [UIColor colorWithRed:212.0 / 255 green:38.0 / 255 blue:58.0 / 255 alpha:1.0];
+            UIColor *otherColor = [UIColor darkGrayColor];
 
-        if (execution.status.integerValue == INV_ANALYSISRUN_TYPE_COMPLETED) {
-            cell.executionStatus.backgroundColor = successColor;
-        }
-        else if (execution.status.integerValue == INV_ANALYSISRUN_TYPE_FAILED) {
-            cell.executionStatus.backgroundColor = failColor;
-        }
-        else {
-            cell.executionStatus.backgroundColor = otherColor;
-        }
+            if (execution.status.integerValue == INV_ANALYSISRUN_TYPE_COMPLETED) {
+                cell.executionStatus.backgroundColor = successColor;
+            }
+            else if (execution.status.integerValue == INV_ANALYSISRUN_TYPE_FAILED) {
+                cell.executionStatus.backgroundColor = failColor;
+            }
+            else {
+                cell.executionStatus.backgroundColor = otherColor;
+            }
 
-        cell.executionStatus.text = [INVEmpireMobileClient analysisRunStatusMap][execution.status];
-        NSString *issuesText = NSLocalizedString(@"NO_ISSUES", nil);
-/*
-        if (execution.) {
-            NSDictionary *issueElement = execution.issues[0];
-            NSArray *buildingElements = issueElement[@"buildingElements"];
-            issuesText = [NSString stringWithFormat:@"%@: %ld", NSLocalizedString(@"NUM_ERRORS", nil), execution.issues.count];
-            cell.numIssues.textColor = failColor;
-            cell.associatedBuildingElementsWithIssues = buildingElements;
+            cell.executionStatus.text = [INVEmpireMobileClient analysisRunStatusMap][execution.status];
+            cell.numIssues.textColor = otherColor;
 
-            [cell.alertIconLabel setHidden:NO];
-        }
-        else 
- */
-        {
-            cell.numIssues.textColor = [UIColor colorWithRed:60.0 / 255 green:130.0 / 255 blue:102.0 / 255 alpha:1.0];
-            [cell.alertIconLabel setHidden:YES];
-            cell.associatedBuildingElementsWithIssues = nil;
-        }
-        cell.numIssues.text = issuesText;
+            NSString *issuesText = NSLocalizedString(@"ISSUES_UNKNOWN", nil);
+            /*
+                    if (execution.) {
+                        NSDictionary *issueElement = execution.issues[0];
+                        NSArray *buildingElements = issueElement[@"buildingElements"];
+                        issuesText = [NSString stringWithFormat:@"%@: %ld", NSLocalizedString(@"NUM_ERRORS", nil),
+               execution.issues.count];
+                        cell.numIssues.textColor = failColor;
+                        cell.associatedBuildingElementsWithIssues = buildingElements;
 
-    };
+                        [cell.alertIconLabel setHidden:NO];
+                    }
+                    else
+
+                    {
+                        cell.numIssues.textColor = [UIColor colorWithRed:60.0 / 255 green:130.0 / 255 blue:102.0 / 255
+               alpha:1.0];
+                        [cell.alertIconLabel setHidden:YES];
+                        cell.associatedBuildingElementsWithIssues = nil;
+                    }
+             */
+            cell.numIssues.text = issuesText;
+
+        };
     [self.dataSource registerCellWithIdentifierForAllIndexPaths:@"RuleExecutionTVC" configureBlock:cellConfigurationBlock];
     self.tableView.dataSource = self.dataSource;
 }
@@ -288,13 +293,13 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
             [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
         if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
             INVModelTreeIssuesTableViewController *executionTVC =
-          (INVModelTreeIssuesTableViewController*) ( (UINavigationController *) segue.destinationViewController).topViewController;
+                (INVModelTreeIssuesTableViewController *) ((UINavigationController *) segue.destinationViewController)
+                    .topViewController;
             executionTVC.packageVersionId = self.fileVersionId;
             executionTVC.analysisRunId = self.analysisRunId;
             executionTVC.runResult = cell.runResult;
-            executionTVC.doNotClearBackground  = YES;
+            executionTVC.doNotClearBackground = YES;
         }
-  
     }
 }
 
