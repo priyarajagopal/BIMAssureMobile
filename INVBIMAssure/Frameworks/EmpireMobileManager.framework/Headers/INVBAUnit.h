@@ -20,8 +20,8 @@ typedef NSMutableArray *INVBAUnitMutableArray;
 
 @interface INVBAUnit : MTLModel<MTLJSONSerializing>
 
-@property (copy, nonatomic) NSString *display;
-@property (copy, nonatomic) NSString *unit;
-@property (copy, nonatomic) NSString *som;
+@property (copy, nonatomic, readonly) NSString *display;
+@property (copy, nonatomic, readonly) NSString *unit;
+@property (copy, nonatomic, readonly) NSString *som;
 
 @end

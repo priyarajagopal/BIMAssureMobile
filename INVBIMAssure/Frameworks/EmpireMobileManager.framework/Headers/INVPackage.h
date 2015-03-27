@@ -28,5 +28,6 @@ typedef NSMutableArray *INVPackageMutableArray;
 @property (copy, nonatomic, readonly) NSNumber *updatedBy;
 @property (copy, nonatomic, readonly) NSNumber *projectId;
 @property (copy, nonatomic, readonly) NSString *packageName;
+@property (copy, nonatomic, readonly) NSNumber* normalizationPercentage;
 
 @end
