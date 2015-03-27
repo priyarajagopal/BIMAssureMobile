@@ -13,6 +13,8 @@
 
 @interface INVBAElementTypesTableViewController () <AWPagedArrayDelegate>
 
+@property IBOutlet UIBarButtonItem *saveButtonItem;
+
 @property NSString *originalSelection;
 
 @property NSMutableSet *loadingPages;
@@ -35,6 +37,7 @@
 
     [self loadPageAtIndex:0];
 
+    self.saveButtonItem.enabled = NO;
     self.originalSelection = self.currentSelection;
 }
 
@@ -154,11 +157,6 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 44;
-}
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -166,6 +164,7 @@
     id result = self.baTypes[indexPath.row];
 
     self.currentSelection = result[@"code"];
+    self.saveButtonItem.enabled = YES;
 
     [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows]
                           withRowAnimation:UITableViewRowAnimationNone];
