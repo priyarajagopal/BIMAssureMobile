@@ -44,6 +44,10 @@
 		<data>
 		t4xgfjqT/z7eAclKnwbC4YYqmpk=
 		</data>
+		<key>Headers/INVBAUnit.h</key>
+		<data>
+		p0ED3QLSU66mmhu/B4pzgrFk1ZY=
+		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
 		0rKmOgScNbbit5trjqyH07UB+yw=
@@ -54,7 +58,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		0XNPN4JdVURz4u937/7M6dNpepU=
+		xJ/sX5pyUq10RD9476tcuyFyDpk=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -160,6 +164,10 @@
 		<data>
 		keYNwzwqEB4C9Rp+J+hissqlh1A=
 		</data>
+		<key>SampleUnits.txt</key>
+		<data>
+		DlfuOiUEkrAYzJIGj2xhhWiHYyY=
+		</data>
 		<key>Sample_BuildElementCategories.txt</key>
 		<data>
 		HKmD74KVKNXNnvOY3JzSZRkmAWw=
@@ -223,6 +231,10 @@
 		<data>
 		t4xgfjqT/z7eAclKnwbC4YYqmpk=
 		</data>
+		<key>Headers/INVBAUnit.h</key>
+		<data>
+		p0ED3QLSU66mmhu/B4pzgrFk1ZY=
+		</data>
 		<key>Headers/INVBuildingElement.h</key>
 		<data>
 		0rKmOgScNbbit5trjqyH07UB+yw=
@@ -233,7 +245,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		0XNPN4JdVURz4u937/7M6dNpepU=
+		xJ/sX5pyUq10RD9476tcuyFyDpk=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -334,6 +346,10 @@
 		<key>Modules/module.modulemap</key>
 		<data>
 		keYNwzwqEB4C9Rp+J+hissqlh1A=
+		</data>
+		<key>SampleUnits.txt</key>
+		<data>
+		DlfuOiUEkrAYzJIGj2xhhWiHYyY=
 		</data>
 		<key>Sample_BuildElementCategories.txt</key>
 		<data>
