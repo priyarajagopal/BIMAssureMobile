@@ -81,6 +81,7 @@
 "PHOTO_LIBRARY"="Photo Library";
 "TAKE_PHOTO"="Take Photo";
 "INVALID_EMAIL"="Invalid Email";
+"NORMALIZATION_PERCENTAGE"="%@%% N";
 
 "DELETE_THE_SELECTED_RULE"="Do you wish to delete the selected rule?";
 

@@ -380,7 +380,7 @@
 		F5789CA21A642A5500D8CEE7 /* INVAccountViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAccountViewCell.m; sourceTree = "<group>"; };
 		F5789CA31A642A5500D8CEE7 /* INVGeneralAddRemoveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVGeneralAddRemoveTableViewCell.h; sourceTree = "<group>"; };
 		F5789CA41A642A5500D8CEE7 /* INVGeneralAddRemoveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVGeneralAddRemoveTableViewCell.m; sourceTree = "<group>"; };
-		F5789CA51A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVProjectFileCollectionViewCell.h; path = "../Table View Cells/INVProjectFileCollectionViewCell.h"; sourceTree = "<group>"; };
+		F5789CA51A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectFileCollectionViewCell.h; sourceTree = "<group>"; };
 		F5789CA61A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectFileCollectionViewCell.m; sourceTree = "<group>"; };
 		F5789CA71A642A5500D8CEE7 /* INVProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVProjectTableViewCell.h; sourceTree = "<group>"; };
 		F5789CA81A642A5500D8CEE7 /* INVProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVProjectTableViewCell.m; sourceTree = "<group>"; };
@@ -810,7 +810,6 @@
 		F5789C9A1A642A5500D8CEE7 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				F5789CA51A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.h */,
 				F5789C9B1A642A5500D8CEE7 /* INVSearchView.h */,
 				F5789C9C1A642A5500D8CEE7 /* INVSearchView.m */,
 				F5789C9D1A642A5500D8CEE7 /* INVSearchViewPrivate.h */,
@@ -827,6 +826,8 @@
 				F5D291501A840453000CBA6B /* INVAccountDetailFolderCollectionReusableView.m */,
 				F5789CA11A642A5500D8CEE7 /* INVAccountViewCell.h */,
 				F5789CA21A642A5500D8CEE7 /* INVAccountViewCell.m */,
+				F5EA59CE1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.h */,
+				F5EA59CF1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.m */,
 				F523B4781AB76D090001508C /* INVAnalysisTableViewCell.h */,
 				F523B4791AB76D090001508C /* INVAnalysisTableViewCell.m */,
 				F55AD9101A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.h */,
@@ -843,6 +844,7 @@
 				F5426D5C1A6853BA0040B2B5 /* INVNotificationTableViewCell.m */,
 				F59165B21A94F86F00B7205F /* INVPendingInviteCell.h */,
 				F59165B31A94F86F00B7205F /* INVPendingInviteCell.m */,
+				F5789CA51A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.h */,
 				F5789CA61A642A5500D8CEE7 /* INVProjectFileCollectionViewCell.m */,
 				F5789CA71A642A5500D8CEE7 /* INVProjectTableViewCell.h */,
 				F5789CA81A642A5500D8CEE7 /* INVProjectTableViewCell.m */,
@@ -852,14 +854,14 @@
 				F5789CAA1A642A5500D8CEE7 /* INVRuleDefinitionTableViewCell.m */,
 				F58DFE661AC1AAF2006B8747 /* INVRuleInstanceBATypeParamTableViewCell.h */,
 				F58DFE671AC1AAF2006B8747 /* INVRuleInstanceBATypeParamTableViewCell.m */,
-				F5789CAB1A642A5500D8CEE7 /* INVRuleInstanceStringParamTableViewCell.h */,
-				F5789CAC1A642A5500D8CEE7 /* INVRuleInstanceStringParamTableViewCell.m */,
 				F5789CAD1A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.h */,
 				F5789CAE1A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.m */,
 				F5789CAF1A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.h */,
 				F5789CB01A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.m */,
 				F5789CB11A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.h */,
 				F5789CB21A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.m */,
+				F5789CAB1A642A5500D8CEE7 /* INVRuleInstanceStringParamTableViewCell.h */,
+				F5789CAC1A642A5500D8CEE7 /* INVRuleInstanceStringParamTableViewCell.m */,
 				F5789CB31A642A5500D8CEE7 /* INVRuleInstanceTableViewCell.h */,
 				F5789CB41A642A5500D8CEE7 /* INVRuleInstanceTableViewCell.m */,
 				F5789CB51A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.h */,
@@ -870,8 +872,6 @@
 				F5789CB81A642A5500D8CEE7 /* INVTextViewTableViewCell.m */,
 				F5789CB91A642A5500D8CEE7 /* INVTokensTableViewCell.h */,
 				F5789CBA1A642A5500D8CEE7 /* INVTokensTableViewCell.m */,
-				F5EA59CE1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.h */,
-				F5EA59CF1ABC727100458C0C /* INVAnalysisRunCollectionViewCell.m */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
