@@ -11,10 +11,12 @@
 
 #import <AWPagedArray/AWPagedArray.h>
 
-@interface INVBAElementTypesTableViewController () <AWPagedArrayDelegate>
+@interface INVBAElementTypesTableViewController () <AWPagedArrayDelegate, UISearchBarDelegate>
 
 @property IBOutlet UIBarButtonItem *saveButtonItem;
+@property IBOutlet UISearchBar *searchBar;
 
+@property NSOperationQueue *loadingQueue;
 @property NSString *originalSelection;
 
 @property NSMutableSet *loadingPages;
@@ -33,6 +35,10 @@
     self.pagedArray.delegate = self;
 
     self.baTypes = (NSArray *) self.pagedArray;
+
+    self.loadingQueue = [NSOperationQueue new];
+    self.loadingQueue.name = @"com.invicara.ba-types.queue";
+
     self.loadingPages = [NSMutableSet new];
 
     [self loadPageAtIndex:0];
@@ -45,65 +51,76 @@
 
 - (void)loadPageAtIndex:(NSUInteger)pageIndex
 {
-    static dispatch_queue_t queue;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        queue = dispatch_queue_create("com.invicara.analysis-rule-types-queue", DISPATCH_QUEUE_SERIAL);
-    });
-
     if ([self.loadingPages containsObject:@(pageIndex)] || self.pagedArray.pages[@(pageIndex)] != nil)
         return;
 
     [self.loadingPages addObject:@(pageIndex)];
-    dispatch_async(queue, ^{
+
+    __weak __block NSBlockOperation *weakOperation;
+    NSBlockOperation *operation = weakOperation = [NSBlockOperation blockOperationWithBlock:^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
         [self.globalDataManager.invServerClient
-            fetchBATypesFromOffset:@(pageIndex * self.pagedArray.objectsPerPage)
-                          withSize:@(self.pagedArray.objectsPerPage)
-               withCompletionBlock:^(NSDictionary *result, INVEmpireMobileError *error) {
-                   if (self.refreshControl.isRefreshing) {
-                       [self.refreshControl endRefreshing];
-                   }
+            fetchBATypesFilteredByName:self.searchBar.text
+                               andCode:nil
+                            fromOffset:@(pageIndex * self.pagedArray.objectsPerPage)
+                              withSize:@(self.pagedArray.objectsPerPage)
+                   withCompletionBlock:^(NSDictionary *result, INVEmpireMobileError *error) {
+                       if (self.refreshControl.isRefreshing) {
+                           [self.refreshControl endRefreshing];
+                       }
 
-                   NSUInteger oldCount = self.pagedArray.totalCount;
-                   if (oldCount != [result[@"total"] integerValue]) {
-                       self.pagedArray.totalCount = [result[@"total"] integerValue];
-                       [self.tableView reloadData];
-                   }
+                       if ([weakOperation isCancelled] || error) {
+                           dispatch_semaphore_signal(semaphore);
+                           return;
+                       }
 
-                   NSMutableArray *hits = [[result valueForKeyPath:@"hits.fields"] mutableCopy];
-                   [hits enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                          usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                              NSDictionary *replacement = @{
-                                                  @"code" : [obj[@"code"] firstObject],
-                                                  @"name" : [obj[@"name"] firstObject]
-                                              };
+                       NSUInteger oldCount = self.pagedArray.totalCount;
+                       if (oldCount != [result[@"total"] integerValue]) {
+                           self.pagedArray.totalCount = [result[@"total"] integerValue];
+                           [self.tableView reloadData];
+                       }
 
-                                              [hits replaceObjectAtIndex:idx withObject:replacement];
-                                          }];
+                       NSMutableArray *hits = [[result valueForKeyPath:@"hits.fields"] mutableCopy];
+                       [hits enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                              usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                  NSDictionary *replacement = @{
+                                                      @"code" : [obj[@"code"] firstObject],
+                                                      @"name" : [obj[@"name"] firstObject]
+                                                  };
 
-                   [self.pagedArray setObjects:hits forPage:pageIndex];
+                                                  [hits replaceObjectAtIndex:idx withObject:replacement];
+                                              }];
 
-                   [self.tableView beginUpdates];
-                   [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows
-                                         withRowAnimation:UITableViewRowAnimationNone];
-                   [self.tableView endUpdates];
+                       [self.pagedArray setObjects:hits forPage:pageIndex];
 
-                   dispatch_semaphore_signal(semaphore);
-               }];
+                       [self.tableView beginUpdates];
+                       [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows
+                                             withRowAnimation:UITableViewRowAnimationNone];
+                       [self.tableView endUpdates];
+
+                       dispatch_semaphore_signal(semaphore);
+                   }];
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 
         [self.loadingPages removeObject:@(pageIndex)];
-    });
+    }];
+
+    NSOperation *lastOperation = [[self.loadingQueue operations] lastObject];
+    [lastOperation addDependency:operation];
+
+    [self.loadingQueue addOperation:operation];
 }
 
 #pragma mark - IBActions
 
 - (void)onRefreshControlSelected:(id)sender
 {
+    [self.loadingQueue cancelAllOperations];
+    [self.loadingPages removeAllObjects];
     [self.pagedArray invalidateContents];
+
     self.pagedArray.totalCount = 0;
 
     [self loadPageAtIndex:0];
@@ -180,6 +197,13 @@
     else {
         [self loadPageAtIndex:[pagedArray pageForIndex:index + 1]];
     }
+}
+
+#pragma - UISearchBarDelegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self onRefreshControlSelected:searchBar];
 }
 
 #pragma mark - helpers
