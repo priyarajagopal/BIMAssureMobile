@@ -1512,6 +1512,18 @@ accountManager can be used to retrieve the details of account
                withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
+ Asynchornously , fetch display name of BA type for specific code
+ 
+ 
+ @param code The BA code
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, the name is returned
+ */
+- (void)fetchBATypeDisplayNameForCode:(NSString *)code
+               withCompletionBlock:(CompletionHandlerWithData)handler;
+
+
+/*
  Asynchornously , fetch list of all units
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
