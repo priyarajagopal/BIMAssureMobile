@@ -245,7 +245,8 @@
                     <connections>
                         <outlet property="navigationBar" destination="Gjl-oh-30q" id="J2R-EA-oWp"/>
                         <outlet property="saveBarButton" destination="wqK-ha-n4d" id="THk-Qj-xGh"/>
-                        <segue destination="lah-lM-GMn" kind="presentation" identifier="showAnalysisRuleElements" modalPresentationStyle="formSheet" id="SS9-fH-2Nl"/>
+                        <segue destination="lah-lM-GMn" kind="presentation" identifier="showAnalysisRuleElements" modalPresentationStyle="overCurrentContext" id="SS9-fH-2Nl"/>
+                        <segue destination="pEo-sF-yqh" kind="presentation" identifier="showAnalysisRuleUnits" modalPresentationStyle="overCurrentContext" id="pUw-Cr-f1I"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tke-Ms-i6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -335,6 +336,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m8S-k0-Df8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4266" y="2641"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AiT-Ny-2Dh">
+            <objects>
+                <navigationController id="pEo-sF-yqh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="L0N-l7-JWP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="scN-t9-l1m" kind="relationship" relationship="rootViewController" id="LRH-E2-dNo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pY9-E9-uSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5289" y="4153"/>
+        </scene>
+        <!--Select Unit-->
+        <scene sceneID="h9z-ff-er5">
+            <objects>
+                <tableViewController definesPresentationContext="YES" id="scN-t9-l1m" customClass="INVUnitsListTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9Uh-tW-cZ4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="OF4-oH-4g3">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="scN-t9-l1m" id="VxO-Ue-LYy"/>
+                            </connections>
+                        </searchBar>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="FmF-c3-6t3">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <connections>
+                            <outlet property="dataSource" destination="scN-t9-l1m" id="dC5-rK-qy1"/>
+                            <outlet property="delegate" destination="scN-t9-l1m" id="U53-9P-QDg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Select Unit" id="Hpw-Yr-O51">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="G6n-FV-WhM">
+                            <connections>
+                                <action selector="cancel:" destination="scN-t9-l1m" id="GoJ-a6-bVT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="mRO-0O-zb4">
+                            <connections>
+                                <segue destination="Sm6-B8-0As" kind="unwind" identifier="unwind" unwindAction="done:" id="bAi-Vs-jXd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="saveButtonItem" destination="mRO-0O-zb4" id="RyJ-Qx-K53"/>
+                        <outlet property="searchBar" destination="OF4-oH-4g3" id="f3S-j0-F5v"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rnf-Xt-7zb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Sm6-B8-0As" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="5289" y="4870"/>
         </scene>
     </scenes>
     <resources>

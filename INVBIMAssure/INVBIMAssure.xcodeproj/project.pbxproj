@@ -40,6 +40,7 @@
 		F5076B891AB1CA3D002A0EA8 /* INVModelTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F5076B881AB1CA3D002A0EA8 /* INVModelTreeNode.m */; };
 		F5076B8C1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5076B8B1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m */; };
 		F5076B8E1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5076B8D1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib */; };
+		F51606D31AC5ABC1004E681F /* INVUnitsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51606D21AC5ABC1004E681F /* INVUnitsListTableViewController.m */; };
 		F523B47A1AB76D090001508C /* INVAnalysisTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F523B4791AB76D090001508C /* INVAnalysisTableViewCell.m */; };
 		F523B47C1AB772BA0001508C /* INVAnalysisTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F523B47B1AB772BA0001508C /* INVAnalysisTableViewCell.xib */; };
 		F523B4821AB862EB0001508C /* INVAnalysisEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F523B4811AB862EB0001508C /* INVAnalysisEditViewController.m */; };
@@ -286,6 +287,8 @@
 		F5076B8A1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeNodeTableViewCell.h; sourceTree = "<group>"; };
 		F5076B8B1AB1D091002A0EA8 /* INVModelTreeNodeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeNodeTableViewCell.m; sourceTree = "<group>"; };
 		F5076B8D1AB1E6A4002A0EA8 /* INVModelTreeNodeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVModelTreeNodeTableViewCell.xib; sourceTree = "<group>"; };
+		F51606D11AC5ABC1004E681F /* INVUnitsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVUnitsListTableViewController.h; sourceTree = "<group>"; };
+		F51606D21AC5ABC1004E681F /* INVUnitsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVUnitsListTableViewController.m; sourceTree = "<group>"; };
 		F523B4781AB76D090001508C /* INVAnalysisTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisTableViewCell.h; sourceTree = "<group>"; };
 		F523B4791AB76D090001508C /* INVAnalysisTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisTableViewCell.m; sourceTree = "<group>"; };
 		F523B47B1AB772BA0001508C /* INVAnalysisTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVAnalysisTableViewCell.xib; sourceTree = "<group>"; };
@@ -1149,6 +1152,8 @@
 				F5789D341A642A5500D8CEE7 /* INVRunRulesTableViewController.m */,
 				F577DBC21AC1D3C0002A904C /* INVBAElementTypesTableViewController.h */,
 				F577DBC31AC1D3C0002A904C /* INVBAElementTypesTableViewController.m */,
+				F51606D11AC5ABC1004E681F /* INVUnitsListTableViewController.h */,
+				F51606D21AC5ABC1004E681F /* INVUnitsListTableViewController.m */,
 			);
 			path = Rules;
 			sourceTree = "<group>";
@@ -1603,6 +1608,7 @@
 				F5789D741A642A5500D8CEE7 /* INVProjectsTableViewController.m in Sources */,
 				F5789D521A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
 				F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */,
+				F51606D31AC5ABC1004E681F /* INVUnitsListTableViewController.m in Sources */,
 				F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */,
 				F5789D391A642A5500D8CEE7 /* INVSearchView.m in Sources */,
 				F577DBC71AC1F1ED002A904C /* Licensing.md in Sources */,

@@ -13,6 +13,7 @@
 #import "INVRuleInstanceOverviewTableViewCell.h"
 #import "INVRuleInstanceNameTableViewCell.h"
 #import "INVBAElementTypesTableViewController.h"
+#import "INVUnitsListTableViewController.h"
 
 #import "NSObject+INVCustomizations.h"
 #import "NSArray+INVCustomizations.h"
@@ -108,11 +109,20 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:@"currentSelection"] && ((NSString *) change[NSKeyValueChangeNewKey]).length) {
+    if (([keyPath isEqualToString:@"currentSelection"]) && [change[NSKeyValueChangeNewKey] length]) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
-        INVRuleInstanceBATypeParamTableViewCell *elementTypeCell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
+        id cell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
 
-        elementTypeCell.actualParamDictionary[INVActualParamValue] = change[NSKeyValueChangeNewKey];
+        [cell actualParamDictionary][INVActualParamValue] = change[NSKeyValueChangeNewKey];
+
+        [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
+    }
+
+    if ([keyPath isEqualToString:@"currentUnit"] && [change[NSKeyValueChangeNewKey] length]) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
+        id cell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
+
+        [cell actualParamDictionary][INVActualParamUnit] = change[NSKeyValueChangeNewKey];
 
         [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
     }
@@ -315,11 +325,10 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     }
 
     if ([segue.identifier isEqualToString:@"showAnalysisRuleElements"]) {
-        INVRuleInstanceBATypeParamTableViewCell *cell =
-            [sender findSuperviewOfClass:[INVRuleInstanceBATypeParamTableViewCell class] predicate:nil];
+        id cell = [sender findSuperviewOfClass:[UITableViewCell class] predicate:nil];
 
         INVBAElementTypesTableViewController *ruleTypesVC = (id)[segue.destinationViewController topViewController];
-        ruleTypesVC.currentSelection = cell.actualParamDictionary[INVActualParamValue];
+        ruleTypesVC.currentSelection = [cell actualParamDictionary][INVActualParamValue];
 
         [ruleTypesVC addObserver:self
                       forKeyPath:@"currentSelection"
@@ -329,6 +338,23 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         __weak id weakSelf = self;
         [ruleTypesVC addDeallocHandler:^(id ruleTypesVC) {
             [ruleTypesVC removeObserver:weakSelf forKeyPath:@"currentSelection"];
+        }];
+    }
+
+    if ([segue.identifier isEqualToString:@"showAnalysisRuleUnits"]) {
+        id cell = [sender findSuperviewOfClass:[UITableViewCell class] predicate:nil];
+
+        INVUnitsListTableViewController *unitsListVC = (id)[segue.destinationViewController topViewController];
+        unitsListVC.currentUnit = [cell actualParamDictionary][INVActualParamUnit];
+
+        [unitsListVC addObserver:self
+                      forKeyPath:@"currentUnit"
+                         options:NSKeyValueObservingOptionNew
+                         context:(void *) (uintptr_t) [self.tableView indexPathForCell:cell].row];
+
+        __weak id weakSelf = self;
+        [unitsListVC addDeallocHandler:^(id unitsListVC) {
+            [unitsListVC removeObserver:weakSelf forKeyPath:@"currentUnit"];
         }];
     }
 }
@@ -357,6 +383,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 - (IBAction)onRuleInstanceShowElementTypeDropdown:(id)sender
 {
     [self performSegueWithIdentifier:@"showAnalysisRuleElements" sender:sender];
+}
+
+- (IBAction)onRuleInstanceShowUnitsDropdown:(id)sender
+{
+    [self performSegueWithIdentifier:@"showAnalysisRuleUnits" sender:sender];
 }
 
 #pragma mark - UITableViewDelegate
@@ -425,6 +456,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     NSDictionary *entries = [NSDictionary dictionaryWithObjects:[keys arrayByApplyingBlock:^id(id key, NSUInteger _, BOOL *__) {
         INVRuleFormalParam *formalParam = ruleDefinition.formalParams;
         NSDictionary *elementDesc = (NSDictionary *) formalParam.properties[key];
+
         NSString *localizedDisplayName = key;
         if ([elementDesc.allKeys containsObject:@"display"]) {
             NSDictionary *displayName = formalParam.properties[key][@"display"];
@@ -432,18 +464,27 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
             localizedDisplayName = displayName[currentLocale];
         }
 
-        INVParameterType type = INVParameterTypeFromString(formalParam.properties[key][@"type"]);
-
-        return [@{
+        INVParameterType type = INVParameterTypeFromString(elementDesc[@"type"]);
+        NSMutableDictionary *dictionary = [@{
             INVActualParamName : key,
             INVActualParamType : @(type),
             INVActualParamDisplayName : localizedDisplayName
         } mutableCopy];
+
+        if (elementDesc[@"unit"]) {
+            dictionary[INVActualParamUnit] = @"";
+        }
+
+        return dictionary;
     }] forKeys:keys];
 
     [ruleInstance.actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary) obj;
         entries[key][INVActualParamValue] = valueDict[@"value"];
+
+        if (valueDict[@"unit"]) {
+            entries[key][INVActualParamUnit] = valueDict[@"unit"];
+        }
     }];
 
     [self.intermediateRuleInstanceActualParams setArray:entries.allValues];
@@ -459,8 +500,14 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         NSDictionary *actualDict = obj;
         NSString *key = actualDict[INVActualParamName];
         NSString *value = actualDict[INVActualParamValue] ?: @"";
+        NSString *unit = actualDict[INVActualParamUnit];
 
-        [actualParam setObject:@{ INVActualParamValue : value } forKey:key];
+        if (unit) {
+            [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit } forKey:key];
+        }
+        else {
+            [actualParam setObject:@{ INVActualParamValue : value } forKey:key];
+        }
     }];
 
     return actualParam;

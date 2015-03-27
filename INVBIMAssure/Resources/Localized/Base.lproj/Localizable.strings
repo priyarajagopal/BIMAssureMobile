@@ -253,6 +253,7 @@
 "CONFIRM_ANALYSIS_RUN_NEGATIVE"="No";
 
 "SELECT_ELEMENT_TYPE"="Select Element Type";
+"SELECT_UNIT"="No Unit";
 
 "ERROR_RUN_ANALYSIS"="Error while running analysis. Please ensure you have added this analysis to a file and try again.";
 "ERROR_ANALYSES_LOAD"="Error while fetching analyses. Please try again later.";
