@@ -38,7 +38,7 @@
 - (INVModelTreeNode *)treeNodeForBuildingElement:(NSDictionary *)buildingElement withParent:(INVModelTreeNode *)parent
 {
     INVModelTreeNode *node =
-        [INVModelTreeNode treeNodeWithName:[buildingElement valueForKeyPath:@"_source.intrinsics.name.display"]
+        [INVModelTreeNode treeNodeWithName:[buildingElement valueForKeyPath:@"_source.intrinsics.name.value"]
                                         id:buildingElement[@"_id"]
                            andLoadingBlock:nil];
 
