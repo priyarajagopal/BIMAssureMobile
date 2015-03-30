@@ -44,30 +44,26 @@
 {
     self.propertyNameLabel.text = self.property[@"display"];
 
-    if (self.property[@"value"]) {
-        id value = self.property[@"value"];
+    id value = self.property[@"source_value"] ?: self.property[@"value"];
+    id unit = self.property[@"source_unit"] ?: self.property[@"unit"];
 
-        if ([value isKindOfClass:[NSNumber class]]) {
-            NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
-            [numberFormatter setUsesSignificantDigits:YES];
-            [numberFormatter setMaximumSignificantDigits:6];
-
-            value = [numberFormatter stringFromNumber:value];
-        }
-
-        if (self.property[@"unit"]) {
-            self.propertyValueLabel.text = [NSString stringWithFormat:@"%@%@", value, self.property[@"unit"]];
-        }
-        else {
-            self.propertyValueLabel.text = [value description];
-        }
-
-        self.propertyValueLabel.textColor = [UIColor whiteColor];
-    }
-    else {
+    if (!value) {
         self.propertyValueLabel.text = NSLocalizedString(@"VALUE_MISSING", nil);
         self.propertyValueLabel.textColor = [UIColor redColor];
+
+        return;
     }
+
+    if ([value isKindOfClass:[NSNumber class]]) {
+        NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+        [numberFormatter setUsesSignificantDigits:YES];
+        [numberFormatter setMaximumSignificantDigits:6];
+
+        value = [numberFormatter stringFromNumber:value];
+    }
+
+    self.propertyValueLabel.text = [value stringByAppendingString:unit ?: @""];
+    self.propertyValueLabel.textColor = [UIColor whiteColor];
 }
 
 @end
