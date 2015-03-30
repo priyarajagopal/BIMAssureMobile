@@ -103,6 +103,7 @@
                                              return;
                                          }
 
+                                         *expectedTotalCount = [result count];
                                          completed(
                                              [result arrayByApplyingBlock:^id(id buildingElement, NSUInteger _, BOOL *__) {
                                                  return [self treeNodeForBuildingElement:buildingElement withParent:node];
