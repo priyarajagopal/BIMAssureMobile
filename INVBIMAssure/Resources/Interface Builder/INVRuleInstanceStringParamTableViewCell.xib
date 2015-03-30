@@ -22,13 +22,13 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tz9-Cu-yaZ">
-                        <rect key="frame" x="15" y="14" width="136" height="20"/>
+                        <rect key="frame" x="15" y="15" width="136" height="20"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mVO-pJ-AOe">
-                        <rect key="frame" x="169" y="15" width="143" height="19"/>
+                        <rect key="frame" x="169" y="15" width="135" height="19"/>
                         <color key="tintColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
@@ -37,28 +37,44 @@
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="bgn-QV-S5c"/>
                         </connections>
                     </textField>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNm-i7-sLD">
+                        <constraints>
+                            <constraint firstAttribute="width" id="UgG-XU-E9b"/>
+                        </constraints>
+                        <state key="normal" title="Unit">
+                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onRuleInstanceShowUnitsDropdown:" destination="-2" eventType="touchUpInside" id="r8x-Gf-wst"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="aNm-i7-sLD" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="7p4-2p-aq1"/>
                     <constraint firstItem="tz9-Cu-yaZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="D7q-Zq-p3s"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="mVO-pJ-AOe" secondAttribute="bottom" id="NcM-eH-8ye"/>
                     <constraint firstAttribute="centerX" secondItem="Ioo-QG-yS7" secondAttribute="centerX" id="Ob5-yy-USU"/>
                     <constraint firstItem="Ioo-QG-yS7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Onx-hF-5mi"/>
+                    <constraint firstAttribute="centerY" secondItem="aNm-i7-sLD" secondAttribute="centerY" id="Zcx-3H-Rbc"/>
                     <constraint firstAttribute="bottom" secondItem="Ioo-QG-yS7" secondAttribute="bottom" id="e7F-28-T3h"/>
                     <constraint firstAttribute="centerY" secondItem="mVO-pJ-AOe" secondAttribute="centerY" id="kbv-6e-sNo"/>
                     <constraint firstItem="mVO-pJ-AOe" firstAttribute="leading" secondItem="Ioo-QG-yS7" secondAttribute="trailing" constant="8" id="kcm-Xn-P1f"/>
                     <constraint firstAttribute="centerY" secondItem="tz9-Cu-yaZ" secondAttribute="centerY" id="nkT-sy-tRP"/>
                     <constraint firstItem="mVO-pJ-AOe" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="o86-HF-V2g"/>
-                    <constraint firstItem="mVO-pJ-AOe" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="oPz-CO-lxf"/>
                     <constraint firstItem="Ioo-QG-yS7" firstAttribute="leading" secondItem="tz9-Cu-yaZ" secondAttribute="trailing" constant="8" id="pvR-Pz-T1Y"/>
                     <constraint firstItem="tz9-Cu-yaZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="q1S-Jk-9gM"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="tz9-Cu-yaZ" secondAttribute="bottom" id="r5G-iv-12u"/>
+                    <constraint firstItem="aNm-i7-sLD" firstAttribute="leading" secondItem="mVO-pJ-AOe" secondAttribute="trailing" constant="8" id="yaN-uY-hHn"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="ruleInstanceCollapseLayoutConstraint" destination="UgG-XU-E9b" id="egZ-OV-sgA"/>
                 <outlet property="ruleInstanceKey" destination="tz9-Cu-yaZ" id="1cF-di-4Tr"/>
+                <outlet property="ruleInstanceUnitsButton" destination="aNm-i7-sLD" id="xgg-0o-Nhy"/>
                 <outlet property="ruleInstanceValue" destination="mVO-pJ-AOe" id="hM1-Mv-m7c"/>
             </connections>
-            <point key="canvasLocation" x="481" y="319"/>
+            <point key="canvasLocation" x="481" y="317"/>
         </tableViewCell>
     </objects>
 </document>

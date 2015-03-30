@@ -25,6 +25,7 @@
 @property (nonatomic, copy) NSNumber *fileId;
 @property (nonatomic, copy) NSNumber *tipId;
 @property (weak, nonatomic) IBOutlet UILabel *fileName;
+@property (weak, nonatomic) IBOutlet UILabel *normalizationPercentage;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loaderActivity;
 
 @property (weak, nonatomic) IBOutlet UIImageView *fileThumbnail;

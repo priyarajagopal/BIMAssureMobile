@@ -8,11 +8,12 @@
 
 #import "INVRuleInstanceTableViewController.h"
 
-#import "INVRuleInstanceElementTypeParamTableViewCell.h"
+#import "INVRuleInstanceBATypeParamTableViewCell.h"
 #import "INVRuleInstanceStringParamTableViewCell.h"
 #import "INVRuleInstanceOverviewTableViewCell.h"
 #import "INVRuleInstanceNameTableViewCell.h"
-#import "INVAnalysisRuleElementTypesTableViewController.h"
+#import "INVBAElementTypesTableViewController.h"
+#import "INVUnitsListTableViewController.h"
 
 #import "NSObject+INVCustomizations.h"
 #import "NSArray+INVCustomizations.h"
@@ -58,11 +59,10 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                                                bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:parameterStringNib forCellReuseIdentifier:@"RuleInstanceStringCell"];
 
-    UINib *parameterElementTypeNib =
-        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceElementTypeParamTableViewCell class])
-                       bundle:[NSBundle bundleForClass:[self class]]];
+    UINib *parameterElementTypeNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceBATypeParamTableViewCell class])
+                                                    bundle:[NSBundle bundleForClass:[self class]]];
 
-    [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceElementTypeCell"];
+    [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceBatypeCell"];
 
     UINib *rioNib =
         [UINib nibWithNibName:@"INVRuleInstanceOverviewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
@@ -83,7 +83,6 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
     [self setupTableViewDataSource];
 
     if (self.ruleInstanceId) {
@@ -110,11 +109,20 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:@"currentSelection"]) {
+    if (([keyPath isEqualToString:@"currentSelection"]) && [change[NSKeyValueChangeNewKey] length]) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
-        INVRuleInstanceElementTypeParamTableViewCell *elementTypeCell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
+        id cell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
 
-        elementTypeCell.actualParamDictionary[INVActualParamValue] = change[NSKeyValueChangeNewKey];
+        [cell actualParamDictionary][INVActualParamValue] = change[NSKeyValueChangeNewKey];
+
+        [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
+    }
+
+    if ([keyPath isEqualToString:@"currentUnit"] && [change[NSKeyValueChangeNewKey] length]) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
+        id cell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
+
+        [cell actualParamDictionary][INVActualParamUnit] = change[NSKeyValueChangeNewKey];
 
         [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
     }
@@ -170,23 +178,13 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 {
     [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
     [self.dataSource registerCellBlock:^UITableViewCell *(id cellData, NSIndexPath *indexPath) {
-        id cell = nil;
         INVParameterType type = [cellData[INVActualParamType] integerValue];
-        switch (type) {
-            case INVParameterTypeString:
-                cell = [self.tableView dequeueReusableCellWithIdentifier:@"RuleInstanceStringCell" forIndexPath:indexPath];
-                break;
+        NSString *cellName =
+            [NSString stringWithFormat:@"RuleInstance%@Cell", [INVParameterTypeToString(type) capitalizedString]];
 
-            case INVParameterTypeElementType:
-                cell = [self.tableView dequeueReusableCellWithIdentifier:@"RuleInstanceElementTypeCell" forIndexPath:indexPath];
-                break;
-
-            case INVParameterTypeNumber:
-                [NSException raise:NSInvalidArgumentException format:@"Numbers not currently supported"];
-                break;
-        }
-
+        id cell = [self.tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
         [cell setActualParamDictionary:cellData];
+
         return cell;
     } forSection:SECTION_RULEINSTANCEACTUALPARAM];
 }
@@ -195,13 +193,10 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 - (void)fetchRuleInstance
 {
     if (!self.analysesId || !self.ruleInstanceId) {
-#warning Show an error alert or a default page
         INVLogError(
             @"Cannot fetch rule instance details for analyses %@ and RuleInstanceId %@", self.analysesId, self.ruleInstanceId);
     }
     else {
-#warning If unlikely case that matchingRuleInstance was not fetched from the server due to any reason when this view was loaded , fetch it
-
         INVRuleInstance *ruleInstance =
             [self.globalDataManager.invServerClient.analysesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId
                                                                                     forAnalysisId:self.analysesId];
@@ -330,11 +325,10 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     }
 
     if ([segue.identifier isEqualToString:@"showAnalysisRuleElements"]) {
-        INVRuleInstanceElementTypeParamTableViewCell *cell =
-            [sender findSuperviewOfClass:[INVRuleInstanceElementTypeParamTableViewCell class] predicate:nil];
+        id cell = [sender findSuperviewOfClass:[UITableViewCell class] predicate:nil];
 
-        INVAnalysisRuleElementTypesTableViewController *ruleTypesVC = (id)[segue.destinationViewController topViewController];
-        ruleTypesVC.currentSelection = cell.actualParamDictionary[INVActualParamValue];
+        INVBAElementTypesTableViewController *ruleTypesVC = (id)[segue.destinationViewController topViewController];
+        ruleTypesVC.currentSelection = [cell actualParamDictionary][INVActualParamValue];
 
         [ruleTypesVC addObserver:self
                       forKeyPath:@"currentSelection"
@@ -344,6 +338,23 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         __weak id weakSelf = self;
         [ruleTypesVC addDeallocHandler:^(id ruleTypesVC) {
             [ruleTypesVC removeObserver:weakSelf forKeyPath:@"currentSelection"];
+        }];
+    }
+
+    if ([segue.identifier isEqualToString:@"showAnalysisRuleUnits"]) {
+        id cell = [sender findSuperviewOfClass:[UITableViewCell class] predicate:nil];
+
+        INVUnitsListTableViewController *unitsListVC = (id)[segue.destinationViewController topViewController];
+        unitsListVC.currentUnit = [cell actualParamDictionary][INVActualParamUnit];
+
+        [unitsListVC addObserver:self
+                      forKeyPath:@"currentUnit"
+                         options:NSKeyValueObservingOptionNew
+                         context:(void *) (uintptr_t) [self.tableView indexPathForCell:cell].row];
+
+        __weak id weakSelf = self;
+        [unitsListVC addDeallocHandler:^(id unitsListVC) {
+            [unitsListVC removeObserver:weakSelf forKeyPath:@"currentUnit"];
         }];
     }
 }
@@ -372,6 +383,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 - (IBAction)onRuleInstanceShowElementTypeDropdown:(id)sender
 {
     [self performSegueWithIdentifier:@"showAnalysisRuleElements" sender:sender];
+}
+
+- (IBAction)onRuleInstanceShowUnitsDropdown:(id)sender
+{
+    [self performSegueWithIdentifier:@"showAnalysisRuleUnits" sender:sender];
 }
 
 #pragma mark - UITableViewDelegate
@@ -433,20 +449,42 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
+#warning TODO May want to move this to separate parser class code re
 - (void)transformRuleInstanceParamsToArray:(INVRuleInstance *)ruleInstance definition:(INVRule *)ruleDefinition
 {
     NSArray *keys = ruleDefinition.formalParams.properties.allKeys;
     NSDictionary *entries = [NSDictionary dictionaryWithObjects:[keys arrayByApplyingBlock:^id(id key, NSUInteger _, BOOL *__) {
-        INVParameterType type = INVParameterTypeFromString(ruleDefinition.formalParams.properties[key][@"type"]);
-        if ([key isEqual:@"name"]) {
-            type = INVParameterTypeElementType;
+        INVRuleFormalParam *formalParam = ruleDefinition.formalParams;
+        NSDictionary *elementDesc = (NSDictionary *) formalParam.properties[key];
+
+        NSString *localizedDisplayName = key;
+        if ([elementDesc.allKeys containsObject:@"display"]) {
+            NSDictionary *displayName = formalParam.properties[key][@"display"];
+            NSString *currentLocale = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+            localizedDisplayName = displayName[currentLocale];
         }
 
-        return [@{ INVActualParamName : key, INVActualParamType : @(type) } mutableCopy];
+        INVParameterType type = INVParameterTypeFromString(elementDesc[@"type"]);
+        NSMutableDictionary *dictionary = [@{
+            INVActualParamName : key,
+            INVActualParamType : @(type),
+            INVActualParamDisplayName : localizedDisplayName
+        } mutableCopy];
+
+        if (elementDesc[@"unit"]) {
+            dictionary[INVActualParamUnit] = @"";
+        }
+
+        return dictionary;
     }] forKeys:keys];
 
     [ruleInstance.actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        entries[key][INVActualParamValue] = obj;
+        INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary) obj;
+        entries[key][INVActualParamValue] = valueDict[@"value"];
+
+        if (valueDict[@"unit"]) {
+            entries[key][INVActualParamUnit] = valueDict[@"unit"];
+        }
     }];
 
     [self.intermediateRuleInstanceActualParams setArray:entries.allValues];
@@ -462,8 +500,14 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         NSDictionary *actualDict = obj;
         NSString *key = actualDict[INVActualParamName];
         NSString *value = actualDict[INVActualParamValue] ?: @"";
+        NSString *unit = actualDict[INVActualParamUnit];
 
-        [actualParam setObject:value forKey:key];
+        if (unit) {
+            [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit } forKey:key];
+        }
+        else {
+            [actualParam setObject:@{ INVActualParamValue : value } forKey:key];
+        }
     }];
 
     return actualParam;

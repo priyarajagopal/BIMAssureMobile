@@ -116,7 +116,8 @@
                                           [self.analysisDescriptionTextView.text isEqualToString:self.analysis.overview]);
     }
     else {
-        self.saveButtonItem.enabled = self.analysisNameTextField.text.length > 0;
+        self.saveButtonItem.enabled =
+            self.analysisNameTextField.text.length > 0 && self.analysisDescriptionTextView.text.length > 0;
     }
 }
 

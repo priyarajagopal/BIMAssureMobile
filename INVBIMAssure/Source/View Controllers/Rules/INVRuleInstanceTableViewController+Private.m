@@ -8,6 +8,12 @@
 
 #import "INVRuleInstanceTableViewController+Private.h"
 
+NSString *const INVActualParamName = @"name";
+NSString *const INVActualParamDisplayName = @"displayName";
+NSString *const INVActualParamType = @"type";
+NSString *const INVActualParamValue = @"value";
+NSString *const INVActualParamUnit = @"unit";
+
 static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"batype"};
 static size_t INVParamaterTypeStringsCount = sizeof(INVParamaterTypeStrings) / sizeof(*INVParamaterTypeStrings);
 

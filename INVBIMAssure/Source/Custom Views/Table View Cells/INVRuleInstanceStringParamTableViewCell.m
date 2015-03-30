@@ -8,14 +8,15 @@
 
 #import "INVRuleInstanceStringParamTableViewCell.h"
 
-NSString *const INVActualParamName = @"Name";
-NSString *const INVActualParamValue = @"Value";
-NSString *const INVActualParamType = @"Type";
-
 @interface INVRuleInstanceStringParamTableViewCell () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *ruleInstanceKey;
 @property (weak, nonatomic) IBOutlet UITextField *ruleInstanceValue;
+
+@property (weak, nonatomic) IBOutlet UIButton *ruleInstanceUnitsButton;
+
+// Important - this MUST be strong
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleInstanceCollapseLayoutConstraint;
 
 @end
 
@@ -35,17 +36,25 @@ NSString *const INVActualParamType = @"Type";
 
 #pragma mark - Content Management
 
-- (void)setActualParamDictionary:(INVActualParamKeyValuePair)actualParamDictionary
-{
-    _actualParamDictionary = actualParamDictionary;
-
-    [self updateUI];
-}
-
 - (void)updateUI
 {
-    self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamName];
+    self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamDisplayName];
     self.ruleInstanceValue.text = self.actualParamDictionary[INVActualParamValue];
+
+    if (self.actualParamDictionary[INVActualParamUnit]) {
+        [self.ruleInstanceUnitsButton removeConstraint:self.ruleInstanceCollapseLayoutConstraint];
+
+        if ([self.actualParamDictionary[INVActualParamUnit] length]) {
+            [self.ruleInstanceUnitsButton setTitle:self.actualParamDictionary[INVActualParamUnit]
+                                          forState:UIControlStateNormal];
+        }
+        else {
+            [self.ruleInstanceUnitsButton setTitle:NSLocalizedString(@"SELECT_UNIT", nil) forState:UIControlStateNormal];
+        }
+    }
+    else {
+        [self.ruleInstanceUnitsButton addConstraint:self.ruleInstanceCollapseLayoutConstraint];
+    }
 }
 
 #pragma mark - IBActions

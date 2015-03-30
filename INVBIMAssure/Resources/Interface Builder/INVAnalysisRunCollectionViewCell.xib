@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -20,8 +20,8 @@
                                 <rect key="frame" x="2" y="122" width="396" height="52"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdD-f8-yBn">
-                                        <rect key="frame" x="247" y="7" width="145" height="30"/>
-                                        <state key="normal" title="Show Analysis Run &gt;">
+                                        <rect key="frame" x="247" y="7" width="143" height="30"/>
+                                        <state key="normal" title="Show Rule Results &gt;">
                                             <color key="titleColor" red="0.0" green="0.5" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -43,16 +43,16 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbI-nP-G8Z" userLabel="Content">
-                                <rect key="frame" x="2" y="75" width="396" height="53"/>
+                                <rect key="frame" x="2" y="74" width="396" height="52.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Analysis Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxY-ji-9mz">
-                                        <rect key="frame" x="24" y="27" width="131" height="17"/>
+                                        <rect key="frame" x="24" y="26" width="131" height="17"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rule Count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydd-tx-Ll1">
-                                        <rect key="frame" x="24" y="8" width="83" height="20"/>
+                                        <rect key="frame" x="24" y="8" width="83" height="19.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxL-tw-5OW" userLabel="Blue Separator">
-                                <rect key="frame" x="2" y="73" width="396" height="2"/>
+                                <rect key="frame" x="2" y="72" width="396" height="2"/>
                                 <color key="backgroundColor" red="0.0" green="0.5" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="2" id="Ivr-ER-qS5"/>
@@ -76,10 +76,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ll1-6u-tDd" userLabel="Header">
-                                <rect key="frame" x="2" y="2" width="396" height="70"/>
+                                <rect key="frame" x="2" y="2" width="396" height="69.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issues" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVy-Va-PE5">
-                                        <rect key="frame" x="339" y="42" width="49" height="21"/>
+                                        <rect key="frame" x="339" y="42" width="49" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -132,7 +132,7 @@
                             <constraint firstItem="Ll1-6u-tDd" firstAttribute="top" secondItem="ltc-rV-HYU" secondAttribute="top" constant="2" id="j2g-bx-FVt"/>
                             <constraint firstAttribute="trailing" secondItem="Ll1-6u-tDd" secondAttribute="trailing" constant="2" id="pbF-2P-i97"/>
                             <constraint firstItem="jqp-JK-O8t" firstAttribute="leading" secondItem="ltc-rV-HYU" secondAttribute="leading" id="s3y-Ea-OP8"/>
-                            <constraint firstItem="jqp-JK-O8t" firstAttribute="top" secondItem="FbI-nP-G8Z" secondAttribute="bottom" constant="-8" id="sph-Ke-dxO"/>
+                            <constraint firstItem="jqp-JK-O8t" firstAttribute="top" secondItem="FbI-nP-G8Z" secondAttribute="bottom" constant="-6.5" id="sph-Ke-dxO"/>
                             <constraint firstItem="Hgx-bh-aq9" firstAttribute="leading" secondItem="ltc-rV-HYU" secondAttribute="leading" constant="2" id="v2m-Dt-X8p"/>
                             <constraint firstAttribute="trailing" secondItem="Hgx-bh-aq9" secondAttribute="trailing" constant="2" id="ynF-PM-Wb6"/>
                             <constraint firstAttribute="bottom" secondItem="Hgx-bh-aq9" secondAttribute="bottom" constant="1" id="zCU-1w-ut1"/>

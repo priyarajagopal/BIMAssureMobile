@@ -140,6 +140,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
     cell.fileId = file.packageId;
     cell.tipId = file.tipId;
+    cell.normalizationPercentage.text =
+        [NSString stringWithFormat:NSLocalizedString(@"NORMALIZATION_PERCENTAGE", nil), file.normalizationPercentage];
     cell.fileName.text = file.packageName;
     cell.delegate = self;
     cell.fileThumbnail.image = nil;

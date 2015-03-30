@@ -20,7 +20,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="309" height="282"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svN-tC-bn7">
-                        <rect key="frame" x="8" y="15" width="294" height="21"/>
+                        <rect key="frame" x="8" y="15" width="242" height="21"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="My9-sX-h4g"/>
@@ -98,17 +98,25 @@
                             <constraint firstAttribute="height" constant="44" id="xNc-eu-h0K"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="X% N" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5A-Ce-fTZ">
+                        <rect key="frame" x="258" y="16" width="43" height="20"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="Y5A-Ce-fTZ" firstAttribute="baseline" secondItem="svN-tC-bn7" secondAttribute="baseline" id="7I2-MA-oqA"/>
                 <constraint firstItem="zPx-1h-YND" firstAttribute="top" secondItem="svN-tC-bn7" secondAttribute="bottom" constant="9" id="ERo-n9-hWk"/>
-                <constraint firstAttribute="trailing" secondItem="svN-tC-bn7" secondAttribute="trailing" constant="7" id="FLd-Fg-ctS"/>
                 <constraint firstAttribute="trailing" secondItem="afL-yv-WfL" secondAttribute="trailing" id="GAu-RF-xm4"/>
                 <constraint firstAttribute="bottom" secondItem="afL-yv-WfL" secondAttribute="bottom" id="H5R-wr-gsx"/>
+                <constraint firstItem="Y5A-Ce-fTZ" firstAttribute="leading" secondItem="svN-tC-bn7" secondAttribute="trailing" constant="8" id="Hq1-Ga-ltb"/>
                 <constraint firstItem="svN-tC-bn7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="MWP-V8-hgJ"/>
                 <constraint firstItem="afL-yv-WfL" firstAttribute="top" secondItem="zPx-1h-YND" secondAttribute="bottom" id="OJf-yT-Tsv"/>
+                <constraint firstAttribute="trailing" secondItem="Y5A-Ce-fTZ" secondAttribute="trailing" constant="8" id="OpS-Tw-2Q6"/>
                 <constraint firstAttribute="trailing" secondItem="zPx-1h-YND" secondAttribute="trailing" constant="8" id="RCd-D5-ErM"/>
                 <constraint firstItem="svN-tC-bn7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="RiK-fe-hEz"/>
                 <constraint firstItem="zPx-1h-YND" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="7" id="XR5-Et-dR4"/>
@@ -119,6 +127,7 @@
                 <outlet property="fileName" destination="svN-tC-bn7" id="TZC-UZ-M6j"/>
                 <outlet property="fileThumbnail" destination="zPx-1h-YND" id="Rbn-Nt-xWn"/>
                 <outlet property="loaderActivity" destination="29Y-yi-rNW" id="glX-bJ-Ha3"/>
+                <outlet property="normalizationPercentage" destination="Y5A-Ce-fTZ" id="6iz-77-ekz"/>
             </connections>
             <point key="canvasLocation" x="505.5" y="507"/>
         </collectionViewCell>

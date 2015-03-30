@@ -63,6 +63,7 @@
 "SELECT_RULES_TO_RUN"="Select Rules to Run";
 "EXECUTED_AT"="Executed At";
 "NO_ISSUES"="No Errors Reported";
+"ISSUES_UNKNOWN"="Issue Count Unavailable";
 "NUM_ERRORS"="Issues Count";
 "EXECUTIONS"="Executions";
 "DESCRIPTION_UNAVAILABLE"="Description Unavailable";
@@ -80,6 +81,7 @@
 "PHOTO_LIBRARY"="Photo Library";
 "TAKE_PHOTO"="Take Photo";
 "INVALID_EMAIL"="Invalid Email";
+"NORMALIZATION_PERCENTAGE"="%@%% N";
 
 "DELETE_THE_SELECTED_RULE"="Do you wish to delete the selected rule?";
 
@@ -252,6 +254,7 @@
 "CONFIRM_ANALYSIS_RUN_NEGATIVE"="No";
 
 "SELECT_ELEMENT_TYPE"="Select Element Type";
+"SELECT_UNIT"="No Unit";
 
 "ERROR_RUN_ANALYSIS"="Error while running analysis. Please ensure you have added this analysis to a file and try again.";
 "ERROR_ANALYSES_LOAD"="Error while fetching analyses. Please try again later.";
@@ -272,4 +275,5 @@
 
 "FILES_INCLUDED_IN_ANALYSIS"="Packages included in Analysis";
 "FILES_NOT_INCLUDED_IN_ANALYSIS"="Packages not included in Analysis";
-"ANALYSIS_RUN_DETAILS"="Analysis Run : %1d";
+"ANALYSIS_RUN_DETAILS"="Analysis Run: %1d";
+"ANALYSIS_RUN_RESULT"="Run Result: %1d";
