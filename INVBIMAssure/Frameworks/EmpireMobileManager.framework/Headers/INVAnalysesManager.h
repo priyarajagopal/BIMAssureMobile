@@ -54,15 +54,27 @@
 + (instancetype)sharedInstanceWithManagedContext:(NSManagedObjectContext *)managedContext;
 
 /**
- Returns analyses corresponding to a specific project
+ Returns cached analyses corresponding to a specific project
 
  @param projectId projectId for which rule sets are to be fetched
 
  @see INVANalysis
 
- @return The array of INVRuleSet objects
+ @return The array of INVAnalysis objects
  */
 - (INVAnalysisArray)analysesForProject:(NSNumber *)projectId;
+
+/**
+ Returns cached analyses corresponding to a specific pkg master
+ 
+ @param pkgMasterId pkgMasterId for which rule sets are to be fetched
+ 
+ @see INVANalysis
+ 
+ @return The array of INVAnalysis objects
+ */
+- (INVAnalysisArray)analysesForPkgMaster:(NSNumber *)pkgMasterId;
+
 
 /**
  Returns analyses objects given list of  for analysisIds

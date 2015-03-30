@@ -1561,11 +1561,12 @@ accountManager can be used to retrieve the details of account
 /**
  Asynchornously ,get list of all analyses associated with a project. Users must have signed into an account in order to be able
  to
- fetch rules.
+ fetch analyses
 
  @param projectId the Id of the project
+ 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- analysesManager can be used to retrieve rules
+ analysesManager can be used to retrieve analyses
 
  @see -signIntoAccount:withCompletionBlock:
 
@@ -1633,12 +1634,14 @@ INVAnalysis object is returned
  @param pkgMasterId The Id of the pkg master to which analyses is to be fetched
 
 
- @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
- in the completion handler that is of type INVAnalysis
+ @param projectId The Id of the project containing the pkg master
+ 
+ @param handler The completion handler that returns error object if there was any error.If error parameter is nil, then
+ analysesManager can be used to retrieve analyses
 
  @see analysesManager
  */
-- (void)getAnalysisForPkgMaster:(NSNumber *)pkgMasterId withCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)getAllAnalysisForPkgMaster:(NSNumber *)pkgMasterId inProject:(NSNumber*)projectId withCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark Analyses Pkg Master Membership Related
 
