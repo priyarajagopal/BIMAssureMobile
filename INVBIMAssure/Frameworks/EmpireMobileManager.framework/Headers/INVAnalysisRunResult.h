@@ -8,6 +8,7 @@
 
 #import <Mantle/Mantle.h>
 #import "INVRuleInstance.h"
+#import "INVRuleIssue.h"
 
 /*
  {
@@ -52,10 +53,7 @@ typedef NSMutableArray *INVAnalysisRunResultsMutableArray;
 @property (copy, nonatomic, readonly) NSString *ruleDescription;
 @property (copy, nonatomic, readonly) NSNumber *status;
 @property (copy, nonatomic, readonly) NSString *ruleName;
-
 @property (copy, nonatomic, readonly) NSNumber *ruleDefId;
-
-
 @property (copy, nonatomic, readonly) NSNumber *runTime;
 
 @property (copy, nonatomic, readonly) NSNumber *analysisRunId;
@@ -64,6 +62,8 @@ typedef NSMutableArray *INVAnalysisRunResultsMutableArray;
 @property (copy, nonatomic, readonly) NSNumber *createdBy;
 @property (copy, nonatomic, readonly) NSDate *updatedAt;
 @property (copy, nonatomic, readonly) NSNumber *updatedBy;
+@property (copy, nonatomic, readonly) NSNumber* numIssues;
+@property (copy, nonatomic, readonly) INVRuleIssueArray issues;
 @property (copy, nonatomic, readonly) INVRuleInstanceActualParamDictionary actualParameters; //  dictionary
 
 @end

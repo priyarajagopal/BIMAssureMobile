@@ -65,7 +65,7 @@
 "NO_ISSUES"="No Errors Reported";
 "NOT_RUN"="Not Run";
 "ISSUES_UNKNOWN"="Issue Count Unavailable";
-"NUM_ERRORS"="Issues Count";
+"NUM_ERRORS"="Issues Count: %1@";
 "EXECUTIONS"="Executions";
 "DESCRIPTION_UNAVAILABLE"="Description Unavailable";
 "BUILDING_ELEMENTS_WITH_ISSUES"="Building Elements";

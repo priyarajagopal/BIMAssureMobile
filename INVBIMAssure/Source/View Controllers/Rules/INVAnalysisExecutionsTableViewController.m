@@ -116,26 +116,15 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
             cell.numIssues.textColor = otherColor;
 
             NSString *issuesText = NSLocalizedString(@"ISSUES_UNKNOWN", nil);
-            /*
-                    if (execution.) {
-                        NSDictionary *issueElement = execution.issues[0];
-                        NSArray *buildingElements = issueElement[@"buildingElements"];
-                        issuesText = [NSString stringWithFormat:@"%@: %ld", NSLocalizedString(@"NUM_ERRORS", nil),
-               execution.issues.count];
-                        cell.numIssues.textColor = failColor;
-                        cell.associatedBuildingElementsWithIssues = buildingElements;
+            cell.numIssues.textColor = successColor;
+            if (execution.numIssues) {
+                issuesText = [NSString stringWithFormat:NSLocalizedString(@"NUM_ERRORS", nil), execution.numIssues];
+                cell.numIssues.textColor = failColor;
+            }
 
-                        [cell.alertIconLabel setHidden:NO];
-                    }
-                    else
+            [cell.alertIconLabel setHidden:YES];
+            cell.associatedBuildingElementsWithIssues = nil;
 
-                    {
-                        cell.numIssues.textColor = [UIColor colorWithRed:60.0 / 255 green:130.0 / 255 blue:102.0 / 255
-               alpha:1.0];
-                        [cell.alertIconLabel setHidden:YES];
-                        cell.associatedBuildingElementsWithIssues = nil;
-                    }
-             */
             cell.numIssues.text = issuesText;
 
         };
