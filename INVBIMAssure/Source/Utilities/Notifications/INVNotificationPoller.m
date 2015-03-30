@@ -101,6 +101,11 @@ NSString *const INVNotificationPoller_NotificationsEnabledKey = @"INVNotificatio
             [[NSUserDefaults standardUserDefaults] boolForKey:INVNotificationPoller_NotificationsEnabledKey];
 
         [self restartTimer];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(clearNotifications)
+                                                     name:INV_NotificationAccountSwitchSuccess
+                                                   object:nil];
     }
 
     return self;
@@ -149,6 +154,11 @@ NSString *const INVNotificationPoller_NotificationsEnabledKey = @"INVNotificatio
         filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
             return ![evaluatedObject dismissed];
         }]];
+}
+
+- (void)clearNotifications
+{
+    [_notifications removeAllObjects];
 }
 
 - (void)beginPolling
