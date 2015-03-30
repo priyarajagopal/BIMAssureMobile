@@ -1513,15 +1513,13 @@ accountManager can be used to retrieve the details of account
 
 /*
  Asynchornously , fetch display name of BA type for specific code
- 
- 
+
+
  @param code The BA code
- 
+
  @param handler The completion handler that returns error object if there was any error. If no error, the name is returned
  */
-- (void)fetchBATypeDisplayNameForCode:(NSString *)code
-               withCompletionBlock:(CompletionHandlerWithData)handler;
-
+- (void)fetchBATypeDisplayNameForCode:(NSString *)code withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
  Asynchornously , fetch list of all units
@@ -1534,7 +1532,8 @@ accountManager can be used to retrieve the details of account
  in the completion handler
 
  */
-- (void)fetchSupportedUnitsForSignedInAccountWithCompletionBlock:(void(^)(INVBAUnitArray units, INVEmpireMobileError* error))handler;
+- (void)fetchSupportedUnitsForSignedInAccountWithCompletionBlock:(void (^)(
+                                                                     INVBAUnitArray units, INVEmpireMobileError *error))handler;
 
 #pragma mark Basic Analyses related
 
@@ -1625,6 +1624,21 @@ INVAnalysis object is returned
 
  */
 - (void)deleteAnalyses:(NSNumber *)analysisId withCompletionBlock:(CompletionHandler)handler;
+
+/*
+ Asynchornously , fetch analysis for pkg master
+
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
+
+ @param pkgMasterId The Id of the pkg master to which analyses is to be fetched
+
+
+ @param handler The completion handler that returns error object if there was any error. If no error, JSON response is returned
+ in the completion handler that is of type INVAnalysis
+
+ @see analysesManager
+ */
+- (void)getAnalysisForPkgMaster:(NSNumber *)pkgMasterId withCompletionBlock:(CompletionHandlerWithData)handler;
 
 #pragma mark Analyses Pkg Master Membership Related
 
