@@ -12,5 +12,5 @@
 @interface INVAnalysisRunCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic) INVAnalysis *analysis;
-@property (nonatomic, copy) INVAnalysisRun* result;
+@property (nonatomic) INVAnalysisRun *result;
 @end
