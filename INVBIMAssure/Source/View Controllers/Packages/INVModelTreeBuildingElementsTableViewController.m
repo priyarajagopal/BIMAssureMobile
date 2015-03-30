@@ -71,7 +71,7 @@
                                                         NSArray *ids = [hits valueForKeyPath:@"_id"];
 
                                                         NSArray *names = [[[hits valueForKey:@"fields"]
-                                                            valueForKey:@"system.ntype.display.raw"]
+                                                            valueForKey:@"intrinsics.name.value"]
                                                             valueForKeyPath:@"@unionOfArrays.self"];
 
                                                         NSArray *buildingElementIds =
