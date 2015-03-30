@@ -15,11 +15,11 @@
 
 @interface INVAnalysisRunsCollectionViewController ()
 
-@property NSMutableDictionary *analysisIdsToAnalyses;
-@property NSMutableDictionary *analysesToAnalysisRuns;
+@property (readonly) NSArray *sortedAnalyses;
 
+@property NSMutableDictionary *analysisIdsToAnalyses;
 @property NSMutableArray *validAnalysisRunsForCurrentPackage;
-@property NSMutableDictionary *analysisRunsToRunResults;
+
 - (IBAction)showAnalysisRunExecution:(UIButton *)sender;
 @end
 
@@ -58,27 +58,38 @@
 
 - (void)fetchListOfAnalyses
 {
-    self.analysisIdsToAnalyses = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [self.globalDataManager.invServerClient
+        getAllAnalysisForPkgMaster:self.packageMasterId
+                         inProject:self.projectId
+               withCompletionBlock:^(INVEmpireMobileError *error) {
+                   INV_ALWAYS:
+                   INV_SUCCESS : {
+                       NSArray *analyses =
+                           [self.globalDataManager.invServerClient.analysesManager analysesForPkgMaster:self.packageMasterId];
 
-    id successBlock = [INVBlockUtils blockForExecutingBlock:^{
-        [self.collectionView reloadData];
-    } afterNumberOfCalls:self.validAnalysisRunsForCurrentPackage.count];
+                       self.analysisIdsToAnalyses =
+                           [NSMutableDictionary dictionaryWithObjects:analyses
+                                                              forKeys:[analyses valueForKeyPath:@"analysisId"]];
 
-    for (INVAnalysisRun *analysisDetails in self.validAnalysisRunsForCurrentPackage) {
-        NSNumber *analysisId = analysisDetails.analysisId;
+                       [self.collectionView reloadData];
+                   }
 
-        [self.globalDataManager.invServerClient getAnalysesForId:analysisId
-                                             withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                                 INV_ALWAYS:
-                                                 INV_SUCCESS : {
-                                                     self.analysisIdsToAnalyses[analysisId] = result;
-                                                     [successBlock invoke];
-                                                 }
+                   INV_ERROR:
+                       [self handleContentError:error];
+               }];
+}
 
-                                                 INV_ERROR:
-                                                     [self handleContentError:error];
-                                             }];
-    }
+- (NSArray *)sortedAnalyses
+{
+    return [[self.analysisIdsToAnalyses allValues]
+        sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ]];
+}
+
+- (INVAnalysisRun *)latestRunForAnalysis:(INVAnalysis *)analysis
+{
+    return [[[self.validAnalysisRunsForCurrentPackage
+        filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"analysisId = %@", analysis.analysisId]]
+        sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES] ]] firstObject];
 }
 
 #pragma mark - Error Handling
@@ -102,7 +113,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.validAnalysisRunsForCurrentPackage.count;
+    return self.analysisIdsToAnalyses.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -110,9 +121,10 @@
     INVAnalysisRunCollectionViewCell *cell =
         [collectionView dequeueReusableCellWithReuseIdentifier:@"analysisRunCell" forIndexPath:indexPath];
 
-    INVAnalysisRun *details = self.validAnalysisRunsForCurrentPackage[indexPath.row];
-    cell.result = details;
-    cell.analysis = self.analysisIdsToAnalyses[details.analysisId];
+    INVAnalysis *analysis = self.sortedAnalyses[indexPath.row];
+
+    cell.analysis = analysis;
+    cell.result = [self latestRunForAnalysis:analysis];
 
     return cell;
 }
@@ -127,25 +139,24 @@
         BOOL showError = YES;
         if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
             INVAnalysisExecutionsTableViewController *vc =
-            (INVAnalysisExecutionsTableViewController *) ((UINavigationController*)(segue.destinationViewController)).topViewController;
+                (INVAnalysisExecutionsTableViewController *) ((UINavigationController *) (segue.destinationViewController))
+                    .topViewController;
             vc.projectId = self.projectId;
-       
+
             if (cell.result) {
-                INVAnalysisRun* resultVal = cell.result;
+                INVAnalysisRun *resultVal = cell.result;
                 vc.analysisRunId = resultVal.analysisRunId;
                 vc.fileVersionId = self.packageVersionId;
                 vc.fileMasterId = self.packageMasterId;
                 vc.projectId = self.projectId;
                 showError = NO;
             }
-           
         }
         if (showError) {
             UIAlertController *errorController =
-            [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_RUN_RESULT_FETCH", nil)];
-            
-            [self presentViewController:errorController animated:YES completion:nil];
+                [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_RUN_RESULT_FETCH", nil)];
 
+            [self presentViewController:errorController animated:YES completion:nil];
         }
     }
 }

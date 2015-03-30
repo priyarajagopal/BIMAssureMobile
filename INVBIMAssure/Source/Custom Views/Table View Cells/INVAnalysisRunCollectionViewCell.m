@@ -16,61 +16,46 @@
 @property IBOutlet UILabel *analysisNameLabel;
 @property IBOutlet UILabel *analysisOverviewLabel;
 @property IBOutlet UILabel *analysisIssueCountLabel;
+@property IBOutlet UILabel *analysisIssuesLabel;
 
 @property IBOutlet UILabel *ruleCountLabel;
 @property IBOutlet UIButton *showAnalysisButton;
-@property (nonatomic, assign) BOOL didAnalysisChange;
+
 @property (weak, nonatomic) IBOutlet UIView *theView;
-- (IBAction)showAnalysisRun:(UIButton *)sender;
 
 @end
 
 @implementation INVAnalysisRunCollectionViewCell
 
-- (void)setAnalysis:(INVAnalysis *)analysis
-{
-    _analysis = analysis;
-    self.didAnalysisChange = YES;
- 
-    [self setNeedsLayout];
-}
-
-- (void)setResult:(INVAnalysisRunResultsArray)result
-{
-    _result = result;
-
-    [self setNeedsLayout];
-}
-
 - (void)layoutSubviews
 {
-    if (self.didAnalysisChange) {
-        [self.analysisNameLabel setText:self.analysis.name
-                            withDefault:NSLocalizedString(@"ANALYSIS_NAME_UNAVAILABLE", nil)
-                          andAttributes:@{NSFontAttributeName : self.analysisNameLabel.font.italicFont}];
+    [super layoutSubviews];
 
-        [self.analysisOverviewLabel setText:self.analysis.overview
-                                withDefault:NSLocalizedString(@"ANALYSIS_OVERVIEW_UNAVAILABLE", nil)
-                              andAttributes:@{NSFontAttributeName : self.analysisOverviewLabel.font.italicFont}];
-        self.didAnalysisChange = NO;
-    }
-    else {
-        NSNumber* count = self.result.numIssues;
-        
-        /*
-        for (INVAnalysisRunResult *resultVal in self.result) {
-            count += resultVal.issues.count;
-        }
-         */
+    [self.analysisNameLabel setText:self.analysis.name
+                        withDefault:NSLocalizedString(@"ANALYSIS_NAME_UNAVAILABLE", nil)
+                      andAttributes:@{NSFontAttributeName : self.analysisNameLabel.font.italicFont}];
+
+    [self.analysisOverviewLabel setText:self.analysis.overview
+                            withDefault:NSLocalizedString(@"ANALYSIS_OVERVIEW_UNAVAILABLE", nil)
+                          andAttributes:@{NSFontAttributeName : self.analysisOverviewLabel.font.italicFont}];
+
+    self.ruleCountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NUM_RULES", nil), self.analysis.rules.count];
+
+    if (self.result) {
+        NSNumber *count = self.result.numIssues;
+
+        self.analysisIssuesLabel.hidden = NO;
         self.analysisIssueCountLabel.text = [NSString stringWithFormat:@"%@", count];
 
-        NSNumber* ruleCount = self.result.numRules;
-        self.ruleCountLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NUM_RULES", nil), ruleCount.integerValue];
+        self.analysisIssueCountLabel.textColor = (count.integerValue ? [UIColor redColor] : [UIColor grayColor]);
     }
-   
-    [super layoutSubviews];
+    else {
+        self.analysisIssuesLabel.hidden = YES;
+        self.analysisIssueCountLabel.text = NSLocalizedString(@"NOT_RUN", nil);
+        self.analysisIssueCountLabel.textColor = [UIColor grayColor];
+
+        self.showAnalysisButton.hidden = YES;
+    }
 }
-
-
 
 @end
