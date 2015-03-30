@@ -8,8 +8,10 @@
 
 #import "INVRuleInstanceTableViewController.h"
 
+#import "INVRuleInstanceArrayParamTableViewCell.h"
 #import "INVRuleInstanceBATypeParamTableViewCell.h"
 #import "INVRuleInstanceStringParamTableViewCell.h"
+
 #import "INVRuleInstanceOverviewTableViewCell.h"
 #import "INVRuleInstanceNameTableViewCell.h"
 #import "INVBAElementTypesTableViewController.h"
@@ -63,6 +65,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                                                     bundle:[NSBundle bundleForClass:[self class]]];
 
     [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceBatypeCell"];
+
+    UINib *parameterArrayNib =
+        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceArrayParamTableViewCell class]) bundle:nil];
+
+    [self.tableView registerNib:parameterArrayNib forCellReuseIdentifier:@"RuleInstanceArrayCell"];
 
     UINib *rioNib =
         [UINib nibWithNibName:@"INVRuleInstanceOverviewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
@@ -480,10 +487,12 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
     [ruleInstance.actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary) obj;
-        entries[key][INVActualParamValue] = valueDict[@"value"];
+        NSMutableDictionary *entry = entries[key];
+
+        entry[INVActualParamValue] = valueDict[@"value"];
 
         if (valueDict[@"unit"]) {
-            entries[key][INVActualParamUnit] = valueDict[@"unit"];
+            entry[INVActualParamUnit] = valueDict[@"unit"];
         }
     }];
 
@@ -499,7 +508,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     [actualParamsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSDictionary *actualDict = obj;
         NSString *key = actualDict[INVActualParamName];
-        NSString *value = actualDict[INVActualParamValue] ?: @"";
+        NSString *value = actualDict[INVActualParamValue];
         NSString *unit = actualDict[INVActualParamUnit];
 
         if (unit) {

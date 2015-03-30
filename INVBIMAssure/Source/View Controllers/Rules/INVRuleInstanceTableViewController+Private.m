@@ -14,7 +14,8 @@ NSString *const INVActualParamType = @"type";
 NSString *const INVActualParamValue = @"value";
 NSString *const INVActualParamUnit = @"unit";
 
-static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"batype"};
+static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"batype", @"array"};
+
 static size_t INVParamaterTypeStringsCount = sizeof(INVParamaterTypeStrings) / sizeof(*INVParamaterTypeStrings);
 
 NSString *INVParameterTypeToString(INVParameterType type)

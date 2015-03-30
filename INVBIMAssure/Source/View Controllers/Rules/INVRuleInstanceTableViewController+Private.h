@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, INVParameterType) {
     INVParameterTypeString,
     INVParameterTypeNumber,
     INVParameterTypeElementType,
+    INVParameterTypeArray
 };
 
 NSString *INVParameterTypeToString(INVParameterType type);
