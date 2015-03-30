@@ -69,8 +69,9 @@
                                                         NSArray *hits = [searchResult valueForKeyPath:@"hits"];
 
                                                         NSArray *ids = [hits valueForKeyPath:@"_id"];
+
                                                         NSArray *names = [[[hits valueForKey:@"fields"]
-                                                            valueForKey:@"intrinsics.name.display"]
+                                                            valueForKey:@"system.ntype.display.raw"]
                                                             valueForKeyPath:@"@unionOfArrays.self"];
 
                                                         NSArray *buildingElementIds =
