@@ -1969,7 +1969,7 @@ INVAnalysis object is returned
                 WithCompletionBlock:(void (^)(INVRuleIssueArray response, INVEmpireMobileError *error))handler;
 
 /**
- Asynchornously , fetch details of issues for specified Id. This returns the list of building element details
+ Asynchornously , fetch details of building elements affected by specified issue. This returns the list of building element details
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
 
@@ -1983,6 +1983,42 @@ INVAnalysis object is returned
 
  */
 - (void)fetchBuildingElementDetailsForIssue:(NSNumber *)issueId withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
+ Asynchornously , fetch details of building elements for specified ruleResultId. This returns the list of building element details
+ 
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
+ 
+ @param ruleResultId The Id of the ruleResult whose details are to be fetched. Retrieved using
+getExecutionResultsForAnalysisRun:WithCompletionBlock
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, building elements  are
+ returned
+ 
+ @see analysesManager
+ 
+ */
+- (void)fetchBuildingElementDetailsForRunResult:(NSNumber *)ruleResultId withCompletionBlock:(CompletionHandlerWithData)handler;
+
+
+/**
+ Asynchornously , fetch details of building elements for specified ruleResultId. This returns the list of building element details
+ 
+ The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
+ 
+ @elementId The building elementId for which the issues are to be fetched
+ 
+ @param ruleResultId The Id of the ruleResult whose details are to be fetched. Retrieved using
+ getExecutionResultsForAnalysisRun:WithCompletionBlock
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, building elements  are
+ returned
+ 
+ @see analysesManager
+ 
+ */
+- (void)fetchIssuesForBuildingElement:(NSNumber*)elementId forRunResult:(NSNumber *)ruleResultId withCompletionBlock:(CompletionHandlerWithData)handler;
+
 
 #pragma mark - General Account Related
 /**
