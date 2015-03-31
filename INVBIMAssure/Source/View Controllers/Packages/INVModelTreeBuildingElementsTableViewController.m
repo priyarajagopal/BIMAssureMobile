@@ -20,6 +20,8 @@
 #import "INVMutableSectionedArray.h"
 #import <AWPagedArray/AWPagedArray.h>
 
+static NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingElement";
+
 @interface INVModelTreeBuildingElementsTableViewController ()
 
 @property (nonatomic, readwrite) INVModelTreeNode *rootNode;
@@ -35,8 +37,11 @@
                          withDisplayName:(NSString *)displayName
                                andParent:(INVModelTreeNode *)parent
 {
-    INVModelTreeNode *node = [INVModelTreeNode treeNodeWithName:displayName id:elementId andLoadingBlock:nil];
-    node.buildingElementId = buildingElementId;
+    INVModelTreeNode *node = [INVModelTreeNode treeNodeWithName:displayName
+                                                       userInfo:@{
+                                                           INVModelTreeBuildingElementsElmentIdKey : buildingElementId
+                                                       }
+                                                andLoadingBlock:nil];
     node.parent = parent;
 
     return node;
@@ -46,7 +51,7 @@
 {
     INVModelTreeNode *node = [INVModelTreeNode
         treeNodeWithName:category
-                      id:@([category hash])
+                userInfo:nil
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
@@ -70,9 +75,9 @@
 
                                                         NSArray *ids = [hits valueForKeyPath:@"_id"];
 
-                                                        NSArray *names = [[[hits valueForKey:@"fields"]
-                                                            valueForKey:@"intrinsics.name.value"]
-                                                            valueForKeyPath:@"@unionOfArrays.self"];
+                                                        NSArray *names =
+                                                            [[[hits valueForKey:@"fields"] valueForKey:@"intrinsics.name.value"]
+                                                                valueForKeyPath:@"@unionOfArrays.self"];
 
                                                         NSArray *buildingElementIds =
                                                             [[[hits valueForKey:@"fields"] valueForKey:@"system.id"]
@@ -110,7 +115,7 @@
     if (_rootNode == nil) {
         _rootNode = [INVModelTreeNode
             treeNodeWithName:NSStringFromClass([self class])
-                          id:nil
+                    userInfo:nil
              andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                                  NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
                  [self.globalDataManager.invServerClient
@@ -160,7 +165,7 @@
     propertiesViewController.packageVersionId = self.packageVersionId;
     propertiesViewController.buildingElementCategory = node.parent.name;
     propertiesViewController.buildingElementName = node.name;
-    propertiesViewController.buildingElementId = node.id;
+    propertiesViewController.buildingElementId = node.userInfo[INVModelTreeBuildingElementsElmentIdKey];
 
     viewController.modalPresentationStyle = UIModalPresentationPopover;
 
@@ -182,8 +187,9 @@
 
     INVModelTreeNodeTableViewCell *cell = (INVModelTreeNodeTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
 
-    [(INVModelViewerContainerViewController *) self.parentViewController.parentViewController
-        highlightElement:cell.node.buildingElementId];
+    INVModelViewerContainerViewController *modelViewerContainer =
+        (INVModelViewerContainerViewController *) [self.navigationController topViewController];
+    [modelViewerContainer highlightElement:cell.node.userInfo[INVModelTreeBuildingElementsElmentIdKey]];
 
     if (!cell.node.isLeaf) {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

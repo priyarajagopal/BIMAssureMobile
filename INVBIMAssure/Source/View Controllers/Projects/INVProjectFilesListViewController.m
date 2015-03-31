@@ -322,6 +322,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         INVModelViewerContainerViewController *modelViewerController = [navContorller.viewControllers firstObject];
 
         modelViewerController.modelId = self.selectedModelId;
+        modelViewerController.packageMasterId = self.selectedFileId;
         modelViewerController.fileVersionId = self.selectedFileTipId;
 
         if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible) {

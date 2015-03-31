@@ -12,6 +12,7 @@
 
 @interface INVModelViewerContainerViewController : UIViewController
 
+@property (nonatomic, strong) NSNumber *packageMasterId;
 @property (nonatomic, strong) NSNumber *fileVersionId;
 @property (nonatomic, strong) NSNumber *modelId;
 

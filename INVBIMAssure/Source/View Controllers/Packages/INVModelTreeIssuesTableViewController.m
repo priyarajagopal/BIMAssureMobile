@@ -15,6 +15,9 @@
 #import "NSObject+INVCustomizations.h"
 #import "NSArray+INVCustomizations.h"
 
+static NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingElement";
+static NSString *const INVModelTreeIssueRuleResultKey = @"ruleResult";
+
 @interface INVModelTreeIssuesTableViewController ()
 
 @property (nonatomic, readwrite) INVModelTreeNode *rootNode;
@@ -35,15 +38,19 @@
     }
 }
 
+#pragma mark - Content Management
+
 - (INVModelTreeNode *)treeNodeForBuildingElement:(NSDictionary *)buildingElement withParent:(INVModelTreeNode *)parent
 {
-    INVModelTreeNode *node =
-        [INVModelTreeNode treeNodeWithName:[buildingElement valueForKeyPath:@"_source.intrinsics.name.value"]
-                                        id:buildingElement[@"_id"]
-                           andLoadingBlock:nil];
+    INVModelTreeNode *node = [INVModelTreeNode
+        treeNodeWithName:[buildingElement valueForKeyPath:@"_source.intrinsics.name.value"]
+                userInfo:@{
+                    INVModelTreeBuildingElementsElmentIdKey : [buildingElement valueForKeyPath:@"_source.system.id"]
+                }
+         andLoadingBlock:nil];
 
-    node.buildingElementId = [buildingElement valueForKeyPath:@"_source.system.id"];
     node.parent = parent;
+
     [self registerNode:node animateChanges:YES];
 
     return node;
@@ -53,7 +60,7 @@
 {
     INVModelTreeNode *node = [INVModelTreeNode
         treeNodeWithName:issue.issueDescription
-                      id:issue.issueId
+                userInfo:nil
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
@@ -86,8 +93,11 @@
 - (INVModelTreeNode *)treeNodeForAnalysisRunResult:(INVAnalysisRunResult *)runResult withParent:(INVModelTreeNode *)parent
 {
     INVModelTreeNode *node = [INVModelTreeNode
-        treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_RESULT", nil), runResult.analysisRunId]
-                      id:runResult
+        treeNodeWithName:runResult.ruleDescription
+                userInfo:@{
+                    INVModelTreeIssueRuleResultKey : runResult,
+                    INVModelTreeNodeShowsDetailsKey : @YES
+                }
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
@@ -114,7 +124,6 @@
          }];
 
     node.parent = parent;
-    // node.expanded = YES;
 
     [self registerNode:node animateChanges:YES];
 
@@ -123,9 +132,13 @@
 
 - (INVModelTreeNode *)treeNodeForAnalysisRun:(INVAnalysisRun *)run withParent:(INVModelTreeNode *)parent
 {
+    INVAnalysis *analysis = [self analysisForId:run.analysisId];
+
     INVModelTreeNode *node = [INVModelTreeNode
-        treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS", nil), run.analysisRunId]
-                      id:run
+        treeNodeWithName:analysis.name
+                userInfo:@{
+                    INVModelTreeNodeShowsExpandIndicatorKey : @NO
+                }
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
@@ -151,6 +164,15 @@
              return YES;
          }];
 
+    if (analysis == nil) {
+        [self.globalDataManager.invServerClient getAnalysesForId:run.analysisId
+                                             withCompletionBlock:^(INVAnalysis *result, INVEmpireMobileError *error) {
+                                                 node.name = [result name];
+
+                                                 [self reloadData:@NO];
+                                             }];
+    }
+
     node.parent = parent;
     node.expanded = YES;
 
@@ -168,7 +190,7 @@
         else {
             _rootNode = [INVModelTreeNode
                 treeNodeWithName:NSStringFromClass([self class])
-                              id:nil
+                        userInfo:nil
                  andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                                      NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
                      [self.globalDataManager.invServerClient
@@ -188,7 +210,6 @@
                                             completed([analysisRuns
                                                 arrayByApplyingBlock:^id(INVAnalysisRun *run, NSUInteger _, BOOL *__) {
                                                     return [self treeNodeForAnalysisRun:run withParent:node];
-
                                                 }]);
                                         }];
 
@@ -200,6 +221,11 @@
     }
 
     return _rootNode;
+}
+
+- (INVAnalysis *)analysisForId:(NSNumber *)analysisId
+{
+    return [[self.globalDataManager.invServerClient.analysesManager analysesForIds:@[ analysisId ]] firstObject];
 }
 
 #pragma mark - IBActions
@@ -215,8 +241,8 @@
     INVRuleIssuesTableViewController *issuesViewController =
         (INVRuleIssuesTableViewController *) [viewController topViewController];
 
-    issuesViewController.buildingElementId = node.buildingElementId;
-    issuesViewController.ruleResult = node.parent.id;
+    issuesViewController.buildingElementId = node.userInfo[INVModelTreeBuildingElementsElmentIdKey];
+    issuesViewController.ruleResult = node.parent.userInfo[INVModelTreeIssueRuleResultKey];
 
     viewController.modalPresentationStyle = UIModalPresentationPopover;
 
@@ -229,20 +255,27 @@
 
     viewController.popoverPresentationController.sourceView = anchor;
     viewController.popoverPresentationController.sourceRect = [anchor bounds];
-    viewController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionLeft;
+    viewController.popoverPresentationController.permittedArrowDirections =
+        UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     INVModelTreeNodeTableViewCell *cell = (INVModelTreeNodeTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
-
-    [(INVModelViewerContainerViewController *) self.parentViewController.parentViewController
-        highlightElement:cell.node.buildingElementId];
 
     if (!cell.node.isLeaf) {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+
+    if (cell.node.userInfo[INVModelTreeNodeShowsExpandIndicatorKey]) {
+        return;
+    }
+
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+
+    INVModelViewerContainerViewController *modelViewerController =
+        (INVModelViewerContainerViewController *) [self.navigationController topViewController];
+    [modelViewerController highlightElement:cell.node.userInfo[INVModelTreeBuildingElementsElmentIdKey]];
 }
 
 @end

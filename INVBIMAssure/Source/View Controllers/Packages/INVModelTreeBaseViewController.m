@@ -22,7 +22,8 @@
 
 @property (nonatomic) NSMutableDictionary *nodeHeights;
 @property BOOL shouldAnimatedPostUpdate;
-@property (nonatomic, readwrite) INVModelTreeNodeTableViewCell *sizingCell;
+
+@property (nonatomic, readwrite) NSMutableDictionary *sizingCells;
 
 @property (nonatomic, readonly) INVMutableSectionedArray *oldNodes;
 @property (nonatomic, readonly) INVMutableSectionedArray *flattenedNodes;
@@ -38,16 +39,12 @@
     [super viewDidLoad];
 
     self.refreshControl = nil;
-    //  self.tableView.backgroundColor = [UIColor clearColor];
-    //  self.tableView.backgroundView = nil;
 
+    self.sizingCells = [NSMutableDictionary new];
     self.nodeHeights = [NSMutableDictionary new];
 
     UINib *modelTreeCellNib = [UINib nibWithNibName:@"INVModelTreeNodeTableViewCell" bundle:nil];
-    self.sizingCell = [[modelTreeCellNib instantiateWithOwner:nil options:nil] firstObject];
-
-    [self.tableView addSubview:self.sizingCell];
-    [self.sizingCell setHidden:YES];
+    self.sizingCells[@"treeCell"] = [[modelTreeCellNib instantiateWithOwner:nil options:nil] firstObject];
 
     [self.tableView registerNib:modelTreeCellNib forCellReuseIdentifier:@"treeCell"];
 }
@@ -117,10 +114,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    INVModelTreeNodeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"treeCell"];
     INVModelTreeNode *node = self.flattenedNodes[indexPath.row];
+    INVModelTreeNodeTableViewCell *cell = nil;
 
-    cell.node = node;
+    if (node.userInfo[INVModelTreeNodeNibNameKey]) {
+        NSString *nibName = node.userInfo[INVModelTreeNodeNibNameKey];
+
+        do {
+            cell = [tableView dequeueReusableCellWithIdentifier:nibName];
+
+            if (!cell) {
+                [tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:nibName];
+            }
+        } while (cell == nil);
+    }
+    else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"treeCell"];
+    }
+
+    [self configureCell:cell forModelTreeNode:node];
 
     return cell;
 }
@@ -136,15 +148,24 @@
         return [_nodeHeights[node] floatValue];
     }
 
-    self.sizingCell.indentationLevel = [self tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
-    self.sizingCell.node = node;
+    NSString *cellIdentifier = node.userInfo[INVModelTreeNodeNibNameKey] ?: @"treeCell";
+    UITableViewCell *sizingCell = self.sizingCells[cellIdentifier];
 
-    [self.sizingCell setNeedsUpdateConstraints];
-    [self.sizingCell layoutIfNeeded];
+    if (!sizingCell) {
+        sizingCell = self.sizingCells[cellIdentifier] =
+            [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:nil options:nil] firstObject];
+    }
 
-    CGFloat height = [self.sizingCell systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, 0)
-                                    withHorizontalFittingPriority:UILayoutPriorityRequired
-                                          verticalFittingPriority:UILayoutPriorityDefaultLow].height;
+    sizingCell.indentationLevel = [self tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+
+    [self configureCell:sizingCell forModelTreeNode:node];
+
+    [sizingCell setNeedsUpdateConstraints];
+    [sizingCell layoutIfNeeded];
+
+    CGFloat height = [sizingCell systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, 0)
+                               withHorizontalFittingPriority:UILayoutPriorityRequired
+                                     verticalFittingPriority:UILayoutPriorityDefaultLow].height;
     _nodeHeights[node] = @(height);
 
     return height;
@@ -178,6 +199,11 @@
     [NSException raise:NSInvalidArgumentException format:@"%@ did not implement -rootNode!", [self class]];
 
     return nil;
+}
+
+- (void)configureCell:(UITableViewCell *)cell forModelTreeNode:(INVModelTreeNode *)node
+{
+    [(INVModelTreeNodeTableViewCell *) cell setNode:node];
 }
 
 // Force iVar generation for readonly property
@@ -225,6 +251,7 @@
 
     // This flushes the cache
     _flattenedNodes = nil;
+    [_nodeHeights removeAllObjects];
 
     INVMutableSectionedArray *newNodes = self.flattenedNodes;
 

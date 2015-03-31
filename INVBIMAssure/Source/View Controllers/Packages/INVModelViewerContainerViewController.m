@@ -50,6 +50,7 @@
         self.modelTreeContainerViewController = segue.destinationViewController;
 
         [self bindKeyPath:@"fileVersionId" toObject:self keyPath:@"modelTreeContainerViewController.packageVersionId"];
+        [self bindKeyPath:@"packageMasterId" toObject:self keyPath:@"modelTreeContainerViewController.packageMasterId"];
     }
 }
 

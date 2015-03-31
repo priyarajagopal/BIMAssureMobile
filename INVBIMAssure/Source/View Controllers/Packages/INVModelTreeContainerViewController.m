@@ -21,8 +21,7 @@
     [super awakeFromNib];
 
     [self bindKeyPath:@"packageVersionId" toObject:self keyPath:@"viewControllers.packageVersionId"];
-
-    self.view.layer.borderWidth = 1;
+    //[self bindKeyPath:@"packageMasterId" toObject:self keyPath:@"viewControllers.packageMasterId"];
 }
 
 @end

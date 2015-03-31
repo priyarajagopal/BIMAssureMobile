@@ -10,6 +10,10 @@
 
 #import <AWPagedArray/AWPagedArray.h>
 
+NSString *const INVModelTreeNodeNibNameKey = @"nibName";
+NSString *const INVModelTreeNodeShowsDetailsKey = @"showsDetails";
+NSString *const INVModelTreeNodeShowsExpandIndicatorKey = @"showExpand";
+
 #define OBJECTS_PER_PAGE 20
 
 @interface INVModelTreeNode () <AWPagedArrayDelegate>
@@ -39,17 +43,19 @@
 }
 
 + (instancetype)treeNodeWithName:(NSString *)name
-                              id:(NSNumber *)id
+                        userInfo:(NSDictionary *)userInfo
                  andLoadingBlock:(INVModelTreeNodeFetchChildrenBlock)fetchChildrenBlock
 {
-    return [[self alloc] initWithName:name id:id andLoadingBlock:fetchChildrenBlock];
+    return [[self alloc] initWithName:name userInfo:userInfo andLoadingBlock:fetchChildrenBlock];
 }
 
-- (id)initWithName:(NSString *)name id:(NSNumber *)id andLoadingBlock:(INVModelTreeNodeFetchChildrenBlock)fetchChildrenBlock
+- (id)initWithName:(NSString *)name
+           userInfo:(NSDictionary *)userInfo
+    andLoadingBlock:(INVModelTreeNodeFetchChildrenBlock)fetchChildrenBlock
 {
     if (self = [super init]) {
         _name = name;
-        _id = id;
+        _userInfo = userInfo;
 
         _pagedChildren = [[AWPagedArray alloc] initWithCount:0 objectsPerPage:OBJECTS_PER_PAGE initialPageIndex:0];
         _pagedChildren.delegate = self;
@@ -168,7 +174,7 @@
 
 - (NSUInteger)hash
 {
-    return [self.id hash];
+    return [self.userInfo hash];
 }
 
 @end

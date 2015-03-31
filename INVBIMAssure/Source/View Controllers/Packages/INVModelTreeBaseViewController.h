@@ -17,5 +17,6 @@
 #pragma mark - Override in subclass
 - (INVModelTreeNode *)rootNode;
 - (IBAction)onModelTreeNodeDetailsSelected:(id)sender;
+- (void)configureCell:(UITableViewCell *)cell forModelTreeNode:(INVModelTreeNode *)node;
 
 @end
