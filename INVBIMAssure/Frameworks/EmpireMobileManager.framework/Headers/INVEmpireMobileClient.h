@@ -2017,7 +2017,7 @@ getExecutionResultsForAnalysisRun:WithCompletionBlock
  @see analysesManager
  
  */
-- (void)fetchIssuesForBuildingElement:(NSNumber*)elementId forRunResult:(NSNumber *)ruleResultId withCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)fetchIssuesForBuildingElement:(NSNumber*)elementId forRunResult:(NSNumber *)ruleResultId  WithCompletionBlock:(void (^)(INVRuleIssueArray response, INVEmpireMobileError *error))handler;
 
 
 #pragma mark - General Account Related
