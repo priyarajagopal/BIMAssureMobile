@@ -7,7 +7,7 @@
 //
 
 #import "INVRuleIssuesTableViewController.h"
-#import "INVRuleInstanceStringParamTableViewCell.h"
+#import "INVRuleInstanceGeneralTypeParamTableViewCell.h"
 #import "INVGenericTableViewDataSource.h"
 #import "INVTextFieldTableViewCell.h"
 
@@ -36,7 +36,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"RuleIssueTVC"];
 
     UINib *parameterArrayNib =
-        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceStringParamTableViewCell class]) bundle:nil];
+        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class]) bundle:nil];
     [self.tableView registerNib:parameterArrayNib forCellReuseIdentifier:@"RuleInstanceParamCell"];
 
     self.refreshControl = nil;
@@ -122,7 +122,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams forSection:SECTION_RULEINSTANCEPARAM];
 
     INV_CellConfigurationBlock cellConfigurationBlockForRuleParams =
-        ^(INVRuleInstanceStringParamTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
+        ^(INVRuleInstanceGeneralTypeParamTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
             cell.tintColor = [UIColor whiteColor];
 
             [cell setActualParamDictionary:actualParam];

@@ -254,7 +254,7 @@
 "CONFIRM_ANALYSIS_RUN_POSITIVE"="Yes";
 "CONFIRM_ANALYSIS_RUN_NEGATIVE"="No";
 
-"SELECT_ELEMENT_TYPE"="Select Element Type";
+"SELECT_ELEMENT_TYPE"="Select Element Type >";
 "SELECT_UNIT"="No Unit";
 
 "ERROR_RUN_ANALYSIS"="Error while running analysis. Please ensure you have added this analysis to a file and try again.";
@@ -278,3 +278,5 @@
 "FILES_NOT_INCLUDED_IN_ANALYSIS"="Packages not included in Analysis";
 "ANALYSIS_RUN_DETAILS"="Analysis Run: %1d";
 "ANALYSIS_RUN_RESULT"="Run Result: %1d";
+"UNIT_WITH_NO_VALUE"="A unit must be associated with a value. Please enter a value associated with selected unit and try again";
+"INCORRECT_VALUE_FORMAT"="Invalid vallue specified. Please check permitted types and try again";
