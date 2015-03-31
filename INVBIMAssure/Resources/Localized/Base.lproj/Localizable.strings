@@ -268,6 +268,8 @@
 "DELETE_RULE_CONFIRM_NEGATIVE"="No";
 "DELETE_RULE_CONFIRM_POSITIVE"="Yes";
 
+"ANALYSIS_RUN_NODE_ISSUE_COUNT"="Total no. of issues: %@";
+
 "ANALYSIS_EXECUTION_STARTED_TITLE"="Analysis Execution Started";
 "ANALYSIS_EXECUTION_STARTED_MESSAGE"="You can get the execution status of your analysis run from the \"Files\" menu";
 "ERROR_ANALYSIS_RUN_FETCH"="Error while fetching analyses run";

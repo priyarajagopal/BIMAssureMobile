@@ -9,6 +9,10 @@
 #import "INVCustomTableViewController.h"
 #import "INVModelTreeBaseViewController.h"
 
+extern NSString *const INVModelTreeBuildingElementsElmentIdKey;
+extern NSString *const INVModelTreeIssueRunKey;
+extern NSString *const INVModelTreeIssueRunResultKey;
+
 @interface INVModelTreeIssuesTableViewController : INVModelTreeBaseViewController
 
 @property NSNumber *packageMasterId;

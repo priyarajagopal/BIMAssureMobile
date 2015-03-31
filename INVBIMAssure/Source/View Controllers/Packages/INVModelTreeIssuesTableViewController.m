@@ -15,8 +15,9 @@
 #import "NSObject+INVCustomizations.h"
 #import "NSArray+INVCustomizations.h"
 
-static NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingElement";
-static NSString *const INVModelTreeIssueRuleResultKey = @"ruleResult";
+NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingElement";
+NSString *const INVModelTreeIssueRunKey = @"run";
+NSString *const INVModelTreeIssueRunResultKey = @"runResult";
 
 @interface INVModelTreeIssuesTableViewController ()
 
@@ -95,7 +96,7 @@ static NSString *const INVModelTreeIssueRuleResultKey = @"ruleResult";
     INVModelTreeNode *node = [INVModelTreeNode
         treeNodeWithName:runResult.ruleDescription
                 userInfo:@{
-                    INVModelTreeIssueRuleResultKey : runResult,
+                    INVModelTreeIssueRunResultKey : runResult,
                     INVModelTreeNodeShowsDetailsKey : @YES
                 }
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
@@ -137,6 +138,8 @@ static NSString *const INVModelTreeIssueRuleResultKey = @"ruleResult";
     INVModelTreeNode *node = [INVModelTreeNode
         treeNodeWithName:analysis.name
                 userInfo:@{
+                    INVModelTreeNodeNibNameKey : @"INVModelTreeAnalysisRunNodeTableViewCell",
+                    INVModelTreeIssueRunKey : run,
                     INVModelTreeNodeShowsExpandIndicatorKey : @NO
                 }
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
@@ -243,7 +246,7 @@ static NSString *const INVModelTreeIssueRuleResultKey = @"ruleResult";
 
     issuesViewController.buildingElementId = node.userInfo[INVModelTreeBuildingElementsElmentIdKey];
     issuesViewController.ruleResult =
-        node.userInfo[INVModelTreeIssueRuleResultKey] ?: node.parent.userInfo[INVModelTreeIssueRuleResultKey];
+        node.userInfo[INVModelTreeIssueRunResultKey] ?: node.parent.userInfo[INVModelTreeIssueRunResultKey];
 
     viewController.modalPresentationStyle = UIModalPresentationPopover;
 
