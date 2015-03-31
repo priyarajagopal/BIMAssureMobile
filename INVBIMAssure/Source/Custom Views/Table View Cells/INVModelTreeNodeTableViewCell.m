@@ -61,7 +61,7 @@
                                             ? ![self.node.userInfo[INVModelTreeNodeShowsExpandIndicatorKey] boolValue]
                                             : self.node.isLeaf;
 
-        self.detailsButton.hidden = !self.node.isLeaf;
+        self.detailsButton.hidden = NO;
 
         if (self.indentationLevel == 0) {
             self.nameLabel.font = [self.nameLabel.font fontWithTraits:UIFontDescriptorTraitBold];
@@ -75,8 +75,13 @@
             self.nameLabel.font = [self.nameLabel.font fontWithTraits:0];
         }
 
-        if ([self.node.userInfo[INVModelTreeNodeShowsDetailsKey] boolValue] || !self.node.isLeaf) {
+        if (self.node.userInfo[INVModelTreeNodeShowsDetailsKey]
+                ? ![self.node.userInfo[INVModelTreeNodeShowsDetailsKey] boolValue]
+                : !self.node.isLeaf) {
+            self.detailsButton.hidden = YES;
+
             [self.detailsButton addConstraint:self.collapseDetailsButtonConstraint];
+            [self.detailsButton setNeedsLayout];
         }
     }
 }

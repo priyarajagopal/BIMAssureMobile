@@ -242,7 +242,8 @@ static NSString *const INVModelTreeIssueRuleResultKey = @"ruleResult";
         (INVRuleIssuesTableViewController *) [viewController topViewController];
 
     issuesViewController.buildingElementId = node.userInfo[INVModelTreeBuildingElementsElmentIdKey];
-    issuesViewController.ruleResult = node.parent.userInfo[INVModelTreeIssueRuleResultKey];
+    issuesViewController.ruleResult =
+        node.userInfo[INVModelTreeIssueRuleResultKey] ?: node.parent.userInfo[INVModelTreeIssueRuleResultKey];
 
     viewController.modalPresentationStyle = UIModalPresentationPopover;
 
