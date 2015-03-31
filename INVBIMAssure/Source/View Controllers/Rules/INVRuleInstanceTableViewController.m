@@ -75,7 +75,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         [UINib nibWithNibName:@"INVRuleInstanceOverviewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:rioNib forCellReuseIdentifier:@"RuleInstanceOverviewTVC"];
 
-    UINib *rinNib = [UINib nibWithNibName:@"INVRuleInstanceNameTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
+    UINib *rinNib = [UINib nibWithNibName:@"INVTextFieldTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:rinNib forCellReuseIdentifier:@"RuleInstanceNameTVC"];
 
     self.refreshControl = nil;
