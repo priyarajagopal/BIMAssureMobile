@@ -689,11 +689,15 @@
         <scene sceneID="ICI-1l-eRy">
             <objects>
                 <tableViewController id="d9s-05-fd6" customClass="INVRuleIssuesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="nTC-X9-L2r">
+                    <tableView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nTC-X9-L2r">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="raE-2J-NTJ">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <connections>
                             <outlet property="dataSource" destination="d9s-05-fd6" id="2Zh-Uv-eXL"/>
                             <outlet property="delegate" destination="d9s-05-fd6" id="K4B-ee-NY4"/>
@@ -705,10 +709,10 @@
             </objects>
             <point key="canvasLocation" x="1657" y="3448"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Black Tinted Navigation View Controller-->
         <scene sceneID="2Yk-N8-GKo">
             <objects>
-                <navigationController storyboardIdentifier="ruleIssuesNC" automaticallyAdjustsScrollViewInsets="NO" id="RJ3-3v-4xx" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ruleIssuesNC" automaticallyAdjustsScrollViewInsets="NO" id="RJ3-3v-4xx" customClass="INVBlackTintedNavigationViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dMU-Hc-UdM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

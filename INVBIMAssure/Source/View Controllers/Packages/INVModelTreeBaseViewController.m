@@ -38,8 +38,8 @@
     [super viewDidLoad];
 
     self.refreshControl = nil;
-  //  self.tableView.backgroundColor = [UIColor clearColor];
-  //  self.tableView.backgroundView = nil;
+    //  self.tableView.backgroundColor = [UIColor clearColor];
+    //  self.tableView.backgroundView = nil;
 
     self.nodeHeights = [NSMutableDictionary new];
 
@@ -158,6 +158,7 @@
 
     if (!node.isLeaf) {
         // Load the category contents
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
         node.expanded = !node.expanded;
 
         [self reloadData:@YES];

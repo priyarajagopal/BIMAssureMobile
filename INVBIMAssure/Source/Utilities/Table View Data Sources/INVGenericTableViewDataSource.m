@@ -64,7 +64,10 @@ const static NSString *INV_HeaderContextIdentifier = @"Identifier";
         if (section == NSNotFound) {
             section = DEFAULT_SECTION_INDEX;
         }
-        [self updateWithDataArray:dataArray forSection:section];
+
+        if (dataArray) {
+            [self updateWithDataArray:dataArray forSection:section];
+        }
     }
     return self;
 }
