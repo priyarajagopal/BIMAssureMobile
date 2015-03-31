@@ -49,14 +49,17 @@
                                           forState:UIControlStateNormal];
         }
         else {
-            FAKFontAwesome *downIcon = [FAKFontAwesome arrowDownIconWithSize:30];
-            [downIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
-            
             [self.ruleInstanceUnitsButton setTitle:NSLocalizedString(@"SELECT_UNIT", nil) forState:UIControlStateNormal];
         }
     }
     else {
         [self.ruleInstanceUnitsButton addConstraint:self.ruleInstanceCollapseLayoutConstraint];
+    }
+
+    if ([self tintColor]) {
+        self.ruleInstanceKey.textColor = self.tintColor;
+        self.ruleInstanceValue.textColor = self.tintColor;
+        self.ruleInstanceUnitsButton.titleLabel.textColor = self.tintColor;
     }
 }
 
@@ -69,14 +72,11 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    
     // TODO : Valudate and notify the delegate of issues . Display appropriate error
     if (self.delegate && [self.delegate respondsToSelector:@selector(onValidationFailed:)]) {
         [self.delegate onValidationFailed:self];
     }
     return YES;
 }
-
-
 
 @end

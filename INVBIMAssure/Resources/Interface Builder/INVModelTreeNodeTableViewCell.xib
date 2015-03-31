@@ -21,6 +21,7 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OuS-HU-Tgl">
                         <constraints>
+                            <constraint firstAttribute="width" priority="750" constant="10" id="8tf-ou-Z8J"/>
                             <constraint firstAttribute="width" id="yas-0X-T3D"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
@@ -33,7 +34,7 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbt-Ki-NaR">
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbt-Ki-NaR">
                         <constraints>
                             <constraint firstAttribute="width" id="2eD-Wb-DMd"/>
                         </constraints>
