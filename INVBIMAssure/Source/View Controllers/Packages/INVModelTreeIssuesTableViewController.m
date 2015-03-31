@@ -9,7 +9,7 @@
 #import "INVModelTreeIssuesTableViewController.h"
 #import "INVModelViewerContainerViewController.h"
 #import "INVModelTreeNodeTableViewCell.h"
-#import "INVBuildingElementPropertiesTableViewController.h"
+#import "INVRuleIssuesTableViewController.h"
 
 #import "UIView+INVCustomizations.h"
 #import "NSObject+INVCustomizations.h"
@@ -87,7 +87,7 @@
 {
     INVModelTreeNode *node = [INVModelTreeNode
         treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_RESULT", nil), runResult.analysisRunId]
-                      id:runResult.analysisRunId
+                      id:runResult
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
@@ -125,7 +125,7 @@
 {
     INVModelTreeNode *node = [INVModelTreeNode
         treeNodeWithName:[NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_DETAILS", nil), run.analysisRunId]
-                      id:run.analysisRunId
+                      id:run
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
@@ -209,14 +209,14 @@
     INVModelTreeNodeTableViewCell *cell = [sender findSuperviewOfClass:[INVModelTreeNodeTableViewCell class] predicate:nil];
     INVModelTreeNode *node = cell.node;
 
-    UINavigationController *viewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"ViewPropertiesNC"];
+    UINavigationController *viewController =
+        [[UIStoryboard storyboardWithName:@"Analyses" bundle:nil] instantiateViewControllerWithIdentifier:@"ruleIssuesNC"];
 
-    INVBuildingElementPropertiesTableViewController *propertiesViewController =
-        (INVBuildingElementPropertiesTableViewController *) [viewController topViewController];
-    propertiesViewController.packageVersionId = self.packageVersionId;
-    propertiesViewController.buildingElementCategory = node.parent.name;
-    propertiesViewController.buildingElementName = node.name;
-    propertiesViewController.buildingElementId = node.id;
+    INVRuleIssuesTableViewController *issuesViewController =
+        (INVRuleIssuesTableViewController *) [viewController topViewController];
+
+    issuesViewController.buildingElementId = node.buildingElementId;
+    issuesViewController.ruleResult = node.parent.id;
 
     viewController.modalPresentationStyle = UIModalPresentationPopover;
 

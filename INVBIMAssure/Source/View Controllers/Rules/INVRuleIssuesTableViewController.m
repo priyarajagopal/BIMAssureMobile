@@ -99,11 +99,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 - (void)setupRuleNameDataSource
 {
-    
     NSIndexPath *indexPathForRuleName =
         [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_NAME inSection:SECTION_RULEINSTANCEDETAILS];
-    [self.dataSource updateWithDataArray:@[self.ruleName ] forSection:SECTION_RULEINSTANCEDETAILS];
-    
+    [self.dataSource updateWithDataArray:@[ self.ruleName ] forSection:SECTION_RULEINSTANCEDETAILS];
+
     INV_CellConfigurationBlock cellConfigurationBlockForRuleName =
         ^(INVTextFieldTableViewCell *cell, NSString *ruleName, NSIndexPath *indexPath) {
             cell.detail.text = ruleName;
@@ -120,7 +119,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 {
     self.ruleIssues = self.ruleIssues ?: [@[] mutableCopy];
     [self.dataSource updateWithDataArray:self.ruleIssues forSection:SECTION_RULEINSTANCEISSUES];
-    
+
     INV_CellConfigurationBlock cellConfigurationBlockForRuleIssues =
         ^(INVTextFieldTableViewCell *cell, INVRuleIssue *issue, NSIndexPath *indexPath) {
             cell.detail.text = issue.issueDescription;
@@ -135,20 +134,19 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 - (void)setupRuleInstanceActualParamsDataSource
 {
-    self.originalRuleInstanceActualParams = self.originalRuleInstanceActualParams?:[@[]mutableCopy];
+    self.originalRuleInstanceActualParams = self.originalRuleInstanceActualParams ?: [@[] mutableCopy];
     [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams forSection:SECTION_RULEINSTANCEPARAM];
-    
+
     INV_CellConfigurationBlock cellConfigurationBlockForRuleParams =
-    ^(INVRuleInstanceStringParamTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
-        [cell setActualParamDictionary:actualParam];
-        [cell setUserInteractionEnabled:NO];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-    };
+        ^(INVRuleInstanceStringParamTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
+            [cell setActualParamDictionary:actualParam];
+            [cell setUserInteractionEnabled:NO];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        };
     [self.dataSource registerCellWithIdentifier:@"RuleInstanceParamCell"
                                  configureBlock:cellConfigurationBlockForRuleParams
                                      forSection:SECTION_RULEINSTANCEPARAM];
-    
 }
 
 #pragma mark - UITableViewDelegate
@@ -205,7 +203,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 {
     // Return the right object depending on whether rule instance is modified or a new rule instance is created
     if (!_dataSource) {
-        _dataSource = [[INVGenericTableViewDataSource alloc] initWithDataArray:@[]                                                                    forSection:SECTION_RULEINSTANCEDETAILS forTableView:self.tableView];
+        _dataSource = [[INVGenericTableViewDataSource alloc] initWithDataArray:@[
+        ] forSection:SECTION_RULEINSTANCEDETAILS forTableView:self.tableView];
     }
     return _dataSource;
 }
