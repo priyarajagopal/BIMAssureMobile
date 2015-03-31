@@ -25,6 +25,9 @@
 - (void)awakeFromNib
 {
     [self updateUI];
+
+    self.selectedBackgroundView = [[UIView alloc] init];
+    self.selectedBackgroundView.backgroundColor = [UIColor yellowColor];
 }
 
 - (void)setNode:(INVModelTreeNode *)node
