@@ -21,6 +21,7 @@
 #import <AWPagedArray/AWPagedArray.h>
 
 static NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingElement";
+static NSString *const INVModelTreeBuildingElementsModelIdKey = @"modelId";
 
 @interface INVModelTreeBuildingElementsTableViewController ()
 
@@ -33,13 +34,14 @@ static NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingEleme
 #pragma - Content Management
 
 - (INVModelTreeNode *)treeNodeForElement:(NSString *)elementId
-                   withBuildingElementId:(NSNumber *)buildingElementId
+                             withModelId:(NSNumber *)modelId
                          withDisplayName:(NSString *)displayName
                                andParent:(INVModelTreeNode *)parent
 {
     INVModelTreeNode *node = [INVModelTreeNode treeNodeWithName:displayName
                                                        userInfo:@{
-                                                           INVModelTreeBuildingElementsElmentIdKey : buildingElementId
+                                                           INVModelTreeBuildingElementsModelIdKey : modelId,
+                                                           INVModelTreeBuildingElementsElmentIdKey : elementId
                                                        }
                                                 andLoadingBlock:nil];
     node.parent = parent;
@@ -79,7 +81,7 @@ static NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingEleme
                                                             [[[hits valueForKey:@"fields"] valueForKey:@"intrinsics.name.value"]
                                                                 valueForKeyPath:@"@unionOfArrays.self"];
 
-                                                        NSArray *buildingElementIds =
+                                                        NSArray *modelIds =
                                                             [[[hits valueForKey:@"fields"] valueForKey:@"system.id"]
                                                                 valueForKeyPath:@"@unionOfArrays.self"];
 
@@ -89,11 +91,10 @@ static NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingEleme
                                                         NSMutableArray *children = [NSMutableArray new];
 
                                                         [ids enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                                            [children
-                                                                addObject:[self treeNodeForElement:obj
-                                                                              withBuildingElementId:buildingElementIds[idx]
-                                                                                    withDisplayName:names[idx]
-                                                                                          andParent:node]];
+                                                            [children addObject:[self treeNodeForElement:obj
+                                                                                             withModelId:modelIds[idx]
+                                                                                         withDisplayName:names[idx]
+                                                                                               andParent:node]];
 
                                                         }];
 
@@ -189,7 +190,7 @@ static NSString *const INVModelTreeBuildingElementsElmentIdKey = @"buildingEleme
 
     INVModelViewerContainerViewController *modelViewerContainer =
         (INVModelViewerContainerViewController *) [self.navigationController topViewController];
-    [modelViewerContainer highlightElement:cell.node.userInfo[INVModelTreeBuildingElementsElmentIdKey]];
+    [modelViewerContainer highlightElement:cell.node.userInfo[INVModelTreeBuildingElementsModelIdKey]];
 
     if (!cell.node.isLeaf) {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
