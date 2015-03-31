@@ -32,17 +32,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 @interface INVRuleInstanceTableViewController ()
 
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
-//@property (nonatomic, strong) INVRulesManager *rulesManager;
-
 @property (nonatomic, strong) NSMutableArray *originalRuleInstanceActualParams;
 @property (nonatomic, strong) NSMutableArray *intermediateRuleInstanceActualParams; // Array of INV_ActualParamKeyValuePair
                                                                                     // objects transformed from the array params
                                                                                     // dictionary fetched from server
 @property (nonatomic, strong) NSString *intermediateRuleOverview;
-
-// rule definition unused at this time. Eventually use
-//@property (nonatomic, strong) INVRule *ruleDefinition;
-
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *saveBarButton;
 @property (nonatomic, weak) UITableViewCell *ruleInstanceCellBeingEdited;
 
@@ -60,6 +54,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     UINib *parameterStringNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceStringParamTableViewCell class])
                                                bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:parameterStringNib forCellReuseIdentifier:@"RuleInstanceStringCell"];
+    
+    UINib *parameterNumberNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceStringParamTableViewCell class])
+                                               bundle:[NSBundle bundleForClass:[self class]]];
+    [self.tableView registerNib:parameterNumberNib forCellReuseIdentifier:@"RuleInstanceNumberCell"];
+
 
     UINib *parameterElementTypeNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceBATypeParamTableViewCell class])
                                                     bundle:[NSBundle bundleForClass:[self class]]];
@@ -92,14 +91,9 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     [super viewWillAppear:animated];
     [self setupTableViewDataSource];
 
-    if (self.ruleInstanceId) {
-        [self fetchRuleInstance];
-    }
-    /*
-    else if (self.ruleId) {
+    if (self.ruleId) {
         [self fetchRuleDefinition];
     }
-     */
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -197,7 +191,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 }
 
 #pragma mark - server side
-- (void)fetchRuleInstance
+- (void)fetchRuleDefinition
 {
     if (!self.analysesId || !self.ruleInstanceId) {
         INVLogError(
@@ -239,36 +233,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
     [self.tableView reloadData];
 }
-/*
-- (void)fetchRuleDefinition
-{
-    [self showLoadProgress];
-    [self.globalDataManager.invServerClient
-        getRuleDefinitionForRuleId:self.ruleId
-               WithCompletionBlock:^(INVRule *rule, INVEmpireMobileError *error) {
-                   INV_ALWAYS:
-                       [self.hud hide:YES];
 
-                   INV_SUCCESS:
-                       self.ruleDefinition =
-                           [self.globalDataManager.invServerClient.rulesManager ruleDefinitionForRuleId:self.ruleId];
-
-                       [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams
-                                                 forSection:SECTION_RULEINSTANCEACTUALPARAM];
-
-                       [self.tableView reloadData];
-
-                   INV_ERROR:
-                       INVLogError(@"%@", error);
-
-                       UIAlertController *errController = [[UIAlertController alloc]
-                           initWithErrorMessage:NSLocalizedString(@"ERROR_RULE_DEFINITION_FORINSTANCE_LOAD", nil),
-                           error.code.integerValue];
-                       [self presentViewController:errController animated:YES completion:nil];
-
-               }];
-}
- */
 
 - (void)sendCreateRuleInstanceRequestToServer
 {
@@ -472,9 +437,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
         NSString *localizedDisplayName = key;
         if ([elementDesc.allKeys containsObject:@"display"]) {
-            NSDictionary *displayName = formalParam.properties[key][@"display"];
+            NSDictionary *displayNameDict = formalParam.properties[key][@"display"];
             NSString *currentLocale = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-            localizedDisplayName = displayName[currentLocale];
+            if ([displayNameDict.allKeys containsObject:currentLocale]) {
+                localizedDisplayName = displayNameDict[currentLocale];
+            }
         }
 
         INVParameterType type = INVParameterTypeFromString(elementDesc[@"type"]);
@@ -550,7 +517,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         NSDictionary *actualDict = obj;
         NSString *unit = actualDict[INVActualParamUnit];
         NSString *value = actualDict[INVActualParamValue];
-        INVParameterType type = INVParameterTypeFromString(actualDict[INVActualParamType]);
+        INVParameterType type = [actualDict[INVActualParamType] integerValue];
 
         if (unit && unit.length) {
             if (!value) {
@@ -607,14 +574,5 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     }
     return _dataSource;
 }
-/*
-- (INVRulesManager *)rulesManager
-{
-    if (!_rulesManager) {
-        _rulesManager = self.globalDataManager.invServerClient.rulesManager;
-    }
-    return _rulesManager;
-}
- */
 
 @end
