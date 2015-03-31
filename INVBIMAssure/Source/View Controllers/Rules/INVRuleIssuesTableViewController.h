@@ -7,8 +7,9 @@
 //
 
 #import "INVCustomTableViewController.h"
+#import "INVBlackTintedTableViewController.h"
 
-@interface INVRuleIssuesTableViewController : INVCustomTableViewController
+@interface INVRuleIssuesTableViewController : INVBlackTintedTableViewController
 @property (nonatomic, copy) INVAnalysisRunResult *ruleResult;
 @property (nonatomic, copy) NSNumber *buildingElementId;
 @end

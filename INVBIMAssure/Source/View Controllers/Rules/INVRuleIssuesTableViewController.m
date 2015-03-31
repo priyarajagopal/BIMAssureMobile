@@ -11,9 +11,8 @@
 #import "INVGenericTableViewDataSource.h"
 #import "INVTextFieldTableViewCell.h"
 
-static const NSInteger SECTION_RULEINSTANCEDETAILS = 0;
-static const NSInteger SECTION_RULEINSTANCEISSUES = 1;
-static const NSInteger SECTION_RULEINSTANCEPARAM = 2;
+static const NSInteger SECTION_RULEINSTANCEISSUES = 0;
+static const NSInteger SECTION_RULEINSTANCEPARAM = 1;
 
 static const NSInteger ROW_RULEINSTANCEDETAILS_NAME = 0;
 
@@ -34,17 +33,19 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     // Do any additional setup after loading the view.
     self.title = nil;
 
-    UINib *ridNib = [UINib nibWithNibName:@"INVTextFieldTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
-    [self.tableView registerNib:ridNib forCellReuseIdentifier:@"RuleInstanceNameTVC"];
-
-    UINib *risNib = [UINib nibWithNibName:@"INVTextFieldTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
-    [self.tableView registerNib:risNib forCellReuseIdentifier:@"RuleIssueTVC"];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"RuleIssueTVC"];
 
     UINib *parameterArrayNib =
         [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceStringParamTableViewCell class]) bundle:nil];
     [self.tableView registerNib:parameterArrayNib forCellReuseIdentifier:@"RuleInstanceParamCell"];
 
     self.refreshControl = nil;
+
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundView = nil;
+
+    self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,6 +65,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
         if (self.buildingElementId) {
             [self fetchIssuesForBuildingElement];
         }
+
+        self.title = self.ruleName;
     }
     else {
 #warning todo Display an alert with error message
@@ -85,9 +88,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 - (void)setupTableViewDataSource
 {
-    // rule name
-    [self setupRuleNameDataSource];
-
     // rule issues
     [self setupRuleIssuesDataSource];
 
@@ -97,24 +97,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     self.tableView.dataSource = self.dataSource;
 }
 
-- (void)setupRuleNameDataSource
-{
-    NSIndexPath *indexPathForRuleName =
-        [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_NAME inSection:SECTION_RULEINSTANCEDETAILS];
-    [self.dataSource updateWithDataArray:@[ self.ruleName ] forSection:SECTION_RULEINSTANCEDETAILS];
-
-    INV_CellConfigurationBlock cellConfigurationBlockForRuleName =
-        ^(INVTextFieldTableViewCell *cell, NSString *ruleName, NSIndexPath *indexPath) {
-            cell.detail.text = ruleName;
-            [cell.detail setUserInteractionEnabled:NO];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        };
-
-    [self.dataSource registerCellWithIdentifier:@"RuleInstanceNameTVC"
-                                 configureBlock:cellConfigurationBlockForRuleName
-                                   forIndexPath:indexPathForRuleName];
-}
-
 - (void)setupRuleIssuesDataSource
 {
     self.ruleIssues = self.ruleIssues ?: [@[] mutableCopy];
@@ -122,11 +104,13 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
     INV_CellConfigurationBlock cellConfigurationBlockForRuleIssues =
         ^(INVTextFieldTableViewCell *cell, INVRuleIssue *issue, NSIndexPath *indexPath) {
-            cell.detail.text = issue.issueDescription;
-            [cell.detail setUserInteractionEnabled:NO];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor whiteColor];
+            cell.textLabel.text = issue.issueDescription;
+            cell.textLabel.numberOfLines = 0;
 
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         };
+
     [self.dataSource registerCellWithIdentifier:@"RuleIssueTVC"
                                  configureBlock:cellConfigurationBlockForRuleIssues
                                      forSection:SECTION_RULEINSTANCEISSUES];
@@ -139,6 +123,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
     INV_CellConfigurationBlock cellConfigurationBlockForRuleParams =
         ^(INVRuleInstanceStringParamTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
+            cell.tintColor = [UIColor whiteColor];
+
             [cell setActualParamDictionary:actualParam];
             [cell setUserInteractionEnabled:NO];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -147,12 +133,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     [self.dataSource registerCellWithIdentifier:@"RuleInstanceParamCell"
                                  configureBlock:cellConfigurationBlockForRuleParams
                                      forSection:SECTION_RULEINSTANCEPARAM];
-}
-
-#pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return DEFAULT_CELL_HEIGHT;
 }
 
 #pragma mark - server side
@@ -203,8 +183,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 {
     // Return the right object depending on whether rule instance is modified or a new rule instance is created
     if (!_dataSource) {
-        _dataSource = [[INVGenericTableViewDataSource alloc] initWithDataArray:@[
-        ] forSection:SECTION_RULEINSTANCEDETAILS forTableView:self.tableView];
+        _dataSource =
+            [[INVGenericTableViewDataSource alloc] initWithDataArray:nil forSection:NSNotFound forTableView:self.tableView];
     }
     return _dataSource;
 }

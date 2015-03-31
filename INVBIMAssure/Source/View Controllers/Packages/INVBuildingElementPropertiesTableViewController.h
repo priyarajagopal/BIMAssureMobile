@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "INVBlackTintedTableViewController.h"
 
-@interface INVBuildingElementPropertiesTableViewController : INVCustomTableViewController
+@interface INVBuildingElementPropertiesTableViewController : INVBlackTintedTableViewController
 
 @property NSString *buildingElementCategory;
 @property NSNumber *buildingElementId;

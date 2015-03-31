@@ -508,10 +508,10 @@
             </objects>
             <point key="canvasLocation" x="6119" y="4567"/>
         </scene>
-        <!--Building Element Properties Navigation View Controller-->
+        <!--Black Tinted Navigation View Controller-->
         <scene sceneID="Ocj-gs-zn2">
             <objects>
-                <navigationController storyboardIdentifier="ViewPropertiesNC" id="0qD-yi-J2h" customClass="INVBuildingElementPropertiesNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ViewPropertiesNC" id="0qD-yi-J2h" customClass="INVBlackTintedNavigationViewController" sceneMemberID="viewController">
                     <value key="contentSizeForViewInPopover" type="size" width="400" height="600"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
