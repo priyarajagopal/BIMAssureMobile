@@ -106,7 +106,6 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 {
     [super viewWillDisappear:animated];
 
-
     self.intermediateRuleInstanceActualParams = nil;
     self.saveBarButton = nil;
     self.tableView.dataSource = nil;
@@ -273,55 +272,60 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 - (void)sendCreateRuleInstanceRequestToServer
 {
-    INVRuleInstanceActualParamDictionary actualParam =
-        [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
+    if ([self validateActualParamsValues:self.intermediateRuleInstanceActualParams]) {
+        INVRuleInstanceActualParamDictionary actualParam =
+            [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
 
-    [self.globalDataManager.invServerClient
-        createRuleForRuleDefinitionId:self.ruleId
-                           inAnalysis:self.analysesId
-                         withRuleName:self.ruleName
-                       andDescription:self.intermediateRuleOverview
-                  andActualParameters:actualParam
-                  WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                      INV_ALWAYS:
-                      INV_SUCCESS:
-                          [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil) isCreated:YES];
+        [self.globalDataManager.invServerClient
+            createRuleForRuleDefinitionId:self.ruleId
+                               inAnalysis:self.analysesId
+                             withRuleName:self.ruleName
+                           andDescription:self.intermediateRuleOverview
+                      andActualParameters:actualParam
+                      WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                          INV_ALWAYS:
+                          INV_SUCCESS:
+                              [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_CREATED_SUCCESS", nil)
+                                                  isCreated:YES];
 
-                      INV_ERROR:
-                          INVLogError(@"%@", error);
+                          INV_ERROR:
+                              INVLogError(@"%@", error);
 
-                          UIAlertController *errController = [[UIAlertController alloc]
-                              initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_CREATE", nil),
-                              error.code.integerValue];
-                          [self presentViewController:errController animated:YES completion:nil];
-                  }];
+                              UIAlertController *errController = [[UIAlertController alloc]
+                                  initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_CREATE", nil),
+                                  error.code.integerValue];
+                              [self presentViewController:errController animated:YES completion:nil];
+                      }];
+    }
 }
 
 - (void)sendUpdatedRuleInstanceToServer
 {
-    INVRuleInstanceActualParamDictionary actualParam =
-        [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
+    if ([self validateActualParamsValues:self.intermediateRuleInstanceActualParams]) {
+        INVRuleInstanceActualParamDictionary actualParam =
+            [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
 
-    [self.globalDataManager.invServerClient
-        modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId
-                                  forRuleId:self.ruleId
-                                 inAnalysis:self.analysesId
-                               withRuleName:self.ruleName
-                             andDescription:self.intermediateRuleOverview
-                        andActualParameters:actualParam
-                        WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                            INV_ALWAYS:
-                            INV_SUCCESS:
-                                [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_UPDATED_SUCCESS", nil)
-                                                    isCreated:NO];
-                            INV_ERROR:
-                                INVLogError(@"%@", error);
+        [self.globalDataManager.invServerClient
+            modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId
+                                      forRuleId:self.ruleId
+                                     inAnalysis:self.analysesId
+                                   withRuleName:self.ruleName
+                                 andDescription:self.intermediateRuleOverview
+                            andActualParameters:actualParam
+                            WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                INV_ALWAYS:
+                                INV_SUCCESS:
+                                    [self showSuccessAlertMessage:NSLocalizedString(@"RULE_INSTANCE_UPDATED_SUCCESS", nil)
+                                                        isCreated:NO];
+                                INV_ERROR:
+                                    INVLogError(@"%@", error);
 
-                                UIAlertController *errController = [[UIAlertController alloc]
-                                    initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_UPDATE", nil),
-                                    error.code.integerValue];
-                                [self presentViewController:errController animated:YES completion:nil];
-                        }];
+                                    UIAlertController *errController = [[UIAlertController alloc]
+                                        initWithErrorMessage:NSLocalizedString(@"ERROR_RULEINSTANCE_UPDATE", nil),
+                                        error.code.integerValue];
+                                    [self presentViewController:errController animated:YES completion:nil];
+                            }];
+    }
 }
 
 #pragma mark - Navigation
@@ -513,10 +517,10 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         NSString *value = actualDict[INVActualParamValue];
         NSString *unit = actualDict[INVActualParamUnit];
 
-        if (unit) {
+        if (unit && value) {
             [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit } forKey:key];
         }
-        else {
+        else if (value) {
             [actualParam setObject:@{ INVActualParamValue : value } forKey:key];
         }
     }];
@@ -531,6 +535,45 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                                                                  inSection:SECTION_RULEINSTANCEDETAILS]];
 
     self.intermediateRuleOverview = overviewCell.overview;
+}
+
+- (BOOL)validateActualParamsValues:(NSArray *)actualParamArray
+{
+    typedef void (^ErrorBlock)(NSString *errorMesg);
+    __block BOOL isSuccess = YES;
+    ErrorBlock errBlk = ^(NSString *errorMesg) {
+        UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:errorMesg];
+        [self presentViewController:errController animated:YES completion:nil];
+    };
+
+    [actualParamArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSDictionary *actualDict = obj;
+        NSString *unit = actualDict[INVActualParamUnit];
+        NSString *value = actualDict[INVActualParamValue];
+        INVParameterType type = INVParameterTypeFromString(actualDict[INVActualParamType]);
+
+        if (unit && unit.length) {
+            if (!value) {
+                NSString *errorMesg = NSLocalizedString(@"UNIT_WITH_NO_VALUE", nil);
+                errBlk(errorMesg);
+                isSuccess = NO;
+            }
+        }
+        else {
+            if (value && value.length) {
+                if (type == INVParameterTypeNumber) {
+                    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+                    NSNumber *number = [formatter numberFromString:value];
+                    if (!number) {
+                        NSString *errorMesg = NSLocalizedString(@"INCORRECT_VALUE_FORMAT", nil);
+                        errBlk(errorMesg);
+                        isSuccess = NO;
+                    }
+                }
+            }
+        }
+    }];
+    return isSuccess;
 }
 
 #pragma mark - accessor

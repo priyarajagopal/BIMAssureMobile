@@ -49,6 +49,9 @@
                                           forState:UIControlStateNormal];
         }
         else {
+            FAKFontAwesome *downIcon = [FAKFontAwesome arrowDownIconWithSize:30];
+            [downIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+            
             [self.ruleInstanceUnitsButton setTitle:NSLocalizedString(@"SELECT_UNIT", nil) forState:UIControlStateNormal];
         }
     }
