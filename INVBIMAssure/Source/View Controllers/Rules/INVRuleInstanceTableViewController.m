@@ -13,7 +13,7 @@
 #import "INVRuleInstanceStringParamTableViewCell.h"
 
 #import "INVRuleInstanceOverviewTableViewCell.h"
-#import "INVRuleInstanceNameTableViewCell.h"
+#import "INVTextFieldTableViewCell.h"
 #import "INVBAElementTypesTableViewController.h"
 #import "INVUnitsListTableViewController.h"
 
@@ -32,7 +32,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 @interface INVRuleInstanceTableViewController ()
 
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
-@property (nonatomic, strong) INVRulesManager *rulesManager;
+//@property (nonatomic, strong) INVRulesManager *rulesManager;
 
 @property (nonatomic, strong) NSMutableArray *originalRuleInstanceActualParams;
 @property (nonatomic, strong) NSMutableArray *intermediateRuleInstanceActualParams; // Array of INV_ActualParamKeyValuePair
@@ -41,7 +41,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 @property (nonatomic, strong) NSString *intermediateRuleOverview;
 
 // rule definition unused at this time. Eventually use
-@property (nonatomic, strong) INVRule *ruleDefinition;
+//@property (nonatomic, strong) INVRule *ruleDefinition;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *saveBarButton;
 @property (nonatomic, weak) UITableViewCell *ruleInstanceCellBeingEdited;
@@ -95,18 +95,19 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     if (self.ruleInstanceId) {
         [self fetchRuleInstance];
     }
+    /*
     else if (self.ruleId) {
         [self fetchRuleDefinition];
     }
+     */
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 
-    self.rulesManager = nil;
+
     self.intermediateRuleInstanceActualParams = nil;
-    self.ruleDefinition = nil;
     self.saveBarButton = nil;
     self.tableView.dataSource = nil;
     self.dataSource = nil;
@@ -156,9 +157,9 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     NSIndexPath *indexPathForRuleName =
         [NSIndexPath indexPathForRow:ROW_RULEINSTANCEDETAILS_NAME inSection:SECTION_RULEINSTANCEDETAILS];
     INV_CellConfigurationBlock cellConfigurationBlockForRuleName =
-        ^(INVRuleInstanceNameTableViewCell *cell, NSString *ruleName, NSIndexPath *indexPath) {
-            cell.ruleName.text = ruleName;
-            [cell.ruleName setUserInteractionEnabled:NO];
+        ^(INVTextFieldTableViewCell *cell, NSString *ruleName, NSIndexPath *indexPath) {
+            cell.detail.text = ruleName;
+            [cell.detail setUserInteractionEnabled:NO];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         };
 
@@ -239,7 +240,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
     [self.tableView reloadData];
 }
-
+/*
 - (void)fetchRuleDefinition
 {
     [self showLoadProgress];
@@ -268,6 +269,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
                }];
 }
+ */
 
 - (void)sendCreateRuleInstanceRequestToServer
 {
@@ -562,7 +564,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     }
     return _dataSource;
 }
-
+/*
 - (INVRulesManager *)rulesManager
 {
     if (!_rulesManager) {
@@ -570,5 +572,6 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     }
     return _rulesManager;
 }
+ */
 
 @end

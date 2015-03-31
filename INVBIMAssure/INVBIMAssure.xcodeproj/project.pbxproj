@@ -14,13 +14,13 @@
 		024FEF001A69BA59001CA262 /* INVPagingManager+ProjectListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 024FEEFF1A69BA59001CA262 /* INVPagingManager+ProjectListing.m */; };
 		025489811A68622700EE012D /* INVSignUpTableViewConfigDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */; };
 		025489821A68622800EE012D /* INVSignUpTableViewConfigDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */; };
-		026B12A91AC9D368007F5013 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12A81AC9D368007F5013 /* EmpireMobileManager.framework */; };
 		026B12AE1AC9D3FE007F5013 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12AD1AC9D3FE007F5013 /* EmpireMobileManager.framework */; };
-		026B12AF1AC9D3FE007F5013 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12AD1AC9D3FE007F5013 /* EmpireMobileManager.framework */; };
-		026B12B01AC9D401007F5013 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12AD1AC9D3FE007F5013 /* EmpireMobileManager.framework */; };
-		026B12B11AC9D401007F5013 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12AD1AC9D3FE007F5013 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		026B12B41AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */; };
 		026B12B51AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */; };
+		026B12BC1ACA3BA8007F5013 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12BB1ACA3BA8007F5013 /* EmpireMobileManager.framework */; };
+		026B12BD1ACA3BA8007F5013 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12BB1ACA3BA8007F5013 /* EmpireMobileManager.framework */; };
+		026B12BE1ACA3BB1007F5013 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12BB1ACA3BA8007F5013 /* EmpireMobileManager.framework */; };
+		026B12BF1ACA3BB1007F5013 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 026B12BB1ACA3BA8007F5013 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0278BAD51A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */; };
 		0278BAD71A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */; };
 		0278BADA1A655CB4009E0E27 /* INVSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAD91A655CB4009E0E27 /* INVSignUpTableViewController.m */; };
@@ -106,7 +106,7 @@
 		F5789D3F1A642A5500D8CEE7 /* INVRuleDefinitionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789CAA1A642A5500D8CEE7 /* INVRuleDefinitionTableViewCell.m */; };
 		F5789D401A642A5500D8CEE7 /* INVRuleInstanceStringParamTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789CAC1A642A5500D8CEE7 /* INVRuleInstanceStringParamTableViewCell.m */; };
 		F5789D411A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789CAE1A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.m */; };
-		F5789D421A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789CB01A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.m */; };
+		F5789D421A642A5500D8CEE7 /* INVTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789CB01A642A5500D8CEE7 /* INVTextFieldTableViewCell.m */; };
 		F5789D431A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789CB21A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.m */; };
 		F5789D441A642A5500D8CEE7 /* INVRuleInstanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789CB41A642A5500D8CEE7 /* INVRuleInstanceTableViewCell.m */; };
 		F5789D451A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5789CB61A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.m */; };
@@ -172,7 +172,7 @@
 		F5789DB41A642A6200D8CEE7 /* INVRuleDefinitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D921A642A6200D8CEE7 /* INVRuleDefinitionTableViewCell.xib */; };
 		F5789DB51A642A6200D8CEE7 /* INVRuleInstanceStringParamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D931A642A6200D8CEE7 /* INVRuleInstanceStringParamTableViewCell.xib */; };
 		F5789DB61A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D941A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib */; };
-		F5789DB71A642A6200D8CEE7 /* INVRuleInstanceNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D951A642A6200D8CEE7 /* INVRuleInstanceNameTableViewCell.xib */; };
+		F5789DB71A642A6200D8CEE7 /* INVTextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D951A642A6200D8CEE7 /* INVTextFieldTableViewCell.xib */; };
 		F5789DB81A642A6200D8CEE7 /* INVRuleInstanceOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D961A642A6200D8CEE7 /* INVRuleInstanceOverviewTableViewCell.xib */; };
 		F5789DB91A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D971A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib */; };
 		F5789DBA1A642A6200D8CEE7 /* INVRuleSetTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5789D981A642A6200D8CEE7 /* INVRuleSetTableViewHeaderView.xib */; };
@@ -230,7 +230,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				026B12B11AC9D401007F5013 /* EmpireMobileManager.framework in Embed Frameworks */,
+				026B12BF1ACA3BB1007F5013 /* EmpireMobileManager.framework in Embed Frameworks */,
 				F55AD90F1A8A420900202F0A /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -250,10 +250,10 @@
 		024FEEFF1A69BA59001CA262 /* INVPagingManager+ProjectListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "INVPagingManager+ProjectListing.m"; path = "Data Managers/INVPagingManager+ProjectListing.m"; sourceTree = "<group>"; };
 		0254897F1A68622700EE012D /* INVSignUpTableViewConfigDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSignUpTableViewConfigDataSource.h; sourceTree = "<group>"; };
 		025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSignUpTableViewConfigDataSource.m; sourceTree = "<group>"; };
-		026B12A81AC9D368007F5013 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
-		026B12AD1AC9D3FE007F5013 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		026B12AD1AC9D3FE007F5013 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
 		026B12B21AC9DBC7007F5013 /* INVRuleIssuesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleIssuesTableViewController.h; sourceTree = "<group>"; };
 		026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleIssuesTableViewController.m; sourceTree = "<group>"; };
+		026B12BB1ACA3BA8007F5013 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		0278BAD31A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSubscriptionLevelsTableViewCell.h; sourceTree = "<group>"; };
 		0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSubscriptionLevelsTableViewCell.m; sourceTree = "<group>"; };
 		0278BAD61A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVSubscriptionLevelsTableViewCell.xib; sourceTree = "<group>"; };
@@ -399,8 +399,8 @@
 		F5789CAC1A642A5500D8CEE7 /* INVRuleInstanceStringParamTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceStringParamTableViewCell.m; sourceTree = "<group>"; };
 		F5789CAD1A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceExecutionResultTableViewCell.h; sourceTree = "<group>"; };
 		F5789CAE1A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceExecutionResultTableViewCell.m; sourceTree = "<group>"; };
-		F5789CAF1A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceNameTableViewCell.h; sourceTree = "<group>"; };
-		F5789CB01A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceNameTableViewCell.m; sourceTree = "<group>"; };
+		F5789CAF1A642A5500D8CEE7 /* INVTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVTextFieldTableViewCell.h; sourceTree = "<group>"; };
+		F5789CB01A642A5500D8CEE7 /* INVTextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVTextFieldTableViewCell.m; sourceTree = "<group>"; };
 		F5789CB11A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceOverviewTableViewCell.h; sourceTree = "<group>"; };
 		F5789CB21A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleInstanceOverviewTableViewCell.m; sourceTree = "<group>"; };
 		F5789CB31A642A5500D8CEE7 /* INVRuleInstanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleInstanceTableViewCell.h; sourceTree = "<group>"; };
@@ -526,7 +526,7 @@
 		F5789D921A642A6200D8CEE7 /* INVRuleDefinitionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleDefinitionTableViewCell.xib; sourceTree = "<group>"; };
 		F5789D931A642A6200D8CEE7 /* INVRuleInstanceStringParamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceStringParamTableViewCell.xib; sourceTree = "<group>"; };
 		F5789D941A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceExecutionResultTableViewCell.xib; sourceTree = "<group>"; };
-		F5789D951A642A6200D8CEE7 /* INVRuleInstanceNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceNameTableViewCell.xib; sourceTree = "<group>"; };
+		F5789D951A642A6200D8CEE7 /* INVTextFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVTextFieldTableViewCell.xib; sourceTree = "<group>"; };
 		F5789D961A642A6200D8CEE7 /* INVRuleInstanceOverviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceOverviewTableViewCell.xib; sourceTree = "<group>"; };
 		F5789D971A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleInstanceTableViewCell.xib; sourceTree = "<group>"; };
 		F5789D981A642A6200D8CEE7 /* INVRuleSetTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleSetTableViewHeaderView.xib; sourceTree = "<group>"; };
@@ -619,8 +619,8 @@
 				F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */,
 				F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */,
 				F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */,
-				026B12A91AC9D368007F5013 /* EmpireMobileManager.framework in Frameworks */,
-				026B12B01AC9D401007F5013 /* EmpireMobileManager.framework in Frameworks */,
+				026B12BC1ACA3BA8007F5013 /* EmpireMobileManager.framework in Frameworks */,
+				026B12BE1ACA3BB1007F5013 /* EmpireMobileManager.framework in Frameworks */,
 				3E5AE4CA6BC37DFBBE214AFE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,7 +629,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				026B12AF1AC9D3FE007F5013 /* EmpireMobileManager.framework in Frameworks */,
+				026B12BD1ACA3BA8007F5013 /* EmpireMobileManager.framework in Frameworks */,
 				1827E538D895002A1BC239B6 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -679,6 +679,7 @@
 				F5789C901A642A5500D8CEE7 /* Source */,
 				F5789DCC1A642A6700D8CEE7 /* Tests */,
 				02C8845819E317E900DFB4E2 /* Products */,
+				026B12BB1ACA3BA8007F5013 /* EmpireMobileManager.framework */,
 				B910EE3EE06846E99FD21754 /* Frameworks */,
 				4BBD31A3730E1E9E16BE0A59 /* Pods */,
 			);
@@ -706,7 +707,6 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				026B12AD1AC9D3FE007F5013 /* EmpireMobileManager.framework */,
 				F56C9DFE1AB1C46100D365AD /* libPods-AWPagedArray.a */,
 				F5D2914B1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a */,
 				F5D2914C1A83F77C000CBA6B /* libYajl.a */,
@@ -867,8 +867,6 @@
 				F58DFE671AC1AAF2006B8747 /* INVRuleInstanceBATypeParamTableViewCell.m */,
 				F5789CAD1A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.h */,
 				F5789CAE1A642A5500D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.m */,
-				F5789CAF1A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.h */,
-				F5789CB01A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.m */,
 				F5789CB11A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.h */,
 				F5789CB21A642A5500D8CEE7 /* INVRuleInstanceOverviewTableViewCell.m */,
 				F5789CAB1A642A5500D8CEE7 /* INVRuleInstanceStringParamTableViewCell.h */,
@@ -879,6 +877,8 @@
 				F5789CB61A642A5500D8CEE7 /* INVStockThumbnailCollectionViewCell.m */,
 				0278BAD31A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.h */,
 				0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */,
+				F5789CAF1A642A5500D8CEE7 /* INVTextFieldTableViewCell.h */,
+				F5789CB01A642A5500D8CEE7 /* INVTextFieldTableViewCell.m */,
 				F5789CB71A642A5500D8CEE7 /* INVTextViewTableViewCell.h */,
 				F5789CB81A642A5500D8CEE7 /* INVTextViewTableViewCell.m */,
 				F5789CB91A642A5500D8CEE7 /* INVTokensTableViewCell.h */,
@@ -1211,7 +1211,7 @@
 				F58DFE691AC1AD6B006B8747 /* INVRuleInstanceBATypeParamTableViewCell.xib */,
 				F5789D931A642A6200D8CEE7 /* INVRuleInstanceStringParamTableViewCell.xib */,
 				F5789D941A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib */,
-				F5789D951A642A6200D8CEE7 /* INVRuleInstanceNameTableViewCell.xib */,
+				F5789D951A642A6200D8CEE7 /* INVTextFieldTableViewCell.xib */,
 				F5789D961A642A6200D8CEE7 /* INVRuleInstanceOverviewTableViewCell.xib */,
 				F5789D971A642A6200D8CEE7 /* INVRuleInstanceTableViewCell.xib */,
 				F5789D981A642A6200D8CEE7 /* INVRuleSetTableViewHeaderView.xib */,
@@ -1395,7 +1395,7 @@
 				F5789DB31A642A6200D8CEE7 /* INVProjectTableViewCell.xib in Resources */,
 				F5789DBE1A642A6200D8CEE7 /* INVTextViewTableViewCell.xib in Resources */,
 				F523B47C1AB772BA0001508C /* INVAnalysisTableViewCell.xib in Resources */,
-				F5789DB71A642A6200D8CEE7 /* INVRuleInstanceNameTableViewCell.xib in Resources */,
+				F5789DB71A642A6200D8CEE7 /* INVTextFieldTableViewCell.xib in Resources */,
 				F5D291531A84046F000CBA6B /* INVAccountDetailFolderCollectionReusableView.xib in Resources */,
 				0278BAE31A655D03009E0E27 /* INVGenericSwitchTableViewCell.xib in Resources */,
 				F5426D521A680EA30040B2B5 /* Main.storyboard in Resources */,
@@ -1589,7 +1589,7 @@
 				F5EA59C61ABB638F00458C0C /* INVModelTreeBaseViewController.m in Sources */,
 				0278BADF1A655CE9009E0E27 /* INVGenericSwitchTableViewCell.m in Sources */,
 				F5789D441A642A5500D8CEE7 /* INVRuleInstanceTableViewCell.m in Sources */,
-				F5789D421A642A5500D8CEE7 /* INVRuleInstanceNameTableViewCell.m in Sources */,
+				F5789D421A642A5500D8CEE7 /* INVTextFieldTableViewCell.m in Sources */,
 				F5789D3E1A642A5500D8CEE7 /* INVProjectTableViewCell.m in Sources */,
 				0278BAD51A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */,
 				F5789D4E1A642A5500D8CEE7 /* UIImage+INVCustomizations.m in Sources */,

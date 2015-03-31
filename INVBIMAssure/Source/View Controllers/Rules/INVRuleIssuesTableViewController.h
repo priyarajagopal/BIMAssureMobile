@@ -9,6 +9,6 @@
 #import "INVCustomTableViewController.h"
 
 @interface INVRuleIssuesTableViewController : INVCustomTableViewController
-@property (nonatomic, copy) NSNumber *ruleResultId;
+@property (nonatomic, copy) INVAnalysisRunResult *ruleResult;
 @property (nonatomic, copy) NSNumber *buildingElementId;
 @end

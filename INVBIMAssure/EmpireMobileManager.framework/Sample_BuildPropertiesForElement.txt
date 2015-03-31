@@ -1,0 +1,291 @@
+{
+"took": 7,
+"timed_out": false,
+"_shards": {
+"total": 5,
+"successful": 5,
+"failed": 0
+},
+"hits": {
+"total": 4270,
+"max_score": 1,
+"hits": [
+{
+"_index": "javatest2",
+"_type": "building-elements",
+"_id": "7619",
+"_score": 1,
+"_source": {
+"system": {
+"sourceid": "a0cbb611-4e8a-4cfc-9fdf-bef2d149137b-00287998",
+"packageid": 1234,
+"typeid": 845,
+"id": 7619,
+"occurrenceid": 1
+},
+"intrinsics": {
+"elem_partition_param": {
+"display": "Workset",
+"typeproperty": false,
+"value": 201
+},
+"host_area_computed": {
+"unit": "m2",
+"display": "Area",
+"typeproperty": false,
+"value": 3.2516063999966667,
+"source_unit": "ft^2",
+"source_system_of_measure": "imperial",
+"source_value": 34.99999999996412
+},
+"analytical_roughness": {
+"display": "Roughness",
+"typeproperty": true,
+"value": 1
+},
+"function_param": {
+"display": "Function",
+"typeproperty": true,
+"value": 0
+},
+"wall_key_ref_param": {
+"display": "Location Line",
+"typeproperty": false,
+"value": 3
+},
+"wall_structural_significant": {
+"display": "Structural",
+"typeproperty": false,
+"value": false
+},
+"structural_analytical_model": {
+"display": "Enable Analytical Model",
+"typeproperty": false,
+"value": false
+},
+"door_number": {
+"display": "Mark",
+"typeproperty": false
+},
+"wall_top_extension_dist_param": {
+"unit": "m",
+"display": "Top Extension Distance",
+"typeproperty": false,
+"value": 0,
+"source_unit": "ft",
+"source_system_of_measure": "imperial",
+"source_value": 0
+},
+"door_fire_rating": {
+"display": "Fire Rating",
+"typeproperty": true
+},
+"all_model_model": {
+"display": "Model",
+"typeproperty": true
+},
+"all_model_manufacturer": {
+"display": "Manufacturer",
+"typeproperty": true
+},
+"sourcetype": {
+"value": "Autodesk.Revit.DB.Wall"
+},
+"analytical_heat_transfer_coefficient": {
+"unit": "J.s-1.degC-1.m-2",
+"display": "Heat Transfer Coefficient (U)",
+"typeproperty": true,
+"value": 0,
+"source_unit": "Btu/H•ft2•°F",
+"source_system_of_measure": "imperial",
+"source_value": 0
+},
+"all_model_type_comments": {
+"display": "Type Comments",
+"typeproperty": true
+},
+"wall_bottom_extension_dist_param": {
+"unit": "m",
+"display": "Base Extension Distance",
+"typeproperty": false,
+"value": 0,
+"source_unit": "ft",
+"source_system_of_measure": "imperial",
+"source_value": 0
+},
+"wall_attr_width_param": {
+"unit": "m",
+"display": "Width",
+"typeproperty": true,
+"value": 0.10795000000000003,
+"source_unit": "ft",
+"source_system_of_measure": "imperial",
+"source_value": 0.35416666666666674
+},
+"door_cost": {
+"display": "Cost",
+"typeproperty": true,
+"value": 0
+},
+"wall_base_offset": {
+"unit": "m",
+"display": "Base Offset",
+"typeproperty": false,
+"value": 0,
+"source_unit": "ft",
+"source_system_of_measure": "imperial",
+"source_value": 0
+},
+"ul code": {
+"display": "UL Code",
+"typeproperty": true
+},
+"keynote_param": {
+"display": "Keynote",
+"typeproperty": true
+},
+"wall_user_height_param": {
+"unit": "m",
+"display": "Unconnected Height",
+"typeproperty": false,
+"value": 4.876799999995094,
+"source_unit": "ft",
+"source_system_of_measure": "imperial",
+"source_value": 15.999999999983903
+},
+"uniformat_description": {
+"display": "Assembly Description",
+"typeproperty": true,
+"value": "Partitions - Drywall w/ Metal Stud"
+},
+"wrapping_at_inserts_param": {
+"display": "Wrapping at Inserts",
+"typeproperty": true,
+"value": 3
+},
+"uniformat_code": {
+"display": "Assembly Code",
+"typeproperty": true,
+"value": "C1010145"
+},
+"analytical_absorptance": {
+"display": "Absorptance",
+"typeproperty": true,
+"value": 0.1
+},
+"analytical_thermal_resistance": {
+"unit": "s.degC.m2.J-1",
+"display": "Thermal Resistance (R)",
+"typeproperty": true,
+"value": 0,
+"source_unit": "H•ft2•°F/Btu",
+"source_system_of_measure": "imperial",
+"source_value": 0
+},
+"window_type_id": {
+"display": "Type Mark",
+"typeproperty": true,
+"value": "D"
+},
+"wall_bottom_is_attached": {
+"display": "Base is Attached",
+"typeproperty": false,
+"value": false
+},
+"coarse_scale_fill_pattern_color": {
+"display": "Coarse Scale Fill Color",
+"typeproperty": true,
+"value": 0
+},
+"wrapping_at_ends_param": {
+"display": "Wrapping at Ends",
+"typeproperty": true,
+"value": 0
+},
+"wall_top_offset": {
+"unit": "m",
+"display": "Top Offset",
+"typeproperty": false,
+"value": -1.2192000000058736,
+"source_unit": "ft",
+"source_system_of_measure": "imperial",
+"source_value": -4.00000000001927
+},
+"host_volume_computed": {
+"unit": "m3",
+"display": "Volume",
+"typeproperty": false,
+"value": 0.3510109108796449,
+"source_unit": "ft^3",
+"source_system_of_measure": "imperial",
+"source_value": 12.395833333320791
+},
+"all_model_instance_comments": {
+"display": "Comments",
+"typeproperty": false
+},
+"wall_attr_room_bounding": {
+"display": "Room Bounding",
+"typeproperty": false,
+"value": true
+},
+"name": {
+"display": "Basic Wall - Interior - D - 4 1/4\" Partition",
+"value": "Basic Wall - Interior - D - 4 1/4\" Partition"
+},
+"wall_top_is_attached": {
+"display": "Top is Attached",
+"typeproperty": false,
+"value": false
+},
+"related_to_mass": {
+"display": "Related to Mass",
+"typeproperty": false,
+"value": false
+},
+"all_model_description": {
+"display": "Description",
+"typeproperty": true
+},
+"analytical_thermal_mass": {
+"unit": "J.degC-1",
+"display": "Thermal mass",
+"typeproperty": true,
+"value": 0,
+"source_unit": "Btu/°F",
+"source_system_of_measure": "imperial",
+"source_value": 0
+},
+"all_model_url": {
+"display": "URL",
+"typeproperty": true
+},
+"curve_elem_length": {
+"unit": "m",
+"display": "Length",
+"typeproperty": false,
+"value": 0.6588124999999899,
+"source_unit": "ft",
+"source_system_of_measure": "imperial",
+"source_value": 2.1614583333333
+},
+"category": {
+"display": "OST_Walls",
+"value": "OST_Walls"
+},
+"edited_by": {
+"display": "Edited by",
+"typeproperty": false,
+"value": ""
+},
+"wall_structural_usage_param": {
+"display": "Structural Usage",
+"typeproperty": false,
+"value": 0
+}
+}
+}
+}
+]
+}
+}
