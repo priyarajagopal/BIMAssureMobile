@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-#import "INVRuleInstanceStringParamTableViewCell.h"
+#import "INVRuleInstanceGeneralTypeParamTableViewCell.h"
 
-@interface INVRuleInstanceStringParamTableViewCell () <UITextFieldDelegate>
+@interface INVRuleInstanceGeneralTypeParamTableViewCell () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *ruleInstanceKey;
 @property (weak, nonatomic) IBOutlet UITextField *ruleInstanceValue;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation INVRuleInstanceStringParamTableViewCell
+@implementation INVRuleInstanceGeneralTypeParamTableViewCell
 
 - (void)layoutSubviews
 {
@@ -66,5 +66,17 @@
 {
     self.actualParamDictionary[INVActualParamValue] = [self.ruleInstanceValue text];
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    // TODO : Valudate and notify the delegate of issues . Display appropriate error
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onValidationFailed:)]) {
+        [self.delegate onValidationFailed:self];
+    }
+    return YES;
+}
+
+
 
 @end

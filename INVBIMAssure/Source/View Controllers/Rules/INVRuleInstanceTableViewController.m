@@ -10,7 +10,7 @@
 
 #import "INVRuleInstanceArrayParamTableViewCell.h"
 #import "INVRuleInstanceBATypeParamTableViewCell.h"
-#import "INVRuleInstanceStringParamTableViewCell.h"
+#import "INVRuleInstanceGeneralTypeParamTableViewCell.h"
 
 #import "INVRuleInstanceOverviewTableViewCell.h"
 #import "INVTextFieldTableViewCell.h"
@@ -51,11 +51,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"GIVE NAME OF RULE INSTANCE HERE", nil);
 
-    UINib *parameterStringNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceStringParamTableViewCell class])
+    UINib *parameterStringNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class])
                                                bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:parameterStringNib forCellReuseIdentifier:@"RuleInstanceStringCell"];
     
-    UINib *parameterNumberNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceStringParamTableViewCell class])
+    UINib *parameterNumberNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class])
                                                bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:parameterNumberNib forCellReuseIdentifier:@"RuleInstanceNumberCell"];
 
@@ -66,7 +66,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceBatypeCell"];
 
     UINib *parameterArrayNib =
-        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceArrayParamTableViewCell class]) bundle:nil];
+        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceArrayParamTableViewCell class]) bundle:[NSBundle bundleForClass:[self class]]];
 
     [self.tableView registerNib:parameterArrayNib forCellReuseIdentifier:@"RuleInstanceArrayCell"];
 
