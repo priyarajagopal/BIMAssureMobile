@@ -1,0 +1,62 @@
+{
+"took": 11,
+"timed_out": false,
+"_shards": {
+"total": 5,
+"successful": 5,
+"failed": 0
+},
+"hits": {
+"total": 20382,
+"max_score": 0,
+"hits": []
+},
+"aggregations": {
+"category": {
+"doc_count_error_upper_bound": 0,
+"sum_other_doc_count": 4858,
+"buckets": [
+{
+"key": "OST_Walls",
+"doc_count": 4270
+},
+{
+"key": "OST_CurtainWallMullions",
+"doc_count": 2064
+},
+{
+"key": "OST_LightingFixtures",
+"doc_count": 1675
+},
+{
+"key": "OST_Casework",
+"doc_count": 1208
+},
+{
+"key": "OST_ElectricalFixtures",
+"doc_count": 1203
+},
+{
+"key": "OST_MechanicalEquipment",
+"doc_count": 1202
+},
+{
+"key": "OST_Furniture",
+"doc_count": 1150
+},
+{
+"key": "OST_Ceilings",
+"doc_count": 959
+},
+{
+"key": "OST_SpecialityEquipment",
+"doc_count": 910
+},
+{
+"key": "OST_PlumbingFixtures",
+"doc_count": 853
+}
+]
+}
+}
+}

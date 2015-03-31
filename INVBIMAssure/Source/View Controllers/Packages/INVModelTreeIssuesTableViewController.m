@@ -91,23 +91,24 @@
          andLoadingBlock:^BOOL(INVModelTreeNode *node, NSRange range, NSInteger *expectedTotalCount,
                              NSError *__strong *errorPtr, void (^completed)(NSArray *) ) {
              [self.globalDataManager.invServerClient
-                 getIssuesForExecutionResult:runResult.analysisRunResultId
-                         WithCompletionBlock:^(INVRuleIssueArray issues, INVEmpireMobileError *error) {
+                 fetchBuildingElementDetailsForRunResult:runResult.analysisRunResultId
+                                     withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                         if (error) {
+                                             *errorPtr =
+                                                 [NSError errorWithDomain:INVEmpireMobileErrorDomain
+                                                                     code:error.code.integerValue
+                                                                 userInfo:@{NSLocalizedDescriptionKey : error.message}];
 
-                             if (error) {
-                                 *errorPtr = [NSError errorWithDomain:INVEmpireMobileErrorDomain
-                                                                 code:error.code.integerValue
-                                                             userInfo:@{NSLocalizedDescriptionKey : error.message}];
+                                             completed(nil);
+                                             return;
+                                         }
 
-                                 completed(nil);
-                                 return;
-                             }
-
-                             *expectedTotalCount = [issues count];
-                             completed([issues arrayByApplyingBlock:^id(INVRuleIssue *issue, NSUInteger _, BOOL *__) {
-                                 return [self treeNodeForIssue:issue withParent:node];
-                             }]);
-                         }];
+                                         *expectedTotalCount = [result count];
+                                         completed(
+                                             [result arrayByApplyingBlock:^id(id buildingElement, NSUInteger _, BOOL *__) {
+                                                 return [self treeNodeForBuildingElement:buildingElement withParent:node];
+                                             }]);
+                                     }];
 
              return YES;
          }];
