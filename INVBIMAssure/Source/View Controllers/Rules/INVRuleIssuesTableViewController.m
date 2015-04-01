@@ -10,6 +10,7 @@
 #import "INVRuleInstanceGeneralTypeParamTableViewCell.h"
 #import "INVGenericTableViewDataSource.h"
 #import "INVTextFieldTableViewCell.h"
+#import "INVRuleParameterParser.h"
 
 static const NSInteger SECTION_RULEINSTANCEISSUES = 0;
 static const NSInteger SECTION_RULEINSTANCEPARAM = 1;
@@ -118,15 +119,31 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 - (void)setupRuleInstanceActualParamsDataSource
 {
-    self.originalRuleInstanceActualParams = self.originalRuleInstanceActualParams ?: [@[] mutableCopy];
     [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams forSection:SECTION_RULEINSTANCEPARAM];
 
     INV_CellConfigurationBlock cellConfigurationBlockForRuleParams =
         ^(INVRuleInstanceGeneralTypeParamTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
             cell.tintColor = [UIColor whiteColor];
 
+            if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)] &&
+                actualParam[INVActualParamName] == nil) {
+                NSString *elementTypeId = actualParam[INVActualParamDisplayName];
+                actualParam[INVActualParamDisplayName] = @"";
+
+                [self.globalDataManager.invServerClient
+                    fetchBATypeDisplayNameForCode:elementTypeId
+                              withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                  NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
+
+                                  actualParam[INVActualParamName] = title;
+                                  [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
+                                                        withRowAnimation:UITableViewRowAnimationAutomatic];
+                              }];
+            }
+
             [cell setActualParamDictionary:actualParam];
             [cell setUserInteractionEnabled:NO];
+
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         };
@@ -192,20 +209,21 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 #pragma mark - helpers
 - (void)processRuleResult
 {
-    INVRuleInstanceActualParamDictionary actualParams = self.ruleResult.actualParameters;
-    [self transformRuleInstanceActualParamsToArray:actualParams];
     self.ruleName = self.ruleResult.ruleName;
-}
 
-- (void)transformRuleInstanceActualParamsToArray:(INVRuleInstanceActualParamDictionary)actualParameters
-{
-    [actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary) obj;
-        NSDictionary *entry = @{ INVActualParamDisplayName : key, INVActualParamValue : valueDict[@"value"] };
+    [self.globalDataManager.invServerClient
+        getRuleDefinitionForRuleId:self.ruleResult.ruleDefId
+               WithCompletionBlock:^(INVRule *ruleDefinition, INVEmpireMobileError *error) {
+                   NSArray *params = [[INVRuleParameterParser instance] transformRuleInstanceParamsToArray:self.ruleResult
+                                                                                                definition:ruleDefinition];
 
-        [self.originalRuleInstanceActualParams addObject:entry];
+                   [self.originalRuleInstanceActualParams setArray:params];
 
-    }];
+                   [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams
+                                             forSection:SECTION_RULEINSTANCEPARAM];
+
+                   [self.tableView reloadData];
+               }];
 }
 
 @end

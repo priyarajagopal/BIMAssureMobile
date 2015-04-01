@@ -21,6 +21,8 @@
 #import "NSArray+INVCustomizations.h"
 #import "UIView+INVCustomizations.h"
 
+#import "INVRuleParameterParser.h"
+
 static const NSInteger SECTION_RULEINSTANCEDETAILS = 0;
 static const NSInteger SECTION_RULEINSTANCEACTUALPARAM = 1;
 static const NSInteger ROW_RULEINSTANCEDETAILS_NAME = 0;
@@ -216,7 +218,13 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                            [self.hud hide:YES];
 
                        INV_SUCCESS:
-                           [self transformRuleInstanceParamsToArray:ruleInstance definition:rule];
+                           self.intermediateRuleInstanceActualParams =
+                               [[[INVRuleParameterParser instance] transformRuleInstanceParamsToArray:ruleInstance
+                                                                                           definition:rule] mutableCopy];
+
+                           self.originalRuleInstanceActualParams =
+                               [[NSMutableArray alloc] initWithArray:self.intermediateRuleInstanceActualParams copyItems:YES];
+
                            [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams
                                                      forSection:SECTION_RULEINSTANCEACTUALPARAM];
 
@@ -238,8 +246,8 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 - (void)sendCreateRuleInstanceRequestToServer
 {
     if ([self validateActualParamsValues:self.intermediateRuleInstanceActualParams]) {
-        INVRuleInstanceActualParamDictionary actualParam =
-            [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
+        INVRuleInstanceActualParamDictionary actualParam = [[INVRuleParameterParser instance]
+            transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
 
         [self.globalDataManager.invServerClient
             createRuleForRuleDefinitionId:self.ruleId
@@ -267,8 +275,8 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 - (void)sendUpdatedRuleInstanceToServer
 {
     if ([self validateActualParamsValues:self.intermediateRuleInstanceActualParams]) {
-        INVRuleInstanceActualParamDictionary actualParam =
-            [self transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
+        INVRuleInstanceActualParamDictionary actualParam = [[INVRuleParameterParser instance]
+            transformRuleInstanceArrayToRuleInstanceParams:self.intermediateRuleInstanceActualParams];
 
         [self.globalDataManager.invServerClient
             modifyRuleInstanceForRuleInstanceId:self.ruleInstanceId
@@ -427,74 +435,6 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
-#warning TODO May want to move this to separate parser class code re
-- (void)transformRuleInstanceParamsToArray:(INVRuleInstance *)ruleInstance definition:(INVRule *)ruleDefinition
-{
-    NSArray *keys = ruleDefinition.formalParams.properties.allKeys;
-    NSDictionary *entries = [NSDictionary dictionaryWithObjects:[keys arrayByApplyingBlock:^id(id key, NSUInteger _, BOOL *__) {
-        INVRuleFormalParam *formalParam = ruleDefinition.formalParams;
-        NSDictionary *elementDesc = (NSDictionary *) formalParam.properties[key];
-
-        NSString *localizedDisplayName = key;
-        if ([elementDesc.allKeys containsObject:@"display"]) {
-            NSDictionary *displayNameDict = formalParam.properties[key][@"display"];
-            NSString *currentLocale = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-            if ([displayNameDict.allKeys containsObject:currentLocale]) {
-                localizedDisplayName = displayNameDict[currentLocale];
-            }
-        }
-
-        INVParameterType type = INVParameterTypeFromString(elementDesc[@"type"]);
-        NSMutableDictionary *dictionary = [@{
-            INVActualParamName : key,
-            INVActualParamType : @(type),
-            INVActualParamDisplayName : localizedDisplayName
-        } mutableCopy];
-
-        if (elementDesc[@"unit"]) {
-            dictionary[INVActualParamUnit] = @"";
-        }
-
-        return dictionary;
-    }] forKeys:keys];
-
-    [ruleInstance.actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary) obj;
-        NSMutableDictionary *entry = entries[key];
-
-        entry[INVActualParamValue] = valueDict[@"value"];
-
-        if (valueDict[@"unit"]) {
-            entry[INVActualParamUnit] = valueDict[@"unit"];
-        }
-    }];
-
-    [self.intermediateRuleInstanceActualParams setArray:entries.allValues];
-    self.originalRuleInstanceActualParams =
-        [[NSMutableArray alloc] initWithArray:self.intermediateRuleInstanceActualParams copyItems:YES];
-}
-
-- (INVRuleInstanceActualParamDictionary)transformRuleInstanceArrayToRuleInstanceParams:(NSArray *)actualParamsArray
-{
-    NSMutableDictionary *actualParam = [[NSMutableDictionary alloc] initWithCapacity:0];
-
-    [actualParamsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSDictionary *actualDict = obj;
-        NSString *key = actualDict[INVActualParamName];
-        NSString *value = actualDict[INVActualParamValue];
-        NSString *unit = actualDict[INVActualParamUnit];
-
-        if (unit && value) {
-            [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit } forKey:key];
-        }
-        else if (value) {
-            [actualParam setObject:@{ INVActualParamValue : value } forKey:key];
-        }
-    }];
-
-    return actualParam;
-}
-
 - (void)scrapeTableViewForUpdatedContent
 {
     INVRuleInstanceOverviewTableViewCell *overviewCell = (INVRuleInstanceOverviewTableViewCell *)
@@ -506,41 +446,13 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 - (BOOL)validateActualParamsValues:(NSArray *)actualParamArray
 {
-    typedef void (^ErrorBlock)(NSString *errorMesg);
-    __block BOOL isSuccess = YES;
-    ErrorBlock errBlk = ^(NSString *errorMesg) {
-        UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:errorMesg];
-        [self presentViewController:errController animated:YES completion:nil];
-    };
-
-    [actualParamArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSDictionary *actualDict = obj;
-        NSString *unit = actualDict[INVActualParamUnit];
-        NSString *value = actualDict[INVActualParamValue];
-        INVParameterType type = [actualDict[INVActualParamType] integerValue];
-
-        if (unit && unit.length) {
-            if (!value) {
-                NSString *errorMesg = NSLocalizedString(@"UNIT_WITH_NO_VALUE", nil);
-                errBlk(errorMesg);
-                isSuccess = NO;
-            }
-        }
-        else {
-            if (value && value.length) {
-                if (type == INVParameterTypeNumber) {
-                    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-                    NSNumber *number = [formatter numberFromString:value];
-                    if (!number) {
-                        NSString *errorMesg = NSLocalizedString(@"INCORRECT_VALUE_FORMAT", nil);
-                        errBlk(errorMesg);
-                        isSuccess = NO;
-                    }
-                }
-            }
-        }
-    }];
-    return isSuccess;
+    return [[INVRuleParameterParser instance]
+        areActualParametersValid:actualParamArray
+                   forDefinition:nil
+                    failureBlock:^(NSString *errorMessage) {
+                        UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:@"%@", errorMessage];
+                        [self presentViewController:errController animated:YES completion:nil];
+                    }];
 }
 
 #pragma mark - accessor

@@ -15,6 +15,7 @@ extern NSString *const INVModelTreeIssueRunResultKey;
 
 @interface INVModelTreeIssuesTableViewController : INVModelTreeBaseViewController
 
+@property NSNumber *projectId;
 @property NSNumber *packageMasterId;
 @property NSNumber *packageVersionId;
 

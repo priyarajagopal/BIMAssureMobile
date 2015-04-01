@@ -244,6 +244,7 @@ NSString *const INVModelTreeIssueRunResultKey = @"runResult";
     INVRuleIssuesTableViewController *issuesViewController =
         (INVRuleIssuesTableViewController *) [viewController topViewController];
 
+    issuesViewController.projectId = self.projectId;
     issuesViewController.buildingElementId = node.userInfo[INVModelTreeBuildingElementsElmentIdKey];
     issuesViewController.ruleResult =
         node.userInfo[INVModelTreeIssueRunResultKey] ?: node.parent.userInfo[INVModelTreeIssueRunResultKey];

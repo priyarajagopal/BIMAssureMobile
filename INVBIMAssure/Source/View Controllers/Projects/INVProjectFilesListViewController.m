@@ -321,6 +321,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         UINavigationController *navContorller = segue.destinationViewController;
         INVModelViewerContainerViewController *modelViewerController = [navContorller.viewControllers firstObject];
 
+        modelViewerController.projectId = self.projectId;
         modelViewerController.modelId = self.selectedModelId;
         modelViewerController.packageMasterId = self.selectedFileId;
         modelViewerController.fileVersionId = self.selectedFileTipId;
