@@ -138,7 +138,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }
 
     self.saveButtonItem.enabled = self.selectedRules.count > 0;
-    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

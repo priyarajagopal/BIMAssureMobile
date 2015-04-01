@@ -184,6 +184,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
             [NSString stringWithFormat:@"RuleInstance%@Cell", [INVParameterTypeToString(type) capitalizedString]];
 
         id cell = [self.tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
+        [cell setTintColor:[UIColor darkGrayColor]];
         [cell setActualParamDictionary:cellData];
 
         return cell;
