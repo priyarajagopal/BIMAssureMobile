@@ -446,6 +446,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 - (BOOL)validateActualParamsValues:(NSArray *)actualParamArray
 {
+    /*
     return [[INVRuleParameterParser instance]
         areActualParametersValid:actualParamArray
                    forDefinition:nil
@@ -453,6 +454,9 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                         UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:@"%@", errorMessage];
                         [self presentViewController:errController animated:YES completion:nil];
                     }];
+     */
+
+    return NO;
 }
 
 #pragma mark - accessor

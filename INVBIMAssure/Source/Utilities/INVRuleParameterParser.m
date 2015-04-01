@@ -8,8 +8,47 @@
 
 #import "INVRuleParameterParser.h"
 
-#import "INVRuleInstanceTableViewController+Private.h"
 #import "NSArray+INVCustomizations.h"
+
+NSString *const INVActualParamName = @"name";
+NSString *const INVActualParamDisplayName = @"display_name";
+NSString *const INVActualParamType = @"type";
+NSString *const INVActualParamTypeConstraints = @"type_constraints";
+NSString *const INVActualParamValue = @"value";
+NSString *const INVActualParamUnit = @"unit";
+
+static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"date", @"batype", @"range"};
+static size_t INVParamaterTypeStringsCount = sizeof(INVParamaterTypeStrings) / sizeof(*INVParamaterTypeStrings);
+
+NSString *INVParameterTypeToString(INVParameterType type)
+{
+    if (__builtin_expect(type < INVParamaterTypeStringsCount, 1) == 1)
+        return INVParamaterTypeStrings[type];
+
+    return nil;
+}
+
+INVParameterType INVParameterTypeFromString(NSString *type)
+{
+    for (off_t index = 0; index < INVParamaterTypeStringsCount; index++) {
+        if ([INVParamaterTypeStrings[index] isEqual:type]) {
+            return (INVParameterType) index;
+        }
+    }
+
+    return INVParameterTypeString;
+}
+
+NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
+{
+    if ([types isKindOfClass:[NSString class]]) {
+        return @[ @(INVParameterTypeFromString(types)) ];
+    }
+
+    return [types arrayByApplyingBlock:^id(id type, NSUInteger _, BOOL *__) {
+        return @(INVParameterTypeFromString(type));
+    }];
+}
 
 @implementation INVRuleParameterParser
 
@@ -26,46 +65,44 @@
 
 - (NSArray *)transformRuleInstanceParamsToArray:(INVRuleInstance *)ruleInstance definition:(INVRule *)ruleDefinition
 {
-    NSArray *keys = ruleDefinition.formalParams.properties.allKeys;
-    NSDictionary *entries = [NSDictionary dictionaryWithObjects:[keys arrayByApplyingBlock:^id(id key, NSUInteger _, BOOL *__) {
-        INVRuleFormalParam *formalParam = ruleDefinition.formalParams;
-        NSDictionary *elementDesc = (NSDictionary *) formalParam.properties[key];
+    NSArray *formalParamNames = ruleDefinition.formalParams.properties.allKeys;
+    NSArray *formalParamValues = [formalParamNames arrayByApplyingBlock:^id(id paramName, NSUInteger _, BOOL *__) {
+        NSMutableDictionary *results = [@{
+            INVActualParamName : paramName,
+            INVActualParamDisplayName : [NSNull null],
 
-        NSString *localizedDisplayName = key;
-        if ([elementDesc.allKeys containsObject:@"display"]) {
-            NSDictionary *displayNameDict = formalParam.properties[key][@"display"];
-            NSString *currentLocale = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-            if ([displayNameDict.allKeys containsObject:currentLocale]) {
-                localizedDisplayName = displayNameDict[currentLocale];
-            }
-        }
+            INVActualParamType : [NSMutableArray new],
+            INVActualParamTypeConstraints : [NSMutableDictionary new],
 
-        INVParameterType type = INVParameterTypeFromString(elementDesc[@"type"]);
-        NSMutableDictionary *dictionary = [@{
-            INVActualParamName : key,
-            INVActualParamType : @(type),
-            INVActualParamDisplayName : localizedDisplayName
+            INVActualParamValue : [NSNull null],
         } mutableCopy];
 
-        if (elementDesc[@"unit"]) {
-            dictionary[INVActualParamUnit] = @"";
+        NSDictionary *formalParameterProperties = ruleDefinition.formalParams.properties[paramName];
+
+        NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+        results[INVActualParamDisplayName] = formalParameterProperties[@"display"][languageCode] ?: paramName;
+
+        if (formalParameterProperties[@"unit"]) {
+            results[INVActualParamUnit] = [NSNull null];
         }
 
-        return dictionary;
-    }] forKeys:keys];
+        return results;
+    }];
+
+    NSDictionary *actualParameters = [NSDictionary dictionaryWithObjects:formalParamValues forKeys:formalParamNames];
 
     [ruleInstance.actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary) obj;
-        NSMutableDictionary *entry = entries[key];
+        NSMutableDictionary *actualParam = actualParameters[key];
 
-        entry[INVActualParamValue] = valueDict[@"value"];
+        actualParam[INVActualParamValue] = valueDict[@"value"];
 
         if (valueDict[@"unit"]) {
-            entry[INVActualParamUnit] = valueDict[@"unit"];
+            actualParam[INVActualParamUnit] = valueDict[@"unit"];
         }
     }];
 
-    return entries.allValues;
+    return formalParamValues;
 }
 
 - (INVRuleInstanceActualParamDictionary)transformRuleInstanceArrayToRuleInstanceParams:(NSArray *)actualParamsArray
@@ -89,43 +126,36 @@
     return actualParam;
 }
 
-- (BOOL)areActualParametersValid:(NSArray *)params
-                   forDefinition:(INVRule *)ruleDefinition
-                    failureBlock:(void (^)(NSString *))failureBlock
+- (BOOL)isValueValid:(id)value forParameterType:(INVParameterType)type withConstraints:(NSDictionary *)constraints
 {
-    __block BOOL failed = NO;
+    switch (type) {
+        case INVParameterTypeString: {
+            // First, type checking
+            if (![value isKindOfClass:[NSString class]])
+                return NO;
 
-    [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSDictionary *actualDict = obj;
-
-        id unit = actualDict[INVActualParamUnit];
-        id value = actualDict[INVActualParamValue];
-        INVParameterType type = [actualDict[INVActualParamType] integerValue];
-
-        switch (type) {
-            case INVParameterTypeString:
-            case INVParameterTypeNumber:
-                if ([unit length] && [value length] == 0) {
-                    failureBlock(NSLocalizedString(@"UNIT_WITH_NO_VALUE", nil));
-                    *stop = failed = YES;
+            // Constraint checking
+            NSString *regex = constraints[@(type)][@"matches"];
+            if (regex) {
+                NSRange matchRange = [value rangeOfString:regex options:NSRegularExpressionSearch];
+                if (matchRange.location != 0 || matchRange.length != [value length]) {
+                    return NO;
                 }
+            }
 
-                break;
-
-            case INVParameterTypeElementType:
-                // TODO: Determine if element type id is correct.
-                break;
-
-            case INVParameterTypeArray:
-                if (![value isKindOfClass:[NSArray class]]) {
-                    failureBlock(NSLocalizedString(@"NOT_AN_ARRAY", nil));
-                    *stop = failed = YES;
-                    break;
-                }
+            return YES;
         }
-    }];
+        case INVParameterTypeNumber: {
+            if (![value isKindOfClass:[NSNumber class]])
+                return NO;
 
-    return !failed;
+            // TODO: Constraint checking
+
+            return YES;
+        }
+    }
+
+    return NO;
 }
 
 @end

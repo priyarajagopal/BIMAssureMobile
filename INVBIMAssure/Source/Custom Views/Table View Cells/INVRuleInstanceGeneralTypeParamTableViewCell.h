@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "INVRuleInstanceTableViewController+Private.h"
-
+#import "INVRuleParameterParser.h"
 
 @class INVRuleInstanceGeneralTypeParamTableViewCell;
 
