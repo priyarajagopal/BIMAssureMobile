@@ -14,7 +14,7 @@
 
 @interface INVAnalysisRulesTableViewController () <INVRuleInstanceTableViewControllerDelegate>
 
-@property (nonatomic) INVAnalysis *analysis;
+@property (nonatomic, copy) INVAnalysis *analysis;
 @property (nonatomic) IBOutlet INVTransitionToStoryboard *editRuleInstanceTransition;
 
 - (IBAction)onRuleInstanceEditSelected:(id)sender;
@@ -61,42 +61,23 @@
     id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     [self.globalDataManager.invServerClient
-        getAllAnalysesForProject:self.projectId
-             withCompletionBlock:^(INVEmpireMobileError *error) {
-                 INV_ALWAYS:
-                     [self.refreshControl endRefreshing];
-                     [hud hide:YES];
+           getAnalysesForId:self.analysisId
+        withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+            INV_ALWAYS:
+                [self.refreshControl endRefreshing];
+                [hud hide:YES];
 
-                 INV_SUCCESS:
-                     self.analysis = nil;
-                     [self.tableView reloadData];
+            INV_SUCCESS:
+                self.analysis = result;
+                [self reloadTable];
 
-                 INV_ERROR:
-                     INVLogError(@"%@", error);
+            INV_ERROR:
+                INVLogError(@"%@", error);
 
-                     UIAlertController *alertController =
-                         [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_RULES_FETCH", nil)];
-                     [self presentViewController:alertController animated:YES completion:nil];
-             }];
-}
-
-- (INVAnalysis *)analysis
-{
-    if (_analysis) {
-        return _analysis;
-    }
-
-    NSFetchRequest *fetchRequest = [self.globalDataManager.invServerClient.analysesManager fetchRequestForAnalyses];
-    fetchRequest.predicate =
-        [NSPredicate predicateWithFormat:@"projectId = %@ AND analysisId = %@", self.projectId, self.analysisId];
-
-    NSArray *analyses =
-        [self.globalDataManager.invServerClient.analysesManager.managedObjectContext executeFetchRequest:fetchRequest
-                                                                                                   error:NULL];
-
-    _analysis = [analyses firstObject];
-
-    return _analysis;
+                UIAlertController *alertController =
+                    [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_ANALYSIS_RULES_FETCH", nil)];
+                [self presentViewController:alertController animated:YES completion:nil];
+        }];
 }
 
 - (void)deleteRule:(INVRuleInstance *)rule
@@ -124,7 +105,8 @@
                                                   [hud hide:YES];
 
                                               INV_SUCCESS:
-                                                  [self fetchListOfRules];
+                                                  [self reloadAnalysisFromCache];
+                                                  [self reloadTable];
 
                                               INV_ERROR:
                                                   INVLogError(@"%@", error);
@@ -162,7 +144,7 @@
 
 - (void)manualDismiss:(UIStoryboardSegue *)segue
 {
-    [self fetchListOfRules];
+      [self fetchListOfRules];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -188,8 +170,6 @@
     return cell;
 }
 
-#pragma mark - UITableViewDelegate
-
 #pragma mark - INVRuleInstanceTableViewControllerDelegate
 
 - (void)onRuleInstanceCreated:(INVRuleInstanceTableViewController *)sender
@@ -198,10 +178,20 @@
 
 - (void)onRuleInstanceModified:(INVRuleInstanceTableViewController *)sender
 {
-    [self fetchListOfRules];
-
+    [self reloadAnalysisFromCache];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.tableView reloadData];
+}
+
+#pragma mark - helpers
+- (void)reloadTable
+{
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+}
+
+- (void)reloadAnalysisFromCache
+{
+    self.analysis = [[self.globalDataManager.invServerClient.analysesManager analysesForIds:@[ self.analysisId ]] firstObject];
 }
 
 @end

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -193,7 +193,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5E-J4-J51" userLabel="Analysis View">
                         <rect key="frame" x="0.0" y="25" width="600" height="57"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWd-L1-wPq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWd-L1-wPq">
                                 <constraints>
                                     <constraint firstAttribute="width" id="gSY-I4-SAO"/>
                                 </constraints>
@@ -274,10 +274,10 @@
                 <outlet property="deleteButton" destination="C00-uw-XQU" id="cl9-NE-RDH"/>
                 <outlet property="editButton" destination="yCi-4Y-7WJ" id="5zk-GR-oA3"/>
                 <outlet property="emptyRulesLabel" destination="aWd-L1-wPq" id="ua3-go-1ib"/>
-                <outlet property="packagesButton" destination="Cbi-DP-o69" id="y5z-CA-UK8"/>
+                <outlet property="packagesButton" destination="cJ5-aO-zRA" id="Tc5-DM-UkO"/>
                 <outlet property="ruleCountButton" destination="MSN-ox-VjW" id="aXE-0g-Dmp"/>
                 <outlet property="rulesButton" destination="ypk-Mz-ZUu" id="wpz-9U-kQF"/>
-                <outlet property="runButton" destination="cJ5-aO-zRA" id="cc5-EC-hQx"/>
+                <outlet property="runButton" destination="Cbi-DP-o69" id="5Mh-S3-UVk"/>
             </connections>
             <point key="canvasLocation" x="240" y="701.5"/>
         </tableViewCell>
