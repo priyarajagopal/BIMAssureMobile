@@ -54,19 +54,18 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     UINib *parameterStringNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class])
                                                bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:parameterStringNib forCellReuseIdentifier:@"RuleInstanceStringCell"];
-    
+
     UINib *parameterNumberNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class])
                                                bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:parameterNumberNib forCellReuseIdentifier:@"RuleInstanceNumberCell"];
-
 
     UINib *parameterElementTypeNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceBATypeParamTableViewCell class])
                                                     bundle:[NSBundle bundleForClass:[self class]]];
 
     [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceBatypeCell"];
 
-    UINib *parameterArrayNib =
-        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceArrayParamTableViewCell class]) bundle:[NSBundle bundleForClass:[self class]]];
+    UINib *parameterArrayNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceArrayParamTableViewCell class])
+                                              bundle:[NSBundle bundleForClass:[self class]]];
 
     [self.tableView registerNib:parameterArrayNib forCellReuseIdentifier:@"RuleInstanceArrayCell"];
 
@@ -184,6 +183,8 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
             [NSString stringWithFormat:@"RuleInstance%@Cell", [INVParameterTypeToString(type) capitalizedString]];
 
         id cell = [self.tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
+
+        [cell setTintColor:[UIColor blackColor]];
         [cell setActualParamDictionary:cellData];
 
         return cell;
@@ -233,7 +234,6 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
     [self.tableView reloadData];
 }
-
 
 - (void)sendCreateRuleInstanceRequestToServer
 {
