@@ -57,7 +57,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.title = NSLocalizedString(@"FILES", nil);
+    self.title = NSLocalizedString(@"MODELS", nil);
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
 
     UIColor *whiteColor = [UIColor colorWithRed:255.0 / 255 green:255.0 / 255 blue:255.0 / 255 alpha:1.0];
