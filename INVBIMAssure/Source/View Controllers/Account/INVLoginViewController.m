@@ -163,7 +163,6 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
                                            withCompletionBlock:^(INVEmpireMobileError *error) {
                                                [self hideLoginProgress];
                                                if (!error) {
-                                                  [self removeCredentialsInKC];
                                                    if (self.saveCredentials) {
                                 
                                                        [self saveCredentialsInKC];
