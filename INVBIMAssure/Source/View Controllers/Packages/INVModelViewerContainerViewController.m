@@ -42,15 +42,16 @@
     if ([[segue destinationViewController] isKindOfClass:[INVModelViewerViewController class]]) {
         self.modelViewController = segue.destinationViewController;
 
-        [self bindKeyPath:@"modelId" toObject:self keyPath:@"modelViewController.modelId"];
-        [self bindKeyPath:@"fileVersionId" toObject:self keyPath:@"modelViewController.fileVersionId"];
+        self.modelViewController.modelId = self.modelId;
+        self.modelViewController.fileVersionId = self.fileVersionId;
     }
 
     if ([[segue destinationViewController] isKindOfClass:[INVModelTreeContainerViewController class]]) {
         self.modelTreeContainerViewController = segue.destinationViewController;
 
-        [self bindKeyPath:@"fileVersionId" toObject:self keyPath:@"modelTreeContainerViewController.packageVersionId"];
-        [self bindKeyPath:@"packageMasterId" toObject:self keyPath:@"modelTreeContainerViewController.packageMasterId"];
+        self.modelTreeContainerViewController.projectId = self.projectId;
+        self.modelTreeContainerViewController.packageMasterId = self.packageMasterId;
+        self.modelTreeContainerViewController.packageVersionId = self.fileVersionId;
     }
 }
 

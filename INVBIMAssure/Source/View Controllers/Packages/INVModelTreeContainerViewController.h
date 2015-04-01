@@ -10,7 +10,8 @@
 
 @interface INVModelTreeContainerViewController : INVCustomTabBarController
 
-@property NSNumber *packageMasterId;
-@property NSNumber *packageVersionId;
+@property (nonatomic) NSNumber *projectId;
+@property (nonatomic) NSNumber *packageMasterId;
+@property (nonatomic) NSNumber *packageVersionId;
 
 @end

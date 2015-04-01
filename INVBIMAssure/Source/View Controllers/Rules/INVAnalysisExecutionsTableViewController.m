@@ -284,6 +284,8 @@ static const NSInteger DEFAULT_FOOTER_HEIGHT = 20;
             INVModelTreeIssuesTableViewController *executionTVC =
                 (INVModelTreeIssuesTableViewController *) ((UINavigationController *) segue.destinationViewController)
                     .topViewController;
+
+            executionTVC.projectId = self.projectId;
             executionTVC.packageVersionId = self.fileVersionId;
             executionTVC.analysisRunId = self.analysisRunId;
             executionTVC.runResult = cell.runResult;

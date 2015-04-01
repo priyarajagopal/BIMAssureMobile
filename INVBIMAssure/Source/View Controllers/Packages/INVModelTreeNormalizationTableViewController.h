@@ -10,6 +10,7 @@
 
 @interface INVModelTreeNormalizationTableViewController : INVCustomTableViewController
 
+@property NSNumber *projectId;
 @property NSNumber *packageMasterId;
 @property NSNumber *packageVersionId;
 

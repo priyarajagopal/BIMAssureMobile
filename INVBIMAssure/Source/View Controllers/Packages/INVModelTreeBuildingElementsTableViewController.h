@@ -11,6 +11,7 @@
 
 @interface INVModelTreeBuildingElementsTableViewController : INVModelTreeBaseViewController
 
+@property NSNumber *projectId;
 @property NSNumber *packageMasterId;
 @property NSNumber *packageVersionId;
 

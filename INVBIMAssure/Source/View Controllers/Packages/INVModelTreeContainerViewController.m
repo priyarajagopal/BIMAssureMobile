@@ -19,9 +19,27 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+}
 
-    [self bindKeyPath:@"packageVersionId" toObject:self keyPath:@"viewControllers.packageVersionId"];
-    //[self bindKeyPath:@"packageMasterId" toObject:self keyPath:@"viewControllers.packageMasterId"];
+- (void)setProjectId:(NSNumber *)projectId
+{
+    _projectId = projectId;
+
+    [self.viewControllers setValue:projectId forKey:@"projectId"];
+}
+
+- (void)setPackageVersionId:(NSNumber *)packageVersionId
+{
+    _packageVersionId = packageVersionId;
+
+    [self.viewControllers setValue:packageVersionId forKey:@"packageVersionId"];
+}
+
+- (void)setPackageMasterId:(NSNumber *)packageMasterId
+{
+    _packageMasterId = packageMasterId;
+
+    [self.viewControllers setValue:packageMasterId forKey:@"packageMasterId"];
 }
 
 @end

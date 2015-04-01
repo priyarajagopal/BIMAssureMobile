@@ -84,6 +84,7 @@
 		F557E5381ACAE5E900667111 /* INVBlackTintedNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F557E5371ACAE5E900667111 /* INVBlackTintedNavigationViewController.m */; };
 		F557E53B1ACB36AF00667111 /* INVModelTreeAnalysisRunNodeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F557E53A1ACB36AF00667111 /* INVModelTreeAnalysisRunNodeTableViewCell.m */; };
 		F557E53D1ACB387500667111 /* INVModelTreeAnalysisRunNodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F557E53C1ACB387500667111 /* INVModelTreeAnalysisRunNodeTableViewCell.xib */; };
+		F557E5401ACC37B200667111 /* INVRuleParameterParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F557E53F1ACC37B200667111 /* INVRuleParameterParser.m */; };
 		F55AD9001A893A3300202F0A /* UIResponder+IBHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F55AD8FF1A893A0300202F0A /* UIResponder+IBHelpers.m */; };
 		F55AD9031A895BCC00202F0A /* INVCreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55AD9021A895BCC00202F0A /* INVCreateAccountViewController.m */; };
 		F55AD90E1A8A420900202F0A /* OpenCTM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F539D51D1A6447CF007A2BDC /* OpenCTM.framework */; };
@@ -367,6 +368,8 @@
 		F557E5391ACB36AF00667111 /* INVModelTreeAnalysisRunNodeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelTreeAnalysisRunNodeTableViewCell.h; sourceTree = "<group>"; };
 		F557E53A1ACB36AF00667111 /* INVModelTreeAnalysisRunNodeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVModelTreeAnalysisRunNodeTableViewCell.m; sourceTree = "<group>"; };
 		F557E53C1ACB387500667111 /* INVModelTreeAnalysisRunNodeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVModelTreeAnalysisRunNodeTableViewCell.xib; sourceTree = "<group>"; };
+		F557E53E1ACC37B200667111 /* INVRuleParameterParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleParameterParser.h; sourceTree = "<group>"; };
+		F557E53F1ACC37B200667111 /* INVRuleParameterParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleParameterParser.m; sourceTree = "<group>"; };
 		F55AD8FF1A893A0300202F0A /* UIResponder+IBHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+IBHelpers.m"; sourceTree = "<group>"; };
 		F55AD9011A895BCC00202F0A /* INVCreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVCreateAccountViewController.h; sourceTree = "<group>"; };
 		F55AD9021A895BCC00202F0A /* INVCreateAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVCreateAccountViewController.m; sourceTree = "<group>"; };
@@ -956,6 +959,8 @@
 				F5EA59C71ABC52BC00458C0C /* INVErrorHandling.m */,
 				F5356ED31AB210F500D8F917 /* INVMutableSectionedArray.h */,
 				F5356ED41AB210F500D8F917 /* INVMutableSectionedArray.m */,
+				F557E53E1ACC37B200667111 /* INVRuleParameterParser.h */,
+				F557E53F1ACC37B200667111 /* INVRuleParameterParser.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1664,6 +1669,7 @@
 				F5789D3F1A642A5500D8CEE7 /* INVRuleDefinitionTableViewCell.m in Sources */,
 				F55AD9121A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.m in Sources */,
 				F5789D371A642A5500D8CEE7 /* INVRuleSetTableViewHeaderView.m in Sources */,
+				F557E5401ACC37B200667111 /* INVRuleParameterParser.m in Sources */,
 				F5789D631A642A5500D8CEE7 /* INVSimpleUserInfoTableViewController.m in Sources */,
 				F5024B011A68090E002EEE5F /* INVPendingInvitesNotificationDataSource.m in Sources */,
 				F5789D541A642A5500D8CEE7 /* INVServerConfigCertsEqualSecurityPolicy.m in Sources */,

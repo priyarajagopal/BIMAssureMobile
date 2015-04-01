@@ -38,9 +38,16 @@ static inline void _copyPopoverPresentationAttributes(
     va_list args;
     va_start(args, errorMesgFormat);
 
-    NSString *errorMesg = [[NSString alloc] initWithFormat:errorMesgFormat arguments:args];
+    self = [self initWithErrorMessage:errorMesgFormat arguments:args];
 
     va_end(args);
+
+    return self;
+}
+
+- (instancetype)initWithErrorMessage:(NSString *)errorMesgFormat arguments:(va_list)list
+{
+    NSString *errorMesg = [[NSString alloc] initWithFormat:errorMesgFormat arguments:list];
 
     UIAlertAction *action =
         [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];

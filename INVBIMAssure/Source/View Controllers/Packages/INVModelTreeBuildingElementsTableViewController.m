@@ -34,11 +34,9 @@ static NSString *const INVModelTreeBuildingElementsModelIdKey = @"modelId";
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
+
     CGFloat imageSize = 25;
     self.tabBarItem.image = [[FAKFontAwesome sitemapIconWithSize:imageSize] imageWithSize:CGSizeMake(imageSize, imageSize)];
-    
-    
 }
 
 #pragma - Content Management

@@ -10,6 +10,8 @@
 #import "INVBlackTintedTableViewController.h"
 
 @interface INVRuleIssuesTableViewController : INVBlackTintedTableViewController
+
+@property (nonatomic, copy) NSNumber *projectId;
 @property (nonatomic, copy) INVAnalysisRunResult *ruleResult;
 @property (nonatomic, copy) NSNumber *buildingElementId;
 @end
