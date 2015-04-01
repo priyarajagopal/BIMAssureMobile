@@ -331,9 +331,7 @@
         if (loginVC.loginSuccess) {
             [self displayLoggedInRootViewController];
         }
-        else {
-            [self displayLoginRootViewController];
-        }
+       
     }
     else if ([keyPath isEqualToString:KVO_INVAccountLoginSuccess]) {
         INVAccountListViewController *accountVC = (INVAccountListViewController *) object;

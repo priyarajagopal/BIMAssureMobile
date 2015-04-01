@@ -21,6 +21,7 @@
 "PROJECTS"="Projects";
 "ACCOUNTS"="Accounts";
 "FILES"="Files";
+"MODELS"="Models";
 "CREATED_ON"="Created On";
 "LOG_OUT"="Log Out";
 "LOG_INTO_ACCOUNT"="Log into Account";
