@@ -1820,6 +1820,21 @@ INVAnalysis object is returned
                   WithCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
+ Asynchornously ,get rule instance for specified rule instance Id
+ 
+ @param ruleInstanceId The Id of the rule instance
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+   rule instance is returned
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ 
+ */
+- (void)getRuleInstanceForRuleInstanceId:(NSNumber *)ruleInstanceId
+                     WithCompletionBlock:(void(^)(INVRuleInstance* instance,INVEmpireMobileError* error))handler;
+
+/**
  Asynchornously ,update the specified rule instance associated with an analyses. All values provided will override existing
  values. So must provide existing values if they are to be unchanged.
 

@@ -20,6 +20,6 @@
 
 @interface INVRuleInstanceGeneralTypeParamTableViewCell : UITableViewCell
 @property (weak, nonatomic) id<INVRuleInstanceGeneralTypeParamTableViewCellDelegate> delegate;
-@property (nonatomic, strong) INVActualParamKeyValuePair actualParamDictionary;
+@property (nonatomic, copy) INVActualParamKeyValuePair actualParamDictionary;
 
 @end

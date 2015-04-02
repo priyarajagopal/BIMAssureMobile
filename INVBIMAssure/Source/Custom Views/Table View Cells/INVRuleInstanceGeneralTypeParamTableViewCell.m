@@ -63,6 +63,10 @@
     }
 }
 
+-(void)setActualParamDictionary:(INVActualParamKeyValuePair)actualParamDictionary {
+    _actualParamDictionary = actualParamDictionary;
+    [self updateUI];
+}
 #pragma mark - IBActions
 
 - (IBAction)ruleInstanceValueTextChanged:(id)sender
