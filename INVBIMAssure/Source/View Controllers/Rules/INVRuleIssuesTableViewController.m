@@ -26,7 +26,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 @property (nonatomic, copy) INVRuleIssueMutableArray ruleIssues;
 @property (nonatomic, copy) NSString *ruleName;
 @property (nonatomic, strong) INVRuleParameterParser *ruleParamParser;
-@property (nonatomic, assign) BOOL postProcessingDone;
 @end
 
 @implementation INVRuleIssuesTableViewController
@@ -38,7 +37,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     self.title = nil;
     self.ruleParamParser = [INVRuleParameterParser instance];
 
-  
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"RuleIssueTVC"];
 
     UINib *parameterArrayNib =
@@ -62,9 +60,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
     [super viewWillAppear:animated];
-    [self addKVOObservers];
 
     if (self.ruleResult) {
         [self processRuleResult];
@@ -86,7 +82,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self removeKVOObservers];
 
     self.originalRuleInstanceActualParams = nil;
     self.tableView.dataSource = nil;
@@ -134,18 +129,18 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
             if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)] &&
                 ![actualParam[INVActualParamName] isEqualToString:@""]) {
                 NSString *elementTypeId = actualParam[INVActualParamValue];
-                
+
                 [self.globalDataManager.invServerClient
-                 fetchBATypeDisplayNameForCode:elementTypeId
-                 withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                     NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
-                     if (title) {
-                         actualParam[INVActualParamValue] = title;
-                         actualParam[INVActualParamName] = @"";
-                         [cell setActualParamDictionary:actualParam];
-                     }
-                   
-                 }];
+                    fetchBATypeDisplayNameForCode:elementTypeId
+                              withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                  NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
+                                  if (title) {
+                                      actualParam[INVActualParamValue] = title;
+                                      actualParam[INVActualParamName] = @"";
+                                      [cell setActualParamDictionary:actualParam];
+                                  }
+
+                              }];
             }
 
             if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)]) {
@@ -225,10 +220,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                        NSArray *params =
                            [self.ruleParamParser transformRuleInstanceParamsToArray:self.ruleResult definition:ruleDefinition];
 
-                     //  [self postProcessActualParams:params];
+                       //  [self postProcessActualParams:params];
                        [self.originalRuleInstanceActualParams setArray:params];
-                       [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams forSection:SECTION_RULEINSTANCEPARAM];
-                       
+                       [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams
+                                                 forSection:SECTION_RULEINSTANCEPARAM];
 
                        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                    }
@@ -269,99 +264,10 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     return _dataSource;
 }
 
-#pragma mark - helpers
--(void)addKVOObservers{
-    [self addObserver:self forKeyPath:@"postProcessingDone" options:NSKeyValueObservingOptionNew context:nil];
-
-}
-
--(void)removeKVOObservers {
-    [self removeObserver:self forKeyPath:@"postProcessingDone" context:nil];
-
-}
-
 - (void)processRuleResult
 {
     self.ruleName = self.ruleResult.ruleName;
     [self fetchRuleInstanceAndDefinition];
-}
-
-- (void)postProcessActualParams:(NSArray *)actualParams
-{
-    return;
-    /*
-    [actualParams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        INVActualParamKeyValuePair actualParam = obj;
-        if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)]) {
-            NSString *elementTypeCode = actualParam[INVActualParamValue];
-            [self.globalDataManager.invServerClient
-                fetchBATypeDisplayNameForCode:elementTypeCode
-                          withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                              NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
-                              if (title) {
-                                  actualParam[INVActualParamValue] = title;
-                              }
-
-                          }];
-        }
-        [self.originalRuleInstanceActualParams addObject:actualParams];
-    }];
-     */
-    __block BOOL evaluatedBAType = NO;
-    dispatch_semaphore_t semaphore  = dispatch_semaphore_create(0);
-    ;
-    
-  
-    self.originalRuleInstanceActualParams = [[actualParams arrayByApplyingBlock:^id(id obj, NSUInteger index, BOOL *stop) {
-        __block INVActualParamKeyValuePair actualParam = obj;
-        __block NSString *title;
-        if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)]) {
-            
-
-            evaluatedBAType = YES;
-                       NSString *elementTypeCode = actualParam[INVActualParamValue];
-            
-            [self.globalDataManager.invServerClient
-                fetchBATypeDisplayNameForCode:elementTypeCode
-                          withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                              INV_ALWAYS:
-                              dispatch_semaphore_signal(semaphore);
-                              INV_SUCCESS : {
-                                  title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
-                                  if (title) {
-                                      actualParam[INVActualParamValue] = title;
-                                  }
-                              }
-
-                              INV_ERROR:
-                                  INVLogDebug(@"Error %@", error);
-
-                          }];
-            
-            return actualParam;
-        }
-        else
-            return actualParam;
-    }
-
-    ] mutableCopy];
-    if (evaluatedBAType) {
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    }
-    self.postProcessingDone = YES;
-    
-}
-
-#pragma mark - KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"postProcessingDone"]) {
-        if (self.postProcessingDone) {
-            [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams forSection:SECTION_RULEINSTANCEPARAM];
-
-            [self.tableView reloadData];
-        }
-    }
 }
 
 @end
