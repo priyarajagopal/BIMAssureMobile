@@ -62,21 +62,29 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 {
     [super viewWillAppear:animated];
 
+    
     if (self.ruleResult) {
-        [self processRuleResult];
-        [self setupTableViewDataSource];
-
+        self.ruleName = self.ruleResult.ruleName;
+        
         if (self.buildingElementId) {
-            [self fetchIssuesForBuildingElement];
+            [self setupTableViewDataSource];
+             [self fetchIssuesForBuildingElement]; // use issues at building level
+            
         }
-
-        self.title = self.ruleName;
+        else {
+            self.ruleIssues = [self.ruleResult.issues mutableCopy]; // use rule level issues
+            [self setupTableViewDataSource];
+        }
+        
     }
     else {
 #warning todo Display an alert with error message
         INVLogError(@"Cannot fetch issue details for rule result %@ and buidling element %@",
             self.ruleResult.analysisRunResultId, self.buildingElementId);
     }
+    [self fetchRuleInstanceAndDefinition];
+    
+    self.title = self.ruleName;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -264,10 +272,5 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     return _dataSource;
 }
 
-- (void)processRuleResult
-{
-    self.ruleName = self.ruleResult.ruleName;
-    [self fetchRuleInstanceAndDefinition];
-}
 
 @end
