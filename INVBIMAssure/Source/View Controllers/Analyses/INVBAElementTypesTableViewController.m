@@ -152,22 +152,25 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ruleElementType"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+        UIFont* font = [UIFont systemFontOfSize:14.0];
+        cell.textLabel.font = font;
+        cell.detailTextLabel.font = font;
     }
 
     id result = self.baTypes[indexPath.row];
     if ([result isKindOfClass:[NSNull class]]) {
         cell.textLabel.text = @"";
-        [(UIImageView *) cell.accessoryView setImage:[self _deselectedImage]];
+                cell.accessoryType = UITableViewCellAccessoryNone;
     }
     else {
         cell.textLabel.text = result[@"name"];
 
         if ([result[@"code"] isEqualToString:self.currentSelection]) {
-            [(UIImageView *) cell.accessoryView setImage:[self _selectedImage]];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else {
-            [(UIImageView *) cell.accessoryView setImage:[self _deselectedImage]];
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
 
