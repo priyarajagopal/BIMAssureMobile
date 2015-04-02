@@ -8,6 +8,7 @@
 
 #import "INVRuleInstanceTableViewController.h"
 
+#import "INVRuleInstanceRangeTypeParamTableViewCell.h"
 #import "INVRuleInstanceArrayParamTableViewCell.h"
 #import "INVRuleInstanceBATypeParamTableViewCell.h"
 #import "INVRuleInstanceGeneralTypeParamTableViewCell.h"
@@ -55,21 +56,23 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
     UINib *parameterStringNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class])
                                                bundle:[NSBundle bundleForClass:[self class]]];
-    [self.tableView registerNib:parameterStringNib forCellReuseIdentifier:@"RuleInstanceStringCell"];
 
-    UINib *parameterNumberNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class])
-                                               bundle:[NSBundle bundleForClass:[self class]]];
-    [self.tableView registerNib:parameterNumberNib forCellReuseIdentifier:@"RuleInstanceNumberCell"];
+    [self.tableView registerNib:parameterStringNib forCellReuseIdentifier:@"RuleInstanceGenericCell"];
 
     UINib *parameterElementTypeNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceBATypeParamTableViewCell class])
                                                     bundle:[NSBundle bundleForClass:[self class]]];
 
-    [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceBatypeCell"];
+    [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceBATypeCell"];
 
     UINib *parameterArrayNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceArrayParamTableViewCell class])
                                               bundle:[NSBundle bundleForClass:[self class]]];
 
     [self.tableView registerNib:parameterArrayNib forCellReuseIdentifier:@"RuleInstanceArrayCell"];
+
+    UINib *parameterRangeNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceRangeTypeParamTableViewCell class])
+                                              bundle:[NSBundle bundleForClass:[self class]]];
+
+    [self.tableView registerNib:parameterRangeNib forCellReuseIdentifier:@"RuleInstanceRangeCell"];
 
     UINib *rioNib =
         [UINib nibWithNibName:@"INVRuleInstanceOverviewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
@@ -111,22 +114,22 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (([keyPath isEqualToString:@"currentSelection"]) && [change[NSKeyValueChangeNewKey] length]) {
+    if (([keyPath isEqualToString:@"currentSelection"]) && ![change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
         id cell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
 
         [cell actualParamDictionary][INVActualParamValue] = change[NSKeyValueChangeNewKey];
 
-        [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
     }
 
-    if ([keyPath isEqualToString:@"currentUnit"] && [change[NSKeyValueChangeNewKey] length]) {
+    if ([keyPath isEqualToString:@"currentUnit"] && ![change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
         id cell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
 
         [cell actualParamDictionary][INVActualParamUnit] = change[NSKeyValueChangeNewKey];
 
-        [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
     }
 }
 
@@ -180,13 +183,41 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 {
     [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
     [self.dataSource registerCellBlock:^UITableViewCell *(id cellData, NSIndexPath *indexPath) {
-        INVParameterType type = [cellData[INVActualParamType] integerValue];
-        NSString *cellName =
-            [NSString stringWithFormat:@"RuleInstance%@Cell", [INVParameterTypeToString(type) capitalizedString]];
+        NSArray *types = cellData[INVActualParamType];
+        NSString *cellName;
 
+        if (types.count == 1) {
+            if ([[types firstObject] isKindOfClass:[NSNumber class]]) {
+                INVParameterType type = [[types firstObject] integerValue];
+
+                switch (type) {
+                    case INVParameterTypeString:
+                    case INVParameterTypeNumber:
+                    case INVParameterTypeDate:
+                        cellName = @"Generic";
+                        break;
+
+                    case INVParameterTypeElementType:
+                        cellName = @"BAType";
+                        break;
+
+                    case INVParameterTypeRange:
+                        cellName = @"Range";
+                        break;
+                }
+            }
+            else if ([[types firstObject] isKindOfClass:[NSArray class]]) {
+                cellName = @"Array";
+            }
+        }
+        else {
+            cellName = @"Generic";
+        }
+
+        cellName = [NSString stringWithFormat:@"RuleInstance%@Cell", cellName];
         id cell = [self.tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
 
-        [cell setTintColor:[UIColor blackColor]];
+        [cell setTintColor:[UIColor darkGrayColor]];
         [cell setActualParamDictionary:cellData];
 
         return cell;
@@ -383,6 +414,10 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         return DEFAULT_OVERVIEW_CELL_HEIGHT;
     }
 
+    if (indexPath.section == SECTION_RULEINSTANCEACTUALPARAM) {
+        return UITableViewAutomaticDimension;
+    }
+
     return DEFAULT_CELL_HEIGHT;
 }
 
@@ -446,17 +481,17 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 - (BOOL)validateActualParamsValues:(NSArray *)actualParamArray
 {
-    /*
-    return [[INVRuleParameterParser instance]
-        areActualParametersValid:actualParamArray
-                   forDefinition:nil
-                    failureBlock:^(NSString *errorMessage) {
-                        UIAlertController *errController = [[UIAlertController alloc] initWithErrorMessage:@"%@", errorMessage];
-                        [self presentViewController:errController animated:YES completion:nil];
-                    }];
-     */
+    for (NSDictionary *actualParam in actualParamArray) {
+        id value = actualParam[INVActualParamValue];
+        id types = actualParam[INVActualParamType];
+        id constraints = actualParam[INVActualParamTypeConstraints];
 
-    return NO;
+        if (![[INVRuleParameterParser instance] isValueValid:value forAnyTypeInArray:types withConstraints:constraints]) {
+            return NO;
+        }
+    }
+
+    return YES;
 }
 
 #pragma mark - accessor

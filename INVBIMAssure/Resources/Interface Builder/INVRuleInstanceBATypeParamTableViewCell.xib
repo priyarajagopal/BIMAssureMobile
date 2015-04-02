@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpI-UO-Nqz">
-                        <rect key="frame" x="169" y="7" width="143" height="30"/>
+                        <rect key="frame" x="169" y="9" width="143" height="26"/>
                         <state key="normal" title="Element Type">
                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -38,11 +38,15 @@
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="NN6-o0-09f" secondAttribute="bottom" id="CfX-Tp-KSM"/>
                     <constraint firstAttribute="centerX" secondItem="ckQ-iX-wCu" secondAttribute="centerX" id="SnF-PM-VfA"/>
                     <constraint firstAttribute="centerY" secondItem="NN6-o0-09f" secondAttribute="centerY" id="Uof-EV-3t7"/>
                     <constraint firstAttribute="centerY" secondItem="bpI-UO-Nqz" secondAttribute="centerY" id="arc-7p-9IQ"/>
                     <constraint firstItem="ckQ-iX-wCu" firstAttribute="leading" secondItem="NN6-o0-09f" secondAttribute="trailing" constant="8" id="as9-qR-p72"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="bpI-UO-Nqz" secondAttribute="bottom" id="bm3-bA-0lK"/>
                     <constraint firstItem="bpI-UO-Nqz" firstAttribute="leading" secondItem="ckQ-iX-wCu" secondAttribute="trailing" constant="8" id="cqI-Hq-uAA"/>
+                    <constraint firstItem="NN6-o0-09f" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Xoa-2i-rIN" secondAttribute="topMargin" id="eZk-v3-1AH"/>
+                    <constraint firstItem="bpI-UO-Nqz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Xoa-2i-rIN" secondAttribute="topMargin" id="goh-Kg-1Ia"/>
                     <constraint firstItem="ckQ-iX-wCu" firstAttribute="top" secondItem="Xoa-2i-rIN" secondAttribute="top" id="iOg-NJ-yox"/>
                     <constraint firstAttribute="bottom" secondItem="ckQ-iX-wCu" secondAttribute="bottom" id="kB7-5Q-THo"/>
                     <constraint firstItem="bpI-UO-Nqz" firstAttribute="trailing" secondItem="Xoa-2i-rIN" secondAttribute="trailingMargin" id="xNc-fF-GrY"/>

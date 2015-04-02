@@ -30,7 +30,7 @@
 {
     self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamDisplayName];
 
-    if ([self.actualParamDictionary[INVActualParamValue] length]) {
+    if ([self.actualParamDictionary[INVActualParamValue] isKindOfClass:[NSString class]]) {
         [self.ruleInstanceElementType setTitle:nil forState:UIControlStateNormal];
 
         id code = self.actualParamDictionary[INVActualParamValue];

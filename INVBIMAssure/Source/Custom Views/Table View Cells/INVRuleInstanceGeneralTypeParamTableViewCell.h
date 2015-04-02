@@ -9,16 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "INVRuleParameterParser.h"
 
-@class INVRuleInstanceGeneralTypeParamTableViewCell;
-
-@protocol INVRuleInstanceGeneralTypeParamTableViewCellDelegate<NSObject>
-
-@optional
-- (void)onValidationFailed:(INVRuleInstanceGeneralTypeParamTableViewCell *)sender;
-@end
-
 @interface INVRuleInstanceGeneralTypeParamTableViewCell : UITableViewCell
-@property (weak, nonatomic) id<INVRuleInstanceGeneralTypeParamTableViewCellDelegate> delegate;
 @property (nonatomic, strong) INVActualParamKeyValuePair actualParamDictionary;
 
 @end

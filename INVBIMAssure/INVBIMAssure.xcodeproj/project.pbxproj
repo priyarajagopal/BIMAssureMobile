@@ -83,7 +83,7 @@
 		F557E53B1ACB36AF00667111 /* INVModelTreeAnalysisRunNodeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F557E53A1ACB36AF00667111 /* INVModelTreeAnalysisRunNodeTableViewCell.m */; };
 		F557E53D1ACB387500667111 /* INVModelTreeAnalysisRunNodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F557E53C1ACB387500667111 /* INVModelTreeAnalysisRunNodeTableViewCell.xib */; };
 		F557E5401ACC37B200667111 /* INVRuleParameterParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F557E53F1ACC37B200667111 /* INVRuleParameterParser.m */; };
-		F557E5431ACC73BA00667111 /* INVRuleInstanceRangeTypeParamTableViewCell.m in Resources */ = {isa = PBXBuildFile; fileRef = F557E5421ACC73BA00667111 /* INVRuleInstanceRangeTypeParamTableViewCell.m */; };
+		F557E5431ACC73BA00667111 /* INVRuleInstanceRangeTypeParamTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F557E5421ACC73BA00667111 /* INVRuleInstanceRangeTypeParamTableViewCell.m */; };
 		F557E5451ACC760300667111 /* INVRuleInstanceRangeTypeParamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F557E5441ACC760300667111 /* INVRuleInstanceRangeTypeParamTableViewCell.xib */; };
 		F55AD9001A893A3300202F0A /* UIResponder+IBHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = F55AD8FF1A893A0300202F0A /* UIResponder+IBHelpers.m */; };
 		F55AD9031A895BCC00202F0A /* INVCreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55AD9021A895BCC00202F0A /* INVCreateAccountViewController.m */; };
@@ -1392,7 +1392,6 @@
 				F557E53D1ACB387500667111 /* INVModelTreeAnalysisRunNodeTableViewCell.xib in Resources */,
 				F5789DB61A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
 				F5789DAD1A642A6200D8CEE7 /* Images.xcassets in Resources */,
-				F557E5431ACC73BA00667111 /* INVRuleInstanceRangeTypeParamTableViewCell.m in Resources */,
 				F59165B61A950C7700B7205F /* INVPendingInviteCell.xib in Resources */,
 				0278BAD71A655C79009E0E27 /* INVSubscriptionLevelsTableViewCell.xib in Resources */,
 				F5789DB11A642A6200D8CEE7 /* INVGeneralAddRemoveTableViewCell.xib in Resources */,
@@ -1662,6 +1661,7 @@
 				F5D8DBA91A85075300253787 /* INVRoleSelectionTableViewCell.m in Sources */,
 				F5789D581A642A5500D8CEE7 /* INVGenericCollectionViewDataSource.m in Sources */,
 				F5789D471A642A5500D8CEE7 /* INVTokensTableViewCell.m in Sources */,
+				F557E5431ACC73BA00667111 /* INVRuleInstanceRangeTypeParamTableViewCell.m in Sources */,
 				F59B78D81AA60DD300E14F86 /* NSArray+INVCustomizations.m in Sources */,
 				F5789D3F1A642A5500D8CEE7 /* INVRuleDefinitionTableViewCell.m in Sources */,
 				F55AD9121A8A67C000202F0A /* INVCurrentUsersProfileTableViewCell.m in Sources */,

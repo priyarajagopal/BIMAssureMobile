@@ -79,11 +79,40 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
 
         NSDictionary *formalParameterProperties = ruleDefinition.formalParams.properties[paramName];
 
+        [results[INVActualParamType]
+            addObjectsFromArray:convertRuleDefinitionTypesToActualParamTypes(formalParameterProperties[@"type"])];
+
         NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
         results[INVActualParamDisplayName] = formalParameterProperties[@"display"][languageCode] ?: paramName;
 
         if (formalParameterProperties[@"unit"]) {
             results[INVActualParamUnit] = [NSNull null];
+        }
+
+        if ([results[INVActualParamType] containsObject:@(INVParameterTypeRange)]) {
+            NSMutableDictionary *constraints = [NSMutableDictionary new];
+
+            constraints[@"from_type"] =
+                convertRuleDefinitionTypesToActualParamTypes(formalParameterProperties[@"from"][@"type"]);
+            constraints[@"to_type"] = convertRuleDefinitionTypesToActualParamTypes(formalParameterProperties[@"to"][@"type"]);
+
+            constraints[@"from_display"] = formalParameterProperties[@"from"][@"display"][languageCode];
+            constraints[@"to_display"] = formalParameterProperties[@"to"][@"display"][languageCode];
+
+            NSMutableDictionary *value = [NSMutableDictionary new];
+
+            value[@"from"] = [NSMutableDictionary dictionaryWithObject:[NSNull null] forKey:@"value"];
+            value[@"to"] = [NSMutableDictionary dictionaryWithObject:[NSNull null] forKey:@"value"];
+
+            if (formalParameterProperties[@"from"][@"unit"]) {
+                value[@"from"][@"unit"] = [NSNull null];
+            }
+
+            if (formalParameterProperties[@"to"][@"unit"]) {
+                value[@"to"][@"unit"] = [NSNull null];
+            }
+
+            results[INVActualParamTypeConstraints][@(INVParameterTypeRange)] = constraints;
         }
 
         return results;
@@ -126,6 +155,34 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
     return actualParam;
 }
 
+- (BOOL)isValueValid:(id)value forAnyTypeInArray:(NSArray *)types withConstraints:(NSDictionary *)constraints
+{
+    for (id type in types) {
+        if ([type isKindOfClass:[NSNumber class]]) {
+            if ([self isValueValid:value forParameterType:[type integerValue] withConstraints:constraints]) {
+                return YES;
+            }
+        }
+
+        if ([type isKindOfClass:[NSArray class]]) {
+            if ([value isKindOfClass:[NSArray class]]) {
+                BOOL matches = YES;
+                for (id element in value) {
+                    if (![self isValueValid:element forAnyTypeInArray:type withConstraints:constraints]) {
+                        matches = NO;
+                        break;
+                    }
+                }
+
+                if (matches)
+                    return YES;
+            }
+        }
+    }
+
+    return NO;
+}
+
 - (BOOL)isValueValid:(id)value forParameterType:(INVParameterType)type withConstraints:(NSDictionary *)constraints
 {
     switch (type) {
@@ -152,6 +209,36 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
             // TODO: Constraint checking
 
             return YES;
+        }
+        case INVParameterTypeDate: {
+            if (![value isKindOfClass:[NSDate class]])
+                return NO;
+
+            // TODO: Constraint checking (min/max)?
+            return YES;
+        }
+        case INVParameterTypeElementType: {
+            if (![value isKindOfClass:[NSString class]])
+                return NO;
+
+            // TODO: Check if BAType exists?
+            return YES;
+        }
+        case INVParameterTypeRange: {
+            if (![value isKindOfClass:[NSDictionary class]])
+                return NO;
+
+            id fromValue = value[@"from"][@"value"];
+            id toValue = value[@"to"][@"value"];
+
+            NSArray *fromTypes = constraints[@(type)][@"from_type"];
+            NSArray *toTypes = constraints[@(type)][@"to_type"];
+
+            NSDictionary *fromConstraints = constraints[@(type)][@"from_constraints"];
+            NSDictionary *toConstraints = constraints[@(type)][@"to_constraints"];
+
+            return [self isValueValid:fromValue forAnyTypeInArray:fromTypes withConstraints:fromConstraints] &&
+                   [self isValueValid:toValue forAnyTypeInArray:toTypes withConstraints:toConstraints];
         }
     }
 
