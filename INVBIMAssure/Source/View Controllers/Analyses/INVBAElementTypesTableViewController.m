@@ -61,7 +61,7 @@
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
         [self.globalDataManager.invServerClient
-            fetchBATypesFilteredByName:self.searchBar.text
+            fetchBATypesFilteredByName:[self.searchBar.text lowercaseString]
                                andCode:nil
                             fromOffset:@(pageIndex * self.pagedArray.objectsPerPage)
                               withSize:@(self.pagedArray.objectsPerPage)
