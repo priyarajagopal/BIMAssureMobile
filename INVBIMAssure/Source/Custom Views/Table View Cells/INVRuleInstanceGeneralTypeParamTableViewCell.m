@@ -95,20 +95,21 @@
 
 - (IBAction)ruleInstanceValueTextChanged:(id)sender
 {
-    if ([[INVRuleParameterParser instance] isValueValid:self.ruleInstanceValue.text
-                                      forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
-                                        withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]]) {
-        self.actualParamDictionary[INVActualParamValue] = [self.ruleInstanceValue text];
-    }
-    else {
-        self.currentError = @"Invalid Input Parameter";
+    NSError* error = [[INVRuleParameterParser instance] isValueValid:self.ruleInstanceValue.text
+                                                   forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
+                                                     withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]];
+    if (error) {
+        self.currentError = error.localizedDescription;
         [self updateUI];
-
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             UITableView *tableView = [self findSuperviewOfClass:[UITableView class] predicate:nil];
-
+            
             [tableView reloadData];
         });
+    }
+    else {
+         self.actualParamDictionary[INVActualParamValue] = [self.ruleInstanceValue text];
     }
 }
 

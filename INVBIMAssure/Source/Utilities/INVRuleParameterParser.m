@@ -17,6 +17,9 @@ NSString *const INVActualParamTypeConstraints = @"type_constraints";
 NSString *const INVActualParamValue = @"value";
 NSString *const INVActualParamUnit = @"unit";
 
+static NSString *const INV_TYPEVALIDATION_DOMAIN = @"INVRuleParameterValidation";
+static NSInteger const INV_TYPEVALIDATION_ERROR = 5001;
+
 static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"date", @"batype", @"range"};
 static size_t INVParamaterTypeStringsCount = sizeof(INVParamaterTypeStrings) / sizeof(*INVParamaterTypeStrings);
 
@@ -155,74 +158,73 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
     return actualParam;
 }
 
-- (BOOL)isValueValid:(id)value forAnyTypeInArray:(NSArray *)types withConstraints:(NSDictionary *)constraints
+- (NSError *)isValueValid:(id)value forAnyTypeInArray:(NSArray *)types withConstraints:(NSDictionary *)constraints
 {
     for (id type in types) {
         if ([type isKindOfClass:[NSNumber class]]) {
-            if ([self isValueValid:value forParameterType:[type integerValue] withConstraints:constraints]) {
-                return YES;
-            }
+            return [self isValueValid:value forParameterType:[type integerValue] withConstraints:constraints];
         }
-
+        NSError *error;
         if ([type isKindOfClass:[NSArray class]]) {
             if ([value isKindOfClass:[NSArray class]]) {
                 BOOL matches = YES;
                 for (id element in value) {
-                    if (![self isValueValid:element forAnyTypeInArray:type withConstraints:constraints]) {
+                    error = [self isValueValid:element forAnyTypeInArray:type withConstraints:constraints];
+                    if (!error) {
                         matches = NO;
                         break;
                     }
                 }
 
                 if (matches)
-                    return YES;
+                    return error;
             }
         }
     }
 
-    return NO;
+    return nil;
 }
 
-- (BOOL)isValueValid:(id)value forParameterType:(INVParameterType)type withConstraints:(NSDictionary *)constraints
+- (NSError *)isValueValid:(id)value forParameterType:(INVParameterType)type withConstraints:(NSDictionary *)constraints
 {
+#warning TODO LOCALIZE THE ERROR STRINGS
     switch (type) {
         case INVParameterTypeString: {
             // First, type checking
             if (![value isKindOfClass:[NSString class]])
-                return NO;
+                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid string",nil)];
 
             // Constraint checking
             NSString *regex = constraints[@(type)][@"matches"];
             if (regex) {
                 NSRange matchRange = [value rangeOfString:regex options:NSRegularExpressionSearch];
                 if (matchRange.location != 0 || matchRange.length != [value length]) {
-                    return NO;
+                    return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter string matching regex",nil)];
                 }
             }
 
-            return YES;
+            return nil;
         }
         case INVParameterTypeNumber: {
-            if (![value isKindOfClass:[NSNumber class]])
-                return NO;
+            NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+            if (![formatter numberFromString:value]) {
+                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid number",nil)];
+            }
 
-            // TODO: Constraint checking
-
-            return YES;
+            return nil;
         }
         case INVParameterTypeDate: {
             if (![value isKindOfClass:[NSDate class]])
-                return NO;
+                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid date",nil)];
 
-            // TODO: Constraint checking (min/max)?
-            return YES;
+            return nil;
         }
         case INVParameterTypeElementType: {
             if (![value isKindOfClass:[NSString class]])
-                return NO;
+                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Not a valid BA Type",nil)];
 
-            // TODO: Check if BAType exists?
-            return YES;
+            // TODO: Check if BAType exists? (May not even be needed as we only allow selection)
+            return nil;
         }
         case INVParameterTypeRange: {
             if (![value isKindOfClass:[NSDictionary class]])
@@ -237,12 +239,27 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
             NSDictionary *fromConstraints = constraints[@(type)][@"from_constraints"];
             NSDictionary *toConstraints = constraints[@(type)][@"to_constraints"];
 
-            return [self isValueValid:fromValue forAnyTypeInArray:fromTypes withConstraints:fromConstraints] &&
-                   [self isValueValid:toValue forAnyTypeInArray:toTypes withConstraints:toConstraints];
+            if (fromValue) {
+                return [self isValueValid:fromValue forAnyTypeInArray:fromTypes withConstraints:fromConstraints];
+            }
+            if (toValue) {
+                return [self isValueValid:toValue forAnyTypeInArray:toTypes withConstraints:toConstraints];
+            }
         }
     }
 
     return NO;
+}
+
+#pragma mark - helper
+- (NSError *)validationErrorObjectWithMessage:(NSString *)message
+{
+    if (!message) {
+        return nil;
+    }
+    return [[NSError alloc] initWithDomain:INV_TYPEVALIDATION_DOMAIN
+                                      code:INV_TYPEVALIDATION_ERROR
+                                  userInfo:@{NSLocalizedDescriptionKey : message}];
 }
 
 @end

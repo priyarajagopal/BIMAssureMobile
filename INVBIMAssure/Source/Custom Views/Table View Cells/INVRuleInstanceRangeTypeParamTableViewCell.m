@@ -100,13 +100,17 @@
     NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
     newValue[@"from"][@"value"] = self.fromValueField.text;
 
-    if ([[INVRuleParameterParser instance] isValueValid:newValue
-                                      forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
-                                        withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]]) {
+    NSError *error = [[INVRuleParameterParser instance] isValueValid:newValue
+                                                   forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
+                                                     withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]];
+
+    if (error) {
+        // TODO: handle display of error messages
+        [self updateUI];
+    }
+    else {
         self.actualParamDictionary[INVActualParamValue] = newValue;
     }
-
-    [self updateUI];
 }
 
 - (void)toValueTextChanged:(id)sender
@@ -114,13 +118,17 @@
     NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
     newValue[@"to"][@"value"] = self.toValueField.text;
 
-    if ([[INVRuleParameterParser instance] isValueValid:newValue
-                                      forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
-                                        withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]]) {
+    NSError *error = [[INVRuleParameterParser instance] isValueValid:newValue
+                                                   forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
+                                                     withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]];
+
+    if (error) {
+        // TODO: handle display of error messages (error.localizedDescription)
+        [self updateUI];
+    }
+    else {
         self.actualParamDictionary[INVActualParamValue] = newValue;
     }
-
-    [self updateUI];
 }
 
 @end
