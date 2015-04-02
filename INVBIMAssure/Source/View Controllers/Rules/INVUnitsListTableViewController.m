@@ -94,17 +94,23 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"unitCell"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"unitCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"unitCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[self _deselectedImage]];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        UIFont* font = [UIFont systemFontOfSize:14.0];
+        cell.textLabel.font = font;
+        cell.detailTextLabel.font = font;
+        
     }
 
     id unit = self.filteredUnits[indexPath.row];
-    cell.textLabel.text = unit[@"display"];
-    [(UIImageView *) cell.accessoryView setImage:[self _deselectedImage]];
-
+      cell.textLabel.text = unit[@"display"];
+    
+    cell.detailTextLabel.text  = unit[@"unit"];
+    cell.accessoryType = UITableViewCellAccessoryNone;
     if ([self.currentUnit isEqualToString:unit[@"unit"]]) {
         [(UIImageView *) cell.accessoryView setImage:[self _selectedImage]];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
 
     return cell;

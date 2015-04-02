@@ -11,6 +11,7 @@
 #import "INVGenericTableViewDataSource.h"
 #import "INVTextFieldTableViewCell.h"
 #import "INVRuleParameterParser.h"
+#import "NSArray+INVCustomizations.h"
 
 static const NSInteger SECTION_RULEINSTANCEISSUES = 0;
 static const NSInteger SECTION_RULEINSTANCEPARAM = 1;
@@ -24,6 +25,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 @property (nonatomic, copy) NSMutableArray *originalRuleInstanceActualParams;
 @property (nonatomic, copy) INVRuleIssueMutableArray ruleIssues;
 @property (nonatomic, copy) NSString *ruleName;
+@property (nonatomic, strong) INVRuleParameterParser *ruleParamParser;
 @end
 
 @implementation INVRuleIssuesTableViewController
@@ -33,6 +35,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = nil;
+    self.ruleParamParser = [INVRuleParameterParser instance];
 
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"RuleIssueTVC"];
 
@@ -59,21 +62,29 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 {
     [super viewWillAppear:animated];
 
+    
     if (self.ruleResult) {
-        [self processRuleResult];
-        [self setupTableViewDataSource];
-
+        self.ruleName = self.ruleResult.ruleName;
+        
         if (self.buildingElementId) {
-            [self fetchIssuesForBuildingElement];
+            [self setupTableViewDataSource];
+             [self fetchIssuesForBuildingElement]; // use issues at building level
+            
         }
-
-        self.title = self.ruleName;
+        else {
+            self.ruleIssues = [self.ruleResult.issues mutableCopy]; // use rule level issues
+            [self setupTableViewDataSource];
+        }
+        
     }
     else {
 #warning todo Display an alert with error message
         INVLogError(@"Cannot fetch issue details for rule result %@ and buidling element %@",
             self.ruleResult.analysisRunResultId, self.buildingElementId);
     }
+    [self fetchRuleInstanceAndDefinition];
+    
+    self.title = self.ruleName;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -123,25 +134,31 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
     INV_CellConfigurationBlock cellConfigurationBlockForRuleParams =
         ^(INVRuleInstanceGeneralTypeParamTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
-            cell.tintColor = [UIColor whiteColor];
-
             if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)] &&
-                actualParam[INVActualParamName] == nil) {
-                NSString *elementTypeId = actualParam[INVActualParamDisplayName];
-                actualParam[INVActualParamDisplayName] = @"";
+                ![actualParam[INVActualParamName] isEqualToString:@""]) {
+                NSString *elementTypeId = actualParam[INVActualParamValue];
 
                 [self.globalDataManager.invServerClient
                     fetchBATypeDisplayNameForCode:elementTypeId
                               withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                   NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
+                                  if (title) {
+                                      actualParam[INVActualParamValue] = title;
+                                      actualParam[INVActualParamName] = @"";
+                                      [cell setActualParamDictionary:actualParam];
+                                  }
 
-                                  actualParam[INVActualParamName] = title;
-                                  [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
-                                                        withRowAnimation:UITableViewRowAnimationAutomatic];
                               }];
             }
 
-            [cell setActualParamDictionary:actualParam];
+            if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)]) {
+                if ([actualParam[INVActualParamName] isEqualToString:@""]) {
+                    [cell setActualParamDictionary:actualParam];
+                }
+            }
+            else {
+                [cell setActualParamDictionary:actualParam];
+            }
             [cell setUserInteractionEnabled:NO];
 
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -179,6 +196,55 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     [self.tableView reloadData];
 }
 
+- (void)fetchRuleInstanceAndDefinition
+{
+    [self.globalDataManager.invServerClient
+        getRuleInstanceForRuleInstanceId:self.ruleResult.ruleId
+                     WithCompletionBlock:^(INVRuleInstance *instance, INVEmpireMobileError *error) {
+                         INV_ALWAYS:
+
+                         INV_SUCCESS:
+                             [self fetchRuleDefinitionForRuleId:instance.ruleDefId];
+
+                         INV_ERROR:
+                             INVLogError(@"%@", error);
+
+                             UIAlertController *errController = [[UIAlertController alloc]
+                                 initWithErrorMessage:NSLocalizedString(@"ERROR_ISSUES_FOR_BUILDING_ELEMENT_LOAD", nil),
+                                 error.code.integerValue];
+                             [self presentViewController:errController animated:YES completion:nil];
+                     }];
+}
+
+- (void)fetchRuleDefinitionForRuleId:(NSNumber *)ruleDefId
+{
+    [self.globalDataManager.invServerClient
+        getRuleDefinitionForRuleId:ruleDefId
+               WithCompletionBlock:^(INVRule *ruleDefinition, INVEmpireMobileError *error) {
+
+                   INV_ALWAYS:
+
+                   INV_SUCCESS : {
+                       NSArray *params =
+                           [self.ruleParamParser transformRuleInstanceParamsToArray:self.ruleResult definition:ruleDefinition];
+
+                       //  [self postProcessActualParams:params];
+                       [self.originalRuleInstanceActualParams setArray:params];
+                       [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams
+                                                 forSection:SECTION_RULEINSTANCEPARAM];
+
+                       [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                   }
+
+                   INV_ERROR:
+                       INVLogError(@"%@", error);
+
+                       UIAlertController *errController = [[UIAlertController alloc]
+                           initWithErrorMessage:NSLocalizedString(@"ERROR_ISSUES_FOR_BUILDING_ELEMENT_LOAD", nil),
+                           error.code.integerValue];
+                       [self presentViewController:errController animated:YES completion:nil];
+               }];
+}
 #pragma mark - accessors
 - (INVRuleIssueMutableArray)ruleIssues
 {
@@ -206,24 +272,5 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     return _dataSource;
 }
 
-#pragma mark - helpers
-- (void)processRuleResult
-{
-    self.ruleName = self.ruleResult.ruleName;
-
-    [self.globalDataManager.invServerClient
-        getRuleDefinitionForRuleId:self.ruleResult.ruleDefId
-               WithCompletionBlock:^(INVRule *ruleDefinition, INVEmpireMobileError *error) {
-                   NSArray *params = [[INVRuleParameterParser instance] transformRuleInstanceParamsToArray:self.ruleResult
-                                                                                                definition:ruleDefinition];
-
-                   [self.originalRuleInstanceActualParams setArray:params];
-
-                   [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams
-                                             forSection:SECTION_RULEINSTANCEPARAM];
-
-                   [self.tableView reloadData];
-               }];
-}
 
 @end

@@ -53,7 +53,7 @@ typedef NSMutableArray *INVAnalysisRunResultsMutableArray;
 @property (copy, nonatomic, readonly) NSString *ruleDescription;
 @property (copy, nonatomic, readonly) NSNumber *status;
 @property (copy, nonatomic, readonly) NSString *ruleName;
-@property (copy, nonatomic, readonly) NSNumber *ruleDefId;
+@property (copy, nonatomic, readonly) NSNumber *ruleId;
 @property (copy, nonatomic, readonly) NSNumber *runTime;
 
 @property (copy, nonatomic, readonly) NSNumber *analysisRunId;
