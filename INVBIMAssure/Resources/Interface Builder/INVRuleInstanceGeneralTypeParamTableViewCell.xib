@@ -81,15 +81,15 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYg-va-ZWb">
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jck-Im-ceG" userLabel="Separator">
-                                <rect key="frame" x="15" y="0.0" width="305" height="2"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jck-Im-ceG" userLabel="Separator">
+                                <rect key="frame" x="15" y="-33" width="305" height="2"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="Mrk-Y6-3Jt"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Invalid Value Entered" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7l-FG-buT">
-                                <rect key="frame" x="102" y="10" width="116" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid Value Entered" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7l-FG-buT">
+                                <rect key="frame" x="102" y="-23" width="116" height="15"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -121,10 +121,10 @@
                 <outlet property="errorContainerCollapseLayoutConstraint" destination="X0P-cq-i3y" id="c4y-VO-FYN"/>
                 <outlet property="errorContainerView" destination="IYg-va-ZWb" id="kGz-zz-Nln"/>
                 <outlet property="errorMessageLabel" destination="g7l-FG-buT" id="55O-Pm-U97"/>
-                <outlet property="ruleInstanceCollapseLayoutConstraint" destination="UgG-XU-E9b" id="egZ-OV-sgA"/>
                 <outlet property="ruleInstanceKey" destination="tz9-Cu-yaZ" id="1cF-di-4Tr"/>
-                <outlet property="ruleInstanceUnitsButton" destination="aNm-i7-sLD" id="xgg-0o-Nhy"/>
                 <outlet property="ruleInstanceValue" destination="mVO-pJ-AOe" id="hM1-Mv-m7c"/>
+                <outlet property="unitsButton" destination="aNm-i7-sLD" id="1gP-D7-s8e"/>
+                <outlet property="unitsButtonCollapseLayoutConstraint" destination="UgG-XU-E9b" id="E0A-EC-8iJ"/>
             </connections>
             <point key="canvasLocation" x="481" y="309"/>
         </tableViewCell>

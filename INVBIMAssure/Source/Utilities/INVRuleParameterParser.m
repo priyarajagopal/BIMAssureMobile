@@ -237,7 +237,7 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
         }
         case INVParameterTypeRange: {
             if (![value isKindOfClass:[NSDictionary class]])
-                return NO;
+                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Not a valid range", nil)];
 
             id fromValue = value[@"from"][@"value"];
             id toValue = value[@"to"][@"value"];
@@ -248,12 +248,13 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
             NSDictionary *fromConstraints = constraints[@(type)][@"from_constraints"];
             NSDictionary *toConstraints = constraints[@(type)][@"to_constraints"];
 
-            if (fromValue) {
-                return [self isValueValid:fromValue forAnyTypeInArray:fromTypes withConstraints:fromConstraints];
-            }
-            if (toValue) {
-                return [self isValueValid:toValue forAnyTypeInArray:toTypes withConstraints:toConstraints];
-            }
+            NSError *error = [self isValueValid:fromValue forAnyTypeInArray:fromTypes withConstraints:fromConstraints];
+            if (error)
+                return error;
+
+            error = [self isValueValid:toValue forAnyTypeInArray:toTypes withConstraints:toConstraints];
+
+            return error;
         }
     }
 

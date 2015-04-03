@@ -15,10 +15,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *ruleInstanceKey;
 @property (weak, nonatomic) IBOutlet UITextField *ruleInstanceValue;
 
-@property (weak, nonatomic) IBOutlet UIButton *ruleInstanceUnitsButton;
+@property (weak, nonatomic) IBOutlet UIButton *unitsButton;
 
 // Important - this MUST be strong
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleInstanceCollapseLayoutConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *unitsButtonCollapseLayoutConstraint;
 
 @property IBOutlet UIView *errorContainerView;
 @property IBOutlet UILabel *errorMessageLabel;
@@ -53,24 +53,23 @@
     self.ruleInstanceValue.text = self.actualParamDictionary[INVActualParamValue];
 
     if (self.actualParamDictionary[INVActualParamUnit]) {
-        [self.ruleInstanceUnitsButton removeConstraint:self.ruleInstanceCollapseLayoutConstraint];
+        [self.unitsButton removeConstraint:self.unitsButtonCollapseLayoutConstraint];
 
         if ([self.actualParamDictionary[INVActualParamUnit] isKindOfClass:[NSNull class]]) {
-            [self.ruleInstanceUnitsButton setTitle:NSLocalizedString(@"SELECT_UNIT", nil) forState:UIControlStateNormal];
+            [self.unitsButton setTitle:NSLocalizedString(@"SELECT_UNIT", nil) forState:UIControlStateNormal];
         }
         else {
-            [self.ruleInstanceUnitsButton setTitle:self.actualParamDictionary[INVActualParamUnit]
-                                          forState:UIControlStateNormal];
+            [self.unitsButton setTitle:self.actualParamDictionary[INVActualParamUnit] forState:UIControlStateNormal];
         }
     }
     else {
-        [self.ruleInstanceUnitsButton addConstraint:self.ruleInstanceCollapseLayoutConstraint];
+        [self.unitsButton addConstraint:self.unitsButtonCollapseLayoutConstraint];
     }
 
     if ([self tintColor]) {
         self.ruleInstanceKey.textColor = self.tintColor;
         self.ruleInstanceValue.textColor = self.tintColor;
-        self.ruleInstanceUnitsButton.titleLabel.textColor = self.tintColor;
+        self.unitsButton.titleLabel.textColor = self.tintColor;
     }
 
     if (self.actualParamDictionary[INVActualParamError]) {

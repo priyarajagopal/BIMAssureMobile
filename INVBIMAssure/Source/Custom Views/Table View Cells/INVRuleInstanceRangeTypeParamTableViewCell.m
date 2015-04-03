@@ -7,6 +7,7 @@
 //
 
 #import "INVRuleInstanceRangeTypeParamTableViewCell.h"
+#import "UIView+INVCustomizations.h"
 
 @interface INVRuleInstanceRangeTypeParamTableViewCell ()
 
@@ -24,6 +25,10 @@
 @property IBOutlet UITextField *fromValueField;
 @property IBOutlet UITextField *toValueField;
 
+@property IBOutlet UIView *errorContainerView;
+@property IBOutlet UILabel *errorMessageLabel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *errorContainerCollapseLayoutConstraint;
+
 - (IBAction)fromValueTextChanged:(id)sender;
 - (IBAction)toValueTextChanged:(id)sender;
 
@@ -31,10 +36,11 @@
 
 @implementation INVRuleInstanceRangeTypeParamTableViewCell
 
-- (void)layoutSubviews
+- (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     [self updateUI];
-    [super layoutSubviews];
 }
 
 - (void)updateUI
@@ -91,6 +97,27 @@
     else {
         [self.toUnitButton setTitle:toUnit forState:UIControlStateNormal];
     }
+
+    if (self.actualParamDictionary[INVActualParamError]) {
+        self.errorContainerView.hidden = NO;
+        [self.errorContainerView removeConstraint:self.errorContainerCollapseLayoutConstraint];
+
+        self.errorMessageLabel.text = self.actualParamDictionary[INVActualParamError];
+    }
+    else {
+        self.errorContainerView.hidden = YES;
+        [self.errorContainerView addConstraint:self.errorContainerCollapseLayoutConstraint];
+    }
+
+    [self setNeedsLayout];
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)setActualParamDictionary:(INVActualParamKeyValuePair)actualParamDictionary
+{
+    _actualParamDictionary = actualParamDictionary;
+
+    [self updateUI];
 }
 
 #pragma mark - IBActions
@@ -100,17 +127,7 @@
     NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
     newValue[@"from"][@"value"] = self.fromValueField.text;
 
-    NSError *error = [[INVRuleParameterParser instance] isValueValid:newValue
-                                                   forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
-                                                     withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]];
-
-    if (error) {
-        // TODO: handle display of error messages
-        [self updateUI];
-    }
-    else {
-        self.actualParamDictionary[INVActualParamValue] = newValue;
-    }
+    [self handleNewValue:newValue];
 }
 
 - (void)toValueTextChanged:(id)sender
@@ -118,16 +135,31 @@
     NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
     newValue[@"to"][@"value"] = self.toValueField.text;
 
+    [self handleNewValue:newValue];
+}
+
+- (void)handleNewValue:(NSDictionary *)newValue
+{
     NSError *error = [[INVRuleParameterParser instance] isValueValid:newValue
                                                    forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
                                                      withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]];
 
     if (error) {
-        // TODO: handle display of error messages (error.localizedDescription)
+        self.actualParamDictionary[INVActualParamError] = [error localizedDescription];
         [self updateUI];
+
+        UITableView *tableView = [self findSuperviewOfClass:[UITableView class] predicate:nil];
+        [tableView beginUpdates];
+        [tableView endUpdates];
     }
     else {
         self.actualParamDictionary[INVActualParamValue] = newValue;
+        [self.actualParamDictionary removeObjectForKey:INVActualParamError];
+        [self updateUI];
+
+        UITableView *tableView = [self findSuperviewOfClass:[UITableView class] predicate:nil];
+        [tableView beginUpdates];
+        [tableView endUpdates];
     }
 }
 
