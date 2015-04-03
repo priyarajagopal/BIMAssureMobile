@@ -245,6 +245,7 @@
 "ANALYSIS_NAME_UNAVAILABLE"="Analysis name unavailbable";
 "ANALYSIS_DESCRIPTION_UNAVAILABLE"="Analysis description unavailable";
 
+"UNIT_SEARCH_PLACEHOLDER"="Search for a unit";
 "VALUE_MISSING"="Value Missing";
 
 "EDIT_ANALYSIS"="Edit Analysis";

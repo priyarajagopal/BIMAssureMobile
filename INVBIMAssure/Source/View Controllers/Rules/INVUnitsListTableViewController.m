@@ -26,7 +26,19 @@
 {
     [super viewDidLoad];
 
+    self.searchBar.placeholder = NSLocalizedString(@"UNIT_SEARCH_PLACEHOLDER", nil);
+
+    self.refreshControl = nil;
     self.originalUnit = self.currentUnit;
+
+    if (![self.currentUnit isKindOfClass:[NSNull class]]) {
+        self.searchBar.placeholder = self.currentUnit;
+    }
+
+    // NOTE: This is a private API that lets our search look nicer.
+    // Check on every iOS release if this becomes public, and use that instead if possible.
+    // [self.tableView _setPinsTableHeaderView:YES];
+    [self.tableView setTableHeaderView:self.searchBar];
 
     [self fetchListOfUnits];
 }
@@ -38,10 +50,6 @@
     [self.globalDataManager.invServerClient
         fetchSupportedUnitsForSignedInAccountWithCompletionBlock:^(INVBAUnitArray units, INVEmpireMobileError *error) {
             INV_ALWAYS:
-                if (self.refreshControl.isRefreshing) {
-                    [self.refreshControl endRefreshing];
-                }
-
             INV_SUCCESS:
                 self.allUnits = units;
                 [self filterListOfUnits];
@@ -49,9 +57,6 @@
             INV_ERROR:
                 INVLogError(@"%@", error);
         }];
-
-    if (self.refreshControl.isRefreshing)
-        [self.refreshControl endRefreshing];
 
     [self filterListOfUnits];
 }
@@ -73,9 +78,18 @@
 
 - (IBAction)cancel:(id)sender
 {
-    self.currentUnit = self.originalUnit ?: @"";
+    self.currentUnit = nil;
 
     [self performSegueWithIdentifier:@"unwind" sender:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"unwind"]) {
+        if ([self.currentUnit length] == 0) {
+            self.currentUnit = (NSString *) [NSNull null];
+        }
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -121,8 +135,14 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    self.currentUnit = self.filteredUnits[indexPath.row][@"unit"];
-    self.searchBar.placeholder = self.currentUnit;
+    if ([self.filteredUnits[indexPath.row][@"unit"] isEqual:self.currentUnit]) {
+        self.currentUnit = nil;
+        self.searchBar.placeholder = NSLocalizedString(@"UNIT_SEARCH_PLACEHOLDER", nil);
+    }
+    else {
+        self.currentUnit = self.filteredUnits[indexPath.row][@"unit"];
+        self.searchBar.placeholder = self.currentUnit;
+    }
 
     [tableView reloadRowsAtIndexPaths:tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -132,7 +152,7 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     self.currentUnit = searchText;
-    searchBar.placeholder = nil;
+    searchBar.placeholder = NSLocalizedString(@"UNIT_SEARCH_PLACEHOLDER", nil);
 
     [self filterListOfUnits];
 }

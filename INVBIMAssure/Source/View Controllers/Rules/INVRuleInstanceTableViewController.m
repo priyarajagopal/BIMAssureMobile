@@ -111,7 +111,12 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         [self.tableView reloadData];
     }
 
-    if ([keyPath isEqualToString:@"currentUnit"] && ![change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+    if ([keyPath isEqualToString:@"currentUnit"]) {
+        // if the current unit is nil, the user cancelled.
+        // If its NSNull, the user cleared their selection.
+        if ([object valueForKeyPath:keyPath] == nil)
+            return;
+
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(uintptr_t) context inSection:SECTION_RULEINSTANCEACTUALPARAM];
         id cell = (id) [self.tableView cellForRowAtIndexPath:indexPath];
 

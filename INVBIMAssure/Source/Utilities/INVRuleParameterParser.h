@@ -9,8 +9,26 @@
 #import <Foundation/Foundation.h>
 
 /**
- Dictionary of Name-Value pairs corresponding to the actual parameters. The supported keys are  INV_ActualParamName and
- INV_ActualParamValue
+ Dictionary of Name-Value pairs corresponding to the actual parameters. Here's the format of the dictionary:
+
+ {
+    name: "count",
+    display_name: "Count",
+
+    type: [ @5 ],
+    constraints: {
+        @5: {
+            from_type: [ @1 ],
+            to_type: [ @1 ],
+            from_constraints: {  },
+            to_constraints: { },
+        }
+    }
+    value: { from: @0, to: @0 },
+    unit: null,
+    error: null,
+ }
+
  */
 typedef NSMutableDictionary *INVActualParamKeyValuePair;
 
