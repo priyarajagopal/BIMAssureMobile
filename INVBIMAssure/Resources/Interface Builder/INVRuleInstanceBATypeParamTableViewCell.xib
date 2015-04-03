@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,20 +15,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckQ-iX-wCu" userLabel="Separator">
-                        <rect key="frame" x="159" y="0.0" width="2" height="43"/>
+                        <rect key="frame" x="106" y="0.0" width="2" height="43"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="2" id="e4a-Ws-rMj"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NN6-o0-09f">
-                        <rect key="frame" x="15" y="12" width="136" height="20"/>
+                        <rect key="frame" x="15" y="12" width="83" height="20"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpI-UO-Nqz">
-                        <rect key="frame" x="169" y="9" width="143" height="26"/>
+                        <rect key="frame" x="116" y="9" width="196" height="26"/>
                         <state key="normal" title="Element Type">
                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -39,7 +40,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="NN6-o0-09f" secondAttribute="bottom" id="CfX-Tp-KSM"/>
-                    <constraint firstAttribute="centerX" secondItem="ckQ-iX-wCu" secondAttribute="centerX" id="SnF-PM-VfA"/>
+                    <constraint firstItem="ckQ-iX-wCu" firstAttribute="centerX" secondItem="Xoa-2i-rIN" secondAttribute="centerX" multiplier="2:3" id="SnF-PM-VfA"/>
                     <constraint firstAttribute="centerY" secondItem="NN6-o0-09f" secondAttribute="centerY" id="Uof-EV-3t7"/>
                     <constraint firstAttribute="centerY" secondItem="bpI-UO-Nqz" secondAttribute="centerY" id="arc-7p-9IQ"/>
                     <constraint firstItem="ckQ-iX-wCu" firstAttribute="leading" secondItem="NN6-o0-09f" secondAttribute="trailing" constant="8" id="as9-qR-p72"/>
