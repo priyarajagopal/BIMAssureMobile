@@ -214,6 +214,17 @@ const static NSString *INV_HeaderContextIdentifier = @"Identifier";
     }
 }
 
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.dataDictionary) {
+        NSArray *dataArray = self.dataDictionary[@(indexPath.section)];
+        return dataArray[indexPath.row];
+    }
+    else {
+        return [self.fetchedResultsController objectAtIndexPath:indexPath];
+    }
+}
+
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for
 // available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing

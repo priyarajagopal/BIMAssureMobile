@@ -16,6 +16,7 @@ NSString *const INVActualParamType = @"type";
 NSString *const INVActualParamTypeConstraints = @"type_constraints";
 NSString *const INVActualParamValue = @"value";
 NSString *const INVActualParamUnit = @"unit";
+NSString *const INVActualParamError = @"error";
 
 static NSString *const INV_TYPEVALIDATION_DOMAIN = @"INVRuleParameterValidation";
 static NSInteger const INV_TYPEVALIDATION_ERROR = 5001;
@@ -192,36 +193,44 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
         case INVParameterTypeString: {
             // First, type checking
             if (![value isKindOfClass:[NSString class]])
-                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid string",nil)];
+                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid string", nil)];
 
             // Constraint checking
             NSString *regex = constraints[@(type)][@"matches"];
             if (regex) {
                 NSRange matchRange = [value rangeOfString:regex options:NSRegularExpressionSearch];
                 if (matchRange.location != 0 || matchRange.length != [value length]) {
-                    return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter string matching regex",nil)];
+                    return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter string matching regex", nil)];
                 }
             }
 
             return nil;
         }
         case INVParameterTypeNumber: {
-            NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-            if (![formatter numberFromString:value]) {
-                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid number",nil)];
+            if ([value isKindOfClass:[NSNumber class]])
+                return nil;
+
+            if ([value isKindOfClass:[NSString class]]) {
+                if ([value length] == 0)
+                    return nil;
+
+                NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+                if (![formatter numberFromString:value]) {
+                    return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid number", nil)];
+                }
             }
 
             return nil;
         }
         case INVParameterTypeDate: {
             if (![value isKindOfClass:[NSDate class]])
-                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid date",nil)];
+                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Enter valid date", nil)];
 
             return nil;
         }
         case INVParameterTypeElementType: {
             if (![value isKindOfClass:[NSString class]])
-                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Not a valid BA Type",nil)];
+                return [self validationErrorObjectWithMessage:NSLocalizedString(@"Not a valid BA Type", nil)];
 
             // TODO: Check if BAType exists? (May not even be needed as we only allow selection)
             return nil;

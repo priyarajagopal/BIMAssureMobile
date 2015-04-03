@@ -32,6 +32,9 @@ extern NSString *const INVActualParamValue;
 /* The unit identifier this value is in. */
 extern NSString *const INVActualParamUnit;
 
+/* The last input editing error of this cell */
+extern NSString *const INVActualParamError;
+
 typedef NS_ENUM(NSUInteger, INVParameterType) {
     INVParameterTypeString,
     INVParameterTypeNumber,
@@ -51,7 +54,7 @@ INVParameterType INVParameterTypeFromString(NSString *type);
 - (NSArray *)transformRuleInstanceParamsToArray:(id)ruleInstance definition:(INVRule *)ruleDefinition;
 - (INVRuleInstanceActualParamDictionary)transformRuleInstanceArrayToRuleInstanceParams:(NSArray *)actualParamsArray;
 
-- (NSError*)isValueValid:(id)value forAnyTypeInArray:(NSArray *)types withConstraints:(NSDictionary *)constraints;
-- (NSError*)isValueValid:(id)value forParameterType:(INVParameterType)type withConstraints:(NSDictionary *)constraints;
+- (NSError *)isValueValid:(id)value forAnyTypeInArray:(NSArray *)types withConstraints:(NSDictionary *)constraints;
+- (NSError *)isValueValid:(id)value forParameterType:(INVParameterType)type withConstraints:(NSDictionary *)constraints;
 
 @end

@@ -24,15 +24,13 @@
 @property IBOutlet UILabel *errorMessageLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *errorContainerCollapseLayoutConstraint;
 
-@property NSString *currentError;
-
 @end
 
 @implementation INVRuleInstanceGeneralTypeParamTableViewCell
 
-- (void)layoutSubviews
+- (void)awakeFromNib
 {
-    [super layoutSubviews];
+    [super awakeFromNib];
 
     [self updateUI];
 }
@@ -75,41 +73,53 @@
         self.ruleInstanceUnitsButton.titleLabel.textColor = self.tintColor;
     }
 
-    if (self.currentError) {
+    if (self.actualParamDictionary[INVActualParamError]) {
         self.errorContainerView.hidden = NO;
         [self.errorContainerView removeConstraint:self.errorContainerCollapseLayoutConstraint];
 
-        self.errorMessageLabel.text = self.currentError;
+        self.errorMessageLabel.text = self.actualParamDictionary[INVActualParamError];
     }
     else {
         self.errorContainerView.hidden = YES;
         [self.errorContainerView addConstraint:self.errorContainerCollapseLayoutConstraint];
     }
+
+    [self setNeedsLayout];
+    [self setNeedsUpdateConstraints];
 }
 
--(void)setActualParamDictionary:(INVActualParamKeyValuePair)actualParamDictionary {
+- (void)setActualParamDictionary:(INVActualParamKeyValuePair)actualParamDictionary
+{
     _actualParamDictionary = actualParamDictionary;
+
     [self updateUI];
 }
+
 #pragma mark - IBActions
 
 - (IBAction)ruleInstanceValueTextChanged:(id)sender
 {
-    NSError* error = [[INVRuleParameterParser instance] isValueValid:self.ruleInstanceValue.text
+    NSError *error = [[INVRuleParameterParser instance] isValueValid:self.ruleInstanceValue.text
                                                    forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
                                                      withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]];
     if (error) {
-        self.currentError = error.localizedDescription;
+        self.actualParamDictionary[INVActualParamError] = error.localizedDescription;
+
         [self updateUI];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UITableView *tableView = [self findSuperviewOfClass:[UITableView class] predicate:nil];
-            
-            [tableView reloadData];
-        });
+
+        UITableView *tableView = [self findSuperviewOfClass:[UITableView class] predicate:nil];
+        [tableView beginUpdates];
+        [tableView endUpdates];
     }
     else {
-         self.actualParamDictionary[INVActualParamValue] = [self.ruleInstanceValue text];
+        self.actualParamDictionary[INVActualParamValue] = [self.ruleInstanceValue text];
+        [self.actualParamDictionary removeObjectForKey:INVActualParamError];
+
+        [self updateUI];
+
+        UITableView *tableView = [self findSuperviewOfClass:[UITableView class] predicate:nil];
+        [tableView beginUpdates];
+        [tableView endUpdates];
     }
 }
 

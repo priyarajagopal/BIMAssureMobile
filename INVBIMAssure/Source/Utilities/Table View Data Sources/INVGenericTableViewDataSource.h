@@ -42,5 +42,7 @@ typedef BOOL (^INV_RowEditableBlock)(id cellData, NSIndexPath *indexPath);
 
 - (void)registerCellBlock:(INV_CellBlock)cellBlock forSection:(NSInteger)section;
 
+-(id) objectAtIndexPath:(NSIndexPath *) indexPath;
+
 - (CGFloat)heightOfRowContentAtIndexPath:(NSIndexPath *)indexPath;
 @end

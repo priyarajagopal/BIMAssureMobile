@@ -34,6 +34,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 @interface INVRuleInstanceTableViewController ()
 
+@property (nonatomic, strong) NSMutableDictionary *sizingCells;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, strong) NSMutableArray *originalRuleInstanceActualParams;
 @property (nonatomic, strong) NSMutableArray *intermediateRuleInstanceActualParams; // Array of INV_ActualParamKeyValuePair
@@ -54,25 +55,12 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"GIVE NAME OF RULE INSTANCE HERE", nil);
 
-    UINib *parameterStringNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class])
-                                               bundle:[NSBundle bundleForClass:[self class]]];
+    self.sizingCells = [NSMutableDictionary new];
 
-    [self.tableView registerNib:parameterStringNib forCellReuseIdentifier:@"RuleInstanceGenericCell"];
-
-    UINib *parameterElementTypeNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceBATypeParamTableViewCell class])
-                                                    bundle:[NSBundle bundleForClass:[self class]]];
-
-    [self.tableView registerNib:parameterElementTypeNib forCellReuseIdentifier:@"RuleInstanceBATypeCell"];
-
-    UINib *parameterArrayNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceArrayParamTableViewCell class])
-                                              bundle:[NSBundle bundleForClass:[self class]]];
-
-    [self.tableView registerNib:parameterArrayNib forCellReuseIdentifier:@"RuleInstanceArrayCell"];
-
-    UINib *parameterRangeNib = [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceRangeTypeParamTableViewCell class])
-                                              bundle:[NSBundle bundleForClass:[self class]]];
-
-    [self.tableView registerNib:parameterRangeNib forCellReuseIdentifier:@"RuleInstanceRangeCell"];
+    [self registerClass:[INVRuleInstanceGeneralTypeParamTableViewCell class] forCellReuseIdentifier:@"RuleInstanceGenericCell"];
+    [self registerClass:[INVRuleInstanceBATypeParamTableViewCell class] forCellReuseIdentifier:@"RuleInstanceBATypeCell"];
+    [self registerClass:[INVRuleInstanceArrayParamTableViewCell class] forCellReuseIdentifier:@"RuleInstanceArrayCell"];
+    [self registerClass:[INVRuleInstanceRangeTypeParamTableViewCell class] forCellReuseIdentifier:@"RuleInstanceRangeCell"];
 
     UINib *rioNib =
         [UINib nibWithNibName:@"INVRuleInstanceOverviewTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
@@ -179,42 +167,50 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                                    forIndexPath:indexPathForRuleOverview];
 }
 
+- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
+{
+    id cellData = [self.dataSource objectAtIndexPath:indexPath];
+    NSArray *types = cellData[INVActualParamType];
+    NSString *cellName;
+
+    if (types.count == 1) {
+        if ([[types firstObject] isKindOfClass:[NSNumber class]]) {
+            INVParameterType type = [[types firstObject] integerValue];
+
+            switch (type) {
+                case INVParameterTypeString:
+                case INVParameterTypeNumber:
+                case INVParameterTypeDate:
+                    cellName = @"Generic";
+                    break;
+
+                case INVParameterTypeElementType:
+                    cellName = @"BAType";
+                    break;
+
+                case INVParameterTypeRange:
+                    cellName = @"Range";
+                    break;
+            }
+        }
+        else if ([[types firstObject] isKindOfClass:[NSArray class]]) {
+            cellName = @"Array";
+        }
+    }
+    else {
+        cellName = @"Generic";
+    }
+
+    cellName = [NSString stringWithFormat:@"RuleInstance%@Cell", cellName];
+
+    return cellName;
+}
+
 - (void)setupRuleInstanceActualParamsDataSource
 {
     [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
     [self.dataSource registerCellBlock:^UITableViewCell *(id cellData, NSIndexPath *indexPath) {
-        NSArray *types = cellData[INVActualParamType];
-        NSString *cellName;
-
-        if (types.count == 1) {
-            if ([[types firstObject] isKindOfClass:[NSNumber class]]) {
-                INVParameterType type = [[types firstObject] integerValue];
-
-                switch (type) {
-                    case INVParameterTypeString:
-                    case INVParameterTypeNumber:
-                    case INVParameterTypeDate:
-                        cellName = @"Generic";
-                        break;
-
-                    case INVParameterTypeElementType:
-                        cellName = @"BAType";
-                        break;
-
-                    case INVParameterTypeRange:
-                        cellName = @"Range";
-                        break;
-                }
-            }
-            else if ([[types firstObject] isKindOfClass:[NSArray class]]) {
-                cellName = @"Array";
-            }
-        }
-        else {
-            cellName = @"Generic";
-        }
-
-        cellName = [NSString stringWithFormat:@"RuleInstance%@Cell", cellName];
+        NSString *cellName = [self cellIdentifierForIndexPath:indexPath];
         id cell = [self.tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
 
         [cell setTintColor:[UIColor darkGrayColor]];
@@ -415,13 +411,34 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     }
 
     if (indexPath.section == SECTION_RULEINSTANCEACTUALPARAM) {
-        return UITableViewAutomaticDimension;
+        id cellIdentifier = [self cellIdentifierForIndexPath:indexPath];
+        id cellData = [self.dataSource objectAtIndexPath:indexPath];
+
+        id sizingCell = self.sizingCells[cellIdentifier];
+        [sizingCell setActualParamDictionary:cellData];
+
+        [sizingCell setNeedsUpdateConstraints];
+        [sizingCell layoutIfNeeded];
+
+        CGFloat height = [sizingCell systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, 0)
+                                   withHorizontalFittingPriority:UILayoutPriorityRequired
+                                         verticalFittingPriority:UILayoutPriorityDefaultLow].height;
+
+        return height;
     }
 
     return DEFAULT_CELL_HEIGHT;
 }
 
 #pragma mark - helper
+
+- (void)registerClass:(Class)kls forCellReuseIdentifier:(NSString *)identifier
+{
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass(kls) bundle:[NSBundle bundleForClass:kls]];
+    self.sizingCells[identifier] = [[nib instantiateWithOwner:nil options:nil] firstObject];
+
+    [self.tableView registerNib:nib forCellReuseIdentifier:identifier];
+}
 
 - (void)showLoadProgress
 {

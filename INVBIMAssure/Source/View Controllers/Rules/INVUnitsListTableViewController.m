@@ -97,18 +97,17 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"unitCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryNone;
-        UIFont* font = [UIFont systemFontOfSize:14.0];
+        UIFont *font = [UIFont systemFontOfSize:14.0];
         cell.textLabel.font = font;
         cell.detailTextLabel.font = font;
-        
     }
 
     id unit = self.filteredUnits[indexPath.row];
-      cell.textLabel.text = unit[@"display"];
-    
-    cell.detailTextLabel.text  = unit[@"unit"];
+    cell.textLabel.text = unit[@"display"];
+
+    cell.detailTextLabel.text = unit[@"unit"];
     cell.accessoryType = UITableViewCellAccessoryNone;
-    if ([self.currentUnit isEqualToString:unit[@"unit"]]) {
+    if ([self.currentUnit isEqual:unit[@"unit"]]) {
         [(UIImageView *) cell.accessoryView setImage:[self _selectedImage]];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
@@ -123,6 +122,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     self.currentUnit = self.filteredUnits[indexPath.row][@"unit"];
+    self.searchBar.placeholder = self.currentUnit;
 
     [tableView reloadRowsAtIndexPaths:tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -131,6 +131,9 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+    self.currentUnit = searchText;
+    searchBar.placeholder = nil;
+
     [self filterListOfUnits];
 }
 
