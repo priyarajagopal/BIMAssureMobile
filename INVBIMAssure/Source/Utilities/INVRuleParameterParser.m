@@ -103,6 +103,10 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
             constraints[@"from_display"] = formalParameterProperties[@"from"][@"display"][languageCode];
             constraints[@"to_display"] = formalParameterProperties[@"to"][@"display"][languageCode];
 
+            // TODO: Fill in with range-specific constraints
+            constraints[@"from_constraints"] = [NSMutableDictionary new];
+            constraints[@"to_constraints"] = [NSMutableDictionary new];
+
             NSMutableDictionary *value = [NSMutableDictionary new];
 
             value[@"from"] = [NSMutableDictionary dictionaryWithObject:[NSNull null] forKey:@"value"];

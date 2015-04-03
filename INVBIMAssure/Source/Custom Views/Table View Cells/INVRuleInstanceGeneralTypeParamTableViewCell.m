@@ -138,6 +138,14 @@ static NSString *const INVRuleInstanceGeneralTypeParamTableViewCell_SelectedType
 
 - (void)updateUI
 {
+    if ([self tintColor]) {
+        self.ruleInstanceKeyLabel.textColor = self.tintColor;
+        self.ruleInstanceValueTextField.textColor = self.tintColor;
+
+        self.unitsButton.titleLabel.textColor = self.tintColor;
+        self.typeButton.titleLabel.textColor = self.tintColor;
+    }
+
     self.ruleInstanceKeyLabel.text = self.actualParamDictionary[INVActualParamDisplayName];
     self.ruleInstanceValueTextField.text = self.valueString;
 
@@ -155,14 +163,6 @@ static NSString *const INVRuleInstanceGeneralTypeParamTableViewCell_SelectedType
     else {
         self.unitsButtonContainer.hidden = YES;
         [self.unitsButtonContainer addConstraint:self.unitsButtonContainerCollapseLayoutConstraint];
-    }
-
-    if ([self tintColor]) {
-        self.ruleInstanceKeyLabel.textColor = self.tintColor;
-        self.ruleInstanceValueTextField.textColor = self.tintColor;
-
-        self.unitsButton.titleLabel.textColor = self.tintColor;
-        self.typeButton.titleLabel.textColor = self.tintColor;
     }
 
     if (self.actualParamDictionary[INVActualParamError]) {
