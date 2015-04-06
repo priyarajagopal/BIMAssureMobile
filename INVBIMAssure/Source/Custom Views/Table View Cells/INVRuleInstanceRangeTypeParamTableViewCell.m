@@ -317,22 +317,105 @@ static NSString *const INVRuleInstanceRangeTypeParamTableViewCell_ToSelectedType
 - (void)fromValueTextChanged:(id)sender
 {
     NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
+    NSString* currValue =  newValue[@"from"][@"value"];
     newValue[@"from"][@"value"] = self.fromValueField.text;
-
-    [self handleNewValue:newValue];
+    
+    NSError *error = [[INVRuleParameterParser instance] isValueValid:newValue
+                                                   forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
+                                                     withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]];
+    
+    if (error) {
+        self.actualParamDictionary[INVActualParamError] = [error localizedDescription];
+        
+        NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
+        newValue[@"from"][@"value"] = currValue;
+        
+    }
+    else {
+        NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
+        
+        switch (self.fromSelectedType) {
+            case INVParameterTypeString:
+                newValue[@"from"][@"value"] = self.fromValueField.text;
+                break;
+                
+            case INVParameterTypeNumber: {
+                NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+                newValue[@"from"][@"value"] = [numberFormatter numberFromString:self.fromValueField.text]?:[NSNull null];
+                break;
+            }
+                
+            default:
+                [NSException raise:NSInvalidArgumentException format:@"Uknown parameter type %lu", self.fromSelectedType];
+                break;
+        }
+        
+        
+        [self.actualParamDictionary removeObjectForKey:INVActualParamError];
+        
+    }
+    self.actualParamDictionary[INVActualParamValue] = newValue;
+    
+    [self reloadCell];
 }
+
+
 
 - (void)toValueTextChanged:(id)sender
 {
     NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
+    NSString* currValue = newValue[@"to"][@"value"];
     newValue[@"to"][@"value"] = self.toValueField.text;
+    
+    NSError *error = [[INVRuleParameterParser instance] isValueValid:newValue
+                                                   forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
+                                                     withConstraints:self.actualParamDictionary[INVActualParamTypeConstraints]];
+    
+    if (error) {
+        self.actualParamDictionary[INVActualParamError] = [error localizedDescription];
+        
+        NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
+        newValue[@"to"][@"value"] = currValue;
+       
+        
+    }
+    else {
+        NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
+        
+        switch (self.toSelectedType) {
+            case INVParameterTypeString:
+                newValue[@"to"][@"value"] = self.toValueField.text;
+                break;
+                
+            case INVParameterTypeNumber: {
+                NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+                newValue[@"to"][@"value"] = [numberFormatter numberFromString:self.toValueField.text]?:[NSNull null];
+                break;
+            }
+                
+            default:
+                [NSException raise:NSInvalidArgumentException format:@"Uknown parameter type %lu", self.toSelectedType];
+                break;
+        }
 
-    [self handleNewValue:newValue];
+         [self.actualParamDictionary removeObjectForKey:INVActualParamError];
+        
+    }
+    self.actualParamDictionary[INVActualParamValue] = newValue;
+    
+    [self reloadCell];
 }
 
 - (IBAction)toggleTypesPicker:(id)sender
 {
     self.isEditingFrom = (sender == self.fromTypeButton);
+    if (self.isEditingFrom && self.fromTypes.count == 1) {
+        return;
+    }
+    
+    if (!self.isEditingFrom && self.toTypes.count == 1) {
+        return;
+    }
 
     [self.fromValueField resignFirstResponder];
     [self.toValueField resignFirstResponder];
@@ -354,7 +437,7 @@ static NSString *const INVRuleInstanceRangeTypeParamTableViewCell_ToSelectedType
     [tableView endUpdates];
 }
 
-- (void)handleNewValue:(NSDictionary *)newValue
+- (void)handleNewValue:(NSDictionary *)newValue currentValue:(NSString*)currentValue
 {
     NSError *error = [[INVRuleParameterParser instance] isValueValid:newValue
                                                    forAnyTypeInArray:self.actualParamDictionary[INVActualParamType]
@@ -362,21 +445,24 @@ static NSString *const INVRuleInstanceRangeTypeParamTableViewCell_ToSelectedType
 
     if (error) {
         self.actualParamDictionary[INVActualParamError] = [error localizedDescription];
-        [self updateUI];
+        
+        NSMutableDictionary *newValue = [self.actualParamDictionary[INVActualParamValue] mutableCopy];
+        if (self.isEditingFrom) {
+            newValue[@"from"][@"value"] = currentValue;
+        }
+        else {
+            newValue[@"to"][@"value"] = currentValue;
 
-        UITableView *tableView = [self findSuperviewOfClass:[UITableView class] predicate:nil];
-        [tableView beginUpdates];
-        [tableView endUpdates];
+        }
+         self.actualParamDictionary[INVActualParamValue] = newValue;
+
     }
     else {
         self.actualParamDictionary[INVActualParamValue] = newValue;
         [self.actualParamDictionary removeObjectForKey:INVActualParamError];
-        [self updateUI];
 
-        UITableView *tableView = [self findSuperviewOfClass:[UITableView class] predicate:nil];
-        [tableView beginUpdates];
-        [tableView endUpdates];
     }
+    [self reloadCell];
 }
 
 #pragma mark - UIPickerViewDataSource

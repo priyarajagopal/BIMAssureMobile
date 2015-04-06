@@ -129,11 +129,26 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
     NSDictionary *actualParameters = [NSDictionary dictionaryWithObjects:formalParamValues forKeys:formalParamNames];
 
     [ruleInstance.actualParameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        INVRuleInstanceActualParamDictionary valueDict = (INVRuleInstanceActualParamDictionary) obj;
+        INVRuleInstanceActualParamMutableDictionary valueDict = [(INVRuleInstanceActualParamDictionary) obj mutableCopy];
         NSMutableDictionary *actualParam = actualParameters[key];
 
-        actualParam[INVActualParamValue] = valueDict[@"value"];
-
+        if ([valueDict[@"value"] isKindOfClass:[NSDictionary class]] ) {
+            actualParam[INVActualParamValue] = [valueDict[@"value"] mutableCopy];
+            
+            if ([((NSMutableDictionary*)valueDict[@"value"]).allKeys containsObject:@"from"]) {
+                actualParam[INVActualParamValue][@"from"] = [NSMutableDictionary new];
+                actualParam[INVActualParamValue][@"from"] = [valueDict[@"value"][@"from"]mutableCopy];
+            }
+            if ([((NSMutableDictionary*)valueDict[@"value"]).allKeys containsObject:@"to"]) {
+                actualParam[INVActualParamValue][@"to"] = [NSMutableDictionary new];
+                actualParam[INVActualParamValue][@"to"] = [valueDict[@"value"][@"to"]mutableCopy];
+            }
+        }
+        else {
+            actualParam[INVActualParamValue] = valueDict[@"value"];
+  
+        }
+ 
         if (valueDict[@"unit"]) {
             actualParam[INVActualParamUnit] = valueDict[@"unit"];
         }
@@ -153,10 +168,10 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
         NSString *unit = actualDict[INVActualParamUnit];
 
         if (unit && value) {
-            [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit } forKey:key];
+            [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit} forKey:key];
         }
         else if (value) {
-            [actualParam setObject:@{ INVActualParamValue : value } forKey:key];
+            [actualParam setObject:@{ INVActualParamValue : value} forKey:key];
         }
     }];
 

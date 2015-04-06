@@ -236,17 +236,17 @@ static NSString *const INVRuleInstanceGeneralTypeParamTableViewCell_SelectedType
 
         switch (self.currentlySelectedType) {
             case INVParameterTypeString:
-                newValue = self.ruleInstanceValueTextField.text;
+                newValue = self.ruleInstanceValueTextField.text.length?self.ruleInstanceValueTextField.text:[NSNull null];
                 break;
 
             case INVParameterTypeNumber: {
                 NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
-                newValue = [numberFormatter numberFromString:self.ruleInstanceValueTextField.text];
+                newValue = [numberFormatter numberFromString:self.ruleInstanceValueTextField.text]?:[NSNull null];
                 break;
             }
 
             default:
-                [NSException raise:NSInvalidArgumentException format:@"Uknown parameter type %i", self.currentlySelectedType];
+                [NSException raise:NSInvalidArgumentException format:@"Uknown parameter type %lu", self.currentlySelectedType];
                 break;
         }
 
@@ -259,6 +259,9 @@ static NSString *const INVRuleInstanceGeneralTypeParamTableViewCell_SelectedType
 
 - (IBAction)toggleTypesPicker:(id)sender
 {
+    if ([self.actualParamDictionary[INVActualParamType] count] == 1) {
+        return;
+    }
     [self.ruleInstanceValueTextField resignFirstResponder];
 
     self.dateExpanded = NO;
