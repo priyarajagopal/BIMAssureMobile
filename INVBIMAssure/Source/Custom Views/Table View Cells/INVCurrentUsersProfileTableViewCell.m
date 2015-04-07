@@ -80,7 +80,7 @@
 
             }
             failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                INVLogError(@"Failed to download image for user %@ with error %@", weakSelf.user.userId, error);
+                INVLogError(@"Failed to download image for user %@ with error %@", weakSelf.user.userId, error.localizedDescription);
             }];
     }
     else {

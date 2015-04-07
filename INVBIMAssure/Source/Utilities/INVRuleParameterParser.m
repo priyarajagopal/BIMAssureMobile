@@ -164,9 +164,20 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
     [actualParamsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSDictionary *actualDict = obj;
         NSString *key = actualDict[INVActualParamName];
-        NSString *value = actualDict[INVActualParamValue];
+        id value = actualDict[INVActualParamValue];
         NSString *unit = actualDict[INVActualParamUnit];
-
+        
+        if ([value isKindOfClass:[NSDate class]]) {
+            static NSDateFormatter *dateFormatter;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                dateFormatter = [NSDateFormatter new];
+                [dateFormatter setDateFormat:@"yyyyMMdd'T'HHmmss'Z'"];
+            });
+            value = [dateFormatter stringFromDate:value];
+           
+        }
+        
         if (unit && value) {
             [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit} forKey:key];
         }
