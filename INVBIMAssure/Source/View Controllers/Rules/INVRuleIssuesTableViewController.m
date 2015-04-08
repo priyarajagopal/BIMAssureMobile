@@ -7,7 +7,9 @@
 //
 
 #import "INVRuleIssuesTableViewController.h"
-#import "INVRuleInstanceGeneralTypeParamTableViewCell.h"
+//#import "INVRuleInstanceGeneralTypeParamTableViewCell.h"
+#import "INVRuleActualParamsDisplayTableViewCell.h"
+
 #import "INVGenericTableViewDataSource.h"
 #import "INVTextFieldTableViewCell.h"
 #import "INVRuleParameterParser.h"
@@ -40,7 +42,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"RuleIssueTVC"];
 
     UINib *parameterArrayNib =
-        [UINib nibWithNibName:NSStringFromClass([INVRuleInstanceGeneralTypeParamTableViewCell class]) bundle:nil];
+        [UINib nibWithNibName:NSStringFromClass([INVRuleActualParamsDisplayTableViewCell class]) bundle:nil];
     [self.tableView registerNib:parameterArrayNib forCellReuseIdentifier:@"RuleInstanceParamCell"];
 
     self.refreshControl = nil;
@@ -116,7 +118,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
     INV_CellConfigurationBlock cellConfigurationBlockForRuleIssues =
         ^(INVTextFieldTableViewCell *cell, INVRuleIssue *issue, NSIndexPath *indexPath) {
-            cell.textLabel.textColor = [UIColor whiteColor];
+            if ([self.class isSubclassOfClass:[INVBlackTintedTableViewController class]]) {
+                cell.textLabel.backgroundColor = [UIColor clearColor];
+                cell.textLabel.textColor = [UIColor whiteColor];
+                
+            }
+            
             cell.textLabel.text = issue.issueDescription;
             cell.textLabel.numberOfLines = 0;
 
@@ -133,8 +140,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
     [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams forSection:SECTION_RULEINSTANCEPARAM];
 
     INV_CellConfigurationBlock cellConfigurationBlockForRuleParams =
-        ^(INVRuleInstanceGeneralTypeParamTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
-            if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)] &&
+        ^(INVRuleActualParamsDisplayTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
+            if ([[actualParam[INVActualParamType]firstObject] isEqual:@(INVParameterTypeElementType)] &&
                 ![actualParam[INVActualParamName] isEqualToString:@""]) {
                 NSString *elementTypeId = actualParam[INVActualParamValue];
 
@@ -146,6 +153,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                                       actualParam[INVActualParamValue] = title;
                                       actualParam[INVActualParamName] = @"";
                                       [cell setActualParamDictionary:actualParam];
+                                      
                                   }
 
                               }];
@@ -159,6 +167,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
             else {
                 [cell setActualParamDictionary:actualParam];
             }
+        
+         
             [cell setUserInteractionEnabled:NO];
 
             cell.selectionStyle = UITableViewCellSelectionStyleNone;

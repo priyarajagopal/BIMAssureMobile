@@ -10,6 +10,6 @@
 #import "INVRuleParameterParser.h"
 
 @interface INVRuleInstanceGeneralTypeParamTableViewCell : UITableViewCell
-@property (nonatomic, strong) INVActualParamKeyValuePair actualParamDictionary;
+@property (nonatomic, copy) INVActualParamKeyValuePair actualParamDictionary;
 
 @end

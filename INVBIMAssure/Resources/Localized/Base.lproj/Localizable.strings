@@ -273,7 +273,7 @@
 "ANALYSIS_RUN_NODE_ISSUE_COUNT"="Total no. of issues: %@";
 
 "ANALYSIS_EXECUTION_STARTED_TITLE"="Analysis Execution Started";
-"ANALYSIS_EXECUTION_STARTED_MESSAGE"="You can get the execution status of your analysis run from the \"Files\" menu";
+"ANALYSIS_EXECUTION_STARTED_MESSAGE"="You can get the execution status of your analysis run from the \"Models\" menu";
 "ERROR_ANALYSIS_RUN_FETCH"="Error while fetching analyses run";
 "ERROR_ANALYSIS_RUN_RESULT_FETCH"="The results of the analysis run could not be fetched at this time. Please try again later";
 "NUM_RULES"="%1d Rules";

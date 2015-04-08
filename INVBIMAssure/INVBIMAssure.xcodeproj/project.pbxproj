@@ -35,6 +35,10 @@
 		02AC52CE1AD45ADC0006AD58 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02AC52CB1AD45AD30006AD58 /* EmpireMobileManager.framework */; };
 		02AC52CF1AD45ADC0006AD58 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02AC52CB1AD45AD30006AD58 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02AFD1801A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AFD17F1A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m */; };
+		02D5EE211AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */; };
+		02D5EE221AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */; };
+		02D5EE231AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */; };
+		02D5EE241AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */; };
 		1827E538D895002A1BC239B6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A017907C030AFB8C7812E225 /* libPods.a */; };
 		3E5AE4CA6BC37DFBBE214AFE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A017907C030AFB8C7812E225 /* libPods.a */; };
 		F5024AE91A66E7EE002EEE5F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5024AE71A66E7EE002EEE5F /* LaunchScreen.xib */; };
@@ -286,6 +290,9 @@
 		02AFD17F1A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "INVPagingManager+PackageMasterListing.m"; sourceTree = "<group>"; };
 		02C8845719E317E900DFB4E2 /* BIM Assure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BIM Assure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INVBIMAssureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		02D5EE1E1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVRuleActualParamsDisplayTableViewCell.h; path = "../../../Resources/Interface Builder/INVRuleActualParamsDisplayTableViewCell.h"; sourceTree = "<group>"; };
+		02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVRuleActualParamsDisplayTableViewCell.m; path = "../../../Resources/Interface Builder/INVRuleActualParamsDisplayTableViewCell.m"; sourceTree = "<group>"; };
+		02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleActualParamsDisplayTableViewCell.xib; sourceTree = "<group>"; };
 		051E433FAA6C6DF3BA9BA08B /* Pods.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.dev.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.dev.xcconfig"; sourceTree = "<group>"; };
 		2059B57D5C6E07B9D5C8B8A0 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
 		A017907C030AFB8C7812E225 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -898,6 +905,8 @@
 				F5789CBA1A642A5500D8CEE7 /* INVTokensTableViewCell.m */,
 				F557E5391ACB36AF00667111 /* INVModelTreeAnalysisRunNodeTableViewCell.h */,
 				F557E53A1ACB36AF00667111 /* INVModelTreeAnalysisRunNodeTableViewCell.m */,
+				02D5EE1E1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.h */,
+				02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */,
 				F5789CAB1A642A5500D8CEE7 /* INVRuleInstanceGeneralTypeParamTableViewCell.h */,
 				F5789CAC1A642A5500D8CEE7 /* INVRuleInstanceGeneralTypeParamTableViewCell.m */,
 				F51606DA1AC98C1E004E681F /* INVRuleInstanceArrayParamTableViewCell.h */,
@@ -1250,6 +1259,7 @@
 				F51606DD1AC98E16004E681F /* INVRuleInstanceArrayParamTableViewCell.xib */,
 				F557E53C1ACB387500667111 /* INVModelTreeAnalysisRunNodeTableViewCell.xib */,
 				F557E5441ACC760300667111 /* INVRuleInstanceRangeTypeParamTableViewCell.xib */,
+				02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */,
 			);
 			path = "Interface Builder";
 			sourceTree = "<group>";
@@ -1396,6 +1406,7 @@
 				F5EA59CD1ABC6F3000458C0C /* INVAnalysisRunCollectionViewCell.xib in Resources */,
 				F5789DBC1A642A6200D8CEE7 /* INVSearchView.xib in Resources */,
 				F557E53D1ACB387500667111 /* INVModelTreeAnalysisRunNodeTableViewCell.xib in Resources */,
+				02D5EE231AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */,
 				F5789DB61A642A6200D8CEE7 /* INVRuleInstanceExecutionResultTableViewCell.xib in Resources */,
 				F5789DAD1A642A6200D8CEE7 /* Images.xcassets in Resources */,
 				F59165B61A950C7700B7205F /* INVPendingInviteCell.xib in Resources */,
@@ -1450,6 +1461,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02D5EE241AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */,
 				F5789DDD1A642B2C00D8CEE7 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1632,6 +1644,7 @@
 				0278BAEA1A656E5F009E0E27 /* NSString+INVCustomizations.m in Sources */,
 				F54E70E41A93963F00FB2BCB /* UILabel+INVCustomizations.m in Sources */,
 				F523B47A1AB76D090001508C /* INVAnalysisTableViewCell.m in Sources */,
+				02D5EE211AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m in Sources */,
 				F5269DE71A76AD4C006AC27A /* INVChangePasswordTableViewController.m in Sources */,
 				F547DA1D1A9E28F600B871A6 /* INVCustomSwitch.m in Sources */,
 				F5789D7B1A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.m in Sources */,
@@ -1689,6 +1702,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02D5EE221AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m in Sources */,
 				026B12B51AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m in Sources */,
 				025489821A68622800EE012D /* INVSignUpTableViewConfigDataSource.m in Sources */,
 				F5789DDC1A642B2900D8CEE7 /* INVBIMAssureTests.m in Sources */,

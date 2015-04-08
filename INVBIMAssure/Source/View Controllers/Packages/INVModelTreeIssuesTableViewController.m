@@ -266,21 +266,23 @@ NSString *const INVModelTreeIssueRunResultKey = @"runResult";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    INVModelTreeNodeTableViewCell *cell = (INVModelTreeNodeTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
-
-    if (!cell.node.isLeaf) {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
-
-    if (cell.node.userInfo[INVModelTreeNodeShowsExpandIndicatorKey]) {
-        return;
-    }
-
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-
-    INVModelViewerContainerViewController *modelViewerController =
+    if ([self.navigationController.topViewController isKindOfClass:[INVModelViewerContainerViewController class]]) {
+        INVModelTreeNodeTableViewCell *cell = (INVModelTreeNodeTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+        
+        if (!cell.node.isLeaf) {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+        
+        if (cell.node.userInfo[INVModelTreeNodeShowsExpandIndicatorKey]) {
+            return;
+        }
+        
+        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+        
+        INVModelViewerContainerViewController *modelViewerController =
         (INVModelViewerContainerViewController *) [self.navigationController topViewController];
-    [modelViewerController highlightElement:cell.node.userInfo[INVModelTreeBuildingElementsElmentIdKey]];
+        [modelViewerController highlightElement:cell.node.userInfo[INVModelTreeBuildingElementsElmentIdKey]];
+    }
 }
 
 @end
