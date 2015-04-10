@@ -22,26 +22,57 @@
     [self updateUI];
 }
 
+
 -(void) updateUI {
     self.ruleDescriptionLabel.text = self.ruleDefinition.overview;
-    
     if (self.checked) {
-        self.checkmarkLabel.text = @"\uf05d";
+        self.accessoryType = UITableViewCellAccessoryCheckmark;
+       // self.accessoryView = [[UIImageView alloc]initWithImage:[self _selectedImage]];
     } else {
-        self.checkmarkLabel.text = @"\uf10c";
+        self.accessoryType = UITableViewCellAccessoryNone;
+       // self.accessoryView = [[UIImageView alloc]initWithImage:[self _deselectedImage]];
     }
 }
 
 -(void) setRuleDefinition:(INVRule *)ruleDefinition {
     _ruleDefinition = ruleDefinition;
-    
     [self updateUI];
+
 }
 
 -(void) setChecked:(BOOL)checked {
     _checked = checked;
-    
     [self updateUI];
+
+}
+
+#pragma mark - helpers
+
+- (UIImage *)_selectedImage
+{
+    static UIImage *selectedImage;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        FAKFontAwesome *selectedIcon = [FAKFontAwesome checkCircleIconWithSize:30];
+        [selectedIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+        selectedImage = [selectedIcon imageWithSize:CGSizeMake(30, 30)];
+    });
+    
+    return selectedImage;
+}
+
+- (UIImage *)_deselectedImage
+{
+    static UIImage *deselectedImage;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        FAKFontAwesome *deselectedIcon = [FAKFontAwesome circleOIconWithSize:30];
+        [deselectedIcon setAttributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+        
+        deselectedImage = [deselectedIcon imageWithSize:CGSizeMake(30, 30)];
+    });
+    
+    return deselectedImage;
 }
 
 @end

@@ -1,4 +1,5 @@
 // #include "Pods/Target Support Files/Pods/Pods.release.xcconfig"
 
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) INV_DEPLOYMENT_NAME=QA
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
+=QA
 PROVISIONING_PROFILE = 703aff1c-4040-462a-9627-11c312abec8d

@@ -82,7 +82,7 @@
                 <customObject id="p3J-1q-2ga" customClass="INVTransitionToStoryboard">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="RuleDefinitionsTVC"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="RuleDefinitionsNVC"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="showRuleDefinitions"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
                             <integer key="value" value="2"/>

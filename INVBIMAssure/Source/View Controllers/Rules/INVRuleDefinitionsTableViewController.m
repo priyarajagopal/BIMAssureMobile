@@ -138,8 +138,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     }
 
     self.saveButtonItem.enabled = self.selectedRules.count > 0;
-    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
-}
+     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+ }
 
 #pragma mark - NSFetchedResultsControllerDelegate
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
@@ -182,7 +182,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                                                                                  forTableView:self.tableView];
         INV_CellConfigurationBlock cellConfigurationBlock =
             ^(INVRuleDefinitionTableViewCell *cell, INVRule *rule, NSIndexPath *indexPath) {
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+             //   cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 cell.checked = self.selectedRules[rule.ruleId] != nil;
                 cell.ruleDefinition = rule;

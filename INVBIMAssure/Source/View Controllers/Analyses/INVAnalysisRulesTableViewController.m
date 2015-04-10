@@ -39,7 +39,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showRuleDefinitions"]) {
-        INVRuleDefinitionsTableViewController *ruleDefinitionsVC = [segue destinationViewController];
+        
+        INVRuleDefinitionsTableViewController *ruleDefinitionsVC = (INVRuleDefinitionsTableViewController*)((UINavigationController*)segue.destinationViewController).topViewController;
         ruleDefinitionsVC.analysisId = self.analysisId;
     }
 
