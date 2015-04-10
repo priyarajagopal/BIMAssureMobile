@@ -57,9 +57,9 @@ typedef NS_ENUM(NSUInteger, INVParameterType) {
     INVParameterTypeString,
     INVParameterTypeNumber,
     INVParameterTypeDate,
-
+    INVParameterTypeArray,
     INVParameterTypeElementType,
-    INVParameterTypeRange,
+    INVParameterTypeRange
 };
 
 NSString *INVParameterTypeToString(INVParameterType type);

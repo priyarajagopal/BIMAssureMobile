@@ -21,7 +21,7 @@ NSString *const INVActualParamError = @"error";
 static NSString *const INV_TYPEVALIDATION_DOMAIN = @"INVRuleParameterValidation";
 static NSInteger const INV_TYPEVALIDATION_ERROR = 5001;
 
-static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"date", @"batype", @"range"};
+static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"date", @"array",@"batype", @"range"};
 static size_t INVParamaterTypeStringsCount = sizeof(INVParamaterTypeStrings) / sizeof(*INVParamaterTypeStrings);
 
 NSString *INVParameterTypeToString(INVParameterType type)
@@ -45,7 +45,9 @@ INVParameterType INVParameterTypeFromString(NSString *type)
 
 NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
 {
+    
     if ([types isKindOfClass:[NSString class]]) {
+        
         return @[ @(INVParameterTypeFromString(types)) ];
     }
 

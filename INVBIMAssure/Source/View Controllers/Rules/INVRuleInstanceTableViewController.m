@@ -172,6 +172,21 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                                    forIndexPath:indexPathForRuleOverview];
 }
 
+- (void)setupRuleInstanceActualParamsDataSource
+{
+    [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
+    [self.dataSource registerCellBlock:^UITableViewCell *(id cellData, NSIndexPath *indexPath) {
+        NSString *cellName = [self cellIdentifierForIndexPath:indexPath];
+        id cell = [self.tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
+        
+        [cell setTintColor:[UIColor darkGrayColor]];
+        [cell setActualParamDictionary:cellData];
+        
+        return cell;
+    } forSection:SECTION_RULEINSTANCEACTUALPARAM];
+}
+
+
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
 {
     id cellData = [self.dataSource objectAtIndexPath:indexPath];
@@ -196,6 +211,11 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                 case INVParameterTypeRange:
                     cellName = @"Range";
                     break;
+                    
+                case INVParameterTypeArray:
+                    cellName = @"Array";
+                    break;
+
             }
         }
         else if ([[types firstObject] isKindOfClass:[NSArray class]]) {
@@ -211,19 +231,6 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     return cellName;
 }
 
-- (void)setupRuleInstanceActualParamsDataSource
-{
-    [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams forSection:SECTION_RULEINSTANCEACTUALPARAM];
-    [self.dataSource registerCellBlock:^UITableViewCell *(id cellData, NSIndexPath *indexPath) {
-        NSString *cellName = [self cellIdentifierForIndexPath:indexPath];
-        id cell = [self.tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
-
-        [cell setTintColor:[UIColor darkGrayColor]];
-        [cell setActualParamDictionary:cellData];
-
-        return cell;
-    } forSection:SECTION_RULEINSTANCEACTUALPARAM];
-}
 
 #pragma mark - server side
 - (void)fetchRuleDefinition

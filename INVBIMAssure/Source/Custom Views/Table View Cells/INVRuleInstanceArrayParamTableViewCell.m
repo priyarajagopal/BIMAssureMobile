@@ -42,8 +42,9 @@
 {
     self.ruleInstanceKey.text = self.actualParamDictionary[INVActualParamDisplayName];
     [self.tokens removeAllObjects];
-    [self.tokens addObjectsFromArray:self.actualParamDictionary[INVActualParamValue]];
-
+    if (self.actualParamDictionary[INVActualParamValue] != (id)[NSNull null]) {
+        [self.tokens addObjectsFromArray:self.actualParamDictionary[INVActualParamValue]];
+    }
     [self.ruleInstanceValue reloadData];
 }
 
