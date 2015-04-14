@@ -200,6 +200,7 @@
     projectName = [projectName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     projectDescription = [projectDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
+    projectDescription = projectDescription && projectDescription.length?projectDescription:nil;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     if (self.currentProject) {
