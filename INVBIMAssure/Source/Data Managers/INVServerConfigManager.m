@@ -54,7 +54,7 @@
 
 @property NSURL *passportServerURL;
 @property NSURL *empireManageServerURL;
-
+@property NSURL *empireManageWebURL;
 @end
 
 @implementation INVServerConfigManager
@@ -148,6 +148,10 @@
         if ([serverName isEqualToString:@"empiremanage"]) {
             _empireManageServerURL = [NSURL URLWithString:server[@"url"]];
         }
+        
+        if ([serverName isEqualToString:@"frontend"]) {
+            _empireManageWebURL = [NSURL URLWithString:server[@"url"]];
+        }
     }
 
     INVLogDebug(@"_empireManageServerURL %@, _passportServerURL is %@", _empireManageServerURL, _passportServerURL);
@@ -208,6 +212,17 @@
     return [[_empireManageServerURL port] stringValue];
 }
 
+- (NSString *)empireManageWebHost
+{
+    return [_empireManageWebURL host];
+}
+
+- (NSString *)empireManageWebPort
+{
+    return [[_empireManageWebURL port] stringValue];
+}
+
+
 - (NSString *)passportPasswordVerificationRegex
 {
     return _passportPasswordVerificationRegex ?: @"";
@@ -217,5 +232,7 @@
 {
     return _passportPasswordVerificationText ?: @"";
 }
+
+
 
 @end

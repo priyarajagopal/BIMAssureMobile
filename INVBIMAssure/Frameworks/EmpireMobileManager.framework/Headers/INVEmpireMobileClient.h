@@ -104,6 +104,16 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  */
 - (void)configureWithEmpireManageServer:(NSString *)server andPort:(NSString *)port;
 
+/**
+ Configures the URL for the EmpireManage Web client. This is required for generating the appropriate redirect URL in certain cases when users need to be redirected to web client
+ 
+ @param webClientUrl The address of the Empire Manage server (eg.127.0.0.1, localhost, www.server.com)
+ 
+ @param port The port of Empire Manage web client. This is optional and defaults to 80.
+ 
+ */
+- (void)configureWithEmpireWebClientHost:(NSString *)webClientUrl andPort:(NSString *)port;
+
 #pragma mark - User/Account Management
 /**
  Asynchornously ,get password validation regex from server

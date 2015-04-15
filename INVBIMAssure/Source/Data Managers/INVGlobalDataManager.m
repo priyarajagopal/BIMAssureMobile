@@ -57,6 +57,9 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 
             [sharedInstance.invServerClient configureWithEmpireManageServer:[configManager empireManageHost]
                                                                     andPort:[configManager empireManagePort]];
+            
+            [sharedInstance.invServerClient configureWithEmpireWebClientHost:[configManager empireManageWebHost]
+                                                                    andPort:[configManager empireManageWebPort]];
 
             [sharedInstance.invServerClient fetchPasswordValidationCriteria:^(id result, INVEmpireMobileError *error) {
                 if (error) {

@@ -10,6 +10,6 @@
 
 @interface INVResetPasswordTableViewController : INVCustomTableViewController
 
-@property (nonatomic) NSString *email;
+@property (nonatomic,copy) NSString *email;
 
 @end

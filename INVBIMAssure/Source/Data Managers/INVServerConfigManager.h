@@ -24,4 +24,7 @@
 - (NSString *)empireManageHost;
 - (NSString *)empireManagePort;
 
+- (NSString *)empireManageWebHost;
+- (NSString *)empireManageWebPort;
+
 @end
