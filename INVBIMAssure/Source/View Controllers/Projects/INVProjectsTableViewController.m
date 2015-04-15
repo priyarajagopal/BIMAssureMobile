@@ -32,7 +32,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, strong) INVPagingManager *projectPagingManager;
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
-@property (nonatomic, strong) NSIndexPath *indexOfProjectBeingEdited;
+//@property (nonatomic, strong) NSIndexPath *indexOfProjectBeingEdited;
 @end
 
 @implementation INVProjectsTableViewController
@@ -359,7 +359,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)onProjectEdited:(INVProjectTableViewCell *)sender
 {
-    self.indexOfProjectBeingEdited = [self.tableView indexPathForCell:sender];
+ //   self.indexOfProjectBeingEdited = [self.tableView indexPathForCell:sender];
     [self performSegueWithIdentifier:@"editProject" sender:sender];
 }
 
@@ -371,13 +371,14 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 }
 
 - (void)onProjectEditCancelled:(INVProjectEditViewController *)controller {
-    self.indexOfProjectBeingEdited = nil;
+//    self.indexOfProjectBeingEdited = nil;
 }
 
 - (void)reloadRowAtSelectedIndex:(NSNumber*)shouldReset
 {
     [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
+    //self.indexOfProjectBeingEdited = nil;
  
     [self updateTimeStamp];
 }
@@ -398,10 +399,12 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     if (!self.isNSFetchedResultsChangeTypeUpdated) {
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
+    /*
     else if (self.indexOfProjectBeingEdited) {
         INVLogDebug();
         [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex:) withObject:[NSNumber numberWithBool:YES] waitUntilDone:NO];
     }
+     */
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
