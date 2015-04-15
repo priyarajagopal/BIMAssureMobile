@@ -280,7 +280,10 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [[INVNotificationPoller instance] addDataSource:[INVPendingInvitesNotificationDataSource new]];
+#ifdef _SUPPORT_PROJECTY_NOTIFICATIONS_
+        // This is quite buggy. Ideally we want push notification support here to avoid issues
         [[INVNotificationPoller instance] addDataSource:[INVProjectsNotificationDataSource new]];
+#endif
     });
 
     [self.globalManager.invServerClient

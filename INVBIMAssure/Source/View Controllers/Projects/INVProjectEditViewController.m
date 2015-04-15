@@ -134,13 +134,16 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"unwind"]) {
+        
         if (sender == self) {
             // Save
             if ([self.delegate respondsToSelector:@selector(onProjectEditSaved:)]) {
                 [self.delegate onProjectEditSaved:self];
             }
         }
-        else {
+        else
+        
+        {
             // Cancel
             if ([self.delegate respondsToSelector:@selector(onProjectEditCancelled:)]) {
                 [self.delegate onProjectEditCancelled:self];
@@ -189,11 +192,12 @@
 
 #pragma mark - IBActions
 
-- (void)save:(id)sender
+- (IBAction)save:(id)sender
 {
     // Force the first responder to resign
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:self forEvent:nil];
 
+    [self showLoadProgress];
     NSString *projectName = self.projectNameTextField.text;
     NSString *projectDescription = self.projectDescriptionTextField.text;
 
@@ -201,7 +205,7 @@
     projectDescription = [projectDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     projectDescription = projectDescription && projectDescription.length?projectDescription:nil;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+   
 
     if (self.currentProject) {
         [self.globalDataManager.invServerClient updateProjectWithId:self.currentProject.projectId
@@ -209,7 +213,7 @@
                                                      andDescription:projectDescription
                               ForSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
                                   INV_ALWAYS:
-                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                  [self.hud hide:YES];
 
                                   INV_SUCCESS:
                                       if (self.projectImageUpdated) {
@@ -230,7 +234,7 @@
                                                        andDescription:projectDescription
                                 ForSignedInAccountWithCompletionBlock:^(INVProject *project, INVEmpireMobileError *error) {
                                     // NOTE: We *probably* need more info about the created project here.
-                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                    [self.hud hide:YES];
 
                                     if (error) {
                                         [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_CREATE", nil)];
@@ -303,6 +307,15 @@
 }
 
 #pragma mark - Helpers
+
+- (void)showLoadProgress
+{
+    self.hud = [MBProgressHUD loadingViewHUD:nil];
+    [self.hud show:YES];
+    [self.view addSubview:self.hud];
+}
+
+
 
 - (void)showProjectAlert:(NSString *)title
 {

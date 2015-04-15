@@ -365,16 +365,21 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)onProjectEditSaved:(INVProjectEditViewController *)controller
 {
-    [self showLoadProgress];
+    INVLogDebug();
+    [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex:) withObject:[NSNumber numberWithBool:NO] waitUntilDone:NO];
+
 }
 
-- (void)reloadRowAtSelectedIndex
-{
-    [self.tableView reloadRowsAtIndexPaths:@[ self.indexOfProjectBeingEdited ]
-                          withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self performSelectorOnMainThread:@selector(updateTimeStamp) withObject:nil waitUntilDone:NO];
-
+- (void)onProjectEditCancelled:(INVProjectEditViewController *)controller {
     self.indexOfProjectBeingEdited = nil;
+}
+
+- (void)reloadRowAtSelectedIndex:(NSNumber*)shouldReset
+{
+    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+ 
+    [self updateTimeStamp];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -394,7 +399,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
     else if (self.indexOfProjectBeingEdited) {
-        [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex) withObject:nil waitUntilDone:NO];
+        INVLogDebug();
+        [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex:) withObject:[NSNumber numberWithBool:YES] waitUntilDone:NO];
     }
 }
 
