@@ -75,7 +75,7 @@
 @property IBOutlet INVMutableArrayTableViewDataSource *membersInProjectDataSource;
 
 @property (nonatomic, assign) BOOL projectImageUpdated;
-
+@property (nonatomic, assign) BOOL projectDetailsUpdated;
 - (IBAction)save:(id)sender;
 - (IBAction)textFieldTextChanged:(id)sender;
 - (IBAction)selectThumbnail:(id)sender;
@@ -172,7 +172,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setCurrentProject:(INVProject *)currentProject
+#pragma mark - public accessors
+
+- (void)setCurrentProject:(INVProject*)currentProject
 {
     _currentProject = currentProject;
 
@@ -197,8 +199,7 @@
     // Force the first responder to resign
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:self forEvent:nil];
 
-    [self showLoadProgress];
-    NSString *projectName = self.projectNameTextField.text;
+     NSString *projectName = self.projectNameTextField.text;
     NSString *projectDescription = self.projectDescriptionTextField.text;
 
     projectName = [projectName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -208,13 +209,15 @@
    
 
     if (self.currentProject) {
-        [self.globalDataManager.invServerClient updateProjectWithId:self.currentProject.projectId
-                                                           withName:projectName
-                                                     andDescription:projectDescription
-                              ForSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
+        [self showLoadProgress];
+        if (self.projectDetailsUpdated) {
+            [self.globalDataManager.invServerClient updateProjectWithId:self.currentProject.projectId
+                                                               withName:projectName
+                                                         andDescription:projectDescription
+                                  ForSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
                                   INV_ALWAYS:
-                                  [self.hud hide:YES];
-
+                                      [self.hud hide:YES];
+                                      
                                   INV_SUCCESS:
                                       if (self.projectImageUpdated) {
                                           [self uploadProjectThumbnailForProject:self.currentProject.projectId];
@@ -222,33 +225,30 @@
                                       else {
                                           [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
                                       }
-
+                                      
                                   INV_ERROR:
                                       INVLogError(@"%@", error);
-
+                                      
                                       [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_UPDATE", nil)];
-                              }];
+                                  }];
+        }
+        else {
+            if (self.projectImageUpdated) {
+                [self uploadProjectThumbnailForProject:self.currentProject.projectId];
+            }
+
+        }
     }
     else {
-        [self.globalDataManager.invServerClient createProjectWithName:projectName
-                                                       andDescription:projectDescription
-                                ForSignedInAccountWithCompletionBlock:^(INVProject *project, INVEmpireMobileError *error) {
-                                    // NOTE: We *probably* need more info about the created project here.
-                                    [self.hud hide:YES];
+        [self createProjectDetailsIncludingThumbnailForProjectName:projectName description:projectDescription];
 
-                                    if (error) {
-                                        [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_CREATE", nil)];
-                                    }
-                                    else {
-                                        [self uploadProjectThumbnailForProject:project.projectId];
-                                    }
-                                }];
     }
 }
 
 - (void)textFieldTextChanged:(id)sender
 {
     self.saveBarButtonItem.enabled = ([self.projectNameTextField text].length > 0);
+    self.projectDetailsUpdated = YES;
 }
 
 - (void)selectThumbnail:(id)sender
@@ -258,8 +258,8 @@
                           withHandler:^(UIImage *image) {
                               [self.currentThumbnailButton setImage:image forState:UIControlStateNormal];
                               self.projectImageUpdated = YES;
+                              self.saveBarButtonItem.enabled = ([self.projectNameTextField text].length > 0);
 
-                              [self textFieldTextChanged:nil];
                           }];
 
     alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
@@ -331,6 +331,8 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+
+#pragma mark - server side
 - (void)uploadProjectThumbnailForProject:(NSNumber *)projectId
 {
     NSURL *fileURL = [self.currentThumbnailButton.imageView.image writeImageToTemporaryFile];
@@ -339,6 +341,7 @@
         addThumbnailImageForProject:projectId
                           thumbnail:fileURL
               withCompletionHandler:^(INVEmpireMobileError *error) {
+                  [self.hud setHidden:YES];
                   if (error) {
                       INVLogError(@"%@", error);
                       [self showProjectAlert:NSLocalizedString(@"PROJECT_CREATED_NO_THUMBNAIL", nil)];
@@ -353,5 +356,52 @@
                   }
               }];
 }
+
+-(void)updateProjectDetailsIncludingThumbnailForProjectId:(NSNumber*)projectId name:(NSString*)projectName description:(NSString*)projectDescription{
+    [self.globalDataManager.invServerClient updateProjectWithId:projectId
+                                                       withName:projectName
+                                                 andDescription:projectDescription
+                          ForSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
+                          INV_ALWAYS:
+                              [self.hud hide:YES];
+                              
+                          INV_SUCCESS:
+                              if (self.projectImageUpdated) {
+                                  [self uploadProjectThumbnailForProject:self.currentProject.projectId];
+                              }
+                              else {
+                                  [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
+                              }
+                              
+                          INV_ERROR:
+                              INVLogError(@"%@", error);
+                              
+                              [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_UPDATE", nil)];
+                          }];
+}
+
+-(void)createProjectDetailsIncludingThumbnailForProjectName:(NSString*)projectName description:(NSString*)projectDescription{
+        [self.globalDataManager.invServerClient createProjectWithName:projectName
+                                                       andDescription:projectDescription
+                                ForSignedInAccountWithCompletionBlock:^(INVProject *project, INVEmpireMobileError *error) {
+                                    // NOTE: We *probably* need more info about the created project here.
+                                    
+                                INV_ALWAYS:
+                                    [self.hud hide:YES];
+                                    
+                                INV_SUCCESS:
+                                    if (self.projectImageUpdated) {
+                                        [self uploadProjectThumbnailForProject:self.currentProject.projectId];
+                                    }
+                                    else {
+                                        [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
+                                    }
+                                    
+                                INV_ERROR:
+                                    [self showProjectAlert:NSLocalizedString(@"ERROR_PROJECT_CREATE", nil)];
+                                
+                                }];
+}
+
 
 @end

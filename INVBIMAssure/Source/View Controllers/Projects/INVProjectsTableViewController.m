@@ -194,7 +194,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
         if ([sender isKindOfClass:[INVProjectTableViewCell class]]) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-            INVProject *project = [self.dataResultsController objectAtIndexPath:indexPath];
+            NSManagedObject *projectObject = [self.dataResultsController objectAtIndexPath:indexPath];
+            INVProject* project = [MTLManagedObjectAdapter modelOfClass:[INVProject class] fromManagedObject:projectObject error:nil];
 
             editViewController.currentProject = project;
         }
