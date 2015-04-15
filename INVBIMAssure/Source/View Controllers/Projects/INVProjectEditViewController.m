@@ -199,6 +199,7 @@
     // Force the first responder to resign
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:self forEvent:nil];
 
+    self.saveBarButtonItem.enabled = NO;
      NSString *projectName = self.projectNameTextField.text;
     NSString *projectDescription = self.projectDescriptionTextField.text;
 
@@ -217,6 +218,8 @@
                                   ForSignedInAccountWithCompletionBlock:INV_COMPLETION_HANDLER {
                                   INV_ALWAYS:
                                       [self.hud hide:YES];
+                                      self.saveBarButtonItem.enabled = YES;
+                                      
                                       
                                   INV_SUCCESS:
                                       if (self.projectImageUpdated) {

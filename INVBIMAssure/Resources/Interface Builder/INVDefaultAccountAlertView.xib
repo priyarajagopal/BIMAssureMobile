@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -14,7 +14,7 @@
                     <rect key="frame" x="8" y="8" width="420" height="194"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rcd-ef-dW0" userLabel="Set as default container">
-                            <rect key="frame" x="87" y="58" width="246" height="64"/>
+                            <rect key="frame" x="88" y="58" width="246" height="64"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set as default account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t50-pi-zQ0">
                                     <rect key="frame" x="8" y="22" width="173" height="21"/>
@@ -37,6 +37,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="adC-d2-Zna" firstAttribute="leading" secondItem="t50-pi-zQ0" secondAttribute="trailing" constant="8" id="BGJ-NJ-hWQ"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="OuV-MB-X0X"/>
                                 <constraint firstAttribute="trailing" secondItem="adC-d2-Zna" secondAttribute="trailing" constant="8" id="Uwl-Si-I5m"/>
                                 <constraint firstAttribute="centerY" secondItem="t50-pi-zQ0" secondAttribute="centerY" id="X2E-1Y-3cT"/>
                                 <constraint firstItem="adC-d2-Zna" firstAttribute="centerY" secondItem="t50-pi-zQ0" secondAttribute="centerY" id="cPj-qz-GEu"/>
