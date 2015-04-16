@@ -9,24 +9,30 @@
 #import <Mantle/Mantle.h>
 
 /*
- {
- "id": 555043,
- "ruledefid": 253,
- "emptyparamcount": 0,
- "updatedby": 7,
- "description": "Check if a property exists in meta attributes",
- "name": "CheckPropertyExist",
- "analysisid": 303481,
- "ruledefname": "CheckPropertyExist",
- "createdby": 7,
- "createdat": 1426280111000,
- "actualparams":{
- "name": "OST_Doors",
- "property": "DOOR_FRAME"
- },
- "updatedat": 1426280111000
- }
- */
+
+{
+    "ruledefid": 419,
+    "emptyparamcount": 0,
+    "createdby": 31,
+    "createdat": 1429203688000,
+    "actualparams": {
+        "property_name": {
+            "value": "width"
+        },
+        "element_type": {
+            "value": "23 17 11 11 11"
+        }
+    },
+    "updatedat": 1429207171000,
+    "id": 2941,
+    "paramcount": 2,
+    "updatedby": 31,
+    "description": "check if door frame has width property",
+    "name": "CheckPropertyValueExist",
+    "analysisid": 439,
+    "ruledefname": "CheckPropertyValueExist"
+}
+*/
 /**
  Array of INVRuleInstance objects
  */

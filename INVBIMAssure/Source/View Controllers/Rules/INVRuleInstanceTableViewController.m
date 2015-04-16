@@ -244,12 +244,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
             [self.globalDataManager.invServerClient.analysesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId
                                                                                     forAnalysisId:self.analysesId];
 
-        self.intermediateRuleOverview = ruleInstance.overview ? ruleInstance.overview : @"";
-        self.ruleName = ruleInstance.ruleName;
-
-        NSArray *ruleInfoArray = ruleInstance ? @[ self.ruleName, self.intermediateRuleOverview ] : [NSArray array];
-        [self.dataSource updateWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
-
+      
         [self.globalDataManager.invServerClient
             getRuleDefinitionForRuleId:ruleInstance.ruleDefId
                    WithCompletionBlock:^(INVRule *rule, INVEmpireMobileError *error) {
@@ -257,17 +252,30 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                            [self.hud hide:YES];
 
                        INV_SUCCESS:
+                       {
+                           INVRuleDescriptor* ruleDescriptor = rule.descriptor;
+                           if (ruleDescriptor) {
+                               INVRuleDescriptorResourceDescription* resource = [ruleDescriptor descriptionDetailsForLanguageCode:[[NSLocale currentLocale]objectForKey:NSLocaleLanguageCode]];
+                               self.intermediateRuleOverview = resource.shortDescription ? resource.shortDescription : @"";
+                               self.ruleName = resource.name;
+                           }
+                           
+                           NSArray *ruleInfoArray = ruleInstance ? @[ self.ruleName, self.intermediateRuleOverview ] : [NSArray array];
+                           [self.dataSource updateWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
+                           
+                           
                            self.intermediateRuleInstanceActualParams =
-                               [[[INVRuleParameterParser instance] transformRuleInstanceParamsToArray:ruleInstance
-                                                                                           definition:rule] mutableCopy];
-
+                           [[[INVRuleParameterParser instance] transformRuleInstanceParamsToArray:ruleInstance
+                                                                                       definition:rule] mutableCopy];
+                           
                            self.originalRuleInstanceActualParams =
-                               [[NSMutableArray alloc] initWithArray:self.intermediateRuleInstanceActualParams copyItems:YES];
-
+                           [[NSMutableArray alloc] initWithArray:self.intermediateRuleInstanceActualParams copyItems:YES];
+                           
                            [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams
                                                      forSection:SECTION_RULEINSTANCEACTUALPARAM];
-
+                           
                            [self.tableView reloadData];
+                       }
 
                        INV_ERROR:
                            INVLogError(@"%@", error);

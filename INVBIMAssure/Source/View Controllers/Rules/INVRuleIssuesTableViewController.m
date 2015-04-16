@@ -27,6 +27,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 @property (nonatomic, copy) NSMutableArray *originalRuleInstanceActualParams;
 @property (nonatomic, copy) INVRuleIssueMutableArray ruleIssues;
 @property (nonatomic, copy) NSString *ruleName;
+@property (nonatomic, strong) INVRule *ruleDef;
+@property (nonatomic, strong) INVRuleInstance* ruleInstance;
 @property (nonatomic, strong) INVRuleParameterParser *ruleParamParser;
 @end
 
@@ -124,7 +126,14 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                 
             }
             
-            cell.textLabel.text = issue.issueDescription;
+               INVRuleDescriptorResourceDescription* description = [self.ruleDef.descriptor descriptionDetailsForLanguageCode:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]];
+            
+            NSString* issueStr = @"";
+            if (description.issues) {
+                issueStr = description.issues[[issue.issueDescription integerValue]-1];
+            }
+            cell.textLabel.text = issueStr;
+            
             cell.textLabel.numberOfLines = 0;
 
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -193,7 +202,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                           self.ruleIssues = [result mutableCopy];
                           [self.dataSource updateWithDataArray:self.ruleIssues forSection:SECTION_RULEINSTANCEISSUES];
 
-                          [self.tableView reloadData];
+                          [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                      
 
                       INV_ERROR:
                           INVLogError(@"%@", error);
@@ -214,6 +224,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                          INV_ALWAYS:
 
                          INV_SUCCESS:
+                         self.ruleInstance = instance;
                              [self fetchRuleDefinitionForRuleId:instance.ruleDefId];
 
                          INV_ERROR:
@@ -236,15 +247,21 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
                    INV_SUCCESS : {
                        NSArray *params =
-                           [self.ruleParamParser transformRuleInstanceParamsToArray:self.ruleResult definition:ruleDefinition];
+                        [self.ruleParamParser transformRuleInstanceParamsToArray:self.ruleResult definition:ruleDefinition];
 
                        //  [self postProcessActualParams:params];
                        [self.originalRuleInstanceActualParams setArray:params];
                        [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams
                                                  forSection:SECTION_RULEINSTANCEPARAM];
-
-                       [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                   }
+                       self.ruleDef = ruleDefinition;
+                       if (self.buildingElementId) {
+                           [self fetchIssuesForBuildingElement];
+                       }
+                       else {
+                           [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                           
+                       }
+                      }
 
                    INV_ERROR:
                        INVLogError(@"%@", error);

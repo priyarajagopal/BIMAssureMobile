@@ -145,6 +145,9 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No Analyses Runs"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="KM8-Lt-5HP" id="XL2-A1-44f"/>
                             <outlet property="delegate" destination="KM8-Lt-5HP" id="Czi-Lv-zVO"/>

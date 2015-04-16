@@ -24,7 +24,12 @@
 
 
 -(void) updateUI {
-    self.ruleDescriptionLabel.text = self.ruleDefinition.overview;
+    NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    INVRuleDescriptorResourceDescription* resourceDetails = [self.ruleDefinition.descriptor descriptionDetailsForLanguageCode:languageCode];
+    
+    self.ruleDescriptionLabel.text = resourceDetails.shortDescription;
+    
+    
     if (self.checked) {
         self.accessoryType = UITableViewCellAccessoryCheckmark;
        // self.accessoryView = [[UIImageView alloc]initWithImage:[self _selectedImage]];

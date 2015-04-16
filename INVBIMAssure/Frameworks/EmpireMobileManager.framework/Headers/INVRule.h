@@ -7,52 +7,75 @@
 //
 #import <Mantle/Mantle.h>
 #import "INVRuleFormalParam.h"
+#import "INVRuleDescriptor.h"
+
 /*
- /*
- [
  {
- "id": 253,
- "s3key": "development/System/Rules/RulePackages/CheckPropertyExist.rule",
- "ruledescription": "Check if a property exists in meta attributes",
- "formalparams":{
+ "id": 418,
+ "s3key": "System/Rules/RulePackages/CheckPropertyValueEqual.rule",
+ "formalparams": {
  "title": "formal-parameters",
- "properties":{
- "name":{"type": "string"},
- "property":{"type": "string"}
+ "parameters": {
+ "property_value": {
+ "unit": "optional",
+ "order": 3,
+ "display": {
+ "fr": "Propriété Valeur",
+ "en": "Property Value"
+ },
+ "type": [
+ "number",
+ "date",
+ "string"
+ ]
+ },
+ "property_name": {
+ "order": 2,
+ "display": {
+ "fr": "nom de la propriété",
+ "en": "Property Name"
+ },
+ "type": "string"
+ },
+ "element_type": {
+ "order": 1,
+ "display": {
+ "fr": "Type d' élément",
+ "en": "Element Type"
+ },
+ "type": "batype"
+ }
  },
  "type": "object"
  },
- "updatedby": 7,
- "vendor": "",
- "systemrulesid": 3,
- "createdby": 7,
- "createdat": 1425649279000,
- "updatedat": 1425649279000,
- "accountid": 8,
+ "descriptor": {
+ "resources": {
+ "fr": { },
+ "en": {
+ "long-description": "This rule checks if all elements of a type in the model have a specified property value.",
+ "name": "Check Property Value Equal",
+ "issues": [
+ "Element(s) without specified property value",
+ "Element(s) without specified property value",
+ "input parameters validation failed"
+ ],
+ "short-description": "Check if element property value is as specified."
+ }
+ },
+ "vendor": "Invicara",
+ "name": "CheckPropertyValueEqual",
  "version": 1
  },
- {
- "id": 254,
- "s3key": "development/System/Rules/RulePackages/CheckPropertyValueExist.rule",
- "ruledescription": "Check if a property value exists",
- "formalparams":{
- "title": "formal-parameters",
- "properties":{
- "name":{"type": "string"},
- "property":{"type": "string"}
- },
- "type": "object"
- },
- "updatedby": 7,
- "vendor": "",
- "systemrulesid": 4,
- "createdby": 7,
- "createdat": 1425649279000,
- "updatedat": 1425649279000,
- "accountid": 8,
+ "updatedby": 31,
+ "vendor": "Invicara",
+ "rulename": "CheckPropertyValueEqual",
+ "systemrulesid": 22,
+ "createdby": 31,
+ "createdat": 1429188984000,
+ "updatedat": 1429188984000,
+ "accountid": 32,
  "version": 1
  }
- ]
  */
 
 /**
@@ -79,5 +102,5 @@ typedef NSMutableArray *INVRuleMutableArray;
 @property (copy, nonatomic, readonly) NSDate *updatedAt;
 @property (copy, nonatomic, readonly) NSNumber *updatedBy;
 @property (copy, nonatomic, readonly) INVRuleFormalParam *formalParams;
-
+@property (copy, nonatomic, readonly) INVRuleDescriptor *descriptor;
 @end

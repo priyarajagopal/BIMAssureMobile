@@ -19,7 +19,7 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="309" height="282"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svN-tC-bn7">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="File Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svN-tC-bn7">
                         <rect key="frame" x="8" y="15" width="242" height="21"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -56,7 +56,7 @@
                                     <action selector="onViewProjectSelected:" destination="gTV-IL-0wX" eventType="touchUpInside" id="lYm-SE-aDU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxv-Qf-BpL">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxv-Qf-BpL">
                                 <rect key="frame" x="271" y="7" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="9Q0-gT-7ND"/>
@@ -72,7 +72,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RqY-Tn-Ha8">
-                                <rect key="frame" x="217" y="6" width="46" height="30"/>
+                                <rect key="frame" x="263" y="6" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="9SY-ip-HcL"/>
                                     <constraint firstAttribute="height" constant="30" id="Jwo-nf-gl9"/>
@@ -89,16 +89,24 @@
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RqY-Tn-Ha8" secondAttribute="trailing" id="0On-HW-W2p"/>
                             <constraint firstItem="RqY-Tn-Ha8" firstAttribute="top" secondItem="afL-yv-WfL" secondAttribute="top" constant="6" id="3VV-D1-RI0"/>
                             <constraint firstItem="c7b-Ld-M9z" firstAttribute="leading" secondItem="afL-yv-WfL" secondAttribute="leading" constant="10" id="MQZ-BL-bGA"/>
                             <constraint firstAttribute="trailing" secondItem="uxv-Qf-BpL" secondAttribute="trailing" constant="8" id="NH0-0n-iL3"/>
+                            <constraint firstItem="RqY-Tn-Ha8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="afL-yv-WfL" secondAttribute="top" constant="6" id="NmV-Fb-H3q"/>
                             <constraint firstItem="uxv-Qf-BpL" firstAttribute="leading" secondItem="RqY-Tn-Ha8" secondAttribute="trailing" constant="8" id="WFX-uh-6p7"/>
                             <constraint firstItem="uxv-Qf-BpL" firstAttribute="top" secondItem="afL-yv-WfL" secondAttribute="top" constant="7" id="hjR-Ip-g6Z"/>
                             <constraint firstItem="c7b-Ld-M9z" firstAttribute="top" secondItem="afL-yv-WfL" secondAttribute="top" constant="7" id="mR9-TY-zIf"/>
+                            <constraint firstAttribute="bottom" secondItem="RqY-Tn-Ha8" secondAttribute="bottom" constant="8" id="wzF-fl-pTs"/>
                             <constraint firstAttribute="height" constant="44" id="xNc-eu-h0K"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="uxv-Qf-BpL"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="X% N" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5A-Ce-fTZ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" misplaced="YES" text="X%N" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5A-Ce-fTZ">
                         <rect key="frame" x="258" y="16" width="43" height="20"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

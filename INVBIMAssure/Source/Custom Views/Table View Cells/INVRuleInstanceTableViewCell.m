@@ -32,14 +32,28 @@
 - (void)updateUI
 {
     if (self.ruleInstance) {
-        [self.nameLabel setText:self.ruleInstance.ruleName
-                    withDefault:NSLocalizedString(@"RULE_NAME_UNAVAILABLE", nil)
-                  andAttributes:@{NSFontAttributeName : self.overviewLabel.font.italicFont}];
-
-        [self.overviewLabel setText:self.ruleInstance.overview
-                        withDefault:NSLocalizedString(@"RULE_OVERVIEW_UNAVAILABLE", nil)
-                      andAttributes:@{NSFontAttributeName : self.overviewLabel.font.italicFont}];
-
+        NSNumber* ruleDefId = self.ruleInstance.ruleDefId;
+        [[INVGlobalDataManager sharedInstance].invServerClient getRuleDefinitionForRuleId:ruleDefId WithCompletionBlock:^(id result, INVEmpireMobileError *error) {
+            if (error) {
+                [self configureRuleInstanceDetailsWithName:nil andDetails:nil];
+            }
+            else {
+                INVRule* rule = result;
+                NSString* languageCode = [[ NSLocale currentLocale]objectForKey:NSLocaleLanguageCode];
+                INVRuleDescriptor* descriptor = rule.descriptor;
+                INVRuleDescriptorResourceDescription* resource = [descriptor descriptionDetailsForLanguageCode:languageCode];
+                if (resource) {
+                    [self configureRuleInstanceDetailsWithName:resource.name andDetails:resource.longDescription];
+                }
+                else {
+                    [self configureRuleInstanceDetailsWithName:nil andDetails:nil];
+                }
+                
+                
+            }
+       
+        }];
+        
         if ([self.ruleInstance.emptyParamCount integerValue] > 0) {
             [self.ruleWarningLabel removeConstraint:self.collapseRuleWarningConstraint];
         }
@@ -54,6 +68,18 @@
     _ruleInstance = rule;
 
     [self updateUI];
+}
+
+#pragma mark - helpers
+-(void) configureRuleInstanceDetailsWithName:(NSString*)name andDetails:(NSString*)details {
+    [self.nameLabel setText:name
+                withDefault:NSLocalizedString(@"RULE_NAME_UNAVAILABLE", nil)
+              andAttributes:@{NSFontAttributeName : self.overviewLabel.font.italicFont}];
+    
+    [self.overviewLabel setText:details
+                    withDefault:NSLocalizedString(@"RULE_OVERVIEW_UNAVAILABLE", nil)
+                  andAttributes:@{NSFontAttributeName : self.overviewLabel.font.italicFont}];
+    
 }
 
 @end

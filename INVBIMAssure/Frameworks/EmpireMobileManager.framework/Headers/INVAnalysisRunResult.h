@@ -12,30 +12,36 @@
 
 /*
  {
- "analysisrunid": 6290,
- "ruledescription": "Check if a property value exists",
- "status": "Completed",
+ "analysisrunid": 3017,
+ "ruledescription": "check if door frame has width property",
+ "status": 2,
+ "numelements": 0,
  "rulename": "CheckPropertyValueExist",
- "runtime": 179,
- "createdby": 7,
- "createdat": 1426815829000,
- "updatedat": 1426816583000,
+ "runtime": 206,
+ "createdby": 31,
+ "createdat": 1429214225000,
+ "updatedat": 1429214226000,
  "actualparams": {
- "name": "OST_Doors",
- "property": "DOOR_WIDTH"
+ "property_name": {
+ "value": "width"
  },
- "id": 6281,
- "updatedby": 7,
+ "element_type": {
+ "value": "23 17 11 11 11"
+ }
+ },
+ "id": 3018,
+ "updatedby": 31,
  "issues": [
  {
- "id": "6287",
- "status": "Unknown",
- "description": "com.invicara.empire.rules.CheckPropertyValueExist has issues.",
- "name": "com.invicara.empire.rules.CheckPropertyValueExist",
- "errorcount": "0"
+ "id": 3020,
+ "status": 1,
+ "description": 1,
+ "numelements": 0,
+ "name": "CheckPropertyValueExist"
  }
  ],
- "ruleid": 100
+ "ruleid": 2941,
+ "numissues": 1
  }
  */
  
