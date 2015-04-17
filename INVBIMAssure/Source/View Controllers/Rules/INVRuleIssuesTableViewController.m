@@ -130,12 +130,38 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                INVRuleDescriptorResourceDescription* description = [self.ruleDef.descriptor descriptionDetailsForLanguageCode:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]];
             
             NSString* issueStr = @"";
+            __block NSMutableString* updatedIssueStr = [[NSMutableString alloc]initWithCapacity:0];
+            
             if (description.issues) {
                 issueStr = description.issues[[issue.issueDescription integerValue]-1];
                 
                 // replace params
+                NSError *error = nil;
+                NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{[0-9]\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+                 [regex enumerateMatchesInString:issueStr options:0 range:NSMakeRange(0, [issueStr length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+                    NSRange matchedRange= result.range;
+                    NSString* subStr = [issueStr substringWithRange:matchedRange];
+                    NSInteger paramIndex = [subStr integerValue];
+                    NSString* replaceStr =  issue.msgParams[paramIndex];
+                    NSLog(@"replaceStr is %@",replaceStr);
+                     updatedIssueStr = [[issueStr stringByReplacingCharactersInRange:matchedRange withString:replaceStr]mutableCopy];
+                }];
+                /*
+                NSArray* matches = [regex matchesInString:issueStr options:0 range:NSMakeRange(0, [issueStr length]) ];
+                NSLog(@"MATCHES IS %@",matches);
+                [matches enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSLog(@"Matched %@",obj);
+                    NSString* str = obj;
+                    NSInteger paramIndex = [str integerValue];
+                    NSString* replaceStr =  issue.msgParams[paramIndex];
+                    NSLog(@"replaceStr is %@",replaceStr);
+                }];
+                 
+                NSString *modifiedString = [regex stringByReplacingMatchesInString:issueStr options:0 range:NSMakeRange(0, [issueStr length]) withTemplate:@"%@"];
+                 */
+                
             }
-            cell.textLabel.text = issueStr;
+            cell.textLabel.text = updatedIssueStr;
             
             cell.textLabel.numberOfLines = 0;
 
