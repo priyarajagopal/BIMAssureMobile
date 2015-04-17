@@ -38,8 +38,7 @@ typedef NSMutableArray *INVRuleIssueMutableArray;
 @property (copy, nonatomic, readonly) NSNumber *issueId;
 @property (copy, nonatomic, readonly) NSNumber *issueDescription;
 @property (copy, nonatomic, readonly) NSString *issueName;
-@property (copy, nonatomic, readonly) NSNumber *errorCount; // Will be deprecated soon!!!
 @property (copy, nonatomic, readonly) NSNumber *numElements;
-@property (copy, nonatomic, readonly) NSNumber *numIssues; // will be deprecated soon!!!!
+@property (copy, nonatomic, readonly) NSArray* msgParams;
 @property (copy, nonatomic, readonly) NSNumber *status;
 @end

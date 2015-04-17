@@ -86,6 +86,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
         INVLogError(@"Cannot fetch issue details for rule result %@ and buidling element %@",
             self.ruleResult.analysisRunResultId, self.buildingElementId);
     }
+    
     [self fetchRuleInstanceAndDefinition];
     
     self.title = self.ruleName;
@@ -122,7 +123,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
         ^(INVTextFieldTableViewCell *cell, INVRuleIssue *issue, NSIndexPath *indexPath) {
             if ([self.class isSubclassOfClass:[INVBlackTintedTableViewController class]]) {
                 cell.textLabel.backgroundColor = [UIColor clearColor];
-                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.textColor = [UIColor colorWithRed:184.0/255 green:0.0/255 blue:24.0/255 alpha:1.0];
                 
             }
             
@@ -131,6 +132,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
             NSString* issueStr = @"";
             if (description.issues) {
                 issueStr = description.issues[[issue.issueDescription integerValue]-1];
+                
+                // replace params
             }
             cell.textLabel.text = issueStr;
             
@@ -218,6 +221,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 - (void)fetchRuleInstanceAndDefinition
 {
+    
+    // Need this just to fetch rule def Id which in turn is needed to fetch rule definition
     [self.globalDataManager.invServerClient
         getRuleInstanceForRuleInstanceId:self.ruleResult.ruleId
                      WithCompletionBlock:^(INVRuleInstance *instance, INVEmpireMobileError *error) {
@@ -239,6 +244,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
 - (void)fetchRuleDefinitionForRuleId:(NSNumber *)ruleDefId
 {
+    // Need this to identify formal params to appropriately parse the actual params
     [self.globalDataManager.invServerClient
         getRuleDefinitionForRuleId:ruleDefId
                WithCompletionBlock:^(INVRule *ruleDefinition, INVEmpireMobileError *error) {

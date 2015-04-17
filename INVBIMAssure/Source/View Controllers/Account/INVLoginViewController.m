@@ -158,6 +158,8 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
 - (void)loginToServerWithUser:(NSString *)user andPassword:(NSString *)password
 {
     [self showLoginProgress];
+    NSLog(@"%s. user  %@, password %@",__func__,user,password);
+    
     [self.globalDataManager.invServerClient signInWithUserName:user
                                                    andPassword:password
                                            withCompletionBlock:^(INVEmpireMobileError *error) {

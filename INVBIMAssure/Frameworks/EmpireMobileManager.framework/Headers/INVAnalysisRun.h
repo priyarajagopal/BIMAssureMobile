@@ -19,16 +19,23 @@ typedef NSArray *INVAnalysisRunArray;
 typedef NSMutableArray *INVAnalysisRunMutableArray;
 
 /*
- "id": 361,
- "completedat": 0,
- "updatedby": 4,
- "status": "Started",
- "analysisid": 158,
- "createdby": 4,
- "executedat": 1426781095000,
- "createdat": 1426781095000,
- "updatedat": 1426781095000,
- "pkgversionid": 84
+ "list": [
+ {
+ "id": 799,
+ "completedat": 1429298364000,
+ "numrule": 2,
+ "updatedby": 98,
+ "status": 2,
+ "numelements": 8,
+ "analysisid": 758,
+ "createdby": 98,
+ "executedat": 1429298363000,
+ "createdat": 1429298363000,
+ "numissues": 2,
+ "updatedat": 1429298364000,
+ "pkgversionid": 756
+ }
+ ],
  */
 
 typedef NS_ENUM(NSInteger, INV_ANALYSISRUN_TYPE) {
@@ -62,7 +69,7 @@ typedef NSDictionary *INVANalysisRunStatusDictionary;
 @property (copy, nonatomic, readonly) NSNumber *status;
 @property (copy, nonatomic, readonly) NSNumber *numIssues;
 @property (copy, nonatomic, readonly) NSNumber *numRules;
-
+@property (copy, nonatomic, readonly) NSNumber *numElements;
 @property (copy, nonatomic, readonly) NSDate *createdAt;
 @property (copy, nonatomic, readonly) NSNumber *createdBy;
 @property (copy, nonatomic, readonly) NSDate *updatedAt;

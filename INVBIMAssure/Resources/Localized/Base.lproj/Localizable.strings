@@ -270,7 +270,7 @@
 "DELETE_RULE_CONFIRM_NEGATIVE"="No";
 "DELETE_RULE_CONFIRM_POSITIVE"="Yes";
 
-"ANALYSIS_RUN_NODE_ISSUE_COUNT"="Total no. of issues: %@";
+"ANALYSIS_RUN_NODE_ISSUE_COUNT"="%1@ Rules Found %2@ issues. %3@ elements";
 
 "ANALYSIS_EXECUTION_STARTED_TITLE"="Analysis Execution Started";
 "ANALYSIS_EXECUTION_STARTED_MESSAGE"="You can get the execution status of your analysis run from the \"Models\" menu";
@@ -291,3 +291,4 @@
 "EMAIL_UNAVAILABLE"="Email Unavailable";
 "INVITATION_DATE_UNAVAILABLE"="Unavailable";
 "ERROR_ISSUES_FOR_BUILDING_ELEMENT_LOAD"="Error while loading issues for building element";
+"ERROR_RULE_DEFINITION_SAVE"="Error while adding rule definition";

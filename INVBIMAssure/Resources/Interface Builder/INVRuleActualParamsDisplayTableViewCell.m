@@ -65,6 +65,10 @@
         return [dateFormatter stringFromDate:value];
     }
     
+    if ([value isKindOfClass:[NSArray class]]) {
+        return  [(NSArray*)value componentsJoinedByString:@","];
+    }
+    
     [NSException raise:NSInvalidArgumentException format:@"Unknown class of value %@", value];
     
     return value;
