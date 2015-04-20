@@ -272,6 +272,7 @@
                 <outlet property="editButton" destination="yCi-4Y-7WJ" id="5zk-GR-oA3"/>
                 <outlet property="emptyRulesLabel" destination="aWd-L1-wPq" id="ua3-go-1ib"/>
                 <outlet property="packagesButton" destination="cJ5-aO-zRA" id="Tc5-DM-UkO"/>
+                <outlet property="ruleCountButton" destination="MSN-ox-VjW" id="SpI-zh-Kih"/>
                 <outlet property="rulesButton" destination="ypk-Mz-ZUu" id="wpz-9U-kQF"/>
                 <outlet property="runButton" destination="Cbi-DP-o69" id="5Mh-S3-UVk"/>
             </connections>
