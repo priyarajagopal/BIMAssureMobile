@@ -134,7 +134,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
             
             if (description.issues) {
                 issueStr = description.issues[[issue.issueDescription integerValue]-1];
-                
+                updatedIssueStr = [issueStr mutableCopy];
                 // replace params
                 NSError *error = nil;
                 NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{[0-9]\\}" options:NSRegularExpressionCaseInsensitive error:&error];
@@ -146,19 +146,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                     NSLog(@"replaceStr is %@",replaceStr);
                      updatedIssueStr = [[issueStr stringByReplacingCharactersInRange:matchedRange withString:replaceStr]mutableCopy];
                 }];
-                /*
-                NSArray* matches = [regex matchesInString:issueStr options:0 range:NSMakeRange(0, [issueStr length]) ];
-                NSLog(@"MATCHES IS %@",matches);
-                [matches enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    NSLog(@"Matched %@",obj);
-                    NSString* str = obj;
-                    NSInteger paramIndex = [str integerValue];
-                    NSString* replaceStr =  issue.msgParams[paramIndex];
-                    NSLog(@"replaceStr is %@",replaceStr);
-                }];
-                 
-                NSString *modifiedString = [regex stringByReplacingMatchesInString:issueStr options:0 range:NSMakeRange(0, [issueStr length]) withTemplate:@"%@"];
-                 */
+   
                 
             }
             cell.textLabel.text = updatedIssueStr;
