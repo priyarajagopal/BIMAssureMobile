@@ -35,8 +35,8 @@
                     </navigationItem>
                     <connections>
                         <segue destination="06H-DG-7xN" kind="presentation" identifier="editAnalysis" modalPresentationStyle="formSheet" id="b7D-42-Tuy"/>
-                        <segue destination="kYh-w8-Kel" kind="presentation" identifier="showRules" modalPresentationStyle="formSheet" id="AWy-or-XJf"/>
                         <segue destination="P2e-58-oFY" kind="presentation" identifier="AnalysisFilesSegue" modalPresentationStyle="formSheet" id="mP2-hQ-umN"/>
+                        <segue destination="kYh-w8-Kel" kind="presentation" identifier="showRules" modalPresentationStyle="formSheet" id="wUU-HD-Cf5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XkO-hA-fud" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -48,7 +48,7 @@
             <objects>
                 <tableViewController id="1TP-av-uJH" customClass="INVAnalysisRulesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QcS-8b-AjI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="44" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
@@ -64,7 +64,7 @@
                     <navigationItem key="navigationItem" title="Rules" id="qmQ-cN-AAG">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="clg-l4-pHm">
                             <connections>
-                                <segue destination="cUj-uS-7Zg" kind="unwind" unwindAction="done:" id="rJz-3f-XWS"/>
+                                <segue destination="fdQ-V9-w0e" kind="unwind" unwindAction="manualDismiss:" id="VJk-Su-ALf"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bif-sG-7DE">
@@ -74,12 +74,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="editRuleInstanceTransition" destination="hec-lz-kJW" id="0eK-Xd-yhn"/>
+                        <outlet property="editRuleInstanceTransition" destination="hec-lz-kJW" id="3Wo-BT-ocw"/>
+                        <outlet property="selectRuleDefinitionTransition" destination="p3J-1q-2ga" id="61L-nX-bwJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="53U-Sl-cep" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="cUj-uS-7Zg" userLabel="Exit" sceneMemberID="exit"/>
-                <customObject id="p3J-1q-2ga" customClass="INVTransitionToStoryboard">
+                <exit id="fdQ-V9-w0e" userLabel="Exit" sceneMemberID="exit"/>
+                <customObject id="p3J-1q-2ga" userLabel="showRuleDfinitions-Transition To Storyboard" customClass="INVTransitionToStoryboard">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="RuleDefinitionsNVC"/>
@@ -92,10 +93,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="sourceViewController" destination="1TP-av-uJH" id="tQo-RK-J0Z"/>
+                        <outlet property="sourceViewController" destination="1TP-av-uJH" id="IQb-Ul-Ybs"/>
                     </connections>
                 </customObject>
-                <customObject id="hec-lz-kJW" customClass="INVTransitionToStoryboard">
+                <customObject id="hec-lz-kJW" userLabel="editRuleInstance-Transition To Storyboard" customClass="INVTransitionToStoryboard">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="CreateRuleInstanceTVC"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
@@ -741,6 +742,6 @@
         <image name="rules" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="696-Jp-qN2"/>
+        <segue reference="b7D-42-Tuy"/>
     </inferredMetricsTieBreakers>
 </document>

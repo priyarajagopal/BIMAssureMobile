@@ -99,6 +99,14 @@
             rulesVC.projectId = self.projectId;
             rulesVC.analysisId = [sender analysisId];
         }
+        else {
+            INVAnalysisRulesTableViewController *rulesVC =
+            (INVAnalysisRulesTableViewController *) [segue destinationViewController];
+            
+            rulesVC.projectId = self.projectId;
+            rulesVC.analysisId = [sender analysisId];
+
+        }
     }
     if ([[segue identifier] isEqual:@"AnalysisFilesSegue"]) {
         INVAnalysisManageFilesContainerViewController *aVC =

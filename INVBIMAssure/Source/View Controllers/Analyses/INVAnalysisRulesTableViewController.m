@@ -16,8 +16,10 @@
 
 @property (nonatomic, copy) INVAnalysis *analysis;
 @property (nonatomic) IBOutlet INVTransitionToStoryboard *editRuleInstanceTransition;
-
+@property (nonatomic) IBOutlet INVTransitionToStoryboard *selectRuleDefinitionTransition;
+@property (nonatomic,weak) IBOutlet UITableView* tableView;
 - (IBAction)onRuleInstanceEditSelected:(id)sender;
+- (IBAction)onRuleInstanceAddSelected:(id)sender;
 - (IBAction)onRuleInstanceDeleteSelected:(id)sender;
 
 @end
@@ -143,9 +145,14 @@
     [self deleteRule:cell.ruleInstance];
 }
 
-- (void)manualDismiss:(UIStoryboardSegue *)segue
+- (void)onRuleInstanceAddSelected:(id)sender
+{    
+    [self.selectRuleDefinitionTransition perform:sender];
+}
+
+- (IBAction)manualDismiss:(UIStoryboardSegue *)segue
 {
-      [self fetchListOfRules];
+    [self fetchListOfRules];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

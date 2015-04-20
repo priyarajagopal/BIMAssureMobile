@@ -36,6 +36,9 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"RULES", nil);
 
+    UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44)];
+    [self.navigationController.navigationBar addSubview:myView];
+
     UINib *nib = [UINib nibWithNibName:@"INVRuleInstanceTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleInstanceCell"];
 
