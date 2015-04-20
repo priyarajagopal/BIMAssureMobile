@@ -15,8 +15,8 @@
 @interface INVAnalysisRulesTableViewController () <INVRuleInstanceTableViewControllerDelegate>
 
 @property (nonatomic, copy) INVAnalysis *analysis;
-@property (nonatomic) IBOutlet INVTransitionToStoryboard *editRuleInstanceTransition;
-@property (nonatomic) IBOutlet INVTransitionToStoryboard *selectRuleDefinitionTransition;
+@property (nonatomic,strong) IBOutlet INVTransitionToStoryboard *editRuleInstanceTransition;
+@property (nonatomic,strong) IBOutlet INVTransitionToStoryboard *selectRuleDefinitionTransition;
 @property (nonatomic,weak) IBOutlet UITableView* tableView;
 - (IBAction)onRuleInstanceEditSelected:(id)sender;
 - (IBAction)onRuleInstanceAddSelected:(id)sender;

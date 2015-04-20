@@ -67,7 +67,7 @@
                                 <segue destination="fdQ-V9-w0e" kind="unwind" unwindAction="manualDismiss:" id="VJk-Su-ALf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bif-sG-7DE">
+                        <barButtonItem key="rightBarButtonItem" title="Add" style="plain" id="Bif-sG-7DE">
                             <connections>
                                 <action selector="perform:" destination="p3J-1q-2ga" id="yJH-uq-Faa"/>
                             </connections>
