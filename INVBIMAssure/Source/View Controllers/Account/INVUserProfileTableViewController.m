@@ -70,7 +70,7 @@
                 [self.userThumbnailImageView
                     setImageWithURLRequest:[self.globalDataManager.invServerClient
                                                requestToGetThumbnailImageForUser:userProfile.userId]
-                          placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+                          placeholderImage:[UIImage imageNamed:@"default-user-thumbnail"]
                                    success:nil
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                        INVLogError(

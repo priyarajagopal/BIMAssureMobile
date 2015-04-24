@@ -69,7 +69,7 @@
         [self.globalDataManager removeFromRecentlyEditedUserList:self.user.userId];
     }
     __weak __typeof(self) weakSelf = self;
-    UIImage *placeholder = [UIImage imageNamed:@"user"];
+    UIImage *placeholder = [UIImage imageNamed:@"default-user-thumbnail"];
     if (userThumbnail) {
         [self.userThumbnailImageView setImageWithURLRequest:userThumbnail
             placeholderImage:placeholder

@@ -159,7 +159,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
         [cell.fileThumbnail
             setImageWithURLRequest:[self.globalDataManager.invServerClient requestToGetThumbnailImageForPkgVersionId:file.tipId]
-            placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+            placeholderImage:[UIImage imageNamed:@"default-project-thumbnail"]
             success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                 [cell.loaderActivity stopAnimating];
             }

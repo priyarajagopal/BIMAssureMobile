@@ -96,7 +96,7 @@
         __weak __typeof(self) weakSelf = self;
 
         [self.thumbnailImageView setImageWithURLRequest:projThumbnail
-            placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+            placeholderImage:[UIImage imageNamed:@"default-project-thumbnail"]
             success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.thumbnailImageView.image = image;

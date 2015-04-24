@@ -120,7 +120,7 @@
 
         self.saveBarButtonItem.enabled = NO;
 
-        [self.currentThumbnailButton setImage:[UIImage imageNamed:@"project_thumbnail_0"] forState:UIControlStateNormal];
+        [self.currentThumbnailButton setImage:[UIImage imageNamed:@"default-project-thumbnail"] forState:UIControlStateNormal];
     }
 
     [self.globalDataManager.invServerClient getMembershipForSignedInAccountWithCompletionBlock:^(INVEmpireMobileError *error) {
