@@ -36,7 +36,7 @@
                     <connections>
                         <segue destination="06H-DG-7xN" kind="presentation" identifier="editAnalysis" modalPresentationStyle="formSheet" id="b7D-42-Tuy"/>
                         <segue destination="P2e-58-oFY" kind="presentation" identifier="AnalysisFilesSegue" modalPresentationStyle="formSheet" id="mP2-hQ-umN"/>
-                        <segue destination="kYh-w8-Kel" kind="presentation" identifier="showRules" modalPresentationStyle="formSheet" id="wUU-HD-Cf5"/>
+                        <segue destination="kYh-w8-Kel" kind="presentation" identifier="showRules" modalPresentationStyle="pageSheet" id="wUU-HD-Cf5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XkO-hA-fud" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -52,7 +52,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                <integer key="value" value="14"/>
+                                <integer key="value" value="16"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No rules configured. Please add rules by tapping on the '+' button."/>
                         </userDefinedRuntimeAttributes>

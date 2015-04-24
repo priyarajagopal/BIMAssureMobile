@@ -38,6 +38,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
     [self.tableView registerNib:nib forCellReuseIdentifier:@"RuleDefinitionCell"];
 
     self.selectedRules = [NSMutableDictionary new];
+    self.refreshControl = nil;
 
     self.tableView.dataSource = self.dataSource;
     self.clearsSelectionOnViewWillAppear = YES;

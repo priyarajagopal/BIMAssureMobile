@@ -12,12 +12,14 @@
 
 #import "UIView+INVCustomizations.h"
 
+static const NSInteger DEFAULT_CELL_HEIGHT = 130;
+
 @interface INVAnalysisRulesTableViewController () <INVRuleInstanceTableViewControllerDelegate>
 
 @property (nonatomic, copy) INVAnalysis *analysis;
-@property (nonatomic) IBOutlet INVTransitionToStoryboard *editRuleInstanceTransition;
-@property (nonatomic) IBOutlet INVTransitionToStoryboard *selectRuleDefinitionTransition;
-@property (nonatomic,weak) IBOutlet UITableView* tableView;
+@property (nonatomic,strong) IBOutlet INVTransitionToStoryboard *editRuleInstanceTransition;
+@property (nonatomic,strong) IBOutlet INVTransitionToStoryboard *selectRuleDefinitionTransition;
+
 - (IBAction)onRuleInstanceEditSelected:(id)sender;
 - (IBAction)onRuleInstanceAddSelected:(id)sender;
 - (IBAction)onRuleInstanceDeleteSelected:(id)sender;
@@ -35,6 +37,8 @@
     UINib *ruleInstanceNib = [UINib nibWithNibName:@"INVRuleInstanceTableViewCell" bundle:nil];
     [self.tableView registerNib:ruleInstanceNib forCellReuseIdentifier:@"ruleInstanceCell"];
 
+    self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self fetchListOfRules];
 }
 
