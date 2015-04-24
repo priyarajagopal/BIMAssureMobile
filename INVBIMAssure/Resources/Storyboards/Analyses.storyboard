@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PQI-PW-gSM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PQI-PW-gSM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -14,6 +14,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Z7m-Ru-Set">
+                            <rect key="frame" x="0.0" y="64" width="600" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -36,7 +37,7 @@
                     <connections>
                         <segue destination="06H-DG-7xN" kind="presentation" identifier="editAnalysis" modalPresentationStyle="formSheet" id="b7D-42-Tuy"/>
                         <segue destination="P2e-58-oFY" kind="presentation" identifier="AnalysisFilesSegue" modalPresentationStyle="formSheet" id="mP2-hQ-umN"/>
-                        <segue destination="kYh-w8-Kel" kind="presentation" identifier="showRules" modalPresentationStyle="pageSheet" id="wUU-HD-Cf5"/>
+                        <segue destination="kYh-w8-Kel" kind="presentation" identifier="showRules" modalPresentationStyle="formSheet" id="wUU-HD-Cf5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XkO-hA-fud" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -54,7 +55,7 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                 <integer key="value" value="16"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No rules configured. Please add rules by tapping on the '+' button."/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="noContentText" value="No rules configured. Please add rules by tapping on the 'Add' button."/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="1TP-av-uJH" id="Bcc-Yd-cfO"/>
@@ -67,7 +68,7 @@
                                 <segue destination="fdQ-V9-w0e" kind="unwind" unwindAction="manualDismiss:" id="VJk-Su-ALf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bif-sG-7DE">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="Bif-sG-7DE">
                             <connections>
                                 <action selector="perform:" destination="p3J-1q-2ga" id="yJH-uq-Faa"/>
                             </connections>
@@ -113,7 +114,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="2329" y="1056"/>
+            <point key="canvasLocation" x="2398" y="1056"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IaN-J1-IKj">
@@ -465,6 +466,7 @@
                             </items>
                         </navigationBar>
                         <view key="tableFooterView" contentMode="scaleToFill" id="LLK-Jp-9yf">
+                            <rect key="frame" x="0.0" y="126" width="600" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -558,6 +560,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="HYz-fk-Rbe">
+                            <rect key="frame" x="0.0" y="44" width="600" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -705,6 +708,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="raE-2J-NTJ">
+                            <rect key="frame" x="0.0" y="64" width="600" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
