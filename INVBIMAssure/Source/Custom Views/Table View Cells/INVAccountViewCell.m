@@ -87,7 +87,7 @@
 
         [self.accountThumbnailImageView
             setImageWithURLRequest:acntThumbnail
-                  placeholderImage:[UIImage imageNamed:@"ImageNotFound"]
+                  placeholderImage:[UIImage imageNamed:@"default-account-thumbnail-2"]
                            success:nil
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                INVLogError(@"Failed to download image for account %@ with error %@",
