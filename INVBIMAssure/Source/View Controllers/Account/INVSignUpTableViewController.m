@@ -206,69 +206,91 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
     NSNumber *package = @(0);
 
     // TODO: Support thumbnails
-    [self.globalDataManager.invServerClient signUpUserWithFirstName:self.firstNameTextField.text
-                                                           lastName:self.lastNameTextField.text
-                                                        userAddress:self.userAddressTextField.text
-                                                    userPhoneNumber:self.userPhoneTextField.text
-                                                    userCompanyName:self.userCompanyNameTextField.text
-                                                              title:self.userCompanyTitleTextField.text
-                                                              email:self.emailTextField.text
-                                                           password:self.passwordTextField.text
-                                                 allowNotifications:YES
-                                                        accountName:self.accountNameTextField.text
-                                                 accountDescription:self.accountDescriptionTextView.text
-                                                   subscriptionType:package
-                                                        companyName:self.accountCompanyNameTextField.text
-                                                     companyAddress:self.accountCompanyAddressTextField.text
-                                                        contactName:self.accountContactNameTextField.text
-                                                       contactPhone:self.accountContactPhoneTextField.text
-                                                    numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
-                                                withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                                    [self hideSignupProgress];
-                                                    if (!error) {
-                                                        INVLogDebug(@"Succesfully signedup user %@ and created account %@",
-                                                            self.firstNameTextField.text, self.accountNameTextField.text);
+    [self.globalDataManager.invServerClient
+        signUpUserWithFirstName:[self.firstNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                       lastName:[self.lastNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                    userAddress:[self.userAddressTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                userPhoneNumber:[self.userPhoneTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                userCompanyName:[self.userCompanyNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                          title:[self.userCompanyTitleTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                          email:[self.emailTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                       password:[self.passwordTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+             allowNotifications:YES
+                    accountName:[self.accountNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+             accountDescription:[self.accountDescriptionTextView.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+               subscriptionType:package
+                    companyName:[self.accountCompanyNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                 companyAddress:[self.accountCompanyAddressTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                    contactName:[self.accountContactNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                   contactPhone:[self.accountContactPhoneTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
+            withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                [self hideSignupProgress];
+                if (!error) {
+                    INVLogDebug(@"Succesfully signedup user %@ and created account %@", self.firstNameTextField.text,
+                        self.accountNameTextField.text);
 
-                                                        self.globalDataManager.loggedInUser = self.emailTextField.text;
-                                                        self.signupSuccess = YES;
-                                                    }
-                                                    else {
-                                                        INVLogError(@"%@", error);
+                    self.globalDataManager.loggedInUser = self.emailTextField.text;
+                    self.signupSuccess = YES;
+                }
+                else {
+                    INVLogError(@"%@", error);
 
-                                                        [self showSignupFailureAlert];
-                                                    }
-                                                }];
+                    [self showSignupFailureAlert];
+                }
+            }];
 }
 
 - (void)signUpUser
 {
     [self showSignupProgress];
 
-    [self.globalDataManager.invServerClient signUpUserWithFirstName:self.firstNameTextField.text
-                                                           lastName:self.lastNameTextField.text
-                                                        userAddress:self.userAddressTextField.text
-                                                    userPhoneNumber:self.userPhoneTextField.text
-                                                    userCompanyName:self.userCompanyNameTextField.text
-                                                              title:self.userCompanyTitleTextField.text
-                                                              email:self.emailTextField.text
-                                                           password:self.passwordTextField.text
-                                                 allowNotifications:NO
-                                                withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                                    [self hideSignupProgress];
+    [self.globalDataManager.invServerClient
+        signUpUserWithFirstName:[self.firstNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                       lastName:[self.lastNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                    userAddress:[self.userAddressTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                userPhoneNumber:[self.userPhoneTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                userCompanyName:[self.userCompanyNameTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                          title:[self.userCompanyTitleTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                          email:[self.emailTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                       password:[self.passwordTextField.text
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+             allowNotifications:NO
+            withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                [self hideSignupProgress];
 
-                                                    if (!error) {
-                                                        INVLogDebug(
-                                                            @"Succesfully signedup user %@ ", self.firstNameTextField.text);
+                if (!error) {
+                    INVLogDebug(@"Succesfully signedup user %@ ", self.firstNameTextField.text);
 
-                                                        self.globalDataManager.loggedInUser = self.emailTextField.text;
-                                                        self.globalDataManager.invitationCodeToAutoAccept =
-                                                            self.invitationCodeTextField.text;
-                                                        self.signupSuccess = YES;
-                                                    }
-                                                    else {
-                                                        [self showSignupFailureAlert];
-                                                    }
-                                                }];
+                    self.globalDataManager.loggedInUser = self.emailTextField.text;
+                    self.globalDataManager.invitationCodeToAutoAccept = self.invitationCodeTextField.text;
+                    self.signupSuccess = YES;
+                }
+                else {
+                    [self showSignupFailureAlert];
+                }
+            }];
 }
 
 #pragma mark -helper
@@ -360,14 +382,30 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
         isEqualToString:self.accountNumberOfEmployeesTextField.text];
 
     self.signUpButton.enabled =
-        (self.firstNameTextField.text.length > 0  &&
-                    self.lastNameTextField.text.length > 0 && self.emailTextField.text.length > 0 &&
-                    self.passwordTextField.text.length > 0 && self.invitationSwitch.on
-                ? (self.invitationCodeTextField.text.length > 0)
-                : (self.accountNameTextField.text.length > 0 && self.accountCompanyNameTextField.text.length > 0 &&
-                      self.accountCompanyAddressTextField.text.length > 0 && self.accountContactNameTextField.text.length > 0 &&
-                      self.accountContactPhoneTextField.text.length > 0 &&
-                      self.accountNumberOfEmployeesTextField.text.length > 0 && numberOfEmployeesIsNumber));
+        ([self.firstNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                            .length > 0 &&
+                    [self.lastNameTextField.text
+                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                    [self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                            .length > 0 &&
+                    [self.passwordTextField.text
+                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                    self.invitationSwitch.on
+                ? ([self.invitationCodeTextField.text
+                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
+                : ([self.accountNameTextField.text
+                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                      [self.accountCompanyNameTextField.text
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                      [self.accountCompanyAddressTextField.text
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                      [self.accountContactNameTextField.text
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                      [self.accountContactPhoneTextField.text
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                      [self.accountNumberOfEmployeesTextField.text
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                      numberOfEmployeesIsNumber));
 }
 
 #pragma mark - accessors

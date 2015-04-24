@@ -184,13 +184,13 @@
     NSNumber *package = @(0);
 
     [self.globalDataManager.invServerClient
-        createAccountForSignedInUserWithAccountName:self.accountNameTextField.text
-                                 accountDescription:self.accountDescriptionTextView.text
+        createAccountForSignedInUserWithAccountName:[self.accountNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                 accountDescription:[self.accountDescriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                                    subscriptionType:package
-                                        companyName:self.accountCompanyNameTextField.text
-                                     companyAddress:self.accountCompanyAddressTextField.text
-                                        contactName:self.accountContactNameTextField.text
-                                       contactPhone:self.accountContactPhoneTextField.text
+                                        companyName:[self.accountCompanyNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                     companyAddress:[self.accountCompanyAddressTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                        contactName:[self.accountContactNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                       contactPhone:[self.accountContactPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                                     numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
                                        forUserEmail:email
                                 withCompletionBlock:^(id result, INVEmpireMobileError *error) {
@@ -217,13 +217,13 @@
     if (self.accountProfileChanged) {
         [self.globalDataManager.invServerClient
             updateAccountDetailsWithAccountId:self.accountToEdit.accountId
-                                         name:self.accountNameTextField.text
-                           accountDescription:self.accountDescriptionTextView.text
+                                         name:[self.accountNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                           accountDescription:[self.accountDescriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                              subscriptionType:package
-                                  companyName:self.accountCompanyNameTextField.text
-                               companyAddress:self.accountCompanyAddressTextField.text
-                                  contactName:self.accountContactNameTextField.text
-                                 contactPhone:self.accountContactPhoneTextField.text
+                                  companyName:[self.accountCompanyNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                               companyAddress:[self.accountCompanyAddressTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                  contactName:[self.accountContactNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                 contactPhone:[self.accountContactPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                               numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
                           withCompletionBlock:INV_COMPLETION_HANDLER {
                               INV_ALWAYS:
@@ -404,10 +404,12 @@
                                      [self.accountNumberOfEmployeesTextField.text integerValue] > 0;
 
     self.createBarButtonItem.enabled =
-        self.accountNameTextField.text.length > 0 && self.accountDescriptionTextView.text.length > 0 &&
-        self.accountCompanyNameTextField.text.length > 0 && self.accountCompanyAddressTextField.text.length > 0 &&
-        self.accountContactNameTextField.text.length > 0 && self.accountContactPhoneTextField.text.length > 0 &&
-        self.accountNumberOfEmployeesTextField.text.length > 0 && numberOfEmployeesIsNumber;
+        [self.accountNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 && [self.accountDescriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+        [self.accountCompanyNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+     [self.accountCompanyAddressTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+        [self.accountContactNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length  > 0 &&
+    [self.accountContactPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+        [self.accountNumberOfEmployeesTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 && numberOfEmployeesIsNumber;
 }
 
 @end
