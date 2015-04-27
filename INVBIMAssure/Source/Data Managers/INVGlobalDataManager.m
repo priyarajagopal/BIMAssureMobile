@@ -48,7 +48,13 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 
         if (sharedInstance) {
             INVServerConfigManager *configManager = [INVServerConfigManager instance];
-            sharedInstance.rememberMeOptionSelected = NO;
+            if (sharedInstance.credentials) {
+                sharedInstance.rememberMeOptionSelected = YES;
+            }
+            else {
+                sharedInstance.rememberMeOptionSelected = NO;
+            }
+
             [configManager loadDefaultConfig];
 
             sharedInstance.invServerClient =
@@ -128,6 +134,7 @@ static NSString *const INV_DefaultAccountKeychainKey = @"BADefaultAccount";
 
     _credentials =
         [FDKeychain itemForKey:INV_CredentialsKeychainKey forService:[self serviceIdentifierForKCStorage] error:&error];
+  
     return _credentials;
 }
 

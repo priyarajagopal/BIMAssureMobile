@@ -163,16 +163,20 @@
 
 - (void)resetRootViewControllerWhenAppPushedToBackground
 {
+    INVLogDebug();
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
-    [self.globalManager.invServerClient logOffSignedInUserWithCompletionBlock:^(INVEmpireMobileError *error) {
-        self.globalManager.loggedInAccount = nil;
-        [self displayLoginRootViewController];
-    }];
+    
+    if (!self.globalManager.rememberMeOptionSelected) {
+         [self.globalManager performLogout];
+         [self displayLoginRootViewController];
+    }
+ 
 }
 
 - (void)displayLoggedInRootViewController
 {
+    INVLogDebug();
     [self deregisterLoginObservers];
     UINavigationController *accountListNC = [[self accountStoryboard] instantiateViewControllerWithIdentifier:@"AccountListNC"];
     self.window.rootViewController = accountListNC;
@@ -185,6 +189,7 @@
 
 - (void)displayLoginRootViewController
 {
+        INVLogDebug();
     [self deregisterAccountObservers];
 
     INVLoginViewController *loginVC = [[self loginStoryboard] instantiateViewControllerWithIdentifier:@"LoginVC"];
@@ -195,6 +200,7 @@
 
 - (void)displayProjectsListRootViewController
 {
+        INVLogDebug();
     [self deregisterAccountObservers];
     [self deregisterLoginObservers];
 

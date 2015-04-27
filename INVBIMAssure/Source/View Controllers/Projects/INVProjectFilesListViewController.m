@@ -192,7 +192,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 #ifdef _TODOPAGING_
     if (self.dataResultsController.fetchedObjects.count - indexPath.row == DEFAULT_FETCH_PAGE_SIZE / 4) {
         INVLogDebug(@"Will fetch next batch");
-
+                                                      
         [self fetchPackagesFromCurrentOffset];
     }
 #endif

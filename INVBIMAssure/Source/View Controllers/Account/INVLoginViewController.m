@@ -32,9 +32,10 @@ NSString *const KVO_INVLoginSuccess = @"loginSuccess";
     [self setupView];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear :animated];
+    INVLogDebug();
     NSDictionary *savedCredentials = self.globalDataManager.credentials;
     NSString *loggedInUser = savedCredentials[INV_CredentialKeyEmail];
     NSString *loggedInPass = savedCredentials[INV_CredentialKeyPassword];
