@@ -342,6 +342,9 @@
 
 - (IBAction)onInvitationSwitchToggled:(UISwitch *)sender
 {
+    // Update the status of the sign in button
+    [self textFieldTextChanged:nil];
+    
     [self.tableView beginUpdates];
 
     if (self.invitationCodeSwitch.on) {
@@ -358,8 +361,7 @@
 
     [self.tableView endUpdates];
 
-    // Update the status of the sign in button
-    [self textFieldTextChanged:nil];
+    
 }
 
 - (IBAction)textFieldTextChanged:(id)sender
@@ -404,6 +406,10 @@
                                      [self.accountNumberOfEmployeesTextField.text integerValue] > 0;
 
     self.createBarButtonItem.enabled =
+    self.invitationCodeSwitch.on
+    ? ([self.invitationCodeTextField.text
+        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
+    :
         [self.accountNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0  &&
         [self.accountCompanyNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
      [self.accountCompanyAddressTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&

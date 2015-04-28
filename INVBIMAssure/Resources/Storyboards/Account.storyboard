@@ -158,6 +158,7 @@
                                                     <connections>
                                                         <action selector="resignFirstResponder" destination="vhR-RB-ds0" eventType="editingDidEndOnExit" id="tyF-JT-wtz"/>
                                                         <action selector="scrollToVisibleInParentScrollview" destination="vhR-RB-ds0" eventType="editingDidBegin" id="2XR-dK-V8M"/>
+                                                        <action selector="textFieldTextChanged:" destination="1T0-xZ-bHJ" eventType="editingChanged" id="HRs-Qz-Qxz"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
