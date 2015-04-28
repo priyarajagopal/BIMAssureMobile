@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *ruleDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *checkmarkLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ruleNameLabel;
 
 @end
 
@@ -27,16 +28,15 @@
     NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
     INVRuleDescriptorResourceDescription* resourceDetails = [self.ruleDefinition.descriptor descriptionDetailsForLanguageCode:languageCode];
     
-    self.ruleDescriptionLabel.text = resourceDetails.shortDescription;
+    self.detailTextLabel.text = resourceDetails.shortDescription;
+    self.textLabel.text = resourceDetails.name;
     
     
     if (self.checked) {
         self.accessoryType = UITableViewCellAccessoryCheckmark;
-       // self.accessoryView = [[UIImageView alloc]initWithImage:[self _selectedImage]];
-    } else {
+     } else {
         self.accessoryType = UITableViewCellAccessoryNone;
-       // self.accessoryView = [[UIImageView alloc]initWithImage:[self _deselectedImage]];
-    }
+     }
 }
 
 -(void) setRuleDefinition:(INVRule *)ruleDefinition {

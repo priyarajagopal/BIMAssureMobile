@@ -57,7 +57,7 @@
 "ANALYSES_INCLUDED_IN_FILE"="Analyses Associated with Package";
 "ANALYSES_NOT_INCLUDED_IN_FILE"="Analyses Not Associated with Package";
 "EDIT"="Edit";
-"SELECT_RULE_TEMPLATES"="Select Rule Template";
+"SELECT_RULE_TEMPLATES"="Select Rule Definition";
 "SEARCH"="Search";
 "RULE_INSTANCE_UPDATED_SUCCESS"="The rule instance was succesfully updated";
 "RULE_INSTANCE_CREATED_SUCCESS"="The rule instance was succesfully created";

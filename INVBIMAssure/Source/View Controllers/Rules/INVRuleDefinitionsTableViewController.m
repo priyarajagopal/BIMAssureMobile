@@ -183,7 +183,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
                                                                                  forTableView:self.tableView];
         INV_CellConfigurationBlock cellConfigurationBlock =
             ^(INVRuleDefinitionTableViewCell *cell, INVRule *rule, NSIndexPath *indexPath) {
-             //   cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 cell.checked = self.selectedRules[rule.ruleId] != nil;
                 cell.ruleDefinition = rule;
