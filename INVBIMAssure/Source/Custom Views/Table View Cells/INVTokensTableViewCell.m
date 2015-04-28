@@ -26,7 +26,7 @@
     self.tokenField.inputTextFieldKeyboardType = UIKeyboardTypeEmailAddress;
     self.tokenField.autocorrectionType = UITextAutocorrectionTypeNo;
 
-    UIColor *cyanBlueColor = [UIColor colorWithRed:38.0 / 255 green:138.0 / 255 blue:171.0 / 255 alpha:1.0];
+    UIColor *cyanBlueColor = [UIColor colorWithRed:38.0 / 255 green:145.0 / 255 blue:191.0 / 255 alpha:1.0];;
     [self.tokenField setColorScheme:cyanBlueColor];
 
     self.tokens = [[NSMutableArray alloc] initWithCapacity:0];
