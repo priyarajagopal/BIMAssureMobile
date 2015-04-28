@@ -117,6 +117,8 @@
 
 - (IBAction)saveProfile:(id)sender
 {
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:self forEvent:nil];
+
     id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     BOOL shouldDismiss = !(self.userProfileChanged && self.userThumbnailChanged);
@@ -137,7 +139,7 @@
                               [hud hide:YES];
 
                           INV_SUCCESS:
-                              [self performSegueWithIdentifier:@"unwind" sender:nil];
+                              [self showUserProfileAlert:NSLocalizedString(@"EDIT_USER_PROFILE_SUCCESS", nil)];
 
                           INV_ERROR:
                               INVLogError(@"%@", error);
@@ -174,6 +176,21 @@
                                             [self presentViewController:errorController animated:YES completion:nil];
                                     }];
     }
+}
+
+#pragma mark - helpers
+- (void)showUserProfileAlert:(NSString *)title
+{
+    UIAlertController *alertController =
+        [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          [self performSegueWithIdentifier:@"unwind" sender:self];
+                                                      }]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end
