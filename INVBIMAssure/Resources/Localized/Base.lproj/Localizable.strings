@@ -54,8 +54,8 @@
 "MANAGE_FILES"="Manage Files";
 "RULESETS_INCLUDED_IN_FILE"="RuleSets Associated with File";
 "RULESETS_NOT_INCLUDED_IN_FILE"="RuleSets Not Associated with File";
-"ANALYSES_INCLUDED_IN_FILE"="Analyses Associated with Package";
-"ANALYSES_NOT_INCLUDED_IN_FILE"="Analyses Not Associated with Package";
+"ANALYSES_INCLUDED_IN_FILE"="Analyses Associated with Model";
+"ANALYSES_NOT_INCLUDED_IN_FILE"="Analyses Not Associated with Model";
 "EDIT"="Edit";
 "SELECT_RULE_TEMPLATES"="Select Rule Definition";
 "SEARCH"="Search";
@@ -123,9 +123,9 @@
 "ERROR_EXECUTION_LOAD"="There was an error while fetching list of executions [%1d]";
 "ERROR_RULESET_MEMBERSHIP_LOAD"="There was an error while fetching ruleset membership [%1d]";
 "ERROR_ANALYSES_MEMBERSHIP_LOAD"="There was an error while fetching analyses members [%1d]";
-"ERROR_PKGMASTER_MEMBERSHIP_LOAD"="There was an error while fetching package master members for analysis [%1d]";
+"ERROR_PKGMASTER_MEMBERSHIP_LOAD"="There was an error while fetching model master members for analysis [%1d]";
 "ERROR_RULESET_MEMBERSHIP_UPDATE"="There was an error while updating ruleset membership [%1d]";
-"ERROR_PKGMASTER_MEMBERSHIP_UPDATE"="There was an error while updating package master membership [%1d]";
+"ERROR_PKGMASTER_MEMBERSHIP_UPDATE"="There was an error while updating model master membership [%1d]";
 "ERROR_INVALID_LOGIN_PARAMS"="Please enter valid email address and/or password and try again [%1d]";
 "ERROR_RULESET_LOAD"="There was an error while loading rule sets [%1d]";
 "ERROR_FETCH_ACCOUNTMEMBERS"="There was an error while fetching account members [%1d]";
