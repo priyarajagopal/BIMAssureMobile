@@ -391,11 +391,14 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+#ifdef _PAGING_ENABLED_
     if (self.files.count - indexPath.row == DEFAULT_FETCH_PAGE_SIZE / 4) {
         INVLogDebug(@"Will fetch next batch");
 
         [self fetchPackagesFromCurrentOffset];
     }
+#endif
 }
 
 @end
