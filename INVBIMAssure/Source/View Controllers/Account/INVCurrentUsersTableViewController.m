@@ -100,10 +100,13 @@
                 [self.tableView reloadData];
             } afterNumberOfCalls:objects.count];
 
-            for (INVAccountMembership *membership in objects) {
-                NSLog(@"membership is %@",membership.userId);
+            for (NSManagedObject *membershipObject in objects) {
+                INVAccountMembership *membership = [MTLManagedObjectAdapter modelOfClass:[INVAccountMembership class]
+                                                                       fromManagedObject:membershipObject
+                                                                                   error:nil];
+
                 for (NSNumber *role in membership.roles) {
-                    NSNumber* sectionRole = [self sectionForRole:role];
+                    NSNumber *sectionRole = role;
                     if (self.sections[sectionRole] == nil) {
                         self.sections[sectionRole] = [NSMutableArray new];
                     }
@@ -112,18 +115,17 @@
                 }
 
                 [self.globalDataManager.invServerClient
-                 getUserProfileInSignedInAccountWithId:membership.userId
-                 withCompletionBlock:^(INVUser *user, INVEmpireMobileError *error) {
-                     self.cachedUsers[user.userId] = user;
-                     
-                     if ([user.userId isEqual:self.globalDataManager.invServerClient.accountManager
-                          .signedinUser.userId]) {
-                         self.sections[SECTION_CURRENT_USER] = @[ membership ];
-                     }
-                     
-                     [successBlock invoke];
-                 }];
-    
+                    getUserProfileInSignedInAccountWithId:membership.userId
+                                      withCompletionBlock:^(INVUser *user, INVEmpireMobileError *error) {
+                                          self.cachedUsers[user.userId] = user;
+
+                                          if ([user.userId isEqual:self.globalDataManager.invServerClient.accountManager
+                                                                       .signedinUser.userId]) {
+                                              self.sections[SECTION_CURRENT_USER] = @[ membership ];
+                                          }
+
+                                          [successBlock invoke];
+                                      }];
             }
         }
 
@@ -283,23 +285,6 @@
 - (void)reloadRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
-}
-
--(NSNumber*)sectionForRole:(NSNumber*)type {
-    
-    if ([type.class isKindOfClass:[NSNumber class]] && [type isEqualToNumber: @(INV_MEMBERSHIP_TYPE_ADMIN)]) {
-        return @(0);
-    }
-    else if ([type.class isKindOfClass:[NSNumber class]] && [type isEqualToNumber:@(INV_MEMBERSHIP_TYPE_REGULAR)]) {
-        return @(1);
-    }
-    else if (type == (id)[NSNull null ]) {
-        return @(0);
-    }
-    else {
-        return @(-1);
-    }
-
 }
 
 @end
