@@ -112,8 +112,10 @@
 - (void)onTextFieldTextChanged:(id)sender
 {
     if (self.analysis) {
-        self.saveButtonItem.enabled = !([self.analysisNameTextField.text isEqualToString:self.analysis.name] &&
-                                          [self.analysisDescriptionTextView.text isEqualToString:self.analysis.overview]);
+        self.saveButtonItem.enabled =
+            !([self.analysisNameTextField.text isEqualToString:self.analysis.name] &&
+                [self.analysisDescriptionTextView.text isEqualToString:self.analysis.overview]) &&
+            (self.analysisNameTextField.text.length > 0 && self.analysisDescriptionTextView.text.length > 0);
     }
     else {
         self.saveButtonItem.enabled =
