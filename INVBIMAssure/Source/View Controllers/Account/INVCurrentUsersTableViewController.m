@@ -37,8 +37,6 @@
 {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
     self.expanded = [NSMutableDictionary new];
     self.cachedUsers = [NSMutableDictionary new];
     self.sections = [NSMutableDictionary new];
@@ -97,6 +95,11 @@
 
             NSArray *objects = self.dataResultsController.fetchedObjects;
             id successBlock = [INVBlockUtils blockForExecutingBlock:^{
+                INVAccountMembership* currentUser =  (INVAccountMembership*)[self.sections[SECTION_CURRENT_USER] firstObject];
+                NSNumber* roleOfCurrentUser = [currentUser.roles firstObject];
+                if ([roleOfCurrentUser isEqualToNumber:@(INV_MEMBERSHIP_TYPE_ADMIN)]) {
+                    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+                }
                 [self.tableView reloadData];
             } afterNumberOfCalls:objects.count];
 
