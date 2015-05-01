@@ -8,7 +8,7 @@
 
 #import "INVAnalysisFilesListTableViewController.h"
 #import "INVGeneralAddRemoveTableViewCell.h"
-#import "INVPagingManager+PackageMasterListing.h"
+//#import "INVPagingManager+PackageMasterListing.h"
 
 static const NSInteger SECTION_ANALYSISFILES = 0;
 static const NSInteger DEFAULT_CELL_HEIGHT = 50;
@@ -20,9 +20,9 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 @property (nonatomic, strong) INVProjectManager *projectManager;
 @property (nonatomic, strong) INVAnalysesManager *analysesManager;
 @property (nonatomic, strong) INVPackageMutableArray files;
-@property (nonatomic, assign) NSInteger totalPackageCount;
 @property (nonatomic, assign) BOOL observersAdded;
 @property (nonatomic, strong) INVPagingManager *packagesPagingManager;
+@property (nonatomic, assign) NSInteger pkgCount;
 @end
 
 @implementation INVAnalysisFilesListTableViewController
@@ -32,7 +32,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
-  //  self.packagesPagingManager = [[INVPagingManager alloc] initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
     UINib *projectCellNib =
         [UINib nibWithNibName:@"INVGeneralAddRemoveTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:projectCellNib forCellReuseIdentifier:@"ProjectFileCell"];
@@ -89,47 +88,44 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
 #pragma mark - server side
 
--(void)fetchCountOfPackagesInProject {
-    [self showLoadProgress];
-    
+- (void)fetchCountOfPackagesInProject
+{
     [self.globalDataManager.invServerClient
-     getPkgMasterCountForProject:self.projectId WithCompletionBlock:^(INVGenericResponse *response, INVEmpireMobileError *error) {
-         if (error) {
-             UIAlertController *errController = [[UIAlertController alloc]
-                                                 initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),
-                                                 error.code.integerValue];
-             [self presentViewController:errController animated:YES completion:nil];
-
-         }
-         else {
-             self.totalPackageCount = ((NSNumber*)response.response).integerValue;
-             self.packagesPagingManager = [[INVPagingManager alloc] initWithTotalCount:self.totalPackageCount pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
-             [self fetchListOfProjectFiles];
-             
-         }
-     }];
-
+        getPkgMasterCountForProject:self.projectId
+                WithCompletionBlock:^(INVGenericResponse *response, INVEmpireMobileError *error) {
+                    if (error) {
+                        UIAlertController *errController = [[UIAlertController alloc]
+                            initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),
+                            error.code.integerValue];
+                        [self presentViewController:errController animated:YES completion:nil];
+                    }
+                    else {
+                        self.pkgCount = ((NSNumber *) response.response).integerValue;
+                        [self fetchPackagesListFromZeroOffset];
+                    }
+                }];
 }
 
-- (void)fetchListOfProjectFiles
+- (void)fetchPackagesListFromCurrentOffset
 {
+    INVLogDebug();
+ 
+    SEL sel = @selector(getAllPkgMastersForProject:WithOffset:pageSize:WithCompletionBlock:);
+
+    [self.packagesPagingManager fetchPageFromCurrentOffsetUsingSelector:sel
+                                                               onTarget:self.globalDataManager.invServerClient
+                                                withAdditionalArguments:@[ self.projectId ]];
+}
+
+- (void)fetchPackagesListFromZeroOffset
+{
+    INVLogDebug();
+
     [self showLoadProgress];
+    
+    [self.packagesPagingManager resetOffset];
 
-    [self.globalDataManager.invServerClient
-        getAllPkgMastersForProject:self.projectId
-               WithCompletionBlock:^(INVEmpireMobileError *error) {
-                   [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
-
-                   if (!error) {
-                       [self fetchProjectFilesForAnalysisId];
-                   }
-                   else {
-                       UIAlertController *errController = [[UIAlertController alloc]
-                           initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),
-                           error.code.integerValue];
-                       [self presentViewController:errController animated:YES completion:nil];
-                   }
-               }];
+    [self fetchPackagesListFromCurrentOffset];
 }
 
 - (void)fetchProjectFilesForAnalysisId
@@ -153,12 +149,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
                         [self presentViewController:errController animated:YES completion:nil];
                     }
                 }];
-}
-
-- (void)fetchPackagesFromCurrentOffset
-{
-    [self showLoadProgress];
-    [self.packagesPagingManager fetchPackageMastersFromCurrentOffsetForProject:self.projectId];
 }
 
 - (void)pushAddedPkgMastersForAnalysesToServer
@@ -197,8 +187,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
     [currentPkgMastersForAnalyses minusSet:updatedPkgMasterIds];
 
-    INVAnalysisPkgMembershipArray membersToBeRemoved =
-        [self.globalDataManager.invServerClient.analysesManager membershipIdsForPkgVersionIds:[currentPkgMastersForAnalyses allObjects]];
+    INVAnalysisPkgMembershipArray membersToBeRemoved = [self.globalDataManager.invServerClient.analysesManager
+        membershipIdsForPkgVersionIds:[currentPkgMastersForAnalyses allObjects]];
 
     [membersToBeRemoved enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         INVAnalysisPkgMembership *member = obj;
@@ -228,9 +218,11 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         [self fetchProjectFilesForAnalysisId];
     }
     else {
-        UIAlertController *errController = [[UIAlertController alloc]
-            initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil), error.code.integerValue];
-        [self presentViewController:errController animated:YES completion:nil];
+        if (error.code.integerValue != INV_ERROR_CODE_NOMOREPAGES) {
+            UIAlertController *errController = [[UIAlertController alloc]
+                initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil), error.code.integerValue];
+            [self presentViewController:errController animated:YES completion:nil];
+        }
     }
 }
 
@@ -259,9 +251,11 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 }
 
 #pragma mark - accessors
--(INVPagingManager*)packagesPagingManager {
+- (INVPagingManager *)packagesPagingManager
+{
     if (!_packagesPagingManager) {
-        _packagesPagingManager = [[INVPagingManager alloc] initWithTotalCount:self.totalPackageCount pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+        _packagesPagingManager =
+            [[INVPagingManager alloc] initWithTotalCount:self.pkgCount pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
     }
     return _packagesPagingManager;
 }
@@ -421,14 +415,11 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-#ifdef _PAGING_ENABLED_
-    if (self.files.count - indexPath.row == DEFAULT_FETCH_PAGE_SIZE / 4) {
+    if (self.files.count - 1 == indexPath.row) {
         INVLogDebug(@"Will fetch next batch");
 
-        [self fetchPackagesFromCurrentOffset];
+        [self fetchPackagesListFromCurrentOffset];
     }
-#endif
 }
 
 @end

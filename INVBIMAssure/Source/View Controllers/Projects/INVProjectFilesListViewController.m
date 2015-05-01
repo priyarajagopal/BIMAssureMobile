@@ -218,10 +218,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 - (void)fetchPackagesListFromCurrentOffset
 {
     INVLogDebug();
-    if (!self.dataResultsController.fetchedObjects) {
-        [self showLoadProgress];
-    }
-
+   
     SEL sel = @selector(getAllPkgMastersForProject:WithOffset:pageSize:WithCompletionBlock:);
 
     [self.packagesPagingManager fetchPageFromCurrentOffsetUsingSelector:sel
@@ -232,6 +229,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 - (void)fetchPackagesListFromZeroOffset
 {
     INVLogDebug();
+    [self showLoadProgress];
+    
 
     [self.packagesPagingManager resetOffset];
 
