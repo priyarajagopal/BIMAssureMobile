@@ -59,9 +59,9 @@ const NSInteger DEFAULT_PAGESIZE = 20;
     self.currOffset += self.pageSize;
 }
 
-- (void)fetchPageFromCurrentOffsetUsingSelector:(SEL)selector onTarget:(id)target
+- (void)fetchPageFromCurrentOffsetUsingSelector:(SEL)selector onTarget:(id)target withAdditionalArguments:(NSArray *)args
 {
-    if (self.stopFetching  ) {
+    if (self.stopFetching) {
         [self handlePagedResponse:[[INVEmpireMobileError alloc] initWithDictionary:@{
             @"code" : @(INV_ERROR_CODE_NOMOREPAGES),
             @"message" : INV_ERROR_MESG_NOMOREPAGES
@@ -69,8 +69,8 @@ const NSInteger DEFAULT_PAGESIZE = 20;
     }
     else {
         if ([target respondsToSelector:selector]) {
-            NSInvocation *invocation = [NSInvocation
-                invocationWithMethodSignature:[target methodSignatureForSelector:selector]];
+            NSInvocation *invocation =
+                [NSInvocation invocationWithMethodSignature:[target methodSignatureForSelector:selector]];
 
             CompletionHandler handler = ^(INVEmpireMobileError *error) {
                 [self handlePagedResponse:error];
@@ -80,15 +80,27 @@ const NSInteger DEFAULT_PAGESIZE = 20;
             NSNumber *offset = @(self.currOffset);
             NSNumber *pageSize = @(self.pageSize);
 
-            // Argument 1 is at index 2, as there is self and _cmd before
-            [invocation setArgument:&offset atIndex:2];
-            [invocation setArgument:&pageSize atIndex:3];
-            [invocation setArgument:&handler atIndex:4];
+            // Argument 1 is at index 2, as there is self and _cmd
+            NSInteger argStartIndex = 2;
+            [args enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                id argument = obj;
+                [invocation setArgument:&argument atIndex:argStartIndex + idx];
+
+            }];
+            argStartIndex += args.count;
+            [invocation setArgument:&offset atIndex:argStartIndex];
+            [invocation setArgument:&pageSize atIndex:argStartIndex + 1];
+            [invocation setArgument:&handler atIndex:argStartIndex + 2];
 
             [invocation invokeWithTarget:target];
             [invocation retainArguments];
         }
     }
+}
+
+- (void)fetchPageFromCurrentOffsetUsingSelector:(SEL)selector onTarget:(id)target
+{
+    return [self fetchPageFromCurrentOffsetUsingSelector:selector onTarget:target withAdditionalArguments:nil];
 }
 
 @end

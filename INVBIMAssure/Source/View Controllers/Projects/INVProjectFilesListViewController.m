@@ -15,7 +15,6 @@
 #import "INVAnalysisExecutionsTableViewController.h"
 #import "INVSearchView.h"
 #import "UIImage+INVCustomizations.h"
-#import "INVPagingManager+PackageMasterListing.h"
 #import "INVProjectListSplitViewController.h"
 #import "UISplitViewController+ToggleSidebar.h"
 #import "INVAnalysisRunsCollectionViewController.h"
@@ -47,7 +46,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 @property NSArray *allTags;
 @property NSMutableArray *searchHistory;
 @property (nonatomic, strong) INVPagingManager *packagesPagingManager;
-
+@property (nonatomic, assign) NSInteger pkgCount;
 @end
 
 @implementation INVProjectFilesListViewController
@@ -69,7 +68,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     UICollectionViewFlowLayout *currLayout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
     [currLayout setItemSize:CGSizeMake(CELL_WIDTH, CELL_HEIGHT)];
 
-    self.packagesPagingManager = [[INVPagingManager alloc] initWithTotalCount:0 pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+    self.pkgCount = 0;
 }
 
 - (void)dealloc
@@ -98,7 +97,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         self.shouldShowSidebarOnReappear = NO;
     }
 
-    [self fetchPackagesFromCurrentOffset];
+    [self fetchPackageCount];
+    ;
     [self configureDisplayModeButton];
 }
 
@@ -189,21 +189,53 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
        willDisplayCell:(UICollectionViewCell *)cell
     forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-#ifdef _TODOPAGING_
-    if (self.dataResultsController.fetchedObjects.count - indexPath.row == DEFAULT_FETCH_PAGE_SIZE / 4) {
+    if (self.dataResultsController.fetchedObjects.count - 1 == indexPath.row) {
         INVLogDebug(@"Will fetch next batch");
-                                                      
-        [self fetchPackagesFromCurrentOffset];
+
+        [self fetchPackagesListFromCurrentOffset];
     }
-#endif
 }
 
 #pragma mark - server side
 
-- (void)fetchPackagesFromCurrentOffset
+- (void)fetchPackageCount
 {
-    [self showLoadProgress];
-    [self.packagesPagingManager fetchPackageMastersFromCurrentOffsetForProject:self.projectId];
+    [self.globalDataManager.invServerClient
+        getPkgMasterCountForProject:self.projectId
+                WithCompletionBlock:^(INVGenericResponse *response, INVEmpireMobileError *error) {
+                    if (error) {
+                        UIAlertController *errController = [[UIAlertController alloc]
+                            initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error];
+                        [self presentViewController:errController animated:YES completion:nil];
+                    }
+                    else {
+                        self.pkgCount = ((NSNumber *) response.response).integerValue;
+                        [self fetchPackagesListFromZeroOffset];
+                    }
+                }];
+}
+
+- (void)fetchPackagesListFromCurrentOffset
+{
+    INVLogDebug();
+    if (!self.dataResultsController.fetchedObjects) {
+        [self showLoadProgress];
+    }
+
+    SEL sel = @selector(getAllPkgMastersForProject:WithOffset:pageSize:WithCompletionBlock:);
+
+    [self.packagesPagingManager fetchPageFromCurrentOffsetUsingSelector:sel
+                                                               onTarget:self.globalDataManager.invServerClient
+                                                withAdditionalArguments:@[ self.projectId ]];
+}
+
+- (void)fetchPackagesListFromZeroOffset
+{
+    INVLogDebug();
+
+    [self.packagesPagingManager resetOffset];
+
+    [self fetchPackagesListFromCurrentOffset];
 }
 
 #pragma mark - INVPagingManagerDelegate
@@ -270,6 +302,15 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
         _projectManager = self.globalDataManager.invServerClient.projectManager;
     }
     return _projectManager;
+}
+
+- (INVPagingManager *)packagesPagingManager
+{
+    if (!_packagesPagingManager) {
+        _packagesPagingManager =
+            [[INVPagingManager alloc] initWithTotalCount:self.pkgCount pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+    }
+    return _packagesPagingManager;
 }
 
 #pragma mark - INVProjectFileCollectionViewCellDelegate

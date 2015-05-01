@@ -21,5 +21,8 @@ typedef void(^pageFetchBlock)(NSInteger offset, NSInteger pageSize,CompletionHan
 - (instancetype)initWithTotalCount:(NSInteger)count pageSize:(NSInteger)pageSize delegate:(id<INVPagingManagerDelegate>)delegate;
 
 - (void)fetchPageFromCurrentOffsetUsingSelector:(SEL)selector onTarget:(id)target;
+
+- (void)fetchPageFromCurrentOffsetUsingSelector:(SEL)selector onTarget:(id)target withAdditionalArguments:(NSArray*)args;
+
 - (void)resetOffset;
 @end
