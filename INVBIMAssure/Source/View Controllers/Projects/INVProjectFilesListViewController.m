@@ -69,7 +69,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     UICollectionViewFlowLayout *currLayout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
     [currLayout setItemSize:CGSizeMake(CELL_WIDTH, CELL_HEIGHT)];
 
-    self.packagesPagingManager = [[INVPagingManager alloc] initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+    self.packagesPagingManager = [[INVPagingManager alloc] initWithTotalCount:0 pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
 }
 
 - (void)dealloc

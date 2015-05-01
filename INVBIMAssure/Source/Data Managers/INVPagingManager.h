@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^pageFetchBlock)(NSInteger offset, NSInteger pageSize,CompletionHandler handler);
 @protocol INVPagingManagerDelegate<NSObject>
 
 - (void)onFetchedDataAtOffset:(NSInteger)offset pageSize:(NSInteger)size withError:(INVEmpireMobileError *)error;
@@ -17,6 +18,8 @@
 @interface INVPagingManager : NSObject
 @property (nonatomic, weak) id<INVPagingManagerDelegate> delegate;
 
-- (instancetype)initWithPageSize:(NSInteger)pageSize delegate:(id<INVPagingManagerDelegate>)delegate;
+- (instancetype)initWithTotalCount:(NSInteger)count pageSize:(NSInteger)pageSize delegate:(id<INVPagingManagerDelegate>)delegate;
+
+- (void)fetchPageFromCurrentOffsetUsingSelector:(SEL)selector onTarget:(id)target;
 - (void)resetOffset;
 @end

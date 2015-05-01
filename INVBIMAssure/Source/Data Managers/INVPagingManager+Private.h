@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface INVPagingManager ()
+@property (nonatomic, assign) NSInteger totalCount;
 @property (nonatomic, assign) NSInteger currOffset;
 @property (nonatomic, assign) NSInteger pageSize;
 @property (nonatomic, strong) INVGlobalDataManager *globalDataManager;

@@ -13,6 +13,12 @@
 
 - (void)fetchProjectsFromCurrentOffset
 {
+    if (self.currOffset >= self.totalCount) {
+        [self handlePagedResponse:[[INVEmpireMobileError alloc] initWithDictionary:@{
+            @"code" : @(INV_ERROR_CODE_NOMOREPAGES),
+            @"message" : INV_ERROR_MESG_NOMOREPAGES
+        } error:nil]];
+    }
     [self.globalDataManager.invServerClient getAllProjectsForSignedInAccountWithOffset:@(self.currOffset)
                                                                               pageSize:@(self.pageSize)
                                                                    WithCompletionBlock:^(INVEmpireMobileError *error) {

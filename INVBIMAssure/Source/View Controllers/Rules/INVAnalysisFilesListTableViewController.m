@@ -20,6 +20,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 @property (nonatomic, strong) INVProjectManager *projectManager;
 @property (nonatomic, strong) INVAnalysesManager *analysesManager;
 @property (nonatomic, strong) INVPackageMutableArray files;
+@property (nonatomic, assign) NSInteger totalPackageCount;
 @property (nonatomic, assign) BOOL observersAdded;
 @property (nonatomic, strong) INVPagingManager *packagesPagingManager;
 @end
@@ -31,7 +32,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
-    self.packagesPagingManager = [[INVPagingManager alloc] initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+  //  self.packagesPagingManager = [[INVPagingManager alloc] initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
     UINib *projectCellNib =
         [UINib nibWithNibName:@"INVGeneralAddRemoveTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:projectCellNib forCellReuseIdentifier:@"ProjectFileCell"];
@@ -60,7 +61,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     self.tableView.dataSource = self.filesDataSource;
 
     [self addObserversForFileMoveNotification];
-    [self fetchPackagesFromCurrentOffset];
+    [self fetchCountOfPackagesInProject];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -87,6 +88,28 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 }
 
 #pragma mark - server side
+
+-(void)fetchCountOfPackagesInProject {
+    [self showLoadProgress];
+    
+    [self.globalDataManager.invServerClient
+     getPkgMasterCountForProject:self.projectId WithCompletionBlock:^(INVGenericResponse *response, INVEmpireMobileError *error) {
+         if (error) {
+             UIAlertController *errController = [[UIAlertController alloc]
+                                                 initWithErrorMessage:NSLocalizedString(@"ERROR_PKGMASTER_MEMBERSHIP_LOAD", nil),
+                                                 error.code.integerValue];
+             [self presentViewController:errController animated:YES completion:nil];
+
+         }
+         else {
+             self.totalPackageCount = ((NSNumber*)response.response).integerValue;
+             self.packagesPagingManager = [[INVPagingManager alloc] initWithTotalCount:self.totalPackageCount pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+             [self fetchListOfProjectFiles];
+             
+         }
+     }];
+
+}
 
 - (void)fetchListOfProjectFiles
 {
@@ -236,6 +259,13 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 }
 
 #pragma mark - accessors
+-(INVPagingManager*)packagesPagingManager {
+    if (!_packagesPagingManager) {
+        _packagesPagingManager = [[INVPagingManager alloc] initWithTotalCount:self.totalPackageCount pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+    }
+    return _packagesPagingManager;
+}
+
 - (INVProjectManager *)projectManager
 {
     if (!_projectManager) {

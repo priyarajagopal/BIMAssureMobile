@@ -15,13 +15,12 @@
 #import "INVProjectListSplitViewController.h"
 #import "INVAnalysisExecutionsTableViewController.h"
 #import "UIImage+INVCustomizations.h"
-#import "INVPagingManager+ProjectListing.h"
 #import "UIView+INVCustomizations.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 300;
 static const NSInteger TABINDEX_PROJECT_FILES = 0;
 static const NSInteger TABINDEX_PROJECT_RULESETS = 1;
-static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
+static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
 @interface INVProjectsTableViewController () <INVProjectTableViewCellDelegate, INVProjectEditViewControllerDelegate,
     INVPagingManagerDelegate, NSFetchedResultsControllerDelegate>
@@ -32,7 +31,9 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, strong) INVPagingManager *projectPagingManager;
 @property (nonatomic, assign) BOOL isNSFetchedResultsChangeTypeUpdated;
-//@property (nonatomic, strong) NSIndexPath *indexOfProjectBeingEdited;
+@property (nonatomic, strong) INVPagingManager *projectsPagingManager;
+@property (nonatomic, assign) NSInteger projectCount;
+
 @end
 
 @implementation INVProjectsTableViewController
@@ -44,15 +45,13 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     self.title = NSLocalizedString(@"PROJECTS", nil);
 
     self.clearsSelectionOnViewWillAppear = NO;
-    self.projectPagingManager = [[INVPagingManager alloc] initWithPageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
-
     UINib *nib = [UINib nibWithNibName:@"INVProjectTableViewCell" bundle:[NSBundle bundleForClass:[self class]]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"ProjectCell"];
 
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.dataSource = self.dataSource;
-    [self fetchProjectList];
+    [self fetchProjectCount];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,7 +75,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)onRefreshControlSelected:(id)event
 {
-    [self fetchProjectList];
+    [self fetchProjectListFromZeroOffset];
 }
 
 - (void)setSelectedProject:(INVProject *)project
@@ -129,16 +128,48 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 }
 
 #pragma mark - server side
-- (void)fetchProjectList
+
+- (void)fetchProjectCount
 {
+    [self.globalDataManager.invServerClient
+        getProjectCountForSignedInAccountWithCompletionBlock:^(INVGenericResponse *response, INVEmpireMobileError *error) {
+            if (error) {
+                UIAlertController *errController =
+                    [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error];
+                [self presentViewController:errController animated:YES completion:nil];
+            }
+            else {
+                self.projectCount = ((NSNumber *) response.response).integerValue;
+#ifndef _SERVERSIDEPAGINGWORKS_
+                self.projectCount = 0;
+#endif
+                [self fetchProjectListFromZeroOffset];
+            }
+        }];
+}
+
+- (void)fetchProjectListFromCurrentOffset
+{
+    INVLogDebug();
     if (![self.refreshControl isRefreshing]) {
         [self showLoadProgress];
-        [self.tableView reloadData];
-    }
+     }
 
-    [self.projectPagingManager resetOffset];
-    [self.projectPagingManager fetchProjectsFromCurrentOffset];
+    SEL sel = @selector(getAllProjectsForSignedInAccountWithOffset:pageSize:WithCompletionBlock:);
+   
+    [self.projectPagingManager fetchPageFromCurrentOffsetUsingSelector:sel onTarget:self.globalDataManager.invServerClient];
 }
+
+- (void)fetchProjectListFromZeroOffset
+{
+    INVLogDebug();
+    
+    [self.projectPagingManager resetOffset];
+    
+    [self fetchProjectListFromCurrentOffset];
+    
+}
+
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -148,12 +179,14 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.dataResultsController.fetchedObjects.count - indexPath.row == DEFAULT_FETCH_PAGE_SIZE / 4) {
-        INVLogDebug(@"Will fetch next batch");
+   
+    if (self.dataResultsController.fetchedObjects.count - 1 == indexPath.section) {
+        INVLogDebug(@"Will fetch next batch .self.dataResultsController.fetchedObjects.count %ld indexPath.row %ld",self.dataResultsController.fetchedObjects.count,indexPath.section);
 
-        [self.projectPagingManager fetchProjectsFromCurrentOffset];
+        [self fetchProjectListFromCurrentOffset];
     }
 }
+
 
 #pragma mark - Navigation
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -195,7 +228,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
         if ([sender isKindOfClass:[INVProjectTableViewCell class]]) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
             NSManagedObject *projectObject = [self.dataResultsController objectAtIndexPath:indexPath];
-            INVProject* project = [MTLManagedObjectAdapter modelOfClass:[INVProject class] fromManagedObject:projectObject error:nil];
+            INVProject *project =
+                [MTLManagedObjectAdapter modelOfClass:[INVProject class] fromManagedObject:projectObject error:nil];
 
             editViewController.currentProject = project;
         }
@@ -233,9 +267,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
                 [[UIAlertController alloc] initWithErrorMessage:NSLocalizedString(@"ERROR_PROJECTS_LOAD", nil), error];
             [self presentViewController:errController animated:YES completion:nil];
         }
-        else {
-            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        }
+
     };
 
     [self performSelectorOnMainThread:@selector(updateTimeStamp) withObject:nil waitUntilDone:NO];
@@ -265,6 +297,14 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 }
 
 #pragma mark - accessor
+- (INVPagingManager *)projectPagingManager
+{
+    if (!_projectPagingManager) {
+        _projectPagingManager =
+            [[INVPagingManager alloc] initWithTotalCount:self.projectCount pageSize:DEFAULT_FETCH_PAGE_SIZE delegate:self];
+    }
+    return _projectPagingManager;
+}
 - (INVGenericTableViewDataSource *)dataSource
 {
     if (!_dataSource) {
@@ -360,27 +400,29 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
 
 - (void)onProjectEdited:(INVProjectTableViewCell *)sender
 {
- //   self.indexOfProjectBeingEdited = [self.tableView indexPathForCell:sender];
+    //   self.indexOfProjectBeingEdited = [self.tableView indexPathForCell:sender];
     [self performSegueWithIdentifier:@"editProject" sender:sender];
 }
 
 - (void)onProjectEditSaved:(INVProjectEditViewController *)controller
 {
     INVLogDebug();
-    [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex:) withObject:[NSNumber numberWithBool:NO] waitUntilDone:NO];
-
+    [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex:)
+                           withObject:[NSNumber numberWithBool:NO]
+                        waitUntilDone:NO];
 }
 
-- (void)onProjectEditCancelled:(INVProjectEditViewController *)controller {
-//    self.indexOfProjectBeingEdited = nil;
+- (void)onProjectEditCancelled:(INVProjectEditViewController *)controller
+{
+    //    self.indexOfProjectBeingEdited = nil;
 }
 
-- (void)reloadRowAtSelectedIndex:(NSNumber*)shouldReset
+- (void)reloadRowAtSelectedIndex:(NSNumber *)shouldReset
 {
     [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
-    //self.indexOfProjectBeingEdited = nil;
- 
+    // self.indexOfProjectBeingEdited = nil;
+
     [self updateTimeStamp];
 }
 
@@ -403,7 +445,8 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 100;
     /*
     else if (self.indexOfProjectBeingEdited) {
         INVLogDebug();
-        [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex:) withObject:[NSNumber numberWithBool:YES] waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(reloadRowAtSelectedIndex:) withObject:[NSNumber numberWithBool:YES]
+    waitUntilDone:NO];
     }
      */
 }
