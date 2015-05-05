@@ -270,7 +270,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                         [self.ruleParamParser transformRuleInstanceParamsToArray:self.ruleResult definition:ruleDefinition];
 
                        //  [self postProcessActualParams:params];
-                       [self.originalRuleInstanceActualParams setArray:params];
+                       [self.originalRuleInstanceActualParams setArray:[self.ruleParamParser  orderFormalParamsInArray:params]];
                        [self.dataSource updateWithDataArray:self.originalRuleInstanceActualParams
                                                  forSection:SECTION_RULEINSTANCEPARAM];
                        self.ruleDef = ruleDefinition;

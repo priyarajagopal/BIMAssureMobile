@@ -36,7 +36,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
 @property (nonatomic, strong) NSMutableDictionary *sizingCells;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
-@property (nonatomic, strong) NSMutableArray *originalRuleInstanceActualParams;
+//@property (nonatomic, strong) NSMutableArray *originalRuleInstanceActualParams;
 @property (nonatomic, strong) NSMutableArray *intermediateRuleInstanceActualParams; // Array of INV_ActualParamKeyValuePair
                                                                                     // objects transformed from the array params
                                                                                     // dictionary fetched from server
@@ -267,11 +267,12 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                            self.intermediateRuleInstanceActualParams =
                            [[[INVRuleParameterParser instance] transformRuleInstanceParamsToArray:ruleInstance
                                                                                        definition:rule] mutableCopy];
-                           
+                           /*
                            self.originalRuleInstanceActualParams =
-                           [[NSMutableArray alloc] initWithArray:self.intermediateRuleInstanceActualParams copyItems:YES];
+                           [[NSMutableArray alloc] initWithArray:[[INVRuleParameterParser instance] orderFormalParamsInArray: self.intermediateRuleInstanceActualParams] copyItems:YES];
+                            */
                            
-                           [self.dataSource updateWithDataArray:self.intermediateRuleInstanceActualParams
+                           [self.dataSource updateWithDataArray:[[INVRuleParameterParser instance] orderFormalParamsInArray: self.intermediateRuleInstanceActualParams]
                                                      forSection:SECTION_RULEINSTANCEACTUALPARAM];
                            
                            [self.tableView reloadData];

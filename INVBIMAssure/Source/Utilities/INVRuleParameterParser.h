@@ -75,4 +75,6 @@ INVParameterType INVParameterTypeFromString(NSString *type);
 - (NSError *)isValueValid:(id)value forAnyTypeInArray:(NSArray *)types withConstraints:(NSDictionary *)constraints;
 - (NSError *)isValueValid:(id)value forParameterType:(INVParameterType)type withConstraints:(NSDictionary *)constraints;
 
+
+- (NSArray *)orderFormalParamsInArray:(NSArray *)inputformalParams;
 @end

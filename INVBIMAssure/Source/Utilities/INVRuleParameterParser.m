@@ -17,11 +17,12 @@ NSString *const INVActualParamTypeConstraints = @"type_constraints";
 NSString *const INVActualParamValue = @"value";
 NSString *const INVActualParamUnit = @"unit";
 NSString *const INVActualParamError = @"error";
+NSString *const INVActualParamOrder = @"order";
 
 static NSString *const INV_TYPEVALIDATION_DOMAIN = @"INVRuleParameterValidation";
 static NSInteger const INV_TYPEVALIDATION_ERROR = 5001;
 
-static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"date", @"array",@"batype", @"range"};
+static NSString *INVParamaterTypeStrings[] = {@"string", @"number", @"date", @"array", @"batype", @"range"};
 static size_t INVParamaterTypeStringsCount = sizeof(INVParamaterTypeStrings) / sizeof(*INVParamaterTypeStrings);
 
 NSString *INVParameterTypeToString(INVParameterType type)
@@ -45,9 +46,7 @@ INVParameterType INVParameterTypeFromString(NSString *type)
 
 NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
 {
-    
     if ([types isKindOfClass:[NSString class]]) {
-        
         return @[ @(INVParameterTypeFromString(types)) ];
     }
 
@@ -85,6 +84,7 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
 
         NSDictionary *formalParameterProperties = ruleDefinition.formalParams.properties[paramName];
 
+        results[INVActualParamOrder] = formalParameterProperties[@"order"];
         [results[INVActualParamType]
             addObjectsFromArray:convertRuleDefinitionTypesToActualParamTypes(formalParameterProperties[@"type"])];
 
@@ -134,23 +134,22 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
         INVRuleInstanceActualParamMutableDictionary valueDict = [(INVRuleInstanceActualParamDictionary) obj mutableCopy];
         NSMutableDictionary *actualParam = actualParameters[key];
 
-        if ([valueDict[@"value"] isKindOfClass:[NSDictionary class]] ) {
+        if ([valueDict[@"value"] isKindOfClass:[NSDictionary class]]) {
             actualParam[INVActualParamValue] = [valueDict[@"value"] mutableCopy];
-            
-            if ([((NSMutableDictionary*)valueDict[@"value"]).allKeys containsObject:@"from"]) {
+
+            if ([((NSMutableDictionary *) valueDict[@"value"]).allKeys containsObject:@"from"]) {
                 actualParam[INVActualParamValue][@"from"] = [NSMutableDictionary new];
-                actualParam[INVActualParamValue][@"from"] = [valueDict[@"value"][@"from"]mutableCopy];
+                actualParam[INVActualParamValue][@"from"] = [valueDict[@"value"][@"from"] mutableCopy];
             }
-            if ([((NSMutableDictionary*)valueDict[@"value"]).allKeys containsObject:@"to"]) {
+            if ([((NSMutableDictionary *) valueDict[@"value"]).allKeys containsObject:@"to"]) {
                 actualParam[INVActualParamValue][@"to"] = [NSMutableDictionary new];
-                actualParam[INVActualParamValue][@"to"] = [valueDict[@"value"][@"to"]mutableCopy];
+                actualParam[INVActualParamValue][@"to"] = [valueDict[@"value"][@"to"] mutableCopy];
             }
         }
         else {
             actualParam[INVActualParamValue] = valueDict[@"value"];
-  
         }
- 
+
         if (valueDict[@"unit"]) {
             actualParam[INVActualParamUnit] = valueDict[@"unit"];
         }
@@ -168,7 +167,7 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
         NSString *key = actualDict[INVActualParamName];
         id value = actualDict[INVActualParamValue];
         NSString *unit = actualDict[INVActualParamUnit];
-        
+
         if ([value isKindOfClass:[NSDate class]]) {
             static NSDateFormatter *dateFormatter;
             static dispatch_once_t onceToken;
@@ -177,14 +176,13 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
                 [dateFormatter setDateFormat:@"yyyyMMdd'T'HHmmss'Z'"];
             });
             value = [dateFormatter stringFromDate:value];
-           
         }
-        
+
         if (unit && value) {
-            [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit} forKey:key];
+            [actualParam setObject:@{ INVActualParamValue : value, INVActualParamUnit : unit } forKey:key];
         }
         else if (value) {
-            [actualParam setObject:@{ INVActualParamValue : value} forKey:key];
+            [actualParam setObject:@{ INVActualParamValue : value } forKey:key];
         }
     }];
 
@@ -302,6 +300,23 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
     return [[NSError alloc] initWithDomain:INV_TYPEVALIDATION_DOMAIN
                                       code:INV_TYPEVALIDATION_ERROR
                                   userInfo:@{NSLocalizedDescriptionKey : message}];
+}
+
+- (NSArray *)orderFormalParamsInArray:(NSArray *)inputformalParams
+{
+    return [inputformalParams sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSDictionary *formalParam1 = obj1;
+        NSDictionary *formalParam2 = obj2;
+        NSInteger formalParamOrder1 = [[formalParam1 objectForKey:INVActualParamOrder] integerValue];
+        NSInteger formalParamOrder2 = [[formalParam2 objectForKey:INVActualParamOrder] integerValue];
+
+        if (formalParamOrder1 > formalParamOrder2)
+            return NSOrderedDescending;
+        if (formalParamOrder1 < formalParamOrder2)
+            return NSOrderedAscending;
+        return NSOrderedSame;
+
+    }];
 }
 
 @end
