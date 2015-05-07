@@ -149,6 +149,12 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
    
                 
             }
+            if ([self.ruleResult.issueStatus isEqualToNumber:@1]) {
+                cell.textLabel.textColor = [UIColor greenColor];
+            }
+            else {
+                cell.textLabel.textColor = [UIColor redColor];
+            }
             cell.textLabel.text = updatedIssueStr;
             
             cell.textLabel.numberOfLines = 0;

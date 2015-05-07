@@ -34,8 +34,14 @@
         self.analysisNameLabel.text = self.node.name;
 
         INVAnalysisRun *analysisRun = self.node.userInfo[INVModelTreeIssueRunKey];
+        /**
         self.issueCountLabel.text =
-            [NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_NODE_ISSUE_COUNT", nil), analysisRun.numRules,analysisRun.numElements];
+            [NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_NODE_ISSUE_COUNT", nil),
+        analysisRun.numRules,analysisRun.numElements];
+         **/
+
+        self.issueCountLabel.text =
+            [NSString stringWithFormat:NSLocalizedString(@"ANALYSIS_RUN_NODE_ISSUE_COUNT", nil), analysisRun.numElements];
     }
 }
 
