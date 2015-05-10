@@ -11,7 +11,12 @@
 #import <AFNetworking/AFNetworking.h>
 #import "INVServerConfigCertsEqualSecurityPolicy.h"
 
-#define LOCAL_CACHE_FILE_NAME @"Startup.json"
+static const NSString* LOCAL_CACHE_FILE_NAME = @"Startup.json";
+
+static NSString* LOCAL_XOSPASSPORT = @"http://192.168.50.11:8080";
+static NSString* LOCAL_EMPIREMANAGE = @"http://192.168.50.11:8080";
+static NSString* LOCAL_EMPIREWEB = @"http://192.168.50.11:8080";
+
 #define CONFIG_CACHE_FILE_PATH                                                                                                 \
     [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]                               \
         stringByAppendingPathComponent:LOCAL_CACHE_FILE_NAME]
@@ -112,7 +117,7 @@
     INVLogDebug(@"JSON config from %@ recieved: %@", [url URL], jsonConfig);
 
     NSString *deployName = @STRINGIFY(INV_DEPLOYMENT_NAME);
-
+    
     NSString *defaultDeployName = jsonConfig[@"defaultdeploy"];
 
     NSDictionary *defaultDeploy = nil;
@@ -189,7 +194,17 @@
 
 - (void)loadDefaultConfig
 {
-    [self loadConfigNamed:@STRINGIFY(INV_DEPLOYMENT_NAME)];
+    NSString* deployName = @STRINGIFY(INV_DEPLOYMENT_NAME);
+    
+    if ([deployName isEqualToString:@"local"]) {
+        _passportServerURL = [NSURL URLWithString:LOCAL_XOSPASSPORT];
+        _empireManageServerURL = [NSURL URLWithString:LOCAL_EMPIREMANAGE];
+        _empireManageWebURL = [NSURL URLWithString:LOCAL_EMPIREWEB];
+    }
+    else {
+
+        [self loadConfigNamed:deployName];
+    }
 }
 
 - (NSString *)passportServerHost
