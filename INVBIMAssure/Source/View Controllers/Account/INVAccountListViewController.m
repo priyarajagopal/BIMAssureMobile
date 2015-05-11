@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-@import CoreData;
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 const NSInteger INV_CELLSIZE = 100;
 

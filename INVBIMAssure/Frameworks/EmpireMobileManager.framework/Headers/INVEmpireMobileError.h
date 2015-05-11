@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-@import Foundation;
+//@import Foundation;
 
 #import <Mantle/Mantle.h>
 

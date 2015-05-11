@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@import Foundation;
-@import CoreData;
+//@import Foundation;
+//@import CoreData;
 
 #import "INVAnalysis.h"
 #import "INVRule.h"

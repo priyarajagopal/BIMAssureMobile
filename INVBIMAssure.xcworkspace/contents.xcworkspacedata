@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:libz.dylib">
+   </FileRef>
+   <FileRef
       location = "group:INVBIMAssure/INVBIMAssure.xcodeproj">
    </FileRef>
    <FileRef

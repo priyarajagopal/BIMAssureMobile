@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@import CoreData;
+#import <CoreData/CoreData.h>
 
 typedef void (^INV_FetchMoreCellConfigurationBlock)(NSIndexPath *indexPath);
 typedef UITableViewCell * (^INV_CellBlock)(id cellData, NSIndexPath *indexPath);

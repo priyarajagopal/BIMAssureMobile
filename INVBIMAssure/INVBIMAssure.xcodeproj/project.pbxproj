@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0215C2211B00F34800D944BF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0215C2201B00F34800D944BF /* libz.dylib */; };
+		0215C2231B00F38A00D944BF /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0215C2221B00F38A00D944BF /* libcurl.a */; };
+		0215C5151B0115DB00D944BF /* librenderLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0215C5141B0115DB00D944BF /* librenderLib.a */; };
+		0215C5171B0116A200D944BF /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0215C5161B0116A200D944BF /* EmpireMobileManager.framework */; };
+		0215C5191B01173100D944BF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0215C5181B01173100D944BF /* libz.dylib */; };
+		0215C51A1B01173F00D944BF /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0215C5161B0116A200D944BF /* EmpireMobileManager.framework */; };
+		0215C51B1B01173F00D944BF /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0215C5161B0116A200D944BF /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		024FEEF11A69859A001CA262 /* INVTabBarStoryboardLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */; };
 		024FEEF31A6986C1001CA262 /* Files.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 024FEEF21A6986C1001CA262 /* Files.storyboard */; };
 		024FEEF51A698E0E001CA262 /* Rules.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 024FEEF41A698E0E001CA262 /* Rules.storyboard */; };
@@ -28,9 +35,8 @@
 		0278BB031A66BCFF009E0E27 /* INVServerConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BB011A66BCFF009E0E27 /* INVServerConfigManager.m */; };
 		0278BB0B1A66C60D009E0E27 /* INVTransitionToStoryboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */; };
 		027B92941AFBAEAC00868FE7 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 027B92931AFBAEAC00868FE7 /* EmpireMobileManager.framework */; };
-		027B92951AFBAEBC00868FE7 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 027B92931AFBAEAC00868FE7 /* EmpireMobileManager.framework */; };
-		027B92961AFBAEBC00868FE7 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 027B92931AFBAEAC00868FE7 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02AFD1801A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AFD17F1A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m */; };
+		02D458571AFFD8A400283B65 /* INVModelViewerViewController2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 02D458561AFFD8A400283B65 /* INVModelViewerViewController2.mm */; };
 		02D5EE211AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */; };
 		02D5EE221AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */; };
 		02D5EE231AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */; };
@@ -237,7 +243,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				027B92961AFBAEBC00868FE7 /* EmpireMobileManager.framework in Embed Frameworks */,
+				0215C51B1B01173F00D944BF /* EmpireMobileManager.framework in Embed Frameworks */,
 				F55AD90F1A8A420900202F0A /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -250,6 +256,11 @@
 		0212B66B1ADDC17000FAB7A1 /* libPods-FDKeychain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-FDKeychain.a"; path = "../../Pods/build/Dev-iphoneos/libPods-FDKeychain.a"; sourceTree = "<group>"; };
 		0212B66D1ADDC17A00FAB7A1 /* libPods-Overcoat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Overcoat.a"; path = "../../Pods/build/Dev-iphoneos/libPods-Overcoat.a"; sourceTree = "<group>"; };
 		0212B66F1ADDC17F00FAB7A1 /* libPods-AFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AFNetworking.a"; path = "../../Pods/build/Dev-iphoneos/libPods-AFNetworking.a"; sourceTree = "<group>"; };
+		0215C2201B00F34800D944BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		0215C2221B00F38A00D944BF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = "<group>"; };
+		0215C5141B0115DB00D944BF /* librenderLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = librenderLib.a; sourceTree = "<group>"; };
+		0215C5161B0116A200D944BF /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		0215C5181B01173100D944BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = ../../../libz.dylib; sourceTree = "<group>"; };
 		024FEEEF1A69859A001CA262 /* INVTabBarStoryboardLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVTabBarStoryboardLoader.h; path = "Table View Data Sources/INVTabBarStoryboardLoader.h"; sourceTree = "<group>"; };
 		024FEEF01A69859A001CA262 /* INVTabBarStoryboardLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVTabBarStoryboardLoader.m; path = "Table View Data Sources/INVTabBarStoryboardLoader.m"; sourceTree = "<group>"; };
 		024FEEF21A6986C1001CA262 /* Files.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Files.storyboard; sourceTree = "<group>"; };
@@ -282,11 +293,14 @@
 		0278BB011A66BCFF009E0E27 /* INVServerConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVServerConfigManager.m; path = "Data Managers/INVServerConfigManager.m"; sourceTree = "<group>"; };
 		0278BB091A66C60D009E0E27 /* INVTransitionToStoryboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVTransitionToStoryboard.h; sourceTree = "<group>"; };
 		0278BB0A1A66C60D009E0E27 /* INVTransitionToStoryboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVTransitionToStoryboard.m; sourceTree = "<group>"; };
-		027B92931AFBAEAC00868FE7 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		027B92931AFBAEAC00868FE7 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
 		02AFD17E1A6DA11500D92402 /* INVPagingManager+PackageMasterListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INVPagingManager+PackageMasterListing.h"; sourceTree = "<group>"; };
 		02AFD17F1A6DA11500D92402 /* INVPagingManager+PackageMasterListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "INVPagingManager+PackageMasterListing.m"; sourceTree = "<group>"; };
 		02C8845719E317E900DFB4E2 /* BIM Assure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BIM Assure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8847019E317E900DFB4E2 /* INVBIMAssureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INVBIMAssureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		02D458551AFFD8A400283B65 /* INVModelViewerViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVModelViewerViewController2.h; sourceTree = "<group>"; };
+		02D458561AFFD8A400283B65 /* INVModelViewerViewController2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = INVModelViewerViewController2.mm; sourceTree = "<group>"; };
+		02D459D21B00E5F800283B65 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		02D5EE1E1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVRuleActualParamsDisplayTableViewCell.h; path = "../../../Resources/Interface Builder/INVRuleActualParamsDisplayTableViewCell.h"; sourceTree = "<group>"; };
 		02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVRuleActualParamsDisplayTableViewCell.m; path = "../../../Resources/Interface Builder/INVRuleActualParamsDisplayTableViewCell.m"; sourceTree = "<group>"; };
 		02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleActualParamsDisplayTableViewCell.xib; sourceTree = "<group>"; };
@@ -629,18 +643,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0215C2211B00F34800D944BF /* libz.dylib in Frameworks */,
 				F56C9DFF1AB1C46100D365AD /* libPods-AWPagedArray.a in Frameworks */,
 				F5D2914D1A83F77C000CBA6B /* libRBCollectionViewInfoFolderLayout.a in Frameworks */,
+				0215C5191B01173100D944BF /* libz.dylib in Frameworks */,
 				F55AD90E1A8A420900202F0A /* OpenCTM.framework in Frameworks */,
+				0215C2231B00F38A00D944BF /* libcurl.a in Frameworks */,
 				F5D2914E1A83F77C000CBA6B /* libYajl.a in Frameworks */,
 				F539D5191A644771007A2BDC /* libPods-FontAwesomeKit.a in Frameworks */,
 				F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */,
 				F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */,
+				0215C51A1B01173F00D944BF /* EmpireMobileManager.framework in Frameworks */,
 				F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */,
 				F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */,
+				0215C5151B0115DB00D944BF /* librenderLib.a in Frameworks */,
 				F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */,
 				027B92941AFBAEAC00868FE7 /* EmpireMobileManager.framework in Frameworks */,
-				027B92951AFBAEBC00868FE7 /* EmpireMobileManager.framework in Frameworks */,
+				0215C5171B0116A200D944BF /* EmpireMobileManager.framework in Frameworks */,
 				3E5AE4CA6BC37DFBBE214AFE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -656,6 +675,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0215C0A81B00ECEB00D944BF /* renderlib */ = {
+			isa = PBXGroup;
+			children = (
+				0215C5181B01173100D944BF /* libz.dylib */,
+				0215C5141B0115DB00D944BF /* librenderLib.a */,
+				0215C2221B00F38A00D944BF /* libcurl.a */,
+			);
+			path = renderlib;
+			sourceTree = "<group>";
+		};
 		025489451A6726AB00EE012D /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,7 +754,9 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				027B92931AFBAEAC00868FE7 /* EmpireMobileManager.framework */,
+				0215C5161B0116A200D944BF /* EmpireMobileManager.framework */,
+				0215C2201B00F34800D944BF /* libz.dylib */,
+				02D459D21B00E5F800283B65 /* GLKit.framework */,
 				0212B66F1ADDC17F00FAB7A1 /* libPods-AFNetworking.a */,
 				0212B66D1ADDC17A00FAB7A1 /* libPods-Overcoat.a */,
 				0212B66B1ADDC17000FAB7A1 /* libPods-FDKeychain.a */,
@@ -810,6 +841,7 @@
 		F5789C901A642A5500D8CEE7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				0215C0A81B00ECEB00D944BF /* renderlib */,
 				F5789CC51A642A5500D8CEE7 /* Utilities */,
 				F5789C911A642A5500D8CEE7 /* Custom Views */,
 				F5789CBB1A642A5500D8CEE7 /* Segues */,
@@ -1152,6 +1184,8 @@
 				F5BEE5821ABB4EF70089E177 /* INVModelTreeNormalizationTableViewController.m */,
 				F5EA59C41ABB638F00458C0C /* INVModelTreeBaseViewController.h */,
 				F5EA59C51ABB638F00458C0C /* INVModelTreeBaseViewController.m */,
+				02D458551AFFD8A400283B65 /* INVModelViewerViewController2.h */,
+				02D458561AFFD8A400283B65 /* INVModelViewerViewController2.mm */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1666,6 +1700,7 @@
 				F5789D521A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESMesh.m in Sources */,
 				F5FC0CBB1AA61D3D00FBAE84 /* INVBuildingElementPropertiesTableViewController.m in Sources */,
 				F557E5381ACAE5E900667111 /* INVBlackTintedNavigationViewController.m in Sources */,
+				02D458571AFFD8A400283B65 /* INVModelViewerViewController2.mm in Sources */,
 				F51606D31AC5ABC1004E681F /* INVUnitsListTableViewController.m in Sources */,
 				F5426D5A1A6816D40040B2B5 /* INVNotificationsTableViewController.m in Sources */,
 				F5789D391A642A5500D8CEE7 /* INVSearchView.m in Sources */,
@@ -1762,6 +1797,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "$SRCROOT/**";
 			};
 			name = Dev;
 		};
@@ -1769,6 +1805,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 051E433FAA6C6DF3BA9BA08B /* Pods.dev.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1800,6 +1837,9 @@
 					"$(PROJECT_DIR)/Frameworks",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphonesimulator",
 					"/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/Pods/build/Dev-iphoneos",
+					"$(PROJECT_DIR)/Source",
+					"$(PROJECT_DIR)/Source/renderlib",
+					"/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1832,6 +1872,7 @@
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "BIM Assure";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "$SRCROOT/**";
 			};
 			name = Dev;
 		};
@@ -1926,6 +1967,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "$SRCROOT/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Prod;
@@ -1934,6 +1976,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E081133EAE50CBE008BE55BB /* Pods.prod.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1965,6 +2008,9 @@
 					"$(PROJECT_DIR)/Frameworks",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphonesimulator",
 					"/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/Pods/build/Dev-iphoneos",
+					"$(PROJECT_DIR)/Source",
+					"$(PROJECT_DIR)/Source/renderlib",
+					"/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1997,6 +2043,7 @@
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "BIM Assure";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "$SRCROOT/**";
 			};
 			name = Prod;
 		};
@@ -2091,6 +2138,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "$SRCROOT/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = QA;
@@ -2099,6 +2147,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2059B57D5C6E07B9D5C8B8A0 /* Pods.qa.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -2131,6 +2180,9 @@
 					"$(PROJECT_DIR)/Frameworks",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/INVBIMAssure-dydfmanycigvzveeblxivjhxmrjp/Build/Products/Dev-iphonesimulator",
 					"/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/Pods/build/Dev-iphoneos",
+					"$(PROJECT_DIR)/Source",
+					"$(PROJECT_DIR)/Source/renderlib",
+					"/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -2163,6 +2215,7 @@
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "BIM Assure";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "$SRCROOT/**";
 			};
 			name = QA;
 		};

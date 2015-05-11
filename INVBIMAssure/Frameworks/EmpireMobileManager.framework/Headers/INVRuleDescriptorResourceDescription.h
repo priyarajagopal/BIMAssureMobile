@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Invicara Inc. All rights reserved.
 //
 
-@import UIKit;
+//@import UIKit;
 
 @interface INVRuleDescriptorResourceDescription : NSObject
 @property (copy, nonatomic) NSString *longDescription;

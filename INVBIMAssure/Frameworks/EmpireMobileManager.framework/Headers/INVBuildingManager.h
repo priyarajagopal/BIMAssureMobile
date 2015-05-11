@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //  //////////////////// DO NOT USE THIS CLASS> SERVER SIDE UNTESTED AND SUBJECT TO CHANGE >>>>>>>>>>>>
 
-@import Foundation;
-@import CoreData;
+//@import Foundation;
+//@import CoreData;
 
 #import "INVBuildingElement.h"
 

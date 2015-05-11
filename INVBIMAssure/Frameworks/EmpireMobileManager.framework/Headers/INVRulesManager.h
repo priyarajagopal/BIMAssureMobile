@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
-@import Foundation;
-@import CoreData;
+//@import Foundation;
+//@import CoreData;
 
 #import "INVRuleSet.h"
 #import "INVRule.h"

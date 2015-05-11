@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 IB_DESIGNABLE
 @interface INVTabBarStoryboardLoader : NSObject

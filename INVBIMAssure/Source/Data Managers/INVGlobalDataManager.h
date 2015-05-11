@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@import EmpireMobileManager;
+#import <EmpireMobileManager/EmpireMObileManager.h>
 
 /**
  Notifications

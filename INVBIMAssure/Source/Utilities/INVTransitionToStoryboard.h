@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, StoryboardTransition) {
     StoryboardTransitionShow = 0,
