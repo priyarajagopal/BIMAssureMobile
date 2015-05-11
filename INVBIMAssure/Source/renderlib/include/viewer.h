@@ -20,6 +20,7 @@ public:
 	void request_render();
 	Renderer* get_renderer() const { return renderer; }
 
+	void set_cache_folder(const char* folder);
 	void set_auth_token(const char* token);
 	bool load_model(const char* url);
 	void cancel_load_model();

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "INVModelViewerViewController.h"
+#import "INVModelViewerViewController2.h"
 #import "INVModelTreeBuildingElementsTableViewController.h"
 
 @interface INVModelViewerContainerViewController : UIViewController

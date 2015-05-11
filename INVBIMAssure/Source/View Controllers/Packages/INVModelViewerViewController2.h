@@ -12,5 +12,10 @@
 @property (nonatomic, strong) NSNumber *fileVersionId;
 @property (nonatomic, strong) NSNumber *modelId;
 
+- (IBAction)goHome:(id)sender;
+- (IBAction)toggleShadow:(id)sender;
+- (IBAction)toggleGlass:(id)sender;
+- (IBAction)toggleVisible:(id)sender;
+- (IBAction)highlightElement:(NSString *)elementId;
 
 @end

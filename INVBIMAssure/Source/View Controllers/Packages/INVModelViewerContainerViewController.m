@@ -14,7 +14,7 @@
 
 @interface INVModelViewerContainerViewController ()
 
-@property (nonatomic, strong) INVModelViewerViewController *modelViewController;
+@property (nonatomic, strong) INVModelViewerViewController2 *modelViewController;
 @property (nonatomic, strong) INVModelTreeContainerViewController *modelTreeContainerViewController;
 
 @property IBOutlet UIView *modelTreeView;
@@ -39,7 +39,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue destinationViewController] isKindOfClass:[INVModelViewerViewController class]]) {
+    if ([[segue destinationViewController] isKindOfClass:[INVModelViewerViewController2 class]]) {
         self.modelViewController = segue.destinationViewController;
 
         self.modelViewController.modelId = self.modelId;
