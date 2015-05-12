@@ -199,7 +199,11 @@ static NSString *const INVModelTreeBuildingElementsModelIdKey = @"modelId";
     if ([self.navigationController.topViewController isKindOfClass:[INVModelViewerContainerViewController class]]) {
         INVModelViewerContainerViewController *modelViewerContainer =
         (INVModelViewerContainerViewController *) [self.navigationController topViewController];
-        [modelViewerContainer highlightElement:cell.node.userInfo[INVModelTreeBuildingElementsModelIdKey]];
+        
+        NSString* elementKey = cell.node.userInfo[INVModelTreeBuildingElementsModelIdKey];
+        if (elementKey) {
+            [modelViewerContainer highlightElement:elementKey];
+        }
         
         if (!cell.node.isLeaf) {
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

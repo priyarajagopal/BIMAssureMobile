@@ -229,8 +229,19 @@ using namespace renderlib;
 {
 }
 
-- (IBAction)highlightElement:(NSString *)elementId
-{
+- (IBAction)highlightElement:(NSString *)elementId {
+    int32_t elementNum = [elementId intValue];
+    
+    ElementIdList selectedElements = _viewer->get_selected_elements();
+    if(std::find(selectedElements.begin(), selectedElements.end(), elementNum) != selectedElements.end()) {
+        // already selected. Nothing to do ...
+    } else {
+         _viewer->deselect_all_elements();
+        ElementIdList elementToHightlight ;
+        elementToHightlight.push_back(elementNum);
+        _viewer->set_elements_selected(elementToHightlight, true);
+    }
+
 }
 
 #pragma mark - observers
