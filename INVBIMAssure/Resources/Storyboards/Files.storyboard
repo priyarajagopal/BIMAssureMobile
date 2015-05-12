@@ -217,6 +217,9 @@
                                                 <action selector="toggleVisible:" destination="7X8-1T-t9z" eventType="touchUpInside" id="cIt-Dt-q7I"/>
                                             </connections>
                                         </button>
+                                        <connections>
+                                            <action selector="toggleVisible:" destination="7X8-1T-t9z" id="Sug-hV-xfJ"/>
+                                        </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>

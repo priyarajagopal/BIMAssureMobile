@@ -9,7 +9,9 @@
 #import "INVModelViewerViewController2.h"
 #import <OpenGLES/ES2/glext.h>
 #include "viewer.h"
+
 using namespace renderlib;
+using namespace std;
 
 @interface INVModelViewerViewController2 () {
     Viewer* _viewer;
@@ -227,6 +229,23 @@ using namespace renderlib;
 
 - (IBAction)toggleVisible:(id)sender
 {
+    BOOL selectedElementsHidden = NO;
+    ElementIdList selectedElements = _viewer->get_selected_elements();
+    for(std::vector<int>::size_type i = 0; i != selectedElements.size(); i++) {
+        uint32_t element = selectedElements[i];
+        if (_viewer->is_element_visible(element)) {
+            selectedElementsHidden = YES;
+           
+        }
+    }
+    if (selectedElementsHidden) {
+         _viewer->set_elements_visible(selectedElements, false);
+    }
+    else {
+        _viewer->set_elements_visible(selectedElements, true);
+    }
+   
+
 }
 
 - (IBAction)highlightElement:(NSString *)elementId {
