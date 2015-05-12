@@ -15,6 +15,7 @@
 #import "INVRule.h"
 #import "INVRuleInstance.h"
 #import "INVAnalysisPkgMembership.h"
+#import "INVAnalysisTemplate.h"
 
 @interface INVAnalysesManager : NSObject
 
@@ -37,6 +38,11 @@
  Can be used to obtain information on rule instances
  */
 @property (nonatomic, readonly, copy) NSFetchRequest *fetchRequestForRuleInstance;
+
+/**
+ Can be used to obtain information on analysis templates
+ */
+@property (nonatomic, readonly, copy) NSFetchRequest *fetchRequestForAnalysisTemplates;
 
 /**
  Creates a singleton instance of INVAnalysesManager.
@@ -87,13 +93,25 @@
 - (INVAnalysisArray)analysesForIds:(NSArray *)analysesIds;
 
 /**
- Returns rule definitions for current account for specific ruleId
+ Returns rule definitions for current account
 
  @see INVRule
 
  @return The array of INVRule objects
  */
 - (INVRuleArray)ruleDefinitionsForSignedInAccount;
+
+
+
+/**
+ Returns analysis templates for current account
+ 
+ @see INVAnalysisTemplate
+ 
+ @return The array of INVAnalysisTemplate objects
+ */
+- (INVAnalysisTemplateArray)analysisTemplatesForSignedInAccount;
+
 
 /**
  Returns rule definition for specific ruleId

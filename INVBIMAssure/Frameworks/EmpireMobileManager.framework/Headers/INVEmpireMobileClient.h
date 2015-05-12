@@ -1734,6 +1734,26 @@ INVAnalysis object is returned
     withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
+ Asynchornously , add the list of analysis template Ids to analysis The user must have succesfully into the account via
+ signIntoAccount:withCompletionBlock:
+ 
+ @param analysisId  The analysis Id
+ 
+ @param analysisTemplateIds The list of analysis template ids to be associated with the analysis
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, then return analysis
+ membership
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see analysesManager
+ 
+ */
+- (void)addToAnalysis:(NSNumber *)analysisId
+    analysisTemplateIds:(NSArray *)ruleDefIds
+  withCompletionBlock:(CompletionHandlerWithData)handler;
+
+/**
  Asynchornously ,get list of all analyses  associated with a pkg master. Users must have signed into an account in order to
  be able to fetch analyses
 
@@ -1800,6 +1820,22 @@ INVAnalysis object is returned
  */
 - (void)getRuleDefinitionForRuleId:(NSNumber *)ruleId WithCompletionBlock:(CompletionHandlerWithData)handler;
 
+
+#pragma mark AnalysesTemplates Related
+
+/**
+ Asynchornously ,get list of all analysis templates associated with a account. Users must have signed into an account in order to be able to
+ fetch templates.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ analysesManager can be used to retrieve rules
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see analysesManager
+ 
+ */
+- (void)getAllAnalysisTemplatesForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
 #pragma mark Rules (Instances) Related
 
 /**

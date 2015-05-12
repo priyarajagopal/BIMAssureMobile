@@ -43,11 +43,13 @@ using namespace renderlib;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+ 
     [self setupGL];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self addObservers];
     _viewer->set_viewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     [self loadModel];
 }
@@ -55,6 +57,7 @@ using namespace renderlib;
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [self removeObservers];
     [self tearDownGL];
     
     if ([EAGLContext currentContext] == self.context) {
@@ -80,7 +83,6 @@ using namespace renderlib;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Helpers
 - (void)setupGL
 {
     [EAGLContext setCurrentContext:self.context];
@@ -96,24 +98,6 @@ using namespace renderlib;
     NSURLRequest *request =
     [[INVGlobalDataManager sharedInstance].invServerClient requestToFetchGeomInfoForPkgVersion:self.fileVersionId];
    
-    /*
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue currentQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               NSDictionary *parsedResults = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-                               
-                               NSLog(@"loadModel:%@",parsedResults);
-                               for (NSString *geomPath in parsedResults[@"outputFiles"]) {
-                                   NSLog(@"geomPath:%@",[[NSURL URLWithString:geomPath ]lastPathComponent]);
-                                   NSURLRequest *geomRequest = [[INVGlobalDataManager sharedInstance].invServerClient
-                                                                requestToFetchModelViewForPkgVersion:self.fileVersionId
-                                                                forFile:[[NSURL URLWithString:geomPath ]lastPathComponent]];
-                                   
-                                   [self->_ctmParser process:geomRequest];
-                               }
-                           }];
-
-     */
     NSString* authToken = [INVGlobalDataManager sharedInstance].invServerClient.accountManager.tokenOfSignedInAccount;
     _viewer->set_auth_token([authToken cStringUsingEncoding:NSASCIIStringEncoding] );
     _viewer->load_model([[request.URL absoluteString] cStringUsingEncoding:NSASCIIStringEncoding]);
@@ -216,6 +200,13 @@ using namespace renderlib;
     }
 }
 
+-(void)onResume
+{
+    _viewer->request_render();
+}
+
+
+#pragma mark - IBActions
 -(IBAction)toggleGlass:(id)sender
 {
     bool glass_mode = _viewer->is_glass_mode();
@@ -240,5 +231,20 @@ using namespace renderlib;
 
 - (IBAction)highlightElement:(NSString *)elementId
 {
+}
+
+#pragma mark - observers
+-(void)addObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                         selector:@selector(onResume)
+                                             name:UIApplicationDidBecomeActiveNotification
+                                           object:nil];
+}
+
+-(void)removeObservers {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:nil];
+
 }
 @end

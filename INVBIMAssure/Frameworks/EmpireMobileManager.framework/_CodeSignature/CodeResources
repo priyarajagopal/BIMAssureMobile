@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/INVAnalysesManager.h</key>
 		<data>
-		j+atehJfr3phC9MAjkDPrJlmPXE=
+		m2oqK7zUlIG7BgR+X4xPyNdaUaQ=
 		</data>
 		<key>Headers/INVAnalysis.h</key>
 		<data>
@@ -40,9 +40,17 @@
 		<data>
 		vWEfizU1hHMLqUqPuENLvR3GYFA=
 		</data>
+		<key>Headers/INVAnalysisRunDetails.h</key>
+		<data>
+		ebipB3XpU3oGPfwd7d1o7zWt0gI=
+		</data>
 		<key>Headers/INVAnalysisRunResult.h</key>
 		<data>
 		NkbYpnOZ+M012dE1vSxiXnrW7n8=
+		</data>
+		<key>Headers/INVAnalysisTemplate.h</key>
+		<data>
+		mUwUR293EAKWDMK4ynRqdZmQetM=
 		</data>
 		<key>Headers/INVBAUnit.h</key>
 		<data>
@@ -58,7 +66,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		ZcsdPKW73UHVcU0xLSY23ngjgCE=
+		R6KEYk7imj8qOFxWBZ+0nEvj6Fg=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -158,11 +166,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		nNapP93qHRXblbzrT/6/0PhGsrY=
+		gy4G94OuiLaL+1Ui7zupospVYzU=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		G4ID+jf/WupgTgMMu+dL9Z4pSnM=
+		riBJYiMpQb7Bird7gpVTkhMUego=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -225,7 +233,7 @@
 		</data>
 		<key>Headers/INVAnalysesManager.h</key>
 		<data>
-		j+atehJfr3phC9MAjkDPrJlmPXE=
+		m2oqK7zUlIG7BgR+X4xPyNdaUaQ=
 		</data>
 		<key>Headers/INVAnalysis.h</key>
 		<data>
@@ -239,9 +247,17 @@
 		<data>
 		vWEfizU1hHMLqUqPuENLvR3GYFA=
 		</data>
+		<key>Headers/INVAnalysisRunDetails.h</key>
+		<data>
+		ebipB3XpU3oGPfwd7d1o7zWt0gI=
+		</data>
 		<key>Headers/INVAnalysisRunResult.h</key>
 		<data>
 		NkbYpnOZ+M012dE1vSxiXnrW7n8=
+		</data>
+		<key>Headers/INVAnalysisTemplate.h</key>
+		<data>
+		mUwUR293EAKWDMK4ynRqdZmQetM=
 		</data>
 		<key>Headers/INVBAUnit.h</key>
 		<data>
@@ -257,7 +273,7 @@
 		</data>
 		<key>Headers/INVEmpireMobileClient.h</key>
 		<data>
-		ZcsdPKW73UHVcU0xLSY23ngjgCE=
+		R6KEYk7imj8qOFxWBZ+0nEvj6Fg=
 		</data>
 		<key>Headers/INVEmpireMobileError.h</key>
 		<data>
@@ -357,11 +373,11 @@
 		</data>
 		<key>INVDataModel.momd/INVDataModel.mom</key>
 		<data>
-		nNapP93qHRXblbzrT/6/0PhGsrY=
+		gy4G94OuiLaL+1Ui7zupospVYzU=
 		</data>
 		<key>INVDataModel.momd/VersionInfo.plist</key>
 		<data>
-		G4ID+jf/WupgTgMMu+dL9Z4pSnM=
+		riBJYiMpQb7Bird7gpVTkhMUego=
 		</data>
 		<key>InvicaraLogo.png</key>
 		<data>
