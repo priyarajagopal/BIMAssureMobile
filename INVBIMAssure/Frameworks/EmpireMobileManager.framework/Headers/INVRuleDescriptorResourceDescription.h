@@ -7,6 +7,7 @@
 //
 
 //@import UIKit;
+#import <Foundation/Foundation.h>
 
 @interface INVRuleDescriptorResourceDescription : NSObject
 @property (copy, nonatomic) NSString *longDescription;

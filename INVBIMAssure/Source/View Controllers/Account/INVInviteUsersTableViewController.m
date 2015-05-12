@@ -217,7 +217,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 
                      if (error) {
                          INVLogError(@"%@", error);
-
+ 
                          [self showInviteFailureAlert];
                      }
                      else {

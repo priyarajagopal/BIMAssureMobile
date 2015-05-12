@@ -15,7 +15,7 @@ static const NSString* LOCAL_CACHE_FILE_NAME = @"Startup.json";
 
 static NSString* LOCAL_XOSPASSPORT = @"http://192.168.50.11:8080";
 static NSString* LOCAL_EMPIREMANAGE = @"http://192.168.50.11:8080";
-static NSString* LOCAL_EMPIREWEB = @"http://192.168.50.11:8080";
+static NSString* LOCAL_EMPIREWEB = @"*";
 
 #define CONFIG_CACHE_FILE_PATH                                                                                                 \
     [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]                               \
