@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface INVRuleDefinitionSelectionTableViewController : UITableViewController
+@interface INVRuleDefinitionSelectionTableViewController : INVCustomTableViewController
 @property (nonatomic, copy) NSNumber *analysisId;
 @end

@@ -161,7 +161,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 130;
       [self.selectRuleDefinitionTransition perform:sender];
 }
 
-- (IBAction)manualDismiss:(UIStoryboardSegue *)segue
+- (IBAction)manualDismissForAnalysisRulesTVC:(UIStoryboardSegue *)segue
 {
     [self fetchListOfRules];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -233,34 +233,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 130;
 
 
 #pragma mark - helpers
--(IBAction)showRuleDefinitionsOptions :(id)sender{
-    /*
-    UINavigationController *viewController =
-    [[UIStoryboard storyboardWithName:@"Analyses" bundle:nil] instantiateViewControllerWithIdentifier:@"ruleIssuesNC"];
-    
-    INVRuleIssuesTableViewController *issuesViewController =
-    (INVRuleIssuesTableViewController *) [viewController topViewController];
-    
-    issuesViewController.projectId = self.projectId;
-    issuesViewController.buildingElementId = node.userInfo[INVModelTreeBuildingElementsElmentIdKey];
-    issuesViewController.ruleResult =
-    node.userInfo[INVModelTreeIssueRunResultKey] ?: node.parent.userInfo[INVModelTreeIssueRunResultKey];
-    
-    viewController.modalPresentationStyle = UIModalPresentationPopover;
-    
-    [self presentViewController:viewController animated:YES completion:nil];
-    
-    viewController.popoverPresentationController.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-    
-    // This should be the accessory button.
-    UIView *anchor = sender;
-    
-    viewController.popoverPresentationController.sourceView = anchor;
-    viewController.popoverPresentationController.sourceRect = [anchor bounds];
-    viewController.popoverPresentationController.permittedArrowDirections =
-    UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight;
-*/
-}
+
 - (void)reloadTable
 {
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];

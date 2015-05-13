@@ -292,4 +292,7 @@
 "INVITATION_DATE_UNAVAILABLE"="Unavailable";
 "ERROR_ISSUES_FOR_BUILDING_ELEMENT_LOAD"="Error while loading issues for building element";
 "ERROR_RULE_DEFINITION_SAVE"="Error while adding rule definition";
-"EDIT_USER_PROFILE_SUCCESS"="Succesfully updated user details"; 
+"EDIT_USER_PROFILE_SUCCESS"="Succesfully updated user details";
+"ERROR_RULE_ANALYSISTEMPLATE_SAVE"="Error while adding analysis templates";
+"ERROR_RULE_ANALYSISTEMPLATE_LOAD"="Error while loading analysis templates";
+"SELECT_ANALYSIS_TEMPLATES"="Select Analysis Templates";

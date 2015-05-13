@@ -43,6 +43,7 @@
  Can be used to obtain information on analysis templates
  */
 @property (nonatomic, readonly, copy) NSFetchRequest *fetchRequestForAnalysisTemplates;
+                                                
 
 /**
  Creates a singleton instance of INVAnalysesManager.
