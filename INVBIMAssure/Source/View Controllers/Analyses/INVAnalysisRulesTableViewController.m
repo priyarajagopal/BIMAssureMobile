@@ -9,16 +9,17 @@
 #import "INVAnalysisRulesTableViewController.h"
 #import "INVRuleDefinitionsTableViewController.h"
 #import "INVRuleInstanceTableViewCell.h"
-
+#import "INVRuleDefinitionSelectionTableViewController.h"
 #import "UIView+INVCustomizations.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 130;
 
-@interface INVAnalysisRulesTableViewController () <INVRuleInstanceTableViewControllerDelegate>
+@interface INVAnalysisRulesTableViewController () <INVRuleInstanceTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, copy) INVAnalysis *analysis;
 @property (nonatomic,strong) IBOutlet INVTransitionToStoryboard *editRuleInstanceTransition;
 @property (nonatomic,strong) IBOutlet INVTransitionToStoryboard *selectRuleDefinitionTransition;
+@property (nonatomic, strong)  UIPickerView *ruleTypePickerView;
 
 - (IBAction)onRuleInstanceEditSelected:(id)sender;
 - (IBAction)onRuleInstanceAddSelected:(id)sender;
@@ -45,9 +46,15 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 130;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showRuleDefinitions"]) {
-        
+
         INVRuleDefinitionsTableViewController *ruleDefinitionsVC = (INVRuleDefinitionsTableViewController*)((UINavigationController*)segue.destinationViewController).topViewController;
         ruleDefinitionsVC.analysisId = self.analysisId;
+
+    }
+    
+    if ([[segue identifier] isEqualToString:@"RuleDefinitionSelectionSegue"]) {
+        INVRuleDefinitionSelectionTableViewController *ruleDefinitionsSelectVC = (INVRuleDefinitionSelectionTableViewController*)(segue.destinationViewController);
+        ruleDefinitionsSelectVC.analysisId = self.analysisId;
     }
 
     if ([[segue identifier] isEqualToString:@"editRuleInstance"]) {
@@ -150,8 +157,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 130;
 }
 
 - (void)onRuleInstanceAddSelected:(id)sender
-{    
-    [self.selectRuleDefinitionTransition perform:sender];
+{
+      [self.selectRuleDefinitionTransition perform:sender];
 }
 
 - (IBAction)manualDismiss:(UIStoryboardSegue *)segue
@@ -195,7 +202,65 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 130;
     [self.tableView reloadData];
 }
 
+#pragma mark - UIPickerViewDataSource
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return 2;
+}
+
+
+#pragma mark- UIPickerViewDelegate
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (row == 1) {
+        return NSLocalizedString(@"Pick from Rule Definitions", nil);
+    }
+    else {
+        return  NSLocalizedString(@"Pick from Analysis Templates", nil);
+    }
+}
+
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    INVLogDebug();
+}
+
+
+
+
 #pragma mark - helpers
+-(IBAction)showRuleDefinitionsOptions :(id)sender{
+    /*
+    UINavigationController *viewController =
+    [[UIStoryboard storyboardWithName:@"Analyses" bundle:nil] instantiateViewControllerWithIdentifier:@"ruleIssuesNC"];
+    
+    INVRuleIssuesTableViewController *issuesViewController =
+    (INVRuleIssuesTableViewController *) [viewController topViewController];
+    
+    issuesViewController.projectId = self.projectId;
+    issuesViewController.buildingElementId = node.userInfo[INVModelTreeBuildingElementsElmentIdKey];
+    issuesViewController.ruleResult =
+    node.userInfo[INVModelTreeIssueRunResultKey] ?: node.parent.userInfo[INVModelTreeIssueRunResultKey];
+    
+    viewController.modalPresentationStyle = UIModalPresentationPopover;
+    
+    [self presentViewController:viewController animated:YES completion:nil];
+    
+    viewController.popoverPresentationController.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    
+    // This should be the accessory button.
+    UIView *anchor = sender;
+    
+    viewController.popoverPresentationController.sourceView = anchor;
+    viewController.popoverPresentationController.sourceRect = [anchor bounds];
+    viewController.popoverPresentationController.permittedArrowDirections =
+    UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight;
+*/
+}
 - (void)reloadTable
 {
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];

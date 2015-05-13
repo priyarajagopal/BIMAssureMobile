@@ -70,7 +70,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add" id="Bif-sG-7DE">
                             <connections>
-                                <action selector="perform:" destination="p3J-1q-2ga" id="yJH-uq-Faa"/>
+                                <segue destination="G5s-g6-Yjd" kind="popoverPresentation" identifier="RuleDefinitionSelectionSegue" popoverAnchorBarButtonItem="Bif-sG-7DE" id="wvd-U1-D0e">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -115,6 +117,79 @@
                 </customObject>
             </objects>
             <point key="canvasLocation" x="2398" y="1056"/>
+        </scene>
+        <!--RuleDefSelectionTableViewController-->
+        <scene sceneID="IHC-6t-aEz">
+            <objects>
+                <tableViewController id="G5s-g6-Yjd" userLabel="RuleDefSelectionTableViewController" customClass="INVRuleDefinitionSelectionTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OiI-gV-gvh">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="yqZ-oo-mzy">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="xoh-Rg-Pf5" style="IBUITableViewCellStyleDefault" id="UVg-r1-saj">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UVg-r1-saj" id="NfJ-tk-q0Q">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Select From Rule Definitions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xoh-Rg-Pf5">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="5PP-ZH-pBd" style="IBUITableViewCellStyleDefault" id="6Jx-kz-UZK">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Jx-kz-UZK" id="EeL-rK-f0R">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Select From Analysis Templates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5PP-ZH-pBd">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="G5s-g6-Yjd" id="GVj-uZ-biI"/>
+                            <outlet property="delegate" destination="G5s-g6-Yjd" id="z7v-T2-mgy"/>
+                        </connections>
+                    </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="390" height="150"/>
+                    <connections>
+                        <outlet property="selectRuleDefinitionTransition" destination="arz-PY-aPI" id="DdL-6i-rpR"/>
+                    </connections>
+                </tableViewController>
+                <customObject id="arz-PY-aPI" userLabel="showRuleDfinitions-Transition To Storyboard" customClass="INVTransitionToStoryboard">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetStoryboard" value="Rules"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="targetIdentifier" value="RuleDefinitionsNVC"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="showRuleDefinitions"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="transitionType">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="modalPresentationStyle">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="G5s-g6-Yjd" id="PXi-mL-hjf"/>
+                    </connections>
+                </customObject>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sIf-hq-5PL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3172" y="1102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IaN-J1-IKj">

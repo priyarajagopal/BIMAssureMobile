@@ -26,6 +26,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic, strong) NSNumber *selectedRuleInstanceId;
 @property (nonatomic, strong) NSNumber *selectedRuleSetId;
 @property (nonatomic, strong) INVRuleInstanceTableViewCell *selectedRowInstanceCell;
+
 @end
 
 @implementation INVRulesListViewController
@@ -408,6 +409,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
         [self configureDisplayModeButton];
     });
 }
+
+
 
 #pragma mark - helpers
 - (void)showLoadProgress

@@ -153,6 +153,7 @@
 		02D5EE231AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */; };
 		02D5EE241AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */; };
 		02E399E81AF02642000CF6B5 /* Account Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = 02E399E71AF02642000CF6B5 /* Account Thumbnails */; };
+		02EC37FD1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EC37FC1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m */; };
 		1827E538D895002A1BC239B6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A017907C030AFB8C7812E225 /* libPods.a */; };
 		3E5AE4CA6BC37DFBBE214AFE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A017907C030AFB8C7812E225 /* libPods.a */; };
 		F5024AE91A66E7EE002EEE5F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5024AE71A66E7EE002EEE5F /* LaunchScreen.xib */; };
@@ -673,6 +674,8 @@
 		02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVRuleActualParamsDisplayTableViewCell.m; path = "../../../Resources/Interface Builder/INVRuleActualParamsDisplayTableViewCell.m"; sourceTree = "<group>"; };
 		02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleActualParamsDisplayTableViewCell.xib; sourceTree = "<group>"; };
 		02E399E71AF02642000CF6B5 /* Account Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Account Thumbnails"; sourceTree = "<group>"; };
+		02EC37FB1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionSelectionTableViewController.h; sourceTree = "<group>"; };
+		02EC37FC1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionSelectionTableViewController.m; sourceTree = "<group>"; };
 		051E433FAA6C6DF3BA9BA08B /* Pods.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.dev.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.dev.xcconfig"; sourceTree = "<group>"; };
 		2059B57D5C6E07B9D5C8B8A0 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
 		A017907C030AFB8C7812E225 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2005,6 +2008,8 @@
 				F5789D2A1A642A5500D8CEE7 /* INVAnalysisExecutionsTableViewController.m */,
 				F5789D251A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.h */,
 				F5789D261A642A5500D8CEE7 /* INVFileAnalysesMembershipTableViewController.m */,
+				02EC37FB1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.h */,
+				02EC37FC1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m */,
 			);
 			path = Analyses;
 			sourceTree = "<group>";
@@ -2453,6 +2458,7 @@
 				F523B47A1AB76D090001508C /* INVAnalysisTableViewCell.m in Sources */,
 				02D5EE211AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m in Sources */,
 				F5269DE71A76AD4C006AC27A /* INVChangePasswordTableViewController.m in Sources */,
+				02EC37FD1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m in Sources */,
 				F547DA1D1A9E28F600B871A6 /* INVCustomSwitch.m in Sources */,
 				F5789D7B1A642A5500D8CEE7 /* INVAnalysisManageFilesContainerViewController.m in Sources */,
 				024FEEFA1A69B55F001CA262 /* INVPagingManager.m in Sources */,

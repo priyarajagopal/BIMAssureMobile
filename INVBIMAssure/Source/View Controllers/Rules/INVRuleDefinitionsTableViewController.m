@@ -17,7 +17,6 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 @property (nonatomic, strong) INVAnalysesManager *analysesManager;
 @property (nonatomic, strong) INVGenericTableViewDataSource *dataSource;
 @property (nonatomic, readwrite) NSFetchedResultsController *dataResultsController;
-
 @property (nonatomic) NSMutableDictionary *selectedRules;
 @property IBOutlet UIBarButtonItem *saveButtonItem;
 
