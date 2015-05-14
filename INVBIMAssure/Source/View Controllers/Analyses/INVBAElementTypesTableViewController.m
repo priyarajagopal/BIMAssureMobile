@@ -86,7 +86,7 @@
                                               usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                                   NSDictionary *replacement = @{
                                                       @"code" : [obj[@"code"] firstObject],
-                                                      @"name" : [obj[@"name"] firstObject]
+                                                      @"name" : [obj[@"name.display_en"] firstObject]
                                                   };
 
                                                   [hits replaceObjectAtIndex:idx withObject:replacement];

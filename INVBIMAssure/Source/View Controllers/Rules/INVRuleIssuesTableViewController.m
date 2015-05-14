@@ -180,7 +180,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                 [self.globalDataManager.invServerClient
                     fetchBATypeDisplayNameForCode:elementTypeId
                               withCompletionBlock:^(id result, INVEmpireMobileError *error) {
-                                  NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name"] firstObject];
+                                  NSString *title = [[result valueForKeyPath:@"hits.@unionOfArrays.fields.name.display_en"] firstObject];
                                   if (title) {
                                       actualParam[INVActualParamValue] = title;
                                       actualParam[INVActualParamName] = @"";
