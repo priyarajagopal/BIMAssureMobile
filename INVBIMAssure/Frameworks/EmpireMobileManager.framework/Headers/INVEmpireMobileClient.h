@@ -1836,6 +1836,39 @@ INVAnalysis object is returned
  
  */
 - (void)getAllAnalysisTemplatesForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
+
+
+/**
+ Asynchornously ,get list of all analysis templates associated with a account from specified offset. Users must have signed into an account in order to be able to
+ fetch templates.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
+ analysesManager can be used to retrieve rules
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see analysesManager
+ 
+ */
+- (void)getAllAnalysisTemplatesForSignedInAccountWithOffset:(NSNumber *)offset
+                                                 pageSize:(NSNumber *)pageSize
+                                      WithCompletionBlock:(CompletionHandler)handler;
+
+
+/**
+ Asynchornously ,get count of all analysis templates for signed in account. Users should have signed in via the
+ signIntoAccount:withCompletionBlock: method.
+ 
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then
+ projectManager can be used to retrieve projects
+ 
+ @see -signIntoAccount:withCompletionBlock:
+ 
+ @see projectManager
+ 
+ */
+- (void)getAnalysisTemplateCountForSignedInAccountWithCompletionBlock:(void (^)(INVGenericResponse *response,
+                                                                       INVEmpireMobileError *error))handler;
 #pragma mark Rules (Instances) Related
 
 /**
