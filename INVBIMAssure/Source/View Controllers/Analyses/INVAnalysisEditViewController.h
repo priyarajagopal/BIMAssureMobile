@@ -10,7 +10,7 @@
 
 @interface INVAnalysisEditViewController : INVCustomTableViewController
 
-@property NSNumber *projectId;
-@property (nonatomic) INVAnalysis *analysis;
+@property (copy) NSNumber *projectId;
+@property (nonatomic,copy) INVAnalysis *analysis;
 
 @end

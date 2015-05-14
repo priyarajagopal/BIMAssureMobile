@@ -10,6 +10,6 @@
 
 @interface INVAnalysesTableViewController : INVCustomTableViewController
 
-@property NSNumber *projectId;
+@property (copy) NSNumber *projectId;
 
 @end

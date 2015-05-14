@@ -10,8 +10,8 @@
 
 @interface INVAnalysisRunsCollectionViewController : INVCustomCollectionViewController
 
-@property NSNumber *projectId;
-@property NSNumber *packageMasterId;
-@property NSNumber *packageVersionId;
+@property (copy) NSNumber *projectId;
+@property (copy) NSNumber *packageMasterId;
+@property (copy) NSNumber *packageVersionId;
 
 @end
