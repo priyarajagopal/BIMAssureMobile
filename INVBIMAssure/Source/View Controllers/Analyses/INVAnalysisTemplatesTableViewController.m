@@ -8,11 +8,12 @@
 
 #import "INVAnalysisTemplatesTableViewController.h"
 #import "INVAnalysisTemplateOverviewTableViewCell.h"
+#import "INVAnalysisTemplateDetailsTableViewController.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
-@interface INVAnalysisTemplatesTableViewController () <NSFetchedResultsControllerDelegate,
+@interface INVAnalysisTemplatesTableViewController ()<NSFetchedResultsControllerDelegate,
     INVAnalysisTemplateOverviewTableViewCellDelegate>
 
 @property (nonatomic, strong) INVAnalysesManager *analysesManager;
@@ -182,19 +183,6 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"ShowAnalysisTemplateDetailsSegue" sender:self];
-    /*
-    INVAnalysisTemplate *template = [self.dataResultsController objectAtIndexPath:indexPath];
-
-    if (self.selectedTemplates[template.analysisTemplateId]) {
-        [self.selectedTemplates removeObjectForKey:template.analysisTemplateId];
-    }
-    else {
-        self.selectedTemplates[template.analysisTemplateId] = template;
-    }
-
-    self.saveButtonItem.enabled = self.selectedTemplates.count > 0;
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-     */
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -219,17 +207,17 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
-    didChangeObject:(id)anObject
-        atIndexPath:(NSIndexPath *)indexPath
-      forChangeType:(NSFetchedResultsChangeType)type
-       newIndexPath:(NSIndexPath *)newIndexPath
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
 {
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
-    didChangeSection:(id)sectionInfo
-             atIndex:(NSUInteger)sectionIndex
-       forChangeType:(NSFetchedResultsChangeType)type
+  didChangeSection:(id)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
 {
 }
 
@@ -319,4 +307,17 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     return _dataResultsController;
 }
 
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowAnalysisTemplateDetailsSegue"]) {
+        INVAnalysisTemplateOverviewTableViewCell *cell =
+            [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        INVAnalysisTemplateDetailsTableViewController *analysisTemplateDetailsVC =
+            (INVAnalysisTemplateDetailsTableViewController *) segue.destinationViewController;
+        analysisTemplateDetailsVC.analysisTemplateId = cell.analysisTemplate.analysisTemplateId;
+    }
+}
 @end

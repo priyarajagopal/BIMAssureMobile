@@ -11,4 +11,5 @@
 
 @interface INVRuleActualParamsDisplayTableViewCell : UITableViewCell
 @property (nonatomic, strong) INVActualParamKeyValuePair actualParamDictionary;
+@property (nonatomic, copy) UIColor* textTintColor;
 @end

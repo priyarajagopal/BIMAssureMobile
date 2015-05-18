@@ -158,6 +158,35 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
     return formalParamValues;
 }
 
+
+- (NSArray *)transformActualParamDictionaryToArray:(INVRuleInstanceActualParamDictionary )actualParamsDict
+{
+    
+    NSArray *actualParamNames = actualParamsDict.allKeys;
+    NSArray *actualParamValues = [actualParamNames arrayByApplyingBlock:^id(id paramName, NSUInteger _, BOOL *__) {
+        NSMutableDictionary *results = [@{
+                                          INVActualParamName : paramName,
+                                          INVActualParamDisplayName : paramName,
+                                          INVActualParamDisplayName : [NSNull null],
+                                          
+                                          INVActualParamType : [NSMutableArray new],
+                                          INVActualParamTypeConstraints : [NSMutableDictionary new],
+                                          
+                                          INVActualParamValue : [NSNull null],
+                                          } mutableCopy];
+        
+        
+        
+        
+        NSDictionary *actualParameterValueDict = actualParamsDict[paramName];
+        results[INVActualParamValue] = actualParameterValueDict[@"value"];
+        
+        return results;
+    }];
+    
+    return actualParamValues;
+}
+
 - (INVRuleInstanceActualParamDictionary)transformRuleInstanceArrayToRuleInstanceParams:(NSArray *)actualParamsArray
 {
     NSMutableDictionary *actualParam = [[NSMutableDictionary alloc] initWithCapacity:0];

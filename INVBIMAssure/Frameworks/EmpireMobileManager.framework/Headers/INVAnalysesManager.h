@@ -16,6 +16,7 @@
 #import "INVRuleInstance.h"
 #import "INVAnalysisPkgMembership.h"
 #import "INVAnalysisTemplate.h"
+#import "INVAnalysisTemplateDetails.h"
 
 @interface INVAnalysesManager : NSObject
 
@@ -43,7 +44,6 @@
  Can be used to obtain information on analysis templates
  */
 @property (nonatomic, readonly, copy) NSFetchRequest *fetchRequestForAnalysisTemplates;
-                                                
 
 /**
  Creates a singleton instance of INVAnalysesManager.
@@ -73,15 +73,14 @@
 
 /**
  Returns cached analyses corresponding to a specific pkg master
- 
+
  @param pkgMasterId pkgMasterId for which rule sets are to be fetched
- 
+
  @see INVANalysis
- 
+
  @return The array of INVAnalysis objects
  */
 - (INVAnalysisArray)analysesForPkgMaster:(NSNumber *)pkgMasterId;
-
 
 /**
  Returns analyses objects given list of  for analysisIds
@@ -102,17 +101,14 @@
  */
 - (INVRuleArray)ruleDefinitionsForSignedInAccount;
 
-
-
 /**
  Returns analysis templates for current account
- 
+
  @see INVAnalysisTemplate
- 
+
  @return The array of INVAnalysisTemplate objects
  */
 - (INVAnalysisTemplateArray)analysisTemplatesForSignedInAccount;
-
 
 /**
  Returns rule definition for specific ruleId
@@ -161,12 +157,42 @@
  */
 - (INVAnalysisPkgMembershipArray)membershipIdsForAnalysisIds:(NSArray *)analysisIds;
 
+/**
+ Returns details of analysis template  for given analysis template name
+ (THIS NEEDS TO SWITCH TO ID ONCE THAT IS SUPPORTED)
+
+ @param analysisTemplateName name for analysis template
+
+ @return The details of INVANalysisTemplateDetails
+ */
+- (INVAnalysisTemplateDetails *)detailsOfAnalysisTemplateWithName:(NSString *)analysisTemplateName;
+
+/**
+ Returns details of analysis template  for given analysis template Id
+ (THIS NEEDS TO SWITCH TO ID ONCE THAT IS SUPPORTED)
+ 
+ @param analysisTemplateId Id for analysis template
+ 
+ @return The details of INVANalysisTemplateDetails
+ */
+- (INVAnalysisTemplateDetails *)detailsOfAnalysisTemplateWithName:(NSString *)analysisTemplateName;
+
+/**
+ Returns cached analysis details corresponding to a specific analysis template Id
+
+ @param pkgMasterId pkgMasterId for which rule sets are to be fetched
+
+ @see INVANalysis
+
+ @return The array of INVAnalysis objects
+ */
+- (INVAnalysisArray)analysesForPkgMaster:(NSNumber *)pkgMasterId;
 
 /**
  Returns list of membershipIds for given array of pkg VersionIds.
- 
+
  @param pkgVersionId Id for pkg versions
- 
+
  @return The array of INVAnalysisPkgMembership objects
  */
 - (INVAnalysisPkgMembershipArray)membershipIdsForPkgVersionIds:(NSArray *)pkgVersionIds;
@@ -182,9 +208,9 @@
 
 /**
  Returns list of analysesIds for given pkg master
- 
+
  @param pkgMasterId the Id of the pkg master
- 
+
  @return The array of analyses Ids
  */
 - (NSSet *)analysesIdsForPkgMaster:(NSNumber *)pkgMasterId;

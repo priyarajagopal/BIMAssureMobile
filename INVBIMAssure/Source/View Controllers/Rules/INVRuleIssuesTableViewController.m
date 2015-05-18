@@ -143,8 +143,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                     NSString* subStr = [issueStr substringWithRange:matchedRange];
                     NSInteger paramIndex = [subStr integerValue];
                     NSString* replaceStr =  issue.msgParams[paramIndex];
-                    NSLog(@"replaceStr is %@",replaceStr);
-                     updatedIssueStr = [[issueStr stringByReplacingCharactersInRange:matchedRange withString:replaceStr]mutableCopy];
+                    updatedIssueStr = [[issueStr stringByReplacingCharactersInRange:matchedRange withString:replaceStr]mutableCopy];
                 }];
    
                 

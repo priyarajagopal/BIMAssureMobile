@@ -26,5 +26,5 @@ typedef NSMutableArray *INVAnalysisTemplateMutableArray;
 @property (copy, nonatomic, readonly) NSDate *createdAt;
 @property (copy, nonatomic, readonly) NSNumber *createdBy;
 @property (copy, nonatomic, readonly) NSDate *updatedAt;
-@property (copy, nonatomic, readonly) NSDate *updatedBy;
+@property (copy, nonatomic, readonly) NSNumber *updatedBy;
 @end

@@ -19,6 +19,7 @@
 #import "INVGenericResponse.h"
 #import "INVRuleIssue.h"
 #import "INVBAUnit.h"
+#import "INVAnalysisTemplateDetails.h"
 
 /**
  Completion Handler that returns the status of the request. In case of no error, the appropriate Data Manager
@@ -105,12 +106,13 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 - (void)configureWithEmpireManageServer:(NSString *)server andPort:(NSString *)port;
 
 /**
- Configures the URL for the EmpireManage Web client. This is required for generating the appropriate redirect URL in certain cases when users need to be redirected to web client
- 
+ Configures the URL for the EmpireManage Web client. This is required for generating the appropriate redirect URL in certain
+ cases when users need to be redirected to web client
+
  @param webClientUrl The address of the Empire Manage server (eg.127.0.0.1, localhost, www.server.com)
- 
+
  @param port The port of Empire Manage web client. This is optional and defaults to 80.
- 
+
  */
 - (void)configureWithEmpireWebClientHost:(NSString *)webClientUrl andPort:(NSString *)port;
 
@@ -1574,7 +1576,7 @@ accountManager can be used to retrieve the details of account
  fetch analyses
 
  @param projectId the Id of the project
- 
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
  analysesManager can be used to retrieve analyses
 
@@ -1645,13 +1647,15 @@ INVAnalysis object is returned
 
 
  @param projectId The Id of the project containing the pkg master
- 
+
  @param handler The completion handler that returns error object if there was any error.If error parameter is nil, then
  analysesManager can be used to retrieve analyses
 
  @see analysesManager
  */
-- (void)getAllAnalysisForPkgMaster:(NSNumber *)pkgMasterId inProject:(NSNumber*)projectId withCompletionBlock:(CompletionHandler)handler;
+- (void)getAllAnalysisForPkgMaster:(NSNumber *)pkgMasterId
+                         inProject:(NSNumber *)projectId
+               withCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark Analyses Pkg Master Membership Related
 
@@ -1736,22 +1740,22 @@ INVAnalysis object is returned
 /**
  Asynchornously , add the list of analysis template Ids to analysis The user must have succesfully into the account via
  signIntoAccount:withCompletionBlock:
- 
+
  @param analysisId  The analysis Id
- 
+
  @param analysisTemplateIds The list of analysis template ids to be associated with the analysis
- 
+
  @param handler The completion handler that returns error object if there was any error. If no error, then return analysis
  membership
- 
+
  @see -signIntoAccount:withCompletionBlock:
- 
+
  @see analysesManager
- 
+
  */
 - (void)addToAnalysis:(NSNumber *)analysisId
     analysisTemplateIds:(NSArray *)ruleDefIds
-  withCompletionBlock:(CompletionHandlerWithData)handler;
+    withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously ,get list of all analyses  associated with a pkg master. Users must have signed into an account in order to
@@ -1820,55 +1824,73 @@ INVAnalysis object is returned
  */
 - (void)getRuleDefinitionForRuleId:(NSNumber *)ruleId WithCompletionBlock:(CompletionHandlerWithData)handler;
 
-
 #pragma mark AnalysesTemplates Related
 
 /**
- Asynchornously ,get list of all analysis templates associated with a account. Users must have signed into an account in order to be able to
+ Asynchornously ,get list of all analysis templates associated with a account. Users must have signed into an account in order
+ to be able to
  fetch templates.
- 
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- analysesManager can be used to retrieve rules
- 
+ analysesManager can be used to retrieve templates
+
  @see -signIntoAccount:withCompletionBlock:
- 
+
  @see analysesManager
- 
+
  */
 - (void)getAllAnalysisTemplatesForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
 
-
 /**
- Asynchornously ,get list of all analysis templates associated with a account from specified offset. Users must have signed into an account in order to be able to
+ Asynchornously ,get list of all analysis templates associated with a account from specified offset. Users must have signed into
+ an account in order to be able to
  fetch templates.
- 
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- analysesManager can be used to retrieve rules
- 
+ analysesManager can be used to retrieve templates
+
  @see -signIntoAccount:withCompletionBlock:
- 
+
  @see analysesManager
- 
+
  */
 - (void)getAllAnalysisTemplatesForSignedInAccountWithOffset:(NSNumber *)offset
-                                                 pageSize:(NSNumber *)pageSize
-                                      WithCompletionBlock:(CompletionHandler)handler;
-
+                                                   pageSize:(NSNumber *)pageSize
+                                        WithCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously ,get count of all analysis templates for signed in account. Users should have signed in via the
  signIntoAccount:withCompletionBlock: method.
- 
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then
- projectManager can be used to retrieve projects
- 
+ analysesManager can be used to retrieve count
+
  @see -signIntoAccount:withCompletionBlock:
- 
- @see projectManager
- 
+
+ @see analysesManager
+
  */
 - (void)getAnalysisTemplateCountForSignedInAccountWithCompletionBlock:(void (^)(INVGenericResponse *response,
-                                                                       INVEmpireMobileError *error))handler;
+                                                                          INVEmpireMobileError *error))handler;
+
+/**
+ Asynchornously ,get details of analysis template for specified Id. The template details are returned. The template details are
+ cached locally and can be retrieved via
+ analysisManager at any point
+
+ @param analysisTemplateId The Id of the analysis template
+
+
+ @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then
+ the details are returned in response. analysesManager can be used to retrieve the cached details.
+
+ @see -signIntoAccount:withCompletionBlock:
+
+ @see projectManager
+
+ */
+- (void)getAnalysisTemplateDetailsForId:(NSNumber *)analysisTemplateId
+                    withCompletionBlock:(void (^)(INVAnalysisTemplateDetails *response, INVEmpireMobileError *error))handler;
 #pragma mark Rules (Instances) Related
 
 /**
@@ -1900,18 +1922,18 @@ INVAnalysis object is returned
 
 /**
  Asynchornously ,get rule instance for specified rule instance Id
- 
+
  @param ruleInstanceId The Id of the rule instance
- 
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
    rule instance is returned
- 
+
  @see -signIntoAccount:withCompletionBlock:
- 
- 
+
+
  */
 - (void)getRuleInstanceForRuleInstanceId:(NSNumber *)ruleInstanceId
-                     WithCompletionBlock:(void(^)(INVRuleInstance* instance,INVEmpireMobileError* error))handler;
+                     WithCompletionBlock:(void (^)(INVRuleInstance *instance, INVEmpireMobileError *error))handler;
 
 /**
  Asynchornously ,update the specified rule instance associated with an analyses. All values provided will override existing
@@ -2063,7 +2085,8 @@ INVAnalysis object is returned
                 WithCompletionBlock:(void (^)(INVRuleIssueArray response, INVEmpireMobileError *error))handler;
 
 /**
- Asynchornously , fetch details of building elements affected by specified issue. This returns the list of building element details
+ Asynchornously , fetch details of building elements affected by specified issue. This returns the list of building element
+ details
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
 
@@ -2079,40 +2102,42 @@ INVAnalysis object is returned
 - (void)fetchBuildingElementDetailsForIssue:(NSNumber *)issueId withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
- Asynchornously , fetch details of building elements for specified ruleResultId. This returns the list of building element details
- 
+ Asynchornously , fetch details of building elements for specified ruleResultId. This returns the list of building element
+details
+
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
- 
+
  @param ruleResultId The Id of the ruleResult whose details are to be fetched. Retrieved using
 getExecutionResultsForAnalysisRun:WithCompletionBlock
- 
+
  @param handler The completion handler that returns error object if there was any error. If no error, building elements  are
  returned
- 
+
  @see analysesManager
- 
+
  */
 - (void)fetchBuildingElementDetailsForRunResult:(NSNumber *)ruleResultId withCompletionBlock:(CompletionHandlerWithData)handler;
 
-
 /**
- Asynchornously , fetch details of building elements for specified ruleResultId. This returns the list of building element details
- 
+ Asynchornously , fetch details of building elements for specified ruleResultId. This returns the list of building element
+ details
+
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
- 
+
  @elementId The building elementId for which the issues are to be fetched
- 
+
  @param ruleResultId The Id of the ruleResult whose details are to be fetched. Retrieved using
  getExecutionResultsForAnalysisRun:WithCompletionBlock
- 
+
  @param handler The completion handler that returns error object if there was any error. If no error, building elements  are
  returned
- 
- @see analysesManager
- 
- */
-- (void)fetchIssuesForBuildingElement:(NSNumber*)elementId forRunResult:(NSNumber *)ruleResultId  WithCompletionBlock:(void (^)(INVRuleIssueArray response, INVEmpireMobileError *error))handler;
 
+ @see analysesManager
+
+ */
+- (void)fetchIssuesForBuildingElement:(NSNumber *)elementId
+                         forRunResult:(NSNumber *)ruleResultId
+                  WithCompletionBlock:(void (^)(INVRuleIssueArray response, INVEmpireMobileError *error))handler;
 
 #pragma mark - General Account Related
 /**
