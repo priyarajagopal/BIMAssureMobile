@@ -67,20 +67,5 @@
  */
 - (INVPackageArray)packagesForProjectId:(NSNumber *)projectId;
 
-#warning Include way to asyncronously Notify when deletion is done
-/**
- Removes all persisted project information pertaining. Although the deletion is initated , a nil error response does not
- necessarily imply that all data was
- removed as requested.
- @return  nil if there was no error deleting user data else appropriate error object.
- */
-- (NSError *)removeAllProjectCachedData;
 
-/**
- Removes all persisted information pertaining to the specified project. Although the deletion is initated , a nil error response
- does not necessarily imply that all data was
- removed as requested.
- @return  nil if there was no error deleting user data else appropriate error object.
- */
-- (NSError *)removeProjectCachedDataForProjectId:(NSNumber *)projectId;
 @end

@@ -175,7 +175,7 @@
  
  @return The details of INVANalysisTemplateDetails
  */
-- (INVAnalysisTemplateDetails *)detailsOfAnalysisTemplateWithName:(NSString *)analysisTemplateName;
+- (INVAnalysisTemplateDetails *)detailsOfAnalysisTemplateWithId:(NSString *)analysisTemplateId;
 
 /**
  Returns cached analysis details corresponding to a specific analysis template Id

@@ -22,6 +22,7 @@ typedef NSMutableArray *INVAnalysisTemplateDetailsMutableArray;
 @property (copy, nonatomic, readonly) NSString *version;
 @property (copy, nonatomic, readonly) NSString *name;
 @property (copy, nonatomic, readonly) NSNumber *analysisTemplateId;
+
 @property (copy, nonatomic, readonly) NSArray* tags;
 @property (copy, nonatomic, readonly) NSString *overview;
 @property (copy, nonatomic, readonly) INVAnalysisTemplateRecipeArray recipes;

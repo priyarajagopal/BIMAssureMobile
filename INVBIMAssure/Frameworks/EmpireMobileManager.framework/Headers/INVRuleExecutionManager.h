@@ -78,11 +78,5 @@
  */
 - (NSArray *)allRuleExecutionsForGroupTagId:(NSString *)groupTagId;
 
-#warning Include way to asyncronously Notify when deletion is done
 
-/**
- Removes all persisted rules executions information.
- @return  nil if there was no error deleting user data else appropriate error object.
- */
-- (NSError *)removeAllRuleExecutionsCachedData;
 @end

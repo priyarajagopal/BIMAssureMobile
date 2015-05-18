@@ -52,6 +52,6 @@
  removed as requested.
  @return  nil if there was no error deleting user data else appropriate error object.
  */
-- (NSError *)removeAllBuildingElementsCachedData;
+//- (NSError *)removeAllBuildingElementsCachedData;
 
 @end

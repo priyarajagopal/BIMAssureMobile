@@ -187,42 +187,5 @@
  */
 - (NSError *)removeFromLocalCachePkgMasterId:(NSNumber *)pkgMasterId associatedWithRuleSet:(NSNumber *)ruleSetId;
 
-#warning Include way to asyncronously Notify when deletion is done
-/**
- Removes cached rule instance for instance Id
- @return  nil if there was no error deleting user data else appropriate error object.
- */
-- (NSError *)removeCachedRuleInstanceForInstanceId:(NSNumber *)ruleInstanceId;
 
-/**
- Removes all persisted rules information pertaining to a project. Although the deletion is initated , a nil error response does
- not necessarily imply that all data was
- removed as requested.
- @return  nil if there was no error deleting user data else appropriate error object.
- */
-- (NSError *)removeCachedRulesDataForProject:(NSNumber *)projectId;
-
-/**
- Removes all persisted rules information. Although the deletion is initated , a nil error response does not necessarily imply
- that all data was
- removed as requested.
- @return  nil if there was no error deleting user data else appropriate error object.
- */
-- (NSError *)removeAllRulesCachedData;
-
-/**
- Removes all persisted ruleset to file mapping information. Although the deletion is initated , a nil error response does not
- necessarily imply that all data was
- removed as requested.
- @return  nil if there was no error deleting user data else appropriate error object.
- */
-- (NSError *)removeAllRuleSetsToFileMappingCachedData;
-
-/**
- Removes all persisted files to ruleset mapping information. Although the deletion is initated , a nil error response does not
- necessarily imply that all data was
- removed as requested.
- @return  nil if there was no error deleting user data else appropriate error object.
- */
-- (NSError *)removeAllFilesToRuleSetMappingCachedData;
 @end

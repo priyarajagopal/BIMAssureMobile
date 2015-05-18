@@ -10,6 +10,9 @@
 #import "INVRuleParameterParser.h"
 
 @interface INVRuleActualParamsDisplayTableViewCell : UITableViewCell
-@property (nonatomic, strong) INVActualParamKeyValuePair actualParamDictionary;
+//@property (nonatomic, strong) INVActualParamKeyValuePair actualParamDictionary;
+@property (nonatomic, strong) id valueField;
+@property (nonatomic, strong) id nameField;
+
 @property (nonatomic, copy) UIColor* textTintColor;
 @end

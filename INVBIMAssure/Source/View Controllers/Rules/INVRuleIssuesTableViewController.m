@@ -172,6 +172,8 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
     INV_CellConfigurationBlock cellConfigurationBlockForRuleParams =
         ^(INVRuleActualParamsDisplayTableViewCell *cell, INVActualParamKeyValuePair actualParam, NSIndexPath *indexPath) {
+            cell.valueField = @"";
+            cell.nameField = @"";
             if ([[actualParam[INVActualParamType]firstObject] isEqual:@(INVParameterTypeElementType)] &&
                 ![actualParam[INVActualParamName] isEqualToString:@""]) {
                 NSString *elementTypeId = actualParam[INVActualParamValue];
@@ -183,25 +185,21 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                                   if (title) {
                                       actualParam[INVActualParamValue] = title;
                                       actualParam[INVActualParamName] = @"";
-                                      [cell setActualParamDictionary:actualParam];
-                                      
+                                      [cell setValueField:title];
+                                      [cell setNameField:actualParam[INVActualParamDisplayName]];
                                   }
+                                  
 
                               }];
             }
 
-            if ([actualParam[INVActualParamType] isEqual:@(INVParameterTypeElementType)]) {
-                if ([actualParam[INVActualParamName] isEqualToString:@""]) {
-                    [cell setActualParamDictionary:actualParam];
-                }
-            }
-            else {
-                [cell setActualParamDictionary:actualParam];
+            if (![[actualParam[INVActualParamType]firstObject] isEqual:@(INVParameterTypeElementType)]) {
+                [cell setValueField:actualParam[INVActualParamValue]];
+                [cell setNameField:actualParam[INVActualParamDisplayName]];
             }
         
          
             [cell setUserInteractionEnabled:NO];
-
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         };

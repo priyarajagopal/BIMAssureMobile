@@ -267,10 +267,7 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                            self.intermediateRuleInstanceActualParams =
                            [[[INVRuleParameterParser instance] transformRuleInstanceParamsToArray:ruleInstance
                                                                                        definition:rule] mutableCopy];
-                           /*
-                           self.originalRuleInstanceActualParams =
-                           [[NSMutableArray alloc] initWithArray:[[INVRuleParameterParser instance] orderFormalParamsInArray: self.intermediateRuleInstanceActualParams] copyItems:YES];
-                            */
+                      
                            
                            [self.dataSource updateWithDataArray:[[INVRuleParameterParser instance] orderFormalParamsInArray: self.intermediateRuleInstanceActualParams]
                                                      forSection:SECTION_RULEINSTANCEACTUALPARAM];

@@ -158,6 +158,97 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
     return formalParamValues;
 }
 
+- (NSArray *)transformActualParamsToDisplayArray:(INVRuleInstanceActualParamDictionary )actualParamsDict definition:(INVRule *)ruleDefinition
+{
+    NSArray *formalParamNames = ruleDefinition.formalParams.properties.allKeys;
+    NSArray *formalParamValues = [formalParamNames arrayByApplyingBlock:^id(id paramName, NSUInteger _, BOOL *__) {
+        NSMutableDictionary *results = [@{
+                                          INVActualParamName : paramName,
+                                          INVActualParamDisplayName : [NSNull null],
+                                          
+                                          INVActualParamType : [NSMutableArray new],
+                                          INVActualParamTypeConstraints : [NSMutableDictionary new],
+                                          
+                                          INVActualParamValue : [NSNull null],
+                                          } mutableCopy];
+        
+        NSDictionary *formalParameterProperties = ruleDefinition.formalParams.properties[paramName];
+        
+        results[INVActualParamOrder] = formalParameterProperties[@"order"];
+        [results[INVActualParamType]
+         addObjectsFromArray:convertRuleDefinitionTypesToActualParamTypes(formalParameterProperties[@"type"])];
+        
+        NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+        results[INVActualParamDisplayName] = formalParameterProperties[@"display"][languageCode] ?: paramName;
+        
+        if (formalParameterProperties[@"unit"]) {
+            results[INVActualParamUnit] = [NSNull null];
+        }
+        
+        if ([results[INVActualParamType] containsObject:@(INVParameterTypeRange)]) {
+            NSMutableDictionary *constraints = [NSMutableDictionary new];
+            
+            constraints[@"from_type"] =
+            convertRuleDefinitionTypesToActualParamTypes(formalParameterProperties[@"from"][@"type"]);
+            constraints[@"to_type"] = convertRuleDefinitionTypesToActualParamTypes(formalParameterProperties[@"to"][@"type"]);
+            
+            constraints[@"from_display"] = formalParameterProperties[@"from"][@"display"][languageCode];
+            constraints[@"to_display"] = formalParameterProperties[@"to"][@"display"][languageCode];
+            
+            // TODO: Fill in with range-specific constraints
+            constraints[@"from_constraints"] = [NSMutableDictionary new];
+            constraints[@"to_constraints"] = [NSMutableDictionary new];
+            
+            NSMutableDictionary *value = [NSMutableDictionary new];
+            
+            value[@"from"] = [NSMutableDictionary dictionaryWithObject:[NSNull null] forKey:@"value"];
+            value[@"to"] = [NSMutableDictionary dictionaryWithObject:[NSNull null] forKey:@"value"];
+            
+            if (formalParameterProperties[@"from"][@"unit"]) {
+                value[@"from"][@"unit"] = [NSNull null];
+            }
+            
+            if (formalParameterProperties[@"to"][@"unit"]) {
+                value[@"to"][@"unit"] = [NSNull null];
+            }
+            
+            results[INVActualParamTypeConstraints][@(INVParameterTypeRange)] = constraints;
+        }
+        
+        return results;
+    }];
+    
+    NSDictionary *actualParameters = [NSDictionary dictionaryWithObjects:formalParamValues forKeys:formalParamNames];
+    
+    [actualParamsDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        INVRuleInstanceActualParamMutableDictionary valueDict = [(INVRuleInstanceActualParamDictionary) obj mutableCopy];
+        NSMutableDictionary *actualParam = actualParameters[key];
+        
+        if ([valueDict[@"value"] isKindOfClass:[NSDictionary class]]) {
+            actualParam[INVActualParamValue] = [valueDict[@"value"] mutableCopy];
+            
+            if ([((NSMutableDictionary *) valueDict[@"value"]).allKeys containsObject:@"from"]) {
+                actualParam[INVActualParamValue][@"from"] = [NSMutableDictionary new];
+                actualParam[INVActualParamValue][@"from"] = [valueDict[@"value"][@"from"] mutableCopy];
+            }
+            if ([((NSMutableDictionary *) valueDict[@"value"]).allKeys containsObject:@"to"]) {
+                actualParam[INVActualParamValue][@"to"] = [NSMutableDictionary new];
+                actualParam[INVActualParamValue][@"to"] = [valueDict[@"value"][@"to"] mutableCopy];
+            }
+        }
+        else {
+            actualParam[INVActualParamValue] = valueDict[@"value"];
+        }
+        
+        if (valueDict[@"unit"]) {
+            actualParam[INVActualParamUnit] = valueDict[@"unit"];
+        }
+    }];
+    
+    return formalParamValues;
+}
+
+
 
 - (NSArray *)transformActualParamDictionaryToArray:(INVRuleInstanceActualParamDictionary )actualParamsDict
 {
