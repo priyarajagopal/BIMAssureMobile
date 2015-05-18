@@ -39,6 +39,9 @@ static NSString *const reuseIdentifier = @"Cell";
 - (void)customizeLayout
 {
     if ([self.collectionView.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
+        
+        UIColor *ltGrayColor = [UIColor colorWithRed:245.0 / 255 green:245.0 / 255 blue:245.0 / 255 alpha:1.0];
+        [self.collectionView setBackgroundColor:ltGrayColor];
         UICollectionViewFlowLayout *currLayout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
         currLayout.minimumLineSpacing = 10;
         currLayout.minimumInteritemSpacing = 10;

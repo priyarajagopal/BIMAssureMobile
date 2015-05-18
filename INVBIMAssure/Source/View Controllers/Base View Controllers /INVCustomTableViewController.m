@@ -34,7 +34,7 @@
                             action:@selector(onRefreshControlSelected:)
                   forControlEvents:UIControlEventValueChanged];
 
-    UIColor *ltGrayColor = [UIColor colorWithRed:230.0 / 255 green:230.0 / 255 blue:230.0 / 255 alpha:1.0];
+    UIColor *ltGrayColor = [UIColor colorWithRed:245.0 / 255 green:245.0 / 255 blue:245.0 / 255 alpha:1.0];
     [self.tableView setBackgroundColor:ltGrayColor];
 }
 

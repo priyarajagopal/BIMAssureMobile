@@ -20,6 +20,8 @@
 		02618A651B0A1F88004A994C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A641B0A1F88004A994C /* EmpireMobileManager.framework */; };
 		02618A661B0A1F97004A994C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A641B0A1F88004A994C /* EmpireMobileManager.framework */; };
 		02618A671B0A1F97004A994C /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A641B0A1F88004A994C /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		02618A6D1B0A2F0E004A994C /* INVAnalysisTemplateHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02618A6C1B0A2F0E004A994C /* INVAnalysisTemplateHeaderView.m */; };
+		02618A6F1B0A2F4F004A994C /* INVAnalysisTemplateHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02618A6E1B0A2F4F004A994C /* INVAnalysisTemplateHeaderView.xib */; };
 		026B12B41AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */; };
 		026B12B51AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */; };
 		027540711B02730B00565E40 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 02753F6F1B02730A00565E40 /* CMakeLists.txt */; };
@@ -389,6 +391,9 @@
 		0254897F1A68622700EE012D /* INVSignUpTableViewConfigDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSignUpTableViewConfigDataSource.h; sourceTree = "<group>"; };
 		025489801A68622700EE012D /* INVSignUpTableViewConfigDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVSignUpTableViewConfigDataSource.m; sourceTree = "<group>"; };
 		02618A641B0A1F88004A994C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		02618A6B1B0A2F0E004A994C /* INVAnalysisTemplateHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVAnalysisTemplateHeaderView.h; sourceTree = "<group>"; };
+		02618A6C1B0A2F0E004A994C /* INVAnalysisTemplateHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVAnalysisTemplateHeaderView.m; sourceTree = "<group>"; };
+		02618A6E1B0A2F4F004A994C /* INVAnalysisTemplateHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVAnalysisTemplateHeaderView.xib; sourceTree = "<group>"; };
 		026B12B21AC9DBC7007F5013 /* INVRuleIssuesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleIssuesTableViewController.h; sourceTree = "<group>"; };
 		026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleIssuesTableViewController.m; sourceTree = "<group>"; };
 		02753F6B1B02730A00565E40 /* box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = box.h; sourceTree = "<group>"; };
@@ -1549,6 +1554,8 @@
 				F5789C971A642A5500D8CEE7 /* INVRuleSetTableViewHeaderView.m */,
 				F5789C981A642A5500D8CEE7 /* INVRunRuleSetHeaderView.h */,
 				F5789C991A642A5500D8CEE7 /* INVRunRuleSetHeaderView.m */,
+				02618A6B1B0A2F0E004A994C /* INVAnalysisTemplateHeaderView.h */,
+				02618A6C1B0A2F0E004A994C /* INVAnalysisTemplateHeaderView.m */,
 				F547DA1B1A9E28F600B871A6 /* INVCustomSwitch.h */,
 				F547DA1C1A9E28F600B871A6 /* INVCustomSwitch.m */,
 			);
@@ -1978,6 +1985,7 @@
 				F557E5441ACC760300667111 /* INVRuleInstanceRangeTypeParamTableViewCell.xib */,
 				02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */,
 				02EC38031B03BEE8006379CC /* INVAnalysisTemplateOverviewTableViewCell.xib */,
+				02618A6E1B0A2F4F004A994C /* INVAnalysisTemplateHeaderView.xib */,
 			);
 			path = "Interface Builder";
 			sourceTree = "<group>";
@@ -2165,6 +2173,7 @@
 				027540DC1B02730B00565E40 /* type_aligned.inl in Resources */,
 				F5426D561A680F3F0040B2B5 /* Notifications.storyboard in Resources */,
 				027540C51B02730B00565E40 /* multiple.inl in Resources */,
+				02618A6F1B0A2F4F004A994C /* INVAnalysisTemplateHeaderView.xib in Resources */,
 				027540C71B02730B00565E40 /* normal.inl in Resources */,
 				027540CA1B02730B00565E40 /* optimum_pow.inl in Resources */,
 				027540851B02730B00565E40 /* type_mat.inl in Resources */,
@@ -2434,6 +2443,7 @@
 				F5789D651A642A5500D8CEE7 /* INVCustomCollectionViewController.m in Sources */,
 				F5789D4C1A642A5500D8CEE7 /* MBProgressHUD+INVBAHUD.m in Sources */,
 				024FEEF11A69859A001CA262 /* INVTabBarStoryboardLoader.m in Sources */,
+				02618A6D1B0A2F0E004A994C /* INVAnalysisTemplateHeaderView.m in Sources */,
 				F557E5351ACAE5CD00667111 /* INVBlackTintedTableViewController.m in Sources */,
 				F5789D511A642A5500D8CEE7 /* INVStreamBasedCTMParserGLESCamera.m in Sources */,
 				F5789D641A642A5500D8CEE7 /* INVUserManagementTableViewController.m in Sources */,

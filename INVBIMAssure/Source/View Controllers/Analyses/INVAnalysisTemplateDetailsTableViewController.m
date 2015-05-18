@@ -10,9 +10,9 @@
 #import "INVRuleActualParamsDisplayTableViewCell.h"
 #import "INVAnalysisTemplateOverviewTableViewCell.h"
 #import "INVRuleParameterParser.h"
+#import "INVAnalysisTemplateHeaderView.h"
 
 static const NSInteger DEFAULT_CELL_HEIGHT = 80;
-static const NSInteger SECTIONINDEX_TEMPLATEDESCRIPTION = 0;
 static const NSInteger ROWINDEX_RECIPEOVERVIEW = 0;
 
 @interface INVAnalysisTemplateDetailsTableViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -32,11 +32,13 @@ static const NSInteger ROWINDEX_RECIPEOVERVIEW = 0;
     self.refreshControl = nil;
     self.ruleParamParser = [INVRuleParameterParser instance];
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"TemplateDescriptionCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"RecipeDescriptionCell"];
 
     UINib *recipe = [UINib nibWithNibName:@"INVRuleActualParamsDisplayTableViewCell" bundle:nil];
     [self.tableView registerNib:recipe forCellReuseIdentifier:@"RecipeActualParams"];
+    
+    UINib *header = [UINib nibWithNibName:@"INVAnalysisTemplateHeaderView" bundle:nil];
+    [self.tableView registerNib:header forHeaderFooterViewReuseIdentifier:@"AnalysisTemplateHeader"];
 
     self.tableView.estimatedRowHeight = DEFAULT_CELL_HEIGHT;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -62,86 +64,71 @@ static const NSInteger ROWINDEX_RECIPEOVERVIEW = 0;
                         }
                         else {
                             self.analysisDetails = response;
+                            self.tableView.tableHeaderView = [self viewForTableHeader];
+                            self.title = self.analysisDetails.name;
                             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                         }
                     }];
 }
 
-#pragma mark - UITableViewDatSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.analysisDetails ? self.analysisDetails.recipes.count + 1 : 0; // add 1 for the overview section
+    return self.analysisDetails ? self.analysisDetails.recipes.count : 0; // add 1 for the overview section
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == SECTIONINDEX_TEMPLATEDESCRIPTION) {
-        return self.analysisDetails ? 1 : 0;
+   
+    INVAnalysisTemplateRecipe *recipe = self.analysisDetails.recipes[section ];
+    BOOL isExpanded = [self.showRecipeDetails[recipe.name] boolValue];
+    if (isExpanded) {
+        return self.analysisDetails ? recipe.actualParameters.count +1 : 0;
     }
     else {
-        INVAnalysisTemplateRecipe *recipe = self.analysisDetails.recipes[section - 1];
-        BOOL isExpanded = [self.showRecipeDetails[recipe.name] boolValue];
-        if (isExpanded) {
-            return self.analysisDetails ? recipe.actualParameters.count + 1 : 0;
-        }
-        else {
-            return self.analysisDetails ? 1 : 0;
-        }
+        return self.analysisDetails ? 1 : 0;
     }
+    
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == SECTIONINDEX_TEMPLATEDESCRIPTION) {
+ 
+    INVAnalysisTemplateRecipe *recipe = self.analysisDetails.recipes[indexPath.section ];
+
+    if (indexPath.row == ROWINDEX_RECIPEOVERVIEW) {
         UITableViewCell *cell =
-            [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TemplateDescriptionCell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RecipeDescriptionCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
-        cell.textLabel.text = self.analysisDetails.name;
-        cell.detailTextLabel.text = self.analysisDetails.overview;
+        cell.textLabel.text = recipe.name;
+        cell.detailTextLabel.text = recipe.overview;
         return cell;
     }
     else {
-        INVAnalysisTemplateRecipe *recipe = self.analysisDetails.recipes[indexPath.section - 1];
+        NSArray* actualParamsDisplayArray = [[self.ruleParamParser transformActualParamDictionaryToArray:recipe.actualParameters]mutableCopy];
+        INVActualParamKeyValuePair actualParam = actualParamsDisplayArray[indexPath.row-1];
 
-        if (indexPath.row == ROWINDEX_RECIPEOVERVIEW) {
-            UITableViewCell *cell =
-                [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RecipeDescriptionCell"];
-            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
-            cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
-            cell.textLabel.text = recipe.name;
-            cell.detailTextLabel.text = recipe.overview;
-            return cell;
-        }
-        else {
-            NSArray* actualParamsDisplayArray = [[self.ruleParamParser transformActualParamDictionaryToArray:recipe.actualParameters]mutableCopy];
-            INVActualParamKeyValuePair actualParam = actualParamsDisplayArray[indexPath.row-1];
+        INVRuleActualParamsDisplayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecipeActualParams"];
+        cell.textTintColor = [UIColor grayColor];
+        [cell setUserInteractionEnabled:NO];
 
-            INVRuleActualParamsDisplayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecipeActualParams"];
-            cell.textTintColor = [UIColor grayColor];
-            [cell setUserInteractionEnabled:NO];
-
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.actualParamDictionary = actualParam;
-            return cell;
-        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.actualParamDictionary = actualParam;
+        return cell;
     }
+
     return nil;
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    INVAnalysisTemplateRecipe *recipe = self.analysisDetails.recipes[indexPath.section - 1];
-
-    if (indexPath.section == SECTIONINDEX_TEMPLATEDESCRIPTION) {
-        return;
-    }
+    INVAnalysisTemplateRecipe *recipe = self.analysisDetails.recipes[indexPath.section ];
 
     if ([self.showRecipeDetails.allKeys containsObject:recipe.name]) {
         BOOL currValue = [self.showRecipeDetails[recipe.name] boolValue];
@@ -152,9 +139,18 @@ static const NSInteger ROWINDEX_RECIPEOVERVIEW = 0;
     }
 
     [self.tableView reloadData];
-    //   [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section - 1]
-    //               withRowAnimation:UITableViewRowAnimationAutomatic];
 }
+
+
+
+-(UIView*)viewForTableHeader {
+    
+    INVAnalysisTemplateHeaderView* view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:@"AnalysisTemplateHeader"];
+    view.overviewLabel.text = self.analysisDetails.overview;
+    return view;
+
+}
+
 
 #pragma mark - helpers
 
