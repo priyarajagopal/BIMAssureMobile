@@ -181,7 +181,7 @@ using namespace std;
     }
 
     UITouch *touch = [touches anyObject];
-    if (touch.tapCount == 2) {
+    if (touch.tapCount == 1) {
         _viewer->deselect_all_elements();
         CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
         ElementId id = _viewer->pick_element_on_screen(touchPoint.x, touchPoint.y);
