@@ -2,12 +2,13 @@
 
 #include "element_id.h"
 #include "camera.h"
+#include "color.h"
 
 namespace renderlib {
 
 class Renderer;
 class ElementManager;
-class Framebuffer;
+//class Framebuffer;
 
 class Viewer 
 {
@@ -30,6 +31,7 @@ public:
 	void reset_camera();
 	void set_camera_preset_position(CameraPresetPosition pos);
 	void fit_camera_to_box(const Box& box);
+    void fit_camera_to_element(const ElementId& id);
 
 	void set_elements_selected(const ElementIdList& ids, bool selected);
 	void deselect_all_elements();
@@ -37,6 +39,11 @@ public:
 	
 	void set_elements_visible(const ElementIdList& ids, bool visible);
 	bool is_element_visible(const ElementId& id) const;
+    
+    void set_elements_color(const ElementIdList& ids, const RGBA& color);
+    void reset_elements_color(const ElementIdList& ids);
+    void reset_all_elements_color();
+    bool is_element_color_set(const ElementId& id);
 
 	ElementId pick_element_on_screen(double x, double y);
 
@@ -56,7 +63,7 @@ private:
 	Camera camera;
 	Renderer* renderer;
 	ElementManager* element_manager;
-	Framebuffer* frame_buffer;
+	//Framebuffer* frame_buffer;
 	int viewport_x, viewport_y, viewport_w, viewport_h;
 	bool need_render;
 	bool glass_mode;

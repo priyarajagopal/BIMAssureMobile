@@ -270,7 +270,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
 
                    INV_SUCCESS : {
                        NSArray *params =
-                        [self.ruleParamParser transformRuleInstanceParamsToArray:self.ruleResult definition:ruleDefinition];
+                        [self.ruleParamParser transformActualParamsToDisplayArray:self.ruleResult.actualParameters definition:ruleDefinition];
 
                        //  [self postProcessActualParams:params];
                        [self.originalRuleInstanceActualParams setArray:[self.ruleParamParser  orderFormalParamsInArray:params]];

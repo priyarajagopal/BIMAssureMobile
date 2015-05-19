@@ -14,9 +14,8 @@ using namespace renderlib;
 using namespace std;
 
 @interface INVModelViewerViewController2 () {
-    Viewer* _viewer;
+    Viewer *_viewer;
 }
-
 
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -24,32 +23,34 @@ using namespace std;
 
 @implementation INVModelViewerViewController2
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    
+
     if (!self.context) {
         NSLog(@"Failed to create ES context");
     }
-    
-    GLKView *view = (GLKView *)self.view;
+
+    GLKView *view = (GLKView *) self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 #if !(TARGET_IPHONE_SIMULATOR)
-  //  view.drawableMultisample = GLKViewDrawableMultisample4X;
+//  view.drawableMultisample = GLKViewDrawableMultisample4X;
 #endif
 }
 
-
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
- 
+
     [self setupGL];
 }
 
--(void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self addObservers];
     _viewer->set_viewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
@@ -61,7 +62,7 @@ using namespace std;
     [super viewDidDisappear:animated];
     [self removeObservers];
     [self tearDownGL];
-    
+
     if ([EAGLContext currentContext] == self.context) {
         [EAGLContext setCurrentContext:nil];
     }
@@ -70,42 +71,38 @@ using namespace std;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
+
     if ([self isViewLoaded] && ([[self view] window] == nil)) {
         self.view = nil;
-        
+
         [self tearDownGL];
-        
+
         if ([EAGLContext currentContext] == self.context) {
             [EAGLContext setCurrentContext:nil];
         }
         self.context = nil;
     }
-    
+
     // Dispose of any resources that can be recreated.
 }
 
 - (void)setupGL
 {
     [EAGLContext setCurrentContext:self.context];
-    
+
     _viewer = new Viewer();
     _viewer->init();
-    
 }
 
 - (void)loadModel
 {
-    
     NSURLRequest *request =
-    [[INVGlobalDataManager sharedInstance].invServerClient requestToFetchGeomInfoForPkgVersion:self.fileVersionId];
-   
-    NSString* authToken = [INVGlobalDataManager sharedInstance].invServerClient.accountManager.tokenOfSignedInAccount;
-    _viewer->set_auth_token([authToken cStringUsingEncoding:NSASCIIStringEncoding] );
-    _viewer->load_model([[request.URL absoluteString] cStringUsingEncoding:NSASCIIStringEncoding]);
-    
-}
+        [[INVGlobalDataManager sharedInstance].invServerClient requestToFetchGeomInfoForPkgVersion:self.fileVersionId];
 
+    NSString *authToken = [INVGlobalDataManager sharedInstance].invServerClient.accountManager.tokenOfSignedInAccount;
+    _viewer->set_auth_token([authToken cStringUsingEncoding:NSASCIIStringEncoding]);
+    _viewer->load_model([[request.URL absoluteString] cStringUsingEncoding:NSASCIIStringEncoding]);
+}
 
 - (void)tearDownGL
 {
@@ -125,7 +122,7 @@ using namespace std;
  [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
  _viewer->set_viewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
  }
- 
+
  - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
  {
  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
@@ -138,14 +135,12 @@ using namespace std;
     _viewer->draw();
 }
 
-- (glm::vec2*)getTouchPoints:(NSSet *)touches
+- (glm::vec2 *)getTouchPoints:(NSSet *)touches
 {
-    glm::vec2* pts = 0;
-    if (touches.count > 0)
-    {
+    glm::vec2 *pts = 0;
+    if (touches.count > 0) {
         pts = new glm::vec2[touches.count];
-        for (int i=0; i < touches.count; i++)
-        {
+        for (int i = 0; i < touches.count; i++) {
             CGPoint pt = [[touches allObjects][i] locationInView:self.view];
             pts[i] = glm::vec2(pt.x, pt.y);
         }
@@ -153,47 +148,40 @@ using namespace std;
     return pts;
 }
 
-- (void)touchesBegan:(NSSet *)touches
-           withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    NSSet* allTouches = [event allTouches];
-    glm::vec2* pts = [self getTouchPoints:allTouches];
-    if (pts)
-    {
+    NSSet *allTouches = [event allTouches];
+    glm::vec2 *pts = [self getTouchPoints:allTouches];
+    if (pts) {
         _viewer->on_touch_begin(allTouches.count, pts);
-        delete [] pts;
+        delete[] pts;
     }
 }
 
-- (void)touchesMoved:(NSSet *)touches
-           withEvent:(UIEvent *)event
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
-    NSSet* allTouches = [event allTouches];
-    glm::vec2* pts = [self getTouchPoints:allTouches];
-    if (pts)
-    {
+    NSSet *allTouches = [event allTouches];
+    glm::vec2 *pts = [self getTouchPoints:allTouches];
+    if (pts) {
         _viewer->on_touch_move(allTouches.count, pts);
-        delete [] pts;
+        delete[] pts;
     }
 }
 
-- (void)touchesEnded:(NSSet *)touches
-           withEvent:(UIEvent *)event
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
-    NSSet* allTouches = [event allTouches];
-    glm::vec2* pts = [self getTouchPoints:allTouches];
-    if (pts)
-    {
+    NSSet *allTouches = [event allTouches];
+    glm::vec2 *pts = [self getTouchPoints:allTouches];
+    if (pts) {
         _viewer->on_touch_end(allTouches.count, pts);
-        delete [] pts;
+        delete[] pts;
     }
-    
+
     UITouch *touch = [touches anyObject];
-    if (touch.tapCount == 2)
-    {
+    if (touch.tapCount == 2) {
         _viewer->deselect_all_elements();
         CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
         ElementId id = _viewer->pick_element_on_screen(touchPoint.x, touchPoint.y);
@@ -202,20 +190,53 @@ using namespace std;
     }
 }
 
--(void)onResume
+- (void)onResume
 {
     _viewer->request_render();
 }
 
+#pragma mark - public methods
+
+- (void)highlightElement:(NSString *)elementId
+{
+    int32_t elementNum = [elementId intValue];
+    
+    ElementIdList selectedElements = _viewer->get_selected_elements();
+    if (std::find(selectedElements.begin(), selectedElements.end(), elementNum) != selectedElements.end()) {
+        // already selected. Nothing to do ...
+    }
+    else {
+        _viewer->deselect_all_elements();
+        ElementIdList elementToHightlight;
+        elementToHightlight.push_back(elementNum);
+        _viewer->set_elements_selected(elementToHightlight, true);
+    }
+}
+
+- (void)highlightAndZoomElement:(NSString *)elementId
+{
+    int32_t elementNum = [elementId intValue];
+    
+    ElementIdList selectedElements = _viewer->get_selected_elements();
+    if (std::find(selectedElements.begin(), selectedElements.end(), elementNum) != selectedElements.end()) {
+        // already selected. Nothing to do ...
+    }
+    else {
+        _viewer->deselect_all_elements();
+        ElementIdList elementToHightlight;
+        elementToHightlight.push_back(elementNum);
+        _viewer->set_elements_selected(elementToHightlight, true);
+        _viewer->fit_camera_to_element(elementToHightlight[0]);
+    }
+    
+}
 
 #pragma mark - IBActions
--(IBAction)toggleGlass:(id)sender
+- (IBAction)toggleGlass:(id)sender
 {
     bool glass_mode = _viewer->is_glass_mode();
     _viewer->set_glass_mode(!glass_mode);
 }
-
-
 
 - (IBAction)goHome:(id)sender
 {
@@ -226,55 +247,42 @@ using namespace std;
 {
 }
 
-
 - (IBAction)toggleVisible:(id)sender
 {
     BOOL selectedElementsHidden = NO;
     ElementIdList selectedElements = _viewer->get_selected_elements();
-    for(std::vector<int>::size_type i = 0; i != selectedElements.size(); i++) {
+    for (std::vector<int>::size_type i = 0; i != selectedElements.size(); i++) {
         uint32_t element = selectedElements[i];
         if (_viewer->is_element_visible(element)) {
             selectedElementsHidden = YES;
-           
         }
     }
     if (selectedElementsHidden) {
-         _viewer->set_elements_visible(selectedElements, false);
+        _viewer->set_elements_visible(selectedElements, false);
     }
     else {
         _viewer->set_elements_visible(selectedElements, true);
     }
-   
-
 }
 
-- (IBAction)highlightElement:(NSString *)elementId {
-    int32_t elementNum = [elementId intValue];
-    
-    ElementIdList selectedElements = _viewer->get_selected_elements();
-    if(std::find(selectedElements.begin(), selectedElements.end(), elementNum) != selectedElements.end()) {
-        // already selected. Nothing to do ...
-    } else {
-         _viewer->deselect_all_elements();
-        ElementIdList elementToHightlight ;
-        elementToHightlight.push_back(elementNum);
-        _viewer->set_elements_selected(elementToHightlight, true);
-    }
-
+- (IBAction)zoomSelection:(id)sender
+{
+    ElementIdList ids = _viewer->get_selected_elements();
+    if (ids.size() > 0)
+        _viewer->fit_camera_to_element(ids[0]);
 }
 
 #pragma mark - observers
--(void)addObservers {
+- (void)addObservers
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                         selector:@selector(onResume)
-                                             name:UIApplicationDidBecomeActiveNotification
-                                           object:nil];
+                                             selector:@selector(onResume)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 }
 
--(void)removeObservers {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidBecomeActiveNotification
-                                                  object:nil];
-
+- (void)removeObservers
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 @end

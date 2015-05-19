@@ -109,7 +109,7 @@
 
 - (void)highlightElement:(NSString *)elementId
 {
-    [self.modelViewController highlightElement:elementId];
+    [self.modelViewController highlightAndZoomElement:elementId];
 }
 
 @end

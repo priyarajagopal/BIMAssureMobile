@@ -15,6 +15,8 @@ public:
 	glm::vec3 center() const;
 	float length() const;
 	void set_empty();
+    bool is_empty() const;
+    void add_box_with_matrix(const Box& box, const glm::mat4& matrix);
 
 	glm::vec3 minpos;
 	glm::vec3 maxpos;

@@ -45,7 +45,7 @@
     if (self.actualParamDictionary[INVActualParamValue] != (id)[NSNull null]) {
         [self.tokens addObjectsFromArray:self.actualParamDictionary[INVActualParamValue]];
     }
-    [self.ruleInstanceValue reloadData];
+  //  [self.ruleInstanceValue reloadData];
 }
 
 #pragma mark - VENTokenFieldDataSource

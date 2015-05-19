@@ -67,7 +67,7 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
 
     return instance;
 }
-
+/*
 - (NSArray *)transformRuleInstanceParamsToArray:(INVRuleInstance *)ruleInstance definition:(INVRule *)ruleDefinition
 {
     NSArray *formalParamNames = ruleDefinition.formalParams.properties.allKeys;
@@ -157,6 +157,7 @@ NSArray *convertRuleDefinitionTypesToActualParamTypes(id types)
 
     return formalParamValues;
 }
+ */
 
 - (NSArray *)transformActualParamsToDisplayArray:(INVRuleInstanceActualParamDictionary )actualParamsDict definition:(INVRule *)ruleDefinition
 {

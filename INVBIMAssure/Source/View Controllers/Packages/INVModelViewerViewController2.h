@@ -16,6 +16,7 @@
 - (IBAction)toggleShadow:(id)sender;
 - (IBAction)toggleGlass:(id)sender;
 - (IBAction)toggleVisible:(id)sender;
-- (IBAction)highlightElement:(NSString *)elementId;
+- (void)highlightElement:(NSString *)elementId;
+- (void)highlightAndZoomElement:(NSString *)elementId;
 
 @end

@@ -69,7 +69,7 @@ INVParameterType INVParameterTypeFromString(NSString *type);
 
 + (instancetype)instance;
 
-- (NSArray *)transformRuleInstanceParamsToArray:(id)ruleInstance definition:(INVRule *)ruleDefinition;
+//- (NSArray *)transformRuleInstanceParamsToArray:(id)ruleInstance definition:(INVRule *)ruleDefinition;
 - (NSArray *)transformActualParamsToDisplayArray:(INVRuleInstanceActualParamDictionary )actualParamsDict definition:(INVRule *)ruleDefinition;
 - (INVRuleInstanceActualParamDictionary)transformRuleInstanceArrayToRuleInstanceParams:(NSArray *)actualParamsArray;
 - (NSArray *)transformActualParamDictionaryToArray:(INVRuleInstanceActualParamDictionary)actualParamsDict;

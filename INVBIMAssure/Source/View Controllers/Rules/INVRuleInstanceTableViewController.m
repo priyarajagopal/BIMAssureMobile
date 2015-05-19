@@ -178,14 +178,13 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     [self.dataSource registerCellBlock:^UITableViewCell *(id cellData, NSIndexPath *indexPath) {
         NSString *cellName = [self cellIdentifierForIndexPath:indexPath];
         id cell = [self.tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
-        
+
         [cell setTintColor:[UIColor darkGrayColor]];
         [cell setActualParamDictionary:cellData];
-        
+
         return cell;
     } forSection:SECTION_RULEINSTANCEACTUALPARAM];
 }
-
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
 {
@@ -211,11 +210,10 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
                 case INVParameterTypeRange:
                     cellName = @"Range";
                     break;
-                    
+
                 case INVParameterTypeArray:
                     cellName = @"Array";
                     break;
-
             }
         }
         else if ([[types firstObject] isKindOfClass:[NSArray class]]) {
@@ -231,7 +229,6 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
     return cellName;
 }
 
-
 #pragma mark - server side
 - (void)fetchRuleDefinition
 {
@@ -244,34 +241,35 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
             [self.globalDataManager.invServerClient.analysesManager ruleInstanceForRuleInstanceId:self.ruleInstanceId
                                                                                     forAnalysisId:self.analysesId];
 
-      
         [self.globalDataManager.invServerClient
             getRuleDefinitionForRuleId:ruleInstance.ruleDefId
                    WithCompletionBlock:^(INVRule *rule, INVEmpireMobileError *error) {
                        INV_ALWAYS:
                            [self.hud hide:YES];
 
-                       INV_SUCCESS:
-                       {
-                           INVRuleDescriptor* ruleDescriptor = rule.descriptor;
+                       INV_SUCCESS : {
+                           INVRuleDescriptor *ruleDescriptor = rule.descriptor;
                            if (ruleDescriptor) {
-                               INVRuleDescriptorResourceDescription* resource = [ruleDescriptor descriptionDetailsForLanguageCode:[[NSLocale currentLocale]objectForKey:NSLocaleLanguageCode]];
+                               INVRuleDescriptorResourceDescription *resource =
+                                   [ruleDescriptor descriptionDetailsForLanguageCode:[[NSLocale currentLocale]
+                                                                                         objectForKey:NSLocaleLanguageCode]];
                                self.intermediateRuleOverview = resource.shortDescription ? resource.shortDescription : @"";
                                self.ruleName = resource.name;
                            }
-                           
-                           NSArray *ruleInfoArray = ruleInstance ? @[ self.ruleName, self.intermediateRuleOverview ] : [NSArray array];
+
+                           NSArray *ruleInfoArray =
+                               ruleInstance ? @[ self.ruleName, self.intermediateRuleOverview ] : [NSArray array];
                            [self.dataSource updateWithDataArray:ruleInfoArray forSection:SECTION_RULEINSTANCEDETAILS];
-                           
-                           
-                           self.intermediateRuleInstanceActualParams =
-                           [[[INVRuleParameterParser instance] transformRuleInstanceParamsToArray:ruleInstance
-                                                                                       definition:rule] mutableCopy];
-                      
-                           
-                           [self.dataSource updateWithDataArray:[[INVRuleParameterParser instance] orderFormalParamsInArray: self.intermediateRuleInstanceActualParams]
-                                                     forSection:SECTION_RULEINSTANCEACTUALPARAM];
-                           
+
+                           self.intermediateRuleInstanceActualParams = [[[INVRuleParameterParser instance]
+                               transformActualParamsToDisplayArray:ruleInstance.actualParameters
+                                                        definition:rule] mutableCopy];
+
+                           [self.dataSource
+                               updateWithDataArray:[[INVRuleParameterParser instance]
+                                                       orderFormalParamsInArray:self.intermediateRuleInstanceActualParams]
+                                        forSection:SECTION_RULEINSTANCEACTUALPARAM];
+
                            [self.tableView reloadData];
                        }
 
@@ -435,7 +433,8 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
 
         CGFloat height = [sizingCell systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, 0)
                                    withHorizontalFittingPriority:UILayoutPriorityRequired
-                                         verticalFittingPriority:UILayoutPriorityDefaultLow].height;
+                                         verticalFittingPriority:UILayoutPriorityDefaultLow]
+                             .height;
 
         return height;
     }
@@ -516,7 +515,8 @@ static const NSInteger DEFAULT_OVERVIEW_CELL_HEIGHT = 175;
         id types = actualParam[INVActualParamType];
         id constraints = actualParam[INVActualParamTypeConstraints];
 
-        NSError* err = [[INVRuleParameterParser instance] isValueValid:value forAnyTypeInArray:types withConstraints:constraints];
+        NSError *err =
+            [[INVRuleParameterParser instance] isValueValid:value forAnyTypeInArray:types withConstraints:constraints];
         if (err) {
             return NO;
         }
