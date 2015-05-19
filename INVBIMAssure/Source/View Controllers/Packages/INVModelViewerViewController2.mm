@@ -200,7 +200,7 @@ using namespace std;
 - (void)highlightElement:(NSString *)elementId
 {
     int32_t elementNum = [elementId intValue];
-    
+
     ElementIdList selectedElements = _viewer->get_selected_elements();
     if (std::find(selectedElements.begin(), selectedElements.end(), elementNum) != selectedElements.end()) {
         // already selected. Nothing to do ...
@@ -216,7 +216,7 @@ using namespace std;
 - (void)highlightAndZoomElement:(NSString *)elementId
 {
     int32_t elementNum = [elementId intValue];
-    
+
     ElementIdList selectedElements = _viewer->get_selected_elements();
     if (std::find(selectedElements.begin(), selectedElements.end(), elementNum) != selectedElements.end()) {
         // already selected. Nothing to do ...
@@ -228,7 +228,6 @@ using namespace std;
         _viewer->set_elements_selected(elementToHightlight, true);
         _viewer->fit_camera_to_element(elementToHightlight[0]);
     }
-    
 }
 
 #pragma mark - IBActions
@@ -265,7 +264,7 @@ using namespace std;
     }
 }
 
-- (IBAction)zoomSelection:(id)sender
+- (IBAction)zoomIntoSelectedElement:(id)sender
 {
     ElementIdList ids = _viewer->get_selected_elements();
     if (ids.size() > 0)

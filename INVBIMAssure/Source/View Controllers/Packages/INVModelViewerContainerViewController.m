@@ -112,4 +112,10 @@
     [self.modelViewController highlightAndZoomElement:elementId];
 }
 
+- (IBAction)zoomIntoHighlightedElement:(id)sender {
+     [self.modelViewController zoomIntoSelectedElement:sender];
+}
+
+
+
 @end
