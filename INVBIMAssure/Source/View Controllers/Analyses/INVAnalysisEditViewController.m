@@ -62,12 +62,15 @@
 
 - (void)onSaveSelected:(id)sender
 {
+    NSString* analysisNameTrim = [self.analysisNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString* analysisDescTrim = [self.analysisDescriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
     if (self.analysis) {
         id hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
         [self.globalDataManager.invServerClient updateAnalyses:self.analysis.analysisId
-                                                      withName:self.analysisNameTextField.text
-                                                andDescription:self.analysisDescriptionTextView.text
+                                                      withName:analysisNameTrim
+                                                andDescription:analysisDescTrim
                                            withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                                INV_ALWAYS:
                                                    [hud hide:YES];
@@ -89,8 +92,8 @@
 
         [self.globalDataManager.invServerClient
             addAnalysesToProject:self.projectId
-                        withName:self.analysisNameTextField.text
-                  andDescription:self.analysisDescriptionTextView.text
+                        withName:analysisNameTrim
+                  andDescription:analysisDescTrim
              withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                  INV_ALWAYS:
                      [hud hide:YES];
@@ -111,15 +114,19 @@
 
 - (void)onTextFieldTextChanged:(id)sender
 {
+    NSString* analysisNameTrim = [self.analysisNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString* analysisDescTrim = [self.analysisDescriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
     if (self.analysis) {
+        
         self.saveButtonItem.enabled =
-            !([self.analysisNameTextField.text isEqualToString:self.analysis.name] &&
-                [self.analysisDescriptionTextView.text isEqualToString:self.analysis.overview]) &&
-            (self.analysisNameTextField.text.length > 0 && self.analysisDescriptionTextView.text.length > 0);
+            !([analysisNameTrim isEqualToString:self.analysis.name] &&
+                [analysisDescTrim isEqualToString:self.analysis.overview]) &&
+            (analysisNameTrim.length > 0 && analysisDescTrim.length > 0);
     }
     else {
         self.saveButtonItem.enabled =
-            self.analysisNameTextField.text.length > 0 && self.analysisDescriptionTextView.text.length > 0;
+            analysisNameTrim.length > 0 && analysisDescTrim.length > 0;
     }
 }
 
