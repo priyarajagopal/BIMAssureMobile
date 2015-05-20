@@ -394,7 +394,7 @@
                                     
                                 INV_SUCCESS:
                                     if (self.projectImageUpdated) {
-                                        [self uploadProjectThumbnailForProject:self.currentProject.projectId];
+                                        [self uploadProjectThumbnailForProject:project.projectId];
                                     }
                                     else {
                                         [self showProjectAlert:NSLocalizedString(@"PROJECT_UPDATED", nil)];
