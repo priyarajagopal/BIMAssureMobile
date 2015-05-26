@@ -22,9 +22,7 @@
 		02618A721B0A3BC1004A994C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A701B0A3BB3004A994C /* EmpireMobileManager.framework */; };
 		02618A751B0A3E81004A994C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A741B0A3E81004A994C /* EmpireMobileManager.framework */; };
 		02618A791B0A5222004A994C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A781B0A5222004A994C /* EmpireMobileManager.framework */; };
-		02618A7D1B0A52EB004A994C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A7C1B0A52EB004A994C /* EmpireMobileManager.framework */; };
 		02618A7E1B0A52F7004A994C /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A7C1B0A52EB004A994C /* EmpireMobileManager.framework */; };
-		02618A7F1B0A52F7004A994C /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02618A7C1B0A52EB004A994C /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0264E7241B0B86390061985F /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0264E6221B0B86390061985F /* CMakeLists.txt */; };
 		0264E7251B0B86390061985F /* func_common.inl in Resources */ = {isa = PBXBuildFile; fileRef = 0264E62C1B0B86390061985F /* func_common.inl */; };
 		0264E7261B0B86390061985F /* func_exponential.inl in Resources */ = {isa = PBXBuildFile; fileRef = 0264E62E1B0B86390061985F /* func_exponential.inl */; };
@@ -157,6 +155,10 @@
 		02D5EE221AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */; };
 		02D5EE231AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */; };
 		02D5EE241AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */; };
+		02D5FA041B14C25100DB85B6 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5FA031B14C25100DB85B6 /* EmpireMobileManager.framework */; };
+		02D5FA081B14C46600DB85B6 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */; };
+		02D5FA091B14C47300DB85B6 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */; };
+		02D5FA0A1B14C47300DB85B6 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02E399E81AF02642000CF6B5 /* Account Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = 02E399E71AF02642000CF6B5 /* Account Thumbnails */; };
 		02EC37FD1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EC37FC1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m */; };
 		02EC38001B039FA4006379CC /* INVAnalysisTemplatesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EC37FF1B039FA4006379CC /* INVAnalysisTemplatesTableViewController.m */; };
@@ -366,7 +368,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				02618A7F1B0A52F7004A994C /* EmpireMobileManager.framework in Embed Frameworks */,
+				02D5FA0A1B14C47300DB85B6 /* EmpireMobileManager.framework in Embed Frameworks */,
 				F55AD90F1A8A420900202F0A /* OpenCTM.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -398,7 +400,7 @@
 		02618A701B0A3BB3004A994C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
 		02618A741B0A3E81004A994C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
 		02618A781B0A5222004A994C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
-		02618A7C1B0A52EB004A994C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		02618A7C1B0A52EB004A994C /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
 		0264E61D1B0B86390061985F /* box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = box.h; sourceTree = "<group>"; };
 		0264E61E1B0B86390061985F /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		0264E61F1B0B86390061985F /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
@@ -690,6 +692,8 @@
 		02D5EE1E1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INVRuleActualParamsDisplayTableViewCell.h; path = "../../../Resources/Interface Builder/INVRuleActualParamsDisplayTableViewCell.h"; sourceTree = "<group>"; };
 		02D5EE1F1AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INVRuleActualParamsDisplayTableViewCell.m; path = "../../../Resources/Interface Builder/INVRuleActualParamsDisplayTableViewCell.m"; sourceTree = "<group>"; };
 		02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleActualParamsDisplayTableViewCell.xib; sourceTree = "<group>"; };
+		02D5FA031B14C25100DB85B6 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
+		02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
 		02E399E71AF02642000CF6B5 /* Account Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Account Thumbnails"; sourceTree = "<group>"; };
 		02EC37FB1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionSelectionTableViewController.h; sourceTree = "<group>"; };
 		02EC37FC1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionSelectionTableViewController.m; sourceTree = "<group>"; };
@@ -1056,13 +1060,15 @@
 				02EC380F1B03C8BB006379CC /* EmpireMobileManager.framework in Frameworks */,
 				F539D51A1A644771007A2BDC /* libPods-FrameAccessor.a in Frameworks */,
 				F539D51B1A644771007A2BDC /* libPods-MBProgressHUD.a in Frameworks */,
+				02D5FA041B14C25100DB85B6 /* EmpireMobileManager.framework in Frameworks */,
 				0215C51A1B01173F00D944BF /* EmpireMobileManager.framework in Frameworks */,
+				02D5FA091B14C47300DB85B6 /* EmpireMobileManager.framework in Frameworks */,
 				F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */,
 				F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */,
 				0264E7931B0B86390061985F /* librenderLib.a in Frameworks */,
 				F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */,
 				02ACB8421B04F92B00360C41 /* EmpireMobileManager.framework in Frameworks */,
-				02618A7D1B0A52EB004A994C /* EmpireMobileManager.framework in Frameworks */,
+				02D5FA081B14C46600DB85B6 /* EmpireMobileManager.framework in Frameworks */,
 				3E5AE4CA6BC37DFBBE214AFE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1451,8 +1457,8 @@
 		B910EE3EE06846E99FD21754 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */,
 				0215C2201B00F34800D944BF /* libz.dylib */,
-				02618A7C1B0A52EB004A994C /* EmpireMobileManager.framework */,
 				02D459D21B00E5F800283B65 /* GLKit.framework */,
 				0212B66F1ADDC17F00FAB7A1 /* libPods-AFNetworking.a */,
 				0212B66D1ADDC17A00FAB7A1 /* libPods-Overcoat.a */,

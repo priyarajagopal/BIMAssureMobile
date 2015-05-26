@@ -182,11 +182,15 @@ using namespace std;
 
     UITouch *touch = [touches anyObject];
     if (touch.tapCount == 1) {
-        _viewer->deselect_all_elements();
-        CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
-        ElementId id = _viewer->pick_element_on_screen(touchPoint.x, touchPoint.y);
-        if (id > 0)
-            _viewer->set_elements_selected({id}, true);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self->_viewer->deselect_all_elements();
+            CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
+            ElementId id = self->_viewer->pick_element_on_screen(touchPoint.x, touchPoint.y);
+            if (id > 0) {
+                self->_viewer->set_elements_selected({id}, true);
+            }
+        });
+       
     }
 }
 

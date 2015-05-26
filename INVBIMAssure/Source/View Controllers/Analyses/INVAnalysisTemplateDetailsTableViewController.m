@@ -58,6 +58,8 @@ static const NSInteger ROWINDEX_RECIPEOVERVIEW = 0;
 - (void)fetchAnalysisTemplateDetails
 {
     [self showLoadProgress];
+    NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+   
     [self.globalDataManager.invServerClient
         getAnalysisTemplateDetailsForId:self.analysisTemplateId
                     withCompletionBlock:^(INVAnalysisTemplateDetails *response, INVEmpireMobileError *error) {
@@ -67,8 +69,11 @@ static const NSInteger ROWINDEX_RECIPEOVERVIEW = 0;
                         }
                         else {
                             self.analysisDetails = response;
+                            INVRuleDescriptorResourceDescription* resourceDetails = [self.analysisDetails descriptionDetailsForLanguageCode:languageCode];
+                            
+
                             self.tableView.tableHeaderView = [self viewForTableHeader];
-                            self.title = self.analysisDetails.name;
+                            self.title = resourceDetails.name;
                             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                         }
                     }];
@@ -106,8 +111,11 @@ static const NSInteger ROWINDEX_RECIPEOVERVIEW = 0;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
-        cell.textLabel.text = recipe.name;
-        cell.detailTextLabel.text = recipe.overview;
+        NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+        NSDictionary* nameDict = recipe.name;
+        cell.textLabel.text = nameDict[languageCode];
+        NSDictionary* overviewDict = recipe.overview;
+        cell.detailTextLabel.text = overviewDict[languageCode];
         return cell;
     }
     else {
@@ -190,9 +198,12 @@ static const NSInteger ROWINDEX_RECIPEOVERVIEW = 0;
 
 - (UIView *)viewForTableHeader
 {
+    NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    
     INVAnalysisTemplateHeaderView *view =
         [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:@"AnalysisTemplateHeader"];
-    view.overviewLabel.text = self.analysisDetails.overview;
+    INVRuleDescriptorResourceDescription* resourceDetails = [self.analysisDetails descriptionDetailsForLanguageCode:languageCode];
+    view.overviewLabel.text = resourceDetails.shortDescription;
     return view;
 }
 

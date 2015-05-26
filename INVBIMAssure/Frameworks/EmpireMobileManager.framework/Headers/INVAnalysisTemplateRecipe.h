@@ -20,8 +20,8 @@ typedef NSMutableArray *INVAnalysisTemplateRecipeMutableArray;
 
 
 @interface INVAnalysisTemplateRecipe : MTLModel<MTLJSONSerializing>
-@property (copy, nonatomic, readonly) NSString *name;
-@property (copy, nonatomic, readonly) NSString *overview;
+@property (copy, nonatomic, readonly) NSDictionary *name;
+@property (copy, nonatomic, readonly) NSDictionary *overview;
 @property (copy, nonatomic, readonly) INVRuleInstanceActualParamDictionary actualParameters; //  dictionary *overview;
 @property (copy, nonatomic, readonly) NSNumber *ruleDefinitionId;
 @end
