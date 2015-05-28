@@ -15,6 +15,7 @@ using namespace std;
 
 @interface INVModelViewerViewController2 () {
     Viewer *_viewer;
+    BOOL _touch_moved;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -37,8 +38,9 @@ using namespace std;
     GLKView *view = (GLKView *) self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+
 #if !(TARGET_IPHONE_SIMULATOR)
-//  view.drawableMultisample = GLKViewDrawableMultisample4X;
+  view.drawableMultisample = GLKViewDrawableMultisample4X;
 #endif
 }
 
@@ -53,7 +55,9 @@ using namespace std;
 {
     [super viewDidAppear:animated];
     [self addObservers];
-    _viewer->set_viewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+  
+    _viewer->set_viewport(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+    
     [self loadModel];
 }
 
@@ -117,18 +121,17 @@ using namespace std;
     //_viewer->set_viewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
 }
 
-/*
- - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
- [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
- _viewer->set_viewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
- }
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    _viewer->set_viewport(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+}
 
- - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
- {
- [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
- _viewer->set_viewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
- }
- */
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    _viewer->set_viewport(0, 0, size.width, size.height);
+}
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
@@ -150,6 +153,7 @@ using namespace std;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    _touch_moved = NO;
     [super touchesBegan:touches withEvent:event];
     NSSet *allTouches = [event allTouches];
     glm::vec2 *pts = [self getTouchPoints:allTouches];
@@ -163,7 +167,18 @@ using namespace std;
 {
     [super touchesMoved:touches withEvent:event];
     NSSet *allTouches = [event allTouches];
+ 
+    if (allTouches.count == 1) {
+        // to prevent rotating and picking at the same time
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
+        CGPoint oldTouchPoint = [[touches anyObject] previousLocationInView:self.view];
+        if (fabs(touchPoint.x - oldTouchPoint.x) > 1.5 || fabs(touchPoint.y - oldTouchPoint.y) > 1.5)
+            _touch_moved = YES;
+        else
+            return;
+    }
     glm::vec2 *pts = [self getTouchPoints:allTouches];
+
     if (pts) {
         _viewer->on_touch_move(allTouches.count, pts);
         delete[] pts;
@@ -180,17 +195,18 @@ using namespace std;
         delete[] pts;
     }
 
-    UITouch *touch = [touches anyObject];
-    if (touch.tapCount == 1) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    if (!_touch_moved && allTouches.count == 1) {
+        UITouch *touch = [touches anyObject];
+        if (touch.tapCount == 1) {
             self->_viewer->deselect_all_elements();
             CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
-            ElementId id = self->_viewer->pick_element_on_screen(touchPoint.x, touchPoint.y);
+            ElementId id = self->_viewer->pick_element_on_screen(touchPoint.x, touchPoint.y-22);
             if (id > 0) {
+                NSLog (@"Location in view %@",NSStringFromCGPoint(touchPoint));
                 self->_viewer->set_elements_selected({id}, true);
             }
-        });
-       
+        }
+        _touch_moved = NO;
     }
 }
 

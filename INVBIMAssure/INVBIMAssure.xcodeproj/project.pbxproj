@@ -134,7 +134,6 @@
 		0264E7901B0B86390061985F /* vector_angle.inl in Resources */ = {isa = PBXBuildFile; fileRef = 0264E70C1B0B86390061985F /* vector_angle.inl */; };
 		0264E7911B0B86390061985F /* vector_query.inl in Resources */ = {isa = PBXBuildFile; fileRef = 0264E70E1B0B86390061985F /* vector_query.inl */; };
 		0264E7921B0B86390061985F /* wrap.inl in Resources */ = {isa = PBXBuildFile; fileRef = 0264E7101B0B86390061985F /* wrap.inl */; };
-		0264E7931B0B86390061985F /* librenderLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0264E7231B0B86390061985F /* librenderLib.a */; };
 		026B12B41AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */; };
 		026B12B51AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */; };
 		0278BAD51A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0278BAD41A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.m */; };
@@ -159,6 +158,7 @@
 		02D5FA081B14C46600DB85B6 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */; };
 		02D5FA091B14C47300DB85B6 /* EmpireMobileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */; };
 		02D5FA0A1B14C47300DB85B6 /* EmpireMobileManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		02D5FA0C1B15FEF200DB85B6 /* librenderLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5FA0B1B15FEF200DB85B6 /* librenderLib.a */; };
 		02E399E81AF02642000CF6B5 /* Account Thumbnails in Resources */ = {isa = PBXBuildFile; fileRef = 02E399E71AF02642000CF6B5 /* Account Thumbnails */; };
 		02EC37FD1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EC37FC1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m */; };
 		02EC38001B039FA4006379CC /* INVAnalysisTemplatesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EC37FF1B039FA4006379CC /* INVAnalysisTemplatesTableViewController.m */; };
@@ -659,7 +659,6 @@
 		0264E7201B0B86390061985F /* vec4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec4.hpp; sourceTree = "<group>"; };
 		0264E7211B0B86390061985F /* vector_relational.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector_relational.hpp; sourceTree = "<group>"; };
 		0264E7221B0B86390061985F /* viewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewer.h; sourceTree = "<group>"; };
-		0264E7231B0B86390061985F /* librenderLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = librenderLib.a; sourceTree = "<group>"; };
 		026B12B21AC9DBC7007F5013 /* INVRuleIssuesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleIssuesTableViewController.h; sourceTree = "<group>"; };
 		026B12B31AC9DBC7007F5013 /* INVRuleIssuesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleIssuesTableViewController.m; sourceTree = "<group>"; };
 		0278BAD31A655C67009E0E27 /* INVSubscriptionLevelsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVSubscriptionLevelsTableViewCell.h; sourceTree = "<group>"; };
@@ -694,6 +693,7 @@
 		02D5EE201AD57CE000F126B7 /* INVRuleActualParamsDisplayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = INVRuleActualParamsDisplayTableViewCell.xib; sourceTree = "<group>"; };
 		02D5FA031B14C25100DB85B6 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmpireMobileManager.framework; path = "/Users/priyarajagopal/projects/apps/invicara/EmpireMobileApp-iOS/INVBIMAssure/Frameworks/EmpireMobileManager.framework"; sourceTree = "<absolute>"; };
 		02D5FA071B14C46600DB85B6 /* EmpireMobileManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EmpireMobileManager.framework; sourceTree = "<group>"; };
+		02D5FA0B1B15FEF200DB85B6 /* librenderLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = librenderLib.a; sourceTree = "<group>"; };
 		02E399E71AF02642000CF6B5 /* Account Thumbnails */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Account Thumbnails"; sourceTree = "<group>"; };
 		02EC37FB1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INVRuleDefinitionSelectionTableViewController.h; sourceTree = "<group>"; };
 		02EC37FC1B0395BE006379CC /* INVRuleDefinitionSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INVRuleDefinitionSelectionTableViewController.m; sourceTree = "<group>"; };
@@ -1064,8 +1064,8 @@
 				0215C51A1B01173F00D944BF /* EmpireMobileManager.framework in Frameworks */,
 				02D5FA091B14C47300DB85B6 /* EmpireMobileManager.framework in Frameworks */,
 				F539D51C1A644771007A2BDC /* libPods-VENTokenField.a in Frameworks */,
+				02D5FA0C1B15FEF200DB85B6 /* librenderLib.a in Frameworks */,
 				F5789C871A6429F200D8CEE7 /* Crashlytics.framework in Frameworks */,
-				0264E7931B0B86390061985F /* librenderLib.a in Frameworks */,
 				F5789C891A6429F200D8CEE7 /* Fabric.framework in Frameworks */,
 				02ACB8421B04F92B00360C41 /* EmpireMobileManager.framework in Frameworks */,
 				02D5FA081B14C46600DB85B6 /* EmpireMobileManager.framework in Frameworks */,
@@ -1087,8 +1087,8 @@
 		0215C0A81B00ECEB00D944BF /* renderlib */ = {
 			isa = PBXGroup;
 			children = (
+				02D5FA0B1B15FEF200DB85B6 /* librenderLib.a */,
 				0264E61C1B0B86390061985F /* include */,
-				0264E7231B0B86390061985F /* librenderLib.a */,
 				0215C5181B01173100D944BF /* libz.dylib */,
 				0215C2221B00F38A00D944BF /* libcurl.a */,
 			);
