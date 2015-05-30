@@ -40,7 +40,7 @@ using namespace std;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 
 #if !(TARGET_IPHONE_SIMULATOR)
-  view.drawableMultisample = GLKViewDrawableMultisample4X;
+    view.drawableMultisample = GLKViewDrawableMultisample4X;
 #endif
 }
 
@@ -55,10 +55,10 @@ using namespace std;
 {
     [super viewDidAppear:animated];
     [self addObservers];
-  
-    _viewer->set_viewport(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
-    
-    [self loadModel];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self->_viewer->set_viewport(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+        [self loadModel];
+    });
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -167,7 +167,7 @@ using namespace std;
 {
     [super touchesMoved:touches withEvent:event];
     NSSet *allTouches = [event allTouches];
- 
+
     if (allTouches.count == 1) {
         // to prevent rotating and picking at the same time
         CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
@@ -200,9 +200,9 @@ using namespace std;
         if (touch.tapCount == 1) {
             self->_viewer->deselect_all_elements();
             CGPoint touchPoint = [[touches anyObject] locationInView:self.view];
-            ElementId id = self->_viewer->pick_element_on_screen(touchPoint.x, touchPoint.y-22);
+            ElementId id = self->_viewer->pick_element_on_screen(touchPoint.x, touchPoint.y);
             if (id > 0) {
-                NSLog (@"Location in view %@",NSStringFromCGPoint(touchPoint));
+                NSLog(@"Location in view %@", NSStringFromCGPoint(touchPoint));
                 self->_viewer->set_elements_selected({id}, true);
             }
         }
