@@ -55,7 +55,7 @@ using namespace std;
 {
     [super viewDidAppear:animated];
     [self addObservers];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self->_viewer->set_viewport(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
         [self loadModel];
     });
