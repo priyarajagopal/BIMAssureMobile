@@ -40,7 +40,7 @@ using namespace std;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 
 #if !(TARGET_IPHONE_SIMULATOR)
-    view.drawableMultisample = GLKViewDrawableMultisample4X;
+//  view.drawableMultisample = GLKViewDrawableMultisample4X;
 #endif
 }
 
