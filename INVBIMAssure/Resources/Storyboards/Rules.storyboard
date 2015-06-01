@@ -186,7 +186,7 @@
                     <navigationItem key="navigationItem" title="Select Rule Definitions" id="2GO-Qe-3wf">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MUx-C0-IGt">
                             <connections>
-                                <segue destination="OOp-hR-orm" kind="unwind" identifier="unwind" unwindAction="manualDismiss:" id="rlL-st-6l0"/>
+                                <segue destination="OOp-hR-orm" kind="unwind" identifier="unwind" unwindAction="manualDismissForAnalysisRulesTVC:" id="2ah-lR-xrN"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="2ER-rh-d5W">
