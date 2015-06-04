@@ -296,3 +296,4 @@
 "ERROR_RULE_ANALYSISTEMPLATE_SAVE"="Error while adding analysis templates";
 "ERROR_RULE_ANALYSISTEMPLATE_LOAD"="Error while loading analysis templates";
 "SELECT_ANALYSIS_TEMPLATES"="Select Analysis Templates";
+"INV_MEMBERSHIP_TYPE_CURRENT_USER"="Current User";

@@ -9,7 +9,28 @@
 #import <Mantle/Mantle.h>
 #import "INVUser.h"
 #import "INVAccount.h"
-
+#import "INVContext.h"
+/****
+ {
+ "id": 6,
+ "updatedby": 4,
+ "roles": [
+ 1
+ ],
+ "userid": 4,
+ "context": {
+ "projects": [
+ 39
+ ]
+ },
+ "createdby": 0,
+ "createdat": 1432745759000,
+ "accountid": 5,
+ "updatedat": 1432745787000
+ }
+ ],
+ 
+ *****/
 /**
  Array of _INV_MEMBERSHIP_TYPE values
  */
@@ -39,6 +60,7 @@ static const INV_DISPLAY_STRING INV_MEMBER_DISPLAYSTRING = @"Member";
  */
 typedef NSDictionary* INVMembershipTypeDictionary;
 
+
 /**
  Array of INVAccountMembership objects
  */
@@ -55,5 +77,6 @@ typedef NSMutableArray *INVMembersMutableArray;
 @property (copy, nonatomic, readonly) NSString *name;
 @property (copy, nonatomic, readonly) NSNumber *userId;
 @property (copy, nonatomic, readonly) INVAccountArray memberships;
+@property (copy, nonatomic, readonly) INVContext* context;
 @property (copy, nonatomic, readonly) INVRolesArray roles; // Right now only one value, possibly two (one for xos and one for EM)
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <Mantle/Mantle.h>
-#import "INVInviteContext.h"
+#import "INVContext.h"
 /*
 {
     "totalcount": 0,
@@ -57,5 +57,5 @@ typedef NSMutableArray *INVInviteMutableArray;
 @property (copy, nonatomic, readonly) NSString *invitationCode;
 @property (copy, nonatomic, readonly) NSNumber *invitationId;
 @property (copy, nonatomic, readonly) NSArray *roles;
-@property (copy, nonatomic, readonly) INVInviteContext* context;
+@property (copy, nonatomic, readonly) INVContext* context;
 @end

@@ -26,7 +26,7 @@
 
 @property (nonatomic, strong) NSMutableDictionary *sections;
 @property (readonly, nonatomic) NSArray *sortedSections;
-
+@property (nonatomic, strong) INVMembershipRoleArray roles;
 - (void)showLoadProgress;
 
 @end
@@ -47,6 +47,7 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 44;
 
+    [self fetchUserMembershipRoles];
     [self fetchListOfAccountMembers];
 }
 
@@ -140,19 +141,52 @@
     }];
 }
 
+-(void)fetchUserMembershipRoles {
+    [self.globalDataManager.invServerClient fetchUserMembershipRolesWithCompletionBlock:^(INVMembershipRoleArray roles, INVEmpireMobileError *error) {
+        if (!error) {
+            self.roles = roles;
+        }
+        else {
+            self.roles = @[];
+        }
+    }];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSNumber *membershipTypeForSection = self.sortedSections[section];
+#ifdef _BACKEND_FIXED_
+    NSPredicate* pred = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return [evaluatedObject roleId] == membershipTypeForSection;
+    }];
+    NSArray* matchedRoles = [self.roles filteredArrayUsingPredicate:pred];
+    if (matchedRoles && matchedRoles.count) {
+        NSDictionary* descriptor = [matchedRoles[0] valueForKeyPath:@"descriptor"];
+        NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+        NSString *title = descriptor[languageCode][@"name"];
+        if ([membershipTypeForSection isEqual:SECTION_CURRENT_USER]) {
+            title = NSLocalizedString(@"INV_MEMBERSHIP_TYPE_CURRENT_USER",nil);
+        }
+        
+        return NSLocalizedString(title, nil);
+        
+    }
+    return @"";
+#else
     NSString *title = INVEmpireMobileClient.membershipRoles[membershipTypeForSection];
-
+    
     if ([membershipTypeForSection isEqual:SECTION_CURRENT_USER]) {
         title = @"INV_MEMBERSHIP_TYPE_CURRENT_USER";
     }
-
+    
     return NSLocalizedString(title, nil);
-}
+    
+#endif
+    
+    
+  }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

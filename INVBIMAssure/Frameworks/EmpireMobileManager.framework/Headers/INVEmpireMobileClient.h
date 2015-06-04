@@ -20,6 +20,7 @@
 #import "INVRuleIssue.h"
 #import "INVBAUnit.h"
 #import "INVAnalysisTemplateDetails.h"
+#import "INVMembershipRole.h"
 
 /**
  Completion Handler that returns the status of the request. In case of no error, the appropriate Data Manager
@@ -995,7 +996,7 @@ accountManager can be used to retrieve the details of account
 
  */
 - (void)getThumbnailImageForPkgVersion:(NSNumber *)pkgVersionId
-    ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData)handler;
+ ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  return request to fetch thumbnail image for specified pkgVersion. User should have signed in with
@@ -1237,9 +1238,6 @@ accountManager can be used to retrieve the details of account
                     ruleSet:(NSNumber *)ruleSetId
         withCompletionBlock:(CompletionHandler)handler;
 
-
-
-
 /**
  Asynchornously , fetch top level categories of building elements for specified package. This API does not currently support
  pagination.
@@ -1450,9 +1448,9 @@ INVAnalysis object is returned
   @see analysesManager
   */
 - (void)updateAnalyses:(NSNumber *)analysisId
-               withName:(NSString *)name
-         andDescription:(NSString *)description
-    withCompletionBlock:(CompletionHandlerWithData)handler;
+              withName:(NSString *)name
+        andDescription:(NSString *)description
+   withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
  Asynchornously , delete an analysis.
@@ -1525,8 +1523,8 @@ INVAnalysis object is returned
 
  */
 - (void)addToAnalysis:(NSNumber *)analysisId
-             pkgMasters:(NSArray *)pkgMasters
-    withCompletionBlock:(CompletionHandlerWithData)handler;
+           pkgMasters:(NSArray *)pkgMasters
+  withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously , add the list of analyses to a package master. The user must have succesfully into the account via
@@ -1545,8 +1543,8 @@ INVAnalysis object is returned
 
  */
 - (void)addToPkgMaster:(NSNumber *)pkgMasterId
-               analyses:(NSArray *)analyses
-    withCompletionBlock:(CompletionHandlerWithData)handler;
+              analyses:(NSArray *)analyses
+   withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously , add the list of rule Ids to analysis The user must have succesfully into the account via
@@ -1565,8 +1563,8 @@ INVAnalysis object is returned
 
  */
 - (void)addToAnalysis:(NSNumber *)analysisId
-      ruleDefinitionIds:(NSArray *)ruleDefIds
-    withCompletionBlock:(CompletionHandlerWithData)handler;
+    ruleDefinitionIds:(NSArray *)ruleDefIds
+  withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously , add the list of analysis template Ids to analysis The user must have succesfully into the account via
@@ -1585,8 +1583,8 @@ INVAnalysis object is returned
 
  */
 - (void)addToAnalysis:(NSNumber *)analysisId
-    analysisTemplateIds:(NSArray *)ruleDefIds
-    withCompletionBlock:(CompletionHandlerWithData)handler;
+  analysisTemplateIds:(NSArray *)ruleDefIds
+  withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
  Asynchornously ,get list of all analyses  associated with a pkg master. Users must have signed into an account in order to
@@ -1988,6 +1986,18 @@ getExecutionResultsForAnalysisRun:WithCompletionBlock
  */
 - (void)logOffSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
 
+#pragma mark - User Related
+/**
+ Convenience method that retuns the possible user membership roles
+ 
+ @param handler The completion handler that returns error object if there was any error. If no error, roles   are
+ returned
+
+ @see INVMembershipRole
+
+ */
+
+- (void)fetchUserMembershipRolesWithCompletionBlock:(void (^)(INVMembershipRoleArray roles, INVEmpireMobileError *error))handler;
 #pragma mark - Misc
 /**
  Convenience method that retuns a NSURLRequest to fetch the system configuration. If there is an error, a nil value is returned
