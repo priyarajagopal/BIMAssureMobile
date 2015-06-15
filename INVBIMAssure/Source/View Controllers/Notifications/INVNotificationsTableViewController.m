@@ -20,7 +20,7 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
     return NSLocalizedString(notificationLocalizedStringKeys[type], nil);
 }
 
-@interface INVNotificationsTableViewController () <INVDefaultAccountAlertViewDelegate>
+@interface INVNotificationsTableViewController ()<INVDefaultAccountAlertViewDelegate>
 
 @property INVDefaultAccountAlertView *alertView;
 @property INVNotification *selectedNotification;
@@ -217,8 +217,13 @@ static inline NSString *invNotificationTypeToString(INVNotificationType type)
 {
     [_alertView removeFromSuperview];
 
+    // HARDCODE alert: EUSA, Privacy, notification preferences. Needs to be updated later
+
     [self.globalDataManager.invServerClient acceptInvite:[[_selectedNotification data] invitationCode]
                                                  forUser:self.globalDataManager.loggedInUser
+                                      allowNotifications:YES
+                                           acceptPrivacy:YES
+                                              acceptEusa:YES
                                      withCompletionBlock:INV_COMPLETION_HANDLER {
                                          INV_ALWAYS:
                                              [self reloadData];

@@ -12,6 +12,6 @@
 extern NSString *const KVO_INVRoleUpdated;
 @interface INVRoleSelectionTableViewCell : UITableViewCell
 
-@property (nonatomic) INV_MEMBERSHIP_TYPE role;
+@property (nonatomic,copy) INVMembershipRole* role;
 
 @end

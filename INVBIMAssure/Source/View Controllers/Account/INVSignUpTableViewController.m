@@ -21,7 +21,7 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
 #define SECTION_INVITATION_INFO 2
 #define SECTION_ACCOUNT_INFO 3
 
-@interface INVSignUpTableViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate>
+@interface INVSignUpTableViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField *firstNameTextField;
 @property (nonatomic, weak) IBOutlet UITextField *lastNameTextField;
@@ -205,7 +205,7 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
     // _INV_SUBSCRIPTION_LEVEL subscriptionLevel = self.subscriptionCell.selectedSubscriptionType;
     NSNumber *package = @(0);
 
-    // TODO: Support thumbnails
+    // NOTE: Privacy and EUSA are forced accept until UI is finalized
     [self.globalDataManager.invServerClient
         signUpUserWithFirstName:[self.firstNameTextField.text
                                     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
@@ -238,6 +238,8 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                    contactPhone:[self.accountContactPhoneTextField.text
                                     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                 numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
+                  acceptPrivacy:YES
+                     acceptEusa:YES
             withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                 [self hideSignupProgress];
                 if (!error) {
@@ -259,6 +261,8 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
 {
     [self showSignupProgress];
 
+    
+    // NOTE: Privacy and EUSA are forced accept until UI is finalized
     [self.globalDataManager.invServerClient
         signUpUserWithFirstName:[self.firstNameTextField.text
                                     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
@@ -277,6 +281,8 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
                        password:[self.passwordTextField.text
                                     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
              allowNotifications:NO
+                  acceptPrivacy:YES
+                     acceptEusa:YES
             withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                 [self hideSignupProgress];
 
@@ -385,26 +391,35 @@ NSString *const KVO_INVSignupSuccess = @"signupSuccess";
         ([self.firstNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
                             .length > 0 &&
                     [self.lastNameTextField.text
-                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                            .length > 0 &&
                     [self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
                             .length > 0 &&
                     [self.passwordTextField.text
-                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                            .length > 0 &&
                     self.invitationSwitch.on
                 ? ([self.invitationCodeTextField.text
-                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
+                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                          .length > 0)
                 : ([self.accountNameTextField.text
-                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                              .length > 0 &&
                       [self.accountCompanyNameTextField.text
-                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                              .length > 0 &&
                       [self.accountCompanyAddressTextField.text
-                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                              .length > 0 &&
                       [self.accountContactNameTextField.text
-                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                              .length > 0 &&
                       [self.accountContactPhoneTextField.text
-                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                              .length > 0 &&
                       [self.accountNumberOfEmployeesTextField.text
-                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
+                          stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                              .length > 0 &&
                       numberOfEmployeesIsNumber));
 }
 

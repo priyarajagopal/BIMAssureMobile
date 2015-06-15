@@ -58,7 +58,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     self.clearsSelectionOnViewWillAppear = YES;
-    self.role = INV_MEMBERSHIP_TYPE_REGULAR;
+    //self.role = INV_MEMBERSHIP_TYPE_REGULAR;
 }
 
 - (void)didReceiveMemoryWarning

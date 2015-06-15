@@ -29,7 +29,7 @@ const NSInteger INV_CELLSIZE = 100;
 #pragma mark - KVO
 NSString *const KVO_INVAccountLoginSuccess = @"accountLoginSuccess";
 
-@interface INVAccountListViewController () <INVDefaultAccountAlertViewDelegate, UICollectionViewDataSource,
+@interface INVAccountListViewController ()<INVDefaultAccountAlertViewDelegate, UICollectionViewDataSource,
     NSFetchedResultsControllerDelegate, RBCollectionViewInfoFolderLayoutDelegate>
 @property (nonatomic, assign) BOOL accountLoginSuccess;
 @property (nonatomic, strong) INVDefaultAccountAlertView *alertView;
@@ -420,33 +420,39 @@ static NSString *const reuseIdentifier = @"Cell";
     [self.globalDataManager.invServerClient getAllAccountsForSignedInUserWithCompletionBlock:INV_COMPLETION_HANDLER {
         INV_ALWAYS:
         INV_SUCCESS:
-            [self.globalDataManager.invServerClient getPendingInvitationsForSignedInUserWithCompletionBlock:({
-                INV_COMPLETION_HANDLER
-                {
-                INV_ALWAYS:
-                    [self.refreshControl endRefreshing];
-                    [self.hud hide:YES];
+            [self.globalDataManager.invServerClient
+                getPendingInvitationsForSignedInUserWithCompletionBlock:({
+                    INV_COMPLETION_HANDLER
+                    {
+                    INV_ALWAYS:
+                        [self.refreshControl endRefreshing];
+                        [self.hud hide:YES];
 
-                INV_SUCCESS:
-                    // Note: need to explicitly do a fetch because our notification poller keeps polling for the same
-                    // information from  server updating the persistent store. This implies that there is a chance that when the
-                    // accounts view requests the data,there are no changes to the persistent store- so any faulted objects go
-                    // out of sync with whats in the persistent store. The stalenessInterval property does not help since the
-                    // persistent store is not updated in this case. This is a race condition between when the poller fetches
-                    // the data thereby upating the store  versus when the accounts viewer requests this. Regardless, forcing a
-                    // fetch by the FRC will ensure that the in-memory version syncs up with the data store
-                    [self.cachedLayoutSizes removeAllObjects];
-                    [self.dataResultsController performFetch:NULL];
-                    [self.collectionView reloadData];
+                    INV_SUCCESS:
+                        // Note: need to explicitly do a fetch because our notification poller keeps polling for the same
+                        // information from  server updating the persistent store. This implies that there is a chance that when
+                        // the
+                        // accounts view requests the data,there are no changes to the persistent store- so any faulted objects
+                        // go
+                        // out of sync with whats in the persistent store. The stalenessInterval property does not help since
+                        // the
+                        // persistent store is not updated in this case. This is a race condition between when the poller
+                        // fetches
+                        // the data thereby upating the store  versus when the accounts viewer requests this. Regardless,
+                        // forcing a
+                        // fetch by the FRC will ensure that the in-memory version syncs up with the data store
+                        [self.cachedLayoutSizes removeAllObjects];
+                        [self.dataResultsController performFetch:NULL];
+                        [self.collectionView reloadData];
 
-                INV_ERROR:
-                    INVLogError(@"%@", error);
+                    INV_ERROR:
+                        INVLogError(@"%@", error);
 
-                    UIAlertController *errController = [[UIAlertController alloc]
-                        initWithErrorMessage:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), error.code];
-                    [self presentViewController:errController animated:YES completion:nil];
-                };
-            })];
+                        UIAlertController *errController = [[UIAlertController alloc]
+                            initWithErrorMessage:NSLocalizedString(@"ERROR_ACCOUNT_LOAD", nil), error.code];
+                        [self presentViewController:errController animated:YES completion:nil];
+                    };
+                })];
 
         INV_ERROR:
             INVLogError(@"%@", error);
@@ -463,7 +469,7 @@ static NSString *const reuseIdentifier = @"Cell";
             signIntoAccount:self.currentAccountId
         withCompletionBlock:INV_COMPLETION_HANDLER {
             INV_ALWAYS:
-            [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
+                [self.globalDataManager deleteCurrentlySavedDefaultAccountFromKC];
             INV_SUCCESS:
                 self.globalDataManager.loggedInAccount = self.currentAccountId;
                 INVLogDebug(@"Account token for %@ is %@", self.currentAccountId,
@@ -480,7 +486,7 @@ static NSString *const reuseIdentifier = @"Cell";
 
             INV_ERROR:
                 INVLogError(@"%@", error);
-          
+
                 [self showLoginFailureAlert];
         }];
 }
@@ -548,9 +554,13 @@ static NSString *const reuseIdentifier = @"Cell";
 
 - (void)acceptInvitationWithSelectedInvitationCode
 {
+    // HARDCODE alert: handle notifications, privacy flags appropriately from UI
     NSString *userEmail = self.globalDataManager.loggedInUser;
     [self.globalDataManager.invServerClient acceptInvite:self.currentInviteCode
                                                  forUser:userEmail
+                                      allowNotifications:YES
+                                           acceptPrivacy:YES
+                                              acceptEusa:YES
                                      withCompletionBlock:INV_COMPLETION_HANDLER {
                                          INV_ALWAYS:
                                          INV_SUCCESS:
@@ -870,26 +880,26 @@ static NSString *const reuseIdentifier = @"Cell";
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
-    didChangeObject:(id)anObject
-        atIndexPath:(NSIndexPath *)indexPath
-      forChangeType:(NSFetchedResultsChangeType)type
-       newIndexPath:(NSIndexPath *)newIndexPath
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
 {
     self.isNSFetchedResultsChangeTypeUpdated = (type == NSFetchedResultsChangeUpdate);
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
-    didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo
-             atIndex:(NSUInteger)sectionIndex
-       forChangeType:(NSFetchedResultsChangeType)type
+  didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
 {
 }
 
 #pragma mark - RBCollectionViewInfoFolderLayoutDelegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
-                    layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
-    sizeForHeaderInSection:(NSInteger)section
+                  layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
+  sizeForHeaderInSection:(NSInteger)section
 {
     return CGSizeZero;
 }
@@ -924,8 +934,8 @@ static NSString *const reuseIdentifier = @"Cell";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
-                    layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
-    sizeForFooterInSection:(NSInteger)section
+                  layout:(RBCollectionViewInfoFolderLayout *)collectionViewLayout
+  sizeForFooterInSection:(NSInteger)section
 {
     return CGSizeZero;
 }

@@ -96,8 +96,8 @@
 
             NSArray *objects = self.dataResultsController.fetchedObjects;
             id successBlock = [INVBlockUtils blockForExecutingBlock:^{
-                INVAccountMembership* currentUser =  (INVAccountMembership*)[self.sections[SECTION_CURRENT_USER] firstObject];
-                NSNumber* roleOfCurrentUser = [currentUser.roles firstObject];
+                INVAccountMembership *currentUser = (INVAccountMembership *) [self.sections[SECTION_CURRENT_USER] firstObject];
+                NSNumber *roleOfCurrentUser = [currentUser.roles firstObject];
                 if ([roleOfCurrentUser isEqualToNumber:@(INV_MEMBERSHIP_TYPE_ADMIN)]) {
                     self.navigationItem.rightBarButtonItem = self.editButtonItem;
                 }
@@ -141,15 +141,17 @@
     }];
 }
 
--(void)fetchUserMembershipRoles {
-    [self.globalDataManager.invServerClient fetchUserMembershipRolesWithCompletionBlock:^(INVMembershipRoleArray roles, INVEmpireMobileError *error) {
-        if (!error) {
-            self.roles = roles;
-        }
-        else {
-            self.roles = @[];
-        }
-    }];
+- (void)fetchUserMembershipRoles
+{
+    [self.globalDataManager.invServerClient
+        fetchUserMembershipRolesForSignedInAccountWithCompletionBlock:^(INVMembershipRoleArray roles, INVEmpireMobileError *error) {
+            if (!error) {
+                self.roles = roles;
+            }
+            else {
+                self.roles = @[];
+            }
+        }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -157,36 +159,34 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSNumber *membershipTypeForSection = self.sortedSections[section];
+#define _BACKEND_FIXED_
 #ifdef _BACKEND_FIXED_
-    NSPredicate* pred = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+    NSPredicate *pred = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return [evaluatedObject roleId] == membershipTypeForSection;
     }];
-    NSArray* matchedRoles = [self.roles filteredArrayUsingPredicate:pred];
+    NSArray *matchedRoles = [self.roles filteredArrayUsingPredicate:pred];
     if (matchedRoles && matchedRoles.count) {
-        NSDictionary* descriptor = [matchedRoles[0] valueForKeyPath:@"descriptor"];
+        NSDictionary *descriptor = [matchedRoles[0] valueForKeyPath:@"descriptor"];
         NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
         NSString *title = descriptor[languageCode][@"name"];
         if ([membershipTypeForSection isEqual:SECTION_CURRENT_USER]) {
-            title = NSLocalizedString(@"INV_MEMBERSHIP_TYPE_CURRENT_USER",nil);
+            title = NSLocalizedString(@"INV_MEMBERSHIP_TYPE_CURRENT_USER", nil);
         }
-        
-        return NSLocalizedString(title, nil);
-        
+
+        return title;
     }
     return @"";
 #else
     NSString *title = INVEmpireMobileClient.membershipRoles[membershipTypeForSection];
-    
+
     if ([membershipTypeForSection isEqual:SECTION_CURRENT_USER]) {
         title = @"INV_MEMBERSHIP_TYPE_CURRENT_USER";
     }
-    
+
     return NSLocalizedString(title, nil);
-    
+
 #endif
-    
-    
-  }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

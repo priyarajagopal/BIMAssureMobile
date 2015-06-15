@@ -6,6 +6,12 @@
 //  Copyright (c) 2014 Invicara Inc. All rights reserved.
 //
 
+// TODO: Mordernizing ObjC
+// LTW generics (__kindof)
+// Avoid id generic type in data return
+// nullability specifiers
+// cleaner to adopt in swift
+
 #import <Foundation/Foundation.h>
 #import "INVEmpireMobileError.h"
 #import "INVAccountManager.h"
@@ -26,15 +32,18 @@
  Completion Handler that returns the status of the request. In case of no error, the appropriate Data Manager
  (INVAccountManager, INVProjectManager...) can be  queried for the cached results.
  The results of the corresponding requests are not cached.
+ enum to NS_ENUM
+
  */
-typedef void (^CompletionHandler)(INVEmpireMobileError *error);
+typedef void (^CompletionHandler)(INVEmpireMobileError *__nullable error);
 
 /**
  Completion Handler that returns the status of the request as well the data (if any). The results of the corresponding requests
  are not cached.
  */
-typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error);
+typedef void (^CompletionHandlerWithData)(id __nullable result, INVEmpireMobileError *__nullable error);
 
+NS_ASSUME_NONNULL_BEGIN
 @interface INVEmpireMobileClient : NSObject
 /**
  The XOS Passport server address
@@ -340,7 +349,6 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param userEmail email address of user
 
-
  @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil,  then  the
@@ -434,6 +442,13 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param userEmail The email address of the user accepting the invitation
 
+ @param allowNotifications flag to indicate if notifications shoud be allowed
+
+ @param acceptPrivacy Flag to indicate if privacy statement was accepted
+
+ @param acceptEusa FLag to indicate if EUSA was accepted
+
+
  @param handler The completion handler that returns error object if there was any error.
 
  @see -signIntoAccount:withCompletionBlock:
@@ -441,7 +456,12 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
  @see accountManager
 
  */
-- (void)acceptInvite:(NSString *)invitationCode forUser:(NSString *)userEmail withCompletionBlock:(CompletionHandler)handler;
+- (void)acceptInvite:(NSString *)invitationCode
+             forUser:(NSString *)userEmail
+  allowNotifications:(BOOL)allowNotifications
+       acceptPrivacy:(BOOL)acceptPrivacy
+          acceptEusa:(BOOL)acceptEusa
+ withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously, cancel  a pending invite for user.  The user must have succesfully into the account via
@@ -510,6 +530,11 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param numEmployees  optional number of employees
 
+ @param acceptPrivacy  manadatory field to indicate if privacy was accepted. It is false be default
+
+ @param acceptEusa optional manadatory field to indicate if EUSA was accepted. It is false be default
+
+
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
  accountManager can be used to retrieve the details of account. Instance of INVUser is created
 
@@ -535,6 +560,8 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                     contactName:(NSString *)contactName
                    contactPhone:(NSString *)contactPhone
                 numberEmployees:(NSNumber *)numEmployees
+                  acceptPrivacy:(BOOL)acceptPrivacy
+                     acceptEusa:(BOOL)acceptEusa
             withCompletionBlock:(CompletionHandlerWithData)handler;
 /**
  Asynchornously , sign up a user with the XOS Passport service
@@ -553,10 +580,13 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param userEmail email address of user
 
-@paaram password User password
+ @paaram password User password
 
  @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
 
+ @param acceptPrivacy  manadatory field to indicate if privacy was accepted. It is false be default
+
+ @param acceptEusa optional manadatory field to indicate if EUSA was accepted. It is false be default
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
  accountManager can be used to retrieve the details of account. Instance of INVUser is returned
@@ -574,6 +604,8 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                           email:(NSString *)userEmail
                        password:(NSString *)password
              allowNotifications:(BOOL)allowNotifications
+                  acceptPrivacy:(BOOL)acceptPrivacy
+                     acceptEusa:(BOOL)acceptEusa
             withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
@@ -595,8 +627,14 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
 
  @param numEmployees  optional number of employees
 
-
  @param userEmail The email address of signed in user. ***** THE SERVER API SHOULD BE UPDATED TO NOT REQUIRE THIS FIELD ******
+
+ @param acceptPrivacy  manadatory field to indicate if privacy was accepted. It is false be default
+
+ @param acceptEusa optional manadatory field to indicate if EUSA was accepted. It is false be default
+
+ @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
+
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
  accountManager can be used to retrieve the details of account. Instance of INVAccount is returned
@@ -614,6 +652,9 @@ typedef void (^CompletionHandlerWithData)(id result, INVEmpireMobileError *error
                                        contactPhone:(NSString *)contactPhone
                                     numberEmployees:(NSNumber *)numEmployees
                                        forUserEmail:(NSString *)userEmail
+                                      acceptPrivacy:(BOOL)acceptPrivacy
+                                         acceptEusa:(BOOL)acceptEusa
+                                 allowNotifications:(BOOL)allowNotifications
                                 withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /**
@@ -1988,8 +2029,8 @@ getExecutionResultsForAnalysisRun:WithCompletionBlock
 
 #pragma mark - User Related
 /**
- Convenience method that retuns the possible user membership roles
- 
+ Convenience method that retuns the possible user membership roles for currently signed in account
+
  @param handler The completion handler that returns error object if there was any error. If no error, roles   are
  returned
 
@@ -1997,7 +2038,8 @@ getExecutionResultsForAnalysisRun:WithCompletionBlock
 
  */
 
-- (void)fetchUserMembershipRolesWithCompletionBlock:(void (^)(INVMembershipRoleArray roles, INVEmpireMobileError *error))handler;
+- (void)fetchUserMembershipRolesForSignedInAccountWithCompletionBlock:(void (^)(INVMembershipRoleArray roles,
+                                                                          INVEmpireMobileError *error))handler;
 #pragma mark - Misc
 /**
  Convenience method that retuns a NSURLRequest to fetch the system configuration. If there is an error, a nil value is returned
@@ -2024,3 +2066,4 @@ getExecutionResultsForAnalysisRun:WithCompletionBlock
 + (INVANalysisRunStatusDictionary)analysisRunStatusMap;
 
 @end
+NS_ASSUME_NONNULL_END

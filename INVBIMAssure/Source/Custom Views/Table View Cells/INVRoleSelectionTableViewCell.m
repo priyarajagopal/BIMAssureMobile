@@ -13,7 +13,7 @@ NSString *const KVO_INVRoleUpdated = @"role";
 @interface INVRoleSelectionTableViewCell ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton *currentRoleButton;
-@property (nonatomic, strong) INVMembershipTypeDictionary membership;
+//@property (nonatomic, strong) INVMembershipTypeDictionary membership;
 @property (nonatomic, strong) INVMembershipRoleArray roles;
 
 - (IBAction)onRolesListSelected:(id)sender;
@@ -26,21 +26,24 @@ NSString *const KVO_INVRoleUpdated = @"role";
 {
     // Initialization code
     [self fetchUserMembershipRoles];
-    self.membership = [INVEmpireMobileClient membershipRoles];
-    self.role = INV_MEMBERSHIP_TYPE_REGULAR;
+  //  self.membership = [INVEmpireMobileClient membershipRoles];
+  //  self.role = INV_MEMBERSHIP_TYPE_REGULAR;
 
     [self updateUI];
 }
 
 - (void)updateUI
 {
-    NSString *localStr = NSLocalizedString(self.membership[@(self.role)], nil);
-    [self.currentRoleButton setTitle:localStr forState:UIControlStateNormal];
+    NSDictionary *descriptor = [self.role valueForKeyPath:@"descriptor"];
+    NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    NSString *title = descriptor[languageCode][@"name"];
+    
+    [self.currentRoleButton setTitle:title forState:UIControlStateNormal];
 }
 
-- (void)setRole:(INV_MEMBERSHIP_TYPE)role
+- (void)setRole:(INVMembershipRole*)role
 {
-    _role = role;
+    _role = [role copy];
     [self updateUI];
 }
 
@@ -64,9 +67,10 @@ NSString *const KVO_INVRoleUpdated = @"role";
 {
     [[INVGlobalDataManager sharedInstance]
             .invServerClient
-        fetchUserMembershipRolesWithCompletionBlock:^(INVMembershipRoleArray roles, INVEmpireMobileError *error) {
+        fetchUserMembershipRolesForSignedInAccountWithCompletionBlock:^(INVMembershipRoleArray roles, INVEmpireMobileError *error) {
             if (!error) {
                 self.roles = roles;
+                self.role = roles[0];
             }
             else {
                 self.roles = @[];
@@ -83,7 +87,7 @@ NSString *const KVO_INVRoleUpdated = @"role";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.membership.count;
+    return self.roles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,15 +97,15 @@ NSString *const KVO_INVRoleUpdated = @"role";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"INVRoleCell"];
     }
 
+#define _BACKEND_FIXED_
 #ifdef _BACKEND_FIXED_
-    NSString *localStr;
-
+  
     INVMembershipRole *role = self.roles[indexPath.row];
     NSDictionary *descriptor = [role valueForKeyPath:@"descriptor"];
     NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
     NSString *localStr = descriptor[languageCode][@"name"];
     cell.textLabel.text = localStr;
-    INV_MEMBERSHIP_TYPE type = [role valueForKeyPath:@"roleId"];
+    INVMembershipRole* type = [role valueForKeyPath:@"roleId"];
 
     if (type == self.role) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -134,7 +138,7 @@ NSString *const KVO_INVRoleUpdated = @"role";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    self.role = [self.membership.allKeys[indexPath.row] intValue];
+    self.role = self.roles[indexPath.row];
 
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

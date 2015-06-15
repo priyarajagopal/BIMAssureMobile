@@ -13,7 +13,7 @@
 #define SECTION_ACCOUNT_THUMBNAIL 1
 #define SECTION_ACCOUNT_INFO 2
 
-@interface INVCreateAccountViewController () <UITextViewDelegate>
+@interface INVCreateAccountViewController ()<UITextViewDelegate>
 
 @property IBOutlet UISwitch *invitationCodeSwitch;
 @property IBOutlet UITextField *invitationCodeTextField;
@@ -184,18 +184,27 @@
     NSNumber *package = @(0);
 
     [self.globalDataManager.invServerClient
-        createAccountForSignedInUserWithAccountName:[self.accountNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-                                 accountDescription:[self.accountDescriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+        createAccountForSignedInUserWithAccountName:[self.accountNameTextField.text
+                                                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                 accountDescription:[self.accountDescriptionTextView.text
+                                                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                                    subscriptionType:package
-                                        companyName:[self.accountCompanyNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-                                     companyAddress:[self.accountCompanyAddressTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-                                        contactName:[self.accountContactNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-                                       contactPhone:[self.accountContactPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                        companyName:[self.accountCompanyNameTextField.text
+                                                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                     companyAddress:[self.accountCompanyAddressTextField.text
+                                                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                        contactName:[self.accountContactNameTextField.text
+                                                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                       contactPhone:[self.accountContactPhoneTextField.text
+                                                        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                                     numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
                                        forUserEmail:email
+                                      acceptPrivacy:YES
+                                         acceptEusa:YES
+                                 allowNotifications:YES
                                 withCompletionBlock:^(id result, INVEmpireMobileError *error) {
                                     INV_ALWAYS:
-                                      [self hideSignupProgress];
+                                        [self hideSignupProgress];
                                     INV_SUCCESS : {
                                         INVLogDebug(@"Succesfully created account %@", self.accountNameTextField.text);
                                         self.signupSuccess = YES;
@@ -217,13 +226,19 @@
     if (self.accountProfileChanged) {
         [self.globalDataManager.invServerClient
             updateAccountDetailsWithAccountId:self.accountToEdit.accountId
-                                         name:[self.accountNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-                           accountDescription:[self.accountDescriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                         name:[self.accountNameTextField.text
+                                                  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                           accountDescription:[self.accountDescriptionTextView.text
+                                                  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                              subscriptionType:package
-                                  companyName:[self.accountCompanyNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-                               companyAddress:[self.accountCompanyAddressTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-                                  contactName:[self.accountContactNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-                                 contactPhone:[self.accountContactPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                  companyName:[self.accountCompanyNameTextField.text
+                                                  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                               companyAddress:[self.accountCompanyAddressTextField.text
+                                                  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                  contactName:[self.accountContactNameTextField.text
+                                                  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+                                 contactPhone:[self.accountContactPhoneTextField.text
+                                                  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                               numberEmployees:@([self.accountNumberOfEmployeesTextField.text intValue])
                           withCompletionBlock:INV_COMPLETION_HANDLER {
                               INV_ALWAYS:
@@ -344,7 +359,7 @@
 {
     // Update the status of the sign in button
     [self textFieldTextChanged:nil];
-    
+
     [self.tableView beginUpdates];
 
     if (self.invitationCodeSwitch.on) {
@@ -360,8 +375,6 @@
                   withRowAnimation:UITableViewRowAnimationNone];
 
     [self.tableView endUpdates];
-
-    
 }
 
 - (IBAction)textFieldTextChanged:(id)sender
@@ -406,16 +419,28 @@
                                      [self.accountNumberOfEmployeesTextField.text integerValue] > 0;
 
     self.createBarButtonItem.enabled =
-    self.invitationCodeSwitch.on
-    ? ([self.invitationCodeTextField.text
-        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
-    :
-        [self.accountNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0  &&
-        [self.accountCompanyNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
-     [self.accountCompanyAddressTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
-        [self.accountContactNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length  > 0 &&
-    [self.accountContactPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 &&
-        [self.accountNumberOfEmployeesTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0 && numberOfEmployeesIsNumber;
+        self.invitationCodeSwitch.on
+            ? ([self.invitationCodeTextField.text
+                   stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                      .length > 0)
+            : [self.accountNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                          .length > 0 &&
+                  [self.accountCompanyNameTextField.text
+                      stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                          .length > 0 &&
+                  [self.accountCompanyAddressTextField.text
+                      stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                          .length > 0 &&
+                  [self.accountContactNameTextField.text
+                      stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                          .length > 0 &&
+                  [self.accountContactPhoneTextField.text
+                      stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                          .length > 0 &&
+                  [self.accountNumberOfEmployeesTextField.text
+                      stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                          .length > 0 &&
+                  numberOfEmployeesIsNumber;
 }
 
 @end
