@@ -164,7 +164,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
 
     [self.globalDataManager.invServerClient addToAnalysis:self.analysisId
                                                pkgMasters:[updatedPkgMasterIds allObjects]
-                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                      withCompletionBlock:^(INVEmpireMobileError *error) {
                                           if (error) {
                                               INVLogError(@"Failed to add pkg masters %@ for rule set %@ with error %@",
                                                   updatedPkgMasterIds, self.analysisId, error);

@@ -33,6 +33,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 @property (nonatomic, assign) NSInteger messageRowHeight;
 @property (nonatomic, weak) INVTokensTableViewCell *inviteUsersCell;
 @property (nonatomic, assign) INV_MEMBERSHIP_TYPE role;
+@property (nonatomic, copy)INVProjectArray selectedProjects;
+@property (nonatomic, copy)NSString* customMessage;
 @end
 
 @implementation INVInviteUsersTableViewController
@@ -58,6 +60,8 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     self.clearsSelectionOnViewWillAppear = YES;
+    
+    
     //self.role = INV_MEMBERSHIP_TYPE_REGULAR;
 }
 
@@ -190,6 +194,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
 {
     [self.tableView beginUpdates];
     self.messageRowHeight = size.height;
+    self.customMessage = textStr;
     [self.tableView endUpdates];
 }
 
@@ -203,15 +208,28 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     self.hud = [MBProgressHUD generalViewHUD:NSLocalizedString(@"INVITING", nil)];
     [self.view addSubview:self.hud];
     [self.hud show:YES];
-    [self inviteUsers:[self cleanupTokens:self.inviteUsersCell.tokens] withMessage:@""];
+    [self inviteUsers:[self cleanupTokens:self.inviteUsersCell.tokens] withMessage:self.customMessage];
 }
 
 #pragma mark - server side
 - (void)inviteUsers:(NSArray *)users withMessage:(NSString *)message
 {
-    [self.globalDataManager.invServerClient
-        inviteUsersToSignedInAccount:users
-                            withRole:self.role
+    // HARDCODE ALERT: When UI is finalized, have option to accept projects , roles on per user basis .
+    // For now, just invite users to all projects and all invitees
+    // have same role
+    INVInviteMutableArray invites = [[NSMutableArray alloc]initWithCapacity:0];
+    [users enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        INVInvite* invitee = [[INVInvite alloc]init];
+        invitee.email = obj;
+        invitee.roles = @[@(self.role)];
+        invitee.context = [[INVContext alloc]init];
+        invitee.context.projects = self.selectedProjects;
+        invitee.messageBody = message;
+        [invites addObject:invitee];
+
+    }];
+      [self.globalDataManager.invServerClient
+        inviteUsersToSignedInAccount:invites
                  withCompletionBlock:^(INVEmpireMobileError *error) {
                      [self.hud performSelectorOnMainThread:@selector(hide:) withObject:@YES waitUntilDone:NO];
 
@@ -235,6 +253,14 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     return _accountManager;
 }
 
+-(INVProjectArray)selectedProjects {
+    // HARDCOD ALERT. THis has to be selected via UI. For now, just hardcode entire projects array so users invited to all projects
+    if (!_selectedProjects) {
+        _selectedProjects = [[self.globalDataManager.invServerClient.projectManager projectsInAccount]valueForKey:@"projectId"];
+    }
+    return _selectedProjects;
+    
+}
 #pragma mark - KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -242,7 +268,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 40;
     if ([keyPath isEqualToString:KVO_INVRoleUpdated] && [object isKindOfClass:[INVRoleSelectionTableViewCell class]]) {
         //  Role changed
         INVRoleSelectionTableViewCell *cell = (INVRoleSelectionTableViewCell *) object;
-        self.role = cell.role;
+        self.role = cell.role.roleId.integerValue;
     }
 }
 

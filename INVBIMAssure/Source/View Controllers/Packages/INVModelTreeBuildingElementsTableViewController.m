@@ -84,13 +84,25 @@ static NSString *const INVModelTreeBuildingElementsModelIdKey = @"modelId";
                                                         NSArray *hits = [searchResult valueForKeyPath:@"hits"];
 
                                                         NSArray *ids = [hits valueForKeyPath:@"_id"];
+                                                        
+                                                        NSArray *properties =
+                                                        [[hits valueForKey:@"_source"] valueForKey:@"properties"];
+                                                        
+                                                        NSArray *mergedproperties =
+                                                        [properties
+                                                         valueForKeyPath:@"@unionOfArrays.@self"];
+                                                        
+                                                        NSPredicate* namesFilter = [NSPredicate predicateWithFormat:@"display == %@",@"name"];
+                                                        NSArray* names = [[mergedproperties filteredArrayUsingPredicate:namesFilter]valueForKeyPath:@"value.as_string"];
 
+                                                        /*
                                                         NSArray *names =
-                                                            [[[hits valueForKey:@"fields"] valueForKey:@"intrinsics.name.value"]
+                                                            [[[hits valueForKey:@"fields"] valueForKey:@"_source.properties.intrinsics.name.value"]
                                                                 valueForKeyPath:@"@unionOfArrays.self"];
+                                                         */
 
                                                         NSArray *modelIds =
-                                                            [[[hits valueForKey:@"fields"] valueForKey:@"system.id"]
+                                                            [[properties valueForKey:@"system.id"]
                                                                 valueForKeyPath:@"@unionOfArrays.self"];
 
                                                         *expectedTotalCount =

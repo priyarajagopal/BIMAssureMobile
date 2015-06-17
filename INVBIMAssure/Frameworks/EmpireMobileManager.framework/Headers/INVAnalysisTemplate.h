@@ -7,6 +7,7 @@
 //
 
 #import <Mantle/Mantle.h>
+#import "INVRuleDescriptorResourceDescription.h"
 
 
 /**
@@ -21,13 +22,14 @@ typedef NSMutableArray *INVAnalysisTemplateMutableArray;
 
 @interface INVAnalysisTemplate : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
 @property (copy, nonatomic, readonly) NSNumber *analysisTemplateId;
-@property (copy, nonatomic, readonly) NSString *name;
-@property (copy, nonatomic, readonly) NSString *overview;
+@property (copy, nonatomic, readonly) NSDictionary* descriptor;
+@property (copy, nonatomic, readonly) NSNumber *ruleCount;
 @property (copy, nonatomic, readonly) NSNumber *accountId;
 @property (copy, nonatomic, readonly) NSDate *createdAt;
 @property (copy, nonatomic, readonly) NSNumber *createdBy;
 @property (copy, nonatomic, readonly) NSDate *updatedAt;
 @property (copy, nonatomic, readonly) NSNumber *updatedBy;
 
+-(INVRuleDescriptorResourceDescription*)descriptionDetailsForLanguageCode:(NSString*)details ;
 
 @end

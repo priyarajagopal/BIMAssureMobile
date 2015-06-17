@@ -82,7 +82,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
     [self.globalDataManager.invServerClient
               addToAnalysis:self.analysisId
         analysisTemplateIds:[self.selectedTemplates allKeys]
-        withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+        withCompletionBlock:^( INVEmpireMobileError *error) {
             INV_ALWAYS:
                 [self.hud hide:YES];
 

@@ -27,8 +27,12 @@
 
 -(void) updateUI {
     
-    self.overviewLabel.text = self.analysisTemplate.overview;
-    self.nameLabel.text = self.analysisTemplate.name;
+    NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    INVRuleDescriptorResourceDescription* resourceDetails = [self.analysisTemplate descriptionDetailsForLanguageCode:languageCode];
+    
+    
+    self.overviewLabel.text = resourceDetails.shortDescription;
+    self.nameLabel.text = resourceDetails.name;
     
     if (self.checked) {
         [self.selectedButton setImage:[self _selectedImage] forState:UIControlStateNormal];

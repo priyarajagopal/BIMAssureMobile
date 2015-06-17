@@ -146,7 +146,7 @@ static const NSInteger DEFAULT_HEADER_HEIGHT = 50;
 
     [self.globalDataManager.invServerClient addToPkgMaster:self.fileId
                                                   analyses:[updatedAnalysesIds allObjects]
-                                       withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                       withCompletionBlock:^(INVEmpireMobileError *error) {
                                            INVLogDebug(@"Status is %@", error);
                                        }];
 }

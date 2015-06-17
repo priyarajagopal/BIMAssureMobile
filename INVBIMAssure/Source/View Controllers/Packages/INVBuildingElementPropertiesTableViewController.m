@@ -44,9 +44,11 @@
 {
     self.propertyNameLabel.text = self.property[@"display"];
 
-    id value = self.property[@"source_value"] ?: self.property[@"value"];
+    NSDictionary* valueObj = self.property[@"source_value"] ?: self.property[@"value"];
     id unit = self.property[@"source_unit"] ?: self.property[@"unit"];
 
+    id value = [self valueOfProperty:valueObj];
+            
     if (!value) {
         self.propertyValueLabel.text = NSLocalizedString(@"VALUE_MISSING", nil);
         self.propertyValueLabel.textColor = [UIColor redColor];
@@ -64,6 +66,34 @@
 
     self.propertyValueLabel.text = [value stringByAppendingString:unit ?: @""];
     self.propertyValueLabel.textColor = [UIColor whiteColor];
+}
+
+
+#pragma mark -helper
+-(id)valueOfProperty:(NSDictionary*)valueObj {
+    if ([valueObj.allKeys containsObject:@"as_string"]) {
+        return valueObj[@"as_string"];
+    }
+    if ([valueObj.allKeys containsObject:@"as_float"]) {
+        return valueObj[@"as_float"];
+    }
+    if ([valueObj.allKeys containsObject:@"as_integer"]) {
+        return valueObj[@"as_integer"];
+    }
+    if ([valueObj.allKeys containsObject:@"as_long"]) {
+        return valueObj[@"as_long"];
+    }
+    if ([valueObj.allKeys containsObject:@"as_double"]) {
+        return valueObj[@"as_string"];
+    }
+    if ([valueObj.allKeys containsObject:@"as_boolean"]) {
+        return valueObj[@"as_boolean"];
+    }
+    if ([valueObj.allKeys containsObject:@"as_date"]) {
+        return valueObj[@"as_date"];
+    }
+    
+    return nil;
 }
 
 @end
@@ -131,8 +161,10 @@
                                          [hud hide:YES];
 
                                          self.elementProperties =
-                                             [[[result valueForKeyPath:@"hits._source.intrinsics"] firstObject] allValues];
+                                            [[result valueForKeyPath:@"hits._source.properties"]firstObject];
                                          [self.tableView reloadData];
                                      }];
 }
+
+
 @end

@@ -9,5 +9,7 @@
 #import <Mantle/Mantle.h>
 
 @interface INVContext : MTLModel<MTLJSONSerializing, MTLManagedObjectSerializing>
-@property (copy, nonatomic, readonly) NSDictionary *projects;
+@property (copy, nonatomic) NSArray *projects;
+
+
 @end

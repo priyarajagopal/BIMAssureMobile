@@ -8,8 +8,9 @@
 
 //@import UIKit;
 #import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
-@interface INVRuleDescriptorResourceDescription : NSObject
+@interface INVRuleDescriptorResourceDescription : MTLModel<MTLJSONSerializing>
 @property (copy, nonatomic) NSString *longDescription;
 @property (copy, nonatomic ) NSString *name;
 @property (copy, nonatomic ) NSArray *issues;

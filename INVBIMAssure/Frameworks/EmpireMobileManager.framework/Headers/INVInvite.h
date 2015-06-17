@@ -53,9 +53,12 @@ typedef NSMutableArray *INVInviteMutableArray;
 @property (copy, nonatomic, readonly) NSNumber *createdBy;
 @property (copy, nonatomic, readonly) NSDate *updatedAt;
 @property (copy, nonatomic, readonly) NSNumber *updatedBy;
-@property (copy, nonatomic, readonly) NSString *email;
+
 @property (copy, nonatomic, readonly) NSString *invitationCode;
 @property (copy, nonatomic, readonly) NSNumber *invitationId;
-@property (copy, nonatomic, readonly) NSArray *roles;
-@property (copy, nonatomic, readonly) INVContext* context;
+@property (copy, nonatomic) NSString *email;
+@property (copy, nonatomic) NSArray *roles;
+@property (copy, nonatomic) NSString *messageBody;
+@property (copy, nonatomic) NSArray *messageParams;
+@property (copy, nonatomic) INVContext* context;
 @end

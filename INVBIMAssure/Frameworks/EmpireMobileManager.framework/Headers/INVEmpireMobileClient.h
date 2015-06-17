@@ -8,7 +8,8 @@
 
 // TODO: Mordernizing ObjC
 // LTW generics (__kindof)
-// Avoid id generic type in data return
+// Avoid id generic type in data return. GIve specific types.
+// change completionhandler to return data for all put, post, get consistently to return data
 // nullability specifiers
 // cleaner to adopt in swift
 
@@ -139,7 +140,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
  */
-- (void)fetchPasswordValidationCriteria:(CompletionHandlerWithData)handler;
+- (void)fetchPasswordValidationCriteria:(void (^)(
+                                            NSString *__nullable passwordRegex, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchronously, reset the password for the user with the specified email.
@@ -245,7 +247,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
  */
-- (void)getSignedInUserProfileWithCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)getSignedInUserProfileWithCompletionBlock:(void (^)(INVSignedInUser *__nullable user,
+                                                      INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get profile of specified user
@@ -262,7 +265,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
  */
-- (void)getUserProfileInSignedInAccountWithId:(NSNumber *)userId withCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)getUserProfileInSignedInAccountWithId:(NSNumber *)userId
+                          withCompletionBlock:
+                              (void (^)(INVUser *__nullable user, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get profile of signed in user
@@ -278,7 +283,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
  */
-- (void)getUserProfileInSignedUserWithCompletionBlock:(void (^)(INVSignedInUser *user, INVEmpireMobileError *error))handler;
+- (void)getUserProfileInSignedUserWithCompletionBlock:(void (^)(INVSignedInUser *__nullable user,
+                                                          INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,update profile of specified user.User should have signed in with
@@ -318,10 +324,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateUserProfileInSignedInAccountWithId:(NSNumber *)userId
                                    withFirstName:(NSString *)firstName
                                         lastName:(NSString *)lastName
-                                     userAddress:(NSString *)userAddress
-                                 userPhoneNumber:(NSString *)userPhoneNumber
-                                 userCompanyName:(NSString *)userCompanyname
-                                           title:(NSString *)title
+                                     userAddress:(NSString *__nullable)userAddress
+                                 userPhoneNumber:(NSString *__nullable)userPhoneNumber
+                                 userCompanyName:(NSString *__nullable)userCompanyname
+                                           title:(NSString *__nullable)title
                                            email:(NSString *)userEmail
                               allowNotifications:(BOOL)allowNotifications
                              withCompletionBlock:(CompletionHandler)handler;
@@ -363,13 +369,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateUserProfileOfUserWithId:(NSNumber *)userId
                         withFirstName:(NSString *)firstName
                              lastName:(NSString *)lastName
-                          userAddress:(NSString *)userAddress
-                      userPhoneNumber:(NSString *)userPhoneNumber
-                      userCompanyName:(NSString *)userCompanyname
-                                title:(NSString *)title
+                          userAddress:(NSString *__nullable)userAddress
+                      userPhoneNumber:(NSString *__nullable)userPhoneNumber
+                      userCompanyName:(NSString *__nullable)userCompanyname
+                                title:(NSString *__nullable)title
                                 email:(NSString *)userEmail
                    allowNotifications:(BOOL)allowNotifications
-                  withCompletionBlock:(void (^)(INVSignedInUser *user, INVEmpireMobileError *error))handler;
+                  withCompletionBlock:
+                      (void (^)(INVSignedInUser *__nullable user, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get list of members belonging to currentrly signed in account. If the request is made on behalf of admin user,
@@ -392,18 +399,16 @@ NS_ASSUME_NONNULL_BEGIN
  Asynchornously , invite list of users to currently signed in account.  The user must have succesfully into the account via
  signIntoAccount:withCompletionBlock:
 
- @param emails List of one or more email addresses of users to invite
-
- @param role The role to be associated with the invited members of type _INV_MEMBERSHIP_TYPE
+ @param invitees List of one or more invitees that will hold email, roles, relevant contex info
 
  @param handler The completion handler that returns error object if there was any error.
 
  @see -signIntoAccount:withCompletionBlock:
 
+ @see INVInvite
+
 */
-- (void)inviteUsersToSignedInAccount:(NSArray *)emails
-                            withRole:(INV_MEMBERSHIP_TYPE)role
-                 withCompletionBlock:(CompletionHandler)handler;
+- (void)inviteUsersToSignedInAccount:(INVInviteArray)invitees withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously, fetch list of invites for user for signed in account.  The user must have succesfully into the account via
@@ -511,24 +516,24 @@ NS_ASSUME_NONNULL_BEGIN
 
  @paaram password User password
 
- @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
+ @param allowNotifications  user preference if notifications is to be allowed. It is false be debault
 
 
  @param accountName Name of account to be created
 
- @param accountDescription An optional description of account
+ @param accountDescription An  optional optional description of account
 
  @param type Subscription type Will always be mapped to 1 for now
 
  @param companyName company name
 
- @param companyAddress Optional company address
+ @param companyAddress  company address
 
- @param contactName  optional name of contact person for company
+ @param contactName   name of contact person for company
 
- @param contactPhone  optional Phone # of contact person for company
+ @param contactPhone   Phone # of contact person for company
 
- @param numEmployees  optional number of employees
+ @param numEmployees   number of employees
 
  @param acceptPrivacy  manadatory field to indicate if privacy was accepted. It is false be default
 
@@ -545,15 +550,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)signUpUserWithFirstName:(NSString *)firstName
                        lastName:(NSString *)lastName
-                    userAddress:(NSString *)userAddress
-                userPhoneNumber:(NSString *)userPhoneNumber
-                userCompanyName:(NSString *)userCompanyName
-                          title:(NSString *)title
+                    userAddress:(NSString *__nullable)userAddress
+                userPhoneNumber:(NSString *__nullable)userPhoneNumber
+                userCompanyName:(NSString *__nullable)userCompanyName
+                          title:(NSString *__nullable)title
                           email:(NSString *)userEmail
                        password:(NSString *)password
              allowNotifications:(BOOL)allowNotifications
                     accountName:(NSString *)accountName
-             accountDescription:(NSString *)accountDescription
+             accountDescription:(NSString *__nullable)accountDescription
                subscriptionType:(NSNumber *)type
                     companyName:(NSString *)companyName
                  companyAddress:(NSString *)companyAddress
@@ -562,7 +567,7 @@ NS_ASSUME_NONNULL_BEGIN
                 numberEmployees:(NSNumber *)numEmployees
                   acceptPrivacy:(BOOL)acceptPrivacy
                      acceptEusa:(BOOL)acceptEusa
-            withCompletionBlock:(CompletionHandlerWithData)handler;
+            withCompletionBlock:(void (^)(INVUser *__nullable user, INVEmpireMobileError *__nullable error))handler;
 /**
  Asynchornously , sign up a user with the XOS Passport service
 
@@ -582,7 +587,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @paaram password User password
 
- @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
+ @param allowNotifications  user preference if notifications is to be allowed. It is false be debault
 
  @param acceptPrivacy  manadatory field to indicate if privacy was accepted. It is false be default
 
@@ -597,16 +602,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)signUpUserWithFirstName:(NSString *)firstName
                        lastName:(NSString *)lastName
-                    userAddress:(NSString *)userAddress
-                userPhoneNumber:(NSString *)userPhoneNumber
-                userCompanyName:(NSString *)userCompanyname
-                          title:(NSString *)title
+                    userAddress:(NSString *__nullable)userAddress
+                userPhoneNumber:(NSString *__nullable)userPhoneNumber
+                userCompanyName:(NSString *__nullable)userCompanyname
+                          title:(NSString *__nullable)title
                           email:(NSString *)userEmail
                        password:(NSString *)password
              allowNotifications:(BOOL)allowNotifications
                   acceptPrivacy:(BOOL)acceptPrivacy
                      acceptEusa:(BOOL)acceptEusa
-            withCompletionBlock:(CompletionHandlerWithData)handler;
+            withCompletionBlock:(void (^)(INVUser *__nullable user, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously , create an account for currently signed in user with the XOS Passport service
@@ -621,11 +626,11 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param companyAddress Optional company address
 
- @param contactName  optional name of contact person for company
+ @param contactName   name of contact person for company
 
- @param contactPhone  optional Phone # of contact person for company
+ @param contactPhone   Phone # of contact person for company
 
- @param numEmployees  optional number of employees
+ @param numEmployees   number of employees
 
  @param userEmail The email address of signed in user. ***** THE SERVER API SHOULD BE UPDATED TO NOT REQUIRE THIS FIELD ******
 
@@ -633,7 +638,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param acceptEusa optional manadatory field to indicate if EUSA was accepted. It is false be default
 
- @param allowNotifications optional user preference if notifications is to be allowed. It is false be debault
+ @param allowNotifications  user preference if notifications is to be allowed. It is false be debault
 
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
@@ -644,7 +649,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  */
 - (void)createAccountForSignedInUserWithAccountName:(NSString *)accountName
-                                 accountDescription:(NSString *)accountDescription
+                                 accountDescription:(NSString *__nullable)accountDescription
                                    subscriptionType:(NSNumber *)type
                                         companyName:(NSString *)companyName
                                      companyAddress:(NSString *)companyAddress
@@ -655,7 +660,8 @@ NS_ASSUME_NONNULL_BEGIN
                                       acceptPrivacy:(BOOL)acceptPrivacy
                                          acceptEusa:(BOOL)acceptEusa
                                  allowNotifications:(BOOL)allowNotifications
-                                withCompletionBlock:(CompletionHandlerWithData)handler;
+                                withCompletionBlock:
+                                    (void (^)(INVAccount *__nullable account, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously , disable an account for currently signed in account. Once disabled, the account
@@ -769,8 +775,9 @@ accountManager can be used to retrieve the details of account
 
  */
 - (void)createProjectWithName:(NSString *)projectName
-                           andDescription:(NSString *)overview
-    ForSignedInAccountWithCompletionBlock:(CompletionHandlerWithData)handler;
+                           andDescription:(NSString *__nullable)overview
+    ForSignedInAccountWithCompletionBlock:
+        (void (^)(INVProject *__nullable project, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,edit project with specified Id. Only an admin is capable of exercising this call. This API is not supported in
@@ -789,7 +796,7 @@ accountManager can be used to retrieve the details of account
  */
 - (void)updateProjectWithId:(NSNumber *)projectId
                                  withName:(NSString *)projectName
-                           andDescription:(NSString *)overview
+                           andDescription:(NSString *__nullable)overview
     ForSignedInAccountWithCompletionBlock:(CompletionHandler)handler;
 
 #pragma mark - Model Related
@@ -797,7 +804,8 @@ accountManager can be used to retrieve the details of account
 /**
  Asynchornously, fetch the JSON corresponding to the model from the server. The model data is NOT locally cached
 
- @param handler The completion handler that returns error object if there was any error. If error is nil, it returns the JSON
+ @param handler The completion handler that returns error object if there was any error. If error is nil, it returns the raw
+ JSON
  model data
 
  @see -signIntoAccount:withCompletionBlock:
@@ -821,7 +829,7 @@ accountManager can be used to retrieve the details of account
  @see accountManager
 
  */
-- (NSURLRequest *)requestToFetchModelViewForId:(NSNumber *)pkgVersion;
+- (NSURLRequest *__nullable)requestToFetchModelViewForId:(NSNumber *)pkgVersion;
 
 /**
  Convenience method that retuns a NSURLRequest to fetch the germetry data corresponding to the pkg version. This returns a list
@@ -839,7 +847,7 @@ accountManager can be used to retrieve the details of account
  @see accountManager
 
  */
-- (NSURLRequest *)requestToFetchGeomInfoForPkgVersion:(NSNumber *)pkgVersion;
+- (NSURLRequest *__nullable)requestToFetchGeomInfoForPkgVersion:(NSNumber *)pkgVersion;
 
 /**
  Convenience method that retuns a NSURLRequest to fetch the JSON model data. This provides the flexibility for clients to fetch
@@ -856,20 +864,6 @@ accountManager can be used to retrieve the details of account
 
  */
 - (NSURLRequest *)requestToFetchModelViewForPkgVersion:(NSNumber *)pkgVersion forFile:(NSString *)file;
-
-/**
- Convenience method that retuns a NSURLRequest to fetch the JSON model data. This provides the flexibility for clients to fetch
- and process the data
- as they choose to. If there is an error, a nil value is returned
-
- @param modelId the Id of the model whose JSON data is to fetched
-
- @see -signIntoAccount:withCompletionBlock:
-
- @see accountManager
-
- */
-- (NSURLRequest *)requestToFetchModelViewForId:(NSNumber *)modelId;
 
 #pragma mark - Projects Related
 
@@ -899,8 +893,8 @@ accountManager can be used to retrieve the details of account
  @see projectManager
 
  */
-- (void)getProjectCountForSignedInAccountWithCompletionBlock:(void (^)(INVGenericResponse *response,
-                                                                 INVEmpireMobileError *error))handler;
+- (void)getProjectCountForSignedInAccountWithCompletionBlock:(void (^)(INVGenericResponse *__nullable response,
+                                                                 INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get list of all projects for signed in account from specified offset and with specified page count. Users
@@ -918,8 +912,8 @@ accountManager can be used to retrieve the details of account
  @see projectManager
 
  */
-- (void)getAllProjectsForSignedInAccountWithOffset:(NSNumber *)offset
-                                          pageSize:(NSNumber *)pageSize
+- (void)getAllProjectsForSignedInAccountWithOffset:(NSNumber *__nullable)offset
+                                          pageSize:(NSNumber *__nullable)pageSize
                                WithCompletionBlock:(CompletionHandler)handler;
 
 /**
@@ -937,7 +931,7 @@ accountManager can be used to retrieve the details of account
 
  */
 - (void)getPkgMasterCountForProject:(NSNumber *)projectId
-                WithCompletionBlock:(void (^)(INVGenericResponse *response, INVEmpireMobileError *error))handler;
+                WithCompletionBlock:(void (^)(INVGenericResponse *__nullable response, INVEmpireMobileError *error))handler;
 
 /**
  Asynchornously ,get list of all files associated with a project. Users must have signed into an account in order to be able to
@@ -975,8 +969,8 @@ accountManager can be used to retrieve the details of account
 
  */
 - (void)getAllPkgMastersForProject:(NSNumber *)projectId
-                        WithOffset:(NSNumber *)offset
-                          pageSize:(NSNumber *)pageSize
+                        WithOffset:(NSNumber *__nullable)offset
+                          pageSize:(NSNumber *__nullable)pageSize
                WithCompletionBlock:(CompletionHandler)handler;
 
 /**
@@ -1135,7 +1129,7 @@ accountManager can be used to retrieve the details of account
  @see -signIntoUser:withCompletionBlock:
 
  */
-- (NSURLRequest *)requestToGetThumbnailImageForProject:(NSNumber *)projectId;
+- (NSURLRequest *__nullable)requestToGetThumbnailImageForProject:(NSNumber *)projectId;
 
 /**
  Asynchornously,add thumbnail image for signed in user. User should have been signed in with -signInUser:withCompletionBlock:
@@ -1177,57 +1171,7 @@ accountManager can be used to retrieve the details of account
  @see -signIntoUser:withCompletionBlock:
 
  */
-- (NSURLRequest *)requestToGetThumbnailImageForUser:(NSNumber *)userId;
-
-#pragma mark - Rule Sets Membership Related
-
-/**
- Asynchornously ,get list of all package masters associated with a ruleset. Users must have signed into an account in order to
- be able to fetch file masters.
-
- @param ruleSetId The ruleset for which the file masters need to be fetched
-
- @param handler The completion handler that returns error object if there was any error. If error parameter is nil, then
- rulesManager can be used to retrieve files for the project
-
- @see -signIntoAccount:withCompletionBlock:
-
- @see rulesManager
-
- */
-- (void)getAllPkgMastersForRuleSet:(NSNumber *)ruleSetId WithCompletionBlock:(CompletionHandler)handler;
-
-/**
- Asynchornously , add the list of package masters to a ruleset. The user must have succesfully into the account via
- signIntoAccount:withCompletionBlock:
-
- @param ruleSetId  The rule set Id
-
- @param pkgMasters The list of file masters to be associated with the rule set
-
- @param handler The completion handler that returns error object if there was any error.
-
- @see -signIntoAccount:withCompletionBlock:
-
- */
-- (void)addToRuleSet:(NSNumber *)ruleSetId pkgMasters:(NSArray *)pkgMasters withCompletionBlock:(CompletionHandler)handler;
-
-/**
- Asynchornously , remove pkgMaster from rule set. The user must have succesfully into the account via
- signIntoAccount:withCompletionBlock:
-
- @param ruleSetId  The rule set Id
-
- @param pkgMasterId The Id of Pkg master to be removed
-
- @param handler The completion handler that returns error object if there was any error.
-
- @see -signIntoAccount:withCompletionBlock:
-
- */
-- (void)removeFromRuleSet:(NSNumber *)ruleSetId
-                pkgMaster:(NSNumber *)pkgMasterId
-      withCompletionBlock:(CompletionHandler)handler;
+- (NSURLRequest *__nullable)requestToGetThumbnailImageForUser:(NSNumber *)userId;
 
 #pragma mark - Package Membership Related
 
@@ -1281,7 +1225,7 @@ accountManager can be used to retrieve the details of account
 
 /**
  Asynchornously , fetch top level categories of building elements for specified package. This API does not currently support
- pagination.
+ pagination. A JSON encoded object is returned
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
 
@@ -1322,13 +1266,14 @@ accountManager can be used to retrieve the details of account
  */
 - (void)fetchBuildingElementOfSpecifiedCategoryWithDisplayname:(NSString *)categoryName
                                            ForPackageVersionId:(NSNumber *)pkgId
-                                                    fromOffset:(NSNumber *)offset
-                                                      withSize:(NSNumber *)size
+                                                    fromOffset:(NSNumber *__nullable)offset
+                                                      withSize:(NSNumber *__nullable)size
                                            withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
  Asynchornously , fetch properties of specific building element for specified package. The build element Id  must be
- retrived using fetchBuildingElementOfSpecifiedCategoryWithDisplayname:ForPackageVersionId:withCompletionBlock
+ retrived using fetchBuildingElementOfSpecifiedCategoryWithDisplayname:ForPackageVersionId:withCompletionBlock.
+ JSON encoded object is returned.
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
  @param buildingElementId The Id of the building element whose properties are to be fetched
@@ -1348,12 +1293,13 @@ accountManager can be used to retrieve the details of account
  */
 - (void)fetchBuildingElementPropertiesOfSpecifiedElement:(NSString *)buildingElementId
                                      ForPackageVersionId:(NSNumber *)pkgId
-                                              fromOffset:(NSNumber *)offset
-                                                withSize:(NSNumber *)size
+                                              fromOffset:(NSNumber *__nullable)offset
+                                                withSize:(NSNumber *__nullable)size
                                      withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
- Asynchornously , fetch list of normalized BA types. The types will be returned in alphabetical order of name
+ Asynchornously , fetch list of normalized BA types. The types will be returned in alphabetical order of name. JSON encoded
+ object is returned
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
   @param fromOffset optional value to specify zero-based-offset from where to fetch the elements. Passing nil defaults to
@@ -1370,7 +1316,7 @@ accountManager can be used to retrieve the details of account
            withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
- Asynchornously , fetch list of normalized BA types filtered by specified name and/or code
+ Asynchornously , fetch list of normalized BA types filtered by specified name and/or code. JSON encoded response is returned
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock:
 
@@ -1389,12 +1335,12 @@ accountManager can be used to retrieve the details of account
  */
 - (void)fetchBATypesFilteredByName:(NSString *)displayName
                            andCode:(NSString *)code
-                        fromOffset:(NSNumber *)offset
-                          withSize:(NSNumber *)size
+                        fromOffset:(NSNumber *__nullable)offset
+                          withSize:(NSNumber *__nullable)size
                withCompletionBlock:(CompletionHandlerWithData)handler;
 
 /*
- Asynchornously , fetch display name of BA type for specific code
+ Asynchornously , fetch display name of BA type for specific code as a JSON encoded objecxt
 
 
  @param code The BA code
@@ -1414,8 +1360,8 @@ accountManager can be used to retrieve the details of account
  in the completion handler
 
  */
-- (void)fetchSupportedUnitsForSignedInAccountWithCompletionBlock:(void (^)(
-                                                                     INVBAUnitArray units, INVEmpireMobileError *error))handler;
+- (void)fetchSupportedUnitsForSignedInAccountWithCompletionBlock:(void (^)(INVBAUnitArray __nullable units,
+                                                                     INVEmpireMobileError *__nullable error))handler;
 
 #pragma mark Basic Analyses related
 
@@ -1438,7 +1384,7 @@ accountManager can be used to retrieve the details of account
 - (void)addAnalysesToProject:(NSNumber *)projectId
                     withName:(NSString *)name
               andDescription:(NSString *)description
-         withCompletionBlock:(CompletionHandlerWithData)handler;
+         withCompletionBlock:(void (^)(INVAnalysis *__nullable response, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get list of all analyses associated with a project. Users must have signed into an account in order to be able
@@ -1470,7 +1416,8 @@ INVAnalysis object is returned
  @see analysesManager
 
  */
-- (void)getAnalysesForId:(NSNumber *)analysisId withCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)getAnalysesForId:(NSNumber *)analysisId
+     withCompletionBlock:(void (^)(INVAnalysis *__nullable response, INVEmpireMobileError *__nullable error))handler;
 
 /*
  Asynchornously , update basic info associated with an analyses .
@@ -1491,7 +1438,7 @@ INVAnalysis object is returned
 - (void)updateAnalyses:(NSNumber *)analysisId
               withName:(NSString *)name
         andDescription:(NSString *)description
-   withCompletionBlock:(CompletionHandlerWithData)handler;
+   withCompletionBlock:(void (^)(INVAnalysis *__nullable response, INVEmpireMobileError *__nullable error))handler;
 
 /*
  Asynchornously , delete an analysis.
@@ -1545,7 +1492,9 @@ INVAnalysis object is returned
 
 
  */
-- (void)getPkgMembershipForAnalysis:(NSNumber *)analysisId WithCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)getPkgMembershipForAnalysis:(NSNumber *)analysisId
+                WithCompletionBlock:
+                    (void (^)(INVAnalysisPkgMembership *__nullable response, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously , add the list of package masters to a analysis. The user must have succesfully into the account via
@@ -1563,9 +1512,7 @@ INVAnalysis object is returned
  @see analysesManager
 
  */
-- (void)addToAnalysis:(NSNumber *)analysisId
-           pkgMasters:(NSArray *)pkgMasters
-  withCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)addToAnalysis:(NSNumber *)analysisId pkgMasters:(NSArray *)pkgMasters withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously , add the list of analyses to a package master. The user must have succesfully into the account via
@@ -1583,9 +1530,7 @@ INVAnalysis object is returned
  @see analysesManager
 
  */
-- (void)addToPkgMaster:(NSNumber *)pkgMasterId
-              analyses:(NSArray *)analyses
-   withCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)addToPkgMaster:(NSNumber *)pkgMasterId analyses:(NSArray *)analyses withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously , add the list of rule Ids to analysis The user must have succesfully into the account via
@@ -1605,7 +1550,7 @@ INVAnalysis object is returned
  */
 - (void)addToAnalysis:(NSNumber *)analysisId
     ruleDefinitionIds:(NSArray *)ruleDefIds
-  withCompletionBlock:(CompletionHandlerWithData)handler;
+  withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously , add the list of analysis template Ids to analysis The user must have succesfully into the account via
@@ -1624,8 +1569,8 @@ INVAnalysis object is returned
 
  */
 - (void)addToAnalysis:(NSNumber *)analysisId
-  analysisTemplateIds:(NSArray *)ruleDefIds
-  withCompletionBlock:(CompletionHandlerWithData)handler;
+  analysisTemplateIds:(NSArray *)templates
+  withCompletionBlock:(CompletionHandler)handler;
 
 /**
  Asynchornously ,get list of all analyses  associated with a pkg master. Users must have signed into an account in order to
@@ -1643,7 +1588,9 @@ INVAnalysis object is returned
 
 
  */
-- (void)getAnalysisMembershipForPkgMaster:(NSNumber *)pkgMasterId WithCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)getAnalysisMembershipForPkgMaster:(NSNumber *)pkgMasterId
+                      WithCompletionBlock:
+                          (void (^)(INVRule *__nullable response, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,remove specified package master members associated with a analyses. Users must have signed into an account in
@@ -1692,7 +1639,8 @@ INVAnalysis object is returned
  @see analysesManager
 
  */
-- (void)getRuleDefinitionForRuleId:(NSNumber *)ruleId WithCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)getRuleDefinitionForRuleId:(NSNumber *)ruleId
+               WithCompletionBlock:(void (^)(INVRule *__nullable response, INVEmpireMobileError *__nullable error))handler;
 
 #pragma mark AnalysesTemplates Related
 
@@ -1740,8 +1688,8 @@ INVAnalysis object is returned
  @see analysesManager
 
  */
-- (void)getAnalysisTemplateCountForSignedInAccountWithCompletionBlock:(void (^)(INVGenericResponse *response,
-                                                                          INVEmpireMobileError *error))handler;
+- (void)getAnalysisTemplateCountForSignedInAccountWithCompletionBlock:(void (^)(INVGenericResponse *__nullable response,
+                                                                          INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get details of analysis template for specified Id. The template details are returned. The template details are
@@ -1760,7 +1708,8 @@ INVAnalysis object is returned
 
  */
 - (void)getAnalysisTemplateDetailsForId:(NSNumber *)analysisTemplateId
-                    withCompletionBlock:(void (^)(INVAnalysisTemplateDetails *response, INVEmpireMobileError *error))handler;
+                    withCompletionBlock:(void (^)(INVAnalysisTemplateDetails *__nullable response,
+                                            INVEmpireMobileError *__nullable error))handler;
 #pragma mark Rules (Instances) Related
 
 /**
@@ -1786,9 +1735,10 @@ INVAnalysis object is returned
 - (void)createRuleForRuleDefinitionId:(NSNumber *)ruleId
                            inAnalysis:(NSNumber *)analysisId
                          withRuleName:(NSString *)ruleName
-                       andDescription:(NSString *)overview
+                       andDescription:(NSString *__nullable)overview
                   andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams
-                  WithCompletionBlock:(CompletionHandlerWithData)handler;
+                  WithCompletionBlock:
+                      (void (^)(INVRuleInstance *__nullable instance, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get rule instance for specified rule instance Id
@@ -1803,7 +1753,8 @@ INVAnalysis object is returned
 
  */
 - (void)getRuleInstanceForRuleInstanceId:(NSNumber *)ruleInstanceId
-                     WithCompletionBlock:(void (^)(INVRuleInstance *instance, INVEmpireMobileError *error))handler;
+                     WithCompletionBlock:
+                         (void (^)(INVRuleInstance *__nullable instance, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,update the specified rule instance associated with an analyses. All values provided will override existing
@@ -1832,9 +1783,10 @@ INVAnalysis object is returned
                                   forRuleId:(NSNumber *)ruleId
                                  inAnalysis:(NSNumber *)analysisId
                                withRuleName:(NSString *)ruleName
-                             andDescription:(NSString *)overview
+                             andDescription:(NSString *__nullable)overview
                         andActualParameters:(INVRuleInstanceActualParamDictionary)actualParams
-                        WithCompletionBlock:(CompletionHandlerWithData)handler;
+                        WithCompletionBlock:
+                            (void (^)(INVRuleInstance *__nullable ruleInstance, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,delete the specified rule instance.
@@ -1851,8 +1803,8 @@ INVAnalysis object is returned
 
 #pragma mark Analyses Execution Related
 /**
- Asynchornously ,run specified analysis. The analysis run results ARE NOT cached
-
+ Asynchornously ,run specified analysis are returned as a JSON encoded object .
+ The analysis run results ARE NOT cached.
  @param analysisId The Id of analysis to be executed
 
  @param handler The completion handler that returns error object if there was any error. If error parameter is nil, the status
@@ -1889,7 +1841,9 @@ INVAnalysis object is returned
 
 
  */
-- (void)getAnalysisRunsForAnalysis:(NSNumber *)analysisId WithCompletionBlock:(CompletionHandlerWithData)handler;
+- (void)getAnalysisRunsForAnalysis:(NSNumber *)analysisId
+               WithCompletionBlock:
+                   (void (^)(INVAnalysisRunArray __nullable analysisruns, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get list of analysis uns that is scheduled using runAnalysis:WithCompletionBlock for a pkg version. The
@@ -1910,7 +1864,8 @@ INVAnalysis object is returned
 
  */
 - (void)getAnalysisRunResultsForPkgVersion:(NSNumber *)pkgVersion
-                       WithCompletionBlock:(void (^)(INVAnalysisRunArray analysisruns, INVEmpireMobileError *error))handler;
+                       WithCompletionBlock:(void (^)(INVAnalysisRunArray __nullable analysisruns,
+                                               INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get result of specified analysis run that is scheduled using runAnalysis:WithCompletionBlock. The execution
@@ -1931,7 +1886,8 @@ INVAnalysis object is returned
 
  */
 - (void)getExecutionResultsForAnalysisRun:(NSNumber *)analysisRunId
-                      WithCompletionBlock:(void (^)(INVAnalysisRunResultsArray response, INVEmpireMobileError *error))handler;
+                      WithCompletionBlock:(void (^)(INVAnalysisRunResultsArray __nullable response,
+                                              INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously ,get list of issues for Execution result corresponding to an analysis run . The execution
@@ -1952,11 +1908,12 @@ INVAnalysis object is returned
 
  */
 - (void)getIssuesForExecutionResult:(NSNumber *)runResultsId
-                WithCompletionBlock:(void (^)(INVRuleIssueArray response, INVEmpireMobileError *error))handler;
+                WithCompletionBlock:
+                    (void (^)(INVRuleIssueArray __nullable response, INVEmpireMobileError *__nullable error))handler;
 
 /**
  Asynchornously , fetch details of building elements affected by specified issue. This returns the list of building element
- details
+ details as a JSON encoded string
 
  The user must have succesfully into the account via signIntoAccount:withCompletionBlock: . The results are NOT cached.
 
@@ -1964,7 +1921,7 @@ INVAnalysis object is returned
  getIssuesForExecutionResult:WithCompletionBlock
 
  @param handler The completion handler that returns error object if there was any error. If no error, building elements  are
- returned
+ returned as a JSON encoded object
 
  @see analysesManager
 
@@ -1981,7 +1938,7 @@ details
 getExecutionResultsForAnalysisRun:WithCompletionBlock
 
  @param handler The completion handler that returns error object if there was any error. If no error, building elements  are
- returned
+ returned as a JSON encoded object
 
  @see analysesManager
 
@@ -2007,7 +1964,8 @@ getExecutionResultsForAnalysisRun:WithCompletionBlock
  */
 - (void)fetchIssuesForBuildingElement:(NSNumber *)elementId
                          forRunResult:(NSNumber *)ruleResultId
-                  WithCompletionBlock:(void (^)(INVRuleIssueArray response, INVEmpireMobileError *error))handler;
+                  WithCompletionBlock:
+                      (void (^)(INVRuleIssueArray __nullable response, INVEmpireMobileError *__nullable error))handler;
 
 #pragma mark - General Account Related
 /**
@@ -2038,8 +1996,8 @@ getExecutionResultsForAnalysisRun:WithCompletionBlock
 
  */
 
-- (void)fetchUserMembershipRolesForSignedInAccountWithCompletionBlock:(void (^)(INVMembershipRoleArray roles,
-                                                                          INVEmpireMobileError *error))handler;
+- (void)fetchUserMembershipRolesForSignedInAccountWithCompletionBlock:(void (^)(INVMembershipRoleArray __nullable roles,
+                                                                          INVEmpireMobileError *__nullable error))handler;
 #pragma mark - Misc
 /**
  Convenience method that retuns a NSURLRequest to fetch the system configuration. If there is an error, a nil value is returned

@@ -82,7 +82,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 80;
 
     [self.globalDataManager.invServerClient addToAnalysis:self.analysisId
                                         ruleDefinitionIds:[self.selectedRules allKeys]
-                                      withCompletionBlock:^(id result, INVEmpireMobileError *error) {
+                                      withCompletionBlock:^( INVEmpireMobileError *error) {
                                           INV_ALWAYS:
                                               [self.hud hide:YES];
 
