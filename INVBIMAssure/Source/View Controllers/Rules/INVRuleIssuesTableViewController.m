@@ -72,7 +72,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
         
         if (self.buildingElementId) {
             [self setupTableViewDataSource];
-             [self fetchIssuesForBuildingElement]; // use issues at building level
+          //   [self fetchIssuesForBuildingElement]; // use issues at building level
             
         }
         else {

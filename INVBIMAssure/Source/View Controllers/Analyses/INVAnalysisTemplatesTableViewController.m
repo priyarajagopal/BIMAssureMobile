@@ -261,7 +261,7 @@ static const NSInteger DEFAULT_FETCH_PAGE_SIZE = 20;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.delegate = self;
                 cell.checked = self.selectedTemplates[template.analysisTemplateId] != nil;
-                cell.analysisTemplate = template;
+                cell.analysisTemplate =  [MTLManagedObjectAdapter modelOfClass:[INVAnalysisTemplate class] fromManagedObject:template error:nil];;
 
             };
         [_dataSource registerCellWithIdentifierForAllIndexPaths:@"AnalysisTemplateCell" configureBlock:cellConfigurationBlock];

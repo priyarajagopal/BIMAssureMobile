@@ -43,8 +43,15 @@ NSString *const INVModelTreeIssueRunResultKey = @"runResult";
 
 - (INVModelTreeNode *)treeNodeForBuildingElement:(NSDictionary *)buildingElement withParent:(INVModelTreeNode *)parent
 {
+    
+    NSArray *properties =
+    [[buildingElement valueForKey:@"_source"] valueForKey:@"properties"];
+    
+    NSPredicate* namesFilter = [NSPredicate predicateWithFormat:@"display == %@",@"name"];
+    NSArray* names = [[properties filteredArrayUsingPredicate:namesFilter]valueForKeyPath:@"value.as_string"];
+    
     INVModelTreeNode *node = [INVModelTreeNode
-        treeNodeWithName:[buildingElement valueForKeyPath:@"_source.intrinsics.name.value"]
+        treeNodeWithName:names[0]
                 userInfo:@{
                     INVModelTreeBuildingElementsElmentIdKey : [buildingElement valueForKeyPath:@"_source.system.id"]
                 }

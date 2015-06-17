@@ -36,7 +36,7 @@ typedef NSMutableArray *INVRuleIssueMutableArray;
 
 @interface INVRuleIssue : MTLModel<MTLJSONSerializing>
 @property (copy, nonatomic, readonly) NSNumber *issueId;
-@property (copy, nonatomic, readonly) NSNumber *issueDescription;
+@property (copy, nonatomic, readonly) NSNumber *issueDescription; //TODO: Make a string!!
 @property (copy, nonatomic, readonly) NSString *issueName;
 @property (copy, nonatomic, readonly) NSNumber *numElements;
 @property (copy, nonatomic, readonly) NSArray* msgParams;

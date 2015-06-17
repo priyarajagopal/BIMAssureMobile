@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.17" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ahG-CS-8Ts">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ahG-CS-8Ts">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -18,7 +17,7 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Source View Controller-->
+        <!--Models-->
         <scene sceneID="o0b-hZ-vw3">
             <objects>
                 <collectionViewController storyboardIdentifier="ProjectFilesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cf4-Q2-yxF" customClass="INVProjectFilesListViewController" sceneMemberID="viewController">
@@ -583,7 +582,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CDH-qr-FEb">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDH-qr-FEb">
                                 <rect key="frame" x="-4" y="0.0" width="608" height="44"/>
                                 <items>
                                     <navigationItem title="Manage Analyses" id="D8P-u0-XRh">
@@ -601,10 +600,10 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-pU-WHq" userLabel="inFileView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-pU-WHq" userLabel="inFileView">
                                 <rect key="frame" x="-4" y="44" width="608" height="274"/>
                                 <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zrM-7K-jsV" userLabel="FilesInRS Container View">
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrM-7K-jsV" userLabel="FilesInRS Container View">
                                         <rect key="frame" x="5" y="5" width="598" height="265"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -620,10 +619,10 @@
                                     <constraint firstItem="zrM-7K-jsV" firstAttribute="top" secondItem="cbU-pU-WHq" secondAttribute="top" constant="5" id="tLp-p7-YOC"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GPN-qJ-ahE" userLabel="notInFileView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GPN-qJ-ahE" userLabel="notInFileView">
                                 <rect key="frame" x="-4" y="316" width="608" height="300"/>
                                 <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gaw-hR-itO" userLabel="FileNotInRS Container View">
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gaw-hR-itO" userLabel="FileNotInRS Container View">
                                         <rect key="frame" x="5" y="5" width="598" height="275"/>
                                         <connections>
                                             <segue destination="iaN-E1-Vck" kind="embed" identifier="ExcludedRuleSetsSegue" id="ro9-ek-aji"/>

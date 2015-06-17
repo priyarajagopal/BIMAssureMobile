@@ -95,12 +95,7 @@ static NSString *const INVModelTreeBuildingElementsModelIdKey = @"modelId";
                                                         NSPredicate* namesFilter = [NSPredicate predicateWithFormat:@"display == %@",@"name"];
                                                         NSArray* names = [[mergedproperties filteredArrayUsingPredicate:namesFilter]valueForKeyPath:@"value.as_string"];
 
-                                                        /*
-                                                        NSArray *names =
-                                                            [[[hits valueForKey:@"fields"] valueForKey:@"_source.properties.intrinsics.name.value"]
-                                                                valueForKeyPath:@"@unionOfArrays.self"];
-                                                         */
-
+                                                      
                                                         NSArray *modelIds =
                                                             [[properties valueForKey:@"system.id"]
                                                                 valueForKeyPath:@"@unionOfArrays.self"];
