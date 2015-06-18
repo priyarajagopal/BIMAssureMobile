@@ -72,7 +72,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
         
         if (self.buildingElementId) {
             [self setupTableViewDataSource];
-          //   [self fetchIssuesForBuildingElement]; // use issues at building level
+        //    [self fetchIssuesForBuildingElement]; // use issues at building level
             
         }
         else {
@@ -233,7 +233,7 @@ static const NSInteger DEFAULT_CELL_HEIGHT = 50;
                               error.code.integerValue];
                           [self presentViewController:errController animated:YES completion:nil];
                   }];
-    [self.tableView reloadData];
+    
 }
 
 - (void)fetchRuleInstanceAndDefinition
